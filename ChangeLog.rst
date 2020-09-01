@@ -56,7 +56,7 @@ New Features
 - Added :cpp:func:`dg::Printer::setGraphvizPrefix`/:cpp:func:`dg::Printer::getGraphvizPrefix`/:py:attr:`DGPrinter.graphvizPrefix`.
 - Added :cpp:func:`makeUniqueFilePrefix`/:py:func:`makeUniqueFilePrefix`.
 - Improve verbosity level 8 information from
-  :cpp:func:`dg::Builder::execute`/:py:func:`DGBuilder.execute` to the unvierse
+  :cpp:func:`dg::Builder::execute`/:py:func:`DGBuilder.execute` to the universe
   size.
 - Make :cpp:class:`LabelSettings`/:py:class:`LabelSettings`
   equality comparable.
@@ -139,7 +139,7 @@ Bugs Fixed
 - Graph printing, fix coordinate overwrite when printing the same graph
   multiple times, but with different rotation or mirror settings,
   the layout of the last printing would be used for all of them.
-  Those with non-zero rotaion and mirroring now have their own file name.
+  Those with non-zero rotation and mirroring now have their own file name.
 - DG printing: fix bending of head/tail arrows when a tail vertex is also a
   head vertex so arrows don't overlap.
 - `#8 <https://github.com/jakobandersen/mod/issues/8>`__:
