@@ -30,15 +30,30 @@ def checkDeprecated(f):
 	return res
 
 
-def _compareFiles(f1, f2):
+def _compareLines(lines1, lines2):
 	import difflib
-	with open(f1, 'rb') as file1, open(f2, 'rb') as file2:
-		lines1 = file1.readlines()
-		lines2 = file2.readlines()
 	differ = difflib.Differ()
 	cand = list(line for line in differ.compare(lines1, lines2) if line[0] != ' ')
 	if len(cand) != 0:
-		msg = "Files differ: %s vs. %s\n" % (f1, f2)
-		msg += "Diff is:\n"
+		msg = "Diff is:\n"
 		msg += "".join(differ.compare(lines1, lines2))
-		raise Exception(msg)
+		return msg
+	else:
+		return None
+
+
+def _compareDumps(f1, f2):
+	lines1 = [f"{l}\n" for l in strFromDump(f1).split("\n")]
+	lines2 = [f"{l}\n" for l in strFromDump(f2).split("\n")]
+	res = _compareLines(lines1, lines2)
+	if res is not None:
+		raise Exception(f"Files differ: {f1} vs. {f2}\n{res}")
+
+
+def _compareFiles(f1, f2):
+	with open(f1, 'r') as file1, open(f2, 'r') as file2:
+		lines1 = file1.readlines()
+		lines2 = file2.readlines()
+	res = _compareLines(lines1, lines2)
+	if res is not None:
+		raise Exception(f"Files differ: {f1} vs. {f2}\n{res}")

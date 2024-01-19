@@ -23,7 +23,7 @@ struct Data {
 	std::map<int, std::size_t> externalToInternalIds;
 };
 
-lib::IO::Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input);
+lib::IO::Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool printStereoWarnings);
 lib::IO::Result<Data> dfs(lib::IO::Warnings &warnings, std::string_view input);
 
 } // namespace mod::lib::Rules::Read

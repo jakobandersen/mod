@@ -365,7 +365,8 @@ std::string summaryNonHyper(const NonHyper &dg);
 
 std::vector<std::pair<std::string, std::string>>
 summaryDerivation(const NonHyper &dg, HyperVertex v, const IO::Graph::Write::Options &options,
-                  const std::string &nomatchColour, const std::string &matchColour);
+                  const std::string &nomatchColour, const std::string &matchColour,
+						const int verbosity);
 
 // utilities for those referring to DG elements in their dumps
 nlohmann::json dumpDigest(const HyperGraphType &dg);

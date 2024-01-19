@@ -17,8 +17,8 @@ namespace mod::lib::RC {
 namespace {
 
 struct EvalVisitor : public boost::static_visitor<std::vector<std::shared_ptr<rule::Rule>>> {
-	EvalVisitor(int verbosity, IO::Logger logger, Evaluator &evaluator)
-			: verbosity(verbosity), logger(logger), evaluator(evaluator) {}
+	EvalVisitor(bool onlyUnique, int verbosity, IO::Logger logger, Evaluator &evaluator)
+			: onlyUnique(onlyUnique), verbosity(verbosity), logger(logger), evaluator(evaluator) {}
 
 	// Nullary/unary
 	//----------------------------------------------------------------------
@@ -28,12 +28,20 @@ struct EvalVisitor : public boost::static_visitor<std::vector<std::shared_ptr<ru
 	}
 
 	std::vector<std::shared_ptr<rule::Rule>> operator()(const rule::RCExp::Union &par) {
-		std::vector<std::shared_ptr<rule::Rule>> result;
-		for(const auto &subExp : par.getExpressions()) {
-			auto subRes = subExp.applyVisitor(*this);
-			result.insert(end(result), begin(subRes), end(subRes));
+		const auto doIt = [&par, this](auto &result) {
+			for(const auto &subExp : par.getExpressions())
+				for(const auto &r: subExp.applyVisitor(*this))
+					result.insert(result.end(), r);
+		};
+		if(onlyUnique) {
+			std::unordered_set<std::shared_ptr<rule::Rule>> result;
+			doIt(result);
+			return {result.begin(), result.end()};
+		} else {
+			std::vector<std::shared_ptr<rule::Rule>> result;
+			doIt(result);
+			return result;
 		}
-		return result;
 	}
 
 	std::vector<std::shared_ptr<rule::Rule>> operator()(const rule::RCExp::Bind &bind) {
@@ -60,31 +68,40 @@ struct EvalVisitor : public boost::static_visitor<std::vector<std::shared_ptr<ru
 	template<typename Composer>
 	std::vector<std::shared_ptr<rule::Rule>> composeTemplate(
 			const rule::RCExp::ComposeBase &compose, Composer composer) {
-		auto firstResult = compose.getFirst().applyVisitor(*this);
-		auto secondResult = compose.getSecond().applyVisitor(*this);
-		std::vector<std::shared_ptr<rule::Rule> > result;
-		for(auto rFirst : firstResult) {
-			for(auto rSecond : secondResult) {
-				std::vector<lib::Rules::Real *> resultVec;
-				auto reporter = [&resultVec](std::unique_ptr<lib::Rules::Real> r) {
-					resultVec.push_back(r.release());
-					return true;
-				};
-				composer(rFirst->getRule(), rSecond->getRule(), reporter);
-				for(auto *r : resultVec) {
-					if(compose.getDiscardNonchemical() && !r->isChemical()) {
-						delete r;
-						continue;
+		const auto doIt = [&compose, &composer, this](auto &result) {
+			auto firstResult = compose.getFirst().applyVisitor(*this);
+			auto secondResult = compose.getSecond().applyVisitor(*this);
+			for(auto rFirst : firstResult) {
+				for(auto rSecond : secondResult) {
+					std::vector<lib::Rules::Real *> resultVec;
+					auto reporter = [&resultVec](std::unique_ptr<lib::Rules::Real> r) {
+						resultVec.push_back(r.release());
+						return true;
+					};
+					composer(rFirst->getRule(), rSecond->getRule(), reporter);
+					for(auto *r: resultVec) {
+						if(compose.getDiscardNonchemical() && !r->isChemical()) {
+							delete r;
+							continue;
+						}
+						auto rWrapped = evaluator.checkIfNew(r);
+						bool isNew = evaluator.addRule(rWrapped);
+						if(isNew) evaluator.giveProductStatus(rWrapped);
+						evaluator.suggestComposition(&rFirst->getRule(), &rSecond->getRule(), &rWrapped->getRule());
+						result.insert(result.end(), rWrapped);
 					}
-					auto rWrapped = evaluator.checkIfNew(r);
-					bool isNew = evaluator.addRule(rWrapped);
-					if(isNew) evaluator.giveProductStatus(rWrapped);
-					evaluator.suggestComposition(&rFirst->getRule(), &rSecond->getRule(), &rWrapped->getRule());
-					result.push_back(rWrapped);
 				}
 			}
+		};
+		if(onlyUnique) {
+			std::unordered_set<std::shared_ptr<rule::Rule>> result;
+			doIt(result);
+			return {result.begin(), result.end()};
+		} else {
+			std::vector<std::shared_ptr<rule::Rule>> result;
+			doIt(result);
+			return result;
 		}
-		return result;
 	}
 
 	std::vector<std::shared_ptr<rule::Rule>> operator()(const rule::RCExp::ComposeCommon &common) {
@@ -133,6 +150,7 @@ struct EvalVisitor : public boost::static_visitor<std::vector<std::shared_ptr<ru
 		return std::max(0, verbosity - 10 + V_MorphismGen);
 	}
 private:
+	const bool onlyUnique;
 	const int verbosity;
 	IO::Logger logger;
 	Evaluator &evaluator;
@@ -161,7 +179,7 @@ const std::unordered_set<std::shared_ptr<rule::Rule>> &Evaluator::getProducts() 
 	return products;
 }
 
-std::vector<std::shared_ptr<rule::Rule>> Evaluator::eval(const rule::RCExp::Expression &exp, int verbosity) {
+std::vector<std::shared_ptr<rule::Rule>> Evaluator::eval(const rule::RCExp::Expression &exp, bool onlyUnique, int verbosity) {
 	struct PreEvalVisitor : public boost::static_visitor<void> {
 		PreEvalVisitor(Evaluator &evaluator) : evaluator(evaluator) {}
 
@@ -221,7 +239,7 @@ std::vector<std::shared_ptr<rule::Rule>> Evaluator::eval(const rule::RCExp::Expr
 		Evaluator &evaluator;
 	};
 	exp.applyVisitor(PreEvalVisitor(*this));
-	auto result = exp.applyVisitor(EvalVisitor(verbosity, IO::Logger(std::cout), *this));
+	auto result = exp.applyVisitor(EvalVisitor(onlyUnique, verbosity, IO::Logger(std::cout), *this));
 	return result;
 }
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 root=$(git rev-parse --show-toplevel)
 res=$?
 if [ $res -ne 0 ]; then

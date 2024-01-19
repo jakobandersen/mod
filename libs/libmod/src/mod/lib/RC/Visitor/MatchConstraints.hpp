@@ -168,7 +168,7 @@ struct MatchConstraints : Null {
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
-	bool finalize(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	bool finalize(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	              InvertibleVertexMap &match, Result &result) {
 		using RuleFirst = lib::Rules::LabelledRule;
 		using RuleSecond = lib::Rules::LabelledRule;

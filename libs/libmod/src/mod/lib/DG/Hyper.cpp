@@ -2,6 +2,7 @@
 
 #include <mod/Config.hpp>
 #include <mod/Error.hpp>
+#include <mod/Function.hpp>
 #include <mod/dg/DG.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/lib/DG/NonHyper.hpp>
@@ -19,15 +20,21 @@ namespace mod::lib::DG {
 // HyperCreator
 //------------------------------------------------------------------------------
 
-HyperCreator::HyperCreator(Hyper &hyper) : owner(&hyper) {}
+HyperCreator::HyperCreator(Hyper &hyper,
+                           std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+                           std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge)
+						   : owner(&hyper), onNewVertex(onNewVertex), onNewHyperEdge(onNewHyperEdge) {}
 
-HyperCreator::HyperCreator(HyperCreator &&other) : owner(other.owner) {
+HyperCreator::HyperCreator(HyperCreator &&other)
+		: owner(other.owner), onNewVertex(std::move(other.onNewVertex)), onNewHyperEdge(std::move(other.onNewHyperEdge)) {
 	other.owner = nullptr;
 }
 
 HyperCreator &HyperCreator::operator=(HyperCreator &&other) {
 	if(&other == this) return *this;
 	std::swap(owner, other.owner);
+	std::swap(onNewVertex, other.onNewVertex);
+	std::swap(onNewHyperEdge, other.onNewHyperEdge);
 	return *this;
 }
 
@@ -37,7 +44,8 @@ HyperCreator::~HyperCreator() {
 
 void HyperCreator::addVertex(const lib::Graph::Single *g) {
 	assert(owner);
-	owner->addVertex(g);
+	const auto[v, isNew] = owner->addVertex(g);
+	if(isNew && onNewVertex) (*onNewVertex)(owner->getInterfaceVertex(v));
 }
 
 HyperVertex HyperCreator::addEdge(NonHyper::Edge eNon) {
@@ -51,18 +59,19 @@ HyperVertex HyperCreator::addEdge(NonHyper::Edge eNon) {
 	hyper[v].edge = eNon;
 
 	{ // source edges
-		for(const lib::Graph::Single *g : dg[vSrcNon].graphs) {
+		for(const lib::Graph::Single *g: dg[vSrcNon].graphs) {
 			Hyper::Vertex vSrc = owner->getVertexFromGraph(g);
 			add_edge(vSrc, v, hyper);
 		}
 	}
 	{ // target edges
-		for(const lib::Graph::Single *g : dg[vTarNon].graphs) {
+		for(const lib::Graph::Single *g: dg[vTarNon].graphs) {
 			Hyper::Vertex vTar = owner->getVertexFromGraph(g);
 			add_edge(v, vTar, hyper);
 		}
 	}
 
+	if(onNewHyperEdge) (*onNewHyperEdge)(owner->getInterfaceEdge(v));
 	return v;
 }
 
@@ -73,10 +82,13 @@ HyperVertex HyperCreator::addEdge(NonHyper::Edge eNon) {
 Hyper::Hyper(const NonHyper &dg)
 		: hasCalculated(false), nonHyper(dg) { }
 
-std::pair<std::unique_ptr<Hyper>, HyperCreator> Hyper::makeHyper(const NonHyper &dg) {
+std::pair<std::unique_ptr<Hyper>, HyperCreator> Hyper::makeHyper(
+		const NonHyper &dg,
+		std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+		std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge) {
 	auto hyper = std::unique_ptr<Hyper>(new Hyper(dg));
 	auto &hyperRef = *hyper;
-	return std::make_pair(std::move(hyper), HyperCreator(hyperRef));
+	return std::make_pair(std::move(hyper), HyperCreator(hyperRef, onNewVertex, onNewHyperEdge));
 }
 
 //Hyper::Hyper(const NonHyper &dgClass, int dummy)
@@ -142,16 +154,19 @@ std::pair<std::unique_ptr<Hyper>, HyperCreator> Hyper::makeHyper(const NonHyper 
 //	}
 //}
 
-void Hyper::addVertex(const lib::Graph::Single *g) {
+std::pair<HyperVertex, bool> Hyper::addVertex(const lib::Graph::Single *g) {
 	{ // sanity check
 		assert(nonHyper.getGraphDatabase().contains(g->getAPIReference()));
 	}
-	std::map<const lib::Graph::Single *, Vertex>::iterator idIter = graphToHyperVertex.find(g);
-	if(idIter == graphToHyperVertex.end()) { // create the vertex
+	const auto iter = graphToHyperVertex.find(g);
+	if(iter == graphToHyperVertex.end()) { // create the vertex
 		Vertex vNew = add_vertex(hyper);
 		hyper[vNew].kind = HyperVertexKind::Vertex;
 		hyper[vNew].graph = g;
 		graphToHyperVertex[g] = vNew;
+		return {vNew, true};
+	} else {
+		return {iter->second, false};
 	}
 }
 
@@ -179,7 +194,7 @@ void Hyper::printStats(std::ostream &s) const {
 	unsigned int numUniqueInOnlyReverse = 0, numUniqueOutOnlyReverse = 0;
 	unsigned int projectedNumTransitCollapseNonReverse = 0;
 
-	for(Vertex v : asRange(vertices(hyper))) {
+	for(Vertex v: asRange(vertices(hyper))) {
 		if(hyper[v].kind != HyperVertexKind::Vertex) {
 			numEdges++;
 			if(getReverseEdge(v) != hyper.null_vertex()) numEdgePairs++;
@@ -190,15 +205,15 @@ void Hyper::printStats(std::ostream &s) const {
 		countNumIn[in_degree(v, hyper)]++;
 		numOut += out_degree(v, hyper);
 		countNumOut[out_degree(v, hyper)]++;
-		for(Edge e : asRange(out_edges(v, hyper)))
+		for(Edge e: asRange(out_edges(v, hyper)))
 			if(getReverseEdge(target(e, hyper)) != hyper.null_vertex())
 				numReverse++;
 		unsigned int numInReverse = 0;
-		for(Edge e : asRange(in_edges(v, hyper)))
+		for(Edge e: asRange(in_edges(v, hyper)))
 			if(getReverseEdge(source(e, hyper)) != hyper.null_vertex())
 				numInReverse++;
 		unsigned int numOutReverse = 0;
-		for(Edge e : asRange(out_edges(v, hyper)))
+		for(Edge e: asRange(out_edges(v, hyper)))
 			if(getReverseEdge(target(e, hyper)) != hyper.null_vertex())
 				numOutReverse++;
 		if(in_degree(v, hyper) > 0) {
@@ -223,10 +238,10 @@ void Hyper::printStats(std::ostream &s) const {
 
 		unsigned int localNumUniqueInOnlyReverse = 1; // +1 from the virtual input/output edges
 		unsigned int localNumUniqueOutOnlyReverse = 1;
-		for(Vertex eIn : asRange(inv_adjacent_vertices(v, hyper))) {
+		for(Vertex eIn: asRange(inv_adjacent_vertices(v, hyper))) {
 			if(getReverseEdge(eIn) != hyper.null_vertex()) localNumUniqueInOnlyReverse++;
 		}
-		for(Vertex eOut : asRange(adjacent_vertices(v, hyper))) {
+		for(Vertex eOut: asRange(adjacent_vertices(v, hyper))) {
 			if(getReverseEdge(eOut) != hyper.null_vertex()) localNumUniqueOutOnlyReverse++;
 		}
 		assert(localNumUniqueInOnlyReverse == localNumUniqueOutOnlyReverse); // right?
@@ -243,7 +258,7 @@ void Hyper::printStats(std::ostream &s) const {
 				uniqueIn.size() * uniqueOut.size()
 				- localNumUniqueInOnlyReverse; // we subtract these because they would be zero-constrained anyway
 
-		// we add 1 because the catch all would also make a sub-vertex
+		// we add 1 because the catch-all would also make a sub-vertex
 		projectedNumTransitCollapseNonReverse +=
 				(localNumUniqueInOnlyReverse + 1) * (localNumUniqueOutOnlyReverse + 1)
 				- localNumUniqueInOnlyReverse; // we subtract these because they would be zero-constrained anyway
@@ -264,10 +279,10 @@ void Hyper::printStats(std::ostream &s) const {
 	s << "pairs/edge:\t" << (numEdgePairs / ((double) numEdges)) << std::endl;
 	s << "------------------------------------------------------------------" << std::endl;
 	s << "numIn histogram:" << std::endl;
-	for(const auto &p : countNumIn) s << p.first << "\t" << p.second << std::endl;
+	for(const auto &p: countNumIn) s << p.first << "\t" << p.second << std::endl;
 	s << "------------------------------------------------------------------" << std::endl;
 	s << "numOut histogram:" << std::endl;
-	for(const auto &p : countNumIn) s << p.first << "\t" << p.second << std::endl;
+	for(const auto &p: countNumIn) s << p.first << "\t" << p.second << std::endl;
 	s << "------------------------------------------------------------------" << std::endl;
 	s << "avgInReverseRatio\t" << avgInReverseRatio << std::endl;
 	s << "avgInReverseRatioWithVirtual\t" << avgInReverseRatioWithVirtual << std::endl;
@@ -352,12 +367,12 @@ mod::Derivation Hyper::getDerivation(Vertex v) const {
 	assert(v != hyper.null_vertex());
 	assert(hyper[v].kind == HyperVertexKind::Edge);
 	Derivation d;
-	for(Vertex vIn : asRange(inv_adjacent_vertices(v, hyper)))
+	for(Vertex vIn: asRange(inv_adjacent_vertices(v, hyper)))
 		d.left.push_back(hyper[vIn].graph->getAPIReference());
 	const auto &rules = getRulesFromEdge(v);
 	if(!rules.empty())
 		d.r = rules.front()->getAPIReference();
-	for(Vertex vOut : asRange(adjacent_vertices(v, hyper)))
+	for(Vertex vOut: asRange(adjacent_vertices(v, hyper)))
 		d.right.push_back(hyper[vOut].graph->getAPIReference());
 	return d;
 }

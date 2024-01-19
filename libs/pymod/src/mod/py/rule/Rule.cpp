@@ -189,8 +189,8 @@ void Rule_doExport() {
 					// rst: Loading Functions
 					// rst: =================
 					// rst:
-					// rst: .. staticmethod:: Rule.fromGMLString(s, invert=False, add=True)
-					// rst:                   Rule.fromGMLFile(f, invert=False, add=True)
+					// rst: .. staticmethod:: Rule.fromGMLString(s, invert=False, add=True, printStereoWarnings=True)
+					// rst:                   Rule.fromGMLFile(f, invert=False, add=True, printStereoWarnings=True)
 					// rst:
 					// rst:		Load a rule from a :ref:`GML <rule-gml>` string or file, and maybe store it in a global list.
 					// rst:		The name of the rule is the one specified in the GML string, though when ``invert=True``
@@ -204,8 +204,9 @@ void Rule_doExport() {
 					// rst:		:param str s: the GML string to load a rule from.
 					// rst:		:param f: name of the GML file to be loaded.
 					// rst:		:type f: str or CWDPath
-					// rst:		:param bool invert: whether or not to invert the loaded rule.
+					// rst:		:param bool invert: whether to invert the loaded rule.
 					// rst:		:param bool add: whether to append the rule to :data:`inputRules` or not.
+					// rst:		:param bool printStereoWarnings: whether to print warnings due to unhandled stereo information.
 					// rst:		:returns: the rule in the GML string, possibly inverted.
 					// rst:		:rtype: Rule
 			.def("fromGMLString", &Rule::fromGMLString)
@@ -217,7 +218,7 @@ void Rule_doExport() {
 					// rst:		Load a rule from a :ref:`RuleDFS <format-ruleDFS>` string.
 					// rst:
 					// rst:		:param str s: the :ref:`RuleDFS <format-ruleDFS>` string to parse.
-					// rst:		:param bool invert: whether or not to invert the loaded rule.
+					// rst:		:param bool invert: whether to invert the loaded rule.
 					// rst:		:param str name: the name of the rule. If none is given the default name is used.
 					// rst:		:param bool add: whether to append the rule to :data:`inputRules` or not.
 					// rst:		:returns: the loaded rule.
@@ -226,10 +227,10 @@ void Rule_doExport() {
 			.def("fromDFS", &Rule::fromDFS)
 			.staticmethod("fromDFS");
 
-	// rst: .. function:: ruleGMLString(s, invert=False, add=True)
+	// rst: .. function:: ruleGMLString(...)
 	// rst:
 	// rst:		Alias of :py:meth:`Rule.fromGMLString`.
-	// rst: .. method:: ruleGML(f, invert=False, add=True)
+	// rst: .. method:: ruleGML(...)
 	// rst:		
 	// rst:		Alias of :py:meth:`Rule.fromGMLFile`.
 	// rst:

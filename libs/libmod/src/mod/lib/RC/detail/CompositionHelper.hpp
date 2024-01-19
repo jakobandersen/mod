@@ -25,42 +25,42 @@ struct CompositionHelper {
 	using EdgeSecond = typename boost::graph_traits<GraphSecond>::edge_descriptor;
 public:
 	CompositionHelper(Result &result,
-							const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
-							Visitor visitor)
+	                  const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	                  Visitor visitor)
 			: result(result), rFirst(rFirst), rSecond(rSecond), match(match), visitor(std::move(visitor)) {}
 
-	bool operator()() &&{
-		if(Verbose) std::cout << std::string(80, '=') << std::endl;
-		bool resInit = visitor.template init<Verbose>(rFirst, rSecond, match, result);
+	bool operator()(IO::Logger logger) &&{
+		if(Verbose) logger.sep('=');
+		bool resInit = visitor.template init<Verbose>(logger, rFirst, rSecond, match, result);
 		if(!resInit) {
-			if(Verbose) std::cout << std::string(80, '=') << std::endl;
+			if(Verbose) logger.sep('=');
 			return false;
 		}
 		// Vertices
 		//--------------------------------------------------------------------------
-		copyVerticesFirst();
-		composeVerticesSecond();
+		copyVerticesFirst(logger);
+		composeVerticesSecond(logger);
 		// Edges
 		//--------------------------------------------------------------------------
-		bool resFirst = copyEdgesFirstUnmatched();
+		bool resFirst = copyEdgesFirstUnmatched(logger);
 		if(!resFirst) {
-			if(Verbose) std::cout << std::string(80, '=') << std::endl;
+			if(Verbose) logger.sep('=');
 			return false;
 		}
-		bool resSecond = composeEdgesSecond();
+		bool resSecond = composeEdgesSecond(logger);
 		if(!resSecond) {
-			if(Verbose) std::cout << std::string(80, '=') << std::endl;
+			if(Verbose) logger.sep('=');
 			return false;
 		}
 
 		// Finish it
 		//--------------------------------------------------------------------------
-		bool resFinal = visitor.template finalize<Verbose>(rFirst, rSecond, match, result);
+		bool resFinal = visitor.template finalize<Verbose>(logger, rFirst, rSecond, match, result);
 		if(!resFinal) {
-			if(Verbose) std::cout << std::string(80, '=') << std::endl;
+			if(Verbose) logger.sep('=');
 			return false;
 		}
-		if(Verbose) std::cout << std::string(80, '=') << std::endl;
+		if(Verbose) logger.sep('=');
 		return true;
 	}
 private:
@@ -91,19 +91,25 @@ private:
 		return get_inverse(match, gDom, gCodom, vFirst);
 	}
 private:
-	void copyVerticesFirst() {
-		if(Verbose) std::cout << "copyVerticesFirst\n" << std::string(80, '-') << std::endl;
+	void copyVerticesFirst(IO::Logger loggerOrig) {
+		if(Verbose) {
+			loggerOrig.indent() << "copyVerticesFirst\n";
+			loggerOrig.sep('-');
+		}
 		auto &gResult = result.rDPO->getCombinedGraph();
 		const auto &gFirst = rFirst.getCombinedGraph();
 		const auto &gSecond = rSecond.getCombinedGraph();
 		for(const auto vFirst: asRange(vertices(gFirst))) {
+			auto logger = loggerOrig;
 			if(Verbose) {
-				std::cout << "rFirst node:\t"
-							 << get(boost::vertex_index_t(), gFirst, vFirst)
-							 << "(" << rFirst.getCombinedGraph()[vFirst].membership << ")"
-							 << "(";
-				visitor.template printVertexFirst(rFirst, rSecond, match, result, std::cout, vFirst);
-				std::cout << ")" << std::endl;
+				++logger.indentLevel;
+				logger.indent() << "rFirst node:\t"
+				                << get(boost::vertex_index_t(), gFirst, vFirst)
+				                << "(" << rFirst.getCombinedGraph()[vFirst].membership << ")"
+				                << "(";
+				visitor.template printVertexFirst(rFirst, rSecond, match, result, logger.s, vFirst);
+				logger.s << ")" << std::endl;
+				++logger.indentLevel;
 			}
 			const bool getsDeleted = [&]() {
 				// must be only in R to be deleted
@@ -116,39 +122,45 @@ private:
 			}();
 			if(getsDeleted) {
 				put(result.mFirstToResult, gFirst, gResult, vFirst, getNullResult());
-				if(Verbose) std::cout << "gets deleted" << std::endl;
+				if(Verbose) logger.indent() << "gets deleted" << std::endl;
 			} else {
 				const auto vResult = add_vertex(gResult);
 				syncSize(result.mFirstToResult, gFirst, gResult);
 				syncSize(result.mSecondToResult, gSecond, gResult);
 				put(result.mFirstToResult, gFirst, gResult, vFirst, vResult);
 				gResult[vResult].membership = rFirst.getCombinedGraph()[vFirst].membership;
-				visitor.template copyVertexFirst<Verbose>(rFirst, rSecond, match, result, vFirst, vResult);
+				visitor.template copyVertexFirst<Verbose>(logger, rFirst, rSecond, match, result, vFirst, vResult);
 				if(Verbose) {
-					std::cout << "new node:\t"
-								 << get(boost::vertex_index_t(), gResult, vResult)
-								 << "(" << gResult[vResult].membership << ")(";
-					visitor.template printVertexResult(rFirst, rSecond, match, result, std::cout, vResult);
-					std::cout << ")" << std::endl;
+					logger.indent() << "new node:\t"
+					                << get(boost::vertex_index_t(), gResult, vResult)
+					                << "(" << gResult[vResult].membership << ")(";
+					visitor.template printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
+					logger.s << ")" << std::endl;
 				}
 			}
 		}
 	}
 
-	void composeVerticesSecond() {
-		if(Verbose) std::cout << "composeVerticesSecond\n" << std::string(80, '-') << std::endl;
+	void composeVerticesSecond(IO::Logger loggerOrig) {
+		if(Verbose) {
+			loggerOrig.indent() << "composeVerticesSecond\n";
+			loggerOrig.sep('-');
+		}
 		const auto &gFirst = rFirst.getCombinedGraph();
 		const auto &gSecond = rSecond.getCombinedGraph();
 		auto &gResult = result.rDPO->getCombinedGraph();
 		// copy nodes from second, but compose the matched ones which has already been created
 		for(const auto vSecond: asRange(vertices(gSecond))) {
+			auto logger = loggerOrig;
 			if(Verbose) {
-				std::cout << "rSecond node:\t"
-							 << get(boost::vertex_index_t(), gSecond, vSecond)
-							 << "(" << rSecond.getCombinedGraph()[vSecond].membership << ")"
-							 << "(";
-				visitor.template printVertexSecond(rFirst, rSecond, match, result, std::cout, vSecond);
-				std::cout << ")" << std::endl;
+				++logger.indentLevel;
+				logger.indent() << "rSecond node:\t"
+				                << get(boost::vertex_index_t(), gSecond, vSecond)
+				                << "(" << rSecond.getCombinedGraph()[vSecond].membership << ")"
+				                << "(";
+				visitor.template printVertexSecond(rFirst, rSecond, match, result, logger.s, vSecond);
+				logger.s << ")" << std::endl;
+				++logger.indentLevel;
 			}
 			// check if the vertex is matched
 			const auto vFirst = getVertexFirstChecked(vSecond);
@@ -159,26 +171,26 @@ private:
 				syncSize(result.mSecondToResult, gSecond, gResult);
 				put(result.mSecondToResult, gSecond, gResult, vSecond, vResult);
 				gResult[vResult].membership = rSecond.getCombinedGraph()[vSecond].membership;
-				visitor.template copyVertexSecond<Verbose>(rFirst, rSecond, match, result, vSecond, vResult);
+				visitor.template copyVertexSecond<Verbose>(logger, rFirst, rSecond, match, result, vSecond, vResult);
 				if(Verbose) {
-					std::cout << "new node:\t" << get(boost::vertex_index_t(), gResult, vResult)
-								 << "(" << gResult[vResult].membership << ")"
-								 << "(";
-					visitor.template printVertexResult(rFirst, rSecond, match, result, std::cout, vResult);
-					std::cout << ")" << std::endl;
+					logger.indent() << "new node:\t" << get(boost::vertex_index_t(), gResult, vResult)
+					                << "(" << gResult[vResult].membership << ")"
+					                << "(";
+					visitor.template printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
+					logger.s << ")" << std::endl;
 				}
 			} else { // vertex matched
 				const auto vResult = get(result.mFirstToResult, gFirst, gResult, vFirst);
 				put(result.mSecondToResult, gSecond, gResult, vSecond, vResult);
 				if(vResult == getNullResult()) {
-					if(Verbose) std::cout << "deleted" << std::endl;
+					if(Verbose) logger.indent() << "deleted" << std::endl;
 				} else {
 					if(Verbose) {
-						std::cout << "match to:\t" << get(boost::vertex_index_t(), gResult, vResult)
-									 << "(" << gResult[vResult].membership << ")"
-									 << "(";
-						visitor.template printVertexResult(rFirst, rSecond, match, result, std::cout, vResult);
-						std::cout << ")" << std::endl;
+						logger.indent() << "match to:\t" << get(boost::vertex_index_t(), gResult, vResult)
+						                << "(" << gResult[vResult].membership << ")"
+						                << "(";
+						visitor.template printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
+						logger.s << ")" << std::endl;
 					}
 					// now we calculate the new membership for the node
 					const auto mFirst = gResult[vResult].membership; // should be a copy of the one from rFirst
@@ -192,18 +204,21 @@ private:
 							std::abort();
 						} else {
 							// vSecond is CONTEXT, so vResult must be RIGHT (which it already is in rResult)
-							visitor.template composeVertexRvsLR<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
+							visitor.template composeVertexRvsLR<Verbose>(logger, rFirst, rSecond, match, result, vResult,
+							                                             vSecond);
 						}
 					} else { // vFirst is either LEFT or CONTEXT
 						assert(mFirst != Membership::L); // we can't match a LEFT node in rRight
 						// vFirst is CONTEXT
 						if(mSecond == Membership::L) {
 							// vSecond is disappearing, so vResult is disappearing as well
-							visitor.template composeVertexLRvsL<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
+							visitor.template composeVertexLRvsL<Verbose>(logger, rFirst, rSecond, match, result, vResult,
+							                                             vSecond);
 							gResult[vResult].membership = Membership::L;
 						} else { // both vFirst and vSecond is in both of their sides
 							// let the visitor do its thing
-							visitor.template composeVertexLRvsLR<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
+							visitor.template composeVertexLRvsLR<Verbose>(logger, rFirst, rSecond, match, result, vResult,
+							                                              vSecond);
 							assert(gResult[vResult].membership == Membership::K);
 						} // end if vSecond is LEFT
 					} // end if vFirst is RIGHT
@@ -212,12 +227,16 @@ private:
 		} // end foreach vSecond
 	}
 
-	bool copyEdgesFirstUnmatched() {
-		if(Verbose) std::cout << "copyEdgesFirstUnmatched\n" << std::string(80, '-') << std::endl;
+	bool copyEdgesFirstUnmatched(IO::Logger logger) {
+		if(Verbose) {
+			logger.indent() << "copyEdgesFirstUnmatched\n";
+			logger.sep('-');
+		}
 		const auto &gFirst = rFirst.getCombinedGraph();
 		const auto &gSecond = rSecond.getCombinedGraph();
 		auto &gResult = result.rDPO->getCombinedGraph();
-		const auto processEdge = [&](const auto eFirst) {
+		const auto processEdge = [&](IO::Logger logger, const auto eFirst) {
+			++logger.indentLevel;
 			// map source and target to core vertices
 			const auto vSrcFirst = source(eFirst, gFirst);
 			const auto vTarFirst = target(eFirst, gFirst);
@@ -226,12 +245,13 @@ private:
 				const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
 				const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
 				// vSrcResult/vTarResult may be null_vertex
-				std::cout << "Edge first:\t(" << vSrcFirst << ", " << vTarFirst << ") maybe copy to new (" << vSrcResult
-							 << ", " << vTarResult << ")"
-							 << "(" << meFirst << ")"
-							 << "(";
-				visitor.template printEdgeFirst(rFirst, rSecond, match, result, std::cout, eFirst);
-				std::cout << ")" << std::endl;
+				logger.indent() << "Edge first:\t(" << vSrcFirst << ", " << vTarFirst << ") maybe copy to new ("
+				                << vSrcResult << ", " << vTarResult << ")"
+				                << "(" << meFirst << ")"
+				                << "(";
+				visitor.template printEdgeFirst(rFirst, rSecond, match, result, logger.s, eFirst);
+				logger.s << ")" << std::endl;
+				++logger.indentLevel;
 			}
 			const auto makeCopy = [&]() {
 				const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
@@ -239,48 +259,48 @@ private:
 				// vResultSrc/vResultTar should be valid at this point
 				assert(vSrcResult != getNullResult());
 				assert(vTarResult != getNullResult());
-				if(Verbose) std::cout << "\tCopy eFirst" << std::endl;
+				if(Verbose) logger.indent() << "Copy eFirst" << std::endl;
 				const auto peResult = add_edge(vSrcResult, vTarResult, gResult);
 				// adding shouldn't fail
 				assert(peResult.second);
 				const auto eResult = peResult.first;
 				gResult[eResult].membership = gFirst[eFirst].membership;
-				visitor.template copyEdgeFirst<Verbose>(rFirst, rSecond, match, result, eFirst, eResult);
+				visitor.template copyEdgeFirst<Verbose>(logger, rFirst, rSecond, match, result, eFirst, eResult);
 				assert(gResult[vSrcResult].membership == Membership::K || gResult[vSrcResult].membership == meFirst);
 				assert(gResult[vTarResult].membership == Membership::K || gResult[vTarResult].membership == meFirst);
 			};
 			// and now the actual case analysis
 			if(meFirst == Membership::L) {
-				if(Verbose) std::cout << "\teFirst in LEFT, clean copy" << std::endl;
+				if(Verbose) logger.indent() << "eFirst in LEFT, clean copy" << std::endl;
 				makeCopy();
 				return true;
 			}
-			if(Verbose) std::cout << "\teFirst in RIGHT or CONTEXT" << std::endl;
+			if(Verbose) logger.indent() << "eFirst in RIGHT or CONTEXT" << std::endl;
 			const auto vSrcSecond = getVertexSecond(vSrcFirst);
 			const auto vTarSecond = getVertexSecond(vTarFirst);
 			const bool isSrcMatched = vSrcSecond != getNullSecond();
 			const bool isTarMatched = vTarSecond != getNullSecond();
 			if(isSrcMatched && isTarMatched) {
-				if(Verbose) std::cout << "\tBoth ends matched" << std::endl;
+				if(Verbose) logger.indent() << "Both ends matched" << std::endl;
 				const auto oeSecond = out_edges(vSrcSecond, gSecond);
 				const auto eSecondIter = std::find_if(oeSecond.first, oeSecond.second,
-																  [&gSecond, vTarSecond](const auto &eSecond) {
-																	  return target(eSecond, gSecond) == vTarSecond &&
-																				gSecond[eSecond].membership != Membership::R;
-																  });
+				                                      [&gSecond, vTarSecond](const auto &eSecond) {
+					                                      return target(eSecond, gSecond) == vTarSecond &&
+					                                             gSecond[eSecond].membership != Membership::R;
+				                                      });
 				// TODO: why do we check the membership in the find_if?
 				// There should be only one edge, so we can bail out here, right?
 				const bool isEdgeMatched = eSecondIter != oeSecond.second;
 				if(isEdgeMatched) {
 					const auto eSecond = *eSecondIter;
 					if(meFirst == Membership::R) {
-						if(Verbose) std::cout << "\teFirst matched and in RIGHT, skipping" << std::endl;
+						if(Verbose) logger.indent() << "eFirst matched and in RIGHT, skipping" << std::endl;
 						return true;
 					}
 
 					if(Verbose)
-						std::cout << "\teFirst matched and in CONTEXT, copying to LEFT or CONTEXT (depending on eSecond ("
-									 << gSecond[eSecond].membership << "))" << std::endl;
+						logger.indent() << "eFirst matched and in CONTEXT, copying to LEFT or CONTEXT (depending on eSecond ("
+						                << gSecond[eSecond].membership << "))" << std::endl;
 					const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
 					const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
 					// vResultSrc/vResultTar can not be null_vertex
@@ -292,7 +312,7 @@ private:
 					const auto eResult = peResult.first;
 					// we use the second membership, so do not use the common copy mechanism in the bottom of the function
 					gResult[eResult].membership = gSecond[eSecond].membership;
-					visitor.template copyEdgeFirst<Verbose>(rFirst, rSecond, match, result, eFirst, eResult);
+					visitor.template copyEdgeFirst<Verbose>(logger, rFirst, rSecond, match, result, eFirst, eResult);
 					assert(gResult[vSrcResult].membership != Membership::R);
 					assert(gResult[vTarResult].membership != Membership::R);
 					return true;
@@ -304,7 +324,7 @@ private:
 				// vSrcResult/vTarResult may be null_vertex
 				const bool endPointDeleted = vSrcResult == getNullResult() || vTarResult == getNullResult();
 				if(endPointDeleted) {
-					if(Verbose) std::cout << "\tComposition failure: at least one matched vertex deleted" << std::endl;
+					if(Verbose) logger.indent() << "Composition failure: at least one matched vertex deleted" << std::endl;
 					return false;
 				}
 
@@ -313,71 +333,78 @@ private:
 				const auto mvTarResult = gResult[vTarResult].membership;
 				if(mvSrcResult == Membership::L || mvTarResult == Membership::L) {
 					if(Verbose)
-						std::cout << "\tComposition failure: at least one matched vertex has inconsistent context ("
-									 << mvSrcResult << " and " << mvTarResult << "), eFirst is (" << meFirst << ")" << std::endl;
+						logger.indent() << "Composition failure: at least one matched vertex has inconsistent context ("
+						                << mvSrcResult << " and " << mvTarResult << "), eFirst is (" << meFirst << ")"
+						                << std::endl;
 					return false;
 				}
 
-				if(Verbose) std::cout << "\teFirst not matched and not dangling" << std::endl;
+				if(Verbose) logger.indent() << "eFirst not matched and not dangling" << std::endl;
 				makeCopy();
 				return true;
 			}
 
 			// at most 1 end matched
 			if(isSrcMatched != isTarMatched) {
-				if(Verbose) std::cout << "\tOne end matched" << std::endl;
+				if(Verbose) logger.indent() << "One end matched" << std::endl;
 				const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
 				const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
 				// vResultSrc/vResultTar may be null_vertex
 				const auto vResultMatched = isSrcMatched ? vSrcResult : vTarResult;
 				const bool matchedDeleted = vResultMatched == boost::graph_traits<GraphResult>::null_vertex();
 				if(matchedDeleted) {
-					if(Verbose) std::cout << "\tComposition failure: matched vertex deleted" << std::endl;
+					if(Verbose) logger.indent() << "Composition failure: matched vertex deleted" << std::endl;
 					return false;
 				}
 				// matched, but is it consistent?
 				const auto mvMatchedResult = gResult[vResultMatched].membership;
 				if(mvMatchedResult == Membership::L) {
 					if(Verbose)
-						std::cout << "\tComposition failure: matched vertex has inconsistent context ("
-									 << mvMatchedResult << "), eFirst is (" << meFirst << ")" << std::endl;
+						logger.indent() << "Composition failure: matched vertex has inconsistent context ("
+						                << mvMatchedResult << "), eFirst is (" << meFirst << ")" << std::endl;
 					return false;
 				}
 
-				if(Verbose) std::cout << "\teFirst not matched and not dangling" << std::endl;
+				if(Verbose) logger.indent() << "eFirst not matched and not dangling" << std::endl;
 				makeCopy();
 				return true;
 			}
 
-			if(Verbose) std::cout << "\tNo ends matched" << std::endl;
+			if(Verbose) logger.indent() << "No ends matched" << std::endl;
 			makeCopy();
 			return true;
 		};
 		for(const auto eFirst: asRange(edges(gFirst))) {
-			const bool ok = processEdge(eFirst);
+			const bool ok = processEdge(logger, eFirst);
 			if(!ok) return false;
 		}
 		return true;
 	}
 
-	bool composeEdgesSecond() {
-		if(Verbose) std::cout << "composeEdgesSecond\n" << std::string(80, '-') << std::endl;
+	bool composeEdgesSecond(IO::Logger loggerOrig) {
+		if(Verbose) {
+			loggerOrig.indent() << "composeEdgesSecond\n";
+			loggerOrig.sep('-');
+		}
 		//		const auto &gFirst = rFirst.getCombinedGraph();
 		const auto &gSecond = rSecond.getCombinedGraph();
 		auto &gResult = result.rDPO->getCombinedGraph();
 		for(auto eSecond: asRange(edges(gSecond))) {
+			auto logger = loggerOrig;
 			auto vSecondSrc = source(eSecond, gSecond);
 			auto vSecondTar = target(eSecond, gSecond);
 			auto vResultSrc = get(result.mSecondToResult, gSecond, gResult, vSecondSrc);
 			auto vResultTar = get(result.mSecondToResult, gSecond, gResult, vSecondTar);
 			if(Verbose) {
+				++logger.indentLevel;
 				// vSrcNew/vTarNew may be null_vertex
-				std::cout << "Edge second:\t(" << vSecondSrc << ", " << vSecondTar << ")\tmapped to (" << vResultSrc << ", "
-							 << vResultTar << ")"
-							 << ", (" << gSecond[eSecond].membership << ")"
-							 << "(";
-				visitor.template printEdgeSecond(rFirst, rSecond, match, result, std::cout, eSecond);
-				std::cout << ")" << std::endl;
+				logger.indent() << "Edge second:\t(" << vSecondSrc << ", " << vSecondTar << ")\tmapped to (" << vResultSrc
+				                << ", " << vResultTar << ")"
+				                << ", (" << gSecond[eSecond].membership << ")"
+				                << "(";
+				visitor.template printEdgeSecond(rFirst, rSecond, match, result, logger.s, eSecond);
+				logger.s << ")" << std::endl;
+				++logger.indentLevel;
 			}
 			// vResultSrc/vResultTar may be null_vertex
 			// check for match on vFirstSrc and vFirstTar
@@ -387,7 +414,7 @@ private:
 			bool isTarMatched = vFirstTar != boost::graph_traits<GraphFirst>::null_vertex();
 			if(!isSrcMatched || !isTarMatched) { // new edge
 				if(!isSrcMatched && !isTarMatched) {
-					if(Verbose) std::cout << "No ends matched. Copy eSecond." << std::endl;
+					if(Verbose) logger.indent() << "No ends matched. Copy eSecond." << std::endl;
 					// vResultSrc/vResultTar can not be null_vertex
 					assert(vResultSrc != boost::graph_traits<GraphResult>::null_vertex());
 					assert(vResultTar != boost::graph_traits<GraphResult>::null_vertex());
@@ -396,32 +423,35 @@ private:
 					assert(peResult.second);
 					auto eResult = peResult.first;
 					gResult[eResult].membership = gSecond[eSecond].membership;
-					visitor.template copyEdgeSecond<Verbose>(rFirst, rSecond, match, result, eSecond, eResult);
+					visitor.template copyEdgeSecond<Verbose>(logger, rFirst, rSecond, match, result, eSecond, eResult);
 				} else { // one end matched
 					assert(vResultSrc != boost::graph_traits<GraphResult>::null_vertex()
-							 || vResultTar != boost::graph_traits<GraphResult>::null_vertex());
-					bool isOk = composeEdgeSecond_oneEndMatched(eSecond, vResultSrc, vResultTar, isSrcMatched, isTarMatched);
+					       || vResultTar != boost::graph_traits<GraphResult>::null_vertex());
+					bool isOk = composeEdgeSecond_oneEndMatched(logger, eSecond, vResultSrc, vResultTar, isSrcMatched,
+					                                            isTarMatched);
 					if(!isOk) return false;
 				} // if 0 or 1 end matched
 			} else { // maybe a matched edge
-				bool isOk = composeEdgeSecond_bothEndsMatched(eSecond, vFirstSrc, vFirstTar, vResultSrc, vResultTar);
+				bool isOk = composeEdgeSecond_bothEndsMatched(logger, eSecond, vFirstSrc, vFirstTar, vResultSrc,
+				                                              vResultTar);
 				if(!isOk) return false;
 			} // end if 0 or 1 matched endNodes
 		} // end for each eSecond
 		return true;
 	}
 private:
-	bool composeEdgeSecond_oneEndMatched(EdgeSecond eSecond,
-													 VertexResult vResultSrc,
-													 VertexResult vResultTar,
-													 bool isSrcMatched,
-													 bool isTarMatched) {
+	bool composeEdgeSecond_oneEndMatched(IO::Logger logger,
+	                                     EdgeSecond eSecond,
+	                                     VertexResult vResultSrc,
+	                                     VertexResult vResultTar,
+	                                     bool isSrcMatched,
+	                                     bool isTarMatched) {
 		auto &gResult = result.rDPO->getCombinedGraph();
-		if(Verbose) std::cout << "One end matched, eSecond should be copied" << std::endl;
+		if(Verbose) logger.indent() << "One end matched, eSecond should be copied" << std::endl;
 		assert(isSrcMatched ^ isTarMatched);
 		// at most one of vResultSrc and vResultTar may be null_vertex
 		assert(vResultSrc != boost::graph_traits<GraphResult>::null_vertex()
-				 || vResultTar != boost::graph_traits<GraphResult>::null_vertex());
+		       || vResultTar != boost::graph_traits<GraphResult>::null_vertex());
 		auto vResultMatched = isSrcMatched ? vResultSrc : vResultTar;
 		auto vResultOther = isSrcMatched ? vResultTar : vResultSrc;
 		// vResultMatched may be null_vertex, if it's a RIGHT vs. LEFT vertex
@@ -431,37 +461,40 @@ private:
 		(void) mvResultOther;
 		assert(mvResultOther == Membership::K || mvResultOther == meSecond);
 
+		if(Verbose) ++logger.indentLevel;
+
 		if(vResultMatched == boost::graph_traits<GraphResult>::null_vertex()) {
-			if(Verbose) std::cout << "\tComposition failure: matched vertex deleted" << std::endl;
+			if(Verbose) logger.indent() << "Composition failure: matched vertex deleted" << std::endl;
 			return false;
 		}
 
 		auto mvResultMatched = gResult[vResultMatched].membership;
 		if(mvResultMatched != Membership::K && mvResultMatched != meSecond) {
 			if(Verbose)
-				std::cout << "\tComposition failure: matched vertex has inconsistent context ("
-							 << mvResultMatched << "), eSecond is (" << meSecond << ")" << std::endl;
+				logger.indent() << "Composition failure: matched vertex has inconsistent context ("
+				                << mvResultMatched << "), eSecond is (" << meSecond << ")" << std::endl;
 			return false;
 		}
 
-		if(Verbose) std::cout << "\tCopy edge" << std::endl;
+		if(Verbose) logger.indent() << "Copy edge" << std::endl;
 		auto peResult = add_edge(vResultSrc, vResultTar, gResult);
 		// adding shouldn't fail
 		assert(peResult.second);
 		auto eResult = peResult.first;
 		gResult[eResult].membership = rSecond.getCombinedGraph()[eSecond].membership;
-		visitor.template copyEdgeSecond<Verbose>(rFirst, rSecond, match, result, eSecond, eResult);
+		visitor.template copyEdgeSecond<Verbose>(logger, rFirst, rSecond, match, result, eSecond, eResult);
 		return true;
 	}
 
-	bool composeEdgeSecond_bothEndsMatched(EdgeSecond eSecond,
-														VertexFirst vFirstSrc,
-														VertexFirst vFirstTar,
-														VertexResult vResultSrc,
-														VertexResult vResultTar) {
+	bool composeEdgeSecond_bothEndsMatched(IO::Logger logger,
+	                                       EdgeSecond eSecond,
+	                                       VertexFirst vFirstSrc,
+	                                       VertexFirst vFirstTar,
+	                                       VertexResult vResultSrc,
+	                                       VertexResult vResultTar) {
 		const auto &gFirst = rFirst.getCombinedGraph();
 		auto &gResult = result.rDPO->getCombinedGraph();
-		if(Verbose) std::cout << "Both ends matched" << std::endl;
+		if(Verbose) logger.indent() << "Both ends matched" << std::endl;
 		// vResultSrc/vResultTar may be null_vertex
 		std::optional<Membership> omeFirst;
 		// we search in coreFirst, because it has the matched edges
@@ -471,6 +504,8 @@ private:
 			break;
 		}
 		auto meSecond = rSecond.getCombinedGraph()[eSecond].membership;
+
+		if(Verbose) ++logger.indentLevel;
 
 		// possibilities:
 		//    ->   vs. |  ->
@@ -490,24 +525,24 @@ private:
 			//    ->   vs. |  ->
 			//    ->   vs.    -> |
 			//    ->   vs. |  -> |
-			if(Verbose) std::cout << "\tSimple copy of eSecond" << std::endl;
+			if(Verbose) logger.indent() << "Simple copy of eSecond" << std::endl;
 			if(meSecond == Membership::L) {
-				if(Verbose) std::cout << "\t\teSecond in LEFT, check ends" << std::endl;
+				if(Verbose) logger.indent() << "eSecond in LEFT, check ends" << std::endl;
 				// vResultSrc/vResultTar may be null_vertex
 				if(vResultSrc == boost::graph_traits<GraphResult>::null_vertex()) {
-					if(Verbose) std::cout << "\tComposition failure: vResultSrc deleted" << std::endl;
+					if(Verbose) logger.indent() << "Composition failure: vResultSrc deleted" << std::endl;
 					return false;
 				}
 				if(vResultTar == boost::graph_traits<GraphResult>::null_vertex()) {
-					if(Verbose) std::cout << "\tComposition failure: vResultTar deleted" << std::endl;
+					if(Verbose) logger.indent() << "Composition failure: vResultTar deleted" << std::endl;
 					return false;
 				}
 				if(gResult[vResultSrc].membership == Membership::R) {
-					if(Verbose) std::cout << "\tComposition failure: vResultSrc not in LEFT or CONTEXT" << std::endl;
+					if(Verbose) logger.indent() << "Composition failure: vResultSrc not in LEFT or CONTEXT" << std::endl;
 					return false;
 				}
 				if(gResult[vResultTar].membership == Membership::R) {
-					if(Verbose) std::cout << "\tComposition failure: vResultTar not in LEFT or CONTEXT" << std::endl;
+					if(Verbose) logger.indent() << "Composition failure: vResultTar not in LEFT or CONTEXT" << std::endl;
 					return false;
 				}
 			}
@@ -518,8 +553,8 @@ private:
 			// adding shouldn't fail
 			assert(peResult.second);
 			auto eResult = peResult.first;
-			gResult[eResult].membership =  rSecond.getCombinedGraph()[eSecond].membership;
-			visitor.template copyEdgeSecond<Verbose>(rFirst, rSecond, match, result, eSecond, eResult);
+			gResult[eResult].membership = rSecond.getCombinedGraph()[eSecond].membership;
+			visitor.template copyEdgeSecond<Verbose>(logger, rFirst, rSecond, match, result, eSecond, eResult);
 			return true;
 		}
 
@@ -530,7 +565,7 @@ private:
 			// creating parallel in left
 			// |  ->   vs. |  ->
 			// |  ->   vs. |  -> |
-			if(Verbose) std::cout << "\tComposition failure: duplicate edge in L" << std::endl;
+			if(Verbose) logger.indent() << "Composition failure: duplicate edge in L" << std::endl;
 			return false;
 		}
 		if(meFirst != Membership::L && meSecond == Membership::R) {
@@ -538,8 +573,9 @@ private:
 			//    -> | vs.    -> |
 			// |  -> | vs.    -> |
 			if(Verbose)
-				std::cout << "\tComposition failure: eSecond in RIGHT, eFirst in CONTEXT or RIGHT, i.e., parallel edge in R"
-							 << std::endl;
+				logger.indent()
+						<< "Composition failure: eSecond in RIGHT, eFirst in CONTEXT or RIGHT, i.e., parallel edge in R"
+						<< std::endl;
 			return false;
 		}
 		// remaining possibilities:
@@ -553,8 +589,8 @@ private:
 			//    -> | vs. |  ->	first not in result
 			// |  -> | vs. |  -> 	first in result as LEFT
 			if(Verbose)
-				std::cout << "\teSecond matched in (" << meSecond << ")"
-							 << ", either in LEFT or both eSecond and eFirst in CONTEXT" << std::endl;
+				logger.indent() << "eSecond matched in (" << meSecond << ")"
+				                << ", either in LEFT or both eSecond and eFirst in CONTEXT" << std::endl;
 			return true;
 		}
 		// remaining possibilities:
@@ -568,13 +604,13 @@ private:
 			// copy eSecond as RIGHT to result
 			assert(meSecond == Membership::K);
 			//    -> | vs. |  -> |
-			if(Verbose) std::cout << "\t   -> | vs. |  -> |, copy to RIGHT" << std::endl;
+			if(Verbose) logger.indent() << "   -> | vs. |  -> |, copy to RIGHT" << std::endl;
 			auto peResult = add_edge(vResultSrc, vResultTar, gResult);
 			// adding shouldn't fail
 			assert(peResult.second);
 			auto eResult = peResult.first;
 			gResult[eResult].membership = Membership::R;
-			visitor.template copyEdgeSecond<Verbose>(rFirst, rSecond, match, result, eSecond, eResult);
+			visitor.template copyEdgeSecond<Verbose>(logger, rFirst, rSecond, match, result, eSecond, eResult);
 			return true;
 		}
 		// remaining possibilities:
@@ -589,11 +625,12 @@ private:
 		assert(edgeIter != edgesResult.second);
 		auto eResult = *edgeIter;
 		if(Verbose)
-			std::cout
-					<< "\t'|  ->   vs.    -> |' or '|  -> | vs. |  -> |', promote eNew to CONTEXT and set right from second right"
+			logger.indent()
+					<< "'|  ->   vs.    -> |' or '|  -> | vs. |  -> |', promote eNew to CONTEXT and set right from second right"
 					<< std::endl;
 		gResult[eResult].membership = Membership::K;
-		visitor.template setEdgeResultRightFromSecondRight<Verbose>(rFirst, rSecond, match, result, eResult, eSecond);
+		visitor.template setEdgeResultRightFromSecondRight<Verbose>(logger, rFirst, rSecond, match, result, eResult,
+		                                                            eSecond);
 		return true;
 	}
 private:

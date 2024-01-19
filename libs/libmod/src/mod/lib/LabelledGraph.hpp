@@ -1,6 +1,8 @@
 #ifndef MOD_LIB_LABELLEDGRAPH_HPP
 #define MOD_LIB_LABELLEDGRAPH_HPP
 
+#include <mod/lib/Term/WAM.hpp>
+
 #include <boost/concept_check.hpp>
 
 namespace mod::lib {
@@ -26,6 +28,8 @@ public:
 		[[maybe_unused]] const GraphType &gConst = get_graph(gOuterConst);
 		[[maybe_unused]] const PropStringType &pString = get_string(gOuterConst);
 		[[maybe_unused]] const PropTermType &pTerm = get_term(gOuterConst);
+		[[maybe_unused]] const bool pIsValid = isValid(pTerm);
+		[[maybe_unused]] const lib::Term::Wam &machine = getMachine(pTerm);
 		[[maybe_unused]] const bool hasStereo = has_stereo(gOuterConst);
 		[[maybe_unused]] const PropStereoType &pStereo = get_stereo(gOuterConst);
 	}
@@ -52,7 +56,7 @@ struct IdentityPropertyHandler {
 	}
 
 	template<typename Op, typename Val>
-	static auto reduce(Op &&op, Val &&val) {
+	static auto reduce(Op &&, Val &&val) {
 		return std::forward<Val>(val);
 	}
 };

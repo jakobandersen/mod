@@ -12,36 +12,40 @@ struct Compound {
 template<>
 struct Compound<> {
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result>
-	bool init(const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
+	bool init(IO::Logger logger, const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
 		return true;
 	}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result>
-	bool finalize(const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
+	bool finalize(IO::Logger logger, const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
 		return true;
 	}
 public:
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexFirst, typename VertexResult>
-	void copyVertexFirst(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyVertexFirst(IO::Logger logger,
+								const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 								const Result &result,
 								const VertexFirst &vFirst, const VertexResult &vResult) {}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexSecond, typename VertexResult>
-	void copyVertexSecond(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyVertexSecond(IO::Logger logger,
+								 const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 								 const Result &result,
 								 const VertexSecond &vSecond, const VertexResult &vResult) {}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename EdgeFirst, typename EdgeResult>
-	void copyEdgeFirst(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyEdgeFirst(IO::Logger logger,
+							 const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 							 const Result &result,
 							 const EdgeFirst &eFirst, const EdgeResult &eResult) {}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename EdgeSecond, typename EdgeResult>
-	void copyEdgeSecond(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyEdgeSecond(IO::Logger logger,
+							  const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 							  const Result &result,
 							  const EdgeSecond &eSecond, const EdgeResult &eResult) {}
 public:
@@ -72,25 +76,29 @@ public:
 public:
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexRvsLR(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void composeVertexRvsLR(IO::Logger logger,
+									const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 									const Result &result,
 									VertexResult vResult, VertexSecond vSecond) {}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsL(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void composeVertexLRvsL(IO::Logger logger,
+									const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 									const Result &result,
 									VertexResult vResult, VertexSecond vSecond) {}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsLR(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void composeVertexLRvsLR(IO::Logger logger,
+									 const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 									 const Result &result,
 									 VertexResult vResult, VertexSecond vSecond) {}
 public:
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename EdgeResult, typename EdgeSecond>
-	void setEdgeResultRightFromSecondRight(const RuleFirst &rFirst, const RuleSecond &rSecond,
+	void setEdgeResultRightFromSecondRight(IO::Logger logger,
+														const RuleFirst &rFirst, const RuleSecond &rSecond,
 														const InvertibleVertexMap &match, const Result &result,
 														EdgeResult eResult, EdgeSecond eSecond) {}
 };
@@ -103,51 +111,55 @@ public:
 			: Base(std::move(visitors)...), visitor(std::move(visitor)) {}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result>
-	bool init(const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
-		bool res = visitor.template init<Verbose>(rFirst, rSecond, match, result);
-		return res && Base::template init<Verbose>(rFirst, rSecond, match, result);
+	bool init(IO::Logger logger, const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
+		bool res = visitor.template init<Verbose>(logger, rFirst, rSecond, match, result);
+		return res && Base::template init<Verbose>(logger, rFirst, rSecond, match, result);
 	}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result>
-	bool finalize(const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
-		bool res = visitor.template finalize<Verbose>(rFirst, rSecond, match, result);
-		return res && Base::template finalize<Verbose>(rFirst, rSecond, match, result);
+	bool finalize(IO::Logger logger, const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result) {
+		bool res = visitor.template finalize<Verbose>(logger, rFirst, rSecond, match, result);
+		return res && Base::template finalize<Verbose>(logger, rFirst, rSecond, match, result);
 	}
 public:
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexFirst, typename VertexResult>
-	void copyVertexFirst(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyVertexFirst(IO::Logger logger,
+								const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 								const Result &result,
 								const VertexFirst &vFirst, const VertexResult &vResult) {
-		visitor.template copyVertexFirst<Verbose>(rFirst, rSecond, match, result, vFirst, vResult);
-		Base::template copyVertexFirst<Verbose>(rFirst, rSecond, match, result, vFirst, vResult);
+		visitor.template copyVertexFirst<Verbose>(logger, rFirst, rSecond, match, result, vFirst, vResult);
+		Base::template copyVertexFirst<Verbose>(logger, rFirst, rSecond, match, result, vFirst, vResult);
 	}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexSecond, typename VertexResult>
-	void copyVertexSecond(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyVertexSecond(IO::Logger logger,
+								 const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 								 const Result &result,
 								 const VertexSecond &vSecond, const VertexResult &vResult) {
-		visitor.template copyVertexSecond<Verbose>(rFirst, rSecond, match, result, vSecond, vResult);
-		Base::template copyVertexSecond<Verbose>(rFirst, rSecond, match, result, vSecond, vResult);
+		visitor.template copyVertexSecond<Verbose>(logger, rFirst, rSecond, match, result, vSecond, vResult);
+		Base::template copyVertexSecond<Verbose>(logger, rFirst, rSecond, match, result, vSecond, vResult);
 	}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename EdgeFirst, typename EdgeResult>
-	void copyEdgeFirst(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyEdgeFirst(IO::Logger logger,
+							 const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 							 const Result &result,
 							 const EdgeFirst &eFirst, const EdgeResult &eResult) {
-		visitor.template copyEdgeFirst<Verbose>(rFirst, rSecond, match, result, eFirst, eResult);
-		Base::template copyEdgeFirst<Verbose>(rFirst, rSecond, match, result, eFirst, eResult);
+		visitor.template copyEdgeFirst<Verbose>(logger, rFirst, rSecond, match, result, eFirst, eResult);
+		Base::template copyEdgeFirst<Verbose>(logger, rFirst, rSecond, match, result, eFirst, eResult);
 	}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename EdgeSecond, typename EdgeResult>
-	void copyEdgeSecond(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void copyEdgeSecond(IO::Logger logger,
+							  const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 							  const Result &result,
 							  const EdgeSecond &eSecond, const EdgeResult &eResult) {
-		visitor.template copyEdgeSecond<Verbose>(rFirst, rSecond, match, result, eSecond, eResult);
-		Base::template copyEdgeSecond<Verbose>(rFirst, rSecond, match, result, eSecond, eResult);
+		visitor.template copyEdgeSecond<Verbose>(logger, rFirst, rSecond, match, result, eSecond, eResult);
+		Base::template copyEdgeSecond<Verbose>(logger, rFirst, rSecond, match, result, eSecond, eResult);
 	}
 public:
 	template<typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result, typename VertexFirst>
@@ -192,38 +204,42 @@ public:
 public:
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexRvsLR(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void composeVertexRvsLR(IO::Logger logger,
+									const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 									const Result &result,
 									VertexResult vResult, VertexSecond vSecond) {
-		visitor.template composeVertexRvsLR<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
-		Base::template composeVertexRvsLR<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
+		visitor.template composeVertexRvsLR<Verbose>(logger, rFirst, rSecond, match, result, vResult, vSecond);
+		Base::template composeVertexRvsLR<Verbose>(logger, rFirst, rSecond, match, result, vResult, vSecond);
 	}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsL(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void composeVertexLRvsL(IO::Logger logger,
+									const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 									const Result &result,
 									VertexResult vResult, VertexSecond vSecond) {
-		visitor.template composeVertexLRvsL<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
-		Base::template composeVertexLRvsL<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
+		visitor.template composeVertexLRvsL<Verbose>(logger, rFirst, rSecond, match, result, vResult, vSecond);
+		Base::template composeVertexLRvsL<Verbose>(logger, rFirst, rSecond, match, result, vResult, vSecond);
 	}
 
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsLR(const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
+	void composeVertexLRvsLR(IO::Logger logger,
+									 const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
 									 const Result &result,
 									 VertexResult vResult, VertexSecond vSecond) {
-		visitor.template composeVertexLRvsLR<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
-		Base::template composeVertexLRvsLR<Verbose>(rFirst, rSecond, match, result, vResult, vSecond);
+		visitor.template composeVertexLRvsLR<Verbose>(logger, rFirst, rSecond, match, result, vResult, vSecond);
+		Base::template composeVertexLRvsLR<Verbose>(logger, rFirst, rSecond, match, result, vResult, vSecond);
 	}
 public:
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,
 			typename EdgeResult, typename EdgeSecond>
-	void setEdgeResultRightFromSecondRight(const RuleFirst &rFirst, const RuleSecond &rSecond,
+	void setEdgeResultRightFromSecondRight(IO::Logger logger,
+														const RuleFirst &rFirst, const RuleSecond &rSecond,
 														const InvertibleVertexMap &match, const Result &result,
 														EdgeResult eResult, EdgeSecond eSecond) {
-		visitor.template setEdgeResultRightFromSecondRight<Verbose>(rFirst, rSecond, match, result, eResult, eSecond);
-		Base::template setEdgeResultRightFromSecondRight<Verbose>(rFirst, rSecond, match, result, eResult, eSecond);
+		visitor.template setEdgeResultRightFromSecondRight<Verbose>(logger, rFirst, rSecond, match, result, eResult, eSecond);
+		Base::template setEdgeResultRightFromSecondRight<Verbose>(logger, rFirst, rSecond, match, result, eResult, eSecond);
 	}
 private:
 	Visitor visitor;

@@ -2,6 +2,7 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include <cassert>
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -130,14 +131,14 @@ void postReopenCommandFile() {
 	postStream.resetStream();
 }
 
-std::ostream &Logger::indent() const {
-	assert(indentLevel >= 0);
-	return s << std::string(indentLevel * 2, ' ');
+std::ostream &Logger::indent(int offset) const {
+	assert(indentLevel + offset >= 0);
+	return s << std::string((indentLevel + offset) * 2, ' ');
 }
 
 std::ostream &Logger::sep(char c) const {
 	assert(indentLevel >= 0);
-	return s << std::string(std::max(10, 80 - indentLevel * 2), c) << '\n';
+	return indent() << std::string(std::max(10, 80 - indentLevel * 2), c) << '\n';
 }
 
 } // namespace mod::lib::IO

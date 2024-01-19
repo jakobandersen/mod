@@ -1,6 +1,8 @@
 #ifndef MOD_LIB_ALGORITHM_MULTIDIMSELECTOR_HPP
 #define MOD_LIB_ALGORITHM_MULTIDIMSELECTOR_HPP
 
+#include <mod/Error.hpp>
+
 namespace mod::lib {
 
 template<bool AllowPartial, typename InnerRangeProvider>

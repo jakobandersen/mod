@@ -1,0 +1,19 @@
+name: mod-env
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - cxx-compiler
+  - make
+  - pkg-config
+  - cmake
+  - boost
+  - boost-cpp
+  - openbabel
+  - python
+  - graphviz>=2.46.1  # to get the rsvg plugin
+  - pdf2svg
+  - ipython
+  - networkx
+  - parse
+  - typing_extensions

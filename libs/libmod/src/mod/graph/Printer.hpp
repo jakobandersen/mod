@@ -130,7 +130,7 @@ struct MOD_DECL Printer {
 	// rst:		Do not use Open Babel for coordinate generation, but only the Graphviz fallback
 	// rst:		during post-processing.
 	// rst:		When setting this to `true` consider setting `setSimpleCarbons(false)` to avoid
-	// rst:		misleading depictions due to colinear carbon chains.
+	// rst:		misleading depictions due to collinear carbon chains.
 	void setWithGraphvizCoords(bool value);
 	bool getWithGraphvizCoords() const;
 public:

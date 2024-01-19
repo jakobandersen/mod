@@ -96,6 +96,11 @@ public:
 	// rst:
 	// rst:		:returns: a range of all edges in the graph.
 	EdgeRange edges() const;
+public:
+	// rst: .. function:: void printTermState() const
+	// rst:
+	// rst:		Print the term state for the graph.
+	void printTermState() const;
 private:
 	std::shared_ptr<const Pimpl> p;
 };
@@ -383,7 +388,7 @@ private:
 // Incidence
 // -----------------------------------------------------------------------------
 
-// rst-class: graph::Union::IncidnetEdgeIterator
+// rst-class: graph::Union::IncidentEdgeIterator
 // rst:
 // rst:		An iterator for traversing all edges in a union graph.
 // rst:		It models a forward iterator.

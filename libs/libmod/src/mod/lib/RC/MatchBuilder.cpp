@@ -57,7 +57,7 @@ void MatchBuilder::pop() {
 
 std::unique_ptr<lib::Rules::Real> MatchBuilder::compose(bool verbose) const {
 	auto ls = labelSettings;
-	// specialization for the morphisms R1 <- M -> L2 means the direct map L2 -> R1 should use unification
+	// specialization for the morphisms R1 <- M -> L2 means the direct map L2 -> R1 should use unification,
 	// so it models doing the pushout of the span
 	if(ls.relation == LabelRelation::Specialisation)
 		ls.relation = LabelRelation::Unification;
@@ -76,7 +76,7 @@ std::unique_ptr<lib::Rules::Real> MatchBuilder::compose(bool verbose) const {
 
 std::vector<std::unique_ptr<lib::Rules::Real>> MatchBuilder::composeAll(bool maximum, bool verbose) const {
 	auto ls = labelSettings;
-	// specialization for the morphisms R1 <- M -> L2 means the direct map L2 -> R1 should use unification
+	// specialization for the morphisms R1 <- M -> L2 means the direct map L2 -> R1 should use unification,
 	// so it models doing the pushout of the span
 	if(ls.relation == LabelRelation::Specialisation)
 		ls.relation = LabelRelation::Unification;

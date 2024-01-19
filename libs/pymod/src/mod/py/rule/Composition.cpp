@@ -50,11 +50,6 @@ std::vector<std::shared_ptr<Rule>> getProducts(std::shared_ptr<Composer> rc) {
 	return std::vector<std::shared_ptr<Rule>>(begin(rc->getProducts()), end(rc->getProducts()));
 }
 
-std::vector<std::shared_ptr<Rule>> eval(std::shared_ptr<Composer> rc, const RCExp::Expression &e, int verbosity) {
-	auto result = rc->eval(e, verbosity);
-	return std::vector<std::shared_ptr<Rule>>(begin(result), end(result));
-}
-
 std::shared_ptr<Composer> create(const std::vector<std::shared_ptr<Rule>> dVec, LabelSettings labelSettings) {
 	std::unordered_set<std::shared_ptr<Rule>> dUSet(begin(dVec), end(dVec));
 	return Composer::create(dUSet, labelSettings);
@@ -63,7 +58,6 @@ std::shared_ptr<Composer> create(const std::vector<std::shared_ptr<Rule>> dVec, 
 } // namespace 
 
 void Composition_doExport() {
-
 	// rst: Expression Evaluator
 	// rst: #################################################
 	// rst:
@@ -92,18 +86,19 @@ void Composition_doExport() {
 					// rst:
 					// rst:			:type: list[Rule]
 			.add_property("_products", &getProducts)
-					// rst:		.. method:: eval(exp, *, verbosity=0)
+					// rst:		.. method:: eval(exp, *, onlyUnique=True, verbosity=0)
 					// rst:
 					// rst:			Evaluates a rule composition expression.
 					// rst:			Any created rule is replaced by a rule in the database if they are isomorphic.
 					// rst:			A rule may appear multiple times in the result if multiple overlaps resulted in the same composed rule.
 					// rst:
 					// rst:			:param RCExpExp exp: the expression to evaluate.
+					// rst:			:param bool onlyUnique: whether each composition (sub-)result may contain duplicates or not.
 					// rst:			:param int verbosity: the level of information being printed about the evaluation.
 					// rst:				See :cpp:func:`rule::Composer::eval` for details.
 					// rst:			:returns: the resulting list of rules of the expression.
 					// rst:			:rtype: list[Rule]
-			.def("eval", &eval)
+			.def("eval", &Composer::eval)
 					// rst:		.. method:: print()
 					// rst:
 					// rst:			Print the graph representing all expressions evaluated so far.
@@ -159,7 +154,7 @@ void Composition_doExport() {
 			.def(py::init<std::shared_ptr<graph::Graph>>())
 			.def(str(py::self));
 
-	// Expresssion
+	// Expression
 	//--------------------------------------------------------------------------
 	// rst: .. class:: RCExpExp
 	// rst:

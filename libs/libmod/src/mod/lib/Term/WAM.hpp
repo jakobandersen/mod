@@ -249,7 +249,7 @@ struct Wam {
 
 	void setTemp(const Wam &other) {
 		temp = other.heap;
-		for(Cell &cell : temp) {
+		for(Cell &cell: temp) {
 			switch(cell.tag) {
 			case Cell::Tag::REF:
 				assert(cell.REF.addr.type == AddressType::Heap);
@@ -271,7 +271,7 @@ struct Wam {
 	}
 
 	void revert(const MGU &mgu) {
-		for(const Address &a : mgu.bindings) {
+		for(const Address &a: mgu.bindings) {
 			Cell &c = getCell(a);
 			assert(c.tag == Cell::Tag::REF);
 			assert(c.REF.addr != a);
@@ -279,6 +279,26 @@ struct Wam {
 		}
 		assert(heap.size() >= mgu.preHeapSize);
 		heap.resize(mgu.preHeapSize);
+	}
+
+	void appendHeapFrom(const Wam &mOther) {
+		const int offset = heap.size();
+		heap.reserve(heap.size() + mOther.heap.size());
+		for(Cell c: mOther.heap) {
+			switch(c.tag) {
+			case Cell::Tag::STR:
+				assert(c.STR.addr.type == AddressType::Heap);
+				c.STR.addr.addr += offset;
+				break;
+			case Cell::Tag::REF:
+				assert(c.REF.addr.type == AddressType::Heap);
+				c.REF.addr.addr += offset;
+				break;
+			case Cell::Tag::Structure:
+				break;
+			}
+			heap.push_back(c);
+		}
 	}
 private:
 	std::vector<Cell> heap;
@@ -296,7 +316,7 @@ inline bool MGU::isRenaming(const Wam &machine) const {
 	assert(status == Status::Exists);
 	if(preHeapSize != machine.getHeap().size()) return false;
 	std::vector<bool> isTarget(preHeapSize, false);
-	for(auto addr : bindings) {
+	for(auto addr: bindings) {
 		// addr may be in either temp or heap
 		addr = machine.deref(addr);
 		assert(addr.type == AddressType::Heap);
@@ -311,7 +331,7 @@ inline bool MGU::isRenaming(const Wam &machine) const {
 inline bool MGU::isSpecialisation(const Wam &machine) const {
 	assert(status == Status::Exists);
 	if(preHeapSize != machine.getHeap().size()) return false;
-	for(auto addr : bindings) {
+	for(auto addr: bindings) {
 		// only temp addresses should be bound
 		if(addr.type == AddressType::Heap) return false;
 	}
@@ -372,7 +392,7 @@ inline void Wam::unifyHeapHeap(std::size_t lhs, std::size_t rhs, MGU &mgu) {
 
 inline void Wam::verify() const {
 	// nothing in the heap should point at temp
-	for(Cell cell : heap) {
+	for(Cell cell: heap) {
 		switch(cell.tag) {
 		case Cell::Tag::REF:
 			if(cell.REF.addr.type != AddressType::Heap) MOD_ABORT;

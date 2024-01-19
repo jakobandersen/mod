@@ -138,10 +138,7 @@ public: // PropertyGraph
 	}
 
 	template<typename VertexOrEdge, typename Value>
-	friend void put(const boost::edge_index_t &, Self &g, VertexOrEdge ve, Value &&v) {
-		// TODO: change to use "= delete" when GCC 5 is required (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=62101))
-		static_assert(sizeof(ve) == 0, "You should not mess with this.");
-	}
+	friend void put(const boost::edge_index_t &, Self &g, VertexOrEdge ve, Value &&v) = delete; // You should not mess with this.
 
 	template<typename VertexOrEdge>
 	decltype(auto) operator[](VertexOrEdge ve) {

@@ -9,6 +9,7 @@
 
 namespace mod {
 struct Derivations;
+template<typename T> struct Function;
 } // namespace mod
 namespace mod::lib::DG {
 struct ExecuteResult;
@@ -26,7 +27,9 @@ namespace mod::dg {
 // rst-class-start:
 class MOD_DECL Builder {
 	friend class DG;
-	explicit Builder(lib::DG::NonHyperBuilder &dg_);
+	explicit Builder(lib::DG::NonHyperBuilder &dg_,
+					 std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+					 std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge);
 public:
 	Builder(Builder &&other);
 	Builder &operator=(Builder &&other);
@@ -79,7 +82,7 @@ public:
 	// rst:               ExecuteResult execute(std::shared_ptr<Strategy> strategy, int verbosity)
 	// rst:               ExecuteResult execute(std::shared_ptr<Strategy> strategy, int verbosity, bool ignoreRuleLabelTypes)
 	// rst:
-	// rst:		Execute the given strategy (:ref:`dgStrat`) and as a side-effect add
+	// rst:		Execute the given strategy (:ref:`dgStrat`) and as a side effect add
 	// rst:		vertices and hyperedges to the underlying derivation graph.
 	// rst:
 	// rst:		The :cpp:var:`verbosity` defaults to level 2.
@@ -158,8 +161,8 @@ public:
 	// rst:		Add vertices and hyperedges based on the given abstract description.
 	// rst:		The description must adhere to the grammar described at :ref:`dg_abstract-desc`.
 	// rst:
-	// rst:		For each vertex named in the description a graph object with no vertices will be created,
-	// rst:		and its name set to the given identifier.
+	// rst:		For each vertex named in the description a graph object with a single vertex will be created.
+	// rst:		The label of that vertex and the name of the graph is set to the given identifier.
 	// rst:
 	// rst:		:throws: :class:`InputError` if the description could not be parsed.
 	void addAbstract(const std::string &description);

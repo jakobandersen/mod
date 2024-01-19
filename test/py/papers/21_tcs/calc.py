@@ -1,8 +1,5 @@
 # A few imports for type annotations.
 from typing import List, Tuple
-# Silence some noise from the stereo-information prototype.
-config.stereo.silenceDeductionWarnings = True
-
 
 btToOrder = {
 	BondType.Single: 1,
@@ -68,7 +65,7 @@ def compose(r1: Rule, r2: Rule, rc: RCEvaluator) -> Tuple[CompRes, CompRes]:
 	#       perform the parallel composition explicitly.
 
 	# Enable debug visualisation of each successful composition.
-	# The visualizations will be inserted in the summary.
+	# The visualisations will be inserted in the summary.
 	# They form the basis of the figures in Appendix F.
 	config.rc.printMatches = True
 	# Print vertex indices in those visualilzations.

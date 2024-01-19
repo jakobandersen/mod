@@ -54,13 +54,12 @@ bool validateJson(const nlohmann::json &j,
 	struct ErrorHandler : nlohmann::json_schema::basic_error_handler {
 		ErrorHandler(std::ostream &err, const std::string &msg) : err(err), msg(msg) {}
 
-		void error(const nlohmann::json_pointer<nlohmann::basic_json<>> &pointer,
+		void error(const nlohmann::json::json_pointer &pointer,
 		           const nlohmann::json &instance,
 		           const std::string &message) override {
 			nlohmann::json_schema::basic_error_handler::error(pointer, instance, message);
 			err << msg << "\n\t" << message << " at " << pointer << " in\n\t" << instance << "\n";
 		}
-
 	public:
 		std::ostream &err;
 		const std::string &msg;

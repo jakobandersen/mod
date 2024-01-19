@@ -15,7 +15,7 @@
 namespace mod::lib::RC {
 
 template<bool Verbose, typename Result, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename VisitorT>
-bool compose(Result &result,
+bool compose(IO::Logger logger, Result &result,
 				 const RuleFirst &rFirst, const RuleSecond &rSecond, const InvertibleVertexMap &match,
              VisitorT visitor) {
 	// match must be rSecond -> rFirst
@@ -27,7 +27,7 @@ bool compose(Result &result,
 	BOOST_CONCEPT_ASSERT((jla_boost::GraphMorphism::InvertibleVertexMapConcept<InvertibleVertexMap>));
 	return detail::CompositionHelper<Verbose, Result, RuleFirst, RuleSecond,
 			InvertibleVertexMap, WrappedVisitor>(result, rFirst, rSecond, match,
-	                                           Visitor::makeVisitor(std::move(visitor)))();
+	                                           Visitor::makeVisitor(std::move(visitor)))(logger);
 }
 
 } // namespace mod::lib::RC

@@ -132,7 +132,7 @@ public:
 	const std::string &getGraphDFS() const;
 	// rst: .. function:: const std::string &getGraphDFSWithIds() const
 	// rst:
-	// rst:		:returns: a :ref:`GraphDFS <format-graphDFS>` string of the graph, where each vertices have an explicit id,
+	// rst:		:returns: a :ref:`GraphDFS <format-graphDFS>` string of the graph, where each vertex have an explicit id,
 	// rst:			corresponding to its internal vertex id.
 	const std::string &getGraphDFSWithIds() const;
 	// rst: .. function:: const std::string &getLinearEncoding() const
@@ -141,7 +141,7 @@ public:
 	const std::string &getLinearEncoding() const;
 	// rst: .. function:: bool getIsMolecule() const
 	// rst:
-	// rst:		:returns: whether or not the graph models a molecule. See :ref:`mol-enc`.
+	// rst:		:returns: whether the graph models a molecule. See :ref:`mol-enc`.
 	bool getIsMolecule() const;
 	// rst: .. function:: double getEnergy() const
 	// rst:
@@ -204,6 +204,9 @@ public:
 	// rst: .. function:: std::shared_ptr<Graph> makePermutation() const
 	// rst:
 	// rst:		:returns: a graph isomorphic to this, but with the vertex indices randomly permuted.
+	// rst:
+	// rst:		.. note: Currently, permuting stereo-information is not supported, and the resulting
+	// rst:			graphs thus have any stereo-information stripped.
 	std::shared_ptr<Graph> makePermutation() const;
 	// rst: .. function:: void setImage(std::shared_ptr<Function<std::string()>> image)
 	// rst:
@@ -266,22 +269,26 @@ private:
 	// this is only instantiated when the graph is loaded from an external format
 	std::unique_ptr<ExternalData> externalData;
 public:
-	// rst: .. function:: static std::shared_ptr<Graph> fromGMLString(const std::string &data)
-	// rst:               static std::shared_ptr<Graph> fromGMLFile(const std::string &file)
+	// rst: .. function:: static std::shared_ptr<Graph> fromGMLString(const std::string &data, bool printStereoWarnings = true)
+	// rst:               static std::shared_ptr<Graph> fromGMLFile(const std::string &file, bool printStereoWarnings = true)
 	// rst:
+	// rst:		:param printStereoWarnings: whether to print warnings due to unhandled stereo information.
 	// rst:		:returns: a graph created from the given :ref:`GML <graph-gml>` in a string or file.
 	// rst:			The graph must be connected. Use :func:`fromGMLStringMulti` or :func:`fromGMLFile` if it is not.
 	// rst:		:throws: :class:`InputError` on bad input.
-	static std::shared_ptr<Graph> fromGMLString(const std::string &data);
-	static std::shared_ptr<Graph> fromGMLFile(const std::string &file);
-	// rst: .. function:: std::vector<std::shared_ptr<Graph>> fromGMLStringMulti(const std::string &data)
-	// rst:               std::vector<std::shared_ptr<Graph>> fromGMLFileMulti(const std::string &file)
+	static std::shared_ptr<Graph> fromGMLString(const std::string &data, bool printStereoWarnings = true);
+	static std::shared_ptr<Graph> fromGMLFile(const std::string &file, bool printStereoWarnings = true);
+	// rst: .. function:: std::vector<std::shared_ptr<Graph>> fromGMLStringMulti(const std::string &data, bool printStereoWarnings = true)
+	// rst:               std::vector<std::shared_ptr<Graph>> fromGMLFileMulti(const std::string &file, bool printStereoWarnings = true)
 	// rst:
+	// rst:		:param printStereoWarnings: whether to print warnings due to unhandled stereo information.
 	// rst:		:returns: a list of graphs, loaded from the given :ref:`GML <graph-gml>` in a string or file.
 	// rst:			The graphs are the connected components of the graph specified in the data.
 	// rst:		:throws: :class:`InputError` on bad input.
-	static std::vector<std::shared_ptr<Graph>> fromGMLStringMulti(const std::string &data);
-	static std::vector<std::shared_ptr<Graph>> fromGMLFileMulti(const std::string &file);
+	static std::vector<std::shared_ptr<Graph>>
+	fromGMLStringMulti(const std::string &data, bool printStereoWarnings = true);
+	static std::vector<std::shared_ptr<Graph>>
+	fromGMLFileMulti(const std::string &file, bool printStereoWarnings = true);
 	// ===========================================================================
 	// rst: .. function:: static std::shared_ptr<Graph> fromDFS(const std::string &graphDFS)
 	// rst:
@@ -298,8 +305,9 @@ public:
 // ===========================================================================
 	// rst: .. function:: static std::shared_ptr<Graph> fromSMILES(const std::string &smiles)
 	// rst:               static std::shared_ptr<Graph> fromSMILES(const std::string &smiles, bool allowAbstract, \
-	// rst:                                                        SmilesClassPolicy classPolicy)
+	// rst:                                                        SmilesClassPolicy classPolicy, bool printStereoWarnings)
 	// rst:
+	// rst:		:param printStereoWarnings: whether to print warnings due to unhandled stereo information. Defaults to `true`.
 	// rst:		:param allowAbstract: whether abstract atoms, e.g., ``*``, are allowed. Defaults to `false`.
 	// rst:		:param classPolicy: which policy to use for class labels. Defaults to `SmilesClassPolicy::NoneOnDuplicate`.
 	// rst:		:returns: a graph representing a molecule, loaded from the given :ref:`SMILES <graph-smiles>` string.
@@ -308,10 +316,10 @@ public:
 	// rst:		:throws: :class:`InputError` if `classPolicy == SmilesClassPolicy::NoneOnDuplicate` and a class label is duplicated.
 	static std::shared_ptr<Graph> fromSMILES(const std::string &smiles);
 	static std::shared_ptr<Graph> fromSMILES(const std::string &smiles, bool allowAbstract,
-	                                         SmilesClassPolicy classPolicy);
+	                                         SmilesClassPolicy classPolicy, bool printStereoWarnings);
 	// rst: .. function:: static std::vector<std::shared_ptr<Graph>> fromSMILESMulti(const std::string &smiles)
 	// rst:               static std::vector<std::shared_ptr<Graph>> fromSMILESMulti(const std::string &smiles, bool allowAbstract, \
-	// rst:                                                                          SmilesClassPolicy classPolicy)
+	// rst:                                                                          SmilesClassPolicy classPolicy, bool printStereoWarnings)
 	// rst:
 	// rst:		See :func:`fromSMILES` for parameter and exception descriptions.
 	// rst:
@@ -319,7 +327,7 @@ public:
 	// rst:			The graphs are the connected components of the graph specified in the SMILES string.
 	static std::vector<std::shared_ptr<Graph>> fromSMILESMulti(const std::string &smiles);
 	static std::vector<std::shared_ptr<Graph>> fromSMILESMulti(const std::string &smiles, bool allowAbstract,
-	                                                           SmilesClassPolicy classPolicy);
+	                                                           SmilesClassPolicy classPolicy, bool printStereoWarnings);
 	// ===========================================================================
 	// rst: .. function:: static std::shared_ptr<Graph> fromMOLString(const std::string &data, const MDLOptions &options)
 	// rst:               static std::shared_ptr<Graph> fromMOLFile(const std::string &file, const MDLOptions &options)
@@ -341,14 +349,14 @@ public:
 	// rst: .. function:: static std::vector<std::shared_ptr<Graph>> fromSDString(const std::string &data, const MDLOptions &options)
 	// rst:               static std::vector<std::shared_ptr<Graph>> fromSDFile(const std::string &file, const MDLOptions &options)
 	// rst:
-	// rst:		:returns: a list of graphs graph created from the given :ref:`SD <graph-mdl>` data.
+	// rst:		:returns: a list of graphs created from the given :ref:`SD <graph-mdl>` data.
 	// rst:		:throws: :class:`InputError` on bad input.
 	static std::vector<std::shared_ptr<Graph>> fromSDString(const std::string &data, const MDLOptions &options);
 	static std::vector<std::shared_ptr<Graph>> fromSDFile(const std::string &file, const MDLOptions &options);
 	// rst: .. function:: static std::vector<std::vector<std::shared_ptr<Graph>>> fromSDStringMulti(const std::string &data, const MDLOptions &options)
 	// rst:               static std::vector<std::vector<std::shared_ptr<Graph>>> fromSDFileMulti(const std::string &file, const MDLOptions &options)
 	// rst:
-	// rst:		:returns: a list of lists of graphs graph created from the given :ref:`SD <graph-mdl>` data.
+	// rst:		:returns: a list of lists of graphs created from the given :ref:`SD <graph-mdl>` data.
 	// rst:		:throws: :class:`InputError` on bad input.
 	static std::vector<std::vector<std::shared_ptr<Graph>>>
 	fromSDStringMulti(const std::string &data, const MDLOptions &options);

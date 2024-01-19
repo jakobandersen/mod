@@ -43,7 +43,7 @@ void Data::reset() {
 	g.reset();
 }
 
-Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src) {
+Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src, bool printStereoWarnings) {
 	GML::Graph gGML;
 	{
 		gml::ast::KeyValue ast;
@@ -132,8 +132,8 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src)
 		return std::pair(comp, vertex(vIdIter->second, *datas[comp].g));
 	};
 	for(const auto &eGML: gGML.edges) {
-		const auto[comp, vSrc] = vFromVertexId(eGML.source);
-		const auto[compTar, vTar] = vFromVertexId(eGML.target);
+		const auto [comp, vSrc] = vFromVertexId(eGML.source);
+		const auto [compTar, vTar] = vFromVertexId(eGML.target);
 		assert(comp == compTar);
 		auto &g = *datas[comp].g;
 		const auto eQuery = edge(vSrc, vTar, g);
@@ -165,8 +165,8 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src)
 	// Set the explicitly defined edge categories.
 	//----------------------------------------------------------------------------
 	for(const auto &eGML: gGML.edges) {
-		const auto[comp, vSrc] = vFromVertexId(eGML.source);
-		const auto[compTar, vTar] = vFromVertexId(eGML.target);
+		const auto [comp, vSrc] = vFromVertexId(eGML.source);
+		const auto [compTar, vTar] = vFromVertexId(eGML.target);
 		assert(comp == compTar);
 		const auto &g = *datas[comp].g;
 		const auto ePair = edge(vSrc, vTar, g);
@@ -195,7 +195,7 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src)
 	//----------------------------------------------------------------------------
 	for(auto &vGML: gGML.vertices) {
 		if(!vGML.stereo) continue;
-		const auto[comp, v] = vFromVertexId(vGML.id);
+		const auto [comp, v] = vFromVertexId(vGML.id);
 		if(auto res = lib::Stereo::Read::parseEmbedding(*vGML.stereo)) {
 			vGML.parsedEmbedding = std::move(*res);
 		} else {
@@ -209,7 +209,7 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src)
 			const auto vGeo = gGeometry.findGeometry(*embGML.geometry);
 			if(vGeo == gGeometry.nullGeometry())
 				return atError("Error in stereo data for vertex " + std::to_string(vGML.id)
-				               + ". Invalid gGeometry '" + *embGML.geometry + "'.");
+				               + ". Invalid geometry '" + *embGML.geometry + "'.");
 			if(auto res = stereoInferences[comp].assignGeometry(v, vGeo); !res)
 				return atError("Error in stereo data for vertex " + std::to_string(vGML.id) + ". "
 				               + res.extractError());
@@ -224,7 +224,7 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src)
 					if(globalIddFromExtID.find(extIDNeighbour) == end(globalIddFromExtID))
 						return atError("Neighbour vertex " + std::to_string(extIDNeighbour)
 						               + " in stereo embedding for vertex " + std::to_string(vGML.id) + " does not exist.");
-					const auto[compNeighbour, vNeighbour] = vFromVertexId(extIDNeighbour);
+					const auto [compNeighbour, vNeighbour] = vFromVertexId(extIDNeighbour);
 					const auto ePair = edge(v, vNeighbour, *datas[comp].g);
 					if(!ePair.second)
 						return atError("Error in graph GML. Vertex " + std::to_string(extIDNeighbour) +
@@ -261,14 +261,12 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src)
 
 	for(int comp = 0; comp != numComponents; ++comp) {
 		// TODO: the warning should only be printed once, instead of for each connected component
-		lib::IO::Warnings stereoWarnings;
 		auto stereoResult = stereoInferences[comp].finalize(
-				stereoWarnings, [comp, &extIDFromVertex](lib::Graph::Vertex v) {
+				warnings, printStereoWarnings, [comp, &extIDFromVertex](lib::Graph::Vertex v) {
 					const auto iter = extIDFromVertex[comp].find(v);
 					assert(iter != extIDFromVertex[comp].end());
 					return std::to_string(iter->second);
 				});
-		warnings.addFrom(std::move(stereoWarnings), !getConfig().stereo.silenceDeductionWarnings.get());
 		if(!stereoResult)
 			return atError(stereoResult.extractError());
 		datas[comp].pStereo = std::make_unique<lib::Graph::PropStereo>(*datas[comp].g, std::move(stereoInferences[comp]));
@@ -291,7 +289,7 @@ public:
 	JoinConnected(ConnectedComponents &components) : components(components) {}
 
 	void operator()(const Chain &chain) {
-		auto[prev, isRingClosure] = (*this)(chain.head, nullptr);
+		auto [prev, isRingClosure] = (*this)(chain.head, nullptr);
 		assert(!isRingClosure);
 		assert(prev);
 		for(const EVPair &ev: chain.tail) {
@@ -301,7 +299,7 @@ public:
 	}
 
 	ConvertRes operator()(const Vertex &vertex, const LabelVertex *prev) {
-		const auto[subNext, subIsRingClosure] = boost::apply_visitor(*this, vertex.vertex);
+		const auto [subNext, subIsRingClosure] = boost::apply_visitor(*this, vertex.vertex);
 		assert(!(subIsRingClosure && prev == nullptr));
 		const auto *branchRoot = subIsRingClosure ? prev : subNext;
 		for(const Branch &branch: vertex.branches) {
@@ -315,7 +313,7 @@ public:
 	}
 
 	const LabelVertex *operator()(const EVPair &ev, const LabelVertex *prev) {
-		const auto[next, isRingClosure] = (*this)(ev.second, prev);
+		const auto [next, isRingClosure] = (*this)(ev.second, prev);
 		join(prev, next, ev.first.label);
 		if(isRingClosure) return prev;
 		else return next;
@@ -330,11 +328,13 @@ public:
 	ConvertRes operator()(const RingClosure &vertex) {
 		return {vertex.other, true};
 	}
+
 private:
 	void join(const LabelVertex *src, const LabelVertex *tar, const std::string &label) {
 		if(label.empty()) return; // a dot edge for no-edge
 		components.join(src->connectedComponentID, tar->connectedComponentID);
 	}
+
 private:
 	ConnectedComponents &components;
 };
@@ -403,6 +403,7 @@ public:
 		const int component = components[rc.other->connectedComponentID];
 		return {component, vertex(rc.other->gVertexId, *gPtrs[component]), true};
 	}
+
 private:
 	void makeEdge(int srcComponent, GVertex vSrc, int tarComponent, GVertex vTar, const std::string &label) {
 		if(label.empty()) return; // a dot edge for no-edge
@@ -413,6 +414,7 @@ private:
 		assert(e.second);
 		pStringPtrs[srcComponent]->addEdge(e.first, label);
 	}
+
 private:
 	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
 	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
@@ -462,6 +464,7 @@ struct ImplicitHydrogenAdder {
 		};
 		lib::Chem::addImplicitHydrogens(g, pString, gVertex, atomId, hydrogenAdder);
 	}
+
 private:
 	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
 	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
@@ -507,9 +510,9 @@ Result<std::vector<Data>> dfs(lib::IO::Warnings &warnings, std::string_view src)
 	return std::move(datas); // TODO: remove std::move when C++20/P1825R0 is available
 }
 
-Result<std::vector<Data>> smiles(lib::IO::Warnings &warnings, std::string_view src, const bool allowAbstract,
-                                 SmilesClassPolicy classPolicy) {
-	return lib::Chem::readSmiles(warnings, src, allowAbstract, classPolicy);
+Result<std::vector<Data>> smiles(lib::IO::Warnings &warnings, std::string_view src, bool printStereoWarnings,
+                                 bool allowAbstract, SmilesClassPolicy classPolicy) {
+	return lib::Chem::readSmiles(warnings, printStereoWarnings, src, allowAbstract, classPolicy);
 }
 
 Result<std::vector<Data>> MDLMOL(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &options) {

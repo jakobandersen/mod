@@ -20,6 +20,7 @@ set_target_properties(gml PROPERTIES
         VISIBILITY_INLINES_HIDDEN ON)
 target_compile_definitions(gml PRIVATE GML_SOURCE)
 
+handle_sanitizers(gml)
 target_add_coverage(gml)
 
 install(TARGETS gml
@@ -43,21 +44,13 @@ if(BUILD_TESTING)
     endif()
     add_dependencies(tests ${mod_gml_TEST_CPP_FILES})
 
-    if("x${CMAKE_CXX_COMPILER_ID}" STREQUAL "xAppleClang")
-        set(sanFlags -g -fsanitize=undefined -fsanitize=address)
-    else()
-        set(sanFlags -g -fsanitize=undefined -fsanitize=address -fsanitize=leak)
-    endif()
     foreach(testName ${mod_gml_TEST_CPP_FILES})
         add_executable(${testName} EXCLUDE_FROM_ALL test/${testName}.cpp)
         target_compile_options(${testName} PRIVATE -Wall -Wextra -pedantic -Werror
                 -Wno-unused-parameter
                 -Wno-parentheses)
         target_link_libraries(${testName} PRIVATE GML::gml)
-        if(BUILD_TESTING_SANITIZERS AND NOT BUILD_COVERAGE)
-            target_compile_options(${testName} PRIVATE ${sanFlags})
-            target_link_libraries(${testName} PRIVATE ${sanFlags})
-        endif()
+        handle_sanitizers(${testName})
         target_add_coverage(${testName})
         add_test(${testName} ${testName})
         add_coverage_case(${testName})

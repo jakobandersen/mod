@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Create an "installation" of the Python parts by symlinking them into
 # build/checkPython/mod, and then run the Python tools.
 root=$(git rev-parse --show-toplevel)

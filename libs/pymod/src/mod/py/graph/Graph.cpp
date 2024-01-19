@@ -118,7 +118,7 @@ void Graph_doExport() {
 			              py::make_function(&Graph::getGraphDFS, py::return_value_policy<py::copy_const_reference>()))
 					// rst:		.. attribute:: graphDFSWithIds
 					// rst:
-					// rst:			(Read-only) This is a :ref:`GraphDFS <format-graphDFS>` of the graph, where each vertices have an explicit id,
+					// rst:			(Read-only) This is a :ref:`GraphDFS <format-graphDFS>` of the graph, where each vertex have an explicit id,
 					// rst:			corresponding to its internal vertex id.
 					// rst:
 					// rst:			:type: str
@@ -133,7 +133,7 @@ void Graph_doExport() {
 			                                                  py::return_value_policy<py::copy_const_reference>()))
 					// rst:		.. attribute:: isMolecule
 					// rst:
-					// rst:			(Read-only) Whether or not the graph models a molecule. See :ref:`mol-enc`.
+					// rst:			(Read-only) Whether the graph models a molecule. See :ref:`mol-enc`.
 					// rst:
 					// rst:			:type: bool
 			.add_property("isMolecule", &Graph::getIsMolecule)
@@ -204,6 +204,9 @@ void Graph_doExport() {
 					// rst:
 					// rst:			:returns: a graph isomorphic to this, but with the vertex indices randomly permuted.
 					// rst:			:rtype: Graph
+					// rst:
+					// rst:			.. note: Currently, permuting stereo-information is not supported, and the resulting
+					// rst:				graphs thus have any stereo-information stripped.
 			.def("makePermutation", &Graph::makePermutation)
 					// rst:		.. attribute:: image
 					// rst:
@@ -213,7 +216,7 @@ void Graph_doExport() {
 					// rst:
 					// rst:			:type: Callable[[], str]
 			.add_property("image", &mod::Py::noGet, &Graph::setImage)
-					// rst:		.. attribute:: imageCommad
+					// rst:		.. attribute:: imageCommand
 					// rst:
 					// rst:			A command to be run in post-processing if a custom depiction is set.
 					// rst:			The command is only run once.
@@ -269,8 +272,8 @@ void Graph_doExport() {
 					// rst: Loading Functions
 					// rst: =================
 					// rst:
-					// rst:	.. staticmethod:: Graph.fromGMLString(s, name=None, add=True)
-					// rst:                    Graph.fromGMLFile(f, name=None, add=True)
+					// rst:	.. staticmethod:: Graph.fromGMLString(s, name=None, add=True, printStereoWarnings=True)
+					// rst:                    Graph.fromGMLFile(f, name=None, add=True, printStereoWarnings=True)
 					// rst:
 					// rst:		Load a graph in :ref:`GML <graph-gml>` format from a given string, ``s``,
 					// rst:		or given file ``f``.
@@ -282,6 +285,7 @@ void Graph_doExport() {
 					// rst:		:type f: str or CWDPath
 					// rst:		:param str name: the name of the graph. If none is given the default name is used.
 					// rst:		:param bool add: whether to append the graph to :data:`inputGraphs` or not.
+					// rst:		:param bool printStereoWarnings: whether to print warnings due to unhandled stereo information.
 					// rst:		:returns: the loaded graph.
 					// rst:		:rtype: Graph
 					// rst:		:raises: :class:`InputError` on bad input.
@@ -289,8 +293,8 @@ void Graph_doExport() {
 			.staticmethod("fromGMLString")
 			.def("fromGMLFile", &Graph::fromGMLFile)
 			.staticmethod("fromGMLFile")
-					// rst:	.. staticmethod:: Graph.fromGMLStringMulti(s, add=True)
-					// rst:                    Graph.fromGMLFileMulti(f, add=True)
+					// rst:	.. staticmethod:: Graph.fromGMLStringMulti(s, add=True, printStereoWarnings=True)
+					// rst:                    Graph.fromGMLFileMulti(f, add=True, printStereoWarnings=True)
 					// rst:
 					// rst:		Load a set of graphs in :ref:`GML <graph-gml>` format from a given string, ``s``,
 					// rst:		or given file ``f``,
@@ -331,7 +335,7 @@ void Graph_doExport() {
 					// rst:		:raises: :class:`InputError` on bad input.
 			.def("fromDFSMulti", &Graph::fromDFSMulti)
 			.staticmethod("fromDFSMulti")
-					// rst: .. staticmethod:: Graph.fromSMILES(s, name=None, allowAbstract=False, classPolicy=SmilesClassPolicy.NoneOnDuplicate, add=True)
+					// rst: .. staticmethod:: Graph.fromSMILES(s, name=None, allowAbstract=False, classPolicy=SmilesClassPolicy.NoneOnDuplicate, add=True, printStereoWarnings=True)
 					// rst:
 					// rst:		Load a molecule from a :ref:`SMILES <graph-smiles>` string.
 					// rst:		The molecule must be a connected graph. If not, use :meth:`fromSMILESMulti`.
@@ -340,13 +344,15 @@ void Graph_doExport() {
 					// rst:		:param str name: the name of the graph. If none is given the default name is used.
 					// rst:		:param bool allowAbstract: whether to allow abstract vertex labels in bracketed atoms.
 					// rst:		:param bool add: whether to append the graph to :data:`inputGraphs` or not.
+					// rst:		:param bool printStereoWarnings: whether to print warnings due to unhandled stereo information.
 					// rst:		:returns: the loaded molecule.
 					// rst:		:rtype: Graph
 					// rst:		:raises: :class:`InputError` on bad input.
 			.def("fromSMILES",
-			     static_cast<std::shared_ptr<Graph> (*)(const std::string &, bool, SmilesClassPolicy)>(&Graph::fromSMILES))
+			     static_cast<std::shared_ptr<Graph> (*)(
+					     const std::string &, bool, SmilesClassPolicy, bool)>(&Graph::fromSMILES))
 			.staticmethod("fromSMILES")
-					// rst: .. staticmethod:: Graph.fromSMILESMulti(s, allowAbstract=False, classPolicy=SmilesClassPolicy.NoneOnDuplicate, add=True)
+					// rst: .. staticmethod:: Graph.fromSMILESMulti(s, allowAbstract=False, classPolicy=SmilesClassPolicy.NoneOnDuplicate, add=True, printStereoWarnings=True)
 					// rst:
 					// rst:		Load a set of molecules from a :ref:`SMILES <graph-smiles>` string,
 					// rst:		with each molecule being a connected component of the graph specified in the SMILES string.
@@ -355,8 +361,8 @@ void Graph_doExport() {
 					// rst:
 					// rst:		:returns: a list of the loaded molecules.
 					// rst:		:rtype: list[Graph]
-			.def("fromSMILESMulti", static_cast<std::vector<std::shared_ptr<Graph>>(*)(const std::string &, bool,
-			                                                                           SmilesClassPolicy)>(&Graph::fromSMILESMulti))
+			.def("fromSMILESMulti", static_cast<std::vector<std::shared_ptr<Graph>>(*)(
+					const std::string &, bool, SmilesClassPolicy, bool)>(&Graph::fromSMILESMulti))
 			.staticmethod("fromSMILESMulti")
 					// rst: .. staticmethod:: Graph.fromMOLString(s, name=None, options=MDLOptions(), add=True)
 					// rst:                   Graph.fromMOLFile(f, name=None, options=MDLOptions(), add=True)
@@ -397,7 +403,7 @@ void Graph_doExport() {
 					// rst:                   Graph.fromSDFile(f, options=MDLOptions(), add=True)
 					// rst:
 					// rst:		Load a list of molecules in :ref:`SD <graph-mdl>` format from a given string or file,
-					// rst:		with each molecule being a connected component of each of the the graphs specified in the data.
+					// rst:		with each molecule being a connected component of each of the graphs specified in the data.
 					// rst:		If any graph is not connected, use :meth:`fromSDStringMulti` and :meth:`fromSDFileMulti` instead.
 					// rst:
 					// rst:		:param str s: the string to parse.
@@ -433,16 +439,16 @@ void Graph_doExport() {
 	mod::Py::exportVertexMap<VertexMap<graph::Graph, graph::Graph>>("VertexMapGraphGraph");
 
 
-	// rst: .. method:: graphGMLString(s, name=None, add=True)
+	// rst: .. method:: graphGMLString(...)
 	// rst:
 	// rst:		Alias of :py:meth:`Graph.fromGMLString`.
-	// rst: .. method:: graphGML(f, name=None, add=True)
+	// rst: .. method:: graphGML(...)
 	// rst:
 	// rst:		Alias of :py:meth:`Graph.fromGMLFile`.
-	// rst: .. method:: graphDFS(s, name=None, add=True)
+	// rst: .. method:: graphDFS(...)
 	// rst:
 	// rst:		Alias of :py:meth:`Graph.fromDFS`.
-	// rst: .. method:: smiles(s, name=None, allowAbstract=False, classPolicy=SmilesClassPolicy.NoneOnDuplicate, add=True)
+	// rst: .. method:: smiles(...)
 	// rst:
 	// rst:		Alias of :py:meth:`Graph.fromSMILES`.
 	// rst:

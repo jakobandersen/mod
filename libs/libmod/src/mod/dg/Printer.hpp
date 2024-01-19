@@ -111,20 +111,20 @@ struct MOD_DECL Printer {
 	// rst: .. function:: void setWithShortcutEdges(bool value)
 	// rst:               bool getWithShortcutEdges() const
 	// rst:
-	// rst:		Control whether or not hyperedges :math:`(T, H)` with :math:`|T| = |H| = 1`
+	// rst:		Control whether hyperedges :math:`(T, H)` with :math:`|T| = |H| = 1`
 	// rst:		are printed as a simple arrow without the usual rectangle.
 	void setWithShortcutEdges(bool value);
 	bool getWithShortcutEdges() const;
 	// rst: .. function:: 	void setWithGraphImages(bool value)
 	// rst:                 bool getWithGraphImages() const
 	// rst:
-	// rst:		Control whether or not each vertex is printed with an image of its graph in it.
+	// rst:		Control whether each vertex is printed with an image of its graph in it.
 	void setWithGraphImages(bool value);
 	bool getWithGraphImages() const;
 	// rst: .. function:: void setLabelsAsLatexMath(bool value)
 	// rst:               bool getLabelsAsLatexMath() const
 	// rst:
-	// rst:		Control whether or not labels on vertices and hyperedges are put inline :math:`\LaTeX` math.
+	// rst:		Control whether labels on vertices and hyperedges are put inline :math:`\LaTeX` math.
 	// rst:		Specifically, a label ``label`` is written as ``$\mathrm{label'}$``, with ``label'`` being
 	// rst:		``label`` with all space characters escaped.
 	void setLabelsAsLatexMath(bool value);
@@ -158,7 +158,7 @@ struct MOD_DECL Printer {
 	// rst: .. function:: void setWithShortcutEdgesAfterVisibility(bool value)
 	// rst:               bool getWithShortcutEdgesAfterVisibility() const
 	// rst:
-	// rst:		Control whether or not hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.
+	// rst:		Control whether hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.
 	void setWithShortcutEdgesAfterVisibility(bool value);
 	bool getWithShortcutEdgesAfterVisibility() const;
 	// rst: .. function:: void setVertexLabelSep(std::string sep)
@@ -200,25 +200,25 @@ struct MOD_DECL Printer {
 	// rst: .. function:: void setWithGraphName(bool value)
 	// rst:               bool getWithGraphName() const
 	// rst:
-	// rst:		Control whether or not graph names are appended to the vertex labels (see also :func:`pushVertexLabel`).
+	// rst:		Control whether graph names are appended to the vertex labels (see also :func:`pushVertexLabel`).
 	void setWithGraphName(bool value);
 	bool getWithGraphName() const;
 	// rst: .. function:: void setWithRuleName(bool value)
 	// rst:               bool getWithRuleName() const
 	// rst:
-	// rst:		Control whether or not rules names are appended to the edge labels (see also :func:`pushEdgeLabel`).
+	// rst:		Control whether rules names are appended to the edge labels (see also :func:`pushEdgeLabel`).
 	void setWithRuleName(bool value);
 	bool getWithRuleName() const;
 	// rst: .. function:: void setWithRuleId(bool value)
 	// rst:               bool getWithRuleId() const
 	// rst:
-	// rst:		Control whether or not rules IDs are appended to the edge labels (see also :func:`pushEdgeLabel`).
+	// rst:		Control whether rules IDs are appended to the edge labels (see also :func:`pushEdgeLabel`).
 	void setWithRuleId(bool value);
 	bool getWithRuleId() const;
 	// rst: .. function:: void setWithInlineGraphs(bool value)
 	// rst:               bool getWithInlineGraphs() const
 	// rst:
-	// rst:		Control whether or not graph depictions should be precompiled, or be included inline in the DG figure.
+	// rst:		Control whether graph depictions should be precompiled, or be included inline in the DG figure.
 	void setWithInlineGraphs(bool value);
 	bool getWithInlineGraphs() const;
 	// rst: .. function:: void pushVertexColour(std::function<std::string(DG::Vertex)> f, bool extendToEdges)

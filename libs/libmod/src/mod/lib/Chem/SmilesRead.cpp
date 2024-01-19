@@ -166,7 +166,7 @@ struct ChainTail {
 	int dummy;
 public:
 	friend std::ostream &operator<<(std::ostream &s, const ChainTail &ct) {
-		for(auto &&e : ct.elements) s << e;
+		for(auto &&e: ct.elements) s << e;
 		return s;
 	}
 };
@@ -193,8 +193,8 @@ struct BranchedAtom {
 public:
 	friend std::ostream &operator<<(std::ostream &s, const BranchedAtom &ba) {
 		s << ba.atom;
-		for(const auto &rb : ba.ringBonds) s << rb;
-		for(const auto &b : ba.branches) s << '(' << b << ')';
+		for(const auto &rb: ba.ringBonds) s << rb;
+		for(const auto &b: ba.branches) s << '(' << b << ')';
 		return s;
 	}
 
@@ -219,7 +219,7 @@ namespace parser {
 struct BondSymbol : x3::symbols<unsigned int> {
 	BondSymbol() {
 		name("bondSymbol");
-		for(char c :{'-', '=', '#', '$', ':', '/', '\\'})
+		for(char c: {'-', '=', '#', '$', ':', '/', '\\'})
 			add(std::string(1, c), c);
 	}
 } bondSymbol;
@@ -227,9 +227,9 @@ struct BondSymbol : x3::symbols<unsigned int> {
 struct ShorthandSymbol : x3::symbols<Atom> {
 	ShorthandSymbol() {
 		name("aliphaticOrganic|aromaticOrganic|wildcardSymbol");
-		for(auto atomId : getSmilesOrganicSubset())
+		for(auto atomId: getSmilesOrganicSubset())
 			add(symbolFromAtomId(atomId), symbolFromAtomId(atomId));
-		for(std::string str :{"b", "c", "n", "o", "s", "p"})
+		for(std::string str: {"b", "c", "n", "o", "s", "p"})
 			add(str, str);
 		add("*", std::string("*"));
 	}
@@ -246,14 +246,14 @@ struct ElementSymbol : x3::symbols<std::string> {
 struct AromaticSymbol : x3::symbols<std::string> {
 	AromaticSymbol() {
 		name("aromaticSymbol");
-		for(std::string str :{"b", "c", "n", "o", "p", "s", "se", "as"}) add(str, str);
+		for(std::string str: {"b", "c", "n", "o", "p", "s", "se", "as"}) add(str, str);
 	}
 } aromaticSymbol;
 
 struct ChiralSymbl : x3::symbols<Chiral> {
 	ChiralSymbl() {
 		name("chiralSymbol");
-		for(std::string str :{"@", "@@", "@TH1", "@TH2", "@AL1", "@AL2", "@SP1", "@SP2", "@SP3"})
+		for(std::string str: {"@", "@@", "@TH1", "@TH2", "@AL1", "@AL2", "@SP1", "@SP2", "@SP3"})
 			add(str, Chiral::makeSimple(str));
 		for(unsigned int i = 1; i < 20; i++)
 			add("@TB" + boost::lexical_cast<std::string>(i), Chiral::makeTB(i));
@@ -364,7 +364,7 @@ struct RingResolver {
 	}
 
 	lib::IO::Result<> operator()(ChainTail &ct, Atom &parent) {
-		for(BondBranchedAtomPair &bba : ct.elements) {
+		for(BondBranchedAtomPair &bba: ct.elements) {
 			auto res = (*this)(bba.atom.get());
 			if(!res) return res;
 		}
@@ -372,7 +372,7 @@ struct RingResolver {
 	}
 
 	lib::IO::Result<> operator()(BranchedAtom &bAtom) {
-		for(auto &rb : bAtom.ringBonds) {
+		for(auto &rb: bAtom.ringBonds) {
 			const auto iter = openRings.find(rb.ringId);
 			if(iter == end(openRings)) {
 				openRings.insert(std::make_pair(rb.ringId, std::make_pair(&bAtom.atom, &rb)));
@@ -392,12 +392,13 @@ struct RingResolver {
 			}
 		}
 
-		for(auto &b : bAtom.branches) {
+		for(auto &b: bAtom.branches) {
 			auto res = (*this)(b, bAtom.atom);
 			if(!res) return res;
 		}
 		return lib::IO::Result<>();
 	}
+
 public:
 	std::map<char, std::pair<Atom *, RingBond *>> openRings;
 };
@@ -413,13 +414,14 @@ Vertex addHydrogen(lib::Graph::GraphType &g, lib::Graph::PropString &pString, Ve
 lib::IO::Result<> addBond(lib::IO::Warnings &warnings,
                           lib::Graph::GraphType &g, lib::Graph::PropString &pString,
                           Atom &p, Atom &v,
-                          char bond, Edge &e) {
+                          char bond, Edge &e,
+                          const bool printStereoWarnings) {
 	std::string edgeLabel;
 	switch(bond) {
 	case '/': // note: fall-through to make / and \ implicit
 	case '\\':
 		warnings.add("up/down bonds are not supported, converted to '-' instead.",
-		             getConfig().graph.printSmilesParsingWarnings.get());
+		             printStereoWarnings);
 		[[fallthrough]];
 	case 0:
 		if(p.isAromatic && v.isAromatic) edgeLabel += ':';
@@ -457,13 +459,13 @@ struct AssignConnectedComponentID {
 	}
 
 	void operator()(ChainTail &ct) {
-		for(auto &bap : ct.elements)
+		for(auto &bap: ct.elements)
 			(*this)(bap.atom.get());
 	}
 
 	void operator()(BranchedAtom &bAtom) {
 		(*this)(bAtom.atom);
-		for(auto &b : bAtom.branches)
+		for(auto &b: bAtom.branches)
 			(*this)(b);
 	}
 
@@ -471,6 +473,7 @@ struct AssignConnectedComponentID {
 		a.connectedComponentID = nextID;
 		++nextID;
 	}
+
 public:
 	int nextID = 0;
 };
@@ -485,7 +488,7 @@ struct JoinConnected {
 
 	void operator()(const ChainTail &ct, const Atom &parent) {
 		auto *parentPtr = &parent;
-		for(const BondBranchedAtomPair &bba : ct.elements) {
+		for(const BondBranchedAtomPair &bba: ct.elements) {
 			(*this)(bba, *parentPtr);
 			parentPtr = &bba.atom.get().atom;
 		}
@@ -498,19 +501,21 @@ struct JoinConnected {
 	}
 
 	void operator()(const BranchedAtom &bAtom) {
-		for(const auto &rb : bAtom.ringBonds) {
+		for(const auto &rb: bAtom.ringBonds) {
 			if(!rb.otherAtom) continue;
 			if(rb.bond != '.')
 				join(*rb.otherAtom, bAtom.atom);
 		}
 
-		for(auto &b : bAtom.branches)
+		for(auto &b: bAtom.branches)
 			(*this)(b, bAtom.atom);
 	}
+
 private:
 	void join(const Atom &a, const Atom &b) {
 		components.join(a.connectedComponentID, b.connectedComponentID);
 	}
+
 public:
 	ConnectedComponents &components;
 };
@@ -519,8 +524,10 @@ struct Converter {
 	Converter(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
 	          std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs,
 	          const ConnectedComponents &components,
-	          lib::IO::Warnings &warnings, bool allowAbstract)
+	          lib::IO::Warnings &warnings, bool printStereoWarnings,
+	          bool allowAbstract)
 			: gPtrs(gPtrs), pStringPtrs(pStringPtrs), components(components), warnings(warnings),
+			  printStereoWarnings(printStereoWarnings),
 			  allowAbstract(allowAbstract) {}
 
 	lib::IO::Result<> operator()(SmilesChain &c) {
@@ -530,7 +537,7 @@ struct Converter {
 
 	lib::IO::Result<> operator()(ChainTail &ct, Atom &parent) {
 		auto *parentPtr = &parent;
-		for(BondBranchedAtomPair &bba : ct.elements) {
+		for(BondBranchedAtomPair &bba: ct.elements) {
 			if(auto res = (*this)(bba, *parentPtr); !res) return res;
 			parentPtr = &bba.atom.get().atom;
 		}
@@ -543,14 +550,16 @@ struct Converter {
 		assert(components[bba.atom.get().atom.connectedComponentID]
 		       == components[parent.connectedComponentID]);
 		const auto comp = components[parent.connectedComponentID];
-		auto res = addBond(warnings, *gPtrs[comp], *pStringPtrs[comp], parent, bba.atom.get().atom, bba.bond, bba.edge);
+		auto res = addBond(warnings, *gPtrs[comp], *pStringPtrs[comp],
+		                   parent, bba.atom.get().atom, bba.bond, bba.edge,
+		                   printStereoWarnings);
 		return res;
 	}
 
 	lib::IO::Result<> operator()(BranchedAtom &bAtom) {
 		if(auto res = (*this)(bAtom.atom); !res) return res;
 		// process ring bonds
-		for(auto &rb : bAtom.ringBonds) {
+		for(auto &rb: bAtom.ringBonds) {
 			if(!rb.otherAtom) continue; // link ring bond from the other side
 			assert(rb.otherRingBond);
 			assert(rb.bond != '.');
@@ -558,13 +567,14 @@ struct Converter {
 			       == components[bAtom.atom.connectedComponentID]);
 			const auto comp = components[rb.otherAtom->connectedComponentID];
 			if(auto res = addBond(warnings, *gPtrs[comp], *pStringPtrs[comp],
-			                      *rb.otherAtom, bAtom.atom, rb.bond, rb.edge);
+			                      *rb.otherAtom, bAtom.atom, rb.bond, rb.edge,
+			                      printStereoWarnings);
 					!res)
 				return res;
 			rb.otherRingBond->edge = rb.edge;
 		}
 
-		for(auto &b : bAtom.branches)
+		for(auto &b: bAtom.branches)
 			if(auto res = (*this)(b, bAtom.atom); !res) return res;
 		return {};
 	}
@@ -656,11 +666,13 @@ struct Converter {
 		if(!ch.specifier.empty())
 			hasStereo = true;
 	}
+
 private:
 	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
 	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
 	const ConnectedComponents &components;
 	lib::IO::Warnings &warnings;
+	const bool printStereoWarnings;
 public:
 	std::multimap<int, std::pair<int, Vertex>> classToVertexId;
 	bool hasStereo = false;
@@ -680,13 +692,13 @@ struct ExplicitHydrogenAdder {
 	}
 
 	void operator()(ChainTail &ct) {
-		for(auto &&bba : ct.elements)
+		for(auto &&bba: ct.elements)
 			(*this)(bba.atom.get());
 	}
 
 	void operator()(BranchedAtom &bAtom) {
 		(*this)(bAtom.atom);
-		for(auto &b : bAtom.branches) (*this)(b);
+		for(auto &b: bAtom.branches) (*this)(b);
 	}
 
 	void operator()(Atom &a) {
@@ -698,6 +710,7 @@ struct ExplicitHydrogenAdder {
 			}
 		}
 	}
+
 private:
 	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
 	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
@@ -716,13 +729,13 @@ struct ImplicitHydrogenAdder {
 	}
 
 	void operator()(ChainTail &ct) {
-		for(auto &&bba : ct.elements)
+		for(auto &&bba: ct.elements)
 			(*this)(bba.atom.get());
 	}
 
 	void operator()(BranchedAtom &bAtom) {
 		(*this)(bAtom.atom);
-		for(auto &b : bAtom.branches) (*this)(b);
+		for(auto &b: bAtom.branches) (*this)(b);
 	}
 
 	void operator()(Atom &a) {
@@ -732,6 +745,7 @@ struct ImplicitHydrogenAdder {
 			addImplicitHydrogens(*gPtrs[comp], *pStringPtrs[comp], a.vertex, a.atomId, &addHydrogen);
 		}
 	}
+
 private:
 	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
 	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
@@ -742,8 +756,10 @@ struct StereoConverter {
 	StereoConverter(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
 	                const std::vector<lib::Graph::PropMolecule> &pMols,
 	                const ConnectedComponents &components,
-	                lib::IO::Warnings &warnings)
-			: gPtrs(gPtrs), pMols(pMols), components(components), warnings(warnings),
+	                lib::IO::Warnings &warnings,
+	                bool printStereoWarnings)
+			: gPtrs(gPtrs), pMols(pMols), components(components),
+			  warnings(warnings), printStereoWarnings(printStereoWarnings),
 			  hasAssigned(gPtrs.size(), false) {
 		infs.reserve(gPtrs.size());
 		for(int i = 0; i != gPtrs.size(); ++i)
@@ -775,27 +791,21 @@ struct StereoConverter {
 		if(!bAtom.atom.isImplicit) {
 			const auto &ch = bAtom.atom.chiral;
 			if(!ch.specifier.empty()) {
-				if(getConfig().graph.ignoreStereoInSmiles.get()) {
-					warnings.add("Ignoring stereochemical information ("
+				if(ch.specifier == "@" || ch.specifier == "@@") {
+					if(auto res = assignTetrahedral(ch.specifier, bAtom, prev, next); !res) return res;
+				} else { // not @ or @@
+					warnings.add("Stereochemical information ("
 					             + boost::lexical_cast<std::string>(ch)
-					             + ") in SMILES, requested by user.",
-					             getConfig().graph.printSmilesParsingWarnings.get());
-				} else {
-					if(ch.specifier == "@" || ch.specifier == "@@") {
-						if(auto res = assignTetrahedral(ch.specifier, bAtom, prev, next); !res) return res;
-					} else { // not @ or @@
-						warnings.add("Stereochemical information ("
-						             + boost::lexical_cast<std::string>(ch)
-						             + ") in SMILES string not handled.",
-						             getConfig().graph.printSmilesParsingWarnings.get());
-					}
+					             + ") in SMILES string not handled.",
+					             printStereoWarnings);
 				}
 			}
 		}
-		for(auto &b : bAtom.branches)
+		for(auto &b: bAtom.branches)
 			if(auto res = (*this)(b, bAtom.atom); !res) return res;
 		return {};
 	}
+
 private:
 	lib::IO::Result<>
 	assignTetrahedral(const std::string &winding, const BranchedAtom &bAtom, const Atom *prev, const Atom *next) {
@@ -807,7 +817,7 @@ private:
 			warnings.add("Ignoring stereo information in SMILES. Can not add tetrahedral geometry to vertex ("
 			             + boost::lexical_cast<std::string>(bAtom.atom) + ") with degree " +
 			             std::to_string(oes.size()) + ". Must be 4.",
-			             getConfig().graph.printSmilesParsingWarnings.get());
+			             printStereoWarnings);
 			return {};
 		}
 		std::vector<bool> used(oes.size(), false);
@@ -824,17 +834,17 @@ private:
 		// first the previous atom
 		if(prev) addNeighbour(prev->vertex);
 		// ring closures
-		for(const auto &rb : bAtom.ringBonds) {
+		for(const auto &rb: bAtom.ringBonds) {
 			const auto vSrc = source(rb.edge, g);
 			const auto vTar = target(rb.edge, g);
 			assert(vSrc != vTar);
 			addNeighbour(vSrc == v ? vTar : vSrc);
 		}
 		// hydrogens from atom property
-		for(const auto &vH : bAtom.atom.hydrogens)
+		for(const auto &vH: bAtom.atom.hydrogens)
 			addNeighbour(vH);
 		// now add all branches
-		for(const ChainTail &ct : bAtom.branches) {
+		for(const ChainTail &ct: bAtom.branches) {
 			const auto vBranch = ct.elements.front().atom.get().atom.vertex;
 			addNeighbour(vBranch);
 		}
@@ -850,21 +860,24 @@ private:
 		inf.fixSimpleGeometry(v);
 		if(winding == "@@" && !edgesToAdd.empty())
 			std::reverse(edgesToAdd.begin() + 1, edgesToAdd.end());
-		for(const auto &e : edgesToAdd) inf.addEdge(v, e);
+		for(const auto &e: edgesToAdd) inf.addEdge(v, e);
 		return {};
 	}
+
 public:
 	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
 	const std::vector<lib::Graph::PropMolecule> &pMols;
 	const ConnectedComponents &components;
 	lib::IO::Warnings &warnings;
+	const bool printStereoWarnings;
 public:
 	std::vector<lib::Stereo::Inference<lib::Graph::GraphType, lib::Graph::PropMolecule>> infs;
 	std::vector<bool> hasAssigned;
 };
 
 lib::IO::Result<std::vector<lib::Graph::Read::Data>>
-parseSmiles(lib::IO::Warnings &warnings, std::string_view smiles, const bool allowAbstract,
+parseSmiles(lib::IO::Warnings &warnings, const bool printStereoWarnings,
+            std::string_view smiles, const bool allowAbstract,
             SmilesClassPolicy classPolicy) {
 	SmilesChain ast;
 	try {
@@ -878,12 +891,12 @@ parseSmiles(lib::IO::Warnings &warnings, std::string_view smiles, const bool all
 		if(smiles != astStr.str()) {
 			std::cout << "Converting: >>>" << smiles << "<<< " << smiles.size() << std::endl;
 			std::cout << "Ast:        >>>" << astStr.str() << "<<< " << astStr.str().size() << std::endl;
-			for(auto c : smiles) {
+			for(auto c: smiles) {
 				if(std::isprint(c)) std::cout << c << ' ';
 				else std::cout << int(c) << ' ';
 			}
 			std::cout << std::endl;
-			for(auto c : astStr.str()) {
+			for(auto c: astStr.str()) {
 				if(std::isprint(c)) std::cout << c << ' ';
 				else std::cout << int(c) << ' ';
 			}
@@ -923,7 +936,7 @@ parseSmiles(lib::IO::Warnings &warnings, std::string_view smiles, const bool all
 		gPtrs[i] = std::make_unique<lib::Graph::GraphType>();
 		pStringPtrs[i] = std::make_unique<lib::Graph::PropString>(*gPtrs[i]);
 	}
-	Converter conv(gPtrs, pStringPtrs, components, warnings, allowAbstract);
+	Converter conv(gPtrs, pStringPtrs, components, warnings, printStereoWarnings, allowAbstract);
 	if(auto res = conv(ast); !res) return res;
 	(ExplicitHydrogenAdder(gPtrs, pStringPtrs, components))(ast);
 	(ImplicitHydrogenAdder(gPtrs, pStringPtrs, components)(ast));
@@ -952,13 +965,13 @@ parseSmiles(lib::IO::Warnings &warnings, std::string_view smiles, const bool all
 	}
 	if(assignExternalIds) {
 		if(classPolicy == SmilesClassPolicy::MapUnique) {
-			for(auto &&vp : conv.classToVertexId) {
+			for(auto &&vp: conv.classToVertexId) {
 				if(conv.classToVertexId.count(vp.first) > 1) continue;
 				datas[vp.second.first].externalToInternalIds[vp.first]
 						= get(boost::vertex_index_t(), *gPtrs[vp.second.first], vp.second.second);
 			}
 		} else {
-			for(auto &&vp : conv.classToVertexId) {
+			for(auto &&vp: conv.classToVertexId) {
 				datas[vp.second.first].externalToInternalIds[vp.first]
 						= get(boost::vertex_index_t(), *gPtrs[vp.second.first], vp.second.second);
 			}
@@ -969,16 +982,13 @@ parseSmiles(lib::IO::Warnings &warnings, std::string_view smiles, const bool all
 		std::vector<lib::Graph::PropMolecule> pMols;
 		for(int i = 0; i != numComponents; ++i)
 			pMols.emplace_back(*gPtrs[i], *pStringPtrs[i]);
-		StereoConverter stereoConv(gPtrs, pMols, components, warnings);
+		StereoConverter stereoConv(gPtrs, pMols, components, warnings, printStereoWarnings);
 		if(auto res = stereoConv(ast); !res) return res;
 		for(int i = 0; i != numComponents; ++i) {
 			if(stereoConv.hasAssigned[i]) {
-				lib::IO::Warnings deductionWarnings;
-				auto deductionResult = stereoConv.infs[i].finalize(deductionWarnings, [&](auto v) {
+				auto deductionResult = stereoConv.infs[i].finalize(warnings, printStereoWarnings, [&](auto v) {
 					return std::to_string(get(boost::vertex_index_t(), *gPtrs[i], v));
 				});
-				warnings.addFrom(std::move(deductionWarnings),
-				                 !getConfig().stereo.silenceDeductionWarnings.get());
 				if(!deductionResult) return deductionResult;
 				datas[i].pStereo = std::make_unique<lib::Graph::PropStereo>(*gPtrs[i], std::move(stereoConv.infs[i]));
 			}
@@ -997,9 +1007,11 @@ parseSmiles(lib::IO::Warnings &warnings, std::string_view smiles, const bool all
 namespace mod::lib::Chem {
 
 lib::IO::Result<std::vector<lib::Graph::Read::Data>>
-readSmiles(lib::IO::Warnings &warnings, std::string_view src, const bool allowAbstract,
+readSmiles(lib::IO::Warnings &warnings, bool printStereoWarnings,
+           std::string_view src, const bool allowAbstract,
            SmilesClassPolicy classPolicy) {
-	return Smiles::parseSmiles(warnings, src, allowAbstract, classPolicy);
+	return Smiles::parseSmiles(warnings, printStereoWarnings,
+	                           src, allowAbstract, classPolicy);
 }
 
 } // namespace mod::lib::Chem

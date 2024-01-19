@@ -152,7 +152,7 @@ void Chem_doExport() {
 		// rst:			:returns: A string representation of the bond type adhering to the string encoding of bonds (see :ref:`mol-enc`).
 		// rst:			:raises: :class:`LogicError` if the bond type is :const:`Invalid`.
 			;
-	// TOOD: py::enum_ does not support overriding of methods, so we set __str__ on the Python side.
+	// TODO: py::enum_ does not support overriding of methods, so we set __str__ on the Python side.
 	py::def("_bondTypeToString", &bondTypeToString);
 
 

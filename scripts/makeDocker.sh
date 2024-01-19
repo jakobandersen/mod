@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [ "$1" = "-j" ]; then
 	shift
 	j=$1

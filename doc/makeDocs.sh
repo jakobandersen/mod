@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "x$1" = "xclean" ]; then
     rm -rf build doctrees source/reference

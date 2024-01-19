@@ -100,11 +100,13 @@ bool NonHyper::getHasCalculated() const {
 	return hasCalculated;
 }
 
-void NonHyper::calculatePrologue() {
+void NonHyper::calculatePrologue(
+		std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+		std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge) {
 	if(getHasStartedCalculation()) MOD_ABORT;
 	if(hyperCreator) MOD_ABORT;
 	hasStartedCalculation = true;
-	auto p = Hyper::makeHyper(*this);
+	auto p = Hyper::makeHyper(*this, onNewVertex, onNewHyperEdge);
 	hyper = std::move(p.first);
 	hyperCreator.reset(new HyperCreator(std::move(p.second)));
 }

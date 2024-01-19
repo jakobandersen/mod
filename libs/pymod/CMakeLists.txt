@@ -90,5 +90,6 @@ install(PROGRAMS ${exportDir}/mod
 install(FILES
             share/mod/obabel.supp
             share/mod/python.supp
+            share/mod/extra.supp
         DESTINATION ${CMAKE_INSTALL_DATADIR}/mod
         COMPONENT pymod_run)

@@ -157,20 +157,20 @@ void Printer_doExport() {
 			              Printer_setGraphPrinter)
 					// rst:		.. attribute:: withShortcutEdges
 					// rst:
-					// rst:			Control whether or not hyperedges :math:`(T, H)` with :math:`|T| = |H| = 1`
+					// rst:			Control whether hyperedges :math:`(T, H)` with :math:`|T| = |H| = 1`
 					// rst:			are printed as a simple arrow without the usual rectangle.
 					// rst:
 					// rst:			:type: bool
 			.add_property("withShortcutEdges", &Printer::getWithShortcutEdges, &Printer::setWithShortcutEdges)
 					// rst:		.. attribute:: withGraphImages
 					// rst:
-					// rst:			Control whether or not each vertex is printed with a image of its graph in it.
+					// rst:			Control whether each vertex is printed with a image of its graph in it.
 					// rst:
 					// rst:			:type: bool
 			.add_property("withGraphImages", &Printer::getWithGraphImages, &Printer::setWithGraphImages)
 					// rst:		.. attribute:: labelsAsLatexMath
 					// rst:
-					// rst:			Control whether or not labels on vertices and hyperedges are put inline :math:`\LaTeX` math.
+					// rst:			Control whether labels on vertices and hyperedges are put inline :math:`\LaTeX` math.
 					// rst:			Specifically, a label ``label`` is written as ``$\mathrm{label'}$``, with ``label'`` being
 					// rst:			``label`` with all space characters escaped.
 					// rst:
@@ -206,7 +206,7 @@ void Printer_doExport() {
 			.def("popEdgeVisible", &Printer::popEdgeVisible)
 					// rst:		.. attribute:: withShortcutEdgesAfterVisibility
 					// rst:
-					// rst:			Control whether or not hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.
+					// rst:			Control whether hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.
 					// rst:
 					// rst:			:type: bool
 			.add_property("withShortcutEdgesAfterVisibility", &Printer::getWithShortcutEdgesAfterVisibility,
@@ -258,25 +258,25 @@ void Printer_doExport() {
 			.def("popEdgeLabel", &Printer::popEdgeLabel)
 					// rst:		.. attribute:: withGraphName
 					// rst:
-					// rst:			Control whether or not graph names are appended to the vertex labels (see also :meth:`DGPrinter.pushVertexLabel`).
+					// rst:			Control whether graph names are appended to the vertex labels (see also :meth:`DGPrinter.pushVertexLabel`).
 					// rst:
 					// rst:			:type: bool
 			.add_property("withGraphName", &Printer::getWithGraphName, &Printer::setWithGraphName)
 					// rst:		.. attribute:: withRuleName
 					// rst:
-					// rst:			Control whether or not rule names are appended to the edge labels (see also :meth:`DGPrinter.pushEdgeLabel`).
+					// rst:			Control whether rule names are appended to the edge labels (see also :meth:`DGPrinter.pushEdgeLabel`).
 					// rst:
 					// rst:			:type: bool
 			.add_property("withRuleName", &Printer::getWithRuleName, &Printer::setWithRuleName)
 					// rst:		.. attribute:: withRuleId
 					// rst:
-					// rst:			Control whether or not rule IDs are appended to the edge labels (see also :meth:`DGPrinter.pushEdgeLabel`).
+					// rst:			Control whether rule IDs are appended to the edge labels (see also :meth:`DGPrinter.pushEdgeLabel`).
 					// rst:
 					// rst:			:type: bool
 			.add_property("withRuleId", &Printer::getWithRuleId, &Printer::setWithRuleId)
 					// rst:		.. attribute:: withInlineGraphs
 					// rst:
-					// rst:			Control whether or not graph depictions should be precompiled, or be included inline in the DG figure.
+					// rst:			Control whether graph depictions should be precompiled, or be included inline in the DG figure.
 					// rst:
 					// rst:			:type: bool
 			.add_property("withInlineGraphs", &Printer::getWithInlineGraphs, &Printer::setWithInlineGraphs)
@@ -290,7 +290,7 @@ void Printer_doExport() {
 					// rst:
 					// rst:			:param f: the function to push for colouring vertices.
 					// rst:			:type f: Callable[[DGVertex], str] or str
-					// rst:			:param bool extendToEdges: whether or not some hyperedges are coloured as well (see above).
+					// rst:			:param bool extendToEdges: whether some hyperedges are coloured as well (see above).
 			.def("pushVertexColour", &Printer_pushVertexColour)
 					// rst:		.. method:: popVertexColour()
 					// rst:

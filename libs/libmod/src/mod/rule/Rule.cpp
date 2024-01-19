@@ -253,13 +253,13 @@ std::shared_ptr<Rule> handleLoadedRule(lib::IO::Result<lib::Rules::Read::Data> d
 
 } // namespace
 
-std::shared_ptr<Rule> Rule::fromGMLString(const std::string &data, bool invert) {
+std::shared_ptr<Rule> Rule::fromGMLString(const std::string &data, bool invert, bool printStereoWarnings) {
 	lib::IO::Warnings warnings;
-	auto res = lib::Rules::Read::gml(warnings, data);
+	auto res = lib::Rules::Read::gml(warnings, data, printStereoWarnings);
 	return handleLoadedRule(std::move(res), std::move(warnings), invert, "<inline GML string>");
 }
 
-std::shared_ptr<Rule> Rule::fromGMLFile(const std::string &file, bool invert) {
+std::shared_ptr<Rule> Rule::fromGMLFile(const std::string &file, bool invert, bool printStereoWarnings) {
 	boost::iostreams::mapped_file_source ifs;
 	try {
 		ifs.open(file);
@@ -268,7 +268,7 @@ std::shared_ptr<Rule> Rule::fromGMLFile(const std::string &file, bool invert) {
 	}
 	if(!ifs) throw InputError("Could not open rule GML file '" + file + "'.\n");
 	lib::IO::Warnings warnings;
-	auto res = lib::Rules::Read::gml(warnings, {ifs.begin(), ifs.size()});
+	auto res = lib::Rules::Read::gml(warnings, {ifs.begin(), ifs.size()}, printStereoWarnings);
 	return handleLoadedRule(std::move(res), std::move(warnings), invert, "file '" + file + "'");
 }
 

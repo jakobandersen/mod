@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script is based on the cansmiles_shuffle.sh script in Open Babels test suite
 
 niter=${1:-20}

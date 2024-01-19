@@ -1,3 +1,6 @@
+# Use the oldest Ubuntu possible, to make sure the system Python is the oldest
+# we are trying to build against. Otherwise CMake seems to find the system Python
+# instead of the Conda Python.
 FROM ubuntu:20.04 AS build
 # Based on continuumio/miniconda3
 
@@ -34,10 +37,13 @@ COPY ./conda/meta.yaml ./conda/
 COPY ./conda/conda_build_config.yaml ./conda/
 RUN conda build -c jakobandersen -c conda-forge ./conda
 
+RUN echo "END CONDA BUILD"
 
 ###############################################################################
 # Test
 ###############################################################################
+
+RUN echo "START INSTALLATION TEST"
 
 FROM ubuntu:20.04 AS test
 # Based on continuumio/miniconda3
@@ -78,3 +84,5 @@ COPY conda/test.py ./
 RUN mod -f test.py
 RUN mod_post --install-format
 RUN mod -f test.py
+
+RUN echo "END INSTALLATION TEST"

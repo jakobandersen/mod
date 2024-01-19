@@ -22,7 +22,7 @@
 #include <vector>
 
 namespace mod {
-class Config;
+struct Config;
 
 // rst: .. enum-struct:: LabelType
 // rst:
@@ -266,14 +266,14 @@ MOD_DECL Config &getConfig();
 
 template<typename T>
 struct ConfigSetting {
-	ConfigSetting(T value, const std::string &name) : value(value), name(name) {}
+	ConfigSetting(T value, std::string name) : val(std::move(value)), name(std::move(name)) {}
 
 	// rst: .. function:: void set(T value)
 	// rst:
 	// rst:		Sets the configuration value.
 	// rst:
 	void set(T value) {
-		this->value = value;
+		val = value;
 	};
 
 	// rst: .. function:: T get() const
@@ -281,7 +281,7 @@ struct ConfigSetting {
 	// rst:		:returns: The configuration value.
 	// rst:
 	T get() const {
-		return value;
+		return val;
 	}
 
 	// rst: .. function: T &operator()()
@@ -289,14 +289,14 @@ struct ConfigSetting {
 	// rst:		Access the value.
 	// rst:
 	T &operator()() {
-		return value;
+		return val;
 	}
 
 	const std::string &getName() const {
 		return name;
 	}
 private:
-	T value;
+	T val;
 	const std::string name;
 };
 // rst-class-end:
@@ -336,25 +336,20 @@ struct Config {
         ((unsigned int, numThreads, 1))                                             \
     ))                                                                              \
     ((DG, dg,                                                                       \
-        ((bool, useOldRuleApplication, false))                                      \
-        ((bool, calculateVerbosePrint, false))                                      \
         ((bool, putAllProductsInSubset, false))                                     \
         ((bool, dryDerivationPrinting, false))                                      \
-        ((bool, derivationDebugOutput, false))                                      \
         ((bool, disableRepeatFixedPointCheck, false))                               \
-        ((int, derivationVerbosity, 0))                                             \
         ((bool, applyAssumeConfluence, false))                                      \
         ((int, applyLimit, -1))                                                     \
     ))                                                                              \
     ((Graph, graph,                                                                 \
         ((bool, smilesCheckAST, false))                                             \
-        ((bool, ignoreStereoInSmiles, false))                                       \
-        ((bool, printSmilesParsingWarnings, true))                                  \
         ((bool, appendSmilesClass, false))                                          \
-        ((mod::Config::IsomorphismAlg, isomorphismAlg, mod::Config::IsomorphismAlg::VF2)) \
+        ((mod::Config::IsomorphismAlg, isomorphismAlg, mod::Config::IsomorphismAlg::SmilesCanonVF2)) \
         ((bool, useWrongSmilesCanonAlg, false))                                     \
         ((bool, checkIsoInPermutation, false))                                      \
         ((unsigned long, numIsomorphismCalls, 0))                                   \
+        ((bool, vf2UseOrigVertexOrder, true))                                       \
     ))                                                                              \
     ((Rule, rule,                                                                   \
         ((bool, ignoreConstraintsDuringInversion, false))                           \
@@ -371,9 +366,6 @@ struct Config {
         ((bool, printMatchesOnlyHaxChem, false))                                    \
         ((int, componentWiseMorphismLimit, 0))                                      \
         ((bool, useBoostCommonSubgraph, false))                                     \
-    ))                                                                              \
-    ((Stereo, stereo,                                                               \
-        ((bool, silenceDeductionWarnings, false))                                   \
     ))
 
 #define MOD_CONFIG_nsIter(rNS, dataNS, tNS)                                           \

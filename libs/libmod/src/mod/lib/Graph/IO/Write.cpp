@@ -342,7 +342,7 @@ std::pair<std::string, bool> dfs(const LabelledGraph &gLabelled, bool withIds) {
 	const auto &g = get_graph(gLabelled);
 	const auto &pString = get_string(gLabelled);
 	if(num_vertices(g) == 0) return std::pair("", false);
-	auto[chain, idMap] = dfsDetail::write(g, pString, withIds);
+	auto [chain, idMap] = dfsDetail::write(g, pString, withIds);
 
 	std::stringstream graphDFS;
 	dfsDetail::Printer p(graphDFS, idMap);
@@ -577,47 +577,54 @@ std::pair<std::string, std::string> summary(const Single &g, const Options &firs
 		return std::pair(graphLike, molLike);
 }
 
-void termState(const Single &g) {
+namespace {
+
+template<typename LGraph>
+void termStateImpl(const std::string &name, const LGraph &g) {
+	lib::IO::post() << "summarySubsection \"Term State for " << name << "\"\n";
 	using namespace lib::Term;
-	lib::IO::post() << "summarySubsection \"Term State for " << g.getName() << "\"\n";
 	post::FileHandle s(lib::IO::makeUniqueFilePrefix() + "termState.tex");
 	s << "\\begin{verbatim}\n";
-	const auto &termState = get_term(g.getLabelledGraph());
+	const auto &termState = get_term(g);
+	const auto &gg = get_graph(g);
 	if(isValid(termState)) {
-		std::unordered_map<Address, std::set<Vertex> > addrToVertex;
-		std::unordered_map<Address, std::set<Edge> > addrToEdge;
-		for(Vertex v: asRange(vertices(g.getGraph()))) {
+		std::unordered_map<Address, std::vector<std::string>> annotations;
+		for(const auto v: asRange(vertices(get_graph(g)))) {
 			Address a{AddressType::Heap, termState[v]};
-			addrToVertex[a].insert(v);
+			annotations[a].push_back("v" + std::to_string(get(boost::vertex_index_t(), gg, v)));
 		}
-		for(Edge e: asRange(edges(g.getGraph()))) {
+		for(const auto e: asRange(edges(get_graph(g)))) {
 			Address a{AddressType::Heap, termState[e]};
-			addrToEdge[a].insert(e);
+			annotations[a].push_back(
+					"e(" + std::to_string(get(boost::vertex_index_t(), gg, source(e, gg)))
+					+ ", " + std::to_string(get(boost::vertex_index_t(), gg, target(e, gg))) + ")");
 		}
-		lib::Term::Write::wam(getMachine(termState), lib::Term::getStrings(), s, [&](Address addr, std::ostream &s) {
-			s << "        ";
-			bool first = true;
-			for(auto v: addrToVertex[addr]) {
-				if(!first) s << ", ";
-				first = false;
-				s << "v" << get(boost::vertex_index_t(), g.getGraph(), v);
-			}
-			for(auto e: addrToEdge[addr]) {
-				if(!first) s << ", ";
-				first = false;
-				s << "e("
-				  << get(boost::vertex_index_t(), g.getGraph(), source(e, g.getGraph()))
-				  << ", "
-				  << get(boost::vertex_index_t(), g.getGraph(), target(e, g.getGraph()))
-				  << ")";
-			}
-		});
+		lib::Term::Write::wam(getMachine(termState), lib::Term::getStrings(),
+		                      IO::Logger(s), [&](Address addr, std::ostream &s) {
+					s << "        ";
+					bool first = true;
+					for(const auto &str: annotations[addr]) {
+						if(!first) s << ", ";
+						first = false;
+						s << str;
+					}
+				});
 	} else {
-		std::string msg = "Parsing failed for graph '" + g.getName() + "'. " + termState.getParsingError();
+		std::string msg = "Parsing failed for graph '" + name + "'. " + termState.getParsingError();
 		throw TermParsingError(std::move(msg));
 	}
 	s << "\\end{verbatim}\n";
 	lib::IO::post() << "summaryInput \"" << std::string(s) << "\"\n";
+}
+
+} // namespace
+
+void termState(const Single &g) {
+	termStateImpl(g.getName(), g.getLabelledGraph());
+}
+
+void termState(const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g, std::string name) {
+	termStateImpl(name, g);
 }
 
 std::string stereoSummary(const Single &gLib, Vertex v, const lib::Stereo::Configuration &conf,

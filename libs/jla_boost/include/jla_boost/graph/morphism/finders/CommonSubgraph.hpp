@@ -25,7 +25,7 @@
 #include <stack>
 
 namespace jla_boost::GraphMorphism {
-using namespace boost; // TODO: remvoe
+using namespace boost; // TODO: remove
 
 template<bool OnlyConnected, typename GraphLeft, typename GraphRight, typename EdgePred, typename VertexPred>
 struct CommonSubgraphEnumerator : InjectiveEnumerationState<

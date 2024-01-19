@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function printHelp {
 	echo "MØD Wrapper usage:"
@@ -41,28 +41,26 @@ clean="false"
 vgArgs=""
 interactive="false"
 quiet="false"
-interceptedArgs=""
 summaryArgs=""
 
 # File names
 summaryMaker="mod_post"
 obabelSupp="obabel.supp"
 pythonSupp="python.supp"
+extraSupp="extra.supp"
 
 # Find prefix
 self="mod"
 if [ -z "$MOD_PREFIX" ]; then
 	MOD_PREFIX="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd )/.."
-	stat $MOD_PREFIX/bin/$self &> /dev/null
-	if [ $? -ne 0 ]; then
+	if ! stat "$MOD_PREFIX/bin/$self" &> /dev/null; then
 		echo "Could not find our own location. Please set PATH, MOD_PREFIX or use the correct path."
 		echo "PATH is $PATH"
 		echo "Guessed path is $MOD_PREFIX/bin/$self"
 		exit 1
 	fi
 else
-	stat $MOD_PREFIX/bin/$self &> /dev/null
-	if [ $? -ne 0 ]; then
+	if ! stat "$MOD_PREFIX/bin/$self" &> /dev/null; then
 		echo "Invalid path in MOD_PREFIX. \"$MOD_PREFIX/bin/$self\" does not exist."
 		exit 1
 	fi
@@ -146,7 +144,7 @@ fi
 
 
 if test "$doPrintHelp" = "true"; then
-	printHelp $0
+	printHelp "$0"
 	exit 0
 fi
 if test "$doVersion" = "true"; then
@@ -156,7 +154,7 @@ if test "$getLatex" = "true"; then
 	if test "$quiet" = "false"; then
 		echo "cp $MOD_PREFIX/share/mod/mod.{sty,mk} ./"
 	fi
-	cp $MOD_PREFIX/share/mod/mod.{sty,mk} ./
+	cp "$MOD_PREFIX"/share/mod/mod.{sty,mk} ./
 	exit $?
 fi
 
@@ -165,7 +163,7 @@ fi
 if test "$quiet" = "false"; then
 	echo "Plugins ------------------------------------------------------------"
 fi
-pySearchPaths=""
+pySearchPath=""
 plugins=()
 function loadPluginFile {
 	function getVar {
@@ -177,8 +175,8 @@ function loadPluginFile {
 			echo "Bad plugin file, '$varName' not found: $f"
 			return $res
 		fi
-		numLines=$(grep "^$varName:" "$f" | wc -l)
-		if test $numLines -ne 1; then
+		numLines=$(grep -c "^$varName:" "$f")
+		if test "$numLines" -ne 1; then
 			echo "Bad plugin file, multiple '$varName' lines ($numLines): $f"
 			return 1
 		fi
@@ -187,19 +185,19 @@ function loadPluginFile {
 	}
 	if ! test -f "$f"; then
 		echo "Bad plugin file, not a regular file: $f"
-		continue
+		return 1
 	fi
 	name=$(getVar name "$f")
 	if test $? -ne 0; then
-		echo $name
-		continue
+		echo "$name"
+		return
 	fi
 	pluginPath=$(getVar path "$f")
 	if test $? -ne 0; then
-		echo $pluginPath
-		continue
+		echo "$pluginPath"
+		return
 	fi
-	plugins+=($name)
+	plugins+=("$name")
 	pySearchPath="$pySearchPath:$pluginPath"
 	if test "$quiet" = "false"; then
 		echo " $name: $pluginPath"
@@ -210,7 +208,7 @@ function loadPlugins {
 	if test ! -d "$path"; then
 		return
 	fi
-	for f in $(ls $path/*); do
+	for f in "$path"/*; do
 		loadPluginFile "$f"
 	done
 }
@@ -221,7 +219,7 @@ if test "$quiet" = "false"; then
 fi
 loadPlugins "$globalPluginPath"
 IFS=":" read -ra paths <<< "$MOD_PLUGIN_PATH"
-for p in ${paths[@]}; do
+for p in "${paths[@]}"; do
 	if test "$quiet" = "false"; then
 		echo "Additional ($p):"
 	fi
@@ -232,29 +230,28 @@ done
 
 # Create precommand (debugger/valgrind/...)
 precommand=""
-if [ $profile = "true" -o $memcheck = "true" ]; then
+if [[ $profile = "true" ]] || [[ $memcheck = "true" ]]; then
 	precommand="valgrind --error-exitcode=42"
 fi
 if [ $profile = "true" ]; then
 	precommand="$precommand --tool=callgrind --dump-instr=yes --collect-jumps=yes $vgArgs"
 elif [ $memcheck = "true" ]; then
 	function checkSuppFile {
-		stat $MOD_PREFIX/share/mod/$1 &> /dev/null
-		if [ $? -ne 0 ]; then
+		if ! stat "$MOD_PREFIX/share/mod/$1" &> /dev/null; then
 			echo "Could not find valgrind suppressions file, \"$MOD_PREFIX/share/$1\""
 			exit 1
 		fi
 	}
 	checkSuppFile $obabelSupp
 	checkSuppFile $pythonSupp
+	checkSuppFile $extraSupp
 	if [ $debug = "true" ]; then
 		precommand="$precommand --vgdb=yes --vgdb-error=0"
 	fi
 	precommand="$precommand --leak-check=full --track-origins=yes --num-callers=50 --gen-suppressions=all $vgArgs"
 	precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$obabelSupp"
-	if [ $pymod = "true" ]; then
-		precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$pythonSupp"
-	fi
+	precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$pythonSupp"
+	precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$extraSupp"
 elif [ $debug = "true" ]; then
 	if [ "x$MOD_DEBUGGER" != 'x' ]; then
 		precommand="$MOD_DEBUGGER"
@@ -269,12 +266,14 @@ elif [ $debug = "true" ]; then
 fi
 
 # Prepare output folder
+# Don't delete it for niceness if people have it open while rerunning things.
 if [ -e out ]; then
 	if [ -d out ]; then
 		# there could be a lot of files in out/
-		cd out
-		ls | xargs rm -rf
-		cd ..
+		(
+		  cd out || exit 1
+		  ls | xargs rm -rf
+		)
 	else
 		rm -f out
 		mkdir out
@@ -305,7 +304,7 @@ sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
 # Plugins
 #--------------------------------------------------------------
 EOF
-		for plugin in ${plugins[@]}; do
+		for plugin in "${plugins[@]}"; do
 			echo "import $plugin"
 			echo "from $plugin import *"
 		done
@@ -368,7 +367,7 @@ if "LD_PRELOAD" in os.environ and "valgrind" in os.environ["LD_PRELOAD"]:
 	atexit.register(_valgrindLeakHaxAtExit)
 	_initialGlobals = set(globals())
 EOF
-		if [ ! -z "$MOD_NO_DEPRECATED" ]; then
+		if [ -n "$MOD_NO_DEPRECATED" ]; then
 			echo "config.common.ignoreDeprecation = False"
 		fi
 	}
@@ -379,7 +378,7 @@ EOF
 	if test "$quiet" = "true"; then
 		echo "config.common.quiet = True" >> $pyFile
 	fi
-	while [ $1 ]; do
+	while [ "$1" ]; do
 		case $1 in
 			"-f" )
 				shift
@@ -458,8 +457,8 @@ fi
 # Post processing
 if [ $post = "true" ]; then
 	export MOD_PREFIX
-	if test -x $MOD_PREFIX/bin/$summaryMaker; then
-		$MOD_PREFIX/bin/$summaryMaker "${summaryArgs[@]}"
+	if test -x "$MOD_PREFIX/bin/$summaryMaker"; then
+		"$MOD_PREFIX/bin/$summaryMaker" "${summaryArgs[@]}"
 		res=$?
 	else
 		echo "Wrapper script called without --nopost, but mod_post is not installed."

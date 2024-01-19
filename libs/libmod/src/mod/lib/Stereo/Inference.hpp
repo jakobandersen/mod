@@ -111,7 +111,7 @@ public:
 	}
 
 	template<typename VertexPrinter>
-	lib::IO::Result<> finalize(lib::IO::Warnings &warnings, VertexPrinter vertexPrinter) {
+	lib::IO::Result<> finalize(lib::IO::Warnings &warnings, bool printWarnings, VertexPrinter vertexPrinter) {
 		const auto &geo = getGeometryGraph();
 		const auto &gGeometry = geo.getGraph();
 		assert(!hasFinalized);
@@ -146,7 +146,7 @@ public:
 		}
 
 		for(const auto v: asRange(vertices(g))) {
-			auto res = finalizeVertex(warnings, v, vertexPrinter);
+			auto res = finalizeVertex(warnings, printWarnings, v, vertexPrinter);
 			if(!res) return res;
 		}
 
@@ -167,6 +167,7 @@ public:
 		hasFinalized = true;
 		return {};
 	}
+
 private:
 	EdgeCategoryCount addEdgesFromGraph(Vertex v) {
 		const auto vId = get(boost::vertex_index_t(), g, v);
@@ -195,7 +196,8 @@ private:
 	}
 
 	template<typename VertexPrinter>
-	lib::IO::Result<> finalizeVertex(lib::IO::Warnings &warnings, Vertex v, VertexPrinter vertexPrinter) {
+	lib::IO::Result<> finalizeVertex(lib::IO::Warnings &warnings, bool printWarnings,
+	                                 Vertex v, VertexPrinter vertexPrinter) {
 		const auto &geo = getGeometryGraph();
 		const auto vId = get(boost::vertex_index_t(), g, v);
 		auto &data = vertexData[vId];
@@ -240,11 +242,13 @@ private:
 					++catCount[emb.cat];
 					break;
 				case EmbeddingEdge::Type::LonePair:
-					assert(emb.offset >= out_degree(v, g)); // should not happen, [0, d[ are reserved for the real edges
+					assert(
+							emb.offset >= out_degree(v, g)); // should not happen, [0, d[ are reserved for the real edges
 					++numLonePairs;
 					break;
 				case EmbeddingEdge::Type::Radical:
-					assert(emb.offset >= out_degree(v, g)); // should not happen, [0, d[ are reserved for the real edges
+					assert(
+							emb.offset >= out_degree(v, g)); // should not happen, [0, d[ are reserved for the real edges
 					if(radical)
 						return lib::IO::Result<>::Error(
 								"Multiple radicals in stereo embedding for vertex " + vertexPrinter(v) + ".");
@@ -256,22 +260,23 @@ private:
 		if(explicitGeometry && explicitEmbedding) {
 			// the user has spoken
 		} else if(explicitGeometry && !explicitEmbedding) {
-			if(auto res = geo.deduceLonePairs(warnings, ad, catCount, data.vGeometry, asPattern))
+			if(auto res = geo.deduceLonePairs(warnings, printWarnings, ad, catCount, data.vGeometry, asPattern))
 				numLonePairs = *res;
 			else return std::move(res);
 		} else if(!explicitGeometry && explicitEmbedding) {
-			if(auto res = geo.deduceGeometry(warnings, ad, catCount, numLonePairs, asPattern))
+			if(auto res = geo.deduceGeometry(warnings, printWarnings, ad, catCount, numLonePairs, asPattern))
 				data.vGeometry = *res;
 			else return std::move(res);
 		} else {
 			assert(!explicitGeometry && !explicitEmbedding);
-			if(auto res = geo.deduceGeometryAndLonePairs(warnings, ad, catCount, asPattern))
+			if(auto res = geo.deduceGeometryAndLonePairs(warnings, printWarnings, ad, catCount, asPattern))
 				std::tie(data.vGeometry, numLonePairs) = *res;
 			else return std::move(res);
 		}
 		if(!explicitEmbedding) addLonePairs(v, numLonePairs);
 		return {};
 	}
+
 public: // if hasFinalized
 	std::unique_ptr<Configuration> extractConfiguration(Vertex v) {
 		assert(hasFinalized);
@@ -286,6 +291,7 @@ public: // if hasFinalized
 		assert(eId < num_edges(g));
 		return edgeData[eId].finalCategory;
 	}
+
 public:
 	const Graph &g;
 	const PropMolecule &pMolecule;

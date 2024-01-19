@@ -122,7 +122,7 @@ void Strategy_doExport() {
 					// rst:
 					// rst:			:param strats: the strategies to evaluate in sequence.
 					// rst:			:type strats: list[DGStrat]
-					// rst:			:retunrs: a :ref:`strat-sequence` strategy.
+					// rst:			:returns: a :ref:`strat-sequence` strategy.
 					// rst:			:rtype: DGStrat
 					// rst:			:raises: :class:`LogicError` if the given list of strategies is empty.
 					// rst:			:raises: :class:`LogicError` if there is a ``None`` in ``strats``.
@@ -140,7 +140,7 @@ void Strategy_doExport() {
 					// rst:
 					// rst:			:param bool alsoUniverse: if the strategy is :ref:`strat-filterUniverse` or :ref:`strat-filterSubset`.
 					// rst:			:param p: the filtering predicate being called for each graph in either the subset or the universe.
-					// rst:				The predicate is called with the graph and the graph state as arguments, and a bool stating whether or not
+					// rst:				The predicate is called with the graph and the graph state as arguments, and a bool stating whether
 					// rst:				the call is the first in the filtering process.
 					// rst:			:type p: Callable[[Graph, DGStrat.GraphState, bool], bool]
 					// rst:			:returns: a :ref:`strat-filterUniverse` strategy if ``onlyUniverse`` is ``True``, otherwise a :ref:`strat-filterSubset` strategy.

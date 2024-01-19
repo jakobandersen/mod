@@ -38,7 +38,7 @@ def checkDGAfterBuild(dg):
 	dumpName2 = dg2.dump()
 
 	_compareDGs(dg, dg2)
-	_compareFiles(dumpName, dumpName2)
+	_compareDumps(dumpName, dumpName2)
 
 
 class BuilderHook:

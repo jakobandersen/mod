@@ -24,7 +24,6 @@
 #include <boost/graph/random.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
 
-// TODO: use boost/test/minimap.hpp instead when not in a library
 #define _DO_ASSERT(exp)                                                               \
    do {                                                                               \
       const bool res = exp;                                                           \

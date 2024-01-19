@@ -1,8 +1,6 @@
 config.graph.useWrongSmilesCanonAlg = False
 config.graph.isomorphismAlg = Config.IsomorphismAlg.Canon
 config.graph.smilesCheckAST = True
-config.graph.ignoreStereoInSmiles = True
-config.graph.printSmilesParsingWarnings = False
 #config.canon.printStats = True
 include("loadGraphs.py")
 

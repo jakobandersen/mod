@@ -21,7 +21,9 @@ private:
 };
 
 struct Builder {
-	explicit Builder(NonHyperBuilder *dg);
+	explicit Builder(NonHyperBuilder *dg,
+	                 std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+	                 std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge);
 	Builder(Builder &&other);
 	Builder &operator=(Builder &&other);
 	~Builder();
@@ -57,7 +59,8 @@ struct NonHyperBuilder : public NonHyper {
 	                const std::vector<std::shared_ptr<graph::Graph> > &graphDatabase, IsomorphismPolicy graphPolicy);
 	virtual ~NonHyperBuilder();
 	virtual std::string getType() const override;
-	Builder build();
+	Builder build(std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+	              std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge);
 private:
 	friend class ExecuteResult;
 	friend class Builder;

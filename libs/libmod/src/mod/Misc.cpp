@@ -14,7 +14,6 @@
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <vector>
@@ -33,14 +32,20 @@ double rngUniformReal() {
 	return std::uniform_real_distribution<double>(0, 1)(lib::getRng());
 }
 
-void showDump(const std::string &file) {
+std::string strFromDump(const std::string &file) {
 	boost::iostreams::mapped_file_source ifs(file);
 	std::vector<std::uint8_t> data(ifs.begin(), ifs.end());
 	std::ostringstream err;
 	auto jOpt = lib::IO::readJson(data, err);
 	if(!jOpt)
 		throw InputError("Error showing dump: " + err.str());
-	std::cout << std::setw(3) << *jOpt << std::endl;
+	std::stringstream ss;
+	ss << std::setw(3) << *jOpt << "\n";
+	return ss.str();
+}
+
+void showDump(const std::string &file) {
+	std::cout << strFromDump(file) << std::flush;
 }
 
 void printGeometryGraph() {

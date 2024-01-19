@@ -15,25 +15,11 @@
 #
 # See Misc/README.valgrind for more information.
 
-{
-   When using Open Babel from Python this appears.
-   Memcheck:Leak
-   match-leak-kinds: possible
-   fun:malloc
-   ...
-   fun:_PyObject_GC_Alloc*
-}
-
 # all tool names: Addrcheck,Memcheck,cachegrind,helgrind,massif
 {
    ADDRESS_IN_RANGE/Invalid read of size 4
    Memcheck:Addr4
    fun:address_in_range
-}
-{
-   ADDRESS_IN_RANGE/Invalid read of size 4, unknown inlined, v3.8
-   Memcheck:Addr4
-   src:obmalloc.c:1401
 }
 
 {
@@ -47,21 +33,11 @@
    Memcheck:Value8
    fun:address_in_range
 }
-{
-   ADDRESS_IN_RANGE/Invalid read of size 8 (x86_64 aka amd64), unknown inlined, v3.8
-   Memcheck:Value8
-   src:obmalloc.c:1403
-}
 
 {
    ADDRESS_IN_RANGE/Conditional jump or move depends on uninitialised value
    Memcheck:Cond
    fun:address_in_range
-}
-{
-   ADDRESS_IN_RANGE/Conditional jump or move depends on uninitialised value, unknown inlined, v3.8
-   Memcheck:Cond
-   src:obmalloc.c:1403
 }
 
 #
@@ -69,14 +45,6 @@
 #    Hmmm, I wonder if this masks some real leaks.  I think it does.
 #    Will need to fix that.
 #
-
-{
-   Suppress leaking the GIL.  Happens once per process, see comment in ceval.c.
-   Memcheck:Leak
-   fun:malloc
-   fun:PyThread_allocate_lock
-   fun:PyEval_InitThreads
-}
 
 {
    Suppress leaking the GIL after a fork.
@@ -106,16 +74,7 @@
 {
    Handle PyMalloc confusing valgrind (possibly leaked)
    Memcheck:Leak
-   fun:malloc
-   ...
-   fun:_PyObject_GC_Resize
-   #fun:COMMENT_THIS_LINE_TO_DISABLE_LEAK_WARNING
-}
-{
-   Handle PyMalloc confusing valgrind (possibly leaked), manually added
-   Memcheck:Leak
    fun:realloc
-   ...
    fun:_PyObject_GC_Resize
    #fun:COMMENT_THIS_LINE_TO_DISABLE_LEAK_WARNING
 }
@@ -132,7 +91,6 @@
    Handle PyMalloc confusing valgrind (possibly leaked)
    Memcheck:Leak
    fun:malloc
-   ...
    fun:_PyObject_GC_NewVar
    #fun:COMMENT_THIS_LINE_TO_DISABLE_LEAK_WARNING
 }

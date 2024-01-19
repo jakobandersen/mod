@@ -12,56 +12,178 @@ Quick Start
 -----------
 
 These are simplified instructions for Ubuntu, Fedora, Arch, and macOS.
+See :ref:`below <compiling-conda>` for instructions for compiling in a Conda
+environment.
+
 If a step doesn't work or fit your case, please consult the sections below.
 
-First, get MØD and install the easy dependencies:
+First, you will need to have a Python virtual environment for your installation of MØD
+(if you use Ubuntu < 23.04 or any Fedora version, you don't need to, as they don't implement `PEP 668 <https://peps.python.org/pep-0668/>`__).
+Here we will start with a completely new environment called ``mod-env``.
+Go to anywhere you like that environment to be stored execute
+
+.. code-block:: bash
+
+	python3 -m venv --system-site-packages mod-env
+	source mod-env/bin/activate
+
+Then we can start the compilation.
+Retrive the MØD sources, create auto-generated files, and install Python dependencies:
 
 .. code-block:: bash
 
 	git clone --recursive https://github.com/jakobandersen/mod.git
 	cd mod
 	./bootstrap.sh
-	pip3 install -r requirements.txt  # may need --user to install in home folder instead of system folders
-	# Ubuntu:
-	sudo apt install $(bindep -b | tr '\n' ' ')
-	# Fedora:
-	sudo dnf install $(bindep -b | tr '\n' ' ')
-	# Arch:
-	sudo pacman -Suy $(bindep -b | tr '\n' ' ')
-	# macOS:
-	brew tap Homebrew/bundle  # may not be needed
-	brew bundle # perhaps restart the terminal afterwards to pick up the new commands
+	python3 -m pip install -r requirements.txt
 
-Then:
+Then install the rest of the dependencies:
 
-1. (Ubuntu and Fedora < 33)
-   Install Boost from source, see :ref:`install_boost_python`.
-   Remember the installation path.
-2. (Ubuntu) Install Graphviz from source:
+.. tab-set::
 
-   .. code-block:: bash
+	.. tab-item:: Ubuntu
+		:sync: ubuntu
 
-   	sudo apt install librsvg2-dev libpango1.0-dev
-   	wget http://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
-   	tar -xf graphviz.tar.gz --one-top-level=graphviz --strip-components=1
-   	cd graphviz
-   	./configure
-   	make
-   	sudo make install
+		.. code-block:: bash
 
-Finally, compile and install MØD:
+			sudo apt install $(bindep -b | tr '\n' ' ')
+
+		Then
+
+		1. Install Boost from source, see :ref:`install_boost_python`.
+		   Remember the installation path.
+		2. Install Graphviz from source:
+
+		   .. code-block:: bash
+
+		      sudo apt install librsvg2-dev libpango1.0-dev
+		      # Download a source archive from https://graphviz.org/download/source/
+		      # Extract the archive and cd into the extracted folder.
+		      ./configure
+		      make -j <n> # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
+		      sudo make install
+
+	.. tab-item:: Fedora
+		:sync: fedora
+
+		.. code-block:: bash
+
+			sudo dnf install $(bindep -b | tr '\n' ' ')
+
+	.. tab-item:: Arch
+		:sync: arch
+
+		.. code-block:: bash
+
+			sudo pacman -Suy --noconfirm $(bindep -b | tr '\n' ' ')
+
+	.. tab-item:: macOS
+		:sync: macos
+
+		.. code-block:: bash
+
+			brew tap Homebrew/bundle  # may not be needed
+			brew bundle # perhaps restart the terminal afterwards to pick up the new commands
+
+Then we can begin the compilation and installation:
+
+.. tab-set::
+
+	.. tab-item:: Ubuntu
+		:sync: ubuntu
+
+		.. code-block:: bash
+
+			mkdir build
+			cd build
+			# install to the virtual env folder
+			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV -DCMAKE_PREFIX_PATH=path/to/boost
+			# Build and install:
+			make -j <n>  # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
+			make install
+
+	.. tab-item:: Fedora/Arch/macOS
+
+		.. code-block:: bash
+
+			mkdir build
+			cd build
+			# install to the virtual env folder
+			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV
+			# Build and install:
+			make -j <n>  # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
+			make install
+
+
+.. _compiling-conda:
+
+Quick Start in a Conda Environment
+----------------------------------
+
+Retrive the MØD sources and create auto-generated files:
+
+.. code-block:: bash
+
+	git clone --recursive https://github.com/jakobandersen/mod.git
+	cd mod
+	./bootstrap.sh
+
+In ``conda/environment.yaml`` is a specification of the environment needed to compile.
+You can either create a new enviroment, called ``mod-env`` by defualt:
+
+.. code-block:: bash
+
+	conda env create -f conda/environment.yaml 
+
+Or update an existing enviroment, say ``my-env``, with the dependencies:
+
+.. code-block:: bash
+
+	conda env update --name my-env -f conda/environment.yaml
+
+Install enought of Latex in your system, outside Conda:
+
+.. tab-set::
+
+	.. tab-item:: Ubuntu
+		:sync: ubuntu
+
+		.. code-block:: bash
+
+			sudo apt install texlive-science texlive-pictures texlive-latex-extra lmodern
+
+	.. tab-item:: Fedora
+		:sync: fedora
+
+		.. code-block:: bash
+
+			sudo dnf install texlive-collection-mathscience texlive-collection-pictures texlive-collection-latexextra
+
+	.. tab-item:: Arch
+		:sync: arch
+
+		.. code-block:: bash
+
+			sudo pacman -Suy texlive-science texlive-picture texlive-latexextra
+
+	.. tab-item:: macOS
+		:sync: macos
+
+		.. code-block:: bash
+
+			brew install --cask mactex
+
+Activate the environment and then proceed with compilation:
 
 .. code-block:: bash
 
 	mkdir build
 	cd build
-	# Configure the project, either just
-	cmake ../
-	# or if you compiled and installed Boost manually, then something like
-	cmake ../ -DCMAKE_PREFIX_PATH=path/to/boost
+	# install to Conda environment folder
+	cmake ../ -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
 	# Build and install:
-	make -j <n> # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
-	sudo make install
+	make -j <n>  # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
+	make install
 
 
 From a Git Repository
@@ -154,7 +276,7 @@ See also :ref:`dependencies` for elaboration on some of them.
 - ``-DBUILD_TESTING=off``, whether to allow test building or not.
   This is forced to ``off`` when used via ``add_subdirectory``.
   When ``on`` the tests can be build with ``make tests`` and run with ``ctest``.
-- ``-DBUILD_TESTING_SANITIZERS=on``, whether to compile libraries and tests
+- ``-DBUILD_WITH_SANITIZERS=off``, whether to compile libraries and tests
   with sanitizers or not. This is forced to ``off`` when ``BUILD_COVERAGE=on``.
 - ``-DBUILD_EXAMPLES=off``, whether to build and allow running of examples as
   tests or not.
@@ -210,7 +332,7 @@ related to them.
 
   - A C++ compiler with reasonable C++17 support is needed.
   - `Boost <http://boost.org>`__ dev >= 1.76
-    (use ``-DBOOST_ROOT=<path>`` for non-standard locations).
+    (use ``-DCMAKE_PREFIX_PATH=<path>`` for non-standard locations).
   - `GraphCanon <https://github.com/jakobandersen/graph_canon>`__ >= 0.5.
     This is fulfilled via a Git submodule (make sure to do
     ``git submodule update --init --recursive``),
