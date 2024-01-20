@@ -25,7 +25,7 @@ jobs:
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams install
+        ./b2 -j 2 --with-python --with-graph --with-iostreams -with-test install
     - name: Install Graphviz
       run: |
         sudo apt install librsvg2-dev libpango1.0-dev libperl-dev
