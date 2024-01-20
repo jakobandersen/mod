@@ -120,8 +120,8 @@ jobs:
       run: cd build && ctest --output-on-failure -j 3
     - name: Run simple test
       run: mod -e "smiles('O').print()"
-  macOS-12:
-    runs-on: macos-12
+  macOS-13:
+    runs-on: macos-13
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -142,12 +142,12 @@ jobs:
         cd build
         cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
     - name: Build
-      run: cd build && make -j 3
+      run: cd build && make -j 4
     - name: Install
       run: cd build && sudo make install
     - name: Build tests
-      run: cd build && make tests -j 3
+      run: cd build && make tests -j 4
     - name: Run tests
-      run: cd build && ctest --output-on-failure -j 3
+      run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
       run: mod -e "smiles('O').print()"
