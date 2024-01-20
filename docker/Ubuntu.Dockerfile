@@ -53,7 +53,7 @@ RUN \
  tar -xf boost.tar.gz --one-top-level=boostSrc --strip-components=1        \
  && cd boostSrc                                                            \
  && ./bootstrap.sh --with-python=python3                                   \
- && ./b2 --with-python --with-graph --with-iostreams -with-test -j $j      \
+ && ./b2 --with-python --with-graph --with-iostreams --with-test -j $j     \
  && ./b2 install                                                           \
  && cd ..                                                                  \
  && rm -rf /opt/boostDir
