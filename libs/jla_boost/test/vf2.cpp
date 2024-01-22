@@ -9,7 +9,9 @@
 
 #include <boost/graph/mcgregor_common_subgraphs.hpp>
 
-#include <boost/test/minimal.hpp>
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 #include <algorithm>
 #include <cstdlib>
@@ -438,10 +440,9 @@ void test_return_value() {
 } // namespace test
 } // namespace jla_boost
 
-int test_main(int argc, char **argv) {
+BOOST_AUTO_TEST_CASE(test_main) {
 	using namespace jla_boost::test;
 	test_vf2(0, nullptr);
 	test_empty_graph_cases();
 	test_return_value();
-	return 0;
 }

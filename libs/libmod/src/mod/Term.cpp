@@ -28,7 +28,7 @@ void mgu(const std::string &left, const std::string &right) {
 	machine.setTemp(machineTemp);
 	addrRight.type = lib::Term::AddressType::Temp;
 	std::cout << "=================================================" << std::endl;
-	lib::Term::Write::wam(machine, lib::Term::getStrings(), std::cout);
+	lib::Term::Write::wam(machine, lib::Term::getStrings(), lib::IO::Logger(std::cout));
 	std::cout << "Left = " << addrLeft << ", Right = " << addrRight << std::endl;
 	std::cout << "Most general unifier of" << std::endl
 			<< "\t";
@@ -43,7 +43,8 @@ void mgu(const std::string &left, const std::string &right) {
 	std::cout << std::endl;
 	
 	auto mgu = machine.unifyHeapTemp(addrLeft.addr, addrRight.addr);
-	lib::Term::Write::wam(machine, lib::Term::getStrings(), std::cout << "is ");
+	std::cout << "is\n";
+	lib::Term::Write::wam(machine, lib::Term::getStrings(), lib::IO::Logger(std::cout));
 	std::cout << "Left = " << machine.deref(addrLeft) << ", Right = " << machine.deref(addrRight) << std::endl;
 
 	lib::Term::Write::mgu(machine, mgu, lib::Term::getStrings(), std::cout);

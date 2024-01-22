@@ -24,7 +24,7 @@ struct Function {
 
 // rst-class: template<typename R, typename ...Args> Function<R(Args...)>
 // rst:
-// rst:		Abstract base class template for fuctors used in the library.
+// rst:		Abstract base class template for function objects used in the library.
 // rst:
 // rst-class-start:
 

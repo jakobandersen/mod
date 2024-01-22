@@ -21,7 +21,7 @@ public:
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
-	bool init(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	bool init(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	          InvertibleVertexMap &match, Result &result) {
 		assert(&dpoFirst == &rFirst.getRule());
 		assert(&dpoSecond == &rSecond.getRule());
@@ -31,24 +31,26 @@ public:
 		machine.verify();
 		result.pTerm = std::make_unique<typename Result::PropTermType>(*result.rDPO, std::move(machine));
 		if(Verbose) {
-			std::cout << "New machine:\n";
-			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), std::cout);
+			logger.indent() << "New machine:\n";
+			++logger.indentLevel;
+			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), logger);
 		}
 		return true;
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
-	bool finalize(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	bool finalize(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	              InvertibleVertexMap &match, Result &result) {
 		result.pTerm->verify();
 		return true;
 	}
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexFirst, typename VertexResult>
-	void copyVertexFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-								const InvertibleVertexMap &match,
-								const Result &result,
-								const VertexFirst &vFirst, const VertexResult &vResult) {
+	void copyVertexFirst(IO::Logger logger,
+	                     const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                     const InvertibleVertexMap &match,
+	                     const Result &result,
+	                     const VertexFirst &vFirst, const VertexResult &vResult) {
 		assert(result.pTerm);
 		const auto &pFirst = *rFirst.pTerm;
 		auto &pResult = *result.pTerm;
@@ -66,23 +68,25 @@ public:
 			break;
 		}
 		if(Verbose) {
-			std::cout << "Cur machine:\n";
-			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), std::cout);
+			logger.indent() << "Current machine:\n";
+			++logger.indentLevel;
+			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), logger);
 		}
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexSecond, typename VertexResult>
-	void copyVertexSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-								 const InvertibleVertexMap &match,
-								 const Result &result,
-								 const VertexSecond &vSecond, const VertexResult &vResult) {
+	void copyVertexSecond(IO::Logger logger,
+	                      const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                      const InvertibleVertexMap &match,
+	                      const Result &result,
+	                      const VertexSecond &vSecond, const VertexResult &vResult) {
 		assert(result.pTerm);
 		const auto &pSecond = *rSecond.pTerm;
 		auto &pResult = *result.pTerm;
 		auto m = membership(rSecond, vSecond);
 		assert(m == result.rDPO->getCombinedGraph()[vResult].membership);
-		if(m != Membership::L) fixSecondTerm<Verbose>(pSecond.getRight()[vSecond], result);
-		if(m != Membership::R) fixSecondTerm<Verbose>(pSecond.getLeft()[vSecond], result);
+		if(m != Membership::L) fixSecondTerm<Verbose>(logger, pSecond.getRight()[vSecond], result);
+		if(m != Membership::R) fixSecondTerm<Verbose>(logger, pSecond.getLeft()[vSecond], result);
 		switch(m) {
 		case Membership::L:
 			pResult.add(vResult, deref(pSecond.getLeft()[vSecond], result), TERM_MAX);
@@ -95,16 +99,18 @@ public:
 			break;
 		}
 		if(Verbose) {
-			std::cout << "Cur machine:\n";
-			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), std::cout);
+			logger.indent() << "Current machine:\n";
+			++logger.indentLevel;
+			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), logger);
 		}
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename EdgeFirst, typename EdgeResult>
-	void copyEdgeFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-							 const InvertibleVertexMap &match,
-							 const Result &result,
-							 const EdgeFirst &eFirst, const EdgeResult &eResult) {
+	void copyEdgeFirst(IO::Logger logger,
+	                   const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                   const InvertibleVertexMap &match,
+	                   const Result &result,
+	                   const EdgeFirst &eFirst, const EdgeResult &eResult) {
 		// the membership of e may be different from eResult
 		assert(result.pTerm);
 		const auto &pFirst = *rFirst.pTerm;
@@ -122,23 +128,25 @@ public:
 			break;
 		}
 		if(Verbose) {
-			std::cout << "Cur machine:\n";
-			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), std::cout);
+			logger.indent() << "Current machine:\n";
+			++logger.indentLevel;
+			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), logger);
 		}
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename EdgeSecond, typename EdgeResult>
-	void copyEdgeSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-							  const InvertibleVertexMap &match,
-							  const Result &result,
-							  const EdgeSecond &eSecond, const EdgeResult &eResult) {
+	void copyEdgeSecond(IO::Logger logger,
+	                    const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                    const InvertibleVertexMap &match,
+	                    const Result &result,
+	                    const EdgeSecond &eSecond, const EdgeResult &eResult) {
 		// the membership of e may be different from eResult
 		assert(result.pTerm);
 		const auto &pSecond = *rSecond.pTerm;
 		auto &pResult = *result.pTerm;
 		auto m = result.rDPO->getCombinedGraph()[eResult].membership;
-		if(m != Membership::L) fixSecondTerm<Verbose>(pSecond.getRight()[eSecond], result);
-		if(m != Membership::R) fixSecondTerm<Verbose>(pSecond.getLeft()[eSecond], result);
+		if(m != Membership::L) fixSecondTerm<Verbose>(logger, pSecond.getRight()[eSecond], result);
+		if(m != Membership::R) fixSecondTerm<Verbose>(logger, pSecond.getLeft()[eSecond], result);
 		switch(m) {
 		case Membership::L:
 			pResult.add(eResult, deref(pSecond.getLeft()[eSecond], result), TERM_MAX);
@@ -151,68 +159,71 @@ public:
 			break;
 		}
 		if(Verbose) {
-			std::cout << "Cur machine:\n";
-			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), std::cout);
+			logger.indent() << "Current machine:\n";
+			++logger.indentLevel;
+			lib::Term::Write::wam(getMachine(*result.pTerm), lib::Term::getStrings(), logger);
 		}
 	}
 public:
 	template<typename InvertibleVertexMap, typename Result, typename VertexFirst>
 	void printVertexFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-								 const InvertibleVertexMap &match,
-								 const Result &result,
-								 std::ostream &s, const VertexFirst &vFirst) {
+	                      const InvertibleVertexMap &match,
+	                      const Result &result,
+	                      std::ostream &s, const VertexFirst &vFirst) {
 		rFirst.pTerm->print(s, vFirst);
 	}
 
 	template<typename InvertibleVertexMap, typename Result, typename VertexSecond>
 	void printVertexSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-								  const InvertibleVertexMap &match,
-								  const Result &result,
-								  std::ostream &s, const VertexSecond &vSecond) {
+	                       const InvertibleVertexMap &match,
+	                       const Result &result,
+	                       std::ostream &s, const VertexSecond &vSecond) {
 		rSecond.pTerm->print(s, vSecond);
 	}
 
 	template<typename InvertibleVertexMap, typename Result, typename VertexResult>
 	void printVertexResult(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-								  const InvertibleVertexMap &match,
-								  const Result &result,
-								  std::ostream &s, const VertexResult &vResult) {
+	                       const InvertibleVertexMap &match,
+	                       const Result &result,
+	                       std::ostream &s, const VertexResult &vResult) {
 		result.pTerm->print(s, vResult);
 	}
 
 	template<typename InvertibleVertexMap, typename Result, typename EdgeFirst>
 	void printEdgeFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-							  const InvertibleVertexMap &match,
-							  const Result &result,
-							  std::ostream &s, const EdgeFirst &eFirst) {
+	                    const InvertibleVertexMap &match,
+	                    const Result &result,
+	                    std::ostream &s, const EdgeFirst &eFirst) {
 		rFirst.pTerm->print(s, eFirst);
 	}
 
 	template<typename InvertibleVertexMap, typename Result, typename EdgeSecond>
 	void printEdgeSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-								const InvertibleVertexMap &match,
-								const Result &result,
-								std::ostream &s, const EdgeSecond &eSecond) {
+	                     const InvertibleVertexMap &match,
+	                     const Result &result,
+	                     std::ostream &s, const EdgeSecond &eSecond) {
 		rSecond.pTerm->print(s, eSecond);
 	}
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexResult, typename VertexSecond>
-	void composeVertexRvsLR(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-									const InvertibleVertexMap &match,
-									const Result &result,
-									VertexResult vResult, VertexSecond vSecond) {
+	void composeVertexRvsLR(IO::Logger logger,
+									const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                        const InvertibleVertexMap &match,
+	                        const Result &result,
+	                        VertexResult vResult, VertexSecond vSecond) {
 		//   -> a | a -> b, maybe a == b
 		auto addr = rSecond.pTerm->getRight()[vSecond];
-		fixSecondTerm<Verbose>(addr, result);
+		fixSecondTerm<Verbose>(logger, addr, result);
 		result.pTerm->setRight(vResult, deref(addr, result));
 		//   -> b
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsL(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-									const InvertibleVertexMap &match,
-									const Result &result,
-									VertexResult vResult, VertexSecond vSecond) {
+	void composeVertexLRvsL(IO::Logger logger,
+									const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                        const InvertibleVertexMap &match,
+	                        const Result &result,
+	                        VertexResult vResult, VertexSecond vSecond) {
 		// vFirst is CONTEXT, so do nothing
 		// a -> a | a ->
 		// b -> a | a ->
@@ -222,10 +233,11 @@ public:
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsLR(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-									 const InvertibleVertexMap &match,
-									 const Result &result,
-									 VertexResult vResult, VertexSecond vSecond) {
+	void composeVertexLRvsLR(IO::Logger logger,
+									 const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                         const InvertibleVertexMap &match,
+	                         const Result &result,
+	                         VertexResult vResult, VertexSecond vSecond) {
 		// the left label of vResult is ok, but the right label might have to change
 		// a != b, a != c, b =? c
 		// a -> a | a -> a
@@ -233,29 +245,38 @@ public:
 		// b -> a | a -> a
 		// b -> a | a -> c
 		auto addr = rSecond.pTerm->getRight()[vSecond];
-		fixSecondTerm<Verbose>(addr, result);
+		fixSecondTerm<Verbose>(logger, addr, result);
 		result.pTerm->setRight(vResult, deref(addr, result));
 	}
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename EdgeResult, typename EdgeSecond>
 	void
-	setEdgeResultRightFromSecondRight(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
-												 const InvertibleVertexMap &match, const Result &result,
-												 EdgeResult eResult, EdgeSecond eSecond) {
+	setEdgeResultRightFromSecondRight(IO::Logger logger,
+												 const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	                                  const InvertibleVertexMap &match, const Result &result,
+	                                  EdgeResult eResult, EdgeSecond eSecond) {
 		auto addr = rSecond.pTerm->getRight()[eSecond];
-		fixSecondTerm<Verbose>(addr, result);
+		fixSecondTerm<Verbose>(logger, addr, result);
 		result.pTerm->setRight(eResult, deref(addr, result));
 	}
 private:
 	template<bool Verbose, typename Result>
-	void fixSecondTerm(std::size_t addr, Result &result) {
+	void fixSecondTerm(IO::Logger logger, std::size_t addr, Result &result) {
 		auto &m = getMachine(*result.pTerm);
 		m.verify();
-		if(Verbose)
-			lib::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "Copy " << addr << "\n");
+		if(Verbose) {
+			logger.indent() << "Copy " << addr << '\n';
+			++logger.indentLevel;
+			lib::Term::Write::wam(m, lib::Term::getStrings(), logger);
+			--logger.indentLevel;
+		}
 		m.copyFromTemp(addr);
-		if(Verbose)
-			lib::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "After copy " << addr << "\n");
+		if(Verbose) {
+			logger.indent() << "After copy " << addr << '\n';
+			++logger.indentLevel;
+			lib::Term::Write::wam(m, lib::Term::getStrings(), logger);
+			--logger.indentLevel;
+		}
 		m.verify();
 	}
 

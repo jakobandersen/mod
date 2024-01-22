@@ -5,6 +5,8 @@
 
 #include <mod/py/Function.hpp>
 
+#include <cstdint>
+
 namespace mod::Py {
 
 // rst:
@@ -87,8 +89,9 @@ void Misc_doExport() {
 	// rst: 	 	:rtype: float
 	py::def("rngUniformReal", &mod::rngUniformReal);
 
+	py::def("strFromDump", &mod::strFromDump);
 	py::def("showDump", &mod::showDump);
-	
+
 	py::def("printGeometryGraph", &mod::printGeometryGraph);
 }
 

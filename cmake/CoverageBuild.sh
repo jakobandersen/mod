@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This should be executed in the build dir with the path to lcov as first arg.
 for v in SRC LCOV GENHTML PROJECT_NAME PROJECT_VERSION; do
 	if [ "x${!v}" = "x" ]; then

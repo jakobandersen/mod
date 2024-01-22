@@ -153,12 +153,19 @@ public:
 	HyperEdge getInverse() const;
 public:
 	// rst: .. function:: std::vector<std::pair<std::string, std::string>> \
-	// rst:               print(const graph::Printer &printer, const std::string &nomatchColour, const std::string &matchColour) const
+	// rst:               print(const graph::Printer &printer, const std::string &nomatchColour, const std::string &matchColour, int verbosity) const
 	// rst:
 	// rst:		Print the derivations represented by the hyperedge.
 	// rst:		All possible Double-Pushout diagrams are printed.
 	// rst:		The `matchColour` must be a valid colour for TikZ, which is applied to the rule
 	// rst:		and its image in the bottom span.
+	// rst:
+	// rst:		:param verbosity: the level of debug information to print. Defaults to 0.
+	// rst:
+	// rst:			- 0 (or less): print no information.
+	// rst:			- 1: print debug information within the outer printing algorithm, but not debug information related to rule composition.
+	// rst:			- 10: also print information for morphism generation for rule composition.
+	// rst:			- 20: also print rule composition information.
 	// rst:
 	// rst:		:returns: A list with file data for each DPO diagram printed.
 	// rst:			Each element is a pair of filename prefixes, where the first entry is completed by appending ``_derL``, ``_derK``, or ``_derR``.
@@ -166,7 +173,7 @@ public:
 	// rst:		:throws: :class:`LogicError` if it is a null descriptor.
 	// rst:		:throws: :class:`LogicError` if it has no rules.
 	std::vector<std::pair<std::string, std::string>>
-	print(const graph::Printer &printer, const std::string &nomatchColour, const std::string &matchColour) const;
+	print(const graph::Printer &printer, const std::string &nomatchColour, const std::string &matchColour, int verbosity) const;
 private:
 	std::shared_ptr<DG> g;
 	std::size_t eId;

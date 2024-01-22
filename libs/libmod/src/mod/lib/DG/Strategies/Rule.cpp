@@ -102,11 +102,8 @@ void handleBoundRulePair(int verbosity, IO::Logger logger, Context context, cons
 	if(verbosity >= PrintSettings::V_RuleApplication)
 		--logger.indentLevel;
 	if(d.right.empty()) {
-		if(verbosity >= V_RuleApplication) {
-			++logger.indentLevel;
-			logger.indent() << "Discarding derivation, empty result." << std::endl;
-			--logger.indentLevel;
-		}
+		if(verbosity >= V_RuleApplication)
+			logger.indent(1) << "Discarding derivation, empty result." << std::endl;
 		return;
 	}
 
@@ -224,101 +221,57 @@ void Rule::executeImpl(PrintSettings settings, const GraphState &input) {
 		return;
 	}
 
-	if(getConfig().dg.useOldRuleApplication.get()) {
-		std::vector<std::vector<BoundRule>>
-		intermediaryRules(get_num_connected_components(get_labelled_left(rRaw->getDPORule())) + 1);
-		{
-			BoundRule p;
-			p.rule = rRaw;
-			intermediaryRules[0].push_back(p);
+	const auto &subset = input.getSubset();
+	const auto &universe = input.getUniverse();
+
+	// partition such that the subset is first
+	for(int i = 0; i != subset.size(); ++i)
+		assert(subset.begin()[i] == universe[subset.getIndices()[i]]);
+
+	std::vector<bool> inSubset(universe.size(), false);
+	for(int idx: subset.getIndices())
+		inSubset[idx] = true;
+
+	std::vector<const lib::Graph::Single *> graphs = universe;
+	auto subsetEnd = graphs.begin();
+	for(auto iter = graphs.begin(); iter != graphs.end(); ++iter) {
+		const auto offset = iter - graphs.begin();
+		if(inSubset[offset]) {
+			std::iter_swap(subsetEnd, iter);
+			++subsetEnd;
 		}
-		Context context{r, getExecutionEnv(), output, consumedGraphs};
-		const auto &subset = input.getSubset();
-		const auto &universe = input.getUniverse();
-		for(unsigned int i = 1; i <= get_num_connected_components(get_labelled_left(rRaw->getDPORule())); i++) {
-			if(settings.verbosity >= PrintSettings::V_RuleBinding) {
-				settings.indent() << "Component bind round " << i << " with ";
-				++settings.indentLevel;
-				if(i == 1) {
-					std::cout << subset.size() << " graphs";
-				} else {
-					std::cout << universe.size() << " graphs and " << intermediaryRules[i - 1].size() << " intermediaries";
-				}
-				std::cout << std::endl;
-			}
+	}
+	assert(subsetEnd - graphs.begin() == subset.size());
 
-			std::size_t processedRules = 0;
-			if(i == 1) {
-				processedRules = bindGraphs(settings, context, subset, intermediaryRules[0], intermediaryRules[1],
-				                            getExecutionEnv().graphAsRuleCache);
-			} else {
-				processedRules = bindGraphs(settings, context, universe, intermediaryRules[i - 1], intermediaryRules[i],
-				                            getExecutionEnv().graphAsRuleCache);
-				for(BoundRule &p: intermediaryRules[i - 1]) {
-					delete p.rule;
-					p.rule = nullptr;
-				}
+	Context context{r, getExecutionEnv(), output, consumedGraphs};
+	std::vector<BoundRule> inputRules{{rRaw, {}, 0}};
+	for(int round = 0; round != get_num_connected_components(get_labelled_left(rRaw->getDPORule())); ++round) {
+		const auto firstGraph = graphs.begin();
+		const auto lastGraph = round == 0 ? subsetEnd : graphs.end();
+
+		const auto onOutput = [verbosity = settings.verbosity, context]
+				(IO::Logger logger, BoundRule br) -> bool {
+			if(br.rule->isOnlyRightSide()) {
+				handleBoundRulePair(verbosity, logger, context, br);
+				delete br.rule;
 			}
-			if(settings.verbosity >= PrintSettings::V_RuleBinding) {
-				settings.indent() << "Processing of " << processedRules << " intermediary rules done" << std::endl;
-				--settings.indentLevel;
-			}
-			if(context.executionEnv.doExit()) break;
+			return true;
+		};
+		std::vector<BoundRule> outputRules = bindGraphs(
+				settings.ruleApplicationVerbosity(), settings,
+				round,
+				firstGraph, lastGraph, inputRules,
+				getExecutionEnv().graphAsRuleCache,
+				getExecutionEnv().labelSettings,
+				onOutput);
+		if(round != 0) {
+			// in round 0 the inputRules is the actual original input rule, so don't delete it
+			for(auto &br: inputRules)
+				delete br.rule;
 		}
-		assert(intermediaryRules.back().empty());
-	} else { // new implementation
-		const auto &subset = input.getSubset();
-		const auto &universe = input.getUniverse();
-
-		// partition such that the subset is first
-		for(int i = 0; i != subset.size(); ++i)
-			assert(subset.begin()[i] == universe[subset.getIndices()[i]]);
-
-		std::vector<bool> inSubset(universe.size(), false);
-		for(int idx: subset.getIndices())
-			inSubset[idx] = true;
-
-		std::vector<const lib::Graph::Single *> graphs = universe;
-		auto subsetEnd = graphs.begin();
-		for(auto iter = graphs.begin(); iter != graphs.end(); ++iter) {
-			const auto offset = iter - graphs.begin();
-			if(inSubset[offset]) {
-				std::iter_swap(subsetEnd, iter);
-				++subsetEnd;
-			}
-		}
-		assert(subsetEnd - graphs.begin() == subset.size());
-
-		Context context{r, getExecutionEnv(), output, consumedGraphs};
-		std::vector<BoundRule> inputRules{{rRaw, {}, 0}};
-		for(int round = 0; round != get_num_connected_components(get_labelled_left(rRaw->getDPORule())); ++round) {
-			const auto firstGraph = graphs.begin();
-			const auto lastGraph = round == 0 ? subsetEnd : graphs.end();
-
-			const auto onOutput = [verbosity = settings.verbosity, context]
-					(IO::Logger logger, BoundRule br) -> bool {
-				if(br.rule->isOnlyRightSide()) {
-					handleBoundRulePair(verbosity, logger, context, br);
-					delete br.rule;
-				}
-				return true;
-			};
-			std::vector<BoundRule> outputRules = bindGraphs(
-					settings.ruleApplicationVerbosity(), settings,
-					round,
-					firstGraph, lastGraph, inputRules,
-					getExecutionEnv().graphAsRuleCache,
-					getExecutionEnv().labelSettings,
-					onOutput);
-			if(round != 0) {
-				// in round 0 the inputRules is the actual original input rule, so don't delete it
-				for(auto &br: inputRules)
-					delete br.rule;
-			}
-			std::swap(inputRules, outputRules);
-		} // for each round based on numComponents
-		assert(inputRules.empty());
-	} // if(getConfig().dg.useOldRuleApplication.get())
+		std::swap(inputRules, outputRules);
+	} // for each round based on numComponents
+	assert(inputRules.empty());
 }
 
 } // namespace mod::lib::DG::Strategies

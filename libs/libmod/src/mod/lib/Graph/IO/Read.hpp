@@ -39,10 +39,11 @@ struct RXNFileData {
 	// std::vector<std::vector<std::pair<int, int>>> aamap;
 };
 
-lib::IO::Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src);
+lib::IO::Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src, bool printStereoWarnings);
 lib::IO::Result<std::vector<Data>> dfs(lib::IO::Warnings &warnings, std::string_view src);
-lib::IO::Result<std::vector<Data>> smiles(lib::IO::Warnings &warnings, std::string_view smiles, bool allowAbstract,
-                                          SmilesClassPolicy classPolicy);
+lib::IO::Result<std::vector<Data>>
+smiles(lib::IO::Warnings &warnings, std::string_view smiles, bool printStereoWarnings,
+       bool allowAbstract, SmilesClassPolicy classPolicy);
 lib::IO::Result<std::vector<Data>> MDLMOL(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &options);
 lib::IO::Result<std::vector<std::vector<Data>>>
 MDLSD(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &options);

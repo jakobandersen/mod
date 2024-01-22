@@ -79,7 +79,7 @@ public:
 	        IsomorphismPolicy graphPolicy);
 	// rst: .. function:: static std::shared_ptr<Strategy> makeSequence(const std::vector<std::shared_ptr<Strategy>> &strategies)
 	// rst:
-	// rst:		:retunrs: a :ref:`strat-sequence` strategy.
+	// rst:		:returns: a :ref:`strat-sequence` strategy.
 	// rst:		:throws: :class:`LogicError` if `strategies.empty()`.
 	// rst:		:throws: :class:`LogicError` if there is a `nullptr` in `strategies`.
 	static std::shared_ptr<Strategy> makeSequence(const std::vector<std::shared_ptr<Strategy>> &strategies);
@@ -92,7 +92,7 @@ public:
 	// rst: .. function:: static std::shared_ptr<Strategy> makeFilter(bool alsoUniverse, std::shared_ptr<Function<bool(std::shared_ptr<graph::Graph>, const Strategy::GraphState&, bool)>> filterFunc)
 	// rst:
 	// rst:		The filtering predicate will be called for each graph in either the subset or the universe.
-	// rst:		The predicate is called with the graph and the graph state as arguments, and a bool stating whether or not
+	// rst:		The predicate is called with the graph and the graph state as arguments, and a bool stating whether
 	// rst:		the call is the first in the filtering process.
 	// rst:
 	// rst:		:returns: a :ref:`strat-filterUniverse` strategy if `alsoUniverse` is `true`, otherwise a :ref:`strat-filterSubset` strategy.

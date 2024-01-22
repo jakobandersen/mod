@@ -5,6 +5,7 @@
 #include <mod/graph/internal/ForwardDecl.hpp>
 #include <mod/lib/LabelledUnionGraph.hpp>
 #include <mod/lib/Graph/LabelledGraph.hpp>
+#include <mod/lib/Graph/Properties/Term.hpp>
 
 namespace mod::graph::internal {
 
@@ -23,7 +24,7 @@ MOD_DECL std::shared_ptr<graph::Graph> makeGraph(
 
 MOD_DECL std::string writePDF(const lib::Graph::Single &g, const mod::lib::IO::Graph::Write::Options &options);
 
-// LablledGraph
+// LabelledGraph
 MOD_DECL const lib::Graph::GraphType &getGraph(const lib::Graph::LabelledGraph &g);
 MOD_DECL const std::string &getString(
 		boost::graph_traits<lib::Graph::LabelledGraph::GraphType>::vertex_descriptor v,
@@ -32,7 +33,7 @@ MOD_DECL const std::string &getString(
 		boost::graph_traits<lib::Graph::LabelledGraph::GraphType>::edge_descriptor e,
 		const lib::Graph::LabelledGraph &g);
 
-// LabelledUnionGraph<LablledGraph>
+// LabelledUnionGraph<LabelledGraph>
 MOD_DECL void push_back(lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &ug, const lib::Graph::LabelledGraph *g);
 
 MOD_DECL const lib::LabelledUnionGraph<lib::Graph::LabelledGraph>::GraphType &

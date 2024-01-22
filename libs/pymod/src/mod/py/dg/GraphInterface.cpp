@@ -137,7 +137,7 @@ void GraphInterface_doExport() {
 			.add_property("sources", &DG::HyperEdge::sources)
 					// rst:		.. attribute:: numTargets
 					// rst:
-					// rst:			(Read-only) The number of targerts of the hyperedge.
+					// rst:			(Read-only) The number of targets of the hyperedge.
 					// rst:
 					// rst:			:type: int
 			.add_property("numTargets", &DG::HyperEdge::numTargets)
@@ -164,13 +164,14 @@ void GraphInterface_doExport() {
 					// rst:			:raises: :class:`LogicError` if it is a null descriptor.
 					// rst:			:raises: :class:`LogicError` if not ``dg.locked``.
 			.add_property("inverse", &DG::HyperEdge::getInverse)
-					// rst:		.. method:: print(printer=GraphPrinter(), nomatchColour="gray", matchColour="")
+					// rst:		.. method:: print(printer=GraphPrinter(), nomatchColour="gray", matchColour="", verbosity=0)
 					// rst:
 					// rst:			Print the derivations represented by the hyperedge.
 					// rst:			All possible Double-Pushout diagrams are printed.
 					// rst:
 					// rst:			:param GraphPrinter printer: the printer to use for the figures.
 					// rst:			:param str matchColour: the TikZ colour to use for the rule and its image in the bottom span.
+					// rst:			:param int verbosity: see :cpp:func:`dg::DG::HyperEdge::print`.
 					// rst:			:returns: A list with file data for each DPO diagram printed.
 					// rst:				Each element is a pair of filename prefixes, where the first entry is completed by appending ``_derL``, ``_derK``, or ``_derR``.
 					// rst:				The second entry is completed similarly by appending ``_derG``, ``_derD``, or ``_derH``.
@@ -180,7 +181,8 @@ void GraphInterface_doExport() {
 			.def("print", &DG::HyperEdge::print, (
 					py::arg("printer") = graph::Printer(),
 					py::arg("nomatchColour") = "gray",
-					py::arg("matchColour") = "")
+					py::arg("matchColour") = "",
+					py::arg("verbosity") = 0)
 			);
 
 	py::class_<DG::VertexRange>("DGVertexRange", py::no_init)

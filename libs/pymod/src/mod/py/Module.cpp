@@ -12,7 +12,7 @@
 
 #define MOD_NAMESPACED_FILES()                                                   \
    ((graph, (Printer))) /* this must be before DGGraphInterface due to default arg */ \
-   ((dg, (Builder) (DG) (GraphInterface) (Printer) (Strategy)))                  \
+   ((dg, (Builder) (DG) (GraphInterface) (Printer) (Strategy) (VertexMapper)))   \
    ((graph, (Graph) (Union)))                                                    \
    ((graph, (Automorphism) (GraphInterface))) /* nested classes of Graph, so must be after */ \
    ((rule, (CompositionMatch) (Composition) (Rule) (GraphInterface)))            \

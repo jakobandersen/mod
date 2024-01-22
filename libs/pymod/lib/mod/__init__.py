@@ -330,9 +330,12 @@ DG.__hash__ = lambda self: self.id  # type: ignore
 class DGBuilder:
 	_builder: Optional[libpymod._DGBuilder]
 
-	def __init__(self, dg: DG) -> None:
+	def __init__(self, dg: DG, onNewVertex, onNewHyperEdge) -> None:
 		assert dg is not None
-		self._builder = _DG_build_orig(dg)
+		self._builder = _DG_build_orig(dg,
+			None if onNewVertex is None else _funcWrap(libpymod._Func_VoidDGVertex, onNewVertex),
+			None if onNewHyperEdge is None else _funcWrap(libpymod._Func_VoidDGHyperEdge, onNewHyperEdge)
+		)
 
 	def __enter__(self) -> "DGBuilder":
 		return self
@@ -381,7 +384,7 @@ class DGBuilder:
 			prefixFilename(f), verbosity)
 
 _DG_build_orig = DG.build
-DG.build = lambda self: DGBuilder(self)  # type: ignore
+DG.build = lambda self, *, onNewVertex=None, onNewHyperEdge=None: DGBuilder(self, onNewVertex, onNewHyperEdge)  # type: ignore
 
 
 #----------------------------------------------------------
@@ -691,8 +694,14 @@ Graph.aut = lambda self, labelSettings=_lsString: _Graph_aut(self, labelSettings
 
 _Graph_isomorphism = Graph.isomorphism
 Graph.isomorphism = lambda self, g, maxNumMatches=1, labelSettings=_lsString: _Graph_isomorphism(self, g, maxNumMatches, labelSettings)  # type: ignore
+
 _Graph_monomorphism = Graph.monomorphism
 Graph.monomorphism = lambda self, g, maxNumMatches=1, labelSettings=_lsString: _Graph_monomorphism(self, g, maxNumMatches, labelSettings)  # type: ignore
+
+_Graph_enumerateIsomorphisms = Graph.enumerateIsomorphisms  # type: ignore
+Graph.enumerateIsomorphisms = lambda self, codomain, *, callback, labelSettings=_lsString: _Graph_enumerateIsomorphisms(  # type: ignore
+	self, codomain, _funcWrap(libpymod._Func_BoolVertexMapGraphGraph, callback), labelSettings)  # type: ignore
+
 _Graph_enumerateMonomorphisms = Graph.enumerateMonomorphisms  # type: ignore
 Graph.enumerateMonomorphisms = lambda self, codomain, *, callback, labelSettings=_lsString: _Graph_enumerateMonomorphisms(  # type: ignore
 	self, codomain, _funcWrap(libpymod._Func_BoolVertexMapGraphGraph, callback), labelSettings)  # type: ignore
@@ -739,24 +748,24 @@ _Graph_fromSDFile_orig         = Graph.fromSDFile
 _Graph_fromSDStringMulti_orig  = Graph.fromSDStringMulti
 _Graph_fromSDFileMulti_orig    = Graph.fromSDFileMulti
 
-def _Graph_fromGMLString(     s: str, name: Optional[str] = None,                                     add: bool = True) -> Graph:
-	return _graphLoad(_Graph_fromGMLString_orig(                   s                              ), name, add)
-def _Graph_fromGMLFile(       f: str, name: Optional[str] = None,                                     add: bool = True) -> Graph:
-	return _graphLoad(_Graph_fromGMLFile_orig(      prefixFilename(f)                             ), name, add)
-def _Graph_fromGMLStringMulti(s: str,                                                                 add: bool = True) -> List[Graph]:
-	return _graphsLoad(_Graph_fromGMLStringMulti_orig(             s                              ),       add)
-def _Graph_fromGMLFileMulti(  f: str,                                                                 add: bool = True) -> List[Graph]:
-	return _graphsLoad(_Graph_fromGMLFileMulti_orig(prefixFilename(f)                             ),       add)
+def _Graph_fromGMLString(     s: str, name: Optional[str] = None,                                     add: bool = True, printStereoWarnings: bool = True) -> Graph:
+	return _graphLoad(_Graph_fromGMLString_orig(                   s         , printStereoWarnings), name, add)
+def _Graph_fromGMLFile(       f: str, name: Optional[str] = None,                                     add: bool = True, printStereoWarnings: bool = True) -> Graph:
+	return _graphLoad(_Graph_fromGMLFile_orig(      prefixFilename(f)        , printStereoWarnings), name, add)
+def _Graph_fromGMLStringMulti(s: str,                                                                 add: bool = True, printStereoWarnings: bool = True) -> List[Graph]:
+	return _graphsLoad(_Graph_fromGMLStringMulti_orig(             s         , printStereoWarnings),       add)
+def _Graph_fromGMLFileMulti(  f: str,                                                                 add: bool = True, printStereoWarnings: bool = True) -> List[Graph]:
+	return _graphsLoad(_Graph_fromGMLFileMulti_orig(prefixFilename(f)        , printStereoWarnings),       add)
 def _Graph_fromDFS(           s: str, name: Optional[str] = None,                                     add: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromDFS_orig(                         s                              ), name, add)
 def _Graph_fromDFSMulti(      s: str,                                                                 add: bool = True) -> List[Graph]:
 	return _graphsLoad(_Graph_fromDFSMulti_orig(                   s                              ),       add)
 def _Graph_fromSMILES(        s: str, name: Optional[str] = None, allowAbstract: bool = False, classPolicy: SmilesClassPolicy = SmilesClassPolicy.NoneOnDuplicate,
-                                                                                                      add: bool = True) -> Graph:
-	return _graphLoad(_Graph_fromSMILES_orig(                      s,  allowAbstract, classPolicy ), name, add)
+                                                                                                      add: bool = True, printStereoWarnings: bool = True) -> Graph:
+	return _graphLoad(_Graph_fromSMILES_orig(                      s, allowAbstract, classPolicy, printStereoWarnings), name, add)
 def _Graph_fromSMILESMulti(   s: str,                             allowAbstract: bool = False, classPolicy: SmilesClassPolicy = SmilesClassPolicy.NoneOnDuplicate,
-                                                                                                      add: bool = True) -> List[Graph]:
-	return _graphsLoad(_Graph_fromSMILESMulti_orig(                s, allowAbstract, classPolicy  ),       add)
+                                                                                                      add: bool = True, printStereoWarnings: bool = True) -> List[Graph]:
+	return _graphsLoad(_Graph_fromSMILESMulti_orig(                s, allowAbstract, classPolicy, printStereoWarnings),       add)
 def _Graph_fromMOLString(     s: str, name: Optional[str] = None, options: MDLOptions = MDLOptions(), add: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromMOLString_orig(                   s,  options                    ), name, add)
 def _Graph_fromMOLFile(       f: str, name: Optional[str] = None, options: MDLOptions = MDLOptions(), add: bool = True) -> Graph:
@@ -874,10 +883,10 @@ _Rule_fromGMLString_orig = Rule.fromGMLString
 _Rule_fromGMLFile_orig   = Rule.fromGMLFile
 _Rule_fromDFS_orig       = Rule.fromDFS
 
-def _Rule_fromGMLString(s: str, invert: bool=False, add: bool=True) -> Rule:
-	return _ruleLoad(_Rule_fromGMLString_orig(s, invert), add)
-def _Rule_fromGMLFile(f: str, invert: bool=False, add: bool=True) -> Rule:
-	return _ruleLoad(_Rule_fromGMLFile_orig(prefixFilename(f), invert), add)
+def _Rule_fromGMLString(s: str, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
+	return _ruleLoad(_Rule_fromGMLString_orig(s, invert, printStereoWarnings), add)
+def _Rule_fromGMLFile(f: str, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
+	return _ruleLoad(_Rule_fromGMLFile_orig(prefixFilename(f), invert, printStereoWarnings), add)
 def _Rule_fromDFS(s: str, invert: bool=False, add: bool=True) -> Rule:
 	return _ruleLoad(_Rule_fromDFS_orig(s, invert), add)
 
@@ -908,7 +917,7 @@ def _RCEvaluator__getattribute__(self: RCEvaluator, name: str) -> Any:
 RCEvaluator.__getattribute__ = _RCEvaluator__getattribute__  # type: ignore
 
 _RCEvaluator_eval = RCEvaluator.eval
-RCEvaluator.eval = lambda self, exp, *, verbosity=2: _unwrap(_RCEvaluator_eval(self, exp, verbosity))  # type: ignore
+RCEvaluator.eval = lambda self, exp, *, onlyUnique=True, verbosity=0: _unwrap(_RCEvaluator_eval(self, exp, onlyUnique, verbosity))  # type: ignore
 
 def rcEvaluator(rules: Iterable[Rule], labelSettings: LabelSettings=_lsString) -> RCEvaluator:
 	return libpymod._rcEvaluator(_wrap(libpymod._VecRule, rules), labelSettings)

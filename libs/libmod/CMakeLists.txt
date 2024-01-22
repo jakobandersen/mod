@@ -12,6 +12,7 @@ add_library(libmod SHARED
         ${mod_libmod_INCLUDE_FILES}
         ${mod_libmod_SRC_FILES})
 add_library(mod::libmod ALIAS libmod)
+handle_sanitizers(libmod)
 target_add_coverage(libmod)
 target_include_directories(libmod
         PUBLIC

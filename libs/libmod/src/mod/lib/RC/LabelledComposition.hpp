@@ -16,11 +16,11 @@ namespace mod::lib::RC {
 namespace detail {
 
 template<bool Verbose, typename Result, typename InvertibleVertexMap, typename VisitorT>
-bool composeLabelledFinallyDoIt(Result &result,
+bool composeLabelledFinallyDoIt(IO::Logger logger, Result &result,
                                 const lib::Rules::LabelledRule &rFirst,
                                 const lib::Rules::LabelledRule &rSecond,
                                 InvertibleVertexMap &match, VisitorT visitor) {
-	return compose<Verbose>(result, rFirst.getRule(), rSecond.getRule(), match, std::move(visitor));
+	return compose<Verbose>(logger, result, rFirst.getRule(), rSecond.getRule(), match, std::move(visitor));
 }
 
 template<LabelType T>
@@ -61,11 +61,12 @@ struct WithStereoVisitor<false> {
 
 template<bool Verbose, LabelType labelType, bool withStereo,
 		typename Result, typename InvertibleVertexMap, typename VisitorT = Visitor::Null>
-bool composeLabelled(Result &result, const lib::Rules::LabelledRule &rFirst, const lib::Rules::LabelledRule &rSecond,
+bool composeLabelled(IO::Logger logger, Result &result,
+                     const lib::Rules::LabelledRule &rFirst, const lib::Rules::LabelledRule &rSecond,
                      InvertibleVertexMap &match,
                      VisitorT visitor = Visitor::Null()) {
 	return detail::composeLabelledFinallyDoIt<Verbose>(
-			result, rFirst, rSecond, match,
+			logger, result, rFirst, rSecond, match,
 			Visitor::makeVisitor(
 					std::move(visitor),
 					detail::LabelTypeToVisitor<labelType>::make(rFirst, rSecond),

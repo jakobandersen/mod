@@ -19,7 +19,7 @@ void postReopenCommandFile();
 
 struct Logger {
 	explicit Logger(std::ostream &s) : s(s) {}
-	std::ostream &indent() const;
+	std::ostream &indent(int offset = 0) const;
 	std::ostream &sep(char c) const;
 public:
 	std::ostream &s;

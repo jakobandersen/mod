@@ -152,6 +152,6 @@ private:
 	ToCombinedMorphismSide mLtoCG, mRtoCG;
 };
 
-} // namesapce mod::lib::DPO
+} // namespace mod::lib::DPO
 
 #endif // MOD_LIB_DPO_COMBINEDRULE_HPP

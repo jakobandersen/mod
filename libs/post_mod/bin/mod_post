@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Constants
 self="mod_post"
@@ -6,7 +6,6 @@ texFolder="summary"
 outFolder="out"
 texMasterFile="summary.tex"
 texFigureTemplateFile="figureTemplate.tex"
-texFormatFile="commonPreamble.fmt"
 texFile="$texFolder/all.tex"
 makefile="$texFolder/Makefile"
 makefileImpl=${makefile}Impl
@@ -199,7 +198,12 @@ else # $1 == --mode
 				local p=$MOD_PREFIX/share/mod/commonPreamble
 				if [ -f $p.fmt ]; then
 					if [ ! -f out/commonPreamble.fmt ]; then
-						ln -s $p.fmt out/commonPreamble.fmt
+						ln -s $p.fmt out/commonPreamble.fmt &> /dev/null
+						if [ $? -ne 0 ]; then
+							echo "out/commonPreamble.fmt: $p.tex"
+							echo "	echo 'Failed to create symbolic link in out/ for commonPreamble.fmt. Falling back to compiling it each time.'"
+							echo "	$this --mode compileFmt"
+						fi
 					fi
 				else
 					echo "out/commonPreamble.fmt: $p.tex"

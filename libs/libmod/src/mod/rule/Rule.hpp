@@ -176,8 +176,8 @@ public:
 	int getMinExternalId() const;
 	int getMaxExternalId() const;
 public:
-	// rst: .. function:: static std::shared_ptr<Rule> fromGMLString(const std::string &data, bool invert)
-	// rst:               static std::shared_ptr<Rule> fromGMLFile(const std::string &file, bool invert)
+	// rst: .. function:: static std::shared_ptr<Rule> fromGMLString(const std::string &data, bool invert, bool printStereoWarnings)
+	// rst:               static std::shared_ptr<Rule> fromGMLFile(const std::string &file, bool invert, bool printStereoWarnings)
 	// rst:
 	// rst:		Load a rule from a :ref:`GML <rule-gml>` string or file, and store either that rule or its inverse.
 	// rst:		The name of the rule is the one specified in the GML string, though when ``invert=True``
@@ -188,10 +188,11 @@ public:
 	// rst:			If the GML string specifies matching constraints it is not possible to invert the rule.
 	// rst:			There is however a configuration option to ignore matching constraints when inverting rules.
 	// rst:
+	// rst:		:param printStereoWarnings: whether to print warnings due to unhandled stereo information.
 	// rst:		:returns: the loaded (possibly inverted) rule.
 	// rst:		:throws: :class:`InputError` on bad data and when inversion fails due to constraints.
-	static std::shared_ptr<Rule> fromGMLString(const std::string &data, bool invert);
-	static std::shared_ptr<Rule> fromGMLFile(const std::string &file, bool invert);
+	static std::shared_ptr<Rule> fromGMLString(const std::string &data, bool invert, bool printStereoWarnings = true);
+	static std::shared_ptr<Rule> fromGMLFile(const std::string &file, bool invert, bool printStereoWarnings = true);
 	// rst: .. function:: static std::shared_ptr<Rule> fromDFS(const std::string &data, bool invert)
 	// rst:
 	// rst:		Load a rule from a :ref:`RuleDFS <format-ruleDFS>` string, and store either that rule or its inverse.

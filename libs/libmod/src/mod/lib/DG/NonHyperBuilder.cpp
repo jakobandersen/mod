@@ -36,12 +36,14 @@ void ExecuteResult::list(bool withUniverse) const {
 
 // -----------------------------------------------------------------------------
 
-Builder::Builder(NonHyperBuilder *dg) : dg(dg) {
+Builder::Builder(NonHyperBuilder *dg,
+				 std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+                 std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge) : dg(dg) {
 	if(dg->getHasCalculated()) {
 		this->dg = nullptr;
 		throw LogicError(dg->getType() + ": has already been build.");
 	}
-	dg->calculatePrologue();
+	dg->calculatePrologue(onNewVertex, onNewHyperEdge);
 }
 
 Builder::Builder(Builder &&other) : dg(other.dg) {
@@ -298,11 +300,8 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 					delete br.rule;
 			}
 			std::swap(inputRules, outputRules);
-			if(verbosity >= V_RuleApplication) {
-				++logger.indentLevel;
-				logger.indent() << "Result after apply filtering: " << inputRules.size() << " rules" << std::endl;
-				--logger.indentLevel;
-			}
+			if(verbosity >= V_RuleApplication)
+				logger.indent(1) << "Result after apply filtering: " << inputRules.size() << " rules" << std::endl;
 		} // for each round
 		// after the last round we may still have rules with connected components in L
 		// which go unused, so delete them
@@ -322,21 +321,15 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 					return dg->checkIfNew(std::move(gCand)).first;
 				},
 				[verbosity, &logger](std::shared_ptr<graph::Graph> gWrapped, std::shared_ptr<graph::Graph> gPrev) {
-					if(verbosity >= V_RuleApplication_Binding) {
-						++logger.indentLevel;
-						logger.indent() << "Discarding product " << gWrapped->getName()
-						                << ", isomorphic to other product " << gPrev->getName()
-						                << "." << std::endl;
-						--logger.indentLevel;
-					}
+					if(verbosity >= V_RuleApplication_Binding)
+						logger.indent(1) << "Discarding product " << gWrapped->getName()
+						                 << ", isomorphic to other product " << gPrev->getName()
+						                 << "." << std::endl;
 				}
 		);
 		if(products.empty()) {
-			if(verbosity >= V_RuleApplication) {
-				++logger.indentLevel;
-				logger.indent() << "Discarding derivation, empty result." << std::endl;
-				--logger.indentLevel;
-			}
+			if(verbosity >= V_RuleApplication)
+				logger.indent(1) << "Discarding derivation, empty result." << std::endl;
 			continue;
 		}
 		for(const auto &p: products)
@@ -414,21 +407,15 @@ Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 						return dg->checkIfNew(std::move(gCand)).first;
 					},
 					[verbosity, &logger](std::shared_ptr<graph::Graph> gWrapped, std::shared_ptr<graph::Graph> gPrev) {
-						if(verbosity >= V_RuleApplication_Binding) {
-							++logger.indentLevel;
-							logger.indent() << "Discarding product " << gWrapped->getName()
-							                << ", isomorphic to other product " << gPrev->getName()
-							                << "." << std::endl;
-							--logger.indentLevel;
-						}
+						if(verbosity >= V_RuleApplication_Binding)
+							logger.indent(1) << "Discarding product " << gWrapped->getName()
+							                 << ", isomorphic to other product " << gPrev->getName()
+							                 << "." << std::endl;
 					}
 			);
 			if(products.empty()) {
-				if(verbosity >= V_RuleApplication) {
-					++logger.indentLevel;
-					logger.indent() << "Discarding derivation, empty result." << std::endl;
-					--logger.indentLevel;
-				}
+				if(verbosity >= V_RuleApplication)
+					logger.indent(1) << "Discarding derivation, empty result." << std::endl;
 				delete br.rule;
 				return true;
 			}
@@ -474,21 +461,32 @@ Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 
 void Builder::addAbstract(const std::string &description) {
 	std::ostringstream err;
-	auto res = lib::DG::Read::abstract(description, err);
+	const auto res = lib::DG::Read::abstract(description, err);
 	if(!res) throw InputError("Could not parse description of abstract derivations.\n" + err.str());
 	const auto &derivations = *res;
-	std::unordered_map<std::string, std::shared_ptr<graph::Graph> > strToGraph;
-	const auto handleSide = [this, &strToGraph](const lib::DG::Read::AbstractDerivation::List &side) {
-		for(const auto &e: side) {
-			const auto iter = strToGraph.find(e.second);
-			if(iter != end(strToGraph)) continue;
+	std::unordered_map<std::string, std::shared_ptr<graph::Graph>> graphFromStr;
+	for(const auto &gOuter: dg->getGraphDatabase().asList()) {
+		const auto &gInner = gOuter->getGraph().getGraph();
+		if(num_vertices(gInner) != 1) continue;
+		const auto v = *vertices(gInner).first;
+		const auto &s = get_string(gOuter->getGraph().getLabelledGraph())[v];
+		assert(graphFromStr.find(s) == graphFromStr.end());
+		graphFromStr[s] = gOuter;
+	}
+
+	const auto handleSide = [this, &graphFromStr](const lib::DG::Read::AbstractDerivation::List &side) {
+		for(const auto &[coef, name]: side) {
+			const auto iter = graphFromStr.find(name);
+			if(iter != graphFromStr.end()) continue;
 			auto gBoost = std::make_unique<lib::Graph::GraphType>();
 			auto pString = std::make_unique<lib::Graph::PropString>(*gBoost);
+			const auto v = add_vertex(*gBoost);
+			pString->addVertex(v, name);
 			auto gLib = std::make_unique<lib::Graph::Single>(std::move(gBoost), std::move(pString), nullptr);
 			auto g = graph::Graph::create(std::move(gLib));
 			dg->addProduct(g); // this renames it
-			g->setName(e.second);
-			strToGraph[e.second] = g;
+			g->setName(name);
+			graphFromStr[name] = g;
 		}
 	};
 	for(const auto &der: derivations) {
@@ -497,10 +495,10 @@ void Builder::addAbstract(const std::string &description) {
 	}
 
 	using Side = std::unordered_map<std::shared_ptr<graph::Graph>, unsigned int>;
-	const auto makeSide = [&strToGraph](const lib::DG::Read::AbstractDerivation::List &side) {
+	const auto makeSide = [&graphFromStr](const lib::DG::Read::AbstractDerivation::List &side) {
 		Side result;
 		for(const auto &e: side) {
-			const auto g = strToGraph[e.second];
+			const auto g = graphFromStr[e.second];
 			assert(g);
 			auto iter = result.find(g);
 			if(iter == end(result)) iter = result.insert(std::make_pair(g, 0)).first;
@@ -564,6 +562,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
                             std::ostream &err,
                             int verbosity) {
 	constexpr int V_Link = 2;
+	constexpr bool printStereoWarnings = true;
 
 	assert(j["version"].get<int>() == 3);
 
@@ -582,7 +581,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 		v.id = jv[0].get<int>();
 		const std::string &gml = jv[2].get<std::string>();
 		lib::IO::Warnings warnings;
-		auto gDatasRes = lib::Graph::Read::gml(warnings, gml);
+		auto gDatasRes = lib::Graph::Read::gml(warnings, gml, printStereoWarnings);
 		err << warnings;
 		if(!gDatasRes) {
 			err << gDatasRes.extractError() << '\n';
@@ -714,9 +713,10 @@ std::string NonHyperBuilder::getType() const {
 	return "DG";
 }
 
-Builder NonHyperBuilder::build() {
+Builder NonHyperBuilder::build(std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+                               std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge) {
 	if(getHasCalculated()) throw LogicError(getType() + ": has already been build.");
-	return Builder(this);
+	return Builder(this, onNewVertex, onNewHyperEdge);
 }
 
 } // namespace mod::lib::DG

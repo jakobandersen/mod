@@ -17,6 +17,7 @@ public:
 	using Base::Prop;
 	PropMolecule(const GraphType &g, const PropString &pString);
 	bool getIsMolecule() const;
+	bool getHasOnlyChemicalBonds() const;
 #ifdef MOD_HAVE_OPENBABEL
 	const lib::Chem::OBMolHandle &getOBMol() const;
 #endif
@@ -24,7 +25,7 @@ public:
 	double getEnergy() const;
 	void cacheEnergy(double value) const;
 private:
-	bool isMolecule;
+	bool isMolecule, hasOnlyChemicalBonds;
 	mutable std::optional<double> exactMass;
 #ifdef MOD_HAVE_OPENBABEL
 	mutable lib::Chem::OBMolHandle obMol;

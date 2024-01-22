@@ -10,9 +10,9 @@
 // rst: This file contains the functionality used for reporting errors.
 // rst: In the description of the exceptions we use the standard terminology (see e.g., `Exception Safety <http://en.wikipedia.org/wiki/Exception_safety>`_).
 // rst: If nothing else is specified a thrown exception from MØD provides no exception safety.
-// rst: Any exception thrown from MØD or any dependencies are intented to derive from `std::exception`,
+// rst: Any exception thrown from MØD or any dependencies are intended to derive from `std::exception`,
 // rst: and any exception from MØD derives from :class:`Exception`.
-// rst: The exceptions are in general only thrown from the outer-most interface, and not from within the ``mod::lib`` namespace.
+// rst: The exceptions are in general only thrown from the outermost interface, and not from within the ``mod::lib`` namespace.
 
 namespace mod {
 
@@ -25,7 +25,7 @@ struct MOD_DECL Stacktrace {
 	// rst: .. function:: Stacktrace(unsigned int frameLimit, unsigned int numSkip)
 	// rst:
 	// rst:		Capture a stacktrace with at most `frameLimit` frames and without the first `numSkip` frames.
-	// rst:		The frame from the constructor it self is always skipped.
+	// rst:		The frame from the constructor itself is always skipped.
 	Stacktrace(unsigned int frameLimit, unsigned int numSkip);
 	// rst: .. function:: void print(unsigned int frameLimit, std::ostream &s) const
 	// rst: 

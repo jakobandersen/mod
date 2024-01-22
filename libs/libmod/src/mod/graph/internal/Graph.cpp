@@ -6,6 +6,7 @@
 #include <mod/lib/Graph/Properties/Molecule.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
 #include <mod/lib/Graph/Properties/String.hpp>
+#include <mod/lib/Graph/Properties/Term.hpp>
 
 namespace mod::graph::internal {
 
@@ -65,7 +66,7 @@ const std::string &getString(
 	return get_string(g)[e];
 }
 
-// LabelledUnionGraph<LablledGraph>
+// LabelledUnionGraph<LabelledGraph>
 // ----------------------------------------------------------------------------
 
 void push_back(lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &ug, const lib::Graph::LabelledGraph *g) {

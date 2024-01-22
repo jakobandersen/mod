@@ -14,7 +14,7 @@ public:
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
-	bool init(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	bool init(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	          const InvertibleVertexMap &match, Result &result) {
 		assert(&dpoFirst == &rFirst.getRule());
 		assert(&dpoSecond == &rSecond.getRule());
@@ -24,35 +24,39 @@ public:
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
-	bool finalize(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	bool finalize(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	              InvertibleVertexMap &match, Result &result) {
 		result.pString->verify();
 		return true;
 	}
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexFirst, typename VertexResult>
-	void copyVertexFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyVertexFirst(IO::Logger logger,
+								const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 								const InvertibleVertexMap &match, const Result &result,
 								const VertexFirst &vFirst, const VertexResult &vResult) {
 		copyVertex(rFirst, result, vFirst, vResult, *rFirst.pString);
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexSecond, typename VertexResult>
-	void copyVertexSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyVertexSecond(IO::Logger logger,
+								 const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 								 const InvertibleVertexMap &match, const Result &result,
 								 const VertexSecond &vSecond, const VertexResult &vResult) {
 		copyVertex(rSecond, result, vSecond, vResult, *rSecond.pString);
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename EdgeFirst, typename EdgeResult>
-	void copyEdgeFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyEdgeFirst(IO::Logger logger,
+							 const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 							 const InvertibleVertexMap &match, const Result &result,
 							 const EdgeFirst &eFirst, const EdgeResult &eResult) {
 		copyEdge(rFirst, result, eFirst, eResult, *rFirst.pString);
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename EdgeSecond, typename EdgeResult>
-	void copyEdgeSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyEdgeSecond(IO::Logger logger,
+							  const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 							  const InvertibleVertexMap &match, const Result &result,
 							  const EdgeSecond &eSecond, const EdgeResult &eResult) {
 		copyEdge(rSecond, result, eSecond, eResult, *rSecond.pString);
@@ -95,7 +99,8 @@ public:
 
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexResult, typename VertexSecond>
-	void composeVertexRvsLR(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void composeVertexRvsLR(IO::Logger logger,
+									const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 									const InvertibleVertexMap &match, const Result &result,
 									VertexResult vResult, VertexSecond vSecond) {
 		//   -> a | a -> b, maybe a == b
@@ -104,7 +109,8 @@ public:
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsL(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void composeVertexLRvsL(IO::Logger logger,
+									const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 									const InvertibleVertexMap &match, const Result &result,
 									VertexResult vResult, VertexSecond vSecond) {
 		// vFirst is CONTEXT, so do nothing
@@ -116,7 +122,8 @@ public:
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsLR(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void composeVertexLRvsLR(IO::Logger logger,
+									 const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 									 const InvertibleVertexMap &match, const Result &result,
 									 VertexResult vResult, VertexSecond vSecond) {
 		// the left label of vResult is ok, but the right label might have to change
@@ -130,7 +137,8 @@ public:
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename EdgeResult, typename EdgeSecond>
 	void
-	setEdgeResultRightFromSecondRight(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	setEdgeResultRightFromSecondRight(IO::Logger logger,
+												 const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 												 const InvertibleVertexMap &match, const Result &result,
 												 EdgeResult eResult, EdgeSecond eSecond) {
 		result.pString->setRight(eResult, rSecond.pString->getRight()[eSecond]);

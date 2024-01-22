@@ -87,7 +87,7 @@ void CompositionMatch_doExport() {
 			.def("compose", &CompositionMatch::compose, py::args("verbose") = false)
 					// rst:		.. method:: composeAll(*, maximum=False, verbose=False)
 					// rst:
-					// rst:			:param bool maximum: whether to only compose only using the matches of maximum cardinality.
+					// rst:			:param bool maximum: whether to only compose using the matches of maximum cardinality.
 					// rst:			:param bool verbose: whether to output debug messages from the composition algorithm.
 					// rst:			:returns: the composition of the two rules along enumerated matches.
 					// rst:				The enumerated matches are all those that are extensions of the current match,

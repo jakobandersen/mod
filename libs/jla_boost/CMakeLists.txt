@@ -17,6 +17,7 @@ target_link_libraries(jla_boost INTERFACE GraphCanon::graph_canon Boost::boost)
 #        CXX_VISIBILITY_PRESET hidden
 #        VISIBILITY_INLINES_HIDDEN ON)
 
+#handle_sanitizers(jla_boost)
 target_add_coverage(jla_boost)
 
 install(TARGETS jla_boost
@@ -47,11 +48,8 @@ if(BUILD_TESTING)
     endif()
     foreach(testName ${mod_jla_boost_TEST_CPP_FILES})
         add_executable(${testName} EXCLUDE_FROM_ALL test/${testName}.cpp)
-        target_link_libraries(${testName} PRIVATE JLA::boost)
-        if(BUILD_TESTING_SANITIZERS AND NOT BUILD_COVERAGE)
-            target_compile_options(${testName} PRIVATE ${sanFlags})
-            target_link_libraries(${testName} PRIVATE ${sanFlags})
-        endif()
+        target_link_libraries(${testName} PRIVATE JLA::boost Boost::unit_test_framework)
+        handle_sanitizers(${testName})
         target_add_coverage(${testName})
         add_test(${testName} ${testName})
         add_coverage_case(${testName})

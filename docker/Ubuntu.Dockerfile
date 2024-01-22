@@ -50,10 +50,10 @@ RUN wget                                                                   \
  https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz \
  -O boost.tar.gz
 RUN \
- tar -xf boost.tar.gz --one-top-level=boostSrc --strip-components=1     \
+ tar -xf boost.tar.gz --one-top-level=boostSrc --strip-components=1        \
  && cd boostSrc                                                            \
  && ./bootstrap.sh --with-python=python3                                   \
- && ./b2 --with-python --with-graph --with-iostreams -j $j                 \
+ && ./b2 --with-python --with-graph --with-iostreams --with-test -j $j     \
  && ./b2 install                                                           \
  && cd ..                                                                  \
  && rm -rf /opt/boostDir

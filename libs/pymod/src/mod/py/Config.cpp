@@ -90,7 +90,7 @@ void Config_doExport() {
 			// rst:			:param LabelType type: How to interpret labels.
 			// rst:			:param LabelRelation relation: The relation that should hold in morphisms between two labels.
 			// rst:			:param bool withStereo: A flag to specify if stereo information should be included.
-			// rst:				Defaults to ``False``, unless ``stereoRelation`` is gieven, then ``True``.
+			// rst:				Defaults to ``False``, unless ``stereoRelation`` is given, then ``True``.
 			// rst:			:param LabelRelation stereoRelation: The relation that should hold in morphisms between stereo data.
 			// rst:				Defaults to :class:`LabelRelation.Isomorphism`, but is only used when ``withStereo`` is ``True``.
 			.def(py::init<LabelType, LabelRelation>())

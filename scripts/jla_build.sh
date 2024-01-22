@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 export AS_RLIMIT=300000000
 root=$(git rev-parse --show-toplevel)
 cd $root

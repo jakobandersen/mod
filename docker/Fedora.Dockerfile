@@ -19,7 +19,6 @@ ENV BABEL_LIBDIR=/usr/lib64/openbabel3
 ENV CXXFLAGS=-Werror
 RUN cmake ../ -DBUILD_DOC=no                                                   \
  -DCMAKE_BUILD_TYPE=Release                                                    \
- -DBUILD_TESTING_SANITIZERS=off                                                \
  -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j" -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j" \
  -DBUILD_TESTING=on                           \
  && make -j $j                                \

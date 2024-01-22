@@ -261,7 +261,7 @@ private:
 // Incidence
 // -----------------------------------------------------------------------------
 
-// rst-class: graph::Graph::IncidnetEdgeIterator
+// rst-class: graph::Graph::IncidentEdgeIterator
 // rst:
 // rst:		An iterator for traversing all edges in a graph.
 // rst:		It models a forward iterator.

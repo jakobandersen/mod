@@ -8,6 +8,8 @@
 #include <mod/graph/Graph.hpp>
 #include <mod/graph/Printer.hpp>
 
+#include <mod/Function.hpp>
+
 namespace mod::dg::Py {
 namespace {
 
@@ -18,8 +20,10 @@ DG::HyperEdge (DG::*findEdgeGraphs)(const std::vector<std::shared_ptr<mod::graph
 
 // see https://stackoverflow.com/questions/19062657/is-there-a-way-to-wrap-the-function-return-value-object-in-python-using-move-i
 
-std::shared_ptr<Builder> DG_build(std::shared_ptr<DG> dg_) {
-	return std::make_shared<Builder>(dg_->build());
+std::shared_ptr<Builder> DG_build(std::shared_ptr<DG> dg_,
+								  std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+                                  std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge) {
+	return std::make_shared<Builder>(dg_->build(onNewVertex, onNewHyperEdge));
 }
 
 } // namespace

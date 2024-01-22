@@ -4,6 +4,7 @@
 #include <mod/dg/DG.hpp>
 #include <mod/dg/GraphInterface.hpp>
 #include <mod/dg/Strategies.hpp>
+#include <mod/dg/VertexMapper.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/rule/CompositionExpr.hpp>
 #include <mod/rule/Rule.hpp>
@@ -15,7 +16,7 @@
 
 namespace mod {
 // This is just hax for the vector_indexing_suite, which requires == and !=.
-// Currently the Boost sandbox has a version where the operators can be disabled.
+// Currently, the Boost sandbox has a version where the operators can be disabled.
 
 bool operator==(const Derivation &, const Derivation &) {
 	std::cerr << "Derivation does not support ==" << std::endl;
@@ -78,6 +79,7 @@ void Collections_doExport() {
 	makePair<std::string, bool>();
 	makePair<int, int>();
 	makePair<double, double>();
+	makePair<std::shared_ptr<rule::Rule>, dg::VertexMapper::Map>();
 
 	// Optional
 	py::to_python_converter<std::optional<int>, ToPythonOptionalValue<int>>();

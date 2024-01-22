@@ -234,7 +234,7 @@ public:
 
 } // namespace
 
-Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input) {
+Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool printStereoWarnings) {
 	auto resRule = parseGML(input);
 	if(!resRule) return std::move(resRule); // TODO: remove std::move when C++20/P1825R0 is available
 	auto &rule = *resRule;
@@ -306,7 +306,7 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input) {
 	} // for each vertex
 
 	for(auto &[eIds, eData]: eLabelsFromIds) {
-		const auto[src, tar] = eIds;
+		const auto [src, tar] = eIds;
 		if(vLabelsFromId.find(src) == end(vLabelsFromId))
 			return Result<>::Error(
 					"Error in rule GML. Edge endpoint '" + std::to_string(src) + "' does not exist for edge ("
@@ -423,7 +423,7 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input) {
 	}
 
 	for(auto &[eIds, eData]: eLabelsFromIds) {
-		const auto[src, tar] = eIds;
+		const auto [src, tar] = eIds;
 		if(eData.stereo.context) {
 			if(eData.stereo.left)
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
@@ -570,9 +570,9 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input) {
 			return res;
 	} // for each vertex
 
-	const auto finalize = [&warnings, &rDPO, &vIdFromCG](auto &inference, const std::string &side,
-	                                                     const auto &gSide, const auto &mSideToCG) {
-		return inference.finalize(warnings,
+	const auto finalize = [&warnings, printStereoWarnings, &rDPO, &vIdFromCG](
+			auto &inference, const std::string &side, const auto &gSide, const auto &mSideToCG) {
+		return inference.finalize(warnings, printStereoWarnings,
 		                          [&rDPO, &vIdFromCG, &side, &gSide, &mSideToCG](lib::DPO::CombinedRule::SideVertex vS) {
 			                          const auto v = get(mSideToCG, gSide, rDPO.getCombinedGraph(), vS);
 			                          const auto iter = vIdFromCG.find(v);
@@ -961,13 +961,13 @@ Result<Data> dfs(lib::IO::Warnings &warnings, std::string_view input) {
 			return res;
 
 	if(astRes->left.ast) {
-		for(const auto[id, vDFS]: astRes->left.vertexFromId) {
+		for(const auto [id, vDFS]: astRes->left.vertexFromId) {
 			assert(vDFS->gVertexId != -1);
 			data.externalToInternalIds[id] = vDFS->gVertexId;
 		}
 	}
 	if(astRes->right.ast) {
-		for(const auto[id, vDFS]: astRes->right.vertexFromId) {
+		for(const auto [id, vDFS]: astRes->right.vertexFromId) {
 			assert(vDFS->gVertexId != -1);
 			if(auto iter = data.externalToInternalIds.find(id); iter == data.externalToInternalIds.end()) {
 				data.externalToInternalIds[id] = vDFS->gVertexId;

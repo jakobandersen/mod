@@ -70,11 +70,11 @@ const LabelledGraph::PropStereoType &get_stereo(const LabelledGraph &g) {
 	if(!has_stereo(g)) {
 		auto inference = lib::Stereo::Inference(get_graph(g), get_molecule(g), false);
 		lib::IO::Warnings warnings;
-		auto result = inference.finalize(warnings, [&g](Vertex v) {
+		const bool printWarnings = true;
+		auto result = inference.finalize(warnings, printWarnings, [&g](Vertex v) {
 			return std::to_string(get(boost::vertex_index_t(), get_graph(g), v));
 		});
-		if(!getConfig().stereo.silenceDeductionWarnings.get())
-			std::cout << warnings;
+		std::cout << warnings;
 		result.throwIfError<StereoDeductionError>();
 		g.pStereo.reset(new PropStereo(get_graph(g), std::move(inference)));
 	}

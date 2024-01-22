@@ -20,7 +20,8 @@ namespace mod::lib::Chem {
 std::string getSmiles(const lib::Graph::GraphType &g, const lib::Graph::PropMolecule &molState,
                       const std::vector<int> *ranks, bool withIds);
 lib::IO::Result<std::vector<lib::Graph::Read::Data>>
-readSmiles(lib::IO::Warnings &warnings, std::string_view smiles, bool allowAbstract, SmilesClassPolicy classPolicy);
+readSmiles(lib::IO::Warnings &warnings, bool printStereoWarnings,
+           std::string_view smiles, bool allowAbstract, SmilesClassPolicy classPolicy);
 const std::vector<AtomId> &getSmilesOrganicSubset();
 bool isInSmilesOrganicSubset(AtomId atomId);
 void addImplicitHydrogens(lib::Graph::GraphType &g, lib::Graph::PropString &pString, lib::Graph::Vertex v,

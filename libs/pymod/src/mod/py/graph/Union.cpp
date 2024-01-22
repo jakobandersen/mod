@@ -67,7 +67,11 @@ void exportClass() {
 			.add_property("numVertices", &Union::numVertices)
 			.add_property("vertices", &Union::vertices)
 			.add_property("numEdges", &Union::numEdges)
-			.add_property("edges", &Union::edges);
+			.add_property("edges", &Union::edges)
+					// rst:		.. method:: printTermState
+					// rst:
+					// rst:			Print the term state for the graph.
+			.def("printTermState", &Union::printTermState);
 
 
 	// rst:		.. class:: Vertex

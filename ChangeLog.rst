@@ -4,6 +4,92 @@
 Changes
 #######
 
+
+v0.15.0 (2024-01-26)
+====================
+
+Incompatible Changes
+--------------------
+
+- The graphs created by
+  :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DGBuilder.addAbstract`
+  will no longer be empty, but have a single vertex with the label set to the
+  identifier given in the description.
+- Repeated calls to
+  :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DGBuilder.addAbstract`
+  will no longer create subnetworks independently, but will act as if
+  a single call was made with a concatenation of the inputs.
+- CMake, change the option ``BUILD_TESTING_SANITIZERS`` to ``BUILD_WITH_SANITIZERS``
+  and default it to ``OFF``. It did not cause libraries to be build with sanitizers
+  as promised. Now it does, and is therefore not enabled by default.
+- :cpp:func:`rule::Composer::eval`/:py:func:`RCEvaluator.eval` now by default prunes
+  duplicate rules. The old behaviour can be obtained by setting the new parameter
+  ``onlyUnique`` to false.
+
+
+New Features
+------------
+
+- Added support for LLDB in :option:`mod --debug`. It will be used if
+  GDB is not available.
+- Added :envvar:`MOD_DEBUGGER` to overwrite which debugger is invoked.
+- Added :cpp:func:`graph::Graph::enumerateIsomorphisms`/:py:meth:`Graph.enumerateIsomorphisms`.
+- Added :cpp:func:`graph::Union::printTermState`/:py:meth:`UnionGraph.printTermState`.
+- Added ``verbosity`` argument for :cpp:func:`dg::DG::HyperEdge::print`/:py:meth:`DGHyperEdge.print` for printing debug information.
+- Added ``printStereoWarnings`` flag to several loading functions:
+
+  - :cpp:func:`graph::Graph::fromGMLString`/:py:meth:`Graph.fromGMLString`/:py:func:`graphGMLString`
+  - :cpp:func:`graph::Graph::fromGMLStringMulti`/:py:meth:`Graph.fromGMLStringMulti`
+  - :cpp:func:`graph::Graph::fromGMLFile`/:py:meth:`Graph.fromGMLFile`/:py:func:`graphGML`
+  - :cpp:func:`graph::Graph::fromGMLFileMulti`/:py:meth:`Graph.fromGMLFileMulti`
+  - :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`Graph.fromSMILES`/:py:func:`smiles`
+  - :cpp:func:`rule::Rule::fromGMLString`/:py:meth:`Rule.fromGMLString`/:py:func:`ruleGMLString`
+  - :cpp:func:`rule::Rule::fromGMLFile`/:py:meth:`Rule.fromGMLFile`/:py:func:`ruleGML`
+
+  If the input contains stereo-information, then the full stereo-information
+  is inferred. This flag suppresses printing of warnings from this inferrence.
+  Warnings from inferrence requested at a later time are not affected.
+- Changed default graph isomorphism algorithm selection strategy.
+  Before it always ran VF2, now it will use one of several algorithms, depending on the graphs
+  and the label settings: 1) canonical SMILES string comparison, 2) comparison of canonical forms of the graphs,
+  and 3) VF2.
+- Added callback parameters for :cpp:func:`dg::DG::build`/:py:meth:`DG.build` to get notification when a new
+  vertex or hyperedge is added to the derivation graph.
+- Updated the "Quick Start" documentation for :ref:`compiling from source <compiling>`,
+  to account for the need for virtual environments in newer versions of
+  operating systems.
+- Added instructions for :ref:`compiling in a Conda environment <compiling-conda>`.
+- Added :cpp:class:`dg::VertexMapper`/:py:class:`DGVertexMapper` for enumerating vertex maps of derivations
+  (atom maps for reeactions in a chemical setting).
+
+
+Bugs Fixed
+----------
+
+- Fix CMake finding proper Python version on macOS when multiple are installed.
+- Fix :ref:mod-wrapper: such that it uses the Python executable that was found
+  during CMake configuration.
+  The environment variable :envvar:`MOD_PYTHON` can still be used
+  to overwrite the Python executable.
+- Fix :cpp:func:`post::enableCompileSummary`/:py:meth:`post.enableCompileSummary`,
+  to emit the correct command, instead of acting like
+  :cpp:func:`post::enableInvokeMake`/:py:meth:`post.enableInvokeMake`.
+- Elaborate :ref:`quick-start` instructions for compiling to make it a bit easier to follow.
+- Fix :cpp:func:`rule::CompositionMatch::composeAll`/:py:meth:`RCMatch.composeAll` when using
+  terms and/or stereo information, to actually switch to those label settings.
+- Allow term and stereo in :cpp:func:`graph::Graph::enumerateMonomorphisms`/:py:meth:`Graph.enumerateMonomorphisms`.
+- Fix Graphviz instructions for Ubuntu in :ref:`quick-start`, to point at newer source archives instead an old one.
+- `#16 <https://github.com/jakobandersen/mod/issues/16>`__, added ``pkg-config`` to ``Brewfile``.
+- In the post-processor, fall back to compiling ``commonPreamble.fmt`` each time, if creating a symbolic link fails.
+  This may happen, e.g., in certain scenarios inside a Docker container.
+- When using 
+  :cpp:func:`dg::Printer::pushVertexLabel`/:py:meth:`DGPrinter.pushVertexLabel` and
+  :cpp:func:`dg::Printer::pushEdgeLabel`/:py:meth:`DGPrinter.pushEdgeLabel`,
+  returning an empty string from the callback is now treated as if nothing should be shown from this callback,
+  instead of showing an empty string and a seperator.
+- ``mod.sty``, fix how options are passed to ``xcolor``.
+
+
 v0.14.0 (2022-11-29)
 ====================
 
@@ -37,7 +123,7 @@ New Features
 - Doc, a new section, :ref:`graph-model`, and restructuring of
   :ref:`formats`.
 - The :ref:`GraphDFS format <format-graphDFS>` now supports disconnected graphs
-  through ``.``-edges, simiilar to :ref:`SMILES <graph-smiles>`.
+  through ``.``-edges, similar to :ref:`SMILES <graph-smiles>`.
   The graph loading functions
   :cpp:func:`graph::Graph::fromDFSMulti` and
   :py:func:`Graph.fromDFSMulti` has been added to load disconnected graphs.
@@ -45,7 +131,7 @@ New Features
   rules from a :ref:`RuleDFS <format-ruleDFS>` string, a new line-notation for
   rules based on :ref:`GraphDFS <format-graphDFS>`.
 - Added support for :ref:`MOL and SD <graph-mdl>` formats for loading graphs.
-  The loadeing can be done through the functions
+  The loading can be done through the functions
 
   - :cpp:func:`graph::Graph::fromMOLString`/:py:func:`Graph.fromMOLString`,
   - :cpp:func:`graph::Graph::fromMOLFile`/:py:func:`Graph.fromMOLFile`,

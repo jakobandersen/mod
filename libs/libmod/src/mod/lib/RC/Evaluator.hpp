@@ -38,7 +38,7 @@ public:
 	Evaluator(std::unordered_set<std::shared_ptr<rule::Rule>> database, LabelSettings labelSettings);
 	const std::unordered_set<std::shared_ptr<rule::Rule>> &getRuleDatabase() const;
 	const std::unordered_set<std::shared_ptr<rule::Rule>> &getProducts() const;
-	std::vector<std::shared_ptr<rule::Rule>> eval(const rule::RCExp::Expression &exp, int verbosity);
+	std::vector<std::shared_ptr<rule::Rule>> eval(const rule::RCExp::Expression &exp, bool onlyUnique, int verbosity);
 	void print() const;
 	const GraphType &getGraph() const;
 public: // evaluation interface

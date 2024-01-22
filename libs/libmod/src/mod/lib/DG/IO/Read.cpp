@@ -134,7 +134,7 @@ std::unique_ptr<NonHyper> dump(const std::vector<std::shared_ptr<graph::Graph>> 
 	LabelSettings labelSettings = from_json(j["labelSettings"]);
 	auto dgInternal = std::make_unique<NonHyperBuilder>(labelSettings, graphDatabase, graphPolicy);
 	{ // construction
-		auto b = dgInternal->build();
+		auto b = dgInternal->build(nullptr, nullptr);
 		auto res = b.trustLoadDump(std::move(j), ruleDatabase, err, verbosity);
 		if(!res) return {};
 	}

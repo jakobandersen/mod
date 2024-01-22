@@ -162,7 +162,7 @@ protected: // args
 	EdgePred edgePred;
 	VertexPred vertexPred;
 private: // alg state
-	// we do very specific puts so we manage the two directions manually
+	// we do very specific puts, so we manage the two directions manually
 	VectorVertexMap<GraphLeft, GraphRight> m;
 	VectorVertexMap<GraphRight, GraphLeft> mInverse;
 	std::vector<std::pair<VertexLeft, VertexRight>> stack;

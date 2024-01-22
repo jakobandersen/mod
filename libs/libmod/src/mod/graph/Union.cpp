@@ -13,6 +13,7 @@
 #include <mod/lib/Graph/Properties/Molecule.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
 #include <mod/lib/Graph/Properties/String.hpp>
+#include <mod/lib/Graph/Properties/Term.hpp>
 
 #include <boost/concept/assert.hpp>
 #include <boost/lexical_cast.hpp>
@@ -106,6 +107,10 @@ std::size_t Union::numEdges() const {
 
 Union::EdgeRange Union::edges() const {
 	return EdgeRange(p);
+}
+
+void Union::printTermState() const {
+	lib::Graph::Write::termState(p->g, boost::lexical_cast<std::string>(*this));
 }
 
 //------------------------------------------------------------------------------

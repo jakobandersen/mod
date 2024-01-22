@@ -59,7 +59,7 @@ public:
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
-	bool init(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	bool init(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	          InvertibleVertexMap &match, Result &result) {
 		assert(&dpoFirst == &rFirst.getRule());
 		assert(&dpoSecond == &rSecond.getRule());
@@ -67,7 +67,7 @@ public:
 	}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
-	bool finalize(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	bool finalize(IO::Logger loggerOrig, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	              InvertibleVertexMap &match, Result &result) {
 		const auto &gFirst = get_graph(rFirst);
 		const auto &gSecond = get_graph(rSecond);
@@ -78,6 +78,7 @@ public:
 			return lib::Stereo::getGeometryGraph().getGraph()[vGeo].name;
 		};
 		const auto copyAllFromSide = [&](
+				IO::Logger logger,
 				const auto safe,
 				const auto &glSide, const auto &vInput, const auto &gInput,
 				const auto &mInputToResult, const auto &vResult,
@@ -87,7 +88,7 @@ public:
 			auto &data = vData[vResultId];
 			const auto &conf = *get_stereo(glSide)[vInput];
 			data.vGeometry = conf.getGeometryVertex();
-			if(Verbose) std::cout << "\tGeometry: " << getGeoName(data.vGeometry) << "\n";
+			if(Verbose) logger.indent() << "Geometry: " << getGeoName(data.vGeometry) << "\n";
 			for(const auto &emb: conf) {
 				switch(emb.type) {
 				case lib::Stereo::EmbeddingEdge::Type::LonePair:
@@ -103,15 +104,15 @@ public:
 					const auto eInput = emb.getEdge(vInput, get_graph(glSide));
 					const auto vAdjInput = target(eInput, gInput);
 					if(Verbose) {
-						std::cout << "\tmapping edge: ("
-						          << get(boost::vertex_index_t(), gInput, vInput) << ", "
-						          << get(boost::vertex_index_t(), gInput, vAdjInput) << ")\n";
+						logger.indent() << "mapping edge: ("
+						                << get(boost::vertex_index_t(), gInput, vInput) << ", "
+						                << get(boost::vertex_index_t(), gInput, vAdjInput) << ")\n";
 					}
 					const auto vAdjResult = get(mInputToResult, gInput, gResult, vAdjInput);
 					if(safe) assert(vAdjResult != NullVertex(gResult));
 					else if(vAdjResult == NullVertex(gResult)) {
 						// the vertex is deleted, so let's skip it
-						if(Verbose) std::cout << "\tdeleted\n";
+						if(Verbose) logger.indent() << "deleted\n";
 						partial = true;
 						break; // the case statement
 					}
@@ -125,10 +126,10 @@ public:
 						return std::distance(oeResult.first, oeIter);
 					}();
 					if(Verbose) {
-						std::cout << "\tto edge: ("
-						          << get(boost::vertex_index_t(), gResult, vResult) << ", "
-						          << get(boost::vertex_index_t(), gResult, vAdjResult) << "), offset = "
-						          << eResultOffset << " (of " << out_degree(vResult, gResultSide) << ")\n";
+						logger.indent() << "to edge: ("
+						                << get(boost::vertex_index_t(), gResult, vResult) << ", "
+						                << get(boost::vertex_index_t(), gResult, vAdjResult) << "), offset = "
+						                << eResultOffset << " (of " << out_degree(vResult, gResultSide) << ")\n";
 					}
 					const auto eResult = out_edges(vResult, gResult).first[eResultOffset];
 					const auto eIdResult = get(boost::edge_index_t(), gResult, eResult);
@@ -141,37 +142,46 @@ public:
 			if(partial) { // let it remain free
 				MOD_ABORT; // TODO
 				assert(data.fix == lib::Stereo::Fixation::free());
-				if(Verbose) std::cout << "\tfix: remain free (" << data.fix << ")\n";
+				if(Verbose) logger.indent() << "fix: remain free (" << data.fix << ")\n";
 			} else { // copy from conf
 				data.fix = conf.getFixation();
-				if(Verbose) std::cout << "\tfix: copy (" << data.fix << ")\n";
+				if(Verbose) logger.indent() << "fix: copy (" << data.fix << ")\n";
 			}
 			return partial;
 		};
-		const auto handleOnly = [&](auto vResult, auto vInput, const auto &rInput, const auto &mInputToResult) {
+		const auto handleOnly = [&](IO::Logger logger, auto vResult, auto vInput, const auto &rInput,
+		                            const auto &mInputToResult) {
 			const auto &gInput = get_graph(rInput);
 			// yay, just copy the embedding, both in the right and left side
 			const auto m = gResult[vResult].membership;
 			if(m != Membership::R) {
 				// copy left
-				if(Verbose) std::cout << "\tLeft:\n";
-				const bool partial = copyAllFromSide(std::true_type(), get_labelled_left(rInput), vInput, gInput,
+				if(Verbose) {
+					logger.indent() << "Left:\n";
+					++logger.indentLevel;
+				}
+				const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_left(rInput), vInput, gInput,
 				                                     mInputToResult, vResult, result.rDPO->getLProjected(), vDataLeft,
 				                                     eDataLeft);
 				(void) partial;
 				assert(!partial);
+				if(Verbose) --logger.indentLevel;
 			}
 			if(m != Membership::L) {
 				// copy right
-				if(Verbose) std::cout << "\tRight:\n";
-				const bool partial = copyAllFromSide(std::true_type(), get_labelled_right(rInput), vInput, gInput,
+				if(Verbose) {
+					logger.indent() << "Right:\n";
+					++logger.indentLevel;
+				}
+				const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rInput), vInput, gInput,
 				                                     mInputToResult, vResult, result.rDPO->getRProjected(), vDataRight,
 				                                     eDataRight);
 				(void) partial;
 				assert(!partial);
+				if(Verbose) --logger.indentLevel;
 			}
-		};
-		const auto handleBoth = [&](auto vResult, auto vFirst, auto vSecond) {
+		}; // handleOnly()
+		const auto handleBoth = [&](IO::Logger logger, auto vResult, auto vFirst, auto vSecond) {
 			using EmbEdge = lib::Stereo::EmbeddingEdge;
 			//			const auto &geo = lib::Stereo::getGeometryGraph();
 			const auto m = gResult[vResult].membership;
@@ -232,45 +242,66 @@ public:
 				const auto firstInContext = get_stereo(rFirst).inContext(vFirst);
 				const auto &confL1 = *get_stereo(get_labelled_left(rFirst))[vFirst];
 				const auto geoL1 = confL1.getGeometryVertex();
-				if(Verbose)
-					std::cout << "\tHandling L\n"
-					          << "\t\tGeo L1: " << getGeoName(geoL1) << "\n"
-					          << "\t\tGeo R1: " << getGeoName(geoR1) << "\n"
-					          << "\t\tGeo L2: " << getGeoName(geoL2) << "\n";
-				if(firstInContext) {
-					if(Verbose) std::cout << "\t\tFirst stereo in context\n";
-					if(secondToFirstSubgraph) {
-						if(Verbose) std::cout << "\t\tSecond-to-first subgraph: copy and map L1/R1 to L\n";
-						const bool partial = copyAllFromSide(std::true_type(), get_labelled_left(rFirst), vFirst, gFirst,
-						                                     result.mFirstToResult, vResult, result.rDPO->getLProjected(),
-						                                     vDataLeft, eDataLeft);
-						(void) partial;
-						assert(!partial);
-					} else if(firstToSecondSubgraph) {
-						if(Verbose) std::cout << "\t\tFirst-to-second subgraph: copy and map L2 to L\n";
-						MOD_ABORT;
-					} else {
-						if(Verbose) std::cout << "\t\tNon-subgraph: do a merge\n";
-						MOD_ABORT;
-					}
-				} else { // !firstInContext
-					if(Verbose) std::cout << "\t\tFirst stereo changes\n";
-					if(secondToFirstSubgraph) {
-						if(Verbose) std::cout << "\t\tSecond-to-first subgraph: copy and map L1 to L\n";
-						const bool partial = copyAllFromSide(std::true_type(), get_labelled_left(rFirst), vFirst, gFirst,
-						                                     result.mFirstToResult, vResult, result.rDPO->getLProjected(),
-						                                     vDataLeft, eDataLeft);
-						(void) partial;
-						assert(!partial);
-					} else if(firstToSecondSubgraph) {
-						if(Verbose) std::cout << "\t\tFirst-to-second subgraph: hmm\n";
-						MOD_ABORT;
-					} else {
-						if(Verbose) std::cout << "\t\tNon-subgraph: do a merge\n";
-						MOD_ABORT;
-					}
+				if(Verbose) {
+					logger.indent() << "Handling L\n";
+					++logger.indentLevel;
+					logger.indent() << "Geo L1: " << getGeoName(geoL1) << "\n";
+					logger.indent() << "Geo R1: " << getGeoName(geoR1) << "\n";
+					logger.indent() << "Geo L2: " << getGeoName(geoL2) << "\n";
+					--logger.indentLevel;
 				}
-			}
+				if(firstInContext) {
+					if(Verbose) {
+						logger.indent() << "First stereo in context\n";
+						++logger.indentLevel;
+					}
+					if(secondToFirstSubgraph) {
+						if(Verbose) {
+							logger.indent() << "Second-to-first subgraph: copy and map L1/R1 to L\n";
+							++logger.indentLevel;
+						}
+						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_left(rFirst), vFirst,
+						                                     gFirst,
+						                                     result.mFirstToResult, vResult, result.rDPO->getLProjected(),
+						                                     vDataLeft, eDataLeft);
+						(void) partial;
+						assert(!partial);
+						if(Verbose) --logger.indentLevel;
+					} else if(firstToSecondSubgraph) {
+						if(Verbose) logger.indent() << "First-to-second subgraph: copy and map L2 to L\n";
+						MOD_ABORT;
+					} else {
+						if(Verbose) logger.indent() << "Non-subgraph: do a merge\n";
+						MOD_ABORT;
+					}
+					if(Verbose) --logger.indentLevel;
+				} else { // !firstInContext
+					if(Verbose) {
+						logger.indent() << "First stereo changes\n";
+						++logger.indentLevel;
+					}
+					if(secondToFirstSubgraph) {
+						if(Verbose) {
+							logger.indent() << "Second-to-first subgraph: copy and map L1 to L\n";
+							++logger.indentLevel;
+						}
+						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_left(rFirst), vFirst,
+						                                     gFirst,
+						                                     result.mFirstToResult, vResult, result.rDPO->getLProjected(),
+						                                     vDataLeft, eDataLeft);
+						(void) partial;
+						assert(!partial);
+						if(Verbose) --logger.indentLevel;
+					} else if(firstToSecondSubgraph) {
+						if(Verbose) logger.indent() << "First-to-second subgraph: hmm\n";
+						MOD_ABORT;
+					} else {
+						if(Verbose) logger.indent() << "Non-subgraph: do a merge\n";
+						MOD_ABORT;
+					}
+					if(Verbose) --logger.indentLevel;
+				}
+			} // if(m != Membership::R)
 			if(m != Membership::L) {
 				assert(membership(rSecond, vSecond) == Membership::K);
 				auto &data = vDataRight[vResultId];
@@ -278,49 +309,76 @@ public:
 				const auto secondInContext = get_stereo(rSecond).inContext(vSecond);
 				const auto &confR2 = *get_stereo(get_labelled_right(rSecond))[vSecond];
 				const auto geoR2 = confR2.getGeometryVertex();
-				if(Verbose)
-					std::cout << "\tHandling R\n"
-					          << "\t\tGeo R1: " << getGeoName(geoR1) << "\n"
-					          << "\t\tGeo L2: " << getGeoName(geoL2) << "\n"
-					          << "\t\tGeo R2: " << getGeoName(geoR2) << "\n";
+				if(Verbose) {
+					logger.indent() << "Handling R\n";
+					++logger.indentLevel;
+					logger.indent() << "Geo R1: " << getGeoName(geoR1) << "\n";
+					logger.indent() << "Geo L2: " << getGeoName(geoL2) << "\n";
+					logger.indent() << "Geo R2: " << getGeoName(geoR2) << "\n";
+					--logger.indentLevel;
+				}
 				if(secondInContext) {
-					if(Verbose) std::cout << "\t\tSecond stereo in context\n";
+					if(Verbose) {
+						logger.indent() << "Second stereo in context\n";
+						++logger.indentLevel;
+					}
 					if(firstToSecondSubgraph) {
-						if(Verbose) std::cout << "\t\tFirst-to-second subgraph: copy and map L2/R2 to R\n";
-						const bool partial = copyAllFromSide(std::true_type(), get_labelled_right(rSecond), vSecond, gSecond,
+						if(Verbose) {
+							logger.indent() << "First-to-second subgraph: copy and map L2/R2 to R\n";
+							++logger.indentLevel;
+						}
+						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rSecond), vSecond,
+						                                     gSecond,
 						                                     result.mSecondToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
 						assert(!partial);
+						if(Verbose) --logger.indentLevel;
 					} else if(secondToFirstSubgraph) {
-						if(Verbose) std::cout << "\t\tSecond-to-first subgraph: copy and map R1 to R\n";
-						const bool partial = copyAllFromSide(std::true_type(), get_labelled_right(rFirst), vFirst, gFirst,
+						if(Verbose) {
+							logger.indent() << "Second-to-first subgraph: copy and map R1 to R\n";
+							++logger.indentLevel;
+						}
+						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rFirst), vFirst,
+						                                     gFirst,
 						                                     result.mFirstToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
 						assert(!partial);
+						if(Verbose) --logger.indentLevel;
 					} else {
-						if(Verbose) std::cout << "\t\tNon-subgraph: do a merge\n";
+						if(Verbose) logger.indent() << "Non-subgraph: do a merge\n";
 						MOD_ABORT;
 					}
+					if(Verbose) --logger.indentLevel;
 				} else { // !secondInContext
-					if(Verbose) std::cout << "\t\tSecond stereo changes\n";
+					if(Verbose) {
+						logger.indent() << "Second stereo changes\n";
+						++logger.indentLevel;
+					}
 					if(firstToSecondSubgraph) {
-						if(Verbose) std::cout << "\t\tFirst-to-second subgraph: copy and map R2 to R\n";
-						const bool partial = copyAllFromSide(std::true_type(), get_labelled_right(rSecond), vSecond, gSecond,
+						if(Verbose) {
+							logger.indent() << "First-to-second subgraph: copy and map R2 to R\n";
+							++logger.indentLevel;
+						}
+						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rSecond), vSecond,
+						                                     gSecond,
 						                                     result.mSecondToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
 						assert(!partial);
+						if(Verbose) --logger.indentLevel;
 					} else if(secondToFirstSubgraph) {
 						if(Verbose) {
-							std::cout << "\t\tSecond-to-first subgraph:\n"
-							          << "\t\t\t- Copy all from R2.\n"
-							          << "\t\t\t- Copy unmatched from R1.\n"
-							          << "\t\t\t- Match R2 stereo onto the result and check if the pushout is valid.\n";
-							std::cout << "\tCopying all from R2\n";
+							logger.indent() << "Second-to-first subgraph:\n";
+							logger.indent() << "- Copy all from R2.\n";
+							logger.indent() << "- Copy unmatched from R1.\n";
+							logger.indent() << "- Match R2 stereo onto the result and check if the pushout is valid.\n";
+							logger.indent() << "Copying all from R2\n";
+							++logger.indentLevel;
 						}
-						const bool partial = copyAllFromSide(std::true_type(), get_labelled_right(rSecond), vSecond, gSecond,
+						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rSecond), vSecond,
+						                                     gSecond,
 						                                     result.mSecondToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
@@ -328,7 +386,7 @@ public:
 						const auto sizeAfterR2 = data.edges.size();
 						(void) sizeAfterR2;
 						{ // copy unmatched from R1
-							if(Verbose) std::cout << "\tCopying unmatched from R1\n";
+							if(Verbose) logger.indent() << "Copying unmatched from R1\n";
 							const auto vInput = vFirst;
 							const auto &gBaseInput = get_graph(rFirst);
 							const auto &glSide = get_labelled_right(rFirst);
@@ -353,14 +411,14 @@ public:
 									const auto eInput = emb.getEdge(vInput, gInput);
 									const auto vAdjInput = target(eInput, gInput);
 									if(Verbose) {
-										std::cout << "\tmapping edge: ("
-										          << get(boost::vertex_index_t(), gInput, vInput) << ", "
-										          << get(boost::vertex_index_t(), gInput, vAdjInput) << ")\n";
+										logger.indent() << "mapping edge: ("
+										                << get(boost::vertex_index_t(), gInput, vInput) << ", "
+										                << get(boost::vertex_index_t(), gInput, vAdjInput) << ")\n";
 									}
 									const auto vAdjResult = get(mInputToResult, gBaseInput, gResult, vAdjInput);
 									if(vAdjResult == NullVertex(gResult)) {
 										// the vertex is deleted, so let's skip it
-										if(Verbose) std::cout << "\tdeleted\n";
+										if(Verbose) logger.indent() << "deleted\n";
 										break; // the case statement
 									}
 									// is it mapped?
@@ -368,37 +426,37 @@ public:
 									const auto vAdjInputOther = mapToOtherInput(vAdjInput);
 									const bool isMatched = [&]() {
 										if(vInputOther == NullVertex(gInput)) {
-											if(Verbose) std::cout << "\tnot matched, due to vInputOther = null\n";
+											if(Verbose) logger.indent() << "not matched, due to vInputOther = null\n";
 											return false;
 										}
 										if(vAdjInputOther == NullVertex(gInput)) {
-											if(Verbose) std::cout << "\tnot matched, due to vAdjInputOther = null\n";
+											if(Verbose) logger.indent() << "not matched, due to vAdjInputOther = null\n";
 											return false;
 										}
 										for(auto eInputOther: asRange(out_edges(vInputOther, gInputOther))) {
 											if(target(eInputOther, gInputOther) != vAdjInputOther) {
 												if(Verbose) {
-													std::cout << "\tcand = ("
-													          << get(boost::vertex_index_t(), gInputOther, vInputOther) << ", "
-													          << get(boost::vertex_index_t(), gInputOther, vAdjInputOther)
-													          << ") not it\n";
+													logger.indent() << "cand = ("
+													                << get(boost::vertex_index_t(), gInputOther, vInputOther) << ", "
+													                << get(boost::vertex_index_t(), gInputOther, vAdjInputOther)
+													                << ") not it\n";
 												}
 												continue;
 											}
 											if(Verbose) {
-												std::cout << "\tcand = ("
-												          << get(boost::vertex_index_t(), gInputOther, vInputOther) << ", "
-												          << get(boost::vertex_index_t(), gInputOther, vAdjInputOther)
-												          << ") is it\n";
+												logger.indent() << "cand = ("
+												                << get(boost::vertex_index_t(), gInputOther, vInputOther) << ", "
+												                << get(boost::vertex_index_t(), gInputOther, vAdjInputOther)
+												                << ") is it\n";
 											}
 											// TODO: shouldn't we check the membership as well?
 											return true;
 										}
-										if(Verbose) std::cout << "\tnot matched, due to no edge found\n";
+										if(Verbose) logger.indent() << "not matched, due to no edge found\n";
 										return false;
 									}();
 									if(isMatched) {
-										if(Verbose) std::cout << "\tmatched\n";
+										if(Verbose) logger.indent() << "matched\n";
 										break;
 									}
 
@@ -413,10 +471,10 @@ public:
 										return std::distance(oeResult.first, oeIter);
 									}();
 									if(Verbose) {
-										std::cout << "\tto edge: ("
-										          << get(boost::vertex_index_t(), gResult, vResult) << ", "
-										          << get(boost::vertex_index_t(), gResult, vAdjResult) << "), offset = "
-										          << eResultOffset << " (of " << out_degree(vResult, gResultSide) << ")\n";
+										logger.indent() << "to edge: ("
+										                << get(boost::vertex_index_t(), gResult, vResult) << ", "
+										                << get(boost::vertex_index_t(), gResult, vAdjResult) << "), offset = "
+										                << eResultOffset << " (of " << out_degree(vResult, gResultSide) << ")\n";
 									}
 									const auto eResult = out_edges(vResult, gResult).first[eResultOffset];
 									const auto eIdResult = get(boost::edge_index_t(), gResult, eResult);
@@ -431,32 +489,46 @@ public:
 						if(data.vGeometry != lib::Stereo::getGeometryGraph().any) {
 							MOD_ABORT; // bah, we need to do something, or reject the pushout
 						}
+						if(Verbose) --logger.indentLevel;
 					} else {
-						if(Verbose) std::cout << "\t\tNon-subgraph: do a merge\n";
+						if(Verbose) logger.indent() << "tNon-subgraph: do a merge\n";
 						MOD_ABORT;
 					}
+					if(Verbose) --logger.indentLevel;
 				}
 				if(false) {
-					copyAllFromSide(std::false_type(), get_labelled_right(rSecond), vSecond, gSecond, result.mSecondToResult,
+					if(Verbose) ++logger.indentLevel;
+					copyAllFromSide(logger, std::false_type(), get_labelled_right(rSecond), vSecond, gSecond,
+					                result.mSecondToResult,
 					                vResult, result.rDPO->getRProjected(), vDataRight, eDataRight);
 					const auto prevEmbSize = data.edges.size();
 
 					if(data.edges.size() > prevEmbSize) {
 						// we the fixation must be free
 						if(Verbose)
-							std::cout << "\tfix: data.edges.size() = " << data.edges.size() << " > " << prevEmbSize
-							          << " = prevEmbSize, so set free (was " << data.fix << ")\n";
+							logger.indent() << "fix: data.edges.size() = " << data.edges.size() << " > " << prevEmbSize
+							                << " = prevEmbSize, so set free (was " << data.fix << ")\n";
 						data.fix = lib::Stereo::Fixation::free();
 					} else {
-						if(Verbose) std::cout << "\tfix: not changing it (" << data.fix << ")\n";
+						if(Verbose) logger.indent() << "fix: not changing it (" << data.fix << ")\n";
 					}
+					if(Verbose) --logger.indentLevel;
 				} // if false, old code
 			} // if vResult in R
 		}; // handleBoth()
-		if(Verbose) std::cout << "Stereo Finalization\n" << std::string(80, '-') << '\n';
+
+		if(Verbose) {
+			loggerOrig.indent() << "Stereo Finalization\n";
+			loggerOrig.sep('-');
+		}
 		const auto &gGeometry = lib::Stereo::getGeometryGraph().getGraph();
 		for(auto vResult: asRange(vertices(gResult))) {
-			if(Verbose) std::cout << "Result vertex: " << get(boost::vertex_index_t(), gResult, vResult) << "\n";
+			auto logger = loggerOrig;
+			if(Verbose) {
+				++logger.indentLevel;
+				logger.indent() << "Result vertex: " << get(boost::vertex_index_t(), gResult, vResult) << "\n";
+				++logger.indentLevel;
+			}
 			const auto m = result.rDPO->getCombinedGraph()[vResult].membership;
 			const auto vResultId = get(boost::vertex_index_t(), gResult, vResult);
 			// If vResult is in only first or only second, we should be able to just copy the embedding.
@@ -464,8 +536,11 @@ public:
 			const auto vSecond = get_inverse(result.mSecondToResult, gSecond, gResult, vResult);
 			assert(vFirst != NullVertex<GraphFirst>() || vSecond != NullVertex<GraphSecond>());
 			std::stringstream ssErr;
-			const auto instantiateConfs = [&]() {
-				if(Verbose) std::cout << "\tinstantiating configurations\n";
+			const auto instantiateConfs = [&](IO::Logger logger) {
+				if(Verbose) {
+					logger.indent() << "instantiating configurations\n";
+					++logger.indentLevel;
+				}
 				// TODO: we should probably correct LonePair and Radical offsets here
 				if(m != Membership::R) {
 					auto &data = vDataLeft[vResultId];
@@ -487,19 +562,19 @@ public:
 						MOD_ABORT;
 					}
 				}
-			};
+			}; // instantiateCoefs()
 			if(vFirst == NullVertex<GraphFirst>()) {
-				if(Verbose) std::cout << "\tnot in First, copy only from Second\n";
-				handleOnly(vResult, vSecond, rSecond, result.mSecondToResult);
-				instantiateConfs();
+				if(Verbose) logger.indent() << "not in First, copy only from Second\n";
+				handleOnly(logger, vResult, vSecond, rSecond, result.mSecondToResult);
+				instantiateConfs(logger);
 			} else if(vSecond == NullVertex<GraphSecond>()) {
-				if(Verbose) std::cout << "\tnot in Second, copy only from First\n";
-				handleOnly(vResult, vFirst, rFirst, result.mFirstToResult);
-				instantiateConfs();
+				if(Verbose) logger.indent() << "not in Second, copy only from First\n";
+				handleOnly(logger, vResult, vFirst, rFirst, result.mFirstToResult);
+				instantiateConfs(logger);
 			} else {
-				if(Verbose) std::cout << "\tin both\n";
-				handleBoth(vResult, vFirst, vSecond);
-				instantiateConfs();
+				if(Verbose) logger.indent() << "in both\n";
+				handleBoth(logger, vResult, vFirst, vSecond);
+				instantiateConfs(logger);
 			}
 		}
 
@@ -539,7 +614,8 @@ public:
 	}
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result, typename VertexFirst, typename VertexResult>
-	void copyVertexFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyVertexFirst(IO::Logger logger,
+	                     const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                     const InvertibleVertexMap &match, const Result &result,
 	                     const VertexFirst &vFirst, const VertexResult &vResult) {
 		const auto &gResult = result.rDPO->getCombinedGraph();
@@ -556,7 +632,8 @@ public:
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result,
 			typename VertexSecond, typename VertexResult>
-	void copyVertexSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyVertexSecond(IO::Logger logger,
+	                      const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                      const InvertibleVertexMap &match, const Result &result,
 	                      const VertexSecond &vSecond, const VertexResult &vResult) {
 		const auto &gResult = result.rDPO->getCombinedGraph();
@@ -573,7 +650,8 @@ public:
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result,
 			typename EdgeFirst, typename EdgeResult>
-	void copyEdgeFirst(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyEdgeFirst(IO::Logger logger,
+	                   const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                   const InvertibleVertexMap &match, const Result &result,
 	                   const EdgeFirst &eFirst, const EdgeResult &eResult) {
 		using GraphSecond = lib::Rules::LabelledRule::GraphType;
@@ -621,7 +699,8 @@ public:
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result,
 			typename EdgeSecond, typename EdgeResult>
-	void copyEdgeSecond(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void copyEdgeSecond(IO::Logger logger,
+	                    const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                    const InvertibleVertexMap &match, const Result &result,
 	                    const EdgeSecond &eSecond, const EdgeResult &eResult) {
 		using GraphFirst = lib::Rules::LabelledRule::GraphType;
@@ -795,7 +874,8 @@ public:
 public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexRvsLR(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void composeVertexRvsLR(IO::Logger logger,
+	                        const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                        const InvertibleVertexMap &match, const Result &result,
 	                        VertexResult vResult, VertexSecond vSecond) {
 		// -> a | a -> b, maybe a == b
@@ -806,7 +886,8 @@ public:
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsL(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void composeVertexLRvsL(IO::Logger logger,
+	                        const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                        const InvertibleVertexMap &match, const Result &result,
 	                        VertexResult vResult, VertexSecond vSecond) {
 		// a -> a | a ->
@@ -820,7 +901,8 @@ public:
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result,
 			typename VertexResult, typename VertexSecond>
-	void composeVertexLRvsLR(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	void composeVertexLRvsLR(IO::Logger logger,
+	                         const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                         const InvertibleVertexMap &match, const Result &result,
 	                         VertexResult vResult, VertexSecond vSecond) {
 		// a != b, a != c, b =? c
@@ -836,7 +918,8 @@ public:
 	template<bool Verbose, typename InvertibleVertexMap, typename Result,
 			typename EdgeResult, typename EdgeSecond>
 	void
-	setEdgeResultRightFromSecondRight(const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
+	setEdgeResultRightFromSecondRight(IO::Logger logger,
+	                                  const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                                  const InvertibleVertexMap &match, const Result &result,
 	                                  EdgeResult eResult, EdgeSecond eSecond) {
 		// |  ->   vs.    -> |, simply copy the R2 to R

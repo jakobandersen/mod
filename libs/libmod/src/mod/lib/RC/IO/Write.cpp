@@ -158,8 +158,7 @@ void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const
 		const CoreVertex vTar = iterTar->second;
 		auto pEdge = edge(vSrc, vTar, gComon);
 		if(pEdge.second) continue;
-		pEdge = add_edge(vSrc, vTar, gComon);
-		gComon[pEdge.first].membership = lib::Rules::Membership::K;
+		pEdge = add_edge(vSrc, vTar, {lib::Rules::Membership::K}, gComon);
 		const std::string &label = rSecond.getGraph()[e].membership == lib::Rules::Membership::L
 		                           ? get_string(rSecond.getDPORule()).getLeft()[e]
 		                           : get_string(rSecond.getDPORule()).getRight()[e];

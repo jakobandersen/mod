@@ -80,9 +80,12 @@ public:
 	isomorphism(const Single &gDom, const Single &gCodom, std::size_t maxNumMatches, LabelSettings labelSettings);
 	static std::size_t
 	monomorphism(const Single &gDom, const Single &gCodom, std::size_t maxNumMatches, LabelSettings labelSettings);
+	static void enumerateIsomorphisms(const Single &gDom, const Single &gCodom,
+	                                  std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
+	                                  LabelSettings labelSettings);
 	static void enumerateMonomorphisms(const Single &gDom, const Single &gCodom,
-												  std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
-												  LabelSettings labelSettings);
+	                                   std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
+	                                   LabelSettings labelSettings);
 	static bool nameLess(const Single *g1, const Single *g2);
 	static bool canonicalCompare(const Single &g1, const Single &g2, LabelType labelType, bool withStereo);
 public:

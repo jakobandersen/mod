@@ -14,10 +14,11 @@
 
 namespace mod::lib::Graph {
 
-PropMolecule::PropMolecule(const GraphType &g, const PropString &pString) : Base(g), isMolecule(true) {
+PropMolecule::PropMolecule(const GraphType &g, const PropString &pString)
+		: Base(g), isMolecule(true), hasOnlyChemicalBonds(true) {
 	// atomData
 	this->vertexState.resize(num_vertices(g));
-	for(Vertex v : asRange(vertices(g))) {
+	for(Vertex v: asRange(vertices(g))) {
 		AtomId atomId;
 		Isotope isotope;
 		Charge charge;
@@ -30,11 +31,14 @@ PropMolecule::PropMolecule(const GraphType &g, const PropString &pString) : Base
 
 	// edgeData
 	this->edgeState.reserve(num_edges(g));
-	for(Edge e : asRange(edges(g))) {
+	for(Edge e: asRange(edges(g))) {
 		BondType bt = Chem::decodeEdgeLabel(pString[e]);
 		assert(get(boost::edge_index_t(), g, e) == this->edgeState.size());
 		this->edgeState.push_back(bt);
-		if(bt == BondType::Invalid) isMolecule = false;
+		if(bt == BondType::Invalid) {
+			isMolecule = false;
+			hasOnlyChemicalBonds = false;
+		}
 	}
 
 	verify(&g);
@@ -44,12 +48,16 @@ bool PropMolecule::getIsMolecule() const {
 	return isMolecule;
 }
 
+bool PropMolecule::getHasOnlyChemicalBonds() const {
+	return hasOnlyChemicalBonds;
+}
+
 #ifdef MOD_HAVE_OPENBABEL
 
 const lib::Chem::OBMolHandle &PropMolecule::getOBMol() const {
 	if(!isMolecule) {
 		std::cout << "MoleculeState: Trying to create OpenBabel::OBMol from non-molecule." << std::endl
-					 << "Should DepictionData be used instead?" << std::endl;
+				  << "Should DepictionData be used instead?" << std::endl;
 		MOD_ABORT;
 	}
 	if(!obMol) {
@@ -70,7 +78,8 @@ double PropMolecule::getExactMass() const {
 		const auto vs = vertices(*g);
 		exactMass = std::accumulate(vs.first, vs.second, 0.0, [&](double val, const auto v) {
 			const auto &ad = (*this)[v];
-			return val + lib::Chem::exactMass(ad.getAtomId(), ad.getIsotope()) - lib::Chem::electronMass * ad.getCharge();
+			return val + lib::Chem::exactMass(ad.getAtomId(), ad.getIsotope()) -
+				   lib::Chem::electronMass * ad.getCharge();
 		});
 	}
 	return *exactMass;
@@ -80,8 +89,8 @@ double PropMolecule::getEnergy() const {
 	if(!energy) {
 #ifndef MOD_HAVE_OPENBABEL
 		throw FatalError(MOD_NO_OPENBABEL_ERROR_STR
-		                 + "\nEnergy calculation is not possible without Open Babel.\n"
-		                 + "Energy values can be manually cached on graphs if calculation is not desired.");
+						 + "\nEnergy calculation is not possible without Open Babel.\n"
+						 + "Energy values can be manually cached on graphs if calculation is not desired.");
 #else
 		energy = getOBMol().getEnergy(false);
 #endif

@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{mod}[2015/05/01 The MØD Package]
+\ProvidesPackage{mod}[2024/01/09 The MØD Package]
 
 \newcommand\modName{M\O D}
 \newcommand\modAbbr\modName
@@ -7,7 +7,8 @@
 \RequirePackage{ifthen}
 \RequirePackage{grffile}
 \RequirePackage{verbatim}
-\RequirePackage[dvipsnames]{xcolor}
+\PassOptionsToPackage{svgnames}{xcolor}
+\RequirePackage{xcolor}
 \RequirePackage{tikz}
 \usetikzlibrary{shapes,positioning,arrows,fit,calc,matrix,shadows,decorations.pathmorphing}
 

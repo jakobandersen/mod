@@ -11,6 +11,9 @@
 #include <unordered_set>
 #include <vector>
 
+namespace mod {
+template<typename T> struct Function;
+} // namespace mod
 namespace mod::dg {
 
 // rst-class: dg::DG
@@ -115,13 +118,21 @@ public: // searching for vertices and hyperedges
 	                   const std::vector<std::shared_ptr<graph::Graph>> &targets) const;
 public:
 	// rst: .. function:: Builder build()
+	// rst:               Builder build(std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex, \
+	// rst:                             std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge)
 	// rst:
+	// rst:		:param onNewVertex: a callback invoked when a new vertex is added to the underlying derivation graph.
+	// rst:			Defaults to `nullptr`.
+	// rst:		:param onNewHyperEdge: a callback invoked when a new hyperedge is added to the underlying derivation graph.
+	// rst:			Defaults to `nullptr`.
 	// rst:		:returns: an RAII-style move-only object which can be used to construct the derivation graph.
 	// rst:			Only one of these objects can be active at the same time, and on destruction an active builder object
 	// rst:			will lock the associated DG object for further modification.
 	// rst:		:throws: :cpp:class:`LogicError` if `hasActiveBuilder()`.
 	// rst:		:throws: :cpp:class:`LogicError` if `isLocked()`.
 	Builder build();
+	Builder build(std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+				  std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge);
 	// rst: .. function:: const std::vector<std::shared_ptr<graph::Graph>> &getGraphDatabase() const
 	// rst:
 	// rst:		:returns: a list of all graphs created by the derivation graph,
@@ -177,7 +188,7 @@ public:
 	// rst:
 	// rst:		The given :cpp:class:`LabelSettings` defines which category the derivation graph object works in.
 	// rst:		All morphism calculations (monomorphism and isomorphism) are thus defined by the :cpp:enum:`LabelType`,
-	// rst:		while the :cpp:enum:`LabelRelation` is used for for monomorphism enumeration.
+	// rst:		while the :cpp:enum:`LabelRelation` is used for monomorphism enumeration.
 	// rst:
 	// rst:		The graphs is the given :cpp:var:`graphDatabase` are used as the initial graph database.
 	// rst:		Any subsequently added or constructed graph for this object

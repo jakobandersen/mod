@@ -84,7 +84,7 @@ void Builder_doExport() {
 			.def("addHyperEdge", static_cast<AddHyperEdge>(&Builder::addHyperEdge))
 					// rst:		.. method:: execute(strategy, *, verbosity=2, ignoreRuleLabelTypes=False)
 					// rst:
-					// rst:			Execute the given strategy (:ref:`dgStrat`) and as a side-effect add
+					// rst:			Execute the given strategy (:ref:`dgStrat`) and as a side effect add
 					// rst:			vertices and hyperedges to the underlying derivation graph.
 					// rst:
 					// rst:			:param DGStrat strategy: the strategy to execute.
@@ -92,7 +92,7 @@ void Builder_doExport() {
 					// rst:				See :cpp:func:`dg::Builder::execute` for explanations of the levels.
 					// rst:			:param bool ignoreRuleLabelTypes: whether rules in the strategy should be checked beforehand for
 					// rst:				whether they have an associated :class:`LabelType` which matches the one in the underlying derivation graph.
-					// rst:			:returns: a proxy object for accessing the result of the exeuction.
+					// rst:			:returns: a proxy object for accessing the result of the execution.
 					// rst:			:rtype: DGExecuteResult
 					// rst:			:throws: :class:`LogicError` if a static "add" strategy has :attr:`IsomorphismPolicy.Check` as graph policy,
 					// rst:				and it tries to add a graph object isomorphic to an already known, but different, graph object in the database.
@@ -137,8 +137,8 @@ void Builder_doExport() {
 					// rst:			Add vertices and hyperedges based on the given abstract description.
 					// rst:			The description must adhere to the grammar described at :ref:`dg_abstract-desc`.
 					// rst:
-					// rst:			For each vertex named in the description a graph object with no vertices will be created,
-					// rst:			and its name set to the given identifier.
+					// rst:			For each vertex named in the description a graph object with a single vertex will be created.
+					// rst:			The label of that vertex and the name of the graph is set to the given identifier.
 					// rst:
 					// rst:			:param str description: the description to parse into abstract derivations.
 					// rst:			:raises: :class:`InputError` if the description could not be parsed.
@@ -186,7 +186,7 @@ void Builder_doExport() {
 					// rst:
 					// rst:			Output information from the execution of the strategy.
 					// rst:
-					// rst:			:param bool withUniverse: The universe lists can be rather long. As default they are omitted when listing.
+					// rst:			:param bool withUniverse: The universe lists can be rather long. As default, they are omitted when listing.
 			.def("list", &ExecuteResult::list);
 }
 

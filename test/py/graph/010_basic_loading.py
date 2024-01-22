@@ -29,6 +29,10 @@ def check(f, arg):
 check(Graph.fromGMLString, dataGML)
 assert Graph.fromGMLString == graphGMLString
 
+fail(lambda: Graph.fromGMLString("graph []"),
+	"the graph is empty.", err=InputError, isSubstring=True)
+
+
 check(Graph.fromGMLFile, fGML)
 assert Graph.fromGMLFile == graphGML
 fail(lambda: Graph.fromGMLFile("doesNotExist.gml"),
@@ -38,6 +42,20 @@ check(Graph.fromGMLStringMulti, dataGML)
 check(Graph.fromGMLFileMulti, fGML)
 fail(lambda: Graph.fromGMLFileMulti("doesNotExist.gml"),
 	"Could not open GML file ", err=InputError, isSubstring=True)
+
+assert Graph.fromGMLStringMulti("graph []") == []
+
+# Stereo warnings
+p = '''graph [
+	node [ id 0 label "H" stereo "any" ]
+	node [ id 1 label "O" ]
+	edge [ source 0 target 1 label "-" ]
+]'''
+print("GML: With stereo warnings:")
+Graph.fromGMLString(p)
+print("GML: Without stereo warnings:")
+Graph.fromGMLString(p, printStereoWarnings=False)
+print("GML: End of stereo warning test")
 
 ###############################################################################
 
@@ -54,6 +72,13 @@ check(Graph.fromSMILES, dataSMILES)
 assert Graph.fromSMILES == smiles
 
 check(Graph.fromSMILESMulti, dataSMILES)
+
+p = "O[C@@H](O)[O]"
+print("SMILES: With stereo warnings:")
+Graph.fromSMILES(p)
+print("SMILES: Without stereo warnings:")
+Graph.fromSMILES(p, printStereoWarnings=False)
+print("SMILES: End of stereo warning test")
 
 ###############################################################################
 

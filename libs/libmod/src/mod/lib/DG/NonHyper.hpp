@@ -45,7 +45,9 @@ public: // calculation
 	bool getHasStartedCalculation() const;
 	bool getHasCalculated() const;
 protected: // calculation
-	void calculatePrologue(); // call this before modifying the DG
+	void calculatePrologue( // call this before modifying the DG
+			std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+			std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge);
 	void calculateEpilogue(); // call this when done with the modifications
 	// Overall Idea
 	// ------------
@@ -70,7 +72,7 @@ protected: // calculation
 	// Searches the database for the given graph by isomorphism.
 	// If found, returns the found graph and the input,
 	// If not found, returns the given wrapped given graph and nullptr.
-	// Does NOT change the graphDatabse.
+	// Does NOT change the graphDatabase.
 	std::pair<std::shared_ptr<graph::Graph>, std::unique_ptr<lib::Graph::Single>>
 	checkIfNew(std::unique_ptr<lib::Graph::Single> g) const;
 	// trustAddGraph and then rename if it was a new graph.

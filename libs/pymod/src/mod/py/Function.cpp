@@ -18,16 +18,18 @@ void Function_doExport() {
 	exportFunc<bool(const Derivation &)>("_Func_BoolDerivation");
 	exportFunc<std::string(const Derivation &)>("_Func_StringDerivation");
 	// DG::Vertex -> X
+	exportFunc<void(dg::DG::Vertex)>("_Func_VoidDGVertex");
 	exportFunc<bool(dg::DG::Vertex)>("_Func_BoolDGVertex");
-	exportFunc<double(dg::DG::Vertex)>("_Func_DoubleDGVertex");
 	exportFunc<std::string(dg::DG::Vertex)>("_Func_StringDGVertex");
+	exportFunc<std::pair<double, bool>(dg::DG::Vertex)>("_Func_PairDoubleBoolDGVertex");
 	// DG::Vertex x int -> X
 	exportFunc<std::pair<std::string, std::string>(dg::DG::Vertex, int)>(
 			"_Func_PairStringStringDGVertexInt");
 	// DG::HyperEdge -> X
+	exportFunc<void(dg::DG::HyperEdge)>("_Func_VoidDGHyperEdge");
 	exportFunc<bool(dg::DG::HyperEdge)>("_Func_BoolDGHyperEdge");
 	exportFunc<std::string(dg::DG::HyperEdge)>("_Func_StringDGHyperEdge");
-	exportFunc<double(dg::DG::HyperEdge)>("_Func_DoubleDGHyperEdge");
+	exportFunc<std::pair<double, bool>(dg::DG::HyperEdge)>("_Func_PairDoubleBoolDGHyperEdge");
 	// Graph -> X
 	exportFunc<bool(std::shared_ptr<graph::Graph>)>("_Func_BoolGraph");
 	exportFunc<int(std::shared_ptr<graph::Graph>)>("_Func_IntGraph");

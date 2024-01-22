@@ -341,7 +341,7 @@ private:
 // Incidence
 // -----------------------------------------------------------------------------
 
-// rst-class: rule::Rule::LeftGraph::IncidnetEdgeIterator
+// rst-class: rule::Rule::LeftGraph::IncidentEdgeIterator
 // rst:
 // rst:		An iterator for traversing all edges in a rule.
 // rst:		It models a forward iterator.
@@ -664,7 +664,7 @@ private:
 // Incidence
 // -----------------------------------------------------------------------------
 
-// rst-class: rule::Rule::ContextGraph::IncidnetEdgeIterator
+// rst-class: rule::Rule::ContextGraph::IncidentEdgeIterator
 // rst:
 // rst:		An iterator for traversing all edges in a rule.
 // rst:		It models a forward iterator.
@@ -1031,7 +1031,7 @@ private:
 // Incidence
 // -----------------------------------------------------------------------------
 
-// rst-class: rule::Rule::RightGraph::IncidnetEdgeIterator
+// rst-class: rule::Rule::RightGraph::IncidentEdgeIterator
 // rst:
 // rst:		An iterator for traversing all edges in a rule.
 // rst:		It models a forward iterator.
@@ -1153,14 +1153,14 @@ public:
 	// rst:	.. function:: double get2DX(bool withHydrogens=true)
 	// rst:
 	// rst:		:returns: the x-coordinate in a 2D depiction of the rule.
-	// rst:			Different sets of coordinates exists for rendering with and wihout certain hydrogens.
+	// rst:			Different sets of coordinates exists for rendering with and without certain hydrogens.
 	// rst:		:throws: :cpp:class:`LogicError` if it is a null descriptor, or
 	// rst:				if `withHydrogens` is `true` and the vertex is a "clean" hydrogen.
 	double get2DX(bool withHydrogens = true);
 	// rst:	.. function:: double get2DY(bool withHydrogens=true)
 	// rst:
 	// rst:		:returns: the y-coordinate in a 2D depiction of the rule.
-	// rst:			Different sets of coordinates exists for rendering with and wihout certain hydrogens.
+	// rst:			Different sets of coordinates exists for rendering with and without certain hydrogens.
 	// rst:		:throws: :cpp:class:`LogicError` if it is a null descriptor, or
 	// rst:				if `withHydrogens` is `true` and the vertex is a "clean" hydrogen.
 	double get2DY(bool withHydrogens = true);
@@ -1334,7 +1334,7 @@ private:
 // Incidence
 // -----------------------------------------------------------------------------
 
-// rst-class: rule::Rule::IncidnetEdgeIterator
+// rst-class: rule::Rule::IncidentEdgeIterator
 // rst:
 // rst:		An iterator for traversing all edges in a rule.
 // rst:		It models a forward iterator.

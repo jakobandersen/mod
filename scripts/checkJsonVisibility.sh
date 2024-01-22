@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 root=$(git rev-parse --show-toplevel)
 cd $root/libs
 grep -Rn '#include.*nlohman' &> /dev/null

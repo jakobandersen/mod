@@ -48,12 +48,12 @@ public:
 	}
 public: // checking
 	// pre: dynamic type of this and other is the same
-	virtual bool localPredIso(const Configuration &other) const {
+	virtual bool localPredIso(const Configuration &) const {
 		return true;
 	}
 
 	// pre: dynamic type of this and other is the same
-	virtual bool localPredSpec(const Configuration &other) const {
+	virtual bool localPredSpec(const Configuration &) const {
 		return true;
 	}
 

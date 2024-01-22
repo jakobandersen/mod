@@ -41,6 +41,10 @@ const std::string getGraphName(unsigned int id) {
 }
 
 bool sanityCheck(const GraphType &g, const PropString &pString, std::ostream &s) {
+	if(num_vertices(g) == 0) {
+		s << "Graph::sanityCheck:\tempty graph" << std::endl;
+		return false;
+	}
 	std::vector<std::pair<Vertex, Vertex> > edgesSorted;
 	edgesSorted.reserve(num_edges(g));
 	for(Edge e: asRange(edges(g))) {
@@ -143,7 +147,7 @@ const std::string &Single::getSmiles() const {
 	} else {
 		std::string text;
 		text += "Graph " + boost::lexical_cast<std::string>(getId()) + " with name '" + getName() +
-		        "' is not a molecule.\n";
+				"' is not a molecule.\n";
 		text += "Can not generate SMILES string. GraphDFS is\n\t" + getGraphDFS().first + "\n";
 		throw LogicError(std::move(text));
 	}
@@ -163,7 +167,7 @@ const std::string &Single::getSmilesWithIds() const {
 	} else {
 		std::string text;
 		text += "Graph " + boost::lexical_cast<std::string>(getId()) + " with name '" + getName() +
-		        "' is not a molecule.\n";
+				"' is not a molecule.\n";
 		text += "Can not generate SMILES string. GraphDFS is\n\t" + getGraphDFS().first + "\n";
 		throw LogicError(std::move(text));
 	}
@@ -223,7 +227,7 @@ const Single::CanonForm &Single::getCanonForm(LabelType labelType, bool withSter
 	if(!canon_form_string) {
 		assert(!aut_group_string);
 		std::tie(canon_perm_string, canon_form_string, aut_group_string) = lib::Graph::getCanonForm(*this, labelType,
-		                                                                                            withStereo);
+																									withStereo);
 	}
 	assert(canon_form_string);
 	assert(aut_group_string);
@@ -246,20 +250,20 @@ namespace GM_MOD = lib::GraphMorphism;
 
 template<typename Finder, typename Callback>
 void morphism(const Single &gDomain,
-              const Single &gCodomain,
-              LabelSettings labelSettings,
-              Finder finder,
-              Callback callback) {
+			  const Single &gCodomain,
+			  LabelSettings labelSettings,
+			  Finder finder,
+			  Callback callback) {
 	lib::GraphMorphism::morphismSelectByLabelSettings(gDomain.getLabelledGraph(), gCodomain.getLabelledGraph(),
-	                                                  labelSettings, finder, callback);
+													  labelSettings, finder, callback);
 }
 
 template<typename Finder>
 std::size_t morphismMax(const Single &gDomain,
-                        const Single &gCodomain,
-                        std::size_t maxNumMatches,
-                        LabelSettings labelSettings,
-                        Finder finder) {
+						const Single &gCodomain,
+						std::size_t maxNumMatches,
+						LabelSettings labelSettings,
+						Finder finder) {
 	auto mr = GM::makeLimit(maxNumMatches);
 	morphism(gDomain, gCodomain, labelSettings, finder, std::ref(mr));
 	return mr.getNumHits();
@@ -269,12 +273,14 @@ std::size_t isomorphismSmilesOrCanonOrVF2(const Single &gDom, const Single &gCod
 	const auto &ggDom = gDom.getLabelledGraph();
 	const auto &ggCodom = gCodom.getLabelledGraph();
 	// first try if we can compare canonical SMILES strings
-	if(get_molecule(ggDom).getIsMolecule() && get_molecule(ggCodom).getIsMolecule() &&
-	   !getConfig().graph.useWrongSmilesCanonAlg.get())
+	if(!labelSettings.withStereo
+	   && get_molecule(ggDom).getIsMolecule() && get_molecule(ggCodom).getIsMolecule()
+	   && !getConfig().graph.useWrongSmilesCanonAlg.get())
 		return gDom.getSmiles() == gCodom.getSmiles() ? 1 : 0;
 
 	// otherwise maybe we can still do canonical form comparison
-	if(labelSettings.type == LabelType::String && !labelSettings.withStereo) {
+	if(labelSettings.type == LabelType::String && !labelSettings.withStereo
+	   && get_molecule(ggDom).getHasOnlyChemicalBonds() && get_molecule(ggCodom).getHasOnlyChemicalBonds()) {
 		return canonicalCompare(gDom, gCodom, labelSettings.type, labelSettings.withStereo) ? 1 : 0;
 	}
 
@@ -285,7 +291,7 @@ std::size_t isomorphismSmilesOrCanonOrVF2(const Single &gDom, const Single &gCod
 } // namespace
 
 std::size_t Single::isomorphismVF2(const Single &gDom, const Single &gCodom, std::size_t maxNumMatches,
-                                   LabelSettings labelSettings) {
+								   LabelSettings labelSettings) {
 	return morphismMax(gDom, gCodom, maxNumMatches, labelSettings, GM_MOD::VF2Isomorphism());
 }
 
@@ -294,20 +300,18 @@ bool Single::isomorphic(const Single &gDom, const Single &gCodom, LabelSettings 
 	const auto nDom = num_vertices(gDom.getGraph());
 	const auto nCodom = num_vertices(gCodom.getGraph());
 	if(nDom != nCodom) return false; // early bail-out
-	// this hax with name comparing is basically to make abstract derivation graphs
-	// TODO: remove it, so the name truly doesn't matter
-	if(nDom == 0)
-		return gDom.getName() == gCodom.getName();
 	if(&gDom == &gCodom) return true;
 	switch(getConfig().graph.isomorphismAlg.get()) {
-	case Config::IsomorphismAlg::SmilesCanonVF2: return isomorphismSmilesOrCanonOrVF2(gDom, gCodom, labelSettings);
-	case Config::IsomorphismAlg::VF2: return isomorphismVF2(gDom, gCodom, 1, labelSettings);
-	case Config::IsomorphismAlg::Canon:
-		if(labelSettings.relation != LabelRelation::Isomorphism)
-			throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism relation.");
-		if(labelSettings.withStereo && labelSettings.stereoRelation != LabelRelation::Isomorphism)
-			throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism stereo relation.");
-		return canonicalCompare(gDom, gCodom, labelSettings.type, labelSettings.withStereo);
+		case Config::IsomorphismAlg::SmilesCanonVF2:
+			return isomorphismSmilesOrCanonOrVF2(gDom, gCodom, labelSettings);
+		case Config::IsomorphismAlg::VF2:
+			return isomorphismVF2(gDom, gCodom, 1, labelSettings);
+		case Config::IsomorphismAlg::Canon:
+			if(labelSettings.relation != LabelRelation::Isomorphism)
+				throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism relation.");
+			if(labelSettings.withStereo && labelSettings.stereoRelation != LabelRelation::Isomorphism)
+				throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism stereo relation.");
+			return canonicalCompare(gDom, gCodom, labelSettings.type, labelSettings.withStereo);
 	}
 	MOD_ABORT;
 }
@@ -332,41 +336,55 @@ Single::monomorphism(const Single &gDom, const Single &gCodom, std::size_t maxNu
 	return morphismMax(gDom, gCodom, maxNumMatches, labelSettings, GM_MOD::VF2Monomorphism());
 }
 
+namespace {
+
+auto makeMorphismEnumerationCallback(const Single &gDom, const Single &gCodom,
+									 std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback) {
+	return GM::makeSliceProps( // Slice away the properties for now
+			GM::makeTransform(
+					GM::ToInvertibleVectorVertexMap(),
+					[&gDom, &gCodom, callback](auto &&mVal, const auto &dom, const auto &codom) -> bool {
+						auto mPtr = std::make_shared<GM::InvertibleVectorVertexMap<GraphType, GraphType>>(
+								std::move(mVal));
+						auto gDomAPI = gDom.getAPIReference();
+						auto gCodomAPI = gCodom.getAPIReference();
+						auto m = VertexMap<graph::Graph, graph::Graph>(
+								gDomAPI, gCodomAPI,
+								[gDomAPI, gCodomAPI, mPtr](graph::Graph::Vertex vDom) -> graph::Graph::Vertex {
+									const auto &gDom = gDomAPI->getGraph().getGraph();
+									const auto &gCodom = gCodomAPI->getGraph().getGraph();
+									assert(vDom.getId() < num_vertices(gDom));
+									const auto v = vertices(gDom).first[vDom.getId()];
+									const auto vRes = get(*mPtr, gDom, gCodom, v);
+									return gCodomAPI->vertices()[get(boost::vertex_index_t(), gCodom, vRes)];
+								},
+								[gDomAPI, gCodomAPI, mPtr](graph::Graph::Vertex vCodom) -> graph::Graph::Vertex {
+									const auto &gDom = gDomAPI->getGraph().getGraph();
+									const auto &gCodom = gCodomAPI->getGraph().getGraph();
+									assert(vCodom.getId() < num_vertices(gCodom));
+									const auto v = vertices(gCodom).first[vCodom.getId()];
+									const auto vRes = get_inverse(*mPtr, gDom, gCodom, v);
+									return gDomAPI->vertices()[get(boost::vertex_index_t(), gDom, vRes)];
+								}
+						);
+						return callback(std::move(m));
+					}));
+}
+
+} // namespace
+
+void Single::enumerateIsomorphisms(const Single &gDom, const Single &gCodom,
+								   std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
+								   LabelSettings labelSettings) {
+	morphism(gDom, gCodom, labelSettings, GM_MOD::VF2Isomorphism(),
+			 makeMorphismEnumerationCallback(gDom, gCodom, callback));
+}
+
 void Single::enumerateMonomorphisms(const Single &gDom, const Single &gCodom,
-                                    std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
-                                    LabelSettings labelSettings) {
-	if(labelSettings.type != LabelType::String) MOD_ABORT;
-	if(labelSettings.withStereo) MOD_ABORT;
+									std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
+									LabelSettings labelSettings) {
 	morphism(gDom, gCodom, labelSettings, GM_MOD::VF2Monomorphism(),
-	         GM::makeSliceProps( // Slice away the properties for now
-			         GM::makeTransform(
-					         GM::ToInvertibleVectorVertexMap(),
-					         [&gDom, &gCodom, callback](auto &&mVal, const auto &dom, const auto &codom) -> bool {
-						         auto mPtr = std::make_shared<GM::InvertibleVectorVertexMap<GraphType, GraphType>>(
-								         std::move(mVal));
-						         auto gDomAPI = gDom.getAPIReference();
-						         auto gCodomAPI = gCodom.getAPIReference();
-						         auto m = VertexMap<graph::Graph, graph::Graph>(
-								         gDomAPI, gCodomAPI,
-								         [gDomAPI, gCodomAPI, mPtr](graph::Graph::Vertex vDom) -> graph::Graph::Vertex {
-									         const auto &gDom = gDomAPI->getGraph().getGraph();
-									         const auto &gCodom = gCodomAPI->getGraph().getGraph();
-									         assert(vDom.getId() < num_vertices(gDom));
-									         const auto v = vertices(gDom).first[vDom.getId()];
-									         const auto vRes = get(*mPtr, gDom, gCodom, v);
-									         return gCodomAPI->vertices()[get(boost::vertex_index_t(), gCodom, vRes)];
-								         },
-								         [gDomAPI, gCodomAPI, mPtr](graph::Graph::Vertex vCodom) -> graph::Graph::Vertex {
-									         const auto &gDom = gDomAPI->getGraph().getGraph();
-									         const auto &gCodom = gCodomAPI->getGraph().getGraph();
-									         assert(vCodom.getId() < num_vertices(gCodom));
-									         const auto v = vertices(gCodom).first[vCodom.getId()];
-									         const auto vRes = get_inverse(*mPtr, gDom, gCodom, v);
-									         return gDomAPI->vertices()[get(boost::vertex_index_t(), gDom, vRes)];
-								         }
-						         );
-						         return callback(std::move(m));
-					         })));
+			 makeMorphismEnumerationCallback(gDom, gCodom, callback));
 }
 
 bool Single::nameLess(const Single *g1, const Single *g2) {
@@ -381,26 +399,26 @@ bool Single::canonicalCompare(const Single &g1, const Single &g2, LabelType labe
 }
 
 Single makePermutation(const Single &g) {
-	if(has_stereo(g.getLabelledGraph()))
-		throw mod::FatalError("Can not (yet) permute graphs with stereo information.");
+	//	if(has_stereo(g.getLabelledGraph()))
+	//		throw mod::FatalError("Can not (yet) permute graphs with stereo information.");
 	std::unique_ptr<PropString> pString;
 	auto gBoost = lib::makePermutedGraph(g.getGraph(),
-	                                     [&pString](GraphType &gNew) {
-		                                     pString.reset(new PropString(gNew));
-	                                     },
-	                                     [&g, &pString](Vertex vOld, const GraphType &gOld, Vertex vNew,
-	                                                    GraphType &gNew) {
-		                                     pString->addVertex(vNew, g.getStringState()[vOld]);
-	                                     },
-	                                     [&g, &pString](Edge eOld, const GraphType &gOld, Edge eNew, GraphType &gNew) {
-		                                     pString->addEdge(eNew, g.getStringState()[eOld]);
-	                                     }
+										 [&pString](GraphType &gNew) {
+											 pString.reset(new PropString(gNew));
+										 },
+										 [&g, &pString](Vertex vOld, const GraphType &gOld, Vertex vNew,
+														GraphType &gNew) {
+											 pString->addVertex(vNew, g.getStringState()[vOld]);
+										 },
+										 [&g, &pString](Edge eOld, const GraphType &gOld, Edge eNew, GraphType &gNew) {
+											 pString->addEdge(eNew, g.getStringState()[eOld]);
+										 }
 	);
 	Single gPerm(std::move(gBoost), std::move(pString), nullptr);
 	if(getConfig().graph.checkIsoInPermutation.get()) {
 		const bool iso = 1 == Single::isomorphismVF2(g, gPerm, 1,
-		                                             {LabelType::String, LabelRelation::Isomorphism, false,
-		                                              LabelRelation::Isomorphism});
+													 {LabelType::String, LabelRelation::Isomorphism, false,
+													  LabelRelation::Isomorphism});
 		if(!iso) {
 			Write::Options graphLike, molLike;
 			graphLike.EdgesAsBonds(true).RaiseCharges(true).CollapseHydrogens(true).WithIndex(true);

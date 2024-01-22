@@ -8,8 +8,7 @@ void PropVerify(const GraphType *g, const GraphType *gOther,
                 std::size_t nGraph, std::size_t nOther,
                 std::size_t mGraph, std::size_t mOther) {
 	if(g != gOther) {
-		std::cout << "Different graphs: g = " << (std::uintptr_t) g
-		          << ", &this->g = " << (std::uintptr_t) gOther << std::endl;
+		std::cout << "Different graphs: g = " << g << ", &this->g = " << gOther << std::endl;
 		MOD_ABORT;
 	}
 	if(nGraph != nOther) {

@@ -478,7 +478,7 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 			}
 			if(depict.getRadical(v)) {
 				std::size_t auxRadicalPosition;
-				// first try the x/y axis
+				// first try the x/y-axis
 				/**/ if((auxBlocked & Loc::R) == 0 && charge == 0) auxRadicalPosition = 0;
 				else if((auxBlocked & Loc::T) == 0) auxRadicalPosition = 4;
 				else if((auxBlocked & Loc::L) == 0) auxRadicalPosition = 8;
@@ -541,7 +541,7 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 		// index, which were not already handled due to simple carbon
 		if(!isSimpleCarbon[vId] && options.withIndex) {
 			std::size_t auxIndexPosition;
-			// first try the x/y axis
+			// first try the x/y-axis
 			/**/ if((auxBlocked & Loc::R_narrow) == 0) auxIndexPosition = 0;
 			else if((auxBlocked & Loc::T_narrow) == 0) auxIndexPosition = 4;
 			else if((auxBlocked & Loc::L_narrow) == 0) auxIndexPosition = 8;

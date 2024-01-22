@@ -28,15 +28,14 @@ public:
 	using CodomVertex = typename Codomain::Vertex;
 public:
 	VertexMap(DomainHandle dom, CodomainHandle codom,
-	          std::function<CodomVertex(DomVertex)> forward,
-	          std::function<DomVertex(CodomVertex)> backward)
+			  std::function<CodomVertex(DomVertex)> forward,
+			  std::function<DomVertex(CodomVertex)> backward)
 			: dom(dom), codom(codom), forward(forward), backward(backward) {}
 
 	// rst: .. function:: friend std::ostream &operator<<(std::ostream &s, const VertexMap &m)
 	friend std::ostream &operator<<(std::ostream &s, const VertexMap &m) {
-		const Domain &dom = getGraphFromHandle(m.getDomain());
-		const Codomain &codom = getGraphFromHandle(m.getCodomain());
-		return s << "VertexMap{" << dom << ", " << codom << "}";
+		return s << "VertexMap{" << getGraphFromHandle(m.getDomain())
+				 << ", " << getGraphFromHandle(m.getCodomain()) << "}";
 	}
 
 	// rst: .. function:: DomainHandle getDomain() const

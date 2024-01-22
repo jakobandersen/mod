@@ -412,7 +412,7 @@ std::string coords(const Real &r, int idOffset, const Options &options,
 			const auto vId = get(boost::vertex_index_t(), gCombined, vCG);
 			// if we are in the collapsed case and the depictor collapsed it, don't print
 			if(useCollapsedCoords && depict.mayCollapse(vCG)) continue;
-			const auto[x, y] = pointTransform(
+			const auto [x, y] = pointTransform(
 					depict.getX(vCG, !useCollapsedCoords),
 					depict.getY(vCG, !useCollapsedCoords),
 					options.rotation, options.mirror);
@@ -893,53 +893,54 @@ void termState(const Real &r) {
 		for(const auto &c: get_match_constraints(get_labelled_right(r.getDPORule())))
 			c->accept(vis);
 
-		Term::Write::wam(getMachine(pTerm), lib::Term::getStrings(), s, [&](Address addr, std::ostream &s) {
-			s << "        ";
-			bool first = true;
-			for(auto vm: addrToVertex[addr]) {
-				if(!first) s << ", ";
-				first = false;
-				s << "v(" << get(boost::vertex_index_t(), gCombined, vm.first) << ", ";
-				switch(vm.second) {
-				case Membership::L:
-					s << "L";
-					break;
-				case Membership::R:
-					s << "R";
-					break;
-				case Membership::K:
-					s << "K";
-					break;
-				}
-				s << ")";
-			}
-			for(auto em: addrToEdge[addr]) {
-				if(!first) s << ", ";
-				first = false;
-				s << "e("
-				  << get(boost::vertex_index_t(), gCombined, source(em.first, gCombined))
-				  << ", "
-				  << get(boost::vertex_index_t(), gCombined, target(em.first, gCombined))
-				  << ", ";
-				switch(em.second) {
-				case Membership::L:
-					s << "L";
-					break;
-				case Membership::R:
-					s << "R";
-					break;
-				case Membership::K:
-					s << "K";
-					break;
-				}
-				s << ")";
-			}
-			for(auto &msg: addrToConstraintInfo[addr]) {
-				if(!first) s << ", ";
-				first = false;
-				s << msg;
-			}
-		});
+		Term::Write::wam(getMachine(pTerm), lib::Term::getStrings(),
+		                 IO::Logger(s), [&](Address addr, std::ostream &s) {
+					s << "        ";
+					bool first = true;
+					for(auto vm: addrToVertex[addr]) {
+						if(!first) s << ", ";
+						first = false;
+						s << "v(" << get(boost::vertex_index_t(), gCombined, vm.first) << ", ";
+						switch(vm.second) {
+						case Membership::L:
+							s << "L";
+							break;
+						case Membership::R:
+							s << "R";
+							break;
+						case Membership::K:
+							s << "K";
+							break;
+						}
+						s << ")";
+					}
+					for(auto em: addrToEdge[addr]) {
+						if(!first) s << ", ";
+						first = false;
+						s << "e("
+						  << get(boost::vertex_index_t(), gCombined, source(em.first, gCombined))
+						  << ", "
+						  << get(boost::vertex_index_t(), gCombined, target(em.first, gCombined))
+						  << ", ";
+						switch(em.second) {
+						case Membership::L:
+							s << "L";
+							break;
+						case Membership::R:
+							s << "R";
+							break;
+						case Membership::K:
+							s << "K";
+							break;
+						}
+						s << ")";
+					}
+					for(auto &msg: addrToConstraintInfo[addr]) {
+						if(!first) s << ", ";
+						first = false;
+						s << msg;
+					}
+				});
 	} else {
 		std::string msg = "Parsing failed for rule '" + r.getName() + "'. " + pTerm.getParsingError();
 		throw TermParsingError(std::move(msg));

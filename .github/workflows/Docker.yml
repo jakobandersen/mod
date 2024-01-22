@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: 'recursive'
     - name: Set PATH
       run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
     - name: Install pip dependencies
       run: |
         sudo apt install python3-setuptools python3-wheel
@@ -23,7 +25,7 @@ jobs:
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams install
+        ./b2 -j 2 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
@@ -39,12 +41,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: 'recursive'
     - name: Set PATH
       run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
     - name: Install pip dependencies
       run: |
         sudo apt install python3-setuptools python3-wheel
@@ -57,7 +61,7 @@ jobs:
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams install
+        ./b2 -j 2 --with-python --with-graph --with-iostreams ---with-test install
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
@@ -73,12 +77,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: 'recursive'
     - name: Set PATH
       run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
     - name: Install pip dependencies
       run: |
         sudo apt install python3-setuptools python3-wheel
@@ -91,7 +97,7 @@ jobs:
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams install
+        ./b2 -j 2 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
@@ -103,3 +109,39 @@ jobs:
       run: cd build && make dist
     - name: Build
       run: docker build -t jakobandersen/mod:arch-test -f docker/Arch.Dockerfile --build-arg j=2 .
+  Conda:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+    - name: Set PATH
+      run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
+    - name: Install pip dependencies
+      run: |
+        sudo apt install python3-setuptools python3-wheel
+        pip3 install -r requirements.txt
+    - name: Install apt dependencies
+      run: sudo apt install -y $(bindep -b | tr '\n' ' ')
+    - name: Install Boost
+      run: |
+        wget https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
+        tar -xf boost_1_80_0.tar.gz
+        cd boost_1_80_0
+        ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
+        ./b2 -j 2 --with-python --with-graph --with-iostreams --with-test install
+    - name: Bootstrap
+      run: ./bootstrap.sh
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake ../ -DBOOST_ROOT=/opt/boost -DBUILD_POST_MOD=off
+    - name: Make archive
+      run: cd build && make dist
+    - name: Build
+      run: docker build -t jakobandersen/mod:conda-test -f docker/Conda.Dockerfile --build-arg j=2 .

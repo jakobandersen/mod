@@ -1,0 +1,31 @@
+include("../xxx_helpers.py")
+
+lsTerm = LabelSettings(LabelType.Term, LabelRelation.Unification)
+
+post.summaryChapter("Input")
+r1 = Rule.fromDFS("[_X]1>>[_X]1")
+r2 = Rule.fromDFS("[A]1>>[A]1")
+r1.printTermState()
+r2.printTermState()
+
+post.summaryChapter("Explicit push")
+m = RCMatch(r1, r2, labelSettings=lsTerm)
+m.push(r1.getVertexFromExternalId(1).right, r2.getVertexFromExternalId(1).left)
+r = m.compose()
+r.print()
+r.printTermState()
+assert r.isomorphism(r2)
+
+post.summaryChapter("composeAll")
+m = RCMatch(r1, r2, labelSettings=lsTerm)
+rPar, rMatch = m.composeAll(verbose=True)
+rMatch.print()
+rMatch.printTermState()
+assert rMatch.isomorphism(r2)
+
+post.summaryChapter("composeAll maximum")
+m = RCMatch(r1, r2, labelSettings=lsTerm)
+rMatch, = m.composeAll(verbose=True, maximum=True)
+rMatch.print()
+rMatch.printTermState()
+assert rMatch.isomorphism(r2)

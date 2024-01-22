@@ -65,7 +65,7 @@ Prop<Derived, VertexType, EdgeType>::Prop(const Prop &other, const GraphType &g)
 		: g(&g), vertexState(other.vertexState), edgeState(other.edgeState) {}
 
 template<typename Derived, typename VertexType, typename EdgeType>
-void Prop<Derived, VertexType, EdgeType>::addVertex(Vertex v, const VertexType &value) {
+void Prop<Derived, VertexType, EdgeType>::addVertex([[maybe_unused]] Vertex v, const VertexType &value) {
 	assert(num_vertices(*g) == vertexState.size() + 1);
 	assert(get(boost::vertex_index_t(), *g, v) == vertexState.size());
 	vertexState.push_back(value);
@@ -73,7 +73,7 @@ void Prop<Derived, VertexType, EdgeType>::addVertex(Vertex v, const VertexType &
 }
 
 template<typename Derived, typename VertexType, typename EdgeType>
-void Prop<Derived, VertexType, EdgeType>::addEdge(Edge e, const EdgeType &value) {
+void Prop<Derived, VertexType, EdgeType>::addEdge([[maybe_unused]] Edge e, const EdgeType &value) {
 	assert(num_edges(*g) == edgeState.size() + 1);
 	assert(get(boost::edge_index_t(), *g, e) == edgeState.size());
 	edgeState.push_back(value);

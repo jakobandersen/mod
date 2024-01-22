@@ -59,13 +59,16 @@ public:
 	static Vertex nullGeometry();
 public: // deduction
 	lib::IO::Result<unsigned char>
-	deduceLonePairs(lib::IO::Warnings &warnings, const AtomData &ad, const EdgeCategoryCount &catCount, Vertex vGeometry,
+	deduceLonePairs(lib::IO::Warnings &warnings, bool printWarnings,
+	                const AtomData &ad, const EdgeCategoryCount &catCount, Vertex vGeometry,
 	                bool asPattern) const;
 	lib::IO::Result<Vertex>
-	deduceGeometry(lib::IO::Warnings &warnings, const AtomData &ad, const EdgeCategoryCount &catCount,
+	deduceGeometry(lib::IO::Warnings &warnings, bool printWarnings,
+	               const AtomData &ad, const EdgeCategoryCount &catCount,
 	               unsigned char numLonePairs, bool asPattern) const;
 	lib::IO::Result<std::tuple<Vertex, unsigned char>>
-	deduceGeometryAndLonePairs(lib::IO::Warnings &warnings, const AtomData &ad, const EdgeCategoryCount &catCount,
+	deduceGeometryAndLonePairs(lib::IO::Warnings &warnings, bool printWarnings,
+	                           const AtomData &ad, const EdgeCategoryCount &catCount,
 	                           bool asPattern) const;
 public: // matching
 	bool isAncestorOf(Vertex ancestor, Vertex child) const; // true also if child == ancestor

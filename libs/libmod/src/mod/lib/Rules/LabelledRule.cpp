@@ -187,6 +187,7 @@ bool has_stereo(const LabelledRule &r) {
 
 const LabelledRule::PropStereoType &get_stereo(const LabelledRule &r) {
 	if(!has_stereo(r)) {
+		constexpr bool printStereoWarnings = true;
 		auto gLeft = get_labelled_left(r);
 		auto gRight = get_labelled_right(r);
 		auto pMoleculeLeft = get_molecule(gLeft);
@@ -196,20 +197,18 @@ const LabelledRule::PropStereoType &get_stereo(const LabelledRule &r) {
 
 		{
 			lib::IO::Warnings warnings;
-			auto res = leftInference.finalize(warnings, [&r](LabelledRule::Vertex v) {
+			auto res = leftInference.finalize(warnings, printStereoWarnings, [&r](LabelledRule::Vertex v) {
 				return std::to_string(get(boost::vertex_index_t(), get_graph(r), v)) + " left";
 			});
-			if(!getConfig().stereo.silenceDeductionWarnings.get())
-				std::cout << warnings;
+			std::cout << warnings;
 			res.throwIfError<StereoDeductionError>();
 		}
 		{
 			lib::IO::Warnings warnings;
-			auto res = rightInference.finalize(warnings, [&r](LabelledRule::Vertex v) {
+			auto res = rightInference.finalize(warnings, printStereoWarnings, [&r](LabelledRule::Vertex v) {
 				return std::to_string(get(boost::vertex_index_t(), get_graph(r), v)) + " right";
 			});
-			if(!getConfig().stereo.silenceDeductionWarnings.get())
-				std::cout << warnings;
+			std::cout << warnings;
 			res.throwIfError<StereoDeductionError>();
 		}
 

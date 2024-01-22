@@ -42,7 +42,7 @@ struct CommonSubgraphFinder {
 		auto idxCodomain = get(boost::vertex_index_t(), gCodomain);
 		if(UseBoostCommonSubgraph) {
 			if(maximum) {
-				// TOOD: this does actually not really work when part of the morphism definition is implemented in the MR.
+				// TODO: this does actually not really work when part of the morphism definition is implemented in the MR.
 				// e.g., see the rc test 'A -> AAA' with 'ABA -> A' in term mode.
 				// Make a test with terms that include variables that actually doesn't unify, so we get a wrong maximum.
 				boost::mcgregor_common_subgraphs_maximum(
@@ -55,7 +55,7 @@ struct CommonSubgraphFinder {
 			}
 		} else {
 			if(maximum) {
-				// TOOD: this does actually not really work when part of the morphism definition is implemented in the MR.
+				// TODO: this does actually not really work when part of the morphism definition is implemented in the MR.
 				// e.g., see the rc test 'A -> AAA' with 'ABA -> A' in term mode.
 				// Make a test with terms that include variables that actually doesn't unify, so we get a wrong maximum.
 				if(connected)

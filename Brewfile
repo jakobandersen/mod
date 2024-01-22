@@ -1,3 +1,4 @@
+brew "pkg-config"
 brew "cmake"
 brew "boost"
 brew "boost-python3"

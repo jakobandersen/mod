@@ -148,12 +148,17 @@ DG::HyperEdge DG::findEdge(const std::vector<std::shared_ptr<graph::Graph> > &so
 //------------------------------------------------------------------------------
 
 Builder DG::build() {
+	return build(nullptr, nullptr);
+}
+
+Builder DG::build(std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+                  std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge) {
 	if(isLocked())
 		throw LogicError("The DG is locked.");
 	if(hasActiveBuilder())
 		throw LogicError("Another build is already in progress.");
 	if(auto *ptr = dynamic_cast<lib::DG::NonHyperBuilder *> (p->dg.get())) {
-		return Builder(*ptr);
+		return Builder(*ptr, onNewVertex, onNewHyperEdge);
 	} else throw LogicError("Only DGs from DG::builder can be built\n");
 }
 

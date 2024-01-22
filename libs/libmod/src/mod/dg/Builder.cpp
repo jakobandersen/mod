@@ -16,13 +16,19 @@
 namespace mod::dg {
 
 struct Builder::Pimpl {
-	Pimpl(std::shared_ptr<DG> dg_, lib::DG::NonHyperBuilder &dgLib) : dg_(dg_), b(dgLib.build()) {}
+	Pimpl(std::shared_ptr<DG> dg_, lib::DG::NonHyperBuilder &dgLib,
+	      std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+	      std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge)
+		  : dg_(dg_), b(dgLib.build(onNewVertex, onNewHyperEdge)) {}
 public:
 	std::shared_ptr<DG> dg_;
 	lib::DG::Builder b;
 };
 
-Builder::Builder(lib::DG::NonHyperBuilder &dg_) : p(new Pimpl(dg_.getAPIReference(), dg_)) {}
+Builder::Builder(lib::DG::NonHyperBuilder &dg_,
+				 std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+                 std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge)
+				 : p(new Pimpl(dg_.getAPIReference(), dg_, onNewVertex, onNewHyperEdge)) {}
 
 Builder::Builder(Builder &&other) = default;
 Builder &Builder::operator=(Builder &&other) = default;

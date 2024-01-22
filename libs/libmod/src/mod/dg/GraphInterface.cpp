@@ -65,10 +65,10 @@ std::ostream &operator<<(std::ostream &s, const DG::HyperEdge &e) {
 	if(e.isNull()) s << "null";
 	else {
 		s << *e.getDG() << ", {";
-		for(auto src : e.sources())
+		for(auto src: e.sources())
 			s << " " << src.getId();
 		s << " }, {";
-		for(auto tar : e.targets())
+		for(auto tar: e.targets())
 			s << " " << tar.getId();
 		s << " }";
 	}
@@ -151,12 +151,13 @@ DG::HyperEdge DG::HyperEdge::getInverse() const {
 
 std::vector<std::pair<std::string, std::string> >
 DG::HyperEdge::print(const graph::Printer &printer, const std::string &nomatchColour,
-                     const std::string &matchColour) const {
+                     const std::string &matchColour, int verbosity) const {
 	if(isNull()) throw LogicError("Can not print null edge.");
 	if(rules().size() == 0) throw LogicError("The edge has no rules.");
 	const auto &dg = g->getHyper();
 	const auto v = dg.getInternalVertex(*this);
-	return lib::DG::Write::summaryDerivation(g->getNonHyper(), v, printer.getOptions(), nomatchColour, matchColour);
+	return lib::DG::Write::summaryDerivation(g->getNonHyper(), v, printer.getOptions(), nomatchColour, matchColour,
+	                                         verbosity);
 }
 
 //------------------------------------------------------------------------------

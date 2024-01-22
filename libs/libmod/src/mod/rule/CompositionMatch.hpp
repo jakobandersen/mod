@@ -75,11 +75,11 @@ struct MOD_DECL CompositionMatch {
 	std::shared_ptr<Rule> compose(bool verbose) const;
 	// rst: .. function:: std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const
 	// rst:
-	// rst:		:param maximum: whether to only compose only using the matches of maximum cardinality.
+	// rst:		:param maximum: whether to only compose using the matches of maximum cardinality.
 	// rst:		:param verbose: whether to output debug messages from the composition algorithm.
 	// rst:		:returns: the composition of the two rules along enumerated matches.
 	// rst:			The enumerated matches are all those that are extensions of the current match,
-	// rst:			and the match it self.
+	// rst:			and the match itself.
 	std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const;
 private:
 	struct Pimpl;

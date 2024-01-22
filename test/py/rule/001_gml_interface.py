@@ -29,3 +29,18 @@ assert Rule.fromGMLFile == ruleGML
 
 fail(lambda: Rule.fromGMLFile("doesNotExist.gml"),
 	"Could not open rule GML file ", err=InputError, isSubstring=True)
+
+p = """rule [
+	context [
+		node [ id 0 label "C" stereo "tetrahedral" ]
+		node [ id 1 label "H" ] edge [ source 0 target 1 label "=" ]
+		node [ id 2 label "H" ] edge [ source 0 target 2 label "-" ]
+		node [ id 3 label "H" ] edge [ source 0 target 3 label "-" ]
+		node [ id 4 label "H" ] edge [ source 0 target 4 label "-" ]
+	]
+]"""
+print("GML: with stereo warnings")
+Rule.fromGMLString(p)
+print("GML: without stereo warnings")
+Rule.fromGMLString(p, printStereoWarnings=False)
+print("GML: end of stereo warnings")

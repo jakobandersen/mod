@@ -15,8 +15,10 @@ def processExamples(topSrcDir):
 		section['id'] = sec
 		section['exs'] = []
 		for ex in os.listdir(root + sec):
+			if ex in ('out', 'summary'):
+				continue
 			exFull = root + sec + "/" + ex
-			assert os.path.isfile(exFull), exFull
+			assert os.path.isfile(exFull), (exFull, root, sec, ex)
 			if not ex.endswith(".py"):
 				continue
 			with open(exFull, encoding='utf-8') as f:

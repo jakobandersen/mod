@@ -19,10 +19,7 @@ foreach(fileName ${mod_TEST_CPP_FILES})
     target_compile_options(${testName} PRIVATE -Wall -Wextra -pedantic -Werror
             -Wno-comment)
     target_link_libraries(${testName} PRIVATE mod::libmod)
-    if(BUILD_TESTING_SANITIZERS AND NOT BUILD_COVERAGE)
-        target_compile_options(${testName} PRIVATE ${sanFlags})
-        target_link_libraries(${testName} PRIVATE ${sanFlags})
-    endif()
+    handle_sanitizers(${testName})
     add_dependencies(tests ${testName})
     target_add_coverage(${testName})
     add_test(NAME ${testName}

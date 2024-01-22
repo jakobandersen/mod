@@ -70,25 +70,22 @@ CombinedRule::SideVertex promoteVertexL(CombinedRule &r, CombinedRule::SideVerte
 CombinedRule::SideEdge addEdgeL(CombinedRule &r, CombinedRule::SideVertex v1, CombinedRule::SideVertex v2) {
 	const auto vc1 = get(r.getLtoCG(), getL(r), r.getCombinedGraph(), v1);
 	const auto vc2 = get(r.getLtoCG(), getL(r), r.getCombinedGraph(), v2);
-	const auto[eCG, addedCG] = add_edge(vc1, vc2, r.gCombined);
+	const auto[eCG, addedCG] = add_edge(vc1, vc2, {Membership::L}, r.gCombined);
 	assert(addedCG);
-	r.gCombined[eCG].membership = Membership::L;
 	return eCG;
 }
 
 CombinedRule::KEdge addEdgeK(CombinedRule &r, CombinedRule::KVertex v1, CombinedRule::KVertex v2) {
-	const auto[eCG, added] = add_edge(v1, v2, r.gCombined);
+	const auto[eCG, added] = add_edge(v1, v2, {Membership::K}, r.gCombined);
 	assert(added);
-	r.gCombined[eCG].membership = Membership::K;
 	return eCG;
 }
 
 CombinedRule::SideEdge addEdgeR(CombinedRule &r, CombinedRule::SideVertex v1, CombinedRule::SideVertex v2) {
 	const auto vc1 = get(r.getRtoCG(), getR(r), r.getCombinedGraph(), v1);
 	const auto vc2 = get(r.getRtoCG(), getR(r), r.getCombinedGraph(), v2);
-	const auto[eCG, addedCG] = add_edge(vc1, vc2, r.gCombined);
+	const auto[eCG, addedCG] = add_edge(vc1, vc2, {Membership::R}, r.gCombined);
 	assert(addedCG);
-	r.gCombined[eCG].membership = Membership::R;
 	return eCG;
 }
 

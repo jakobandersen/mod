@@ -24,6 +24,7 @@ MOD_DECL void rngReseed(unsigned int seed);
 // rst:		:returns: a uniformly random real number between 0 and 1.
 MOD_DECL double rngUniformReal();
 
+MOD_DECL std::string strFromDump(const std::string &file);
 MOD_DECL void showDump(const std::string &file);
 
 MOD_DECL void printGeometryGraph();

@@ -49,7 +49,11 @@ public:
 		return get_inverse(m.m, gDom, gCodom, v);
 	}
 public:
-
+// see https://www.spinics.net/lists/fedora-devel/msg312638.html
+#pragma GCC diagnostic push
+#if __GNUC__ >= 13
+#pragma GCC diagnostic ignored "-Wdangling-reference"
+#endif
 	template<typename Tag, typename = typename std::enable_if<(1 <= graph_canon::meta::size<typename graph_canon::detail::tagged_list_matches<Tag, Props...>::type>::value)>::type>
 	friend decltype(auto) get_prop(Tag&&, PropertyVertexMap &m) {
 		return get(Tag(), m.props);
@@ -59,6 +63,7 @@ public:
 	friend decltype(auto) get_prop(Tag&&, const PropertyVertexMap &m) {
 		return get(Tag(), m.props);
 	}
+#pragma GCC diagnostic pop
 public:
 	VertexMap m;
 	tagged_list<Props...> props;

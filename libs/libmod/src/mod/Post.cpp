@@ -71,7 +71,7 @@ void disableCompileSummary() {
 }
 
 void enableCompileSummary() {
-	lib::IO::post() << "enableInvokeMake\n";
+	lib::IO::post() << "enableCompileSummary\n";
 }
 
 } // namespace mod::post

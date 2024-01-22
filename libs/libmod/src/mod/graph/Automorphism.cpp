@@ -12,7 +12,7 @@ namespace mod::graph {
 //==============================================================================
 
 Graph::Aut::Aut(std::shared_ptr<Graph> g, LabelType lt, bool withStereo, std::size_t i)
-: g(g), lt(lt), withStereo(withStereo), i(i) { }
+		: g(g), lt(lt), withStereo(withStereo), i(i) {}
 
 Graph::Vertex Graph::Aut::operator[](Vertex v) const {
 	const auto &group = g->getGraph().getAutGroup(lt, withStereo);
@@ -32,7 +32,7 @@ std::ostream &operator<<(std::ostream &s, const Graph::Aut &a) {
 //==============================================================================
 
 Graph::AutGroup::Gens::Gens(std::shared_ptr<Graph> g, LabelType lt, bool withStereo)
-: g(g), lt(lt), withStereo(withStereo) { }
+		: g(g), lt(lt), withStereo(withStereo) {}
 
 Graph::AutGroup::Gens::iterator Graph::AutGroup::Gens::begin() const {
 	// there is always the identity aut
@@ -56,7 +56,7 @@ std::size_t Graph::AutGroup::Gens::size() const {
 //------------------------------------------------------------------------------
 
 Graph::AutGroup::Gens::iterator::iterator(std::shared_ptr<Graph> g, LabelType lt, bool withStereo, std::size_t i)
-: g(g), lt(lt), withStereo(withStereo), i(i) { }
+		: g(g), lt(lt), withStereo(withStereo), i(i) {}
 
 bool Graph::AutGroup::Gens::iterator::equal(const Graph::AutGroup::Gens::iterator &other) const {
 	return std::tie(g, lt, withStereo, i) == std::tie(other.g, other.lt, other.withStereo, other.i);
@@ -83,7 +83,7 @@ void Graph::AutGroup::Gens::iterator::advance(std::size_t n) {
 //==============================================================================
 
 Graph::AutGroup::AutGroup(std::shared_ptr<Graph> g, LabelSettings labelSettings)
-: g(g), lt(labelSettings.type), withStereo(labelSettings.withStereo) { }
+		: g(g), lt(labelSettings.type), withStereo(labelSettings.withStereo) {}
 
 Graph::AutGroup::Gens Graph::AutGroup::gens() const {
 	return Gens(g, lt, withStereo);
@@ -92,7 +92,7 @@ Graph::AutGroup::Gens Graph::AutGroup::gens() const {
 std::ostream &operator<<(std::ostream &s, const Graph::AutGroup &a) {
 	s << "AutGroup(" << *a.g << ", " << a.lt << ", " << std::boolalpha << a.withStereo << ", [";
 	bool first = true;
-	for(const auto &g : a.gens()) {
+	for(const auto &g: a.gens()) {
 		if(first) first = false;
 		else s << ", ";
 		s << g;

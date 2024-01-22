@@ -52,9 +52,7 @@ void Strategy::printBaseInfo(PrintSettings settings) const {
 			s << " " << g->getName();
 	else s << " [listing disabled]";
 	s << '\n';
-	--settings.indentLevel;
-	settings.indent() << "output:\n";
-	++settings.indentLevel;
+	settings.indent(-1) << "output:\n";
 	// important to use getOutput(), it might be overwritten
 	settings.indent() << "subset =";
 	for(const auto *g : getOutput().getSubset())

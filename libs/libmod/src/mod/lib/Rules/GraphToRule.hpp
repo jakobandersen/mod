@@ -40,9 +40,8 @@ std::unique_ptr<Real> graphToRule(const LGraph &lg, Membership membership, const
 	for(const auto e: asRange(edges(g))) {
 		const auto vSrcCore = vertex(get(boost::vertex_index_t(), g, source(e, g)), gCore);
 		const auto vTarCore = vertex(get(boost::vertex_index_t(), g, target(e, g)), gCore);
-		const auto eCore = add_edge(vSrcCore, vTarCore, gCore).first;
+		const auto eCore = add_edge(vSrcCore, vTarCore, {membership}, gCore).first;
 		assert(get(boost::edge_index_t(), g, e) == get(boost::edge_index_t(), gCore, eCore));
-		gCore[eCore].membership = membership;
 		const auto &label = pStringGraph[e];
 		switch(membership) {
 		case Membership::L:

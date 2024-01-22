@@ -59,8 +59,8 @@ private:
 		stack.emplace_back(addrLeft, addrRight);
 		if constexpr(DEBUG) {
 			std::cout << "TermConstEqual:\n";
-			Term::Write::wam(machineLeft, Term::getStrings(), std::cout);
-			Term::Write::wam(machineRight, Term::getStrings(), std::cout);
+			Term::Write::wam(machineLeft, Term::getStrings(), IO::Logger(std::cout));
+			Term::Write::wam(machineRight, Term::getStrings(), IO::Logger(std::cout));
 		}
 		while(!stack.empty()) {
 			std::size_t l, r;
@@ -132,7 +132,7 @@ struct TermAssociationHandlerUnify {
 		if(DEBUG) {
 			auto &s = std::cout;
 			s << "TermAssociationHandlerUnify:\n";
-			Term::Write::wam(res, Term::getStrings(), s);
+			Term::Write::wam(res, Term::getStrings(), IO::Logger(s));
 		}
 		res.unifyHeapTemp(r, l, mgu);
 		if(DEBUG) {
@@ -174,6 +174,7 @@ struct ToTermVertexMap {
 		const auto &pCodomain = get_term(lgCodom);
 		assert(isValid(pDomain));
 		assert(isValid(pCodomain));
+
 		Term::Wam machine(getMachine(pCodomain));
 		machine.setTemp(getMachine(pDomain));
 		Term::MGU mgu(machine.getHeap().size());

@@ -25,8 +25,8 @@ const std::unordered_set<std::shared_ptr<rule::Rule>> &Composer::getProducts() c
 	return p->evaluator.getProducts();
 }
 
-std::vector<std::shared_ptr<rule::Rule>> Composer::eval(const RCExp::Expression &exp, int verbosity) {
-	return p->evaluator.eval(exp, verbosity);
+std::vector<std::shared_ptr<rule::Rule>> Composer::eval(const RCExp::Expression &exp, bool onlyUnique, int verbosity) {
+	return p->evaluator.eval(exp, onlyUnique, verbosity);
 }
 
 void Composer::print() const {

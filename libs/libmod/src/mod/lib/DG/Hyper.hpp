@@ -22,7 +22,9 @@ public:
 	friend struct Hyper;
 private:
 	HyperCreator() = default;
-	explicit HyperCreator(Hyper &hyper);
+	explicit HyperCreator(Hyper &hyper,
+	                      std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+						  std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge);
 public:
 	HyperCreator(HyperCreator &&other);
 	HyperCreator &operator=(HyperCreator &&other);
@@ -31,6 +33,8 @@ public:
 	HyperVertex addEdge(NonHyper::Edge eNon);
 private:
 	Hyper *owner = nullptr;
+	std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex;
+	std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge;
 };
 
 struct Hyper {
@@ -45,10 +49,14 @@ private:
 	friend struct HyperCreator;
 	Hyper(const NonHyper &dg);
 public:
-	static std::pair<std::unique_ptr<Hyper>, HyperCreator> makeHyper(const NonHyper &dg);
+	static std::pair<std::unique_ptr<Hyper>, HyperCreator> makeHyper(
+			const NonHyper &dg,
+			std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+			std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge);
 	//	Hyper(const NonHyper &dg, int dummy);
 private:
-	void addVertex(const lib::Graph::Single *g);
+	// the vertex, isNew
+	std::pair<Vertex, bool> addVertex(const lib::Graph::Single *g);
 public:
 	~Hyper();
 	const NonHyper &getNonHyper() const;

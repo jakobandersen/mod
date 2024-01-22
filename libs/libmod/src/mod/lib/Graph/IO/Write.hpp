@@ -1,6 +1,7 @@
 #ifndef MOD_LIB_GRAPH_IO_WRITE_HPP
 #define MOD_LIB_GRAPH_IO_WRITE_HPP
 
+#include <mod/lib/LabelledUnionGraph.hpp>
 #include <mod/lib/Graph/GraphDecl.hpp>
 #include <mod/lib/IO/GraphWrite.hpp>
 #include <mod/lib/Stereo/Configuration/Configuration.hpp>
@@ -37,6 +38,7 @@ std::string svg(const LabelledGraph &gLabelled, const DepictionData &depict,
                 const std::size_t gId, const Options &options);
 std::pair<std::string, std::string> summary(const Single &g, const Options &first, const Options &second);
 void termState(const Single &g);
+void termState(const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g, std::string name);
 
 std::string stereoSummary(const Single &g, Vertex v, const lib::Stereo::Configuration &conf,
                           const IO::Graph::Write::Options &options, int shownIdOffset, const std::string &nameSuffix);

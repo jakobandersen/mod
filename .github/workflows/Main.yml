@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: 'recursive'
     - name: Set PATH
       run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
     - name: Install pip dependencies
       run: |
         sudo apt install python3-setuptools python3-wheel
@@ -23,7 +25,7 @@ jobs:
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams install
+        ./b2 -j 2 --with-python --with-graph --with-iostreams --with-test install
     - name: Install Graphviz
       run: |
         sudo apt install librsvg2-dev libpango1.0-dev libperl-dev
@@ -56,7 +58,7 @@ jobs:
     runs-on: macos-11
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: 'recursive'
@@ -89,7 +91,7 @@ jobs:
     runs-on: macos-12
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: 'recursive'
@@ -116,5 +118,36 @@ jobs:
       run: cd build && make tests -j 3
     - name: Run tests
       run: cd build && ctest --output-on-failure -j 3
+    - name: Run simple test
+      run: mod -e "smiles('O').print()"
+  macOS-13:
+    runs-on: macos-13
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+    - name: Install Brew dependencies
+      run: |
+        brew bundle
+        /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
+    - name: Install pip dependencies
+      run: pip3 install -r requirements.txt
+    - name: Bootstrap
+      run: ./bootstrap.sh
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
+    - name: Build
+      run: cd build && make -j 4
+    - name: Install
+      run: cd build && sudo make install
+    - name: Build tests
+      run: cd build && make tests -j 4
+    - name: Run tests
+      run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
       run: mod -e "smiles('O').print()"

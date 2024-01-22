@@ -13,6 +13,10 @@ source:
 
 build:
   string: py{{ python | replace(".", "") }}_boost{{ boost | replace(".", "") }}
+  # Use merge_build_host to ensure the Python interpreter path is not in the
+  # build folder, as it is embedded in the wrapper script.
+  # See https://github.com/conda/conda-build/issues/2677
+  merge_build_host: True
   skip: True  # [win]
 
 requirements:
@@ -24,6 +28,7 @@ requirements:
     # lib packages, needed here to make sure we get the exact same version
     #               as in the host environment
     - boost {{ boost }}
+    - boost-cpp {{ boost }}  # to make conda build stop complaining
     - openbabel
     - python {{ python }}
     # Add both exe and py packages to the build environemnt
@@ -37,16 +42,16 @@ requirements:
     - networkx
     - parse
     - typing_extensions
-    # Add openbabel here to get pybel for test.
-    - openbabel
   host:
     # lib packages
     - boost {{ boost }}
+    - boost-cpp {{ boost }}  # to make conda build stop complaining
     - openbabel
     - python {{ python }}
   run:
     # lib packages
     - boost
+    - boost-cpp {{ boost }}  # to make conda build stop complaining
     - openbabel
     - python {{ python }}
     # exe packages

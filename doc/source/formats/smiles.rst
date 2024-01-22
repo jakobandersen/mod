@@ -21,9 +21,9 @@ notes/changes.
 - Atom classes are (mostly) ignored. They can be used to specify unique IDs to
   atoms.
 - Wildcard atoms (specified with ``*``) are converted to vertices with label
-  ``*``. When inside brakcets, only the hydrogen count and atom class is then
+  ``*``. When inside brackets, only the hydrogen count and atom class is then
   permitted.
-- Abstract vertex labels can be specified inside brakcets. The bracket must in
+- Abstract vertex labels can be specified inside brackets. The bracket must in
   that case only contain the label and an optional class label.
   The label must be a non-empty string without ``:`` and with balanced square
   brackets.

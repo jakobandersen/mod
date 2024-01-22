@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 j=$CPU_COUNT
 
 mkdir src

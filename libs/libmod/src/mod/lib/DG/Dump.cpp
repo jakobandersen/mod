@@ -42,10 +42,10 @@ struct ConstructionData {
 };
 
 struct NonHyperDump : public NonHyper {
-	NonHyperDump(const std::vector<std::shared_ptr<graph::Graph> > &graphs,
+	NonHyperDump(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 	             ConstructionData &&constructionData)
 			: NonHyper({LabelType::String, LabelRelation::Isomorphism}, graphs, IsomorphismPolicy::Check) {
-		calculatePrologue();
+		calculatePrologue(nullptr, nullptr);
 		constexpr bool printInfo = true;
 		const std::vector<std::shared_ptr<rule::Rule> > &rules = constructionData.rules;
 		auto &vertices = constructionData.vertices;

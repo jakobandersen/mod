@@ -13,8 +13,8 @@ The Wrapper Script
 The script ``mod`` is a convenience script primarily for starting the Python
 interpreter and after its exit execute PostMØD (the summary generator).
 The execution can however be customised somewhat, e.g., by running the
-interpreter through ``valgrind`` and/or ``gdb``, or switching the interpreter
-into interactive mode.
+interpreter through ``valgrind`` and/or ``gdb``/``lldb``, or switching the
+interpreter into interactive mode.
 
 The wrapper script does the following.
 
@@ -87,14 +87,26 @@ Execution Customization
 .. envvar:: MOD_PYTHON
 
   Set this environment variable to the executable to start in non-interactive
-  mode. If not set ``python3`` will be used.
+  mode. If not set it will use a Python interpreter appropriate for the compiled
+  bindings. This interpreter was found during configuration of the build system.
+  When executing the wrapper script the exact command can be seen in the output.
 
 .. envvar:: MOD_IPYTHON
 
   Set this environment variable to the executable to start in interactive
   mode (when :option:`-i` is given).
-  If not set ``ipython3`` will be used, if it can be found, otherwise
-  ``python3`` will be used.
+  If not set ``ipython3`` will be used, if it can be found, otherwise it will
+  fall back to standard Python interpreter as if :option:`-i` was not given.
+
+  .. warning:: The standard ``ipython3`` may not be appropriate for the compiled bindings,
+    which may result in a crash during import of the ``mod`` module.
+
+.. envvar:: MOD_DEBUGGER
+
+  Set this environmentt variable to the executable to use with :option:`--debug`
+  is given and :option:`--memcheck` is not given.
+  When not set the string ``gdb --args`` or ``lldb --`` is used, if GDB or LLDB
+  is available.
 
 
 Post-processing Options
@@ -126,7 +138,8 @@ Debugging Options
   Run the interpreter through `Valgrind <http://valgrind.org/>`_ with
   standard options for memory check.
   If ``--debug`` is given as well, the options ``--vgdb=yes --vgdb-error=0``
-  are also given to ``valgrind`` such that ``gdb`` can be connected.
+  are also given to ``valgrind`` such that a debugger (e.g. GDB or LLDB) can be
+  attached.
 
 .. option:: --vgArgs <args>
 
@@ -135,13 +148,16 @@ Debugging Options
 
 .. option:: --debug
 
-  Run the interpreter through `GDB <http://www.gnu.org/software/gdb/>`_.
-  If :option:`--memcheck` is given as well, this is not the case, but GDB can
-  then be connected to the process by the following steps:
-  
-  1. Run ``gdb python3`` (substitute ``python3`` for your Python interpreter).
-  2. In the GDB prompt, run ``target remote | vgdb``
-  3. In the GDB prompt, run ``continue``
+  Run the interpreter through `GDB <http://www.gnu.org/software/gdb/>`_,
+  or `LLDB <https://lldb.llvm.org/>`_.
+  If :envvar:`MOD_DEBUGGER` it set, then this string is prepended to form a complete command,
+  otherwise if ``gdb`` is available, then ``gdb --args`` is preprended,
+  otherwise if ``lldb``is available, then ``lldb --`` is prepended,
+  otherwise the script stops with an error.
+
+  If :option:`--memcheck` is given as well, then it takes preceedence, but it will add extra
+  flags to start a gdbserver. This will make Valgrind wait for a debugger to be attached.
+  Valgrind will print instructions for how to attach GDB.
 
 
 .. _mod-wrapper-preamble:

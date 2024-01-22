@@ -65,30 +65,28 @@ std::ostream &element(Cell cell, const StringStore &strings, std::ostream &s) {
 	__builtin_unreachable();
 }
 
-void wam(const Wam &machine, const StringStore &strings, std::ostream &s) {
-	wam(machine, strings, s, [](Address, std::ostream &) {});
+void wam(const Wam &machine, const StringStore &strings, IO::Logger logger) {
+	wam(machine, strings, logger, [](Address, std::ostream &) {});
 }
 
-void wam(const Wam &machine, const StringStore &strings, std::ostream &s,
+void wam(const Wam &machine, const StringStore &strings, IO::Logger logger,
          std::function<void(Address, std::ostream &s)> addressCallback) {
-	s << "Heap:" << std::endl;
+	logger.indent() << "Heap:\n";
 	for(std::size_t i = 0; i < machine.getHeap().size(); i++) {
 		Cell cell = machine.getHeap()[i];
-		s << std::setw(5) << std::left << i;
-		element(cell, strings, s);
-		addressCallback({AddressType::Heap, i}, s);
-		s << std::endl;
+		logger.indent() << std::setw(5) << std::left << i;
+		element(cell, strings, logger.s);
+		addressCallback({AddressType::Heap, i}, logger.s);
+		logger.s << '\n';
 	}
-	s << "-------------------------------------------------" << std::endl;
-	s << "Temp:" << std::endl;
+	logger.indent() << "Temp:\n";
 	for(std::size_t i = 0; i < machine.getTemp().size(); i++) {
 		Cell cell = machine.getTemp()[i];
-		s << std::setw(5) << std::left << i;
-		element(cell, strings, s);
-		addressCallback({AddressType::Temp, i}, s);
-		s << std::endl;
+		logger.indent() << std::setw(5) << std::left << i;
+		element(cell, strings, logger.s);
+		addressCallback({AddressType::Temp, i}, logger.s);
+		logger.s << '\n';
 	}
-	s << "-------------------------------------------------" << std::endl;
 }
 
 std::ostream &term(const Wam &machine, Address addr, const StringStore &strings, std::ostream &s) {
@@ -114,13 +112,13 @@ std::ostream &term(const Wam &machine, Address addr, const StringStore &strings,
 				break;
 			case Cell::Tag::Structure:
 				if(occurred[static_cast<int>(addr.type)][addr.addr] != 0) {
-					wam(machine, strings, std::cout);
-					std::cout << "addr.addr = " << addr.addr << std::endl;
-					std::cout << "occurred:" << std::endl;
-					for(int aType : {0, 1}) {
-						for(const auto o : occurred[aType]) {
+					wam(machine, strings, IO::Logger(s));
+					s << "addr.addr = " << addr.addr << std::endl;
+					s << "occurred:" << std::endl;
+					for(int aType: {0, 1}) {
+						for(const auto o: occurred[aType]) {
 							if(o == 0) continue;
-							std::cout << "   [" << aType << "]: " << o << std::endl;
+							s << "   [" << aType << "]: " << o << std::endl;
 						}
 					}
 				}
@@ -161,7 +159,7 @@ std::ostream &mgu(const Wam &machine, const MGU &mgu, const StringStore &strings
 		return s;
 	}
 	bool first = true;
-	for(auto binding : mgu.bindings) {
+	for(auto binding: mgu.bindings) {
 		if(binding.type == AddressType::Heap && binding.addr >= mgu.preHeapSize) continue;
 		if(!first) s << ", ";
 		first = false;

@@ -2,14 +2,13 @@
 #       variations for those verions.
 # https://github.com/conda-forge/conda-forge-pinning-feedstock/tree/main/recipe
 python:
-  - 3.7
   - 3.8
   - 3.9
   - 3.10
   - 3.11
+  - 3.12
 boost:
-  - 1.78
-  - 1.80
+  - 1.78.0  # currently globally pinned version in conda-forge
 pin_run_as_build:
   python: x.x
-  boost: x.x
+  boost: x.x.x

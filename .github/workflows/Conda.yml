@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: 'recursive'
     - name: Set PATH
       run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
     - name: Install pip dependencies
       run: |
         sudo apt install python3-setuptools python3-wheel
@@ -23,7 +25,7 @@ jobs:
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams install
+        ./b2 -j 2 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
@@ -36,7 +38,7 @@ jobs:
     - name: Build
       run: ./scripts/makeConda.sh
     - name: Archive result
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: conda-linux
         path: |

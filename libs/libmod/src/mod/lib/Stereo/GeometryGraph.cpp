@@ -160,7 +160,8 @@ GeometryGraph::Vertex GeometryGraph::nullGeometry() {
 }
 
 lib::IO::Result<unsigned char>
-GeometryGraph::deduceLonePairs(lib::IO::Warnings &warnings, const AtomData &ad, const EdgeCategoryCount &catCount,
+GeometryGraph::deduceLonePairs(lib::IO::Warnings &warnings, bool printWarnings,
+                               const AtomData &ad, const EdgeCategoryCount &catCount,
                                Vertex vGeometry, bool asPattern) const {
 	auto atomId = ad.getAtomId();
 	auto charge = ad.getCharge();
@@ -190,14 +191,14 @@ GeometryGraph::deduceLonePairs(lib::IO::Warnings &warnings, const AtomData &ad, 
 		std::stringstream msg;
 		msg << "No viable configurations for " << ad << " with bonds " << catCount << ", in geometry '"
 		    << g[vGeometry].name << "'.";
-		warnings.add(msg.str());
+		warnings.add(msg.str(), printWarnings);
 		return 0;
 	}
 	if(viables.size() > 1) {
 		std::stringstream msg;
 		msg << "Ambiguous deduction for " << ad << " with bonds " << catCount << ", in geometry '" << g[vGeometry].name
 		    << "'. Matches are:\n";
-		for(const auto &v : viables) {
+		for(const auto &v: viables) {
 			msg << "\t" << AtomData(v.atomId, v.charge, v.radical);
 			if(v.catCount.sum() > 0) msg << ", " << v.catCount;
 			if(v.lonePair > 0) msg << ", e = " << v.lonePair;
@@ -210,7 +211,8 @@ GeometryGraph::deduceLonePairs(lib::IO::Warnings &warnings, const AtomData &ad, 
 }
 
 lib::IO::Result<GeometryGraph::Vertex>
-GeometryGraph::deduceGeometry(lib::IO::Warnings &warnings, const AtomData &ad, const EdgeCategoryCount &catCount,
+GeometryGraph::deduceGeometry(lib::IO::Warnings &warnings, bool printWarnings,
+                              const AtomData &ad, const EdgeCategoryCount &catCount,
                               unsigned char numLonePairs, bool asPattern) const {
 	auto atomId = ad.getAtomId();
 	auto charge = ad.getCharge();
@@ -238,14 +240,14 @@ GeometryGraph::deduceGeometry(lib::IO::Warnings &warnings, const AtomData &ad, c
 		msg << ", and ";
 		if(numLonePairs > 0) msg << numLonePairs << " lone pairs.";
 		else msg << " no lone pairs.";
-		warnings.add(msg.str());
+		warnings.add(msg.str(), printWarnings);
 		return any;
 	}
 	if(viables.size() > 1) {
 		std::stringstream msg;
 		msg << "Ambiguous deduction for " << ad << " with bonds " << catCount << ", and " << numLonePairs
 		    << " lone pairs.Matches are:\n";
-		for(auto &v : viables) {
+		for(auto &v: viables) {
 			msg << "\t" << AtomData(v.atomId, v.charge, v.radical);
 			if(v.catCount.sum() > 0) msg << ", " << v.catCount;
 			msg << ", geometry = " << g[v.geometry].name << "\n";
@@ -257,8 +259,9 @@ GeometryGraph::deduceGeometry(lib::IO::Warnings &warnings, const AtomData &ad, c
 }
 
 lib::IO::Result<std::tuple<GeometryGraph::Vertex, unsigned char>>
-GeometryGraph::deduceGeometryAndLonePairs(lib::IO::Warnings &warnings, const AtomData &ad,
-                                          const EdgeCategoryCount &catCount, bool asPattern) const {
+GeometryGraph::deduceGeometryAndLonePairs(lib::IO::Warnings &warnings, bool printWarnings,
+                                          const AtomData &ad, const EdgeCategoryCount &catCount,
+                                          bool asPattern) const {
 	using Res = std::tuple<GeometryGraph::Vertex, unsigned char>;
 	auto atomId = ad.getAtomId();
 	auto charge = ad.getCharge();
@@ -295,7 +298,7 @@ GeometryGraph::deduceGeometryAndLonePairs(lib::IO::Warnings &warnings, const Ato
 			msg << "No viable geometries for " << ad;
 			if(catCount.sum() > 0) msg << " with bonds " << catCount << ".";
 			else msg << " without bonds.";
-			warnings.add(msg.str());
+			warnings.add(msg.str(), printWarnings);
 		}
 		return Res{any, 0};
 	}
@@ -306,7 +309,7 @@ GeometryGraph::deduceGeometryAndLonePairs(lib::IO::Warnings &warnings, const Ato
 		}
 		std::stringstream msg;
 		msg << "Ambiguous deduction for " << ad << " with bonds " << catCount << ". Matches are:\n";
-		for(auto &v : viables) {
+		for(auto &v: viables) {
 			msg << "\t" << AtomData(v.atomId, v.charge, v.radical);
 			if(v.catCount.sum() > 0) msg << ", " << v.catCount;
 			if(v.lonePair > 0) msg << ", e = " << v.lonePair;
