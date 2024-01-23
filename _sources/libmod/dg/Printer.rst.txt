@@ -1,0 +1,277 @@
+.. _cpp-dg/Printer:
+
+**********************************************************
+dg/Printer.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:expr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``dg::PrintData``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::PrintData
+    
+
+    This class is used to hold extra data about how a specific derivation graph
+    is visualised.
+
+    The idea is that in the visualized network each vertex/hyperedge is specified
+    by a pair :math:`(id, dup)` where :math:`id` is the ID of the vertex/hyperedge
+    and :math:`dup` is an versioning integer that can be specified in objects of this class.
+
+    Initially, each vertex/hyperedge has only one version: duplicate number 0.
+    The duplication is primarily specified via the hyperedges, with the duplication
+    of vertices being induced afterwards.
+    Thus hyperedge duplicates are managed by :func:`makeDuplicate` and :func:`removeDuplicate`,
+    while the vertex duplicates are managed implicitly by :func:`reconnectSource` and :func:`reconnectTarget`.
+    In the end, when the data is used for printing, it will be compiled to form the actual duplication data.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::PrintData
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::PrintData
+
+.. function:: explicit PrintData(std::shared_ptr<DG> dg)
+
+    Construct a data object where all derivations have a single version, duplicate number 0,
+    connected to version 0 of all heads and tails.
+
+    :throws: :class:`LogicError` if `!dg->isLocked()`.
+.. function:: std::shared_ptr<DG> getDG() const
+
+    :returns: the derivation graph the object holds data for.
+.. function:: void makeDuplicate(DG::HyperEdge e, int eDup)
+
+    Create another version of the given hyperedge and give it the given duplicate number.
+    It will connect to duplicate 0 of all head and tail vertices.
+
+    :throws: :class:`LogicError` if `!e`.
+    :throws: :class:`LogicError` if `e.getDG() != getDG()`.
+    :throws: :class:`LogicError` if duplicate `eDup` already exists for `e`.
+.. function:: void removeDuplicate(DG::HyperEdge e, int eDup)
+
+    Remove the version of the given hyperedge with the given duplicate number.
+
+    :throws: :class:`LogicError` if `!e`.
+    :throws: :class:`LogicError` if `e.getDG() != getDG()`.
+    :throws: :class:`LogicError` if duplicate `eDup` does not exist for `e`.
+.. function:: void reconnectSource(DG::HyperEdge e, int eDup, DG::Vertex v, int vDupTar)
+
+    For the given hyperedge duplicate, reconnect the given source vertex to the given duplicate of that source.
+    If the vertex is a source multiple times, then an arbitrary one of them is reconnected.
+
+    :throws: :class:`LogicError` if `!e`.
+    :throws: :class:`LogicError` if `e.getDG() != getDG()`.
+    :throws: :class:`LogicError` if `!v`.
+    :throws: :class:`LogicError` if `v.getDG() != getDG()`.
+    :throws: :class:`LogicError` if `v` is not a source vertex of `e`.
+    :throws: :class:`LogicError` if duplicate `eDup` does not exist for `e`.
+.. function:: void reconnectTarget(DG::HyperEdge e, int eDup, DG::Vertex v, int vDupTar)
+
+    For the given hyperedge duplicate, reconnect the given head to the given duplicate of that head.
+    If the vertex is a head multiple times, then an arbitrary one of them is reconnected.
+
+    :throws: :class:`LogicError` if `!e`.
+    :throws: :class:`LogicError` if `e.getDG() != getDG()`.
+    :throws: :class:`LogicError` if `!v`.
+    :throws: :class:`LogicError` if `v.getDG() != getDG()`.
+    :throws: :class:`LogicError` if `v` is not a target vertex of `e`.
+    :throws: :class:`LogicError` if duplicate `eDup` does not exist for `e`.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::Printer``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::Printer
+    
+
+    This class is used to configure how derivation graphs are visualised,
+    how much is visualised and which extra properties are printed.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::Printer
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::Printer
+
+.. function:: graph::Printer &getGraphPrinter()
+              const graph::Printer &getGraphPrinter() const
+
+    :returns: a reference to the :class:`graph::Printer` used for graphs in vertices of the DG.
+.. function:: void setWithShortcutEdges(bool value)
+              bool getWithShortcutEdges() const
+
+    Control whether hyperedges :math:`(T, H)` with :math:`|T| = |H| = 1`
+    are printed as a simple arrow without the usual rectangle.
+.. function::     void setWithGraphImages(bool value)
+                bool getWithGraphImages() const
+
+    Control whether each vertex is printed with an image of its graph in it.
+.. function:: void setLabelsAsLatexMath(bool value)
+              bool getLabelsAsLatexMath() const
+
+    Control whether labels on vertices and hyperedges are put inline :math:`\LaTeX` math.
+    Specifically, a label ``label`` is written as ``$\mathrm{label'}$``, with ``label'`` being
+    ``label`` with all space characters escaped.
+.. function:: void pushVertexVisible(std::function<bool(DG::Vertex)> f)
+
+    Add another function controlling the visibility of vertices.
+    All visibility functions must return `true` for a vertex to be visible.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popVertexVisible()
+
+    Remove the last pushed vertex visibility function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void pushEdgeVisible(std::function<bool(DG::HyperEdge) > f)
+
+    Add another function controlling the visibility of hyperedges.
+    All visibility functions must return `true` for a hyperedge to be visible.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popEdgeVisible()
+
+    Remove the last pushed hyperedge visibility function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void setWithShortcutEdgesAfterVisibility(bool value)
+              bool getWithShortcutEdgesAfterVisibility() const
+
+    Control whether hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.
+.. function:: void setVertexLabelSep(std::string sep)
+              const std::string &getVertexLabelSep()
+
+    Set/get the string used as separator between each part of each vertex label.
+.. function:: void setEdgeLabelSep(std::string sep)
+              const std::string &getEdgeLabelSep()
+
+    Set/get the string used as separator between each part of each edge label.
+.. function:: void pushVertexLabel(std::function<std::string(DG::Vertex)> f)
+
+    Add another function for vertex labelling. The result of this function is appended to each label.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popVertexLabel()
+
+    Remove the last pushed vertex labelling function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void pushEdgeLabel(std::function<std::string(DG::HyperEdge)> f)
+
+    Add another function for edge labelling. The result of this function is appended to each label.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popEdgeLabel()
+
+    Remove the last pushed edge labelling function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void setWithGraphName(bool value)
+              bool getWithGraphName() const
+
+    Control whether graph names are appended to the vertex labels (see also :func:`pushVertexLabel`).
+.. function:: void setWithRuleName(bool value)
+              bool getWithRuleName() const
+
+    Control whether rules names are appended to the edge labels (see also :func:`pushEdgeLabel`).
+.. function:: void setWithRuleId(bool value)
+              bool getWithRuleId() const
+
+    Control whether rules IDs are appended to the edge labels (see also :func:`pushEdgeLabel`).
+.. function:: void setWithInlineGraphs(bool value)
+              bool getWithInlineGraphs() const
+
+    Control whether graph depictions should be precompiled, or be included inline in the DG figure.
+.. function:: void pushVertexColour(std::function<std::string(DG::Vertex)> f, bool extendToEdges)
+
+    Add another function for colouring vertices. The final colour of a vertex is the result of the first colour function returning a non-empty string.
+    The functions are evaluated in the order they are pushed and the resulting string is used directly as a colour in Tikz.
+    A hyperedge is also coloured if at least one head and one tail *can* be coloured with a colour for which `extendToEdges` is `true`.
+    In this case, the hyperedge (and a subset of the head and tail connectors) is coloured with the first applicable colour.
+    The edge extension of vertex colour takes lower precedence than explicitly added hyperedge colouring functions.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popVertexColour()
+
+    Remove the last pushed vertex colouring function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void pushEdgeColour(std::function<std::string(DG::HyperEdge)> f)
+
+    Add another function for colouring hyperedges. The final colour of a hyperedge (and all of its head and tail connectors) is the result of the
+    first colour function returning a non-empty string.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popEdgeColour()
+
+    Remove the last pushed hyperedge colouring function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void setRotationOverwrite(std::function<int(std::shared_ptr<graph::Graph>)> f)
+
+    Overwrite the rotation set in the nested :cpp:class:`graph::Printer`. The given function will be used
+    to set the rotation of each printed graph.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void setMirrorOverwrite(std::function<bool(std::shared_ptr<graph::Graph>) > f)
+
+    Overwrite the mirror set in the nested :cpp:class:`graph::Printer`. The given function will be used
+    to set the mirror of each printed graph.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void setImageOverwrite(std::function<std::pair<std::string, std::string>(DG::Vertex v, int dupNum)> f)
+
+    Overwrite the image generation for graphs depicted in the vertices of the printed derivation graph.
+    For each duplicate of each vertex to be depicted, the given callback is called.
+    It must then return two strings:
+
+    1. Either
+
+      - an empty string if the standard depiction should be used, in which case the second string is ignored, or
+      - the filename of the PDF that should be included in the final compiled figure.
+
+    2. Either
+
+      - an empty string if no additional post-processing command is needed, or
+      - a string of Bash code which will be inserted in the post-processing instructions.
+        For example, one can write out source code in the callback, and then return a command that compiles
+        that code into the PDF needed by inclusion.
+
+    The image overwrite can be removed by calling with `nullptr`.
+.. function:: void setGraphvizPrefix(const std::string &prefix)
+              const std::string &getGraphvizPrefix() const
+
+    Access the string that will be inserted into generated DOT files,
+    just after the graph declaration.
+.. function:: void setTikzpictureOption(const std::string &option)
+              const std::string &getTikzpictureOption() const
+
+    Access the string that will be inserted into generated Tikz files,
+    in the options for the ``\tikzpicture`` macro used for the DG.
+
+.. cpp:namespace-pop::
+

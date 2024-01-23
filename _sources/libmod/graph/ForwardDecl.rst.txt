@@ -1,0 +1,11 @@
+.. _cpp-graph/ForwardDecl:
+
+**********************************************************
+graph/ForwardDecl.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:expr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+

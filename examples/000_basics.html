@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>10.1. Basics, Graphs, and Rules &#8212; MØD 0.15.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/documentation_options.js?v=ef97403f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.2. Rule Composition" href="010_rc.html" />
+    <link rel="prev" title="10. Examples" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">10.1. Basics, Graphs, and Rules</a><ul>
+<li><a class="reference internal" href="#graph-morphisms">10.1.1. Graph Morphisms</a></li>
+<li><a class="reference internal" href="#graph-interface">10.1.2. Graph Interface</a></li>
+<li><a class="reference internal" href="#rule-morphisms">10.1.3. Rule Morphisms</a></li>
+<li><a class="reference internal" href="#rule-loading">10.1.4. Rule Loading</a></li>
+<li><a class="reference internal" href="#printing-graphs-molecules">10.1.5. Printing Graphs/Molecules</a></li>
+<li><a class="reference internal" href="#formose-grammar">10.1.6. Formose Grammar</a></li>
+<li><a class="reference internal" href="#hello-world">10.1.7. Hello World</a></li>
+<li><a class="reference internal" href="#graph-loading">10.1.8. Graph Loading</a></li>
+<li><a class="reference internal" href="#including-files">10.1.9. Including Files</a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="index.html" title="Previous Chapter: 10. Examples">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 10. Examples
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="010_rc.html" title="Next Chapter: 10.2. Rule Composition">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">10.2. Rule Co... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="basics-graphs-and-rules">
+<span id="examples-000-basics"></span><span id="examples-basics"></span><h1><span class="section-number">10.1. </span>Basics, Graphs, and Rules<a class="headerlink" href="#basics-graphs-and-rules" title="Link to this heading">¶</a></h1>
+<section id="graph-morphisms">
+<h2><span class="section-number">10.1.1. </span>Graph Morphisms<a class="headerlink" href="#graph-morphisms" title="Link to this heading">¶</a></h2>
+<p>Graph objects have methods for finding morphisms with the VF2 algorithms
+for isomorphism and monomorphism.
+We can therefore easily detect isomorphic graphs, count automorphisms,
+and search for substructures.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__013_graphMorphisms.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">mol1</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;CC(C)CO&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">mol2</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;C(CC)CO&quot;</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="c1"># Check if there is just one isomorphism between the graphs:</span>
+<span class="linenos"> 4</span><span class="n">isomorphic</span> <span class="o">=</span> <span class="n">mol1</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">mol2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="linenos"> 5</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Isomorphic?&quot;</span><span class="p">,</span> <span class="n">isomorphic</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="c1"># Find the number of automorphisms in the graph,</span>
+<span class="linenos"> 7</span><span class="c1"># by explicitly enumerating all of them:</span>
+<span class="linenos"> 8</span><span class="n">numAutomorphisms</span> <span class="o">=</span> <span class="n">mol1</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">mol1</span><span class="p">,</span> <span class="n">maxNumMatches</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|Aut(G)| =&quot;</span><span class="p">,</span> <span class="n">numAutomorphisms</span><span class="p">)</span>
+<span class="linenos">10</span><span class="c1"># Let&#39;s count the number of methyl groups:</span>
+<span class="linenos">11</span><span class="n">methyl</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;[CH3]&quot;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="c1"># The symmetry of the group it self should not be counted,</span>
+<span class="linenos">13</span><span class="c1"># so find the size of the automorphism group of methyl.</span>
+<span class="linenos">14</span><span class="n">numAutMethyl</span> <span class="o">=</span> <span class="n">methyl</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">methyl</span><span class="p">,</span> <span class="n">maxNumMatches</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="p">)</span>
+<span class="linenos">15</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|Aut(methyl)|&quot;</span><span class="p">,</span> <span class="n">numAutMethyl</span><span class="p">)</span>
+<span class="linenos">16</span><span class="c1"># Now find the number of methyl matches,</span>
+<span class="linenos">17</span><span class="n">numMono</span> <span class="o">=</span> <span class="n">methyl</span><span class="o">.</span><span class="n">monomorphism</span><span class="p">(</span><span class="n">mol1</span><span class="p">,</span> <span class="n">maxNumMatches</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="p">)</span>
+<span class="linenos">18</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#monomorphisms =&quot;</span><span class="p">,</span> <span class="n">numMono</span><span class="p">)</span>
+<span class="linenos">19</span><span class="c1"># and divide by the symmetries of methyl.</span>
+<span class="linenos">20</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#methyl groups =&quot;</span><span class="p">,</span> <span class="n">numMono</span> <span class="o">/</span> <span class="n">numAutMethyl</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="graph-interface">
+<h2><span class="section-number">10.1.2. </span>Graph Interface<a class="headerlink" href="#graph-interface" title="Link to this heading">¶</a></h2>
+<p>Graph objects have a full interface to access individual vertices and
+edges.
+The attributes of vertices and edges can be accessed both in their raw
+string form, and as their chemical counterpart (if they have one).</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__012_graphInterface.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">g</span> <span class="o">=</span> <span class="n">graphDFS</span><span class="p">(</span><span class="s2">&quot;[R]</span><span class="si">{x}</span><span class="s2">C([O-])CC=O&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|V| =&quot;</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">numVertices</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|E| =&quot;</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">numEdges</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
+<span class="linenos"> 5</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;v</span><span class="si">%d</span><span class="s2">: label=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">stringLabel</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">as molecule: atomId=</span><span class="si">%d</span><span class="s2">, charge=</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">atomId</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">charge</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">is oxygen?&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">atomId</span> <span class="o">==</span> <span class="n">AtomIds</span><span class="o">.</span><span class="n">Oxygen</span><span class="p">)</span>
+<span class="linenos"> 8</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">d(v) =&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+<span class="linenos"> 9</span>   <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">incidentEdges</span><span class="p">:</span>
+<span class="linenos">10</span>      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">neighbour:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="linenos">11</span><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+<span class="linenos">12</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(v</span><span class="si">%d</span><span class="s2">, v</span><span class="si">%d</span><span class="s2">): label=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">stringLabel</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">13</span>   <span class="k">try</span><span class="p">:</span>
+<span class="linenos">14</span>      <span class="n">bt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">bondType</span><span class="p">)</span>
+<span class="linenos">15</span>   <span class="k">except</span> <span class="n">LogicError</span><span class="p">:</span>
+<span class="linenos">16</span>      <span class="n">bt</span> <span class="o">=</span> <span class="s2">&quot;Invalid&quot;</span>
+<span class="linenos">17</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">as molecule: bondType=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bt</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">18</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">is double bond?&quot;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">bondType</span> <span class="o">==</span> <span class="n">BondType</span><span class="o">.</span><span class="n">Double</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rule-morphisms">
+<h2><span class="section-number">10.1.3. </span>Rule Morphisms<a class="headerlink" href="#rule-morphisms" title="Link to this heading">¶</a></h2>
+<p>Rule objects, like graph objects, have methods for finding morphisms with
+the VF2 algorithms for isomorphism and monomorphism.
+We can therefore easily detect isomorphic rules,
+and decide if one rule is at least as specific/general as another.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__031_ruleMorphisms.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># A rule with no extra context:</span>
+<span class="linenos"> 2</span><span class="n">small</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 3</span><span class="s2">   ruleID &quot;Small&quot;</span>
+<span class="linenos"> 4</span><span class="s2">   left [</span>
+<span class="linenos"> 5</span><span class="s2">      node [ id 1 label &quot;H&quot; ]</span>
+<span class="linenos"> 6</span><span class="s2">      node [ id 2 label &quot;O&quot; ]</span>
+<span class="linenos"> 7</span><span class="s2">      edge [ source 1 target 2 label &quot;-&quot; ]</span>
+<span class="linenos"> 8</span><span class="s2">   ]</span>
+<span class="linenos"> 9</span><span class="s2">   right [</span>
+<span class="linenos">10</span><span class="s2">      node [ id 1 label &quot;H+&quot; ]</span>
+<span class="linenos">11</span><span class="s2">      node [ id 2 label &quot;O-&quot; ]</span>
+<span class="linenos">12</span><span class="s2">   ]</span>
+<span class="linenos">13</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">14</span><span class="c1"># The same rule, with a bit of context:</span>
+<span class="linenos">15</span><span class="n">large</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">16</span><span class="s2">   ruleID &quot;Large&quot;</span>
+<span class="linenos">17</span><span class="s2">   left [</span>
+<span class="linenos">18</span><span class="s2">      node [ id 1 label &quot;H&quot; ]</span>
+<span class="linenos">19</span><span class="s2">      node [ id 2 label &quot;O&quot; ]</span>
+<span class="linenos">20</span><span class="s2">      edge [ source 1 target 2 label &quot;-&quot; ]</span>
+<span class="linenos">21</span><span class="s2">   ]</span>
+<span class="linenos">22</span><span class="s2">   context [</span>
+<span class="linenos">23</span><span class="s2">      node [ id 3 label &quot;C&quot; ]</span>
+<span class="linenos">24</span><span class="s2">      edge [ source 2 target 3 label &quot;-&quot; ]</span>
+<span class="linenos">25</span><span class="s2">   ]</span>
+<span class="linenos">26</span><span class="s2">   right [</span>
+<span class="linenos">27</span><span class="s2">      node [ id 1 label &quot;H+&quot; ]</span>
+<span class="linenos">28</span><span class="s2">      node [ id 2 label &quot;O-&quot; ]</span>
+<span class="linenos">29</span><span class="s2">   ]</span>
+<span class="linenos">30</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">31</span><span class="n">isomorphic</span> <span class="o">=</span> <span class="n">small</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">large</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="linenos">32</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Isomorphic?&quot;</span><span class="p">,</span> <span class="n">isomorphic</span><span class="p">)</span>
+<span class="linenos">33</span><span class="n">atLeastAsGeneral</span> <span class="o">=</span> <span class="n">small</span><span class="o">.</span><span class="n">monomorphism</span><span class="p">(</span><span class="n">large</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="linenos">34</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;At least as general?&quot;</span><span class="p">,</span> <span class="n">atLeastAsGeneral</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rule-loading">
+<h2><span class="section-number">10.1.4. </span>Rule Loading<a class="headerlink" href="#rule-loading" title="Link to this heading">¶</a></h2>
+<p>Rules must be specified in GML format.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__030_ruleLoading.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># A rule (L &lt;- K -&gt; R) is specified by three graph fragments:</span>
+<span class="linenos"> 2</span><span class="c1"># left, context, and right</span>
+<span class="linenos"> 3</span><span class="n">destroyVertex</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 4</span><span class="s2">   left [</span>
+<span class="linenos"> 5</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
+<span class="linenos"> 6</span><span class="s2">   ]</span>
+<span class="linenos"> 7</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">createVertex</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 9</span><span class="s2">   right [</span>
+<span class="linenos">10</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
+<span class="linenos">11</span><span class="s2">   ]</span>
+<span class="linenos">12</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">identity</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">14</span><span class="s2">   context [</span>
+<span class="linenos">15</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
+<span class="linenos">16</span><span class="s2">   ]</span>
+<span class="linenos">17</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">18</span><span class="c1"># A vertex/edge can change label:</span>
+<span class="linenos">19</span><span class="n">labelChange</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">20</span><span class="s2">   left [</span>
+<span class="linenos">21</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
+<span class="linenos">22</span><span class="s2">      edge [ source 1 target 2 label &quot;A&quot; ]</span>
+<span class="linenos">23</span><span class="s2">   ]</span>
+<span class="linenos">24</span><span class="s2">   # GML can have Python-style line comments too</span>
+<span class="linenos">25</span><span class="s2">   context [</span>
+<span class="linenos">26</span><span class="s2">      node [ id 2 label &quot;Q&quot; ]</span>
+<span class="linenos">27</span><span class="s2">   ]</span>
+<span class="linenos">28</span><span class="s2">   right [</span>
+<span class="linenos">29</span><span class="s2">      node [ id 1 label &quot;B&quot; ]</span>
+<span class="linenos">30</span><span class="s2">      edge [ source 1 target 2 label &quot;B&quot; ]</span>
+<span class="linenos">31</span><span class="s2">   ]</span>
+<span class="linenos">32</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">33</span><span class="c1"># A chemical rule should probably not destroy and create vertices:</span>
+<span class="linenos">34</span><span class="n">ketoEnol</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">35</span><span class="s2">   left [</span>
+<span class="linenos">36</span><span class="s2">      edge [ source 1 target 4 label &quot;-&quot; ]</span>
+<span class="linenos">37</span><span class="s2">      edge [ source 1 target 2 label &quot;-&quot; ]</span>
+<span class="linenos">38</span><span class="s2">      edge [ source 2 target 3 label &quot;=&quot; ]</span>
+<span class="linenos">39</span><span class="s2">   ]   </span>
+<span class="linenos">40</span><span class="s2">   context [</span>
+<span class="linenos">41</span><span class="s2">      node [ id 1 label &quot;C&quot; ]</span>
+<span class="linenos">42</span><span class="s2">      node [ id 2 label &quot;C&quot; ]</span>
+<span class="linenos">43</span><span class="s2">      node [ id 3 label &quot;O&quot; ]</span>
+<span class="linenos">44</span><span class="s2">      node [ id 4 label &quot;H&quot; ]</span>
+<span class="linenos">45</span><span class="s2">   ]   </span>
+<span class="linenos">46</span><span class="s2">   right [</span>
+<span class="linenos">47</span><span class="s2">      edge [ source 1 target 2 label &quot;=&quot; ]</span>
+<span class="linenos">48</span><span class="s2">      edge [ source 2 target 3 label &quot;-&quot; ]</span>
+<span class="linenos">49</span><span class="s2">      edge [ source 3 target 4 label &quot;-&quot; ]</span>
+<span class="linenos">50</span><span class="s2">   ]   </span>
+<span class="linenos">51</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">52</span><span class="c1"># Rules can be printed, but label changing edges are not visualised in K:</span>
+<span class="linenos">53</span><span class="n">ketoEnol</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+<span class="linenos">54</span><span class="c1"># Add with custom options, like graphs:</span>
+<span class="linenos">55</span><span class="n">p1</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos">56</span><span class="n">p2</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos">57</span><span class="n">p1</span><span class="o">.</span><span class="n">disableAll</span><span class="p">()</span>
+<span class="linenos">58</span><span class="n">p1</span><span class="o">.</span><span class="n">withTexttt</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">59</span><span class="n">p1</span><span class="o">.</span><span class="n">withIndex</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">60</span><span class="n">p2</span><span class="o">.</span><span class="n">setReactionDefault</span><span class="p">()</span>
+<span class="linenos">61</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">inputRules</span><span class="p">:</span>
+<span class="linenos">62</span>   <span class="n">p</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+<span class="linenos">63</span><span class="c1"># Be careful with printing options and non-existing implicit hydrogens:</span>
+<span class="linenos">64</span><span class="n">p1</span><span class="o">.</span><span class="n">disableAll</span><span class="p">()</span>
+<span class="linenos">65</span><span class="n">p1</span><span class="o">.</span><span class="n">edgesAsBonds</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">66</span><span class="n">p2</span><span class="o">.</span><span class="n">setReactionDefault</span><span class="p">()</span>
+<span class="linenos">67</span><span class="n">p2</span><span class="o">.</span><span class="n">simpleCarbons</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># !!</span>
+<span class="linenos">68</span><span class="n">ketoEnol</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="printing-graphs-molecules">
+<h2><span class="section-number">10.1.5. </span>Printing Graphs/Molecules<a class="headerlink" href="#printing-graphs-molecules" title="Link to this heading">¶</a></h2>
+<p>The visualisation of graphs can be “prettified” using special printing
+options.
+The changes can make the graphs look like normal molecule visualisations.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__011_graphPrinting.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Our test graph, representing the molecule caffeine:</span>
+<span class="linenos"> 2</span><span class="n">g</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s1">&#39;Cn1cnc2c1c(=O)n(c(=O)n2C)C&#39;</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="c1"># ;ake an object to hold our settings:</span>
+<span class="linenos"> 4</span><span class="n">p</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos"> 5</span><span class="c1"># First try visualising without any prettifications:</span>
+<span class="linenos"> 6</span><span class="n">p</span><span class="o">.</span><span class="n">disableAll</span><span class="p">()</span>
+<span class="linenos"> 7</span><span class="n">g</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="c1"># Now make chemical edges look like bonds, and put colour on atoms.</span>
+<span class="linenos"> 9</span><span class="c1"># Also put the &quot;charge&quot; part of vertex labels in superscript:</span>
+<span class="linenos">10</span><span class="n">p</span><span class="o">.</span><span class="n">edgesAsBonds</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">11</span><span class="n">p</span><span class="o">.</span><span class="n">raiseCharges</span><span class="o">=</span><span class="kc">True</span>
+<span class="linenos">12</span><span class="n">p</span><span class="o">.</span><span class="n">withColour</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">13</span><span class="n">g</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="linenos">14</span><span class="c1"># We can also &quot;collapse&quot; normal hydrogen atoms into the neighbours,</span>
+<span class="linenos">15</span><span class="c1"># and just show a count:</span>
+<span class="linenos">16</span><span class="n">p</span><span class="o">.</span><span class="n">collapseHydrogens</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">17</span><span class="n">g</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="linenos">18</span><span class="c1"># And finally we can make &quot;internal&quot; carbon atoms simple lines:</span>
+<span class="linenos">19</span><span class="n">p</span><span class="o">.</span><span class="n">simpleCarbons</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">20</span><span class="n">g</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="linenos">21</span><span class="c1"># There are also options for adding indices to the vertices,</span>
+<span class="linenos">22</span><span class="c1"># and modify the rendering of labels and edges:</span>
+<span class="linenos">23</span><span class="n">p2</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos">24</span><span class="n">p2</span><span class="o">.</span><span class="n">disableAll</span><span class="p">()</span>
+<span class="linenos">25</span><span class="n">p2</span><span class="o">.</span><span class="n">withTexttt</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">26</span><span class="n">p2</span><span class="o">.</span><span class="n">thick</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">27</span><span class="n">p2</span><span class="o">.</span><span class="n">withIndex</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">28</span><span class="c1"># We can actually print two different versions at the same time:</span>
+<span class="linenos">29</span><span class="n">g</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="formose-grammar">
+<h2><span class="section-number">10.1.6. </span>Formose Grammar<a class="headerlink" href="#formose-grammar" title="Link to this heading">¶</a></h2>
+<p>The graph grammar modelling the formose chemistry.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__050_formoseGrammar.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">formaldehyde</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;C=O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Formaldehyde&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">glycolaldehyde</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span> <span class="s2">&quot;OCC=O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Glycolaldehyde&quot;</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="n">ketoEnolGML</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 4</span><span class="s2">   ruleID &quot;Keto-enol isomerization&quot; </span>
+<span class="linenos"> 5</span><span class="s2">   left [</span>
+<span class="linenos"> 6</span><span class="s2">      edge [ source 1 target 4 label &quot;-&quot; ]</span>
+<span class="linenos"> 7</span><span class="s2">      edge [ source 1 target 2 label &quot;-&quot; ]</span>
+<span class="linenos"> 8</span><span class="s2">      edge [ source 2 target 3 label &quot;=&quot; ]</span>
+<span class="linenos"> 9</span><span class="s2">   ]   </span>
+<span class="linenos">10</span><span class="s2">   context [</span>
+<span class="linenos">11</span><span class="s2">      node [ id 1 label &quot;C&quot; ]</span>
+<span class="linenos">12</span><span class="s2">      node [ id 2 label &quot;C&quot; ]</span>
+<span class="linenos">13</span><span class="s2">      node [ id 3 label &quot;O&quot; ]</span>
+<span class="linenos">14</span><span class="s2">      node [ id 4 label &quot;H&quot; ]</span>
+<span class="linenos">15</span><span class="s2">   ]   </span>
+<span class="linenos">16</span><span class="s2">   right [</span>
+<span class="linenos">17</span><span class="s2">      edge [ source 1 target 2 label &quot;=&quot; ]</span>
+<span class="linenos">18</span><span class="s2">      edge [ source 2 target 3 label &quot;-&quot; ]</span>
+<span class="linenos">19</span><span class="s2">      edge [ source 3 target 4 label &quot;-&quot; ]</span>
+<span class="linenos">20</span><span class="s2">   ]   </span>
+<span class="linenos">21</span><span class="s2">]&quot;&quot;&quot;</span>
+<span class="linenos">22</span><span class="n">ketoEnol_F</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">ketoEnolGML</span><span class="p">)</span>
+<span class="linenos">23</span><span class="n">ketoEnol_B</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">ketoEnolGML</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos">24</span><span class="n">aldolAddGML</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">25</span><span class="s2">   ruleID &quot;Aldol Addition&quot;</span>
+<span class="linenos">26</span><span class="s2">   left [</span>
+<span class="linenos">27</span><span class="s2">      edge [ source 1 target 2 label &quot;=&quot; ]</span>
+<span class="linenos">28</span><span class="s2">      edge [ source 2 target 3 label &quot;-&quot; ]</span>
+<span class="linenos">29</span><span class="s2">      edge [ source 3 target 4 label &quot;-&quot; ]</span>
+<span class="linenos">30</span><span class="s2">      edge [ source 5 target 6 label &quot;=&quot; ]</span>
+<span class="linenos">31</span><span class="s2">   ]</span>
+<span class="linenos">32</span><span class="s2">   context [</span>
+<span class="linenos">33</span><span class="s2">      node [ id 1 label &quot;C&quot; ]</span>
+<span class="linenos">34</span><span class="s2">      node [ id 2 label &quot;C&quot; ]</span>
+<span class="linenos">35</span><span class="s2">      node [ id 3 label &quot;O&quot; ]</span>
+<span class="linenos">36</span><span class="s2">      node [ id 4 label &quot;H&quot; ]</span>
+<span class="linenos">37</span><span class="s2">      node [ id 5 label &quot;O&quot; ]</span>
+<span class="linenos">38</span><span class="s2">      node [ id 6 label &quot;C&quot; ]</span>
+<span class="linenos">39</span><span class="s2">   ]</span>
+<span class="linenos">40</span><span class="s2">   right [</span>
+<span class="linenos">41</span><span class="s2">      edge [ source 1 target 2 label &quot;-&quot; ]</span>
+<span class="linenos">42</span><span class="s2">      edge [ source 2 target 3 label &quot;=&quot; ]</span>
+<span class="linenos">43</span><span class="s2">      edge [ source 5 target 6 label &quot;-&quot; ]</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span><span class="s2">      edge [ source 4 target 5 label &quot;-&quot; ]</span>
+<span class="linenos">46</span><span class="s2">      edge [ source 6 target 1 label &quot;-&quot; ]</span>
+<span class="linenos">47</span><span class="s2">   ]</span>
+<span class="linenos">48</span><span class="s2">]&quot;&quot;&quot;</span>
+<span class="linenos">49</span><span class="n">aldolAdd_F</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">aldolAddGML</span><span class="p">)</span>
+<span class="linenos">50</span><span class="n">aldolAdd_B</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">aldolAddGML</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="hello-world">
+<h2><span class="section-number">10.1.7. </span>Hello World<a class="headerlink" href="#hello-world" title="Link to this heading">¶</a></h2>
+<p>These examples use the Python 3 interface for the software.
+After each run a PDF summary is compiled.
+The content can be specified via the Python script.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__000_hello.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Normal printing to the terminal:</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+<span class="linenos">3</span><span class="c1"># Make some headers in the summary:</span>
+<span class="linenos">4</span><span class="n">post</span><span class="o">.</span><span class="n">summaryChapter</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">post</span><span class="o">.</span><span class="n">summarySection</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="c1"># Load a moleucle from a SMILES string:</span>
+<span class="linenos">7</span><span class="n">mol</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;Cn1cnc2c1c(=O)n(c(=O)n2C)C&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Caffeine&quot;</span><span class="p">)</span>
+<span class="linenos">8</span><span class="c1"># Put a visualisation of the molecule in the summary:</span>
+<span class="linenos">9</span><span class="n">mol</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="graph-loading">
+<h2><span class="section-number">10.1.8. </span>Graph Loading<a class="headerlink" href="#graph-loading" title="Link to this heading">¶</a></h2>
+<p>Molecules are encoded as attributed graphs.
+They can be loaded from SMILES strings, and in general any graph can be
+loaded from a GML specification, or from the SMILES-like format GraphDFS.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__010_graphLoading.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Load a graph from a SMILES string (only for molecule graphs):</span>
+<span class="linenos"> 2</span><span class="n">ethanol1</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol1&quot;</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="c1"># Load a graph from a SMILES-like format, called &quot;GraphDFS&quot;, but for general graphs:</span>
+<span class="linenos"> 4</span><span class="n">ethanol2</span> <span class="o">=</span> <span class="n">graphDFS</span><span class="p">(</span><span class="s2">&quot;[C]([H])([H])([H])[C]([H])([H])[O][H]&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol2&quot;</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="c1"># The GraphDFS format also supports implicit hydrogens:</span>
+<span class="linenos"> 6</span><span class="n">ethanol3</span> <span class="o">=</span> <span class="n">graphDFS</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol3&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="c1"># The basic graph format is GML:</span>
+<span class="linenos"> 8</span><span class="n">ethanol4</span> <span class="o">=</span> <span class="n">graphGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;graph [</span>
+<span class="linenos"> 9</span><span class="s2">   node [ id 0 label &quot;C&quot; ]</span>
+<span class="linenos">10</span><span class="s2">   node [ id 1 label &quot;C&quot; ]</span>
+<span class="linenos">11</span><span class="s2">   node [ id 2 label &quot;O&quot; ]</span>
+<span class="linenos">12</span><span class="s2">   node [ id 3 label &quot;H&quot; ]</span>
+<span class="linenos">13</span><span class="s2">   node [ id 4 label &quot;H&quot; ]</span>
+<span class="linenos">14</span><span class="s2">   node [ id 5 label &quot;H&quot; ]</span>
+<span class="linenos">15</span><span class="s2">   node [ id 6 label &quot;H&quot; ]</span>
+<span class="linenos">16</span><span class="s2">   node [ id 7 label &quot;H&quot; ]</span>
+<span class="linenos">17</span><span class="s2">   node [ id 8 label &quot;H&quot; ]</span>
+<span class="linenos">18</span><span class="s2">   edge [ source 1 target 0 label &quot;-&quot; ]</span>
+<span class="linenos">19</span><span class="s2">   edge [ source 2 target 1 label &quot;-&quot; ]</span>
+<span class="linenos">20</span><span class="s2">   edge [ source 3 target 0 label &quot;-&quot; ]</span>
+<span class="linenos">21</span><span class="s2">   edge [ source 4 target 0 label &quot;-&quot; ]</span>
+<span class="linenos">22</span><span class="s2">   edge [ source 5 target 0 label &quot;-&quot; ]</span>
+<span class="linenos">23</span><span class="s2">   edge [ source 6 target 1 label &quot;-&quot; ]</span>
+<span class="linenos">24</span><span class="s2">   edge [ source 7 target 1 label &quot;-&quot; ]</span>
+<span class="linenos">25</span><span class="s2">   edge [ source 8 target 2 label &quot;-&quot; ]</span>
+<span class="linenos">26</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol4&quot;</span><span class="p">)</span>
+<span class="linenos">27</span><span class="c1"># They really are all loading the same graph into different objects:</span>
+<span class="linenos">28</span><span class="k">assert</span> <span class="n">ethanol1</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">ethanol2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="linenos">29</span><span class="k">assert</span> <span class="n">ethanol1</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">ethanol3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="linenos">30</span><span class="k">assert</span> <span class="n">ethanol1</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">ethanol4</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="linenos">31</span><span class="c1"># and they can be visualised:</span>
+<span class="linenos">32</span><span class="n">ethanol1</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+<span class="linenos">33</span><span class="c1"># All loaded graphs are added to a list &#39;inputGraphs&#39;:</span>
+<span class="linenos">34</span><span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">inputGraphs</span><span class="p">:</span>
+<span class="linenos">35</span>   <span class="n">g</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="including-files">
+<h2><span class="section-number">10.1.9. </span>Including Files<a class="headerlink" href="#including-files" title="Link to this heading">¶</a></h2>
+<p>We can include other files (a la C/C++) to separate functionality.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__051_fileInclusion.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;050_formoseGrammar.py&quot;</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">post</span><span class="o">.</span><span class="n">summarySection</span><span class="p">(</span><span class="s2">&quot;Input Graphs&quot;</span><span class="p">)</span>
+<span class="linenos">3</span><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">inputGraphs</span><span class="p">:</span>
+<span class="linenos">4</span>   <span class="n">a</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+<span class="linenos">5</span><span class="n">post</span><span class="o">.</span><span class="n">summarySection</span><span class="p">(</span><span class="s2">&quot;Input Rules&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">inputRules</span><span class="p">:</span>
+<span class="linenos">7</span>   <span class="n">a</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/examples/000_basics.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

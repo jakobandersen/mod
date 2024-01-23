@@ -1,0 +1,73 @@
+.. _py-Post:
+
+**********************************************************
+Post
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. function:: makeUniqueFilePrefix()
+
+    :returns: a string on the form ``out/iii_`` where ```iii``` is the next zero-padded integer
+        from an internal counter.
+    :rtype: str
+.. class:: post
+
+    This class (which will be a submodule in the future)
+    contains various functions to manipulate post-processing (:ref:`mod_post`).
+    Commands for the post-processor are written to the command file ``out/post.sh``
+    which the post-processor executes internally as a Bash script.
+
+    .. staticmethod:: command(line)
+
+        Write the given text to the command file and write a newline character.
+
+        :param str line: the text to be written.
+
+        .. warning:: The contents of the command file is executed without any security checks.
+    .. staticmethod:: flushCommands()
+
+        Flush the command file buffer.
+    .. staticmethod:: disableCommands()
+
+        Disable command writing and flushing, also for commands emitted internally in the library.
+    .. staticmethod:: enableCommands()
+
+        Enable command writing and flushing, also for commands emitted internally in the library.
+    .. staticmethod:: reopenCommandFile()
+
+        Reopen the command file, which may be useful if it was modified externally while open by the library.
+    .. staticmethod:: summaryChapter(heading)
+
+        Command the post-processor to insert a ``\chapter`` macro in the summary.
+
+        :param str heading: the chapter heading to insert.
+    .. staticmethod:: summarySection(heading)
+
+        Command the post-processor to insert a ``\section`` macro in the summary.
+
+        :param str heading: the section heading to insert.
+    .. staticmethod:: summaryRaw(latexCode, file=...)
+
+        Command the post-processor to insert the given code verbatim in the summary.
+
+        :param str latexCode: the code to insert.
+        :param str file: if given then that will be appended to a unique prefix for the final filename the code is stored in.
+    .. staticmethod:: summaryInput(filename)
+
+        Command the post-processor to insert a ``\input`` macro in the summary.
+
+        :param str filename: the filename to input.
+    .. staticmethod:: disableInvokeMake()
+                      enableInvokeMake()
+
+        Disable/enable the invocation of Make in the post-processor.
+        The processing of commands and generation of Makefiles will still be carried out,
+        and Make invocation can be done manually afterwards through the post-processor
+    .. staticmethod:: disableCompileSummary()
+                      enableCompileSummary()
+
+        Disable/enable the compilation of the final summary during post-processing.
+        The compilation can be invoked manually afterwards through the post-processor.

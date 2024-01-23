@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>9. Derivation Graph Strategies &#8212; MØD 0.15.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/documentation_options.js?v=ef97403f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10. Examples" href="../examples/index.html" />
+    <link rel="prev" title="8. Data Formats" href="../formats/index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">9. Derivation Graph Strategies</a><ul>
+<li><a class="reference internal" href="#virtual-machine">9.1. Virtual Machine</a></li>
+<li><a class="reference internal" href="#strategies">9.2. Strategies</a><ul>
+<li><a class="reference internal" href="#add-universe">9.2.1. Add Universe</a></li>
+<li><a class="reference internal" href="#add-subset">9.2.2. Add Subset</a></li>
+<li><a class="reference internal" href="#execute">9.2.3. Execute</a></li>
+<li><a class="reference internal" href="#filter-universe">9.2.4. Filter Universe</a></li>
+<li><a class="reference internal" href="#filter-subset">9.2.5. Filter Subset</a></li>
+<li><a class="reference internal" href="#rule">9.2.6. Rule</a></li>
+<li><a class="reference internal" href="#derivation-predicates">9.2.7. Derivation Predicates</a></li>
+<li><a class="reference internal" href="#parallel">9.2.8. Parallel</a></li>
+<li><a class="reference internal" href="#sequence">9.2.9. Sequence</a></li>
+<li><a class="reference internal" href="#repeat">9.2.10. Repeat</a></li>
+<li><a class="reference internal" href="#revive">9.2.11. Revive</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="../formats/index.html" title="Previous Chapter: 8. Data Formats">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 8. Data Formats
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../examples/index.html" title="Next Chapter: 10. Examples">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">10. Examples &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="derivation-graph-strategies">
+<span id="dgstrat"></span><h1><span class="section-number">9. </span>Derivation Graph Strategies<a class="headerlink" href="#derivation-graph-strategies" title="Link to this heading">¶</a></h1>
+<p>The strategy framework is a domain specific programming language for
+specifying the application of transformation rules.
+It can therefore be used to perform computations with graphs and graph
+rewriting.
+During evaluation of a strategy the framework will remember each graph
+derivation performed, and store them as a directed multi-hypergraph,
+i.e., a derivation graph.
+When graphs model molecules and transformation rules model reaction
+patterns, then the resulting derivation graph can be seen as a chemical
+reaction network.
+Here we describe the semantics of the strategy language,
+while the API is described seperately for the
+<a class="reference internal" href="../libmod/dg/Strategies.html#cpp-dg-strategies"><span class="std std-ref">C++</span></a> and <a class="reference internal" href="../pymod/dg/Strategies.html#py-dg-strategies"><span class="std std-ref">Python</span></a> interface.</p>
+<section id="virtual-machine">
+<h2><span class="section-number">9.1. </span>Virtual Machine<a class="headerlink" href="#virtual-machine" title="Link to this heading">¶</a></h2>
+<p>The strategies are evaluated in a virtual machine.
+Its state is a pair <span class="math notranslate nohighlight">\(F = (\mathcal{U}, \mathcal{S})\)</span>
+of sets of graphs, where <span class="math notranslate nohighlight">\(\mathcal{U}\)</span> is called the <cite>universe</cite>.
+The set <span class="math notranslate nohighlight">\(\mathcal{S}\)</span> is a distinguished subset of the universe
+called the <cite>active subset</cite>.
+The machine additionally keeps track of a directed multi-hypergraph
+<span class="math notranslate nohighlight">\(\mathcal{H} = (V, E)\)</span>, called a <cite>derivation graph</cite>.
+The vertices of <span class="math notranslate nohighlight">\(\mathcal{H}\)</span> each has an associated graph,
+while each hyperedge has an associated list of rules.</p>
+<p>Initially the state is empty, i.e.,
+<span class="math notranslate nohighlight">\((\mathcal{U}, \mathcal{S}) = (\emptyset, \emptyset)\)</span>
+and the derivation graph is the empty hypergraph.</p>
+</section>
+<section id="strategies">
+<h2><span class="section-number">9.2. </span>Strategies<a class="headerlink" href="#strategies" title="Link to this heading">¶</a></h2>
+<p>Each strategy is a function taking a graph state <span class="math notranslate nohighlight">\(F = (\mathcal{U}, \mathcal{S})\)</span> as
+input and returning a new state <span class="math notranslate nohighlight">\(F' = (\mathcal{U}', \mathcal{S}')\)</span>.
+While the universe and active subset of a state are described as sets of graphs,
+they are implemented as lists of unique graphs.
+The result of most strategies do not depend on the order of the graphs and make no guarentees
+about the order in the results.</p>
+<section id="add-universe">
+<span id="strat-adduniverse"></span><h3><span class="section-number">9.2.1. </span>Add Universe<a class="headerlink" href="#add-universe" title="Link to this heading">¶</a></h3>
+<p>Given a single graph, a set of graphs, or a function returning a set of graphs,
+this strategy returns the graph state with the additional graphs added to the universe.
+That is, if <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> is the set of graphs to be added,
+then the result is <span class="math notranslate nohighlight">\((\mathcal{U}\cup \mathcal{G}, \mathcal{S})\)</span>.</p>
+</section>
+<section id="add-subset">
+<span id="strat-addsubset"></span><h3><span class="section-number">9.2.2. </span>Add Subset<a class="headerlink" href="#add-subset" title="Link to this heading">¶</a></h3>
+<p>This strategy is analogous to the previous strategy,
+except the graphs are added to both the universe and the active subset.
+That is, the result is <span class="math notranslate nohighlight">\((\mathcal{U}\cup \mathcal{G}, \mathcal{S}\cup \mathcal{G})\)</span>.</p>
+</section>
+<section id="execute">
+<span id="strat-execute"></span><h3><span class="section-number">9.2.3. </span>Execute<a class="headerlink" href="#execute" title="Link to this heading">¶</a></h3>
+<p>The <cite>execute</cite> strategy is simply the identity function, but it can be used to execute arbitrary code
+at a given point during evalutation.</p>
+</section>
+<section id="filter-universe">
+<span id="strat-filteruniverse"></span><h3><span class="section-number">9.2.4. </span>Filter Universe<a class="headerlink" href="#filter-universe" title="Link to this heading">¶</a></h3>
+<p>This strategy can be used to remove graphs from the input state, using a given predicate.
+Assuming this predicate is <span class="math notranslate nohighlight">\(p\)</span>, then the result is <span class="math notranslate nohighlight">\(F' = (\mathcal{U}', \mathcal{S}')\)</span>,
+with <span class="math notranslate nohighlight">\(\mathcal{U}' = \{g\in \mathcal{U}\mid p(g)\}\)</span>
+and <span class="math notranslate nohighlight">\(\mathcal{S}' = \{g\in \mathcal{S}\mid p(g)\}\)</span>.</p>
+</section>
+<section id="filter-subset">
+<span id="strat-filtersubset"></span><h3><span class="section-number">9.2.5. </span>Filter Subset<a class="headerlink" href="#filter-subset" title="Link to this heading">¶</a></h3>
+<p>As the previous strategy this one also filters the input state, but only the active subset.
+The result is thus <span class="math notranslate nohighlight">\(F' = (\mathcal{U}, \mathcal{S}')\)</span>,
+with <span class="math notranslate nohighlight">\(\mathcal{S}' = \{g\in \mathcal{S}\mid p(g)\}\)</span>.</p>
+</section>
+<section id="rule">
+<span id="strat-rule"></span><h3><span class="section-number">9.2.6. </span>Rule<a class="headerlink" href="#rule" title="Link to this heading">¶</a></h3>
+<p>A rule (<a class="reference internal" href="../libmod/rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">C++</span></code></a>/<a class="reference internal" href="../pymod/rule/Rule.html#mod.Rule" title="mod.Rule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Python</span></code></a>) can be used directly as a strategy.
+It will search for proper derivations using a multiset of graphs drawn from the input unvierse.
+However, each candidate multiset will have at least one graph from the active subset.
+The active subset of the output will be comprised of the newly discovered graphs.
+That is, if <span class="math notranslate nohighlight">\(D = \{G\Rightarrow^{p} H\mid G\subseteq \mathcal{U} \wedge G\cap \mathcal{S} \neq \emptyset\}\)</span>
+is the set of all proper derivations using at least one graph from the active input subset,
+then the result is <span class="math notranslate nohighlight">\(F' = (\mathcal{U}', \mathcal{S}')\)</span> with
+<span class="math notranslate nohighlight">\(\mathcal{S}' = \bigcup_{G\Rightarrow^{p} H\in D} H\backslash \mathcal{U}\)</span>,
+and <span class="math notranslate nohighlight">\(\mathcal{U}' = \mathcal{U}\cup \mathcal{S}'\)</span>.</p>
+<p>As a side-effect of evaluating a rule strategy the underlying derivation graph is augmented with vertices for every new graph discovered.
+The derivations in <span class="math notranslate nohighlight">\(D\)</span> is additionally added as directed multi-hyperedges in the graph.</p>
+</section>
+<section id="derivation-predicates">
+<span id="strat-rightpredicate"></span><span id="strat-leftpredicate"></span><h3><span class="section-number">9.2.7. </span>Derivation Predicates<a class="headerlink" href="#derivation-predicates" title="Link to this heading">¶</a></h3>
+<p>A derivation predicate strategy changes the execution environment for a given substrategy <span class="math notranslate nohighlight">\(Q\)</span>.
+Whenever a derivation is discovered during the evaluation of <span class="math notranslate nohighlight">\(Q\)</span> a predicate <span class="math notranslate nohighlight">\(p\)</span> will be consulted before
+the derivation is finally accepted.
+There are two flavours of the derivation predicate strategy: left predicate and right predicate.
+The difference between them is that only the left-hand side of a potential derivation and the rule is available in the left predicate,
+while the whole derivation is available in the right predicate.
+Left predicatates are thus not strictly necessary, but can potentially be slightly more efficient than right predicates.</p>
+</section>
+<section id="parallel">
+<span id="strat-parallel"></span><h3><span class="section-number">9.2.8. </span>Parallel<a class="headerlink" href="#parallel" title="Link to this heading">¶</a></h3>
+<p>A <cite>parallel</cite> strategy aggregates a set of substrategies <span class="math notranslate nohighlight">\(\{Q_1, Q_2, \dots, Q_n\}\)</span> and evaluates them on the same input state.
+This evaluation produces a set of output states <span class="math notranslate nohighlight">\(\{F_1', F_2', \dots, F_n'\}\)</span>, and the final result is the union of those states:
+<span class="math notranslate nohighlight">\(\mathcal{U}' = \bigcup_{1\leq i\leq n} \mathcal{U}_i'\)</span>,
+<span class="math notranslate nohighlight">\(\mathcal{S}' = \bigcup_{1\leq i\leq n} \mathcal{S}_i'\)</span>.</p>
+</section>
+<section id="sequence">
+<span id="strat-sequence"></span><h3><span class="section-number">9.2.9. </span>Sequence<a class="headerlink" href="#sequence" title="Link to this heading">¶</a></h3>
+<p>Given two substrategies <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_2\)</span>, the sequence strategy evaluates the composition of the strategies, i.e.,
+with the input state <span class="math notranslate nohighlight">\(F\)</span> the output is <span class="math notranslate nohighlight">\(Q_2(Q_1(F))\)</span>.</p>
+</section>
+<section id="repeat">
+<span id="strat-repeat"></span><h3><span class="section-number">9.2.10. </span>Repeat<a class="headerlink" href="#repeat" title="Link to this heading">¶</a></h3>
+<p>The repetition strategy acts as a loop that evaluates a given substrategy <span class="math notranslate nohighlight">\(Q\)</span> in sequence with it self a certain number of times.
+Let <span class="math notranslate nohighlight">\(Q^k(F)\)</span> be the <span class="math notranslate nohighlight">\(k\)</span>-fold composition of the strategy <span class="math notranslate nohighlight">\(Q\)</span> on the input state <span class="math notranslate nohighlight">\(F\)</span>.
+Notably, for <span class="math notranslate nohighlight">\(k = 0\)</span> we have the identity function.
+Given a constant <span class="math notranslate nohighlight">\(n\geq 0\)</span>, the repeatition strategy on <span class="math notranslate nohighlight">\(Q\)</span> results in <span class="math notranslate nohighlight">\(F' = Q`k(F)\)</span>,
+where <span class="math notranslate nohighlight">\(k = min\{0, 1, \dots, n\}\)</span> such that either
+<span class="math notranslate nohighlight">\(k = n\)</span>, or
+<span class="math notranslate nohighlight">\(Q^{k+1}(F) = Q^{k}(F)\)</span>, or
+<span class="math notranslate nohighlight">\(Q^{k+1}(F) = (\emptyset, \overline{\mathcal{U}})\)</span>
+for an abitrary universe <span class="math notranslate nohighlight">\(\overline{\mathcal{U}}\)</span>.</p>
+</section>
+<section id="revive">
+<span id="strat-revive"></span><h3><span class="section-number">9.2.11. </span>Revive<a class="headerlink" href="#revive" title="Link to this heading">¶</a></h3>
+<p>A revive strategy is manipulating the output of an inner strategy <span class="math notranslate nohighlight">\(Q\)</span>, depending on which derivations are discovered by <span class="math notranslate nohighlight">\(Q\)</span>.
+Let <span class="math notranslate nohighlight">\(F = (\mathcal{U}, \mathcal{S})\)</span> be the input state and <span class="math notranslate nohighlight">\(\overline{F} = (\overline{\mathcal{U}}, \overline{\mathcal{S}}) = Q(F)\)</span>.
+Further, let <span class="math notranslate nohighlight">\(D\)</span> be the set of derivations discovered (and accepted by the predicates) in the evaluation of <span class="math notranslate nohighlight">\(Q(F)\)</span>.
+We then define the set of <cite>consumed</cite> graphs as those being on the right side on any derivation in <span class="math notranslate nohighlight">\(D\)</span>: <span class="math notranslate nohighlight">\(C = \bigcup_{G\Rightarrow H \in D} G\)</span>.
+As output of the revive strategy we do not modify the universe, i.e., <span class="math notranslate nohighlight">\(\mathcal{U}' = \overline{\mathcal{U}}\)</span>.
+The output subset is however extended by non-consumed graphs that were in the input subset:
+<span class="math notranslate nohighlight">\(\mathcal{S}' = \overline{\mathcal{S}}\cup \mathcal{S}\backslash C\)</span>.</p>
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/dgStrat/index.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

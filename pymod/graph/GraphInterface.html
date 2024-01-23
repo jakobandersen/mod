@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.9.3. graph/GraphInterface &#8212; MØD 0.15.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.9.4. graph/Printer" href="Printer.html" />
+    <link rel="prev" title="4.1.9.2. graph/Graph" href="Graph.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.9.3. graph/GraphInterface</a><ul>
+<li><a class="reference internal" href="#mod.Graph.Vertex"><code class="docutils literal notranslate"><span class="pre">Graph.Vertex</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.Edge"><code class="docutils literal notranslate"><span class="pre">Graph.Edge</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.VertexRange"><code class="docutils literal notranslate"><span class="pre">Graph.VertexRange</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Graph.VertexRange.__getitem__"><code class="docutils literal notranslate"><span class="pre">Graph.VertexRange.__getitem__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Graph.EdgeRange"><code class="docutils literal notranslate"><span class="pre">Graph.EdgeRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.IncidentEdgeRange"><code class="docutils literal notranslate"><span class="pre">Graph.IncidentEdgeRange</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Graph.html" title="Previous Chapter: 4.1.9.2. graph/Graph">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.9.2. graph/Graph
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Printer.html" title="Next Chapter: 4.1.9.4. graph/Printer">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.9.4. grap... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="graph-graphinterface">
+<span id="py-graph-graphinterface"></span><h1><span class="section-number">4.1.9.3. </span>graph/GraphInterface<a class="headerlink" href="#graph-graphinterface" title="Link to this heading">¶</a></h1>
+<p>The <a class="reference internal" href="Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> class implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph" title="mod.protocols.LabelledGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph</span></code></a> protocol,
+and thus have the following nested types.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Graph.Vertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Graph.Vertex" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.
+Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numVertices[\)</span>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Graph.Edge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Graph.Edge" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Graph.VertexRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Graph.VertexRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol,
+in addition to the following functionality.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.VertexRange.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.VertexRange.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the <code class="docutils literal notranslate"><span class="pre">i</span></code>th vertex of the graph.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mod.Graph.Vertex" title="mod.Graph.Vertex">Graph.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Graph.EdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Graph.EdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Graph.IncidentEdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Graph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/graph/GraphInterface.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

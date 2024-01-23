@@ -1,0 +1,11 @@
+.. _cpp-rule/ForwardDecl:
+
+**********************************************************
+rule/ForwardDecl.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:expr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+

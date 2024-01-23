@@ -1,0 +1,193 @@
+.. _py-rule/Rule:
+
+**********************************************************
+rule/Rule
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: Rule
+
+    This class models a graph transformation rule in the Double Pushout formalism,
+    as the span :math:`L \leftarrow K \rightarrow R`.
+    The three graphs are referred to as respectively
+    the "left", "context", and "right" graphs of the rule.
+    See :ref:`graph-model` for more details.
+
+    The class implements the :class:`protocols.Graph` protocol,
+    which gives access to a graph view of the rule which has the left, context, and right graphs
+    combined into a single graph, called the core graph.
+    In addition to the combined graph view that this claas offers,
+    there are also three graph views representing the :attr:`left`, :attr:`context`
+    See :ref:`py-Rule/GraphInterface` for details of how to use these four graph interfaces.
+
+    .. attribute:: id
+
+        (Read-only) The unique instance id among all :class:`Rule` instances.
+
+        :type: int
+    .. attribute:: left
+
+        (Read-only) A proxy object representing the left graph of the rule.
+
+        :type: LeftGraph
+    .. attribute:: context
+
+        (Read-only) A proxy object representing the context graph of the rule.
+
+        :type: ContextGraph
+    .. attribute:: right
+
+        (Read-only) A proxy object representing the right graph of the rule.
+
+        :type: RightGraph
+    .. method:: makeInverse()
+
+        :returns: a rule representing the inversion of this rule.
+        :rtype: Rule
+        :raises: :class:`LogicError` if inversion is not possible (due to matching constraints).
+    .. method:: print(printCombined=False)
+                print(first, second=None, printCombined=False)
+
+        Print the rule, using either the default options or the options in ``first`` and ``second``.
+        If ``first`` and ``second`` are the same, only one depiction will be made.
+
+        :param GraphPrinter first: the printing options used for the first depiction.
+        :param GraphPrinter second: the printing options used for the second depiction.
+            If it is ``None`` then it is set to ``first``.
+        :param bool printCombined: whether a depiction of the rule as a single combined graph is printed.
+        :returns: a pair of filename prefixes for the PDF-files that will be compiled in post-processing.
+            The actual names can be obtained by appending ``_L.pdf``, ``_K.pdf``, and ``_R.pdf`` for
+            respectively the left side, context, and right side graphs.
+            If ``first`` and ``second`` are the same, the two file prefixes are equal.
+        :rtype: tuple[str, str]
+    .. method:: printTermState
+
+        Print the term state for the rule.
+    .. method:: getGMLString(withCoords=False)
+
+        :returns: the :ref:`GML <rule-gml>` representation of the rule,
+                  optionally with generated 2D coordinates.
+        :rtype: str
+        :raises: :class:`LogicError` when coordinates are requested, but
+                 none can be generated.
+    .. method:: printGML(withCoords=False)
+
+        Print the rule in :ref:`GML <rule-gml>` format,
+        optionally with generated 2D coordinates.
+
+        :returns: the filename of the printed GML file.
+        :rtype: str
+        :raises: :class:`LogicError` when coordinates are requested, but
+                 none can be generated.
+    .. attribute:: name
+
+        The name of the rule. The default name includes the unique instance id.
+
+        :type: str
+    .. attribute:: labelType
+
+        (Read-only) The intended label type for this rule, or None if no specific label type is intended.
+
+        :type: LabelType
+    .. attribute:: numLeftComponents
+
+        (Read-only) The number of connected components of the left graph.
+
+        :type: :cpp:type:`std::size_t`
+    .. attribute:: numRightComponents
+
+        (Read-only) The number of connected components of the right graph.
+
+        :type: :cpp:type:`std::size_t`
+    .. method:: isomorphism(other, maxNumMatches=1, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+
+        :param Rule other: the other :class:`Rule` for comparison.
+        :param int maxNumMatches: the maximum number of isomorphisms to search for.
+        :param LabelSettings labelSettings: the label settings to use during the search.
+        :returns: the number of isomorphisms found between ``other`` and this rule, but at most ``maxNumMatches``.
+        :rtype: int
+    .. method:: monomorphism(host, maxNumMatches=1, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+
+        :param Rule host: the host :class:`Rule` to check for subgraphs.
+        :param int maxNumMatches: the maximum number of morphisms to search for.
+        :param LabelSettings labelSettings: the label settings to use during the search.
+        :returns: the number of monomorphisms from this rule to subgraphs of ``host``, though at most ``maxNumMatches``.
+        :rtype: int
+    .. method:: isomorphicLeftRight(other, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+
+        :param Rule other: the other :class:`Rule` for comparison.
+        :param LabelSettings labelSettings: the label settings to use during the search.
+        :returns: whether the left-hand sides are isomorphic and the right-hand sides are isomorphic.
+        :rtype: bool
+    .. method:: getVertexFromExternalId(id)
+
+        If the rule was not loaded from an external data format, then this function
+        always return a null descriptor.
+
+        .. note:: In general there is no correlation between external and internal ids.
+
+        :param int id: the external id to find the vertex descriptor for.
+        :returns: the vertex descriptor for the given external id.
+                The descriptor is null if the external id was not used.
+        :rtype: Vertex
+    .. attribute:: minExternalId
+                      maxExternalId
+
+        If the rule was not loaded from an external data format, then these attributes
+        are always return 0. Otherwise, they are the minimum/maximum external id from which
+        non-null vertices can be obtained from :meth:`getVertexFromExternalId`.
+        If no such minimum and maximum exists, then they are 0.
+
+        :type: int
+
+Loading Functions
+=================
+
+.. staticmethod:: Rule.fromGMLString(s, invert=False, add=True, printStereoWarnings=True)
+                  Rule.fromGMLFile(f, invert=False, add=True, printStereoWarnings=True)
+
+    Load a rule from a :ref:`GML <rule-gml>` string or file, and maybe store it in a global list.
+    The name of the rule is the one specified in the GML string, though when ``invert=True``
+    the string ", inverse" is appended to the name.
+
+    .. note::
+
+        If the GML string/file specifies matching constraints it is currently not possible to invert the rule.
+        There is however a configuration option to ignore matching constraints when inverting rules.
+
+    :param str s: the GML string to load a rule from.
+    :param f: name of the GML file to be loaded.
+    :type f: str or CWDPath
+    :param bool invert: whether to invert the loaded rule.
+    :param bool add: whether to append the rule to :data:`inputRules` or not.
+    :param bool printStereoWarnings: whether to print warnings due to unhandled stereo information.
+    :returns: the rule in the GML string, possibly inverted.
+    :rtype: Rule
+.. staticmethod:: Rule.fromDFS(s, invert=False, add=True)
+
+    Load a rule from a :ref:`RuleDFS <format-ruleDFS>` string.
+
+    :param str s: the :ref:`RuleDFS <format-ruleDFS>` string to parse.
+    :param bool invert: whether to invert the loaded rule.
+    :param str name: the name of the rule. If none is given the default name is used.
+    :param bool add: whether to append the rule to :data:`inputRules` or not.
+    :returns: the loaded rule.
+    :rtype: Rule
+    :raises: :class:`InputError` on bad input.
+.. function:: ruleGMLString(...)
+
+    Alias of :py:meth:`Rule.fromGMLString`.
+.. method:: ruleGML(...)
+    
+    Alias of :py:meth:`Rule.fromGMLFile`.
+
+
+.. data:: inputRules
+
+    A list of rules to which explicitly loaded rules as default are appended.
+
+    :type: list[Rule]
+
