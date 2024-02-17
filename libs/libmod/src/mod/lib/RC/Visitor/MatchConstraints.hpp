@@ -12,6 +12,8 @@ using ConstraintVisitor = lib::GraphMorphism::Constraints::AllVisitor<G>;
 template<typename G>
 using Constraint = lib::GraphMorphism::Constraints::Constraint<G>;
 template<typename G>
+using ConstraintLA = lib::GraphMorphism::Constraints::LabelAny<G>;
+template<typename G>
 using ConstraintAdj = lib::GraphMorphism::Constraints::VertexAdjacency<G>;
 template<typename G>
 using ConstraintSP = lib::GraphMorphism::Constraints::ShortestPath<G>;
@@ -49,7 +51,26 @@ struct ConvertFirst : public ConstraintVisitor<// GraphFirstLeft
 		// std::cout << "WARNING: check transfered constraint for " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
 		this->cResult = std::move(cResult);
 	}
+private:
+	template<template<typename> class LabelAN>
+	void convertLabelAN(const LabelAN<GraphFirstLeft> &c) {
+		auto cResult = std::make_unique<LabelAN<GraphResultLeft> >(c);
+		switch(labelType) {
+		case LabelType::String:
+			cResult->terms.clear();
+			break;
+		case LabelType::Term:
+			cResult->label.clear();
+			cResult->labels.clear();
+			break;
+		}
+		this->cResult = std::move(cResult);
+	}
 public:
+	virtual void operator()(const ConstraintLA<GraphFirstLeft> &c) override {
+		return convertLabelAN(c);
+	}
+
 	virtual void operator()(const ConstraintSP<GraphFirstLeft> &c) override {
 		auto cResult = std::make_unique<ConstraintSP<GraphResultLeft> >(c);
 		MOD_ABORT;
@@ -129,7 +150,44 @@ struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
 		this->cResult = std::move(cResult);
 		// std::cout << "WARNING: check converted constraint on vertex " << vNew << " for " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
 	}
+private:
+	template<template<typename> class LabelAN>
+	void convertLabelAN(const LabelAN<GraphFirstLeft> &c) {
+		auto cResult = std::make_unique<LabelAN<GraphResultLeft> >(c);
+		switch(labelType) {
+		case LabelType::String:
+			cResult->terms.clear();
+			break;
+		case LabelType::Term: {
+			cResult->label.clear();
+			cResult->labels.clear();
+			// we need to make sure the terms referred to are actually in the result machine,
+			// and they need to be correct
+			auto terms = std::move(cResult->terms);
+			cResult->terms.clear();
+			auto &m = getMachine(*result.pTerm);
+			const auto handleTerm = [&m](const auto tSecond) {
+				m.verify();
+				//			lib::IO::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "Copy " << addr << "\n");
+				auto res = m.copyFromTemp(tSecond);
+				//			lib::IO::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "After copy " << addr << "\n");
+				m.verify();
+				return res.addr;
+			};
+			cResult->term = handleTerm(cResult->term);
+			for(const auto tSecond: terms)
+				cResult->terms.push_back(handleTerm(tSecond));
+			break;
+		}
+		}
+		this->cResult = std::move(cResult);
+		// std::cout << "WARNING: check converted constraint on vertex " << vNew << " for " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
+	}
 public:
+	virtual void operator()(const ConstraintLA<GraphSecondLeft> &c) override {
+		return convertLabelAN(c);
+	}
+
 	virtual void operator()(const ConstraintSP<GraphSecondLeft> &c) override {
 		const auto &gResult = result.rDPO->getCombinedGraph();
 		auto vResultSrc = get(result.mSecondToResult, get_graph(rSecond), gResult, c.vSrc);

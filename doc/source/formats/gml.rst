@@ -71,7 +71,7 @@ The key-value structure is exemplified by the following grammar.
    leftSide: 'left [' (`node` | `edge`)* ']'
    context: 'context [' (`node` | `edge`)* ']'
    rightSide: 'right [' (`node` | `edge`)* ']'
-   matchConstraint: `adjacency`
+   matchConstraint: `adjacency` | `labelAny`
    adjacency: 'constrainAdj ['
             :    'id' int
             :    'op "' `op` '"'
@@ -79,6 +79,10 @@ The key-value structure is exemplified by the following grammar.
             :    [ 'nodeLabels [' `labelList` ']' ]
             :    [ 'edgeLabels [' `labelList` ']' ]
             : ']'
+   labelAny: 'constrainLabelAny ['
+           :    'label' quoteEscapedString
+           :    'labels [' `labelList` ']'
+           : ']'
    labelList: ('label' quoteEscapedString)*
    op: '<' | '<=' | '=' | '>=' | '>'
 

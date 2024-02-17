@@ -109,6 +109,13 @@ PropTerm::PropTerm(const RuleType &rule,
 				c.edgeTerms.insert(handleLabel(s));
 		}
 
+		virtual void operator()(GraphMorphism::Constraints::LabelAny<SideGraphType> &c) override {
+			assert(c.terms.size() == 0);
+			c.term = handleLabel(c.label);
+			for(const std::string &s: c.labels)
+				c.terms.push_back(handleLabel(s));
+		}
+
 		virtual void operator()(GraphMorphism::Constraints::ShortestPath<SideGraphType> &c) override {}
 	private:
 		HandlerType handleLabel;

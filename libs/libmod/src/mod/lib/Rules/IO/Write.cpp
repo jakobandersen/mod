@@ -879,7 +879,22 @@ void termState(const Real &r) {
 				}
 			}
 
+			virtual void operator()(const lib::GraphMorphism::Constraints::LabelAny<SideGraphType> &c) override {
+				const auto cStr = boost::lexical_cast<std::string>(counter);
+				Address addr{AddressType::Heap, c.term};
+				std::string msg = "LabelAny(" + cStr + ", label, " + side + ")";
+				addrMap[addr].insert(std::move(msg));
+				for(const auto a: c.terms) {
+					Address addr{AddressType::Heap, a};
+					std::string msg = "LabelAny(" + cStr + ", labels, " + side + ")";
+					addrMap[addr].insert(std::move(msg));
+				}
+				++counter;
+			}
+
 			virtual void operator()(const lib::GraphMorphism::Constraints::ShortestPath<SideGraphType> &c) override {}
+		private:
+			int counter = 0;
 		public:
 			std::unordered_map<Address, std::set<std::string>> &addrMap;
 			const lib::DPO::CombinedRule::CombinedGraphType &gCombined;
