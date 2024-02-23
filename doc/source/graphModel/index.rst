@@ -193,11 +193,150 @@ Rule Model
 A :cpp:class:`rule::Rule`/:py:class:`Rule` represents a
 `Double Pushout <https://en.wikipedia.org/wiki/Double_pushout_graph_rewriting>`__
 (DPO) graph transformation rule :math:`p = (L\xleftarrow{l}K\xrightarrow{r}R)`.
-Specifically, they are in the DPO variant with all morphisms being at least
-graph monomorphisms.
+Specifically, they are in the DPO variant with all morphisms being graph
+monomorphisms.
+
+.. _rule-constraints:
+
+Application Constraints
+=======================
+
+A rule can have additional constriants that must be fulfilled before
+transformation can proceed. Specifically, a constraint :math:`c` for a rule
+:math:`L\leftarrow K\rightarrow R` is evaluated once a match morphism
+:math:`m\colon L\rightarrow G` has been found.
+In the literature such application constraints are also called "application conditions".
+
+Adjacency Constraint
+--------------------
+
+Parameters:
+
+- a vertex :math:`v\in V(L)`,
+- a count :math:`n\in \mathbb{N}_0`,
+- an operator :math:`op\in \{<, \leq, =, \geq, >\}`,
+- a set of vertex labels :math:`Q_V\in 2^\Omega`, and
+- a set of edge labels :math:`Q_E\in 2^\Omega`.
+
+String Mode
+...........
+
+Given a match morphism :math:`m\colon L\rightarrow G` the constraint is satisfied if
+
+.. math::
+
+	|\{ e = (m(v), u)\in outEdges(m(v))\ |\ 
+		l_G(u)\in Q_V \wedge l_G(e)\in Q_E\}|
+	\ op\ n
+
+That is, the vertex :math:`v` is mapped to :math:`G` and its incident edges are counted.
+Only those edges with a label in :math:`Q_E` and the other endpoint with a
+label in :math:`Q_V` are counted.
+The resulting count is then compared to the given number :math:`n`.
+
+Term Mode
+.........
+
+When using :cpp:any:`LabelType::Term`/:py:obj:`LabelType.Term` the label
+comparison is changed to be a most general unifier computation:
+
+.. math::
+
+	|\{ e = (m(v), u)\in outEdges(m(v))\ |\ 
+		\exists q_V\in Q_V \exists q_E\in Q_E :
+			hasMGU(l_G(u) \overset{?}{=} q_V, l_G(e) \overset{?}{=} q_E\}|
+	\ op\ n
+
+That is, each edge has an independent most general unifier computation where
+there must exist vertex and edge labels from the given sets such that they
+unify with the labels of the candidate edge and its other endpoint.
+
+Specification in GML
+....................
+
+The constraint is specified in GML as described in :token:`~gml:adjacency`,
+but where omitting the ``nodeLabels`` (resp. ``edgeLabels``) list represents setting
+:math:`Q_V = \Omega`` (resp. :math:`Q_E = \Omega`), effectively letting the
+counting be unrestricted with respect to those labels.
+
+Examples
+........
+
+- A vertex must have at most 3 neighbours:
+  :math:`n = 3, Q_V = Q_E = \Omega` and use :math:`\leq` as :math:`op`.
+  Assuming the vertex has ID 42 in the rule, this becomes the following in GML:
+  ``constraintAdj [ id 42 op "<=" count 3 ]``.
+- A vertex must have at least two neighbours with label ``H``:
+  :math:`n = 2, Q_V = \{\texttt{H}\}, Q_E = \Omega` and use :math:`\geq` as :math:`op`.
+  Assuming the vertex has ID 42 in the rule, this becomes the following in GML:
+  ``constraintAdj [ id 42 nodeLabels [ label "H" ] op ">=" count 2 ]``.
+- A vertex must have exactly 1 neighbour with label either ``O`` or ``S`` where
+  the connecting edge has label ``=``:
+  :math:`n = 1, Q_V = \{\texttt{O}, \texttt{S}\}, Q_E = \{\texttt{=}\}` and use
+  :math:`=` as :math:`op`.
+  Assuming the vertex has ID 42 in the rule, this becomes the following in GML:
+  ``constraintAdj [ id 42 nodeLabels [ label "O" label "S" ] op "=" count 1 ]``.
+
+
+Label Unification Constraint
+----------------------------
+
+Parameters:
+
+- a query label :math:`q\in \Omega` and
+- a list of constraining labels :math:`Q\in 2^\Omega`.
+
+String Mode
+...........
+
+While this constraint technically works when using
+:cpp:any:`LabelType::String`/:py:obj:`LabelType.String`, it is not really
+interesting: it is statisfied if :math:`q\in Q`, and can thus be evaluated statically,
+independent of any match.
+
+Term Mode
+.........
+
+When using :cpp:any:`LabelType::Term`/:py:obj:`LabelType.Term` the membership
+is a most general unifier computation: the constraint is statisfied if there
+exists a label :math:`q'\in Q` that unifies with :math:`q`.
+
+Specification in GML
+.....................
+
+The constraint is specified in GML as described in :token:`~gml:labelAny`,
+
+Examples
+........
+
+All these examples assume we are in term mode.
+
+- Assume some vertex is supposed to act as wildcard, but constrained to only match,
+  ``O`` or ``S``.
+  We can then give the vertex a label ``_X``, i.e., a variable, and add the constraint
+  :math:`q = \texttt{_X}, Q = \{\texttt{O}, \texttt{S}\}`.
+  In GML this becomes
+  ``constrainLabelAny [ label "_X" labels [ label "O" label "S" ] ]``.
+- Assume we have two such vertices, but we need them to be different, i.e., if
+  one is matched to a ``O`` then the other must be ``S``.
+  The two vertices can be given different variables as labels, ``_X`` and ``_Y``,
+  and we then add the constraint
+  :math:`q = \texttt{foo(_X, _Y)}, Q = \{\texttt{foo(O, S)}, \texttt{foo(S, O)}\}``.
+  In GML this becomes
+  ``constrainLabelAny [ label "foo(_X, _Y)" labels [ label "foo(O, S)" label "foo(S, O)" ] ]``.
+  We here use an arbitrary function symbol, ``foo``, just for the formulation
+  of the constraint.
+
+
+
+Resolution of Formal Issues
+===========================
+
+When relating the model to the formal description of DPO transformation in the
+literature there are two issues that require elaboration.
 
 Label Change
-============
+------------
 
 The rules allow both for vertices and edges to change labels, but only the
 latter is well-defined in traditional DPO transformation.
@@ -211,7 +350,7 @@ Note that all morphisms are required to be at least graph monomorphisms, so a
 loop edge can not be created inadvertently.
 
 Avoiding Parallel Edges
-=======================
+-----------------------
 
 Our graphs are defined to be without parallel edges, which presents a
 mathematical problem in that certain pushouts are not allowed.
@@ -230,6 +369,7 @@ rules as having implicit negative application conditions (NACs):
   which are connected in :math:`L`, :math:`(l(u), l(v))\not\in E_L`,
   but are not connected in :math:`R`, :math:`(r(u), r(v))\in E_R`,
   there is a NAC on :math:`R` preventing edges :math:`(l(u), l(v))`.
+
 
 
 .. _mol-enc:

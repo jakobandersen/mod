@@ -8,6 +8,12 @@ develop
 =======
 
 
+New Features
+------------
+
+- Added a new documentation section describing rule application constraints:
+  :ref:`rule-constraints`.
+
 
 v0.15.0 (2024-01-26)
 ====================

@@ -74,10 +74,10 @@ The key-value structure is exemplified by the following grammar.
    matchConstraint: `adjacency` | `labelAny`
    adjacency: 'constrainAdj ['
             :    'id' int
-            :    'op "' `op` '"'
-            :    'count' unsignedInt
             :    [ 'nodeLabels [' `labelList` ']' ]
             :    [ 'edgeLabels [' `labelList` ']' ]
+            :    'op "' `op` '"'
+            :    'count' unsignedInt
             : ']'
    labelAny: 'constrainLabelAny ['
            :    'label' quoteEscapedString
@@ -87,6 +87,8 @@ The key-value structure is exemplified by the following grammar.
    op: '<' | '<=' | '=' | '>=' | '>'
 
 Note though that list elements can appear in any order.
+
+For details on the constraints, see :ref:`rule-constraints`.
 
 
 A Note on Term Labels
