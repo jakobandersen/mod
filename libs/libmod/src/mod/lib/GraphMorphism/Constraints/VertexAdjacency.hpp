@@ -9,6 +9,13 @@
 #include <jla_boost/graph/morphism/Concepts.hpp>
 #include <jla_boost/graph/morphism/models/PropertyVertexMap.hpp>
 
+//#define DEBUG_ADJACENCY_CONSTRAINT
+#ifdef DEBUG_ADJACENCY_CONSTRAINT
+
+#include <iostream>
+
+#endif
+
 namespace mod::lib::GraphMorphism::Constraints {
 
 template<typename Graph>
@@ -19,7 +26,7 @@ public:
 	VertexAdjacency(Vertex vConstrained, Operator op, int count)
 			: vConstrained(vConstrained), op(op), count(count), vertexLabels(1), edgeLabels(1) {}
 
-	virtual std::unique_ptr<Constraint < Graph>>   clone() const override {
+	virtual std::unique_ptr<Constraint<Graph>> clone() const override {
 		auto c = std::make_unique<VertexAdjacency>(vConstrained, op, count);
 		c->vertexLabels = vertexLabels;
 		c->edgeLabels = edgeLabels;
@@ -32,7 +39,7 @@ public:
 private:
 	template<typename Visitor, typename LabelledGraphCodom, typename VertexMap>
 	int matchesImpl(Visitor &vis, const Graph &gDom, const LabelledGraphCodom &lgCodom, VertexMap &m,
-	                const LabelSettings ls, std::false_type) const {
+					const LabelSettings ls, std::false_type) const {
 		assert(ls.type == LabelType::String); // otherwise someone forgot to add the TermData prop
 		using GraphCodom = typename LabelledGraphTraits<LabelledGraphCodom>::GraphType;
 		const GraphCodom &gCodom = get_graph(lgCodom);
@@ -55,7 +62,7 @@ private:
 
 	template<typename Visitor, typename LabelledGraphCodom, typename VertexMap>
 	int matchesImpl(Visitor &vis, const Graph &gDom, const LabelledGraphCodom &lgCodom, VertexMap &m,
-	                const LabelSettings ls, std::true_type) const {
+					const LabelSettings ls, std::true_type) const {
 		assert(ls.type == LabelType::Term); // otherwise someone did something very strange
 		using GraphCodom = typename LabelledGraphTraits<LabelledGraphCodom>::GraphType;
 		const GraphCodom &gCodom = get_graph(lgCodom);
@@ -66,14 +73,17 @@ private:
 		const auto countPerVertexTerms = [&](const auto h) {
 			if(vertexTerms.empty()) {
 				++count;
+				return true;
 			} else {
 				for(const auto t: vertexTerms) {
 					lib::Term::MGU mgu = machine.unifyHeapTemp(h, t);
+					machine.revert(mgu);
 					if(mgu.status == lib::Term::MGU::Status::Exists) {
 						++count;
+						return true;
 					}
-					machine.revert(mgu);
 				}
+				return false;
 			}
 		};
 		const auto countPerEdgeTerms = [&](const auto hEdge, const auto hVertex) {
@@ -83,9 +93,13 @@ private:
 				for(const auto t: edgeTerms) {
 					lib::Term::MGU mgu = machine.unifyHeapTemp(hEdge, t);
 					if(mgu.status == lib::Term::MGU::Status::Exists) {
-						countPerVertexTerms(hVertex);
+						if(countPerVertexTerms(hVertex)) {
+							machine.revert(mgu);
+							return;
+						}
+					} else {
+						machine.revert(mgu);
 					}
-					machine.revert(mgu);
 				}
 			}
 		};
@@ -98,10 +112,11 @@ private:
 public:
 	template<typename Visitor, typename LabelledGraphCodom, typename VertexMap>
 	bool matches(Visitor &vis, const Graph &gDom, const LabelledGraphCodom &lgCodom, VertexMap &m,
-	             const LabelSettings ls) const {
+				 const LabelSettings ls) const {
 		using GraphCodom = typename LabelledGraphTraits<LabelledGraphCodom>::GraphType;
-		static_assert(std::is_same<Graph, typename jla_boost::GraphMorphism::VertexMapTraits<VertexMap>::GraphDom>::value,
-		              "");
+		static_assert(
+				std::is_same<Graph, typename jla_boost::GraphMorphism::VertexMapTraits<VertexMap>::GraphDom>::value,
+				"");
 		static_assert(
 				std::is_same<GraphCodom, typename jla_boost::GraphMorphism::VertexMapTraits<VertexMap>::GraphCodom>::value,
 				"");
@@ -118,6 +133,30 @@ public:
 
 		using HasTerm = GraphMorphism::HasTermData<VertexMap>;
 		const int count = matchesImpl(vis, gDom, lgCodom, m, ls, HasTerm());
+#ifdef DEBUG_ADJACENCY_CONSTRAINT
+		{
+			std::cout << "AdjacencyConstraint eval: {";
+			for(const auto &s: vertexLabels) std::cout << " " << s;
+			std::cout << " } {";
+			for(const auto &s: edgeLabels) std::cout << " " << s;
+			std::cout << " } = " << count << " ";
+			[this]() -> std::ostream & {
+				switch(op) {
+				case Operator::EQ:
+					return std::cout << "=";
+				case Operator::LT:
+					return std::cout << "<";
+				case Operator::GT:
+					return std::cout << ">";
+				case Operator::LEQ:
+					return std::cout << "<=";
+				case Operator::GEQ:
+					return std::cout << ">=";
+				}
+				return std::cout;
+			}() << " " << this->count << " hasTerm=" << std::boolalpha << HasTerm::value << std::endl;
+		}
+#endif
 		switch(op) {
 		case Operator::EQ:
 			return count == this->count;

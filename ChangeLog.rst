@@ -15,6 +15,13 @@ New Features
   :ref:`rule-constraints`.
 
 
+Bugs Fixed
+----------
+
+- Fix adjacency constraint when in term mode and multiple labels in the constraint
+  matches the same label in the candidate graph.
+
+
 v0.15.0 (2024-01-26)
 ====================
 
