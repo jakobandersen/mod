@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.10.2. rule/CompositionMatch &#8212; MØD 0.15.0.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/documentation_options.js?v=f39133a7"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.10.3. rule/GraphInterface" href="GraphInterface.html" />
+    <link rel="prev" title="4.1.10.1. rule/Composition" href="Composition.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0.5</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.10.2. rule/CompositionMatch</a><ul>
+<li><a class="reference internal" href="#mod.RCMatch"><code class="docutils literal notranslate"><span class="pre">RCMatch</span></code></a><ul>
+<li><a class="reference internal" href="#mod.RCMatch.__init__"><code class="docutils literal notranslate"><span class="pre">RCMatch.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.__str__"><code class="docutils literal notranslate"><span class="pre">RCMatch.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.first"><code class="docutils literal notranslate"><span class="pre">RCMatch.first</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.second"><code class="docutils literal notranslate"><span class="pre">RCMatch.second</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.labelSettings"><code class="docutils literal notranslate"><span class="pre">RCMatch.labelSettings</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.size"><code class="docutils literal notranslate"><span class="pre">RCMatch.size</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.__getitem__"><code class="docutils literal notranslate"><span class="pre">RCMatch.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.pop"><code class="docutils literal notranslate"><span class="pre">RCMatch.pop()</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.compose"><code class="docutils literal notranslate"><span class="pre">RCMatch.compose()</span></code></a></li>
+<li><a class="reference internal" href="#mod.RCMatch.composeAll"><code class="docutils literal notranslate"><span class="pre">RCMatch.composeAll()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Composition.html" title="Previous Chapter: 4.1.10.1. rule/Composition">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.10.1. rul...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="GraphInterface.html" title="Next Chapter: 4.1.10.3. rule/GraphInterface">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.10.3. rul... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="rule-compositionmatch">
+<span id="py-rule-compositionmatch"></span><h1><span class="section-number">4.1.10.2. </span>rule/CompositionMatch<a class="headerlink" href="#rule-compositionmatch" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.RCMatch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCMatch</span></span><a class="headerlink" href="#mod.RCMatch" title="Link to this definition">¶</a></dt>
+<dd><p>A class for interactively constructing match between two rules used for composition.
+That is, for two rules
+<span class="math notranslate nohighlight">\(p_1 = (L_1 \leftarrow K_1 \rightarrow R_1)\)</span> and
+<span class="math notranslate nohighlight">\(p_2 = (L_2 \leftarrow K_2 \rightarrow R_2)\)</span>,
+an object represents match between <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span> which indicates
+a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M \rightarrow L_2\)</span>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.RCMatch.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rFirst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rSecond</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Specialisation)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Construct an empty overlap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rFirst</strong> (<a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule"><em>Rule</em></a>) – the first rule <span class="math notranslate nohighlight">\(p_1\)</span>.</p></li>
+<li><p><strong>rSecond</strong> (<a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule"><em>Rule</em></a>) – the second rule <span class="math notranslate nohighlight">\(p_2\)</span>.</p></li>
+<li><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – the settings to use for the morphisms <span class="math notranslate nohighlight">\(R_1 \leftarrow M \rightarrow L_2\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if either rule is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.RCMatch.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__str__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.RCMatch.first">
+<span class="sig-name descname"><span class="pre">first</span></span><a class="headerlink" href="#mod.RCMatch.first" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.RCMatch.second">
+<span class="sig-name descname"><span class="pre">second</span></span><a class="headerlink" href="#mod.RCMatch.second" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rules <span class="math notranslate nohighlight">\(p_1\)</span> and <span class="math notranslate nohighlight">\(p_2\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.RCMatch.labelSettings">
+<span class="sig-name descname"><span class="pre">labelSettings</span></span><a class="headerlink" href="#mod.RCMatch.labelSettings" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The settings for the morphisms in the match.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings">LabelSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.RCMatch.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#mod.RCMatch.size" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The number of currently mapped pairs of vertices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.RCMatch.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vFirst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__getitem__" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vSecond</span></span></em><span class="sig-paren">)</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vFirst</strong> (<a class="reference internal" href="GraphInterface.html#mod.Rule.RightGraph.Vertex" title="mod.Rule.RightGraph.Vertex"><em>Rule.RightGraph.Vertex</em></a>) – a vertex of <span class="math notranslate nohighlight">\(R_1\)</span> to return the mapped vertex for.</p></li>
+<li><p><strong>vSecond</strong> (<a class="reference internal" href="GraphInterface.html#mod.Rule.LeftGraph.Vertex" title="mod.Rule.LeftGraph.Vertex"><em>Rule.LeftGraph.Vertex</em></a>) – a vertex of <span class="math notranslate nohighlight">\(L_2\)</span> to return the mapped vertex for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the vertex the given vertex is mapped to, or a null vertex if it is not mapped.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if either vertex is a null vertex.</p></li>
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if either vertex does not belong to their respective rules.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">void</span> <span class="pre">push(vFirst,</span> <span class="pre">vSecond)</span></span></dt>
+<dd><p>Extend the common subgraph (match) of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>
+by identifying the given vertices from each of the graphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if either vertex is a null vertex.</p></li>
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if either vertex does not belong to their respective rules.</p></li>
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if either vertex is already mapped.</p></li>
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if the extension of the match is infeasible.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.RCMatch.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.pop" title="Link to this definition">¶</a></dt>
+<dd><p>Pop the latest pushed vertex pair.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">self.size</span> <span class="pre">==</span> <span class="pre">0</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.RCMatch.compose">
+<span class="sig-name descname"><span class="pre">compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.compose" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to output debug messages from the composition algorithm.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the composition of the two rules along the match.
+If the composition is not defined, <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.RCMatch.composeAll">
+<span class="sig-name descname"><span class="pre">composeAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.composeAll" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maximum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to only compose using the matches of maximum cardinality.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to output debug messages from the composition algorithm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the composition of the two rules along enumerated matches.
+The enumerated matches are all those that are extensions of the current match,
+and the match it self.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/rule/CompositionMatch.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

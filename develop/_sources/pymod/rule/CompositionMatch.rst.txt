@@ -1,0 +1,80 @@
+.. _py-rule/CompositionMatch:
+
+**********************************************************
+rule/CompositionMatch
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: RCMatch
+
+    A class for interactively constructing match between two rules used for composition.
+    That is, for two rules
+    :math:`p_1 = (L_1 \leftarrow K_1 \rightarrow R_1)` and
+    :math:`p_2 = (L_2 \leftarrow K_2 \rightarrow R_2)`,
+    an object represents match between :math:`R_1` and :math:`L_2` which indicates
+    a common subgraph :math:`R_1 \leftarrow M \rightarrow L_2`.
+
+    .. method:: __init__(rFirst, rSecond, labelSettings=LabelSettings(LabelType.String, LabelRelation.Specialisation))
+
+        Construct an empty overlap.
+
+        :param Rule rFirst: the first rule :math:`p_1`.
+        :param Rule rSecond: the second rule :math:`p_2`.
+        :param LabelSettings labelSettings: the settings to use for the morphisms :math:`R_1 \leftarrow M \rightarrow L_2`.
+        :raises LogicError: if either rule is ``None``.
+    .. method:: __str__()
+    .. attribute:: first
+                   second
+
+        (Read-only) The rules :math:`p_1` and :math:`p_2`.
+
+        :type: Rule
+    .. attribute:: labelSettings
+
+        (Read-only) The settings for the morphisms in the match.
+
+        :type: LabelSettings
+    .. attribute:: size
+
+        (Read-only) The number of currently mapped pairs of vertices.
+
+        :type: int
+    .. method:: __getitem__(vFirst)
+                __getitem__(vSecond)
+
+        :param Rule.RightGraph.Vertex vFirst: a vertex of :math:`R_1` to return the mapped vertex for.
+        :param Rule.LeftGraph.Vertex vSecond: a vertex of :math:`L_2` to return the mapped vertex for.
+        :returns: the vertex the given vertex is mapped to, or a null vertex if it is not mapped.
+        :raises LogicError: if either vertex is a null vertex.
+        :raises LogicError: if either vertex does not belong to their respective rules.
+    .. method:: void push(vFirst, vSecond)
+
+        Extend the common subgraph (match) of :math:`R_1` and :math:`L_2`
+        by identifying the given vertices from each of the graphs.
+
+        :raises LogicError: if either vertex is a null vertex.
+        :raises LogicError: if either vertex does not belong to their respective rules.
+        :raises LogicError: if either vertex is already mapped.
+        :raises LogicError: if the extension of the match is infeasible.
+    .. method:: pop()
+
+        Pop the latest pushed vertex pair.
+
+        :raises LogicError: if ``self.size == 0``.
+    .. method:: compose(*, verbose=False)
+
+        :param bool verbose: whether to output debug messages from the composition algorithm.
+        :returns: the composition of the two rules along the match.
+            If the composition is not defined, ``None`` is returned.
+        :rtype: Rule
+    .. method:: composeAll(*, maximum=False, verbose=False)
+
+        :param bool maximum: whether to only compose using the matches of maximum cardinality.
+        :param bool verbose: whether to output debug messages from the composition algorithm.
+        :returns: the composition of the two rules along enumerated matches.
+            The enumerated matches are all those that are extensions of the current match,
+            and the match it self.
+        :rtype: list[Rule]

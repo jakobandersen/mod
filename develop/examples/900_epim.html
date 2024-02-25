@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>10.5. EpiM &#8212; MØD 0.15.0.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/documentation_options.js?v=f39133a7"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="11. Known Issues" href="../knownIssues.html" />
+    <link rel="prev" title="10.4. Local Geometry and Stereochemistry" href="030_stereo.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0.5</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">10.5. EpiM</a><ul>
+<li><a class="reference internal" href="#config-for-visualization-of-encodings">10.5.1. Config for Visualization of Encodings</a></li>
+<li><a class="reference internal" href="#hospital">10.5.2. Hospital</a></li>
+<li><a class="reference internal" href="#compute-execution-spaces">10.5.3. Compute Execution Spaces</a></li>
+<li><a class="reference internal" href="#a-basic-process-encoding">10.5.4. A Basic Process Encoding</a></li>
+<li><a class="reference internal" href="#a-recursive-encoding">10.5.5. A Recursive Encoding</a></li>
+<li><a class="reference internal" href="#process-execution-spaces-with-recursive-processes">10.5.6. Process Execution Spaces with Recursive Processes</a></li>
+<li><a class="reference internal" href="#a-process-encoding-with-restrictions">10.5.7. A Process Encoding with Restrictions</a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="030_stereo.html" title="Previous Chapter: 10.4. Local Geometry and Stereochemistry">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 10.4. Local G...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../knownIssues.html" title="Next Chapter: 11. Known Issues">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">11. Known Issues &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="epim">
+<span id="examples-900-epim"></span><span id="examples-epim"></span><h1><span class="section-number">10.5. </span>EpiM<a class="headerlink" href="#epim" title="Link to this heading">¶</a></h1>
+<section id="config-for-visualization-of-encodings">
+<h2><span class="section-number">10.5.1. </span>Config for Visualization of Encodings<a class="headerlink" href="#config-for-visualization-of-encodings" title="Link to this heading">¶</a></h2>
+<p>The graphs of the encoded processes can be filtered and “prettified” using either
+the print options used by MØD for graph visualization or the image config provided
+by EpiM.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=900_epim__3_encoding_config.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">mod.epim.gen_image</span> <span class="kn">import</span> <span class="n">image_config</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">mod.epim.process</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">names</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Show the names of a process encoding: </span>
+<span class="linenos"> 5</span><span class="n">image_config</span><span class="o">.</span><span class="n">show_variables</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Show the pointer vertices used for encoding process calls:</span>
+<span class="linenos"> 8</span><span class="n">image_config</span><span class="o">.</span><span class="n">show_pointers</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Show the special root vertex &quot;go&quot; of an encoding:</span>
+<span class="linenos">11</span><span class="n">image_config</span><span class="o">.</span><span class="n">show_root</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># Hide implementation detail specific vertices such as </span>
+<span class="linenos">14</span><span class="c1"># the vertices with terms t(p) or t(s) with degrees of 2:</span>
+<span class="linenos">15</span><span class="n">image_config</span><span class="o">.</span><span class="n">collapse_two_edges</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="c1"># MØD print options</span>
+<span class="linenos">18</span><span class="n">printer</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="c1"># Specify the names to be used:</span>
+<span class="linenos">21</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="s2">&quot;x y z w&quot;</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="c1"># Specify the behavior of a process:</span>
+<span class="linenos">24</span><span class="n">p1</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="linenos">25</span><span class="n">p2</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="linenos">26</span><span class="n">P</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">|</span> <span class="n">p2</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="c1"># Encode and print P</span>
+<span class="linenos">29</span><span class="n">G</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="linenos">30</span><span class="n">G</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">printer</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="hospital">
+<h2><span class="section-number">10.5.2. </span>Hospital<a class="headerlink" href="#hospital" title="Link to this heading">¶</a></h2>
+<p>The execution space for the process Hospital. From the execution space,
+we see that Hospital can end up in a deadlock. This happens specifically,
+when the process P synchronizes with the process H.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=900_epim__6_hospital.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">mod.epim.process</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">Name</span><span class="p">,</span> <span class="n">process_config</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">mod.epim.transform.reduction_dg</span> <span class="kn">import</span> <span class="n">ReductionDG</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">mod.epim.recursive_process</span> <span class="kn">import</span> <span class="n">RecursiveProcess</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># Do not print the arguments of an encoded process call:</span>
+<span class="linenos"> 6</span><span class="n">process_config</span><span class="o">.</span><span class="n">print_args</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># Specify the names to be used:</span>
+<span class="linenos"> 9</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">pn</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">cu</span><span class="p">,</span> <span class="n">ki</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="s2">&quot;s n pn j h cu ki d x&quot;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">free_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ki</span><span class="p">,</span> <span class="n">cu</span><span class="p">]</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># Define a recursive process:</span>
+<span class="linenos">13</span><span class="n">rp</span> <span class="o">=</span> <span class="n">RecursiveProcess</span><span class="p">()</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># Specify the name, arguments, and behavior of a recursive process:</span>
+<span class="linenos">16</span><span class="n">P</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;Pp&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">rp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="n">Pp</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">ki</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">cu</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">)</span>
+<span class="linenos">20</span><span class="n">rp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Pp&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">,</span> <span class="n">Pp</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="n">J</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">pn</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">cu</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;J&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">)</span>
+<span class="linenos">23</span><span class="n">rp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;J&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="n">H</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">pn</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">ki</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">)</span>
+<span class="linenos">26</span><span class="n">rp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">free_names</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="c1"># Define the process Hospital:</span>
+<span class="linenos">29</span><span class="n">Hospital</span> <span class="o">=</span> <span class="n">P</span> <span class="o">|</span> <span class="n">J</span> <span class="o">|</span> <span class="n">H</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="c1"># Compute the execution space of Hospital given the recursive process rp:</span>
+<span class="linenos">32</span><span class="n">exec_space</span> <span class="o">=</span> <span class="n">ReductionDG</span><span class="p">(</span><span class="n">Hospital</span><span class="p">,</span> <span class="n">rp</span><span class="p">)</span>
+<span class="linenos">33</span><span class="n">exec_space</span><span class="o">.</span><span class="n">calc</span><span class="p">()</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="c1"># Print the resulting derivation graph to the summary PDF:</span>
+<span class="linenos">36</span><span class="n">exec_space</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-execution-spaces">
+<h2><span class="section-number">10.5.3. </span>Compute Execution Spaces<a class="headerlink" href="#compute-execution-spaces" title="Link to this heading">¶</a></h2>
+<p>We can compute the execution space of a process.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=900_epim__4_exec_space_simple.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">mod.epim.transform.reduction_dg</span> <span class="kn">import</span> <span class="n">ReductionDG</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">mod.epim.process</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">names</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Specify the names to be used:</span>
+<span class="linenos"> 5</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="s2">&quot;x y z w&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Specify the behavior of a process:</span>
+<span class="linenos"> 8</span><span class="n">p1</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">p2</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">p1</span> <span class="o">|</span> <span class="n">p2</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># Compute the execution space for P</span>
+<span class="linenos">13</span><span class="n">exec_space</span> <span class="o">=</span> <span class="n">ReductionDG</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">exec_space</span><span class="o">.</span><span class="n">calc</span><span class="p">()</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># Print the resulting derivation graph to the summary PDF:</span>
+<span class="linenos">17</span><span class="n">exec_space</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+<span class="linenos">18</span><span class="c1"># exec_space.print(True) #prints the entire derivation graph</span>
+</pre></div>
+</div>
+</section>
+<section id="a-basic-process-encoding">
+<h2><span class="section-number">10.5.4. </span>A Basic Process Encoding<a class="headerlink" href="#a-basic-process-encoding" title="Link to this heading">¶</a></h2>
+<p>These examples shows the basic usage of EpiM.
+After each run a PDF summary is compiled.
+We let in(x) and out(x) denote the input and output operators of a
+process respectively.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=900_epim__0_encoding_simple.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">mod.epim.process</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">names</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># MØD print options</span>
+<span class="linenos"> 4</span><span class="n">printer</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># Specify the names to be used:</span>
+<span class="linenos"> 7</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="s2">&quot;x y z w&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Specify the behavior of a process</span>
+<span class="linenos">10</span><span class="n">p1</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">p2</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">P</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">|</span> <span class="n">p2</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># Encode the process as a MØD graph:</span>
+<span class="linenos">15</span><span class="n">G</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="c1"># Put a visualisation of the encoding in the summary:</span>
+<span class="linenos">18</span><span class="n">G</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">printer</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="a-recursive-encoding">
+<h2><span class="section-number">10.5.5. </span>A Recursive Encoding<a class="headerlink" href="#a-recursive-encoding" title="Link to this heading">¶</a></h2>
+<p>We can also specify process calls in an encoding.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=900_epim__2_encoding_recursive.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">mod.epim.process</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">names</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># MØD print options</span>
+<span class="linenos"> 4</span><span class="n">printer</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># Specify the names to be used:</span>
+<span class="linenos"> 7</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="s2">&quot;x y&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Specify the behavior of a process</span>
+<span class="linenos">10</span><span class="c1"># Note, the second argument to call() is </span>
+<span class="linenos">11</span><span class="c1"># the arguments passed to the recursive invocation of &quot;A&quot;.</span>
+<span class="linenos">12</span><span class="n">A</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># Encode A and put a visualisation of the encoding in the summary:</span>
+<span class="linenos">15</span><span class="n">A</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">printer</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="process-execution-spaces-with-recursive-processes">
+<h2><span class="section-number">10.5.6. </span>Process Execution Spaces with Recursive Processes<a class="headerlink" href="#process-execution-spaces-with-recursive-processes" title="Link to this heading">¶</a></h2>
+<p>We can compute the execution space of processes defined with recursive processes.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=900_epim__5_exec_space_recursive.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">mod.epim.transform.reduction_dg</span> <span class="kn">import</span> <span class="n">ReductionDG</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">mod.epim.process</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">names</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">mod.epim.recursive_process</span> <span class="kn">import</span> <span class="n">RecursiveProcess</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># Specify the names to be used:</span>
+<span class="linenos"> 6</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="s2">&quot;x y z&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># Define a recursive process:</span>
+<span class="linenos"> 9</span><span class="n">rp</span> <span class="o">=</span> <span class="n">RecursiveProcess</span><span class="p">()</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Specify the name, arguments, and behavior of a recursive process:</span>
+<span class="linenos">12</span><span class="n">A</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">y</span><span class="p">])</span>
+<span class="linenos">13</span><span class="n">rp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">A</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="n">B</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
+<span class="linenos">16</span><span class="n">rp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">B</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># Specify the behavior of a process:</span>
+<span class="linenos">19</span><span class="n">P</span> <span class="o">=</span> <span class="n">A</span> <span class="o">|</span> <span class="n">B</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># Compute the execution space for P provided with the recursive process rp:</span>
+<span class="linenos">22</span><span class="n">exec_space</span> <span class="o">=</span> <span class="n">ReductionDG</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">rp</span><span class="p">)</span>
+<span class="linenos">23</span><span class="n">exec_space</span><span class="o">.</span><span class="n">calc</span><span class="p">()</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="c1"># Print the resulting derivation graph to the summary PDF:</span>
+<span class="linenos">26</span><span class="n">exec_space</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="a-process-encoding-with-restrictions">
+<h2><span class="section-number">10.5.7. </span>A Process Encoding with Restrictions<a class="headerlink" href="#a-process-encoding-with-restrictions" title="Link to this heading">¶</a></h2>
+<p>We can restrict names of a process.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=900_epim__1_encoding_restriction.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">mod.epim.process</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">names</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># MØD print options</span>
+<span class="linenos"> 4</span><span class="n">printer</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># Specify the names to be used:</span>
+<span class="linenos"> 7</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="s2">&quot;x y z w&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Specify the behavior of a process</span>
+<span class="linenos">10</span><span class="n">p1</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">p2</span> <span class="o">=</span> <span class="n">Process</span><span class="p">()</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">P</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">|</span> <span class="n">p2</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># Encode the process as a MØD graph:</span>
+<span class="linenos">15</span><span class="n">G</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="c1"># Put a visualisation of the encoding in the summary:</span>
+<span class="linenos">18</span><span class="n">G</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">printer</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/examples/900_epim.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

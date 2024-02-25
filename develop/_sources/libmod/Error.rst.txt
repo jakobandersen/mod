@@ -1,0 +1,179 @@
+.. _cpp-Error:
+
+**********************************************************
+Error.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:expr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+This file contains the functionality used for reporting errors.
+In the description of the exceptions we use the standard terminology (see e.g., `Exception Safety <http://en.wikipedia.org/wiki/Exception_safety>`_).
+If nothing else is specified a thrown exception from MØD provides no exception safety.
+Any exception thrown from MØD or any dependencies are intended to derive from `std::exception`,
+and any exception from MØD derives from :class:`Exception`.
+The exceptions are in general only thrown from the outermost interface, and not from within the ``mod::lib`` namespace.
+
+Class ``Stacktrace``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: Stacktrace
+    
+
+    A class encapsulating the current stacktrace at construction time.
+    Stacktraces may not be supported on all platforms.
+
+Synopsis
+^^^^^^^^
+
+.. alias:: Stacktrace
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: Stacktrace
+
+.. function:: Stacktrace(unsigned int frameLimit, unsigned int numSkip)
+
+    Capture a stacktrace with at most `frameLimit` frames and without the first `numSkip` frames.
+    The frame from the constructor itself is always skipped.
+.. function:: void print(unsigned int frameLimit, std::ostream &s) const
+
+    Print at most the first `frameLimit` frames from the capture stacktrace. Use 0 to print all available frames.
+    Symbol names will be demangled if possible.
+
+.. cpp:namespace-pop::
+
+
+Class ``Exception``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: Exception : public std::exception
+    
+
+    The base class of all MØD exceptions.
+
+Synopsis
+^^^^^^^^
+
+.. alias:: Exception
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: Exception
+
+.. function:: virtual std::string getName() const = 0
+
+    :returns: the name of the exception.
+.. function:: virtual const char *what() const noexcept
+
+    :returns: the description for the exception.
+.. function:: void printStacktrace(unsigned int frameLimit, std::ostream &s) const
+
+    Print the stacktrace captured when the exception was constructed. See :func:`Stacktrace::print`.
+.. function:: void append(const std::string &text)
+
+    Append text to the exception message.
+
+.. cpp:namespace-pop::
+
+
+Class ``FatalError``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: FatalError : public Exception
+    
+
+    When thrown there is no exception safety. It is not safe to continue after catching it.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: FatalError
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``InputError``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: InputError : public Exception
+    
+
+    When thrown there is strong exception safety.
+    This exception is thrown when bad data has been provided to a loading function.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: InputError
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``LogicError``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: LogicError : public Exception
+    
+
+    When thrown there is strong exception safety.
+    This exception is thrown when a pre-condition of a function is violated.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: LogicError
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``TermParsingError``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: TermParsingError : public Exception
+    
+
+    When thrown there is at least basic exception safety.
+    This exception is thrown if :cpp:any:`LabelType::Term` is used and
+    parsing of a string into a first-order term fails.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: TermParsingError
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``StereoDeductionError``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: StereoDeductionError : public Exception
+    
+
+    When thrown there is at least basic exception safety.
+    This exception is thrown if stereo data is requested and
+    deduction failed.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: StereoDeductionError
+    :maxdepth: 2
+    :noroot:
+

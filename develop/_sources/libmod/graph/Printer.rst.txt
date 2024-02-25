@@ -1,0 +1,123 @@
+.. _cpp-graph/Printer:
+
+**********************************************************
+graph/Printer.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:expr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``graph::Printer``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: graph::Printer
+    
+
+    This class is used to configure how graphs are visualised.
+
+    .. warning:: Some of these options greatly alter how graphs are depicted
+        and the result may not accurately represent the underlying graph,
+        and may make non-molecules look like molecules.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: graph::Printer
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: graph::Printer
+
+.. function Printer()
+
+    The default constructor enables edges as bonds, raised charges, and raised isotopes.
+.. function:: friend bool operator==(const Printer &a, const Printer &b)
+              friend bool operator!=(const Printer &a, const Printer &b)
+.. function:: void setMolDefault()
+
+    Shortcut for enabling all but thickening and index printing.
+.. function:: void setReactionDefault()
+
+    Shortcut for enabling all but thickening, index printing and simplification of carbon atoms.
+.. function:: void disableAll()
+
+    Disable all special printing features.
+.. function:: void enableAll()
+
+    Enable all special printing features, except typewriter font.
+.. function:: void setEdgesAsBonds(bool value)
+              bool getEdgesAsBonds() const
+
+    Control whether edges with special labels are drawn as chemical bonds.
+.. function:: void setCollapseHydrogens(bool value)
+              bool getCollapseHydrogens() const
+
+    Control whether vertices representing hydrogen atoms are collapsed into their neighbours labels.
+.. function:: void setRaiseIsotopes(bool value)
+              bool getRaiseIsotopes() const
+
+    Control whether a vertex label prefix encoding an isotope is written as a superscript to the rest of the label.
+.. function:: void setRaiseCharges(bool value)
+              bool getRaiseCharges() const
+
+    Control whether a vertex label suffix encoding a charge is written as a superscript to the rest of the label.
+.. function:: void setSimpleCarbons(bool value)
+              bool getSimpleCarbons() const
+
+    Control whether some vertices encoding carbon atoms are depicted without any label.
+.. function:: void setThick(bool value)
+              bool getThick() const
+
+    Control whether all edges are drawn thicker than normal and all labels are written in bold.
+.. function:: void setWithColour(bool value)
+              bool getWithColour() const
+
+    Control whether colour is applied to certain elements of the graph which are molecule-like.
+.. function:: void setWithIndex(bool value)
+              bool getWithIndex() const
+
+    Control whether the underlying indices of the vertices are printed.
+.. function:: void setWithTexttt(bool value)
+              bool getWithTexttt() const
+
+    Control whether the vertex and edge labels are written with typewriter font.
+.. function:: void setWithRawStereo(bool value)
+              bool getWithRawStereo() const
+
+    Control whether the vertices and edges are annotated with the raw stereo properties.
+.. function:: void setWithPrettyStereo(bool value)
+              bool getWithPrettyStereo() const
+
+    Control whether the vertices and edges are annotated with stylized stereo properties.
+.. function:: void setRotation(int degrees)
+              int getRotation() const
+
+    Rotation of internally computed coordinates.
+.. function:: void setMirror(bool value)
+              bool getMirror() const
+
+    Mirror internally computed coordinates in the y-axis.
+.. function:: void setWithGraphvizCoords(bool value)
+              bool getWithGraphvizCoords() const
+
+    Do not use Open Babel for coordinate generation, but only the Graphviz fallback
+    during post-processing.
+    When setting this to `true` consider setting `setSimpleCarbons(false)` to avoid
+    misleading depictions due to collinear carbon chains.
+.. function:: void setGraphvizPrefix(const std::string &prefix)
+              const std::string &getGraphvizPrefix() const
+
+    Access the string that will be inserted into generated DOT files,
+    just after the graph declaration.
+    DOT files are only generated when `getWithGraphvizCoords()`.
+
+.. cpp:namespace-pop::
+

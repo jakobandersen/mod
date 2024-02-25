@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>8. Data Formats &#8212; MØD 0.15.0.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/documentation_options.js?v=f39133a7"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Derivation Graph Strategies" href="../dgStrat/index.html" />
+    <link rel="prev" title="7. Graph, Rule, and Molecule Model" href="../graphModel/index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0.5</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">8. Data Formats</a><ul>
+<li><a class="reference internal" href="#gml">8.1. GML</a><ul>
+<li><a class="reference internal" href="#graph">8.1.1. Graph</a></li>
+<li><a class="reference internal" href="#rule">8.1.2. Rule</a><ul>
+<li><a class="reference internal" href="#a-note-on-term-labels">8.1.2.1. A Note on Term Labels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#smiles">8.2. SMILES</a><ul>
+<li><a class="reference internal" href="#implicit-hydrogen-atoms">8.2.1. Implicit Hydrogen Atoms</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dfs-line-notation">8.3. DFS Line Notation</a><ul>
+<li><a class="reference internal" href="#graphdfs">8.3.1. GraphDFS</a><ul>
+<li><a class="reference internal" href="#semantics">8.3.1.1. Semantics</a></li>
+<li><a class="reference internal" href="#abstracted-molecules">8.3.1.2. Abstracted Molecules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ruledfs">8.3.2. RuleDFS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mol-and-sd">8.4. MOL and SD</a></li>
+<li><a class="reference internal" href="#abstract-derivation-graphs">8.5. Abstract Derivation Graphs</a></li>
+<li><a class="reference internal" href="#tikz">8.6. Tikz</a></li>
+<li><a class="reference internal" href="#dot-graphviz">8.7. DOT (Graphviz)</a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="../graphModel/index.html" title="Previous Chapter: 7. Graph, Rule, and Molecule Model">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 7. Graph, Rul...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../dgStrat/index.html" title="Next Chapter: 9. Derivation Graph Strategies">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">9. Derivation... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="data-formats">
+<span id="formats"></span><h1><span class="section-number">8. </span>Data Formats<a class="headerlink" href="#data-formats" title="Link to this heading">¶</a></h1>
+<p>This page gives an overview of the <em>external</em> data formats that MØD works with.
+For the formats that describe graphs and rules there are details on how
+the external format is interpreted when creating the corresponding in-memmory
+data structure. The in-memory model is described in <a class="reference internal" href="../graphModel/index.html#graph-model"><span class="std std-ref">Graph, Rule, and Molecule Model</span></a>.</p>
+<section id="gml">
+<span id="id1"></span><h2><span class="section-number">8.1. </span>GML<a class="headerlink" href="#gml" title="Link to this heading">¶</a></h2>
+<p>MØD uses the Graph Modelling Language (GML) for general specification of graphs
+and rules.
+The parser recognises most of the published <a class="reference external" href="http://www.fim.uni-passau.de/fileadmin/files/lehrstuhl/brandenburg/projekte/gml/gml-technical-report.pdf">specification</a>,
+with regard to syntax. The specific grammar is as follows.</p>
+<pre>
+<strong id="grammar-token-gml-GML">GML       </strong> ::=  (<a class="reference internal" href="#grammar-token-gml-key"><code class="xref docutils literal notranslate"><span class="pre">key</span></code></a> <a class="reference internal" href="#grammar-token-gml-value"><code class="xref docutils literal notranslate"><span class="pre">value</span></code></a>)*
+<strong id="grammar-token-gml-key">key       </strong> ::=  <a class="reference internal" href="#grammar-token-gml-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a>
+<strong id="grammar-token-gml-value">value     </strong> ::=  int
+                float
+                quoteEscapedString
+                <a class="reference internal" href="#grammar-token-gml-list"><code class="xref docutils literal notranslate"><span class="pre">list</span></code></a>
+<strong id="grammar-token-gml-list">list      </strong> ::=  '[' (<a class="reference internal" href="#grammar-token-gml-key"><code class="xref docutils literal notranslate"><span class="pre">key</span></code></a> <a class="reference internal" href="#grammar-token-gml-value"><code class="xref docutils literal notranslate"><span class="pre">value</span></code></a>)* ']'
+<strong id="grammar-token-gml-identifier">identifier</strong> ::=  a word matching the regex &quot;[a-zA-Z][a-zA-Z0-9]*&quot;
+</pre>
+<p>A <code class="docutils literal notranslate"><span class="pre">quoteEscapedString</span></code> is zero or more characters surrounded by double
+quotation marks.  To include a <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code> character it must be escaped.  Tabs,
+newlines, and backslashses can be written as <code class="docutils literal notranslate"><span class="pre">\t</span></code>, <code class="docutils literal notranslate"><span class="pre">\n</span></code>, and <code class="docutils literal notranslate"><span class="pre">\\</span></code>.
+GML code may have line comments, starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>.
+They are ignored during parsing.</p>
+<section id="graph">
+<span id="graph-gml"></span><h3><span class="section-number">8.1.1. </span>Graph<a class="headerlink" href="#graph" title="Link to this heading">¶</a></h3>
+<p>A graph can be specified as <a class="reference internal" href="#gml"><span class="std std-ref">GML</span></a> by giving a list of vertices and edges
+with the key <code class="docutils literal notranslate"><span class="pre">graph</span></code>.
+The following grammar exemplifies the required key-value structure.</p>
+<pre>
+<strong id="grammar-token-gml-graphGML">graphGML</strong> ::=  'graph [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-node">node    </strong> ::=  'node [ id' int 'label' quoteEscapedString ']'
+<strong id="grammar-token-gml-edge">edge    </strong> ::=  'edge [ source' int 'target' int 'label' quoteEscapedString ']'
+</pre>
+<p>Note though that list elements can appear in any order.</p>
+</section>
+<section id="rule">
+<span id="rule-gml"></span><h3><span class="section-number">8.1.2. </span>Rule<a class="headerlink" href="#rule" title="Link to this heading">¶</a></h3>
+<p>A rule <span class="math notranslate nohighlight">\((L\leftarrow K\rightarrow R)\)</span> in <a class="reference internal" href="#gml"><span class="std std-ref">GML</span></a> format is specified
+as three graph fragments; <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">context</span></code>, and <code class="docutils literal notranslate"><span class="pre">right</span></code>.
+From those
+<span class="math notranslate nohighlight">\(L\)</span> is constructed as <code class="docutils literal notranslate"><span class="pre">left</span></code> <span class="math notranslate nohighlight">\(\cup\)</span> <code class="docutils literal notranslate"><span class="pre">context</span></code>,
+<span class="math notranslate nohighlight">\(R\)</span> as <code class="docutils literal notranslate"><span class="pre">right</span></code> <span class="math notranslate nohighlight">\(\cup\)</span> <code class="docutils literal notranslate"><span class="pre">context</span></code>, and
+<span class="math notranslate nohighlight">\(K\)</span> as <code class="docutils literal notranslate"><span class="pre">context</span></code> <span class="math notranslate nohighlight">\(\cup\)</span> (<code class="docutils literal notranslate"><span class="pre">left</span></code> <span class="math notranslate nohighlight">\(\cap\)</span> <code class="docutils literal notranslate"><span class="pre">right</span></code>).
+Each graph fragment is specified as a list of vertices and edges, similar to a
+graph in GML format.
+The key-value structure is exemplified by the following grammar.</p>
+<pre>
+<strong id="grammar-token-gml-ruleGML">ruleGML        </strong> ::=  'rule ['
+                        [ 'ruleID' quoteEscapedString ]
+                        [ 'labelType &quot;' <a class="reference internal" href="#grammar-token-gml-labelType"><code class="xref docutils literal notranslate"><span class="pre">labelType</span></code></a> '&quot;' ]
+                        [ <a class="reference internal" href="#grammar-token-gml-leftSide"><code class="xref docutils literal notranslate"><span class="pre">leftSide</span></code></a> ]
+                        [ <a class="reference internal" href="#grammar-token-gml-context"><code class="xref docutils literal notranslate"><span class="pre">context</span></code></a> ]
+                        [ <a class="reference internal" href="#grammar-token-gml-rightSide"><code class="xref docutils literal notranslate"><span class="pre">rightSide</span></code></a> ]
+                        <a class="reference internal" href="#grammar-token-gml-matchConstraint"><code class="xref docutils literal notranslate"><span class="pre">matchConstraint</span></code></a>*
+                     ']'
+<strong id="grammar-token-gml-labelType">labelType      </strong> ::=  'string' | 'term'
+<strong id="grammar-token-gml-leftSide">leftSide       </strong> ::=  'left [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-context">context        </strong> ::=  'context [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-rightSide">rightSide      </strong> ::=  'right [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-matchConstraint">matchConstraint</strong> ::=  <a class="reference internal" href="#grammar-token-gml-adjacency"><code class="xref docutils literal notranslate"><span class="pre">adjacency</span></code></a> | <a class="reference internal" href="#grammar-token-gml-labelAny"><code class="xref docutils literal notranslate"><span class="pre">labelAny</span></code></a>
+<strong id="grammar-token-gml-adjacency">adjacency      </strong> ::=  'constrainAdj ['
+                        'id' int
+                        [ 'nodeLabels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']' ]
+                        [ 'edgeLabels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']' ]
+                        'op &quot;' <a class="reference internal" href="#grammar-token-gml-op"><code class="xref docutils literal notranslate"><span class="pre">op</span></code></a> '&quot;'
+                        'count' unsignedInt
+                     ']'
+<strong id="grammar-token-gml-labelAny">labelAny       </strong> ::=  'constrainLabelAny ['
+                        'label' quoteEscapedString
+                        'labels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']'
+                     ']'
+<strong id="grammar-token-gml-labelList">labelList      </strong> ::=  ('label' quoteEscapedString)*
+<strong id="grammar-token-gml-op">op             </strong> ::=  '&lt;' | '&lt;=' | '=' | '&gt;=' | '&gt;'
+</pre>
+<p>Note though that list elements can appear in any order.</p>
+<p>For details on the constraints, see <a class="reference internal" href="../graphModel/index.html#rule-constraints"><span class="std std-ref">Application Constraints</span></a>.</p>
+<section id="a-note-on-term-labels">
+<h4><span class="section-number">8.1.2.1. </span>A Note on Term Labels<a class="headerlink" href="#a-note-on-term-labels" title="Link to this heading">¶</a></h4>
+<p>As described in <a class="reference internal" href="../graphModel/index.html#graph-model-terms"><span class="std std-ref">Switching Category — First-Order Terms as Labels</span></a> it is possible to interpret the
+ordinary vertex and edges labels as first-order terms.
+When using the label <code class="docutils literal notranslate"><span class="pre">*</span></code> it will be interpreted as an unnamed term variable.
+Consider the rule:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>rule [
+        left  [ node [ id 0 label &quot;*&quot; ] ]
+        right [ node [ id 0 label &quot;*&quot; ] ]
+]
+</pre></div>
+</div>
+<p>In string mode this is simply an identity rule, but in term mode each <code class="docutils literal notranslate"><span class="pre">*</span></code>
+is interpreted as an unnamed variable. Be careful that in this case the
+two labels are interepreted as <em>the same</em> variable. That is, it is equivalent
+to:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>rule [
+        left  [ node [ id 0 label &quot;_A&quot; ] ]
+        right [ node [ id 0 label &quot;_A&quot; ] ]
+]
+</pre></div>
+</div>
+<p>If you wish to replace any vertex label with an explicit new variable, you can
+write it as:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>rule [
+        left  [ node [ id 0 label &quot;_A&quot; ] ]
+        right [ node [ id 0 label &quot;_B&quot; ] ]
+]
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="smiles">
+<span id="graph-smiles"></span><h2><span class="section-number">8.2. </span>SMILES<a class="headerlink" href="#smiles" title="Link to this heading">¶</a></h2>
+<p>The <cite>Simplified molecular-input line-entry system</cite> is a line notation for
+molecules. MØD can load most SMILES strings, and converts them internally to
+labelled graphs according to a specific <a class="reference internal" href="../graphModel/index.html#mol-enc"><span class="std std-ref">molecule encoding</span></a>.
+For graphs that are sufficiently molecule-like, a SMILES string can be
+generated. The generated strings are canonical in the sense that the same
+version of MØD will print the same SMILES string for isomorphic molecules.</p>
+<p>The reading of SMILES strings is based on the <a class="reference external" href="http://www.opensmiles.org/">OpenSMILES</a> specification, but with the following
+notes/changes.</p>
+<ul class="simple">
+<li><p>Only single SMILES strings are accepted, i.e., not multiple strings separated
+by white-space.</p></li>
+<li><p>Up and down bonds are regarded as implicit bonds, i.e., they might represent
+either a sngle bond or an aromatic bond. The stereo information is ignored.</p></li>
+<li><p>Atom classes are (mostly) ignored. They can be used to specify unique IDs to
+atoms.</p></li>
+<li><p>Wildcard atoms (specified with <code class="docutils literal notranslate"><span class="pre">*</span></code>) are converted to vertices with label
+<code class="docutils literal notranslate"><span class="pre">*</span></code>. When inside brackets, only the hydrogen count and atom class is then
+permitted.</p></li>
+<li><p>Abstract vertex labels can be specified inside brackets. The bracket must in
+that case only contain the label and an optional class label.
+The label must be a non-empty string without <code class="docutils literal notranslate"><span class="pre">:</span></code> and with balanced square
+brackets.</p></li>
+<li><p>Charges of magnitude 2 and 3 may be specified with repeated <code class="docutils literal notranslate"><span class="pre">-</span></code> and <code class="docutils literal notranslate"><span class="pre">+</span></code>.</p></li>
+<li><p>The bond type <code class="docutils literal notranslate"><span class="pre">$</span></code> is currently not allowed.</p></li>
+<li><p>Aromaticity can only be specified using the bond type <code class="docutils literal notranslate"><span class="pre">:</span></code>
+or using the special lower case atoms.
+I.e., <code class="docutils literal notranslate"><span class="pre">c1ccccc1</span></code> and <code class="docutils literal notranslate"><span class="pre">C1:C:C:C:C:C:1</span></code> represent the same molecule,
+but <code class="docutils literal notranslate"><span class="pre">C1=CC=CC=C1</span></code> is a different molecule.
+The lower-case atoms are converted to normal case when used as a label.</p></li>
+<li><p>Ring-bonds and branches may appear in mixed order. The normal order is to
+have all ring-bonds first and all branches, e.g., <code class="docutils literal notranslate"><span class="pre">C123(O)(N)</span></code>.
+The parser accepts them in mixed order, e.g., <code class="docutils literal notranslate"><span class="pre">C1(O)2(N)3</span></code>.</p></li>
+<li><p>Implicit hydrogens are added following a more complicated procedure
+(see below).</p></li>
+<li><p>A bracketed atom can have a radical by writing a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>) between the
+position of the charge and the position of the class.</p></li>
+</ul>
+<p>The written SMILES strings are intended to be canonical and may not conform to
+any “prettyness” standards.</p>
+<section id="implicit-hydrogen-atoms">
+<h3><span class="section-number">8.2.1. </span>Implicit Hydrogen Atoms<a class="headerlink" href="#implicit-hydrogen-atoms" title="Link to this heading">¶</a></h3>
+<p>When SMILES strings are written they will use implicit hydrogens whenever they
+can be inferred when reading the string back in.
+For the purposes of implicit hydrogens we use the following definition of
+valence for an atom.
+The valence of an atom is the weighted sum of its incident edges, where single
+(<code class="docutils literal notranslate"><span class="pre">-</span></code>) and aromatic (<code class="docutils literal notranslate"><span class="pre">:</span></code>) bonds have weight 1, double bounds (<code class="docutils literal notranslate"><span class="pre">=</span></code>) have
+weight 2, and triple bonds (<code class="docutils literal notranslate"><span class="pre">#</span></code>) have weight 3.
+If an atom has an incident aromatic bond, its valence is increased by 1.
+The atoms that can have implicit hydrogens are
+B, C, N, O, P, S, F, Cl, Br, and I.
+Each have a set of so-called “normal” valences as shown in the following table.
+The atoms N and S additionally have certain sets of incident edges that are
+also considered “normal”, which are also listed in the table.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Atom</p></th>
+<th class="head"><p>Normal Valences and Neighbourhoods</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>B</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>C</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>N</p></td>
+<td><p>3, 5, <span class="math notranslate nohighlight">\(\{-, :, :\}\)</span>, <span class="math notranslate nohighlight">\(\{-, -, =\}\)</span>, <span class="math notranslate nohighlight">\(\{:, :, :\}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>O</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>P</p></td>
+<td><p>3, 5</p></td>
+</tr>
+<tr class="row-odd"><td><p>S</p></td>
+<td><p>2, 4, 6, <span class="math notranslate nohighlight">\(\{:, :\}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>F, Cl, Br, I</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>If the set of incident edges is listed in the table, then no hydrogens are
+added. If the valence is higher than the highest normal valence, then no
+hydrogens are added. Otherwise, hydrogens are added until the valence is at the
+next higher normal valence.</p>
+<p>When writing SMILES strings the inverse procedure is used.</p>
+</section>
+</section>
+<section id="dfs-line-notation">
+<span id="format-dfs"></span><h2><span class="section-number">8.3. </span>DFS Line Notation<a class="headerlink" href="#dfs-line-notation" title="Link to this heading">¶</a></h2>
+<p>The DFS formats are intended to provide a convenient line
+notation for general undirected labelled graphs and rules.
+Thus it is in many aspects similar to SMILES strings and reaction SMILES
+strings, but a string being both a valid (reaction SMILES) string and
+GraphDFS/RuleDFS string <strong>does not mean they represent the same objects</strong>.
+In particular, the semantics of ring-closures/back-edges are not the same.</p>
+<section id="graphdfs">
+<span id="format-graphdfs"></span><h3><span class="section-number">8.3.1. </span>GraphDFS<a class="headerlink" href="#graphdfs" title="Link to this heading">¶</a></h3>
+<pre>
+<strong id="grammar-token-graphDFS-graphDFS">graphDFS                    </strong> ::=  <a class="reference internal" href="#grammar-token-graphDFS-chain"><code class="xref docutils literal notranslate"><span class="pre">chain</span></code></a>
+<strong id="grammar-token-graphDFS-chain">chain                       </strong> ::=  <a class="reference internal" href="#grammar-token-graphDFS-vertex"><code class="xref docutils literal notranslate"><span class="pre">vertex</span></code></a> <a class="reference internal" href="#grammar-token-graphDFS-evPair"><code class="xref docutils literal notranslate"><span class="pre">evPair</span></code></a>*
+<strong id="grammar-token-graphDFS-vertex">vertex                      </strong> ::=  (<a class="reference internal" href="#grammar-token-graphDFS-labelVertex"><code class="xref docutils literal notranslate"><span class="pre">labelVertex</span></code></a> | <a class="reference internal" href="#grammar-token-graphDFS-ringClosure"><code class="xref docutils literal notranslate"><span class="pre">ringClosure</span></code></a>) <a class="reference internal" href="#grammar-token-graphDFS-branch"><code class="xref docutils literal notranslate"><span class="pre">branch</span></code></a>*
+<strong id="grammar-token-graphDFS-evPair">evPair                      </strong> ::=  <a class="reference internal" href="#grammar-token-graphDFS-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a> <a class="reference internal" href="#grammar-token-graphDFS-vertex"><code class="xref docutils literal notranslate"><span class="pre">vertex</span></code></a>
+<strong id="grammar-token-graphDFS-labelVertex">labelVertex                 </strong> ::=  '[' bracketEscapedString ']' [ <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref docutils literal notranslate"><span class="pre">defRingId</span></code></a> ]
+                                  <a class="reference internal" href="#grammar-token-graphDFS-implicitHydrogenVertexLabels"><code class="xref docutils literal notranslate"><span class="pre">implicitHydrogenVertexLabels</span></code></a> [ <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref docutils literal notranslate"><span class="pre">defRingId</span></code></a> ]
+<strong id="grammar-token-graphDFS-implicitHydrogenVertexLabels">implicitHydrogenVertexLabels</strong> ::=  'B' | 'C' | 'N' | 'O' | 'P' | 'S' | 'F' | 'Cl' | 'Br' | 'I'
+<strong id="grammar-token-graphDFS-defRingId">defRingId                   </strong> ::=  unsignedInt
+<strong id="grammar-token-graphDFS-ringClosure">ringClosure                 </strong> ::=  unsignedInt
+<strong id="grammar-token-graphDFS-edge">edge                        </strong> ::=  '{' braceEscapedString '}'
+                                  <a class="reference internal" href="#grammar-token-graphDFS-shorthandEdgeLabel"><code class="xref docutils literal notranslate"><span class="pre">shorthandEdgeLabel</span></code></a>
+<strong id="grammar-token-graphDFS-shorthandEdgeLabel">shorthandEdgeLabel          </strong> ::=  '-' | ':' | '=' | '#' | '.' | ''
+<strong id="grammar-token-graphDFS-branch">branch                      </strong> ::=  '(' <a class="reference internal" href="#grammar-token-graphDFS-evPair"><code class="xref docutils literal notranslate"><span class="pre">evPair</span></code></a>+ ')'
+</pre>
+<p>A <code class="docutils literal notranslate"><span class="pre">bracketEscapedString</span></code> and <code class="docutils literal notranslate"><span class="pre">braceEscapedString</span></code> are zero or more
+characters except respectively <code class="docutils literal notranslate"><span class="pre">]</span></code> and <code class="docutils literal notranslate"><span class="pre">}</span></code>. To have these characters in
+each of their strings they must be escaped, i.e., <code class="docutils literal notranslate"><span class="pre">\]</span></code> and <code class="docutils literal notranslate"><span class="pre">\}</span></code>
+respectively.</p>
+<p>Whitespace is ignored, except inside <code class="docutils literal notranslate"><span class="pre">bracketEscapedString</span></code> and
+<code class="docutils literal notranslate"><span class="pre">braceEscapedString</span></code>.</p>
+<p>The parser additionally enforces that a <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref std std-token docutils literal notranslate"><span class="pre">defRingId</span></code></a> may not be
+a number which has previously been used.
+Similarly, a <a class="reference internal" href="#grammar-token-graphDFS-ringClosure"><code class="xref std std-token docutils literal notranslate"><span class="pre">ringClosure</span></code></a> may only be a number which has
+previously occured in a <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref std std-token docutils literal notranslate"><span class="pre">defRingId</span></code></a>.</p>
+<p>A vertex specified via the <a class="reference internal" href="#grammar-token-graphDFS-implicitHydrogenVertexLabels"><code class="xref std std-token docutils literal notranslate"><span class="pre">implicitHydrogenVertexLabels</span></code></a> rule
+will potentially have ekstra neighbours added after parsning. The rules are the
+exact same as for implicit hydrogen atoms in <a class="reference internal" href="#graph-smiles"><span class="std std-ref">SMILES</span></a>.</p>
+<section id="semantics">
+<h4><span class="section-number">8.3.1.1. </span>Semantics<a class="headerlink" href="#semantics" title="Link to this heading">¶</a></h4>
+<p>A GraphDFS string is, like the SMILES strings, an encoding of a depth-first
+traversal of the graph it encodes. Vertex labels are enclosed in square
+brackets and edge labels are enclosed in curly brackets. However, a special
+set of labels can be specified without the enclosing brackets.
+An edge label may additionally be completely omitted as a shorthand for a dash
+(<code class="docutils literal notranslate"><span class="pre">-</span></code>).</p>
+<p>A vertex can have a numeric identifier, defined by the
+<a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref std std-token docutils literal notranslate"><span class="pre">defRingId</span></code></a> non-terminal.
+At a later stage this identifier can be used as a vertex specification to
+specify a back-edge in the depth-first traversal.
+Example: <code class="docutils literal notranslate"><span class="pre">[v1]1-[v2]-[v3]-[v4]-1</span></code>, specifies a labelled <span class="math notranslate nohighlight">\(C_4\)</span>
+(which equivalently can be specified shorter as <code class="docutils literal notranslate"><span class="pre">[v1]1[v2][v3][v4]1</span></code>).</p>
+<p>A <a class="reference internal" href="#grammar-token-graphDFS-vertex"><code class="xref std std-token docutils literal notranslate"><span class="pre">vertex</span></code></a> being a <a class="reference internal" href="#grammar-token-graphDFS-ringClosure"><code class="xref std std-token docutils literal notranslate"><span class="pre">ringClosure</span></code></a> can never be
+the first vertex in a string, and is thus preceded with a
+<a class="reference internal" href="#grammar-token-graphDFS-edge"><code class="xref std std-token docutils literal notranslate"><span class="pre">edge</span></code></a>. As in a depth-first traversal, such a back-edge is a
+kind of degenerated branch. Example: <code class="docutils literal notranslate"><span class="pre">[v1]1[v2][v3][v4]1[v5][v6]1</span></code>, this
+specifies a graph which is two fused <span class="math notranslate nohighlight">\(C_4\)</span>,
+<span class="math notranslate nohighlight">\(v_1, v_2, v_3, v_4\)</span> and <span class="math notranslate nohighlight">\(v_4, v_5, v_6, v_1\)</span>,
+with a common edge, <span class="math notranslate nohighlight">\((v_1, v_4)\)</span>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The semantics of back-edges/ring closures are <strong>not</strong> the same as
+in SMILES strings. In SMILES, a pair of matching numeric identifiers denote
+the individual back-edges.</p>
+</div>
+<p>A branch in the depth-first traversal is enclosed in parentheses.</p>
+<p>The <a class="reference internal" href="#grammar-token-graphDFS-shorthandEdgeLabel"><code class="xref std std-token docutils literal notranslate"><span class="pre">shorthandEdgeLabel</span></code></a> <code class="docutils literal notranslate"><span class="pre">.</span></code> indicates a non-edge,
+i.e., a jump to a new vertex without creating an edge.
+For example <code class="docutils literal notranslate"><span class="pre">[v1].[v2]</span></code> encodes a graph with two vertices and no edges,
+while <code class="docutils literal notranslate"><span class="pre">[v1]{.}[v2]</span></code> encodes a graph with two vertcies connected with an edge
+with label <code class="docutils literal notranslate"><span class="pre">.</span></code>.</p>
+</section>
+<section id="abstracted-molecules">
+<h4><span class="section-number">8.3.1.2. </span>Abstracted Molecules<a class="headerlink" href="#abstracted-molecules" title="Link to this heading">¶</a></h4>
+<p>The short-hand labels for vertices and edges makes it easier to specify partial
+molecules than using <a class="reference internal" href="#graph-gml"><span class="std std-ref">GML</span></a> files.</p>
+<p>As example, consider modelling Acetyl-CoA in which we wish to abstract most of
+the CoA part. The GraphDFS string <code class="docutils literal notranslate"><span class="pre">CC(=O)S[CoA]</span></code> can be used and we let the
+library add missing hydrogen atoms to the vertices which encode atoms. A plain
+CoA molecule would in this modelling be <code class="docutils literal notranslate"><span class="pre">[CoA]S</span></code>, or a bit more verbosely as
+<code class="docutils literal notranslate"><span class="pre">[CoA]S[H]</span></code>.</p>
+<p>The format can also be used to create completely abstract structures
+(it can encode any undirected labelled graph), e.g., RNA strings.
+Note that in this case it may not be appropriate to add “missing” hydrogen
+atoms. This can be controlled by an optional parameter to the loading function.</p>
+</section>
+</section>
+<section id="ruledfs">
+<span id="format-ruledfs"></span><h3><span class="section-number">8.3.2. </span>RuleDFS<a class="headerlink" href="#ruledfs" title="Link to this heading">¶</a></h3>
+<p>The rule format builds on the graph format by using two GraphDFS strings to
+encode a rule:</p>
+<pre>
+<strong id="grammar-token-graphDFS-ruleDFS">ruleDFS</strong> ::=  [ <a class="reference internal" href="#grammar-token-graphDFS-graphDFS"><code class="xref docutils literal notranslate"><span class="pre">graphDFS</span></code></a> ] '&gt;&gt;' [ <a class="reference internal" href="#grammar-token-graphDFS-graphDFS"><code class="xref docutils literal notranslate"><span class="pre">graphDFS</span></code></a> ]
+</pre>
+<p>The two (possibly empty) GraphDFS strings encode the left-hand and right-hand
+side of a rule, with the vertex IDs being used to relate them.
+That is, a pair of vertices in the left side and right side with the same ID
+will be identified and the vertex put in the context graph of the rule as well.
+A similar pair of edges where both end-points are in the context graph will be
+put in the context graph as well.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>: the empty rule.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[A]&gt;&gt;</span></code>: a rule with a single vertex in <span class="math notranslate nohighlight">\(L\)</span>, and empty <span class="math notranslate nohighlight">\(K\)</span> and
+<span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[A]&gt;&gt;[B]</span></code>: a rule with empty <span class="math notranslate nohighlight">\(K\)</span> but with a vertex in <span class="math notranslate nohighlight">\(L\)</span>
+which is removed by the rule, and a vertex in <span class="math notranslate nohighlight">\(R\)</span> being created by the
+rule.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[A]1&gt;&gt;[B]1</span></code>: a rule with a vertex changing label from “A” to “B”.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently it is not possible to use vertices with implicit hydrogens
+in RuleDFS.</p>
+</div>
+</section>
+</section>
+<section id="mol-and-sd">
+<span id="graph-mdl"></span><h2><span class="section-number">8.4. </span>MOL and SD<a class="headerlink" href="#mol-and-sd" title="Link to this heading">¶</a></h2>
+<p>MØD can load graphs stored in the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Chemical_table_file">CT File</a> formats
+MOL (single structure) and SD (multiple structures).
+See the loading functions in <a class="reference internal" href="../libmod/graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Graph</span></code></a>/<a class="reference internal" href="../pymod/graph/Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> for
+the API.
+The loaded structures are converted to labelled graphs according to a specific
+<a class="reference internal" href="../graphModel/index.html#mol-enc"><span class="std std-ref">molecule encoding</span></a>.</p>
+<p>The reading of structures is based on the
+<a class="reference external" href="https://web.archive.org/web/20210219065450/https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf">published specification</a>,
+but with the following notes/changes.</p>
+<ul class="simple">
+<li><p>the <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod10MDLOptionsE" title="mod::MDLOptions"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">MDLOptions</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.MDLOptions" title="mod.MDLOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDLOptions</span></code></a> can be used to customize
+the loading procedure.</p></li>
+<li><p>radical value 2 is converted to <code class="docutils literal notranslate"><span class="pre">.</span></code> in the vertex labels.</p></li>
+<li><p>the atom symbols “LP” and “L” are used as is, as an atom with an abstract
+label.</p></li>
+<li><p>the atom symbols “A”, “Q”, and “*” are all considered as wildcard atoms and
+are converted to vertices with label <code class="docutils literal notranslate"><span class="pre">*</span></code>.
+See the use of <a class="reference internal" href="../graphModel/index.html#graph-model-terms"><span class="std std-ref">first-order terms</span></a> as labels.</p></li>
+<li><p>the bond orders 5, 6, and 7 for constrained wildcard bonds are converted
+to edges with labels starting with <code class="docutils literal notranslate"><span class="pre">_Q</span></code>, i.e., term variables.
+See the use of <a class="reference internal" href="../graphModel/index.html#graph-model-terms"><span class="std std-ref">first-order terms</span></a> as labels.</p></li>
+<li><p>the bond order 8 for unconstrianed bonds are converted to edges with label
+<code class="docutils literal notranslate"><span class="pre">*</span></code>.
+See the use of <a class="reference internal" href="../graphModel/index.html#graph-model-terms"><span class="std std-ref">first-order terms</span></a> as labels.</p></li>
+</ul>
+</section>
+<section id="abstract-derivation-graphs">
+<span id="dg-abstract-desc"></span><h2><span class="section-number">8.5. </span>Abstract Derivation Graphs<a class="headerlink" href="#abstract-derivation-graphs" title="Link to this heading">¶</a></h2>
+<p>Sometimes it is really convenient to quickly write down a few equations to
+describe a “derivation graph”, without associating actual graphs and rules to
+it. That is, only specifying the underlying network.
+The network description is a string adhering to the following grammar:</p>
+<pre>
+<strong id="grammar-token-dgAbstract-description">description</strong> ::=  <a class="reference internal" href="#grammar-token-dgAbstract-derivation"><code class="xref docutils literal notranslate"><span class="pre">derivation</span></code></a> { <a class="reference internal" href="#grammar-token-dgAbstract-derivation"><code class="xref docutils literal notranslate"><span class="pre">derivation</span></code></a> }
+<strong id="grammar-token-dgAbstract-derivation">derivation </strong> ::=  <a class="reference internal" href="#grammar-token-dgAbstract-side"><code class="xref docutils literal notranslate"><span class="pre">side</span></code></a> (&quot;-&gt;&quot; | &quot;&lt;=&gt;&quot;) <a class="reference internal" href="#grammar-token-dgAbstract-side"><code class="xref docutils literal notranslate"><span class="pre">side</span></code></a>
+<strong id="grammar-token-dgAbstract-side">side       </strong> ::=  <a class="reference internal" href="#grammar-token-dgAbstract-term"><code class="xref docutils literal notranslate"><span class="pre">term</span></code></a> { &quot;+&quot; <a class="reference internal" href="#grammar-token-dgAbstract-term"><code class="xref docutils literal notranslate"><span class="pre">term</span></code></a> }
+<strong id="grammar-token-dgAbstract-term">term       </strong> ::=  [ unsignedInt ] <a class="reference internal" href="#grammar-token-dgAbstract-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a>
+<strong id="grammar-token-dgAbstract-identifier">identifier </strong> ::=  any character sequence without spaces
+</pre>
+<p>Note that the <a class="reference internal" href="#grammar-token-dgAbstract-identifier"><code class="xref std std-token docutils literal notranslate"><span class="pre">identifier</span></code></a> definition
+in particular means that whitespace is important between coefficients and
+identifiers. E.g., <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">A</span> <span class="pre">-&gt;</span> <span class="pre">B</span></code> is different from <code class="docutils literal notranslate"><span class="pre">2A</span> <span class="pre">-&gt;</span> <span class="pre">B</span></code>.</p>
+<p>See also <a class="reference internal" href="../pymod/dg/Builder.html#mod.DGBuilder.addAbstract" title="mod.DGBuilder.addAbstract"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGBuilder.addAbstract()</span></code></a>/<a class="reference internal" href="../libmod/dg/Builder.html#_CPPv4N3mod2dg7Builder11addAbstractERKNSt6stringE" title="mod::dg::Builder::addAbstract"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::Builder::addAbstract()</span></code></a>.</p>
+</section>
+<section id="tikz">
+<h2><span class="section-number">8.6. </span>Tikz<a class="headerlink" href="#tikz" title="Link to this heading">¶</a></h2>
+<p>Both graphs and rules are visualized through <a class="reference internal" href="../postmod/index.html#mod-post"><span class="std std-ref">PostMØD</span></a> by the
+library generating <a class="reference external" href="http://www.ctan.org/pkg/pgf">Tikz</a> code and compiling it
+with Latex.</p>
+<p>The visualisation style is controlled by passing instances of
+<a class="reference internal" href="../libmod/graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">mod::graph::Printer</span></code></a>/<a class="reference internal" href="../pymod/graph/Printer.html#mod.GraphPrinter" title="mod.GraphPrinter"><code class="xref py py-class docutils literal notranslate"><span class="pre">mod.GraphPrinter</span></code></a>
+to the printing functions.
+The drawing style is inspired by <a class="reference external" href="http://www.ctan.org/pkg/chemfig">ChemFig</a>
+and <a class="reference external" href="http://openbabel.org">Open Babel</a>.</p>
+<p>The coordinates for the layout is either generated using Open Babel when the
+graphs a chemical enough, but otherwise <a class="reference external" href="http://www.graphviz.org">Graphviz</a>
+is invoked to generate coordinates.</p>
+<p>For visualizing a rule or DPO diagram, the position of vertices is used to
+indicate how morphisms map vertices to each other.</p>
+</section>
+<section id="dot-graphviz">
+<h2><span class="section-number">8.7. </span>DOT (Graphviz)<a class="headerlink" href="#dot-graphviz" title="Link to this heading">¶</a></h2>
+<p>The DOT format (from <a class="reference external" href="http://www.graphviz.org">Graphviz</a>) is used for
+generating vertex coordinates for the Tikz format, when Open Babel can not be
+used.</p>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/formats/index.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

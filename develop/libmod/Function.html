@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.5. Function.hpp &#8212; MØD 0.15.0.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/documentation_options.js?v=f39133a7"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2.6. GraphConcepts.hpp" href="GraphConcepts.html" />
+    <link rel="prev" title="3.2.4. Error.hpp" href="Error.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0.5</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.5. Function.hpp</a><ul>
+<li><a class="reference internal" href="#_CPPv4I0EN3mod8FunctionE"><code class="docutils literal notranslate"><span class="pre">Function</span></code></a></li>
+<li><a class="reference internal" href="#class-template-typename-r-typename-args-function-r-args">3.2.5.1. Class <code class="docutils literal notranslate"><span class="pre">template&lt;typename</span> <span class="pre">R,</span> <span class="pre">typename</span> <span class="pre">...Args&gt;</span> <span class="pre">Function&lt;R(Args...)&gt;</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE"><code class="docutils literal notranslate"><span class="pre">Function</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.5.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.5.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5cloneEv"><code class="docutils literal notranslate"><span class="pre">clone()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5printERNSt7ostreamE"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEEclEDp4Args"><code class="docutils literal notranslate"><span class="pre">operator()()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Error.html" title="Previous Chapter: 3.2.4. Error.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.4. Error.hpp
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="GraphConcepts.html" title="Next Chapter: 3.2.6. GraphConcepts.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.6. GraphC... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="function-hpp">
+<span id="cpp-function"></span><h1><span class="section-number">3.2.5. </span>Function.hpp<a class="headerlink" href="#function-hpp" title="Link to this heading">¶</a></h1>
+<p>The class template <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4I0EN3mod8FunctionE" title="mod::Function"><span class="n">Function</span></a></span> is used throughout the library to represent
+function objects.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mod8FunctionE">
+<span id="_CPPv3I0EN3mod8FunctionE"></span><span id="_CPPv2I0EN3mod8FunctionE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sig</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Function</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mod8FunctionE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<section id="class-template-typename-r-typename-args-function-r-args">
+<h2><span class="section-number">3.2.5.1. </span>Class <code class="docutils literal notranslate"><span class="pre">template&lt;typename</span> <span class="pre">R,</span> <span class="pre">typename</span> <span class="pre">...Args&gt;</span> <span class="pre">Function&lt;R(Args...)&gt;</span></code><a class="headerlink" href="#class-template-typename-r-typename-args-function-r-args" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE">
+<span id="_CPPv3I0DpEN3mod8FunctionIF1RDp4ArgsEEE"></span><span id="_CPPv2I0DpEN3mod8FunctionIF1RDp4ArgsEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">R</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Function</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::R"><span class="n"><span class="pre">R</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Abstract base class template for function objects used in the library.</p>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.5.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Function</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::R"><span class="n"><span class="pre">R</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5cloneEv" title="mod::Function&lt;R(Args...)&gt;::clone"><span class="n"><span class="pre">clone</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5printERNSt7ostreamE" title="mod::Function&lt;R(Args...)&gt;::print"><span class="n"><span class="pre">print</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::R"><span class="n"><span class="pre">R</span></span></a><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEEclEDp4Args" title="mod::Function&lt;R(Args...)&gt;::operator()"><span class="sig-name descname"><span class="pre">()</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.5.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5cloneEv">
+<span id="_CPPv3NK3mod8FunctionIF1RDp4ArgsEE5cloneEv"></span><span id="_CPPv2NK3mod8FunctionIF1RDp4ArgsEE5cloneEv"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Function</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::R"><span class="n"><span class="pre">R</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5cloneEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Cloning function used when a copy of a given functor is needed.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5printERNSt7ostreamE">
+<span id="_CPPv3NK3mod8FunctionIF1RDp4ArgsEE5printERNSt7ostreamE"></span><span id="_CPPv2NK3mod8FunctionIF1RDp4ArgsEE5printERNSt7ostreamE"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEE5printERNSt7ostreamE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Printing function used for describing the function in output from algorithms.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod8FunctionIF1RDp4ArgsEEclEDp4Args">
+<span id="_CPPv3NK3mod8FunctionIF1RDp4ArgsEEclEDp4Args"></span><span id="_CPPv2NK3mod8FunctionIF1RDp4ArgsEEclEDp4Args"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::R"><span class="n"><span class="pre">R</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0DpEN3mod8FunctionIF1RDp4ArgsEEE" title="mod::Function&lt;R(Args...)&gt;::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK3mod8FunctionIF1RDp4ArgsEEclEDp4Args" title="Link to this definition">¶</a><br /></dt>
+<dd><p>The actual function implementation of the function.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/libmod/Function.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

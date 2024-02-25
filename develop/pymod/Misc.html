@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.6. Misc &#8212; MØD 0.15.0.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/documentation_options.js?v=f39133a7"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.1.7. Post" href="Post.html" />
+    <link rel="prev" title="4.1.5. Error" href="Error.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0.5</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.6. Misc</a><ul>
+<li><a class="reference internal" href="#mod.prefixFilename"><code class="docutils literal notranslate"><span class="pre">prefixFilename()</span></code></a></li>
+<li><a class="reference internal" href="#mod.pushFilePrefix"><code class="docutils literal notranslate"><span class="pre">pushFilePrefix()</span></code></a></li>
+<li><a class="reference internal" href="#mod.popFilePrefix"><code class="docutils literal notranslate"><span class="pre">popFilePrefix()</span></code></a></li>
+<li><a class="reference internal" href="#mod.CWDPath"><code class="docutils literal notranslate"><span class="pre">CWDPath</span></code></a><ul>
+<li><a class="reference internal" href="#mod.CWDPath.__init__"><code class="docutils literal notranslate"><span class="pre">CWDPath.__init__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.magicLibraryValue"><code class="docutils literal notranslate"><span class="pre">magicLibraryValue()</span></code></a></li>
+<li><a class="reference internal" href="#mod.version"><code class="docutils literal notranslate"><span class="pre">version()</span></code></a></li>
+<li><a class="reference internal" href="#mod.rngReseed"><code class="docutils literal notranslate"><span class="pre">rngReseed()</span></code></a></li>
+<li><a class="reference internal" href="#mod.rngUniformReal"><code class="docutils literal notranslate"><span class="pre">rngUniformReal()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Error.html" title="Previous Chapter: 4.1.5. Error">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.5. Error
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Post.html" title="Next Chapter: 4.1.7. Post">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.7. Post &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="misc">
+<span id="py-misc"></span><h1><span class="section-number">4.1.6. </span>Misc<a class="headerlink" href="#misc" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.prefixFilename">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">prefixFilename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.prefixFilename" title="Link to this definition">¶</a></dt>
+<dd><p>Utility function for converting script-relative paths to current-working-directory-relative paths
+(see also <a class="reference internal" href="../exe/index.html#mod.include" title="mod.include"><code class="xref py py-func docutils literal notranslate"><span class="pre">include()</span></code></a>).
+This function is used in all PyMØD functions that takes a filename as argument.
+To circumvent this prefixing use the <a class="reference internal" href="#mod.CWDPath" title="mod.CWDPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">CWDPath</span></code></a> class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>name</cite> prefixed with all strings pushed with <a class="reference internal" href="#mod.pushFilePrefix" title="mod.pushFilePrefix"><code class="xref py py-func docutils literal notranslate"><span class="pre">pushFilePrefix()</span></code></a>
+and popped yet.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.pushFilePrefix">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">pushFilePrefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.pushFilePrefix" title="Link to this definition">¶</a></dt>
+<dd><p>Push another prefix used in <a class="reference internal" href="#mod.prefixFilename" title="mod.prefixFilename"><code class="xref py py-func docutils literal notranslate"><span class="pre">prefixFilename()</span></code></a>.
+The prefixes are concatenated in the order they are pushed.
+No directory delimiters are inserted, so they must explicitly be part of the pushed prefixes.
+If the argument starts with <code class="docutils literal notranslate"><span class="pre">/</span></code>, then during concatenation all previously pushed prefixes are ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the string to push as a prefix to be concatenated in <a class="reference internal" href="#mod.prefixFilename" title="mod.prefixFilename"><code class="xref py py-func docutils literal notranslate"><span class="pre">prefixFilename()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.popFilePrefix">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">popFilePrefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.popFilePrefix" title="Link to this definition">¶</a></dt>
+<dd><p>Pop a previously pushed prefix.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.CWDPath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">CWDPath</span></span><a class="headerlink" href="#mod.CWDPath" title="Link to this definition">¶</a></dt>
+<dd><p>A dummy class to wrap a filename in to disable prefixing.</p>
+<p>For example, if a graph GML file is to be loaded relative to the current file
+(assuming <a class="reference internal" href="../exe/index.html#mod.include" title="mod.include"><code class="xref py py-func docutils literal notranslate"><span class="pre">include()</span></code></a> is used for script inclusion), then it can be done with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">graphGML</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the file is located relative to the current working directory
+(i.e., where the <a class="reference internal" href="index.html#module-mod" title="mod"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">mod</span></code></a> wrapper script were invoked from), then the graph loading should be done as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">graphGML</span><span class="p">(</span><span class="n">CWDPath</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.CWDPath.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.CWDPath.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Wrap a filename.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.magicLibraryValue">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">magicLibraryValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.magicLibraryValue" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a number unique for each instantiation of libMØD.
+This can be used to check for the diamond problem for shared libraries.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.version">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.version" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the version of MØD.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.rngReseed">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">rngReseed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.rngReseed" title="Link to this definition">¶</a></dt>
+<dd><p>Reseed the random bit generator used in the library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.rngUniformReal">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">rngUniformReal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.rngUniformReal" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a uniformly random real number between 0 and 1.
+:rtype: float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/pymod/Misc.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

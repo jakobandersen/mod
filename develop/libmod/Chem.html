@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.1. Chem.hpp &#8212; MØD 0.15.0.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/documentation_options.js?v=f39133a7"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2.2. Config.hpp" href="Config.html" />
+    <link rel="prev" title="3.2. API Reference" href="api.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.15.0.5</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.1. Chem.hpp</a><ul>
+<li><a class="reference internal" href="#class-atomid">3.2.1.1. Class <code class="docutils literal notranslate"><span class="pre">AtomId</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod6AtomIdE"><code class="docutils literal notranslate"><span class="pre">AtomId</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.1.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.1.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod6AtomId6AtomIdEv"><code class="docutils literal notranslate"><span class="pre">AtomId()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod6AtomId6AtomIdEj"><code class="docutils literal notranslate"><span class="pre">AtomId()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod6AtomIdcvhEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">unsigned</span> <span class="pre">char()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod6AtomId6symbolEv"><code class="docutils literal notranslate"><span class="pre">symbol()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod6AtomIdlsERNSt7ostreamE6AtomId"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-isotope">3.2.1.2. Class <code class="docutils literal notranslate"><span class="pre">Isotope</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod7IsotopeE"><code class="docutils literal notranslate"><span class="pre">Isotope</span></code></a></li>
+<li><a class="reference internal" href="#id1">3.2.1.2.1. Synopsis</a></li>
+<li><a class="reference internal" href="#id2">3.2.1.2.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod7Isotope7IsotopeEv"><code class="docutils literal notranslate"><span class="pre">Isotope()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod7Isotope7IsotopeEi"><code class="docutils literal notranslate"><span class="pre">Isotope()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod7IsotopecviEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">int()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod7IsotopelsERNSt7ostreamE7Isotope"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-charge">3.2.1.3. Class <code class="docutils literal notranslate"><span class="pre">Charge</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod6ChargeE"><code class="docutils literal notranslate"><span class="pre">Charge</span></code></a></li>
+<li><a class="reference internal" href="#id3">3.2.1.3.1. Synopsis</a></li>
+<li><a class="reference internal" href="#id4">3.2.1.3.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod6Charge6ChargeEv"><code class="docutils literal notranslate"><span class="pre">Charge()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod6Charge6ChargeEa"><code class="docutils literal notranslate"><span class="pre">Charge()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod6ChargecvaEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">signed</span> <span class="pre">char()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod6ChargelsERNSt7ostreamE6Charge"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-atomdata">3.2.1.4. Class <code class="docutils literal notranslate"><span class="pre">AtomData</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod8AtomDataE"><code class="docutils literal notranslate"><span class="pre">AtomData</span></code></a></li>
+<li><a class="reference internal" href="#id5">3.2.1.4.1. Synopsis</a></li>
+<li><a class="reference internal" href="#id6">3.2.1.4.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataEv"><code class="docutils literal notranslate"><span class="pre">AtomData()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId"><code class="docutils literal notranslate"><span class="pre">AtomData()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId6Chargeb"><code class="docutils literal notranslate"><span class="pre">AtomData()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId7Isotope6Chargeb"><code class="docutils literal notranslate"><span class="pre">AtomData()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod8AtomData9getAtomIdEv"><code class="docutils literal notranslate"><span class="pre">getAtomId()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod8AtomData10getIsotopeEv"><code class="docutils literal notranslate"><span class="pre">getIsotope()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod8AtomData9getChargeEv"><code class="docutils literal notranslate"><span class="pre">getCharge()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod8AtomData10getRadicalEv"><code class="docutils literal notranslate"><span class="pre">getRadical()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8AtomDatalsERNSt7ostreamERK8AtomData"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#enum-bondtype">3.2.1.5. Enum <code class="docutils literal notranslate"><span class="pre">BondType</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod8BondTypeE"><code class="docutils literal notranslate"><span class="pre">BondType</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod8BondType7InvalidE"><code class="docutils literal notranslate"><span class="pre">BondType::Invalid</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8BondType6SingleE"><code class="docutils literal notranslate"><span class="pre">BondType::Single</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8BondType8AromaticE"><code class="docutils literal notranslate"><span class="pre">BondType::Aromatic</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8BondType6DoubleE"><code class="docutils literal notranslate"><span class="pre">BondType::Double</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod8BondType6TripleE"><code class="docutils literal notranslate"><span class="pre">BondType::Triple</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3modlsERNSt7ostreamE8BondType"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-atomids">3.2.1.6. Namespace <code class="docutils literal notranslate"><span class="pre">AtomIds</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod7AtomIds7InvalidE"><code class="docutils literal notranslate"><span class="pre">Invalid</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod7AtomIds3MaxE"><code class="docutils literal notranslate"><span class="pre">Max</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="api.html" title="Previous Chapter: 3.2. API Reference">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2. API Reference
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Config.html" title="Next Chapter: 3.2.2. Config.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.2. Config.hpp &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="chem-hpp">
+<span id="cpp-chem"></span><h1><span class="section-number">3.2.1. </span>Chem.hpp<a class="headerlink" href="#chem-hpp" title="Link to this heading">¶</a></h1>
+<section id="class-atomid">
+<h2><span class="section-number">3.2.1.1. </span>Class <code class="docutils literal notranslate"><span class="pre">AtomId</span></code><a class="headerlink" href="#class-atomid" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6AtomIdE">
+<span id="_CPPv3N3mod6AtomIdE"></span><span id="_CPPv2N3mod6AtomIdE"></span><span id="mod::AtomId"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomId</span></span></span><a class="headerlink" href="#_CPPv4N3mod6AtomIdE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Representation of the chemical element of an atom.</p>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.1.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6AtomId6AtomIdEv" title="mod::AtomId::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6AtomId6AtomIdEj" title="mod::AtomId::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod6AtomIdcvhEv" title="mod::AtomId::operator unsigned char"><span class="sig-name descname"><span class="pre">unsigned</span> <span class="pre">char</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod6AtomId6symbolEv" title="mod::AtomId::symbol"><span class="n"><span class="pre">symbol</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod6AtomIdlsERNSt7ostreamE6AtomId" title="mod::AtomId::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n"><span class="pre">atomId</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.1.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6AtomId6AtomIdEv">
+<span id="_CPPv3N3mod6AtomId6AtomIdEv"></span><span id="_CPPv2N3mod6AtomId6AtomIdEv"></span><span id="mod::AtomId::AtomIdCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod6AtomId6AtomIdEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct an <a class="reference internal" href="#_CPPv4N3mod7AtomIds7InvalidE" title="mod::AtomIds::Invalid"><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">AtomIds::Invalid</span></code></a> atom id.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6AtomId6AtomIdEj">
+<span id="_CPPv3N3mod6AtomId6AtomIdEj"></span><span id="_CPPv2N3mod6AtomId6AtomIdEj"></span><span id="mod::AtomId::AtomId__unsigned-iCE"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomId</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod6AtomId6AtomIdEj" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a specific atom id. Pre-condition: the id must be at most that of <a class="reference internal" href="#_CPPv4N3mod7AtomIds3MaxE" title="mod::AtomIds::Max"><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">AtomIds::Max</span></code></a>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod6AtomIdcvhEv">
+<span id="_CPPv3NK3mod6AtomIdcvhEv"></span><span id="_CPPv2NK3mod6AtomIdcvhEv"></span><span id="mod::AtomId::castto-unsigned-c-operatorCCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod6AtomIdcvhEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Implicit conversion to an integer type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod6AtomId6symbolEv">
+<span id="_CPPv3NK3mod6AtomId6symbolEv"></span><span id="_CPPv2NK3mod6AtomId6symbolEv"></span><span id="mod::AtomId::symbolC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">symbol</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod6AtomId6symbolEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the symbol represented by the atom id.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the id is invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6AtomIdlsERNSt7ostreamE6AtomId">
+<span id="_CPPv3N3mod6AtomIdlsERNSt7ostreamE6AtomId"></span><span id="_CPPv2N3mod6AtomIdlsERNSt7ostreamE6AtomId"></span><span id="mod::AtomId::lshift-operator__osR.AtomId"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">atomId</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod6AtomIdlsERNSt7ostreamE6AtomId" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Inserts the <span class="cpp-expr sig sig-inline cpp"><span class="kt">int</span></span> value of the atom id into the stream.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="class-isotope">
+<h2><span class="section-number">3.2.1.2. </span>Class <code class="docutils literal notranslate"><span class="pre">Isotope</span></code><a class="headerlink" href="#class-isotope" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod7IsotopeE">
+<span id="_CPPv3N3mod7IsotopeE"></span><span id="_CPPv2N3mod7IsotopeE"></span><span id="mod::Isotope"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Isotope</span></span></span><a class="headerlink" href="#_CPPv4N3mod7IsotopeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Representation of the isotope of an atom.</p>
+</dd></dl>
+
+<section id="id1">
+<h3><span class="section-number">3.2.1.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod7Isotope7IsotopeEv" title="mod::Isotope::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod7Isotope7IsotopeEi" title="mod::Isotope::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod7IsotopecviEv" title="mod::Isotope::operator int"><span class="sig-name descname"><span class="pre">int</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod7IsotopelsERNSt7ostreamE7Isotope" title="mod::Isotope::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="n"><span class="pre">iso</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id2">
+<h3><span class="section-number">3.2.1.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod7Isotope7IsotopeEv">
+<span id="_CPPv3N3mod7Isotope7IsotopeEv"></span><span id="_CPPv2N3mod7Isotope7IsotopeEv"></span><span id="mod::Isotope::IsotopeCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Isotope</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod7Isotope7IsotopeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a representation of the most abundant isotope.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is different from explicitly specifying the isotope that is the most abundant one.</p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod7Isotope7IsotopeEi">
+<span id="_CPPv3N3mod7Isotope7IsotopeEi"></span><span id="_CPPv2N3mod7Isotope7IsotopeEi"></span><span id="mod::Isotope::Isotope__iCE"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Isotope</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod7Isotope7IsotopeEi" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a specific isotope. Pre-condition: the isotope must either be at least 1 or be -1.
+Passing -1 is equivalent to default-construction.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod7IsotopecviEv">
+<span id="_CPPv3NK3mod7IsotopecviEv"></span><span id="_CPPv2NK3mod7IsotopecviEv"></span><span id="mod::Isotope::castto-i-operatorCCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod7IsotopecviEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Implicit conversion to an integer type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod7IsotopelsERNSt7ostreamE7Isotope">
+<span id="_CPPv3N3mod7IsotopelsERNSt7ostreamE7Isotope"></span><span id="_CPPv2N3mod7IsotopelsERNSt7ostreamE7Isotope"></span><span id="mod::Isotope::lshift-operator__osR.Isotope"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">iso</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod7IsotopelsERNSt7ostreamE7Isotope" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Inserts the integer value of the isotope into the stream.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="class-charge">
+<h2><span class="section-number">3.2.1.3. </span>Class <code class="docutils literal notranslate"><span class="pre">Charge</span></code><a class="headerlink" href="#class-charge" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6ChargeE">
+<span id="_CPPv3N3mod6ChargeE"></span><span id="_CPPv2N3mod6ChargeE"></span><span id="mod::Charge"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Charge</span></span></span><a class="headerlink" href="#_CPPv4N3mod6ChargeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Representation of the charge of an atom.</p>
+</dd></dl>
+
+<section id="id3">
+<h3><span class="section-number">3.2.1.3.1. </span>Synopsis<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6Charge6ChargeEv" title="mod::Charge::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6Charge6ChargeEa" title="mod::Charge::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">signed</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod6ChargecvaEv" title="mod::Charge::operator signed char"><span class="sig-name descname"><span class="pre">signed</span> <span class="pre">char</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod6ChargelsERNSt7ostreamE6Charge" title="mod::Charge::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="n"><span class="pre">charge</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id4">
+<h3><span class="section-number">3.2.1.3.2. </span>Details<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6Charge6ChargeEv">
+<span id="_CPPv3N3mod6Charge6ChargeEv"></span><span id="_CPPv2N3mod6Charge6ChargeEv"></span><span id="mod::Charge::ChargeCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Charge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod6Charge6ChargeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a neutral charge.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6Charge6ChargeEa">
+<span id="_CPPv3N3mod6Charge6ChargeEa"></span><span id="_CPPv2N3mod6Charge6ChargeEa"></span><span id="mod::Charge::Charge__signed-cCE"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Charge</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">signed</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod6Charge6ChargeEa" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a specific charge. Pre-condition: the charge must be in the range <span class="math notranslate nohighlight">\([-9, 9]\)</span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod6ChargecvaEv">
+<span id="_CPPv3NK3mod6ChargecvaEv"></span><span id="_CPPv2NK3mod6ChargecvaEv"></span><span id="mod::Charge::castto-signed-c-operatorCCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">signed</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod6ChargecvaEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Implicit conversion to an integer type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6ChargelsERNSt7ostreamE6Charge">
+<span id="_CPPv3N3mod6ChargelsERNSt7ostreamE6Charge"></span><span id="_CPPv2N3mod6ChargelsERNSt7ostreamE6Charge"></span><span id="mod::Charge::lshift-operator__osR.Charge"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">charge</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod6ChargelsERNSt7ostreamE6Charge" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Inserts the <span class="cpp-expr sig sig-inline cpp"><span class="kt">int</span></span> value of the charge into the stream.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="class-atomdata">
+<h2><span class="section-number">3.2.1.4. </span>Class <code class="docutils literal notranslate"><span class="pre">AtomData</span></code><a class="headerlink" href="#class-atomdata" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8AtomDataE">
+<span id="_CPPv3N3mod8AtomDataE"></span><span id="_CPPv2N3mod8AtomDataE"></span><span id="mod::AtomData"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomData</span></span></span><a class="headerlink" href="#_CPPv4N3mod8AtomDataE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Representation of basic data of an atom.</p>
+</dd></dl>
+
+<section id="id5">
+<h3><span class="section-number">3.2.1.4.1. </span>Synopsis<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataEv" title="mod::AtomData::AtomData"><span class="n"><span class="pre">AtomData</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId" title="mod::AtomData::AtomData"><span class="n"><span class="pre">AtomData</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n"><span class="pre">atomId</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId6Chargeb" title="mod::AtomData::AtomData"><span class="n"><span class="pre">AtomData</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n"><span class="pre">atomId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="n"><span class="pre">charge</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">radical</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId7Isotope6Chargeb" title="mod::AtomData::AtomData"><span class="n"><span class="pre">AtomData</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n"><span class="pre">atomId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="n"><span class="pre">isotope</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="n"><span class="pre">charge</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">radical</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod8AtomData9getAtomIdEv" title="mod::AtomData::getAtomId"><span class="n"><span class="pre">getAtomId</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod8AtomData10getIsotopeEv" title="mod::AtomData::getIsotope"><span class="n"><span class="pre">getIsotope</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod8AtomData9getChargeEv" title="mod::AtomData::getCharge"><span class="n"><span class="pre">getCharge</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod8AtomData10getRadicalEv" title="mod::AtomData::getRadical"><span class="n"><span class="pre">getRadical</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod8AtomDatalsERNSt7ostreamERK8AtomData" title="mod::AtomData::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod8AtomDataE" title="mod::AtomData"><span class="n"><span class="pre">AtomData</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id6">
+<h3><span class="section-number">3.2.1.4.2. </span>Details<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8AtomData8AtomDataEv">
+<span id="_CPPv3N3mod8AtomData8AtomDataEv"></span><span id="_CPPv2N3mod8AtomData8AtomDataEv"></span><span id="mod::AtomData::AtomDataCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomData</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod8AtomData8AtomDataEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct atom data with default values:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv4N3mod7AtomIds7InvalidE" title="mod::AtomIds::Invalid"><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">AtomIds::Invalid</span></code></a> atom id,</p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n">Isotope</span></a><span class="p">(</span><span class="p">)</span></span> as isotope,</p></li>
+<li><p>neutral charge, and</p></li>
+<li><p>no radical.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8AtomData8AtomDataE6AtomId">
+<span id="_CPPv3N3mod8AtomData8AtomDataE6AtomId"></span><span id="_CPPv2N3mod8AtomData8AtomDataE6AtomId"></span><span id="mod::AtomData::AtomData__AtomIdCE"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomData</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">atomId</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct atom data the given atom id, and otherwise default values (see above).</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8AtomData8AtomDataE6AtomId6Chargeb">
+<span id="_CPPv3N3mod8AtomData8AtomDataE6AtomId6Chargeb"></span><span id="_CPPv2N3mod8AtomData8AtomDataE6AtomId6Chargeb"></span><span id="mod::AtomData::AtomData__AtomId.Charge.bCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomData</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">atomId</span></span>, <a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">charge</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radical</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId6Chargeb" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct atom data with given atom id, charge, and radical, but with default isotope.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8AtomData8AtomDataE6AtomId7Isotope6Chargeb">
+<span id="_CPPv3N3mod8AtomData8AtomDataE6AtomId7Isotope6Chargeb"></span><span id="_CPPv2N3mod8AtomData8AtomDataE6AtomId7Isotope6Chargeb"></span><span id="mod::AtomData::AtomData__AtomId.Isotope.Charge.bCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AtomData</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">atomId</span></span>, <a class="reference internal" href="#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">isotope</span></span>, <a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">charge</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radical</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod8AtomData8AtomDataE6AtomId7Isotope6Chargeb" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct atom data with given atom id, isotope, charge, and radical.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod8AtomData9getAtomIdEv">
+<span id="_CPPv3NK3mod8AtomData9getAtomIdEv"></span><span id="_CPPv2NK3mod8AtomData9getAtomIdEv"></span><span id="mod::AtomData::getAtomIdCCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAtomId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod8AtomData9getAtomIdEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Retrieve the atom id.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod8AtomData10getIsotopeEv">
+<span id="_CPPv3NK3mod8AtomData10getIsotopeEv"></span><span id="_CPPv2NK3mod8AtomData10getIsotopeEv"></span><span id="mod::AtomData::getIsotopeCCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIsotope</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod8AtomData10getIsotopeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Retrieve the isotope.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod8AtomData9getChargeEv">
+<span id="_CPPv3NK3mod8AtomData9getChargeEv"></span><span id="_CPPv2NK3mod8AtomData9getChargeEv"></span><span id="mod::AtomData::getChargeCCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCharge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod8AtomData9getChargeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Retrieve the charge.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod8AtomData10getRadicalEv">
+<span id="_CPPv3NK3mod8AtomData10getRadicalEv"></span><span id="_CPPv2NK3mod8AtomData10getRadicalEv"></span><span id="mod::AtomData::getRadicalCCE"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRadical</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod8AtomData10getRadicalEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Retrieve the radical status.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8AtomDatalsERNSt7ostreamERK8AtomData">
+<span id="_CPPv3N3mod8AtomDatalsERNSt7ostreamERK8AtomData"></span><span id="_CPPv2N3mod8AtomDatalsERNSt7ostreamERK8AtomData"></span><span id="mod::AtomData::lshift-operator__osR.AtomDataCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod8AtomDataE" title="mod::AtomData"><span class="n"><span class="pre">AtomData</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod8AtomDatalsERNSt7ostreamERK8AtomData" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Format the atom data adhering to the string encoding of atoms (see <a class="reference internal" href="../graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the atom id is <a class="reference internal" href="#_CPPv4N3mod7AtomIds7InvalidE" title="mod::AtomIds::Invalid"><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">AtomIds::Invalid</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="enum-bondtype">
+<h2><span class="section-number">3.2.1.5. </span>Enum <code class="docutils literal notranslate"><span class="pre">BondType</span></code><a class="headerlink" href="#enum-bondtype" title="Link to this heading">¶</a></h2>
+<dl class="cpp enum-struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8BondTypeE">
+<span id="_CPPv3N3mod8BondTypeE"></span><span id="_CPPv2N3mod8BondTypeE"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BondType</span></span></span><a class="headerlink" href="#_CPPv4N3mod8BondTypeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Representation of a bond type (see <a class="reference internal" href="../graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>).</p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8BondType7InvalidE">
+<span id="_CPPv3N3mod8BondType7InvalidE"></span><span id="_CPPv2N3mod8BondType7InvalidE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Invalid</span></span></span><a class="headerlink" href="#_CPPv4N3mod8BondType7InvalidE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8BondType6SingleE">
+<span id="_CPPv3N3mod8BondType6SingleE"></span><span id="_CPPv2N3mod8BondType6SingleE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Single</span></span></span><a class="headerlink" href="#_CPPv4N3mod8BondType6SingleE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8BondType8AromaticE">
+<span id="_CPPv3N3mod8BondType8AromaticE"></span><span id="_CPPv2N3mod8BondType8AromaticE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Aromatic</span></span></span><a class="headerlink" href="#_CPPv4N3mod8BondType8AromaticE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8BondType6DoubleE">
+<span id="_CPPv3N3mod8BondType6DoubleE"></span><span id="_CPPv2N3mod8BondType6DoubleE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Double</span></span></span><a class="headerlink" href="#_CPPv4N3mod8BondType6DoubleE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod8BondType6TripleE">
+<span id="_CPPv3N3mod8BondType6TripleE"></span><span id="_CPPv2N3mod8BondType6TripleE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Triple</span></span></span><a class="headerlink" href="#_CPPv4N3mod8BondType6TripleE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3modlsERNSt7ostreamE8BondType">
+<span id="_CPPv3N3modlsERNSt7ostreamE8BondType"></span><span id="_CPPv2N3modlsERNSt7ostreamE8BondType"></span><span id="mod::lshift-operator__osR.BondType"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4N3mod8BondTypeE" title="mod::BondType"><span class="n"><span class="pre">BondType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">bt</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3modlsERNSt7ostreamE8BondType" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Format the bond type adhering to the string encoding of bonds (see <a class="reference internal" href="../graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the bond type is <a class="reference internal" href="#_CPPv4N3mod8BondType7InvalidE" title="mod::BondType::Invalid"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">BondType::Invalid</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="namespace-atomids">
+<h2><span class="section-number">3.2.1.6. </span>Namespace <code class="docutils literal notranslate"><span class="pre">AtomIds</span></code><a class="headerlink" href="#namespace-atomids" title="Link to this heading">¶</a></h2>
+<p>This namespace contains constants for each chemical element, both as their abbreviations and their full names.
+Two additional constants are provided for convenience.</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod7AtomIds7InvalidE">
+<span id="_CPPv3N3mod7AtomIds7InvalidE"></span><span id="_CPPv2N3mod7AtomIds7InvalidE"></span><span id="mod::AtomIds::Invalid__AtomId"></span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AtomIds</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Invalid</span></span></span><a class="headerlink" href="#_CPPv4N3mod7AtomIds7InvalidE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Constant for the invalid atom id.</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod7AtomIds3MaxE">
+<span id="_CPPv3N3mod7AtomIds3MaxE"></span><span id="_CPPv2N3mod7AtomIds3MaxE"></span><span id="mod::AtomIds::Max__AtomId"></span><a class="reference internal" href="#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AtomIds</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Max</span></span></span><a class="headerlink" href="#_CPPv4N3mod7AtomIds3MaxE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>An atom id equal to the atom id with the maximum valid id.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/libmod/Chem.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>
