@@ -151,3 +151,34 @@ jobs:
       run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
       run: mod -e "smiles('O').print()"
+  macOS-14:
+    runs-on: macos-14
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+    - name: Install Brew dependencies
+      run: |
+        brew bundle
+        /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
+    - name: Install pip dependencies
+      run: pip3 install -r requirements.txt
+    - name: Bootstrap
+      run: ./bootstrap.sh
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
+    - name: Build
+      run: cd build && make -j 3
+    - name: Install
+      run: cd build && sudo make install
+    - name: Build tests
+      run: cd build && make tests -j 3
+    - name: Run tests
+      run: cd build && ctest --output-on-failure -j 3
+    - name: Run simple test
+      run: mod -e "smiles('O').print()"
