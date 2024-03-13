@@ -20,6 +20,8 @@ Bugs Fixed
 
 - Fix adjacency constraint when in term mode and multiple labels in the constraint
   matches the same label in the candidate graph.
+- Fix :cpp:func:`rule::Rule::makeInverse`/:py:meth:`Rule.makeInverse` to not crash
+  when the rule has no external IDs recorded.
 
 
 v0.15.0 (2024-01-26)

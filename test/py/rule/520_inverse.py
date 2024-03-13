@@ -40,6 +40,8 @@ check('node [ id 0 label "A" ]', '')
 check('', 'node [ id 0 label "A" ]')
 check('node [ id 0 label "A" ]', 'node [ id 0 label "B" ]')
 check('node [ id 0 label "C" ]', 'node [ id 0 label "C" ]')
+# in particular to test external ID propagation when none are present:
+Rule.fromDFS("[A]>>[B]").makeInverse()
 # edges
 check('''
 	node [ id 0 label "X" ]
