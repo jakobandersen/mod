@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>5. PostMØD &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. The Wrapper Script" href="../exe/index.html" />
@@ -133,7 +135,7 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="postmod">
-<span id="mod-post"></span><h1><span class="section-number">5. </span>PostMØD<a class="headerlink" href="#postmod" title="Link to this heading">¶</a></h1>
+<span id="mod-post"></span><h1><span class="section-number">5. </span>PostMØD<a class="headerlink" href="#postmod" title="Permalink to this heading">¶</a></h1>
 <p>The post processor, <code class="docutils literal notranslate"><span class="pre">mod_post</span></code>, is used for compiling figures and a summary
 document of the data in the <code class="docutils literal notranslate"><span class="pre">out/</span></code> folder. As default it is automatically
 invoked by the wrapper script.</p>
@@ -148,21 +150,21 @@ A master Latex docuemnt is compiled to <code class="docutils literal notranslate
 The master document includes the generated Latex file.</p></li>
 </ol>
 <section id="usage">
-<h2><span class="section-number">5.1. </span>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">5.1. </span>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mod_post<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </pre></div>
 </div>
 <section id="options">
-<h3><span class="section-number">5.1.1. </span>Options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">5.1.1. </span>Options<a class="headerlink" href="#options" title="Permalink to this heading">¶</a></h3>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-mod_post-help">
-<span id="cmdoption-mod_post-h"></span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-mod_post-help" title="Link to this definition">¶</a></dt>
+<span id="cmdoption-mod_post-h"></span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-mod_post-help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows the help output of the script.</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-mod_post-j">
-<span class="sig-name descname"><span class="pre">-j</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;N&gt;</span></span><a class="headerlink" href="#cmdoption-mod_post-j" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">-j</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;N&gt;</span></span><a class="headerlink" href="#cmdoption-mod_post-j" title="Permalink to this definition">¶</a></dt>
 <dd><p>When running <code class="docutils literal notranslate"><span class="pre">make</span></code>, use <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">&lt;N&gt;</span></code> as additional arguments.
 This parameter defaults to 2, unless <span class="target" id="index-0"></span><a class="reference internal" href="#envvar-MOD_NUM_POST_THREADS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">MOD_NUM_POST_THREADS</span></code></a>
 is set.</p>
@@ -170,9 +172,9 @@ is set.</p>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-mod_post-install-format">
-<span class="sig-name descname"><span class="pre">--install-format</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-mod_post-install-format" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">--install-format</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-mod_post-install-format" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object std" id="cmdoption-mod_post-install-format-sudo">
-<span class="sig-name descname"><span class="pre">--install-format-sudo</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-mod_post-install-format-sudo" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">--install-format-sudo</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-mod_post-install-format-sudo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compile the common Latex preamble used for figure generation
 and install it. Use the <code class="docutils literal notranslate"><span class="pre">-sudo</span></code> version to install using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.
 This may be useful to do if you encounter the issue about the format being
@@ -183,10 +185,10 @@ or if MØD was configured to not install the format file
 
 </section>
 <section id="environtment-variables">
-<h3><span class="section-number">5.1.2. </span>Environtment Variables<a class="headerlink" href="#environtment-variables" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">5.1.2. </span>Environtment Variables<a class="headerlink" href="#environtment-variables" title="Permalink to this heading">¶</a></h3>
 <dl class="std envvar">
 <dt class="sig sig-object std" id="envvar-MOD_NUM_POST_THREADS">
-<span class="sig-name descname"><span class="pre">MOD_NUM_POST_THREADS</span></span><a class="headerlink" href="#envvar-MOD_NUM_POST_THREADS" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MOD_NUM_POST_THREADS</span></span><a class="headerlink" href="#envvar-MOD_NUM_POST_THREADS" title="Permalink to this definition">¶</a></dt>
 <dd><p>If defined, the value of this variable is used for <code class="docutils literal notranslate"><span class="pre">-j</span></code> when invoking
 <code class="docutils literal notranslate"><span class="pre">make</span></code>.
 When <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">&lt;N&gt;</span></code> is given to the script, this variable is ignored.</p>
@@ -195,7 +197,7 @@ When <code class="docutils literal notranslate"><span class="pre">-j</span> <spa
 </section>
 </section>
 <section id="useful-api-references">
-<h2><span class="section-number">5.2. </span>Useful API References<a class="headerlink" href="#useful-api-references" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">5.2. </span>Useful API References<a class="headerlink" href="#useful-api-references" title="Permalink to this heading">¶</a></h2>
 <p>The API of libMØD and PyMØD includes functionality for injecting code and
 modifying the behaviour of PostMØD and generated summaries.
 See <a class="reference internal" href="../libmod/Post.html"><span class="doc">libMØD (Post.hpp)</span></a>
@@ -212,7 +214,7 @@ and <a class="reference internal" href="../pymod/Post.html"><span class="doc">Py
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

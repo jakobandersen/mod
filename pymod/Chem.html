@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.2. Chem &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -165,14 +167,14 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="chem">
-<span id="py-chem"></span><h1><span class="section-number">4.1.2. </span>Chem<a class="headerlink" href="#chem" title="Link to this heading">¶</a></h1>
+<span id="py-chem"></span><h1><span class="section-number">4.1.2. </span>Chem<a class="headerlink" href="#chem" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.AtomId">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomId</span></span><a class="headerlink" href="#mod.AtomId" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomId</span></span><a class="headerlink" href="#mod.AtomId" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of the chemical element of an atom.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.AtomId.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AtomIds.Invalid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomId.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AtomIds.Invalid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomId.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct an atom ID from an integer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -184,7 +186,7 @@ Must be at most the same value as <a class="reference internal" href="#mod.AtomI
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.AtomId.symbol">
-<span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#mod.AtomId.symbol" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#mod.AtomId.symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The symbol represented by the atom id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -198,7 +200,7 @@ Must be at most the same value as <a class="reference internal" href="#mod.AtomI
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.AtomId.__int__">
-<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomId.__int__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomId.__int__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implicit conversion to an integer type.</p>
 </dd></dl>
 
@@ -206,11 +208,11 @@ Must be at most the same value as <a class="reference internal" href="#mod.AtomI
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Isotope">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Isotope</span></span><a class="headerlink" href="#mod.Isotope" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Isotope</span></span><a class="headerlink" href="#mod.Isotope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of the isotope of an atom.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Isotope.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Isotope.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Isotope.__init__" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Construct a representation of an isotope.
@@ -230,7 +232,7 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Isotope.__int__">
-<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Isotope.__int__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Isotope.__int__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implicit conversion to an integer type.</p>
 </dd></dl>
 
@@ -238,11 +240,11 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Charge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Charge</span></span><a class="headerlink" href="#mod.Charge" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Charge</span></span><a class="headerlink" href="#mod.Charge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of the charge of an atom.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Charge.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Charge.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Charge.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct a charge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -253,7 +255,7 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Charge.__int__">
-<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Charge.__int__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Charge.__int__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implicit conversion to an integer type.</p>
 </dd></dl>
 
@@ -261,17 +263,17 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.AtomData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomData</span></span><a class="headerlink" href="#mod.AtomData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomData</span></span><a class="headerlink" href="#mod.AtomData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of basic data of an atom.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.AtomData.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atomId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AtomIds.Invalid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Isotope()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Charge()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomData.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atomId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AtomIds.Invalid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Isotope()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Charge()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomData.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct an atom data object.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.AtomData.atomId">
-<span class="sig-name descname"><span class="pre">atomId</span></span><a class="headerlink" href="#mod.AtomData.atomId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">atomId</span></span><a class="headerlink" href="#mod.AtomData.atomId" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The atom id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -282,7 +284,7 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.AtomData.isotope">
-<span class="sig-name descname"><span class="pre">isotope</span></span><a class="headerlink" href="#mod.AtomData.isotope" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isotope</span></span><a class="headerlink" href="#mod.AtomData.isotope" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The isotope.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -293,7 +295,7 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.AtomData.charge">
-<span class="sig-name descname"><span class="pre">charge</span></span><a class="headerlink" href="#mod.AtomData.charge" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">charge</span></span><a class="headerlink" href="#mod.AtomData.charge" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The charge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -306,36 +308,36 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.BondType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">BondType</span></span><a class="headerlink" href="#mod.BondType" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">BondType</span></span><a class="headerlink" href="#mod.BondType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of a bond type.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.BondType.Invalid">
-<span class="sig-name descname"><span class="pre">Invalid</span></span><a class="headerlink" href="#mod.BondType.Invalid" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Invalid</span></span><a class="headerlink" href="#mod.BondType.Invalid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.BondType.Single">
-<span class="sig-name descname"><span class="pre">Single</span></span><a class="headerlink" href="#mod.BondType.Single" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Single</span></span><a class="headerlink" href="#mod.BondType.Single" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.BondType.Aromatic">
-<span class="sig-name descname"><span class="pre">Aromatic</span></span><a class="headerlink" href="#mod.BondType.Aromatic" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Aromatic</span></span><a class="headerlink" href="#mod.BondType.Aromatic" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.BondType.Double">
-<span class="sig-name descname"><span class="pre">Double</span></span><a class="headerlink" href="#mod.BondType.Double" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Double</span></span><a class="headerlink" href="#mod.BondType.Double" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.BondType.Triple">
-<span class="sig-name descname"><span class="pre">Triple</span></span><a class="headerlink" href="#mod.BondType.Triple" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Triple</span></span><a class="headerlink" href="#mod.BondType.Triple" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.BondType.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.BondType.__str__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.BondType.__str__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A string representation of the bond type adhering to the string encoding of bonds (see <a class="reference internal" href="../graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>).</p>
@@ -350,12 +352,12 @@ The number must be either -1 or at least 1.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.AtomIds">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomIds</span></span><a class="headerlink" href="#mod.AtomIds" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomIds</span></span><a class="headerlink" href="#mod.AtomIds" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class contains constants for each chemical element, both as their abbreviations and their full names.
 Two additional constants are provided for convenience.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.AtomIds.Invalid">
-<span class="sig-name descname"><span class="pre">Invalid</span></span><a class="headerlink" href="#mod.AtomIds.Invalid" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Invalid</span></span><a class="headerlink" href="#mod.AtomIds.Invalid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constant for the invalid atom id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -366,7 +368,7 @@ Two additional constants are provided for convenience.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.AtomIds.Max">
-<span class="sig-name descname"><span class="pre">Max</span></span><a class="headerlink" href="#mod.AtomIds.Max" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Max</span></span><a class="headerlink" href="#mod.AtomIds.Max" title="Permalink to this definition">¶</a></dt>
 <dd><p>An atom id equal to the atom id with the maximum valid id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -388,7 +390,7 @@ Two additional constants are provided for convenience.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

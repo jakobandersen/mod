@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.7. Post &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.1.8. dg" href="dg/index.html" />
@@ -144,10 +146,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="post">
-<span id="py-post"></span><h1><span class="section-number">4.1.7. </span>Post<a class="headerlink" href="#post" title="Link to this heading">¶</a></h1>
+<span id="py-post"></span><h1><span class="section-number">4.1.7. </span>Post<a class="headerlink" href="#post" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="mod.makeUniqueFilePrefix">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">makeUniqueFilePrefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.makeUniqueFilePrefix" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">makeUniqueFilePrefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.makeUniqueFilePrefix" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a string on the form <code class="docutils literal notranslate"><span class="pre">out/iii_</span></code> where <code class="docutils literal notranslate"><span class="pre">`iii`</span></code> is the next zero-padded integer
@@ -161,14 +163,14 @@ from an internal counter.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.post">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">post</span></span><a class="headerlink" href="#mod.post" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">post</span></span><a class="headerlink" href="#mod.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class (which will be a submodule in the future)
 contains various functions to manipulate post-processing (<a class="reference internal" href="../postmod/index.html#mod-post"><span class="std std-ref">PostMØD</span></a>).
 Commands for the post-processor are written to the command file <code class="docutils literal notranslate"><span class="pre">out/post.sh</span></code>
 which the post-processor executes internally as a Bash script.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.command">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.command" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the given text to the command file and write a newline character.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -183,31 +185,31 @@ which the post-processor executes internally as a Bash script.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.flushCommands">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flushCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.flushCommands" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flushCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.flushCommands" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flush the command file buffer.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.disableCommands">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disableCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.disableCommands" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disableCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.disableCommands" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable command writing and flushing, also for commands emitted internally in the library.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.enableCommands">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enableCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.enableCommands" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enableCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.enableCommands" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable command writing and flushing, also for commands emitted internally in the library.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.reopenCommandFile">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reopenCommandFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.reopenCommandFile" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reopenCommandFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.reopenCommandFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reopen the command file, which may be useful if it was modified externally while open by the library.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.summaryChapter">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summaryChapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heading</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summaryChapter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summaryChapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heading</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summaryChapter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command the post-processor to insert a <code class="docutils literal notranslate"><span class="pre">\chapter</span></code> macro in the summary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -218,7 +220,7 @@ which the post-processor executes internally as a Bash script.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.summarySection">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summarySection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heading</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summarySection" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summarySection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heading</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summarySection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command the post-processor to insert a <code class="docutils literal notranslate"><span class="pre">\section</span></code> macro in the summary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -229,7 +231,7 @@ which the post-processor executes internally as a Bash script.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.summaryRaw">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summaryRaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latexCode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summaryRaw" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summaryRaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latexCode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summaryRaw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command the post-processor to insert the given code verbatim in the summary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -243,7 +245,7 @@ which the post-processor executes internally as a Bash script.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.summaryInput">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summaryInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summaryInput" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">summaryInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.summaryInput" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command the post-processor to insert a <code class="docutils literal notranslate"><span class="pre">\input</span></code> macro in the summary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -254,9 +256,9 @@ which the post-processor executes internally as a Bash script.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.disableInvokeMake">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disableInvokeMake</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.disableInvokeMake" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disableInvokeMake</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.disableInvokeMake" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.post.enableInvokeMake">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enableInvokeMake</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.enableInvokeMake" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enableInvokeMake</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.enableInvokeMake" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable/enable the invocation of Make in the post-processor.
 The processing of commands and generation of Makefiles will still be carried out,
 and Make invocation can be done manually afterwards through the post-processor</p>
@@ -264,9 +266,9 @@ and Make invocation can be done manually afterwards through the post-processor</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.post.disableCompileSummary">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disableCompileSummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.disableCompileSummary" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disableCompileSummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.disableCompileSummary" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.post.enableCompileSummary">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enableCompileSummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.enableCompileSummary" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enableCompileSummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.post.enableCompileSummary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable/enable the compilation of the final summary during post-processing.
 The compilation can be invoked manually afterwards through the post-processor.</p>
 </dd></dl>
@@ -284,7 +286,7 @@ The compilation can be invoked manually afterwards through the post-processor.</
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

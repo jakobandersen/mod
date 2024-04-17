@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.10.3. rule/GraphInterface &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -201,15 +203,15 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="rule-graphinterface">
-<span id="py-rule-graphinterface"></span><h1><span class="section-number">4.1.10.3. </span>rule/GraphInterface<a class="headerlink" href="#rule-graphinterface" title="Link to this heading">¶</a></h1>
+<span id="py-rule-graphinterface"></span><h1><span class="section-number">4.1.10.3. </span>rule/GraphInterface<a class="headerlink" href="#rule-graphinterface" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">LeftGraph</span></span><a class="headerlink" href="#mod.Rule.LeftGraph" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">LeftGraph</span></span><a class="headerlink" href="#mod.Rule.LeftGraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>A proxy object representing the left graph of the rule.
 The class implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph" title="mod.protocols.LabelledGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph</span></code></a> protocol,</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the graph belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -220,13 +222,13 @@ The class implements the <a class="reference internal" href="../protocols.html#m
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.Vertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>A descriptor of either a vertex in a left side, or a null vertex.
 Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.
 Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numCoreVertices[\)</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.Vertex.core">
-<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex.core" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex.core" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The descriptor for this vertex in the core graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -237,7 +239,7 @@ Additionally, the <a class="reference internal" href="../protocols.html#mod.prot
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.Vertex.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the vertex belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -253,12 +255,12 @@ Additionally, the <a class="reference internal" href="../protocols.html#mod.prot
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.Edge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>A descriptor of either an edge in a left side, or a null edge.
 Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.Edge.core">
-<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge.core" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge.core" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The descriptor for this edge in the core graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -269,7 +271,7 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.Edge.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the edge belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -285,19 +287,19 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.VertexRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.VertexRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.VertexRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.EdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.EdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.EdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.LeftGraph.IncidentEdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.IncidentEdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
@@ -305,12 +307,12 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">ContextGraph</span></span><a class="headerlink" href="#mod.Rule.ContextGraph" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">ContextGraph</span></span><a class="headerlink" href="#mod.Rule.ContextGraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>A proxy object representing the context graph of the rule.
 The class implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph" title="mod.protocols.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph</span></code></a> protocol,</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the graph belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -321,13 +323,13 @@ The class implements the <a class="reference internal" href="../protocols.html#m
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.Vertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>A descriptor of either a vertex in a context, or a null vertex.
 Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex" title="mod.protocols.Graph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.Vertex</span></code></a> protocol.
 Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numCoreVertices[\)</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.Vertex.core">
-<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex.core" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex.core" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The descriptor for this vertex in the core graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -338,7 +340,7 @@ Additionally, the <a class="reference internal" href="../protocols.html#mod.prot
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.Vertex.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the vertex belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -354,12 +356,12 @@ Additionally, the <a class="reference internal" href="../protocols.html#mod.prot
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.Edge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>A descriptor of either an edge in a context, or a null edge.
 Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.Edge.core">
-<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge.core" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge.core" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The descriptor for this edge in the core graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -370,7 +372,7 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.Edge.graph">
-<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge.graph" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge.graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the edge belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -386,19 +388,19 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.VertexRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.VertexRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.VertexRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.EdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.EdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.EdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.ContextGraph.IncidentEdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.IncidentEdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
@@ -406,12 +408,12 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">RightGraph</span></span><a class="headerlink" href="#mod.Rule.RightGraph" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">RightGraph</span></span><a class="headerlink" href="#mod.Rule.RightGraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>A proxy object representing the right graph of the rule.
 The class implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph" title="mod.protocols.LabelledGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph</span></code></a> protocol,</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the graph belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -422,13 +424,13 @@ The class implements the <a class="reference internal" href="../protocols.html#m
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.Vertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>A descriptor of either a vertex in a right side, or a null vertex.
 Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.
 Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numCoreVertices[\)</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.Vertex.core">
-<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex.core" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex.core" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The descriptor for this vertex in the core graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -439,7 +441,7 @@ Additionally, the <a class="reference internal" href="../protocols.html#mod.prot
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.Vertex.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the vertex belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -455,12 +457,12 @@ Additionally, the <a class="reference internal" href="../protocols.html#mod.prot
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.Edge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>A descriptor of either an edge in a right side, or a null edge.
 Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.Edge.core">
-<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge.core" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge.core" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The descriptor for this edge in the core graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -471,7 +473,7 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.Edge.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rule the edge belongs to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -487,19 +489,19 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.VertexRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.VertexRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.VertexRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.EdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.EdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.EdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.RightGraph.IncidentEdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.IncidentEdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
@@ -507,12 +509,12 @@ Implements the <a class="reference internal" href="../protocols.html#mod.protoco
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.Vertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.Vertex" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.Vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex" title="mod.protocols.Graph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.Vertex</span></code></a> protocol.
 Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numVertices[\)</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Vertex.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.Vertex.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.Vertex.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>An alias for <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.graph" title="mod.protocols.Graph.Vertex.graph"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocols.Graph.Vertex.graph</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -523,7 +525,7 @@ Additionally, the <a class="reference internal" href="../protocols.html#mod.prot
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Vertex.left">
-<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.Vertex.left" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.Vertex.left" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A null descriptor if this vertex is not in the left graph,
 otherwise the descriptor of this vertex in the left graph.</p>
 <dl class="field-list simple">
@@ -535,7 +537,7 @@ otherwise the descriptor of this vertex in the left graph.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Vertex.context">
-<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.Vertex.context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.Vertex.context" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A null descriptor if this vertex is not in the context graph,
 otherwise the descriptor of this vertex in the context graph.</p>
 <dl class="field-list simple">
@@ -547,7 +549,7 @@ otherwise the descriptor of this vertex in the context graph.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Vertex.right">
-<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.Vertex.right" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.Vertex.right" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A null descriptor if this vertex is not in the right graph,
 otherwise the descriptor of this vertex in the right graph.</p>
 <dl class="field-list simple">
@@ -559,7 +561,7 @@ otherwise the descriptor of this vertex in the right graph.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.Vertex.get2DX">
-<span class="sig-name descname"><span class="pre">get2DX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withHydrogens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.Vertex.get2DX" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get2DX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withHydrogens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.Vertex.get2DX" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the x-coordinate in a 2D depiction of the rule.
@@ -577,7 +579,7 @@ if <code class="docutils literal notranslate"><span class="pre">withHydrogens</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.Vertex.get2DY">
-<span class="sig-name descname"><span class="pre">get2DY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withHydrogens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.Vertex.get2DY" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get2DY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withHydrogens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.Vertex.get2DY" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the y-coordinate in a 2D depiction of the rule.
@@ -597,11 +599,11 @@ if <code class="docutils literal notranslate"><span class="pre">withHydrogens</s
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.Edge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.Edge" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.Edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Edge" title="mod.protocols.Graph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.Edge</span></code></a> protocol.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Edge.rule">
-<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.Edge.rule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.Edge.rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>An alias for <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Edge.graph" title="mod.protocols.Graph.Edge.graph"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocols.Graph.Edge.graph</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -612,7 +614,7 @@ if <code class="docutils literal notranslate"><span class="pre">withHydrogens</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Edge.left">
-<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.Edge.left" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.Edge.left" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A null descriptor if this edge is not in the left graph,
 otherwise the descriptor of this edge in the left graph.</p>
 <dl class="field-list simple">
@@ -624,7 +626,7 @@ otherwise the descriptor of this edge in the left graph.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Edge.context">
-<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.Edge.context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.Edge.context" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A null descriptor if this edge is not in the context graph,
 otherwise the descriptor of this edge in the context graph.</p>
 <dl class="field-list simple">
@@ -636,7 +638,7 @@ otherwise the descriptor of this edge in the context graph.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.Edge.right">
-<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.Edge.right" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.Edge.right" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A null descriptor if this edge is not in the right graph,
 otherwise the descriptor of this edge in the right graph.</p>
 <dl class="field-list simple">
@@ -650,12 +652,12 @@ otherwise the descriptor of this edge in the right graph.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.VertexRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.VertexRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.VertexRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol,
 in addition to the following functionality.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.VertexRange.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.VertexRange.__getitem__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.VertexRange.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the <code class="docutils literal notranslate"><span class="pre">i</span></code>th vertex of the graph.</p>
@@ -670,13 +672,13 @@ in addition to the following functionality.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.EdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.EdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.EdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule.IncidentEdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.IncidentEdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
@@ -691,7 +693,7 @@ in addition to the following functionality.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

@@ -8,24 +8,6 @@ Basics, Graphs, and Rules
 
 
 
-Graph Morphisms
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Graph objects have methods for finding morphisms with the VF2 algorithms
-for isomorphism and monomorphism.
-We can therefore easily detect isomorphic graphs, count automorphisms,
-and search for substructures.
-
-`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
-013_graphMorphisms.py>`__.
-
-.. literalinclude:: /_static/examples/py/000_basics/013_graphMorphisms.py
-	:language: python
-	:linenos:
-	:lines: 1-20
-	:tab-width: 3
-
-
 Graph Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -44,36 +26,18 @@ string form, and as their chemical counterpart (if they have one).
 	:tab-width: 3
 
 
-Rule Morphisms
+Formose Grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Rule objects, like graph objects, have methods for finding morphisms with
-the VF2 algorithms for isomorphism and monomorphism.
-We can therefore easily detect isomorphic rules, 
-and decide if one rule is at least as specific/general as another.
+The graph grammar modelling the formose chemistry.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
-031_ruleMorphisms.py>`__.
+050_formoseGrammar.py>`__.
 
-.. literalinclude:: /_static/examples/py/000_basics/031_ruleMorphisms.py
+.. literalinclude:: /_static/examples/py/000_basics/050_formoseGrammar.py
 	:language: python
 	:linenos:
-	:lines: 1-34
-	:tab-width: 3
-
-
-Rule Loading
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Rules must be specified in GML format.
-
-`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
-030_ruleLoading.py>`__.
-
-.. literalinclude:: /_static/examples/py/000_basics/030_ruleLoading.py
-	:language: python
-	:linenos:
-	:lines: 1-68
+	:lines: 1-50
 	:tab-width: 3
 
 
@@ -94,35 +58,18 @@ The changes can make the graphs look like normal molecule visualisations.
 	:tab-width: 3
 
 
-Formose Grammar
+Including Files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The graph grammar modelling the formose chemistry.
+We can include other files (a la C/C++) to separate functionality.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
-050_formoseGrammar.py>`__.
+051_fileInclusion.py>`__.
 
-.. literalinclude:: /_static/examples/py/000_basics/050_formoseGrammar.py
+.. literalinclude:: /_static/examples/py/000_basics/051_fileInclusion.py
 	:language: python
 	:linenos:
-	:lines: 1-50
-	:tab-width: 3
-
-
-Hello World
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-These examples use the Python 3 interface for the software.
-After each run a PDF summary is compiled.
-The content can be specified via the Python script.
-
-`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
-000_hello.py>`__.
-
-.. literalinclude:: /_static/examples/py/000_basics/000_hello.py
-	:language: python
-	:linenos:
-	:lines: 1-9
+	:lines: 1-7
 	:tab-width: 3
 
 
@@ -143,16 +90,69 @@ loaded from a GML specification, or from the SMILES-like format GraphDFS.
 	:tab-width: 3
 
 
-Including Files
+Hello World
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can include other files (a la C/C++) to separate functionality.
+These examples use the Python 3 interface for the software.
+After each run a PDF summary is compiled.
+The content can be specified via the Python script.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
-051_fileInclusion.py>`__.
+000_hello.py>`__.
 
-.. literalinclude:: /_static/examples/py/000_basics/051_fileInclusion.py
+.. literalinclude:: /_static/examples/py/000_basics/000_hello.py
 	:language: python
 	:linenos:
-	:lines: 1-7
+	:lines: 1-9
+	:tab-width: 3
+
+
+Graph Morphisms
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Graph objects have methods for finding morphisms with the VF2 algorithms
+for isomorphism and monomorphism.
+We can therefore easily detect isomorphic graphs, count automorphisms,
+and search for substructures.
+
+`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
+013_graphMorphisms.py>`__.
+
+.. literalinclude:: /_static/examples/py/000_basics/013_graphMorphisms.py
+	:language: python
+	:linenos:
+	:lines: 1-20
+	:tab-width: 3
+
+
+Rule Loading
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Rules must be specified in GML format.
+
+`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
+030_ruleLoading.py>`__.
+
+.. literalinclude:: /_static/examples/py/000_basics/030_ruleLoading.py
+	:language: python
+	:linenos:
+	:lines: 1-68
+	:tab-width: 3
+
+
+Rule Morphisms
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Rule objects, like graph objects, have methods for finding morphisms with
+the VF2 algorithms for isomorphism and monomorphism.
+We can therefore easily detect isomorphic rules, 
+and decide if one rule is at least as specific/general as another.
+
+`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=000_basics__
+031_ruleMorphisms.py>`__.
+
+.. literalinclude:: /_static/examples/py/000_basics/031_ruleMorphisms.py
+	:language: python
+	:linenos:
+	:lines: 1-34
 	:tab-width: 3

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>2. Compiling from Source &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
-    <script src="_static/documentation_options.js?v=ef97403f"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haxes.css" />
+    <script src="_static/jquery.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="3. libMØD" href="libmod/index.html" />
@@ -139,9 +141,9 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="compiling-from-source">
-<span id="compiling"></span><h1><span class="section-number">2. </span>Compiling from Source<a class="headerlink" href="#compiling-from-source" title="Link to this heading">¶</a></h1>
+<span id="compiling"></span><h1><span class="section-number">2. </span>Compiling from Source<a class="headerlink" href="#compiling-from-source" title="Permalink to this heading">¶</a></h1>
 <section id="quick-start">
-<span id="id1"></span><h2><span class="section-number">2.1. </span>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
+<span id="id1"></span><h2><span class="section-number">2.1. </span>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading">¶</a></h2>
 <p>These are simplified instructions for Ubuntu, Fedora, Arch, and macOS.
 See <a class="reference internal" href="#compiling-conda"><span class="std std-ref">below</span></a> for instructions for compiling in a Conda
 environment.</p>
@@ -240,7 +242,7 @@ make<span class="w"> </span>install
 </div>
 </section>
 <section id="quick-start-in-a-conda-environment">
-<span id="compiling-conda"></span><h2><span class="section-number">2.2. </span>Quick Start in a Conda Environment<a class="headerlink" href="#quick-start-in-a-conda-environment" title="Link to this heading">¶</a></h2>
+<span id="compiling-conda"></span><h2><span class="section-number">2.2. </span>Quick Start in a Conda Environment<a class="headerlink" href="#quick-start-in-a-conda-environment" title="Permalink to this heading">¶</a></h2>
 <p>Retrive the MØD sources and create auto-generated files:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/jakobandersen/mod.git
 <span class="nb">cd</span><span class="w"> </span>mod
@@ -299,7 +301,7 @@ make<span class="w"> </span>install
 </div>
 </section>
 <section id="from-a-git-repository">
-<h2><span class="section-number">2.3. </span>From a Git Repository<a class="headerlink" href="#from-a-git-repository" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">2.3. </span>From a Git Repository<a class="headerlink" href="#from-a-git-repository" title="Permalink to this heading">¶</a></h2>
 <p>After a checkout of the desired version, do:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
 ./bootstrap.sh
@@ -311,7 +313,7 @@ and create the file <code class="docutils literal notranslate"><span class="pre"
 <p>See <a class="reference internal" href="#source-build"><span class="std std-ref">From a Source Archive</span></a> on how to then build the package.</p>
 </section>
 <section id="as-dependency-of-another-cmake-project">
-<h2><span class="section-number">2.4. </span>As Dependency of Another CMake Project<a class="headerlink" href="#as-dependency-of-another-cmake-project" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">2.4. </span>As Dependency of Another CMake Project<a class="headerlink" href="#as-dependency-of-another-cmake-project" title="Permalink to this heading">¶</a></h2>
 <p>MØD supports use via <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> in CMake.
 The target <code class="docutils literal notranslate"><span class="pre">mod::libmod</span></code> is exported,
 which can be used with <code class="docutils literal notranslate"><span class="pre">target_link_libraries</span></code> to link against libMØD.
@@ -320,7 +322,7 @@ Note that running <code class="docutils literal notranslate"><span class="pre">.
 source is a repository clone (e.g., a Git submodule).</p>
 </section>
 <section id="from-a-source-archive">
-<span id="source-build"></span><h2><span class="section-number">2.5. </span>From a Source Archive<a class="headerlink" href="#from-a-source-archive" title="Link to this heading">¶</a></h2>
+<span id="source-build"></span><h2><span class="section-number">2.5. </span>From a Source Archive<a class="headerlink" href="#from-a-source-archive" title="Permalink to this heading">¶</a></h2>
 <p>The package is build and installed from source as a CMake project.
 Generally that means something like:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
@@ -405,7 +407,7 @@ or not.</p></li>
 </ul>
 </section>
 <section id="dependencies">
-<span id="id2"></span><h2><span class="section-number">2.6. </span>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h2>
+<span id="id2"></span><h2><span class="section-number">2.6. </span>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">¶</a></h2>
 <p>Python dependencies are listed in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> (which includes
 <code class="docutils literal notranslate"><span class="pre">requirements_nodoc.txt</span></code>).</p>
 <p>Dependencies that can be satisfied via the system package manager are listed in
@@ -473,10 +475,10 @@ rsvg:          Yes
 </ul>
 </section>
 <section id="boost-and-boost-python-with-python-3">
-<span id="install-boost-python"></span><h2><span class="section-number">2.7. </span>Boost and Boost.Python with Python 3<a class="headerlink" href="#boost-and-boost-python-with-python-3" title="Link to this heading">¶</a></h2>
+<span id="install-boost-python"></span><h2><span class="section-number">2.7. </span>Boost and Boost.Python with Python 3<a class="headerlink" href="#boost-and-boost-python-with-python-3" title="Permalink to this heading">¶</a></h2>
 <p>A package with the sources of Boost can be downloaded from <cite>http://boost.org</cite>.</p>
 <section id="basic-installation">
-<h3><span class="section-number">2.7.1. </span>Basic Installation<a class="headerlink" href="#basic-installation" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">2.7.1. </span>Basic Installation<a class="headerlink" href="#basic-installation" title="Permalink to this heading">¶</a></h3>
 <p>Boost uses a custom build system which may be difficult to use.
 A procedure for compiling and installing Boost with Python 3 for Boost.Python
 is the following.</p>
@@ -493,7 +495,7 @@ has been created, which can be edited to customise installation path and a lot
 of other things. All edits should be done before running <code class="docutils literal notranslate"><span class="pre">b2</span></code>.</p>
 </section>
 <section id="non-standard-python-installation">
-<h3><span class="section-number">2.7.2. </span>Non-standard Python Installation<a class="headerlink" href="#non-standard-python-installation" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">2.7.2. </span>Non-standard Python Installation<a class="headerlink" href="#non-standard-python-installation" title="Permalink to this heading">¶</a></h3>
 <p>Passing <code class="docutils literal notranslate"><span class="pre">--with-python=python3</span></code> to <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> should work.
 This adds a line similar to “<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">python</span> <span class="pre">:</span> <span class="pre">3.7</span> <span class="pre">;</span></code>” to
 <code class="docutils literal notranslate"><span class="pre">project-config.jam</span></code>.
@@ -505,7 +507,7 @@ should exist. If not, it did not detect Python 3 properly.</p>
 <code class="docutils literal notranslate"><span class="pre">include</span></code>-folder of the Python-installation.</p>
 </section>
 <section id="custom-gcc-version">
-<h3><span class="section-number">2.7.3. </span>Custom GCC Version<a class="headerlink" href="#custom-gcc-version" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">2.7.3. </span>Custom GCC Version<a class="headerlink" href="#custom-gcc-version" title="Permalink to this heading">¶</a></h3>
 <p>Before running <code class="docutils literal notranslate"><span class="pre">b2</span></code> create the file <code class="docutils literal notranslate"><span class="pre">user-config.jam</span></code> in the root of the
 home dir (see <a class="reference external" href="http://www.boost.org/boost-build2/doc/html/bbv2/overview/configuration.html">here</a>
 for the full documentation). Put a line similar to
@@ -523,7 +525,7 @@ for the full documentation). Put a line similar to
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

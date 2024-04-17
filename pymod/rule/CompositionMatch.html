@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.10.2. rule/CompositionMatch &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -141,10 +143,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="rule-compositionmatch">
-<span id="py-rule-compositionmatch"></span><h1><span class="section-number">4.1.10.2. </span>rule/CompositionMatch<a class="headerlink" href="#rule-compositionmatch" title="Link to this heading">¶</a></h1>
+<span id="py-rule-compositionmatch"></span><h1><span class="section-number">4.1.10.2. </span>rule/CompositionMatch<a class="headerlink" href="#rule-compositionmatch" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCMatch">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCMatch</span></span><a class="headerlink" href="#mod.RCMatch" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCMatch</span></span><a class="headerlink" href="#mod.RCMatch" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for interactively constructing match between two rules used for composition.
 That is, for two rules
 <span class="math notranslate nohighlight">\(p_1 = (L_1 \leftarrow K_1 \rightarrow R_1)\)</span> and
@@ -153,7 +155,7 @@ an object represents match between <span class="math notranslate nohighlight">\(
 a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M \rightarrow L_2\)</span>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCMatch.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rFirst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rSecond</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Specialisation)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rFirst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rSecond</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Specialisation)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct an empty overlap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -171,14 +173,14 @@ a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCMatch.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__str__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__str__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.RCMatch.first">
-<span class="sig-name descname"><span class="pre">first</span></span><a class="headerlink" href="#mod.RCMatch.first" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">first</span></span><a class="headerlink" href="#mod.RCMatch.first" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.RCMatch.second">
-<span class="sig-name descname"><span class="pre">second</span></span><a class="headerlink" href="#mod.RCMatch.second" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">second</span></span><a class="headerlink" href="#mod.RCMatch.second" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The rules <span class="math notranslate nohighlight">\(p_1\)</span> and <span class="math notranslate nohighlight">\(p_2\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -189,7 +191,7 @@ a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M 
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.RCMatch.labelSettings">
-<span class="sig-name descname"><span class="pre">labelSettings</span></span><a class="headerlink" href="#mod.RCMatch.labelSettings" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">labelSettings</span></span><a class="headerlink" href="#mod.RCMatch.labelSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The settings for the morphisms in the match.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -200,7 +202,7 @@ a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M 
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.RCMatch.size">
-<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#mod.RCMatch.size" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#mod.RCMatch.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The number of currently mapped pairs of vertices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -211,7 +213,7 @@ a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCMatch.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vFirst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__getitem__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vFirst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vSecond</span></span></em><span class="sig-paren">)</span></dt>
 <dd><dl class="field-list simple">
@@ -252,7 +254,7 @@ by identifying the given vertices from each of the graphs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCMatch.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.pop" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.pop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pop the latest pushed vertex pair.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -263,7 +265,7 @@ by identifying the given vertices from each of the graphs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCMatch.compose">
-<span class="sig-name descname"><span class="pre">compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.compose" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.compose" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to output debug messages from the composition algorithm.</p>
@@ -280,7 +282,7 @@ If the composition is not defined, <code class="docutils literal notranslate"><s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCMatch.composeAll">
-<span class="sig-name descname"><span class="pre">composeAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.composeAll" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">composeAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.composeAll" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -312,7 +314,7 @@ and the match it self.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

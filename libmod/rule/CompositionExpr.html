@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>3.2.13.2. rule/CompositionExpr.hpp &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -81,52 +83,42 @@
 <li><a class="reference internal" href="#">3.2.13.2. rule/CompositionExpr.hpp</a><ul>
 <li><a class="reference internal" href="#rcexp">3.2.13.2.1. RCExp</a></li>
 <li><a class="reference internal" href="#class-rule-rcexp-union">3.2.13.2.2. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Union</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp5UnionE"><code class="docutils literal notranslate"><span class="pre">Union</span></code></a></li>
 <li><a class="reference internal" href="#synopsis">3.2.13.2.2.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-bind">3.2.13.2.3. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Bind</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp4BindE"><code class="docutils literal notranslate"><span class="pre">Bind</span></code></a></li>
 <li><a class="reference internal" href="#id1">3.2.13.2.3.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-id">3.2.13.2.4. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Id</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp2IdE"><code class="docutils literal notranslate"><span class="pre">Id</span></code></a></li>
 <li><a class="reference internal" href="#id2">3.2.13.2.4.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-unbind">3.2.13.2.5. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Unbind</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp6UnbindE"><code class="docutils literal notranslate"><span class="pre">Unbind</span></code></a></li>
 <li><a class="reference internal" href="#id3">3.2.13.2.5.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-expression">3.2.13.2.6. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Expression</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE"><code class="docutils literal notranslate"><span class="pre">Expression</span></code></a></li>
 <li><a class="reference internal" href="#id4">3.2.13.2.6.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-composebase">3.2.13.2.7. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeBase</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp11ComposeBaseE"><code class="docutils literal notranslate"><span class="pre">ComposeBase</span></code></a></li>
 <li><a class="reference internal" href="#id5">3.2.13.2.7.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-composecommon">3.2.13.2.8. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeCommon</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonE"><code class="docutils literal notranslate"><span class="pre">ComposeCommon</span></code></a></li>
 <li><a class="reference internal" href="#id6">3.2.13.2.8.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-composeparallel">3.2.13.2.9. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeParallel</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallelE"><code class="docutils literal notranslate"><span class="pre">ComposeParallel</span></code></a></li>
 <li><a class="reference internal" href="#id7">3.2.13.2.9.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-composesub">3.2.13.2.10. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeSub</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSubE"><code class="docutils literal notranslate"><span class="pre">ComposeSub</span></code></a></li>
 <li><a class="reference internal" href="#id8">3.2.13.2.10.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-rule-rcexp-composesuper">3.2.13.2.11. Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeSuper</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperE"><code class="docutils literal notranslate"><span class="pre">ComposeSuper</span></code></a></li>
 <li><a class="reference internal" href="#id9">3.2.13.2.11.1. Synopsis</a></li>
 </ul>
 </li>
@@ -179,162 +171,162 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="rule-compositionexpr-hpp">
-<span id="cpp-rule-compositionexpr"></span><h1><span class="section-number">3.2.13.2. </span>rule/CompositionExpr.hpp<a class="headerlink" href="#rule-compositionexpr-hpp" title="Link to this heading">¶</a></h1>
+<span id="cpp-rule-compositionexpr"></span><h1><span class="section-number">3.2.13.2. </span>rule/CompositionExpr.hpp<a class="headerlink" href="#rule-compositionexpr-hpp" title="Permalink to this heading">¶</a></h1>
 <section id="rcexp">
-<h2><span class="section-number">3.2.13.2.1. </span>RCExp<a class="headerlink" href="#rcexp" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.1. </span>RCExp<a class="headerlink" href="#rcexp" title="Permalink to this heading">¶</a></h2>
 <p>In this namespace the data structures and operators for representing rule composition expressions are defined.
 An expression, <code class="docutils literal notranslate"><span class="pre">RCExp</span></code>, can be evaluated through the method <span class="cpp-expr sig sig-inline cpp"><span class="n">rule</span><span class="p">::</span><a class="reference internal" href="Composer.html#_CPPv4N3mod4rule8ComposerE" title="mod::rule::Composer"><span class="n">Composer</span></a><span class="p">::</span><a class="reference internal" href="Composer.html#_CPPv4N3mod4rule8Composer4evalERKN5RCExp10ExpressionEbi" title="mod::rule::Composer::eval"><span class="n">eval</span></a></span>. The result of an expression
 is a set of rules.</p>
 </section>
 <section id="class-rule-rcexp-union">
-<h2><span class="section-number">3.2.13.2.2. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Union</span></code><a class="headerlink" href="#class-rule-rcexp-union" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.2. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Union</span></code><a class="headerlink" href="#class-rule-rcexp-union" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp5UnionE">
-<span id="_CPPv3N3mod4rule5RCExp5UnionE"></span><span id="_CPPv2N3mod4rule5RCExp5UnionE"></span><span id="mod::rule::RCExp::Union"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp5UnionE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp5UnionE"></span><span id="_CPPv2N3mod4rule5RCExp5UnionE"></span><span id="mod::rule::RCExp::Union"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp5UnionE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Return the union of the subexpressions. I.e., flatten the subresult lists into a single list.</p>
 </dd></dl>
 
 <section id="synopsis">
-<h3><span class="section-number">3.2.13.2.2.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.2.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-bind">
-<h2><span class="section-number">3.2.13.2.3. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Bind</span></code><a class="headerlink" href="#class-rule-rcexp-bind" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.3. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Bind</span></code><a class="headerlink" href="#class-rule-rcexp-bind" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp4BindE">
-<span id="_CPPv3N3mod4rule5RCExp4BindE"></span><span id="_CPPv2N3mod4rule5RCExp4BindE"></span><span id="mod::rule::RCExp::Bind"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Bind</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp4BindE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp4BindE"></span><span id="_CPPv2N3mod4rule5RCExp4BindE"></span><span id="mod::rule::RCExp::Bind"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Bind</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp4BindE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Return the singleton list with the rule <span class="math notranslate nohighlight">\((\emptyset, \emptyset, G)\)</span> for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <section id="id1">
-<h3><span class="section-number">3.2.13.2.3.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.3.1. </span>Synopsis<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-id">
-<h2><span class="section-number">3.2.13.2.4. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Id</span></code><a class="headerlink" href="#class-rule-rcexp-id" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.4. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Id</span></code><a class="headerlink" href="#class-rule-rcexp-id" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp2IdE">
-<span id="_CPPv3N3mod4rule5RCExp2IdE"></span><span id="_CPPv2N3mod4rule5RCExp2IdE"></span><span id="mod::rule::RCExp::Id"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Id</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp2IdE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp2IdE"></span><span id="_CPPv2N3mod4rule5RCExp2IdE"></span><span id="mod::rule::RCExp::Id"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Id</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp2IdE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Return the singleton list with the rule <span class="math notranslate nohighlight">\((G, G, G)\)</span> for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <section id="id2">
-<h3><span class="section-number">3.2.13.2.4.1. </span>Synopsis<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.4.1. </span>Synopsis<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-unbind">
-<h2><span class="section-number">3.2.13.2.5. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Unbind</span></code><a class="headerlink" href="#class-rule-rcexp-unbind" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.5. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Unbind</span></code><a class="headerlink" href="#class-rule-rcexp-unbind" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp6UnbindE">
-<span id="_CPPv3N3mod4rule5RCExp6UnbindE"></span><span id="_CPPv2N3mod4rule5RCExp6UnbindE"></span><span id="mod::rule::RCExp::Unbind"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Unbind</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp6UnbindE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp6UnbindE"></span><span id="_CPPv2N3mod4rule5RCExp6UnbindE"></span><span id="mod::rule::RCExp::Unbind"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Unbind</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp6UnbindE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Return the singleton list with the rule <span class="math notranslate nohighlight">\((G, \emptyset, \emptyset)\)</span> for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <section id="id3">
-<h3><span class="section-number">3.2.13.2.5.1. </span>Synopsis<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.5.1. </span>Synopsis<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-expression">
-<h2><span class="section-number">3.2.13.2.6. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Expression</span></code><a class="headerlink" href="#class-rule-rcexp-expression" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.6. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::Expression</span></code><a class="headerlink" href="#class-rule-rcexp-expression" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ExpressionE">
-<span id="_CPPv3N3mod4rule5RCExp10ExpressionE"></span><span id="_CPPv2N3mod4rule5RCExp10ExpressionE"></span><span id="mod::rule::RCExp::Expression"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp10ExpressionE"></span><span id="_CPPv2N3mod4rule5RCExp10ExpressionE"></span><span id="mod::rule::RCExp::Expression"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A generic rule composition expression.</p>
 </dd></dl>
 
 <section id="id4">
-<h3><span class="section-number">3.2.13.2.6.1. </span>Synopsis<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.6.1. </span>Synopsis<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-composebase">
-<h2><span class="section-number">3.2.13.2.7. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeBase</span></code><a class="headerlink" href="#class-rule-rcexp-composebase" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.7. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeBase</span></code><a class="headerlink" href="#class-rule-rcexp-composebase" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp11ComposeBaseE">
-<span id="_CPPv3N3mod4rule5RCExp11ComposeBaseE"></span><span id="_CPPv2N3mod4rule5RCExp11ComposeBaseE"></span><span id="mod::rule::RCExp::ComposeBase"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeBase</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp11ComposeBaseE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp11ComposeBaseE"></span><span id="_CPPv2N3mod4rule5RCExp11ComposeBaseE"></span><span id="mod::rule::RCExp::ComposeBase"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeBase</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp11ComposeBaseE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The base class for the composition of two rule <span class="math notranslate nohighlight">\((L_1, K_1, R_1)\)</span> and <span class="math notranslate nohighlight">\((L_2, K_2, R_2)\)</span>.</p>
 </dd></dl>
 
 <section id="id5">
-<h3><span class="section-number">3.2.13.2.7.1. </span>Synopsis<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.7.1. </span>Synopsis<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-composecommon">
-<h2><span class="section-number">3.2.13.2.8. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeCommon</span></code><a class="headerlink" href="#class-rule-rcexp-composecommon" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.8. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeCommon</span></code><a class="headerlink" href="#class-rule-rcexp-composecommon" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommonE">
-<span id="_CPPv3N3mod4rule5RCExp13ComposeCommonE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommonE"></span><span id="mod::rule::RCExp::ComposeCommon"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeCommon</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommonE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommonE"></span><span id="mod::rule::RCExp::ComposeCommon"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeCommon</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Compose the rules by all common subgraphs of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>,
 possibly limited to connected subgraphs or to the subgraphs of maximum size.
 By default the empty overlap is not considered, but can be enabled to be.</p>
 </dd></dl>
 
 <section id="id6">
-<h3><span class="section-number">3.2.13.2.8.1. </span>Synopsis<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.8.1. </span>Synopsis<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-composeparallel">
-<h2><span class="section-number">3.2.13.2.9. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeParallel</span></code><a class="headerlink" href="#class-rule-rcexp-composeparallel" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.9. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeParallel</span></code><a class="headerlink" href="#class-rule-rcexp-composeparallel" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp15ComposeParallelE">
-<span id="_CPPv3N3mod4rule5RCExp15ComposeParallelE"></span><span id="_CPPv2N3mod4rule5RCExp15ComposeParallelE"></span><span id="mod::rule::RCExp::ComposeParallel"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeParallel</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp15ComposeParallelE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp15ComposeParallelE"></span><span id="_CPPv2N3mod4rule5RCExp15ComposeParallelE"></span><span id="mod::rule::RCExp::ComposeParallel"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeParallel</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp15ComposeParallelE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Compose the rules by the empty graph, i.e., create a rule representing the parallel application of two input rules.</p>
 </dd></dl>
 
 <section id="id7">
-<h3><span class="section-number">3.2.13.2.9.1. </span>Synopsis<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.9.1. </span>Synopsis<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-composesub">
-<h2><span class="section-number">3.2.13.2.10. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeSub</span></code><a class="headerlink" href="#class-rule-rcexp-composesub" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.10. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeSub</span></code><a class="headerlink" href="#class-rule-rcexp-composesub" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ComposeSubE">
-<span id="_CPPv3N3mod4rule5RCExp10ComposeSubE"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSubE"></span><span id="mod::rule::RCExp::ComposeSub"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSub</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSubE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp10ComposeSubE"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSubE"></span><span id="mod::rule::RCExp::ComposeSub"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSub</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSubE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Compose the rules such that overlapping connected components of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span> have the <span class="math notranslate nohighlight">\(L_2\)</span> component as a subgraph of <span class="math notranslate nohighlight">\(R_1\)</span>.
 The overlap is <em>partial</em> if not every connected component of <span class="math notranslate nohighlight">\(L_2\)</span> is participating in the common subgraph.</p>
 </dd></dl>
 
 <section id="id8">
-<h3><span class="section-number">3.2.13.2.10.1. </span>Synopsis<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.10.1. </span>Synopsis<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-rule-rcexp-composesuper">
-<h2><span class="section-number">3.2.13.2.11. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeSuper</span></code><a class="headerlink" href="#class-rule-rcexp-composesuper" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.13.2.11. </span>Class <code class="docutils literal notranslate"><span class="pre">rule::RCExp::ComposeSuper</span></code><a class="headerlink" href="#class-rule-rcexp-composesuper" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuperE">
-<span id="_CPPv3N3mod4rule5RCExp12ComposeSuperE"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuperE"></span><span id="mod::rule::RCExp::ComposeSuper"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSuper</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuperE"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuperE"></span><span id="mod::rule::RCExp::ComposeSuper"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSuper</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Compose the rules such that overlapping connected components of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span> have the <span class="math notranslate nohighlight">\(R_1\)</span> component as a subgraph of <span class="math notranslate nohighlight">\(L_2\)</span>.
 The overlap is <em>partial</em> if not every connected component of <span class="math notranslate nohighlight">\(R_1\)</span> is participating in the common subgraph.</p>
 </dd></dl>
 
 <section id="id9">
-<h3><span class="section-number">3.2.13.2.11.1. </span>Synopsis<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.13.2.11.1. </span>Synopsis<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
@@ -351,7 +343,7 @@ The overlap is <em>partial</em> if not every connected component of <span class=
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

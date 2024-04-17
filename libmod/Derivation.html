@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>3.2.3. Derivation.hpp &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -80,28 +82,13 @@
 		<ul>
 <li><a class="reference internal" href="#">3.2.3. Derivation.hpp</a><ul>
 <li><a class="reference internal" href="#class-derivation">3.2.3.1. Class <code class="docutils literal notranslate"><span class="pre">Derivation</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod10DerivationE"><code class="docutils literal notranslate"><span class="pre">Derivation</span></code></a></li>
 <li><a class="reference internal" href="#synopsis">3.2.3.1.1. Synopsis</a></li>
-<li><a class="reference internal" href="#details">3.2.3.1.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod10Derivation9GraphListE"><code class="docutils literal notranslate"><span class="pre">GraphList</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod10Derivation4leftE"><code class="docutils literal notranslate"><span class="pre">left</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod10Derivation1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod10Derivation5rightE"><code class="docutils literal notranslate"><span class="pre">right</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod10Derivationcv11DerivationsEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">Derivations()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#details">3.2.3.1.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-derivations">3.2.3.2. Class <code class="docutils literal notranslate"><span class="pre">Derivations</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod11DerivationsE"><code class="docutils literal notranslate"><span class="pre">Derivations</span></code></a></li>
 <li><a class="reference internal" href="#id1">3.2.3.2.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id2">3.2.3.2.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod11Derivations9GraphListE"><code class="docutils literal notranslate"><span class="pre">GraphList</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod11Derivations4leftE"><code class="docutils literal notranslate"><span class="pre">left</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod11Derivations5rulesE"><code class="docutils literal notranslate"><span class="pre">rules</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod11Derivations5rightE"><code class="docutils literal notranslate"><span class="pre">right</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id2">3.2.3.2.2. Details</a></li>
 </ul>
 </li>
 </ul>
@@ -153,12 +140,12 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="derivation-hpp">
-<span id="cpp-derivation"></span><h1><span class="section-number">3.2.3. </span>Derivation.hpp<a class="headerlink" href="#derivation-hpp" title="Link to this heading">¶</a></h1>
+<span id="cpp-derivation"></span><h1><span class="section-number">3.2.3. </span>Derivation.hpp<a class="headerlink" href="#derivation-hpp" title="Permalink to this heading">¶</a></h1>
 <section id="class-derivation">
-<h2><span class="section-number">3.2.3.1. </span>Class <code class="docutils literal notranslate"><span class="pre">Derivation</span></code><a class="headerlink" href="#class-derivation" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.3.1. </span>Class <code class="docutils literal notranslate"><span class="pre">Derivation</span></code><a class="headerlink" href="#class-derivation" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod10DerivationE">
-<span id="_CPPv3N3mod10DerivationE"></span><span id="_CPPv2N3mod10DerivationE"></span><span id="mod::Derivation"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Derivation</span></span></span><a class="headerlink" href="#_CPPv4N3mod10DerivationE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod10DerivationE"></span><span id="_CPPv2N3mod10DerivationE"></span><span id="mod::Derivation"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Derivation</span></span></span><a class="headerlink" href="#_CPPv4N3mod10DerivationE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>This class is a simple wrapper for passing data around.
 It contains two multisets of graphs <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span>,
 and optionally a rule <span class="math notranslate nohighlight">\(p\)</span>.
@@ -167,7 +154,7 @@ An object may thus implicitly store a set of direct derivations
 </dd></dl>
 
 <section id="synopsis">
-<h3><span class="section-number">3.2.3.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.3.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">using</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod10Derivation9GraphListE" title="mod::Derivation::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /></dt>
@@ -183,34 +170,34 @@ An object may thus implicitly store a set of direct derivations
 
 </section>
 <section id="details">
-<h3><span class="section-number">3.2.3.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.3.1.2. </span>Details<a class="headerlink" href="#details" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod10Derivation9GraphListE">
-<span id="_CPPv3N3mod10Derivation9GraphListE"></span><span id="_CPPv2N3mod10Derivation9GraphListE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GraphList</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation9GraphListE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod10Derivation9GraphListE"></span><span id="_CPPv2N3mod10Derivation9GraphListE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GraphList</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation9GraphListE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Representation of a multiset of graphs.</p>
 </dd></dl>
 
 <dl class="cpp member">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod10Derivation4leftE">
-<span id="_CPPv3N3mod10Derivation4leftE"></span><span id="_CPPv2N3mod10Derivation4leftE"></span><span id="mod::Derivation::left__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod10Derivation9GraphListE" title="mod::Derivation::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">left</span></span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation4leftE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod10Derivation4leftE"></span><span id="_CPPv2N3mod10Derivation4leftE"></span><span id="mod::Derivation::left__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod10Derivation9GraphListE" title="mod::Derivation::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">left</span></span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation4leftE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Represents the multi-set of left graphs <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <dl class="cpp member">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod10Derivation1rE">
-<span id="_CPPv3N3mod10Derivation1rE"></span><span id="_CPPv2N3mod10Derivation1rE"></span><span id="mod::Derivation::r__std::shared_ptr:rule::Rule:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation1rE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod10Derivation1rE"></span><span id="_CPPv2N3mod10Derivation1rE"></span><span id="mod::Derivation::r__std::shared_ptr:rule::Rule:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation1rE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Represents the transformation rule <span class="math notranslate nohighlight">\(p\)</span>, or no rule at all.</p>
 </dd></dl>
 
 <dl class="cpp member">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod10Derivation5rightE">
-<span id="_CPPv3N3mod10Derivation5rightE"></span><span id="_CPPv2N3mod10Derivation5rightE"></span><span id="mod::Derivation::right__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod10Derivation9GraphListE" title="mod::Derivation::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">right</span></span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation5rightE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod10Derivation5rightE"></span><span id="_CPPv2N3mod10Derivation5rightE"></span><span id="mod::Derivation::right__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod10Derivation9GraphListE" title="mod::Derivation::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">right</span></span></span><a class="headerlink" href="#_CPPv4N3mod10Derivation5rightE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Represents the multi-set of right graphs <span class="math notranslate nohighlight">\(H\)</span>.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod10Derivationcv11DerivationsEv">
-<span id="_CPPv3NK3mod10Derivationcv11DerivationsEv"></span><span id="_CPPv2NK3mod10Derivationcv11DerivationsEv"></span><span id="mod::Derivation::castto-Derivations-operatorC"></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod11DerivationsE" title="mod::Derivations"><span class="n"><span class="pre">Derivations</span></span></a></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod10Derivationcv11DerivationsEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod10Derivationcv11DerivationsEv"></span><span id="_CPPv2NK3mod10Derivationcv11DerivationsEv"></span><span id="mod::Derivation::castto-Derivations-operatorC"></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod11DerivationsE" title="mod::Derivations"><span class="n"><span class="pre">Derivations</span></span></a></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod10Derivationcv11DerivationsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the <a class="reference internal" href="#_CPPv4N3mod11DerivationsE" title="mod::Derivations"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Derivations</span></code></a> object equivalent to this object.</p>
@@ -221,10 +208,10 @@ An object may thus implicitly store a set of direct derivations
 </section>
 </section>
 <section id="class-derivations">
-<h2><span class="section-number">3.2.3.2. </span>Class <code class="docutils literal notranslate"><span class="pre">Derivations</span></code><a class="headerlink" href="#class-derivations" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.3.2. </span>Class <code class="docutils literal notranslate"><span class="pre">Derivations</span></code><a class="headerlink" href="#class-derivations" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod11DerivationsE">
-<span id="_CPPv3N3mod11DerivationsE"></span><span id="_CPPv2N3mod11DerivationsE"></span><span id="mod::Derivations"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Derivations</span></span></span><a class="headerlink" href="#_CPPv4N3mod11DerivationsE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod11DerivationsE"></span><span id="_CPPv2N3mod11DerivationsE"></span><span id="mod::Derivations"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Derivations</span></span></span><a class="headerlink" href="#_CPPv4N3mod11DerivationsE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>This class is a simple wrapper for passing data around.
 It contains two multisets of graphs <span class="math notranslate nohighlight">\(G\)</span> and <span class="math notranslate nohighlight">\(H\)</span>,
 and (possibly empty) set of rules.
@@ -234,7 +221,7 @@ though the validity of the data is not checked.</p>
 </dd></dl>
 
 <section id="id1">
-<h3><span class="section-number">3.2.3.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.3.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">using</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod11Derivations9GraphListE" title="mod::Derivations::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /></dt>
@@ -248,28 +235,28 @@ though the validity of the data is not checked.</p>
 
 </section>
 <section id="id2">
-<h3><span class="section-number">3.2.3.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.3.2.2. </span>Details<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod11Derivations9GraphListE">
-<span id="_CPPv3N3mod11Derivations9GraphListE"></span><span id="_CPPv2N3mod11Derivations9GraphListE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GraphList</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations9GraphListE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod11Derivations9GraphListE"></span><span id="_CPPv2N3mod11Derivations9GraphListE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GraphList</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations9GraphListE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Representation of a multiset of graphs.</p>
 </dd></dl>
 
 <dl class="cpp member">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod11Derivations4leftE">
-<span id="_CPPv3N3mod11Derivations4leftE"></span><span id="_CPPv2N3mod11Derivations4leftE"></span><span id="mod::Derivations::left__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod11Derivations9GraphListE" title="mod::Derivations::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">left</span></span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations4leftE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod11Derivations4leftE"></span><span id="_CPPv2N3mod11Derivations4leftE"></span><span id="mod::Derivations::left__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod11Derivations9GraphListE" title="mod::Derivations::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">left</span></span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations4leftE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Represents the multi-set of left graphs <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <dl class="cpp member">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod11Derivations5rulesE">
-<span id="_CPPv3N3mod11Derivations5rulesE"></span><span id="_CPPv2N3mod11Derivations5rulesE"></span><span id="mod::Derivations::rules__std::vector:std::shared_ptr:rule::Rule::"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rules</span></span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations5rulesE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod11Derivations5rulesE"></span><span id="_CPPv2N3mod11Derivations5rulesE"></span><span id="mod::Derivations::rules__std::vector:std::shared_ptr:rule::Rule::"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rules</span></span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations5rulesE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Represents a (possibly empty) set of transformation rules.</p>
 </dd></dl>
 
 <dl class="cpp member">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod11Derivations5rightE">
-<span id="_CPPv3N3mod11Derivations5rightE"></span><span id="_CPPv2N3mod11Derivations5rightE"></span><span id="mod::Derivations::right__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod11Derivations9GraphListE" title="mod::Derivations::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">right</span></span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations5rightE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod11Derivations5rightE"></span><span id="_CPPv2N3mod11Derivations5rightE"></span><span id="mod::Derivations::right__GraphList"></span><a class="reference internal" href="#_CPPv4N3mod11Derivations9GraphListE" title="mod::Derivations::GraphList"><span class="n"><span class="pre">GraphList</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">right</span></span></span><a class="headerlink" href="#_CPPv4N3mod11Derivations5rightE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Represents the multi-set of right graphs <span class="math notranslate nohighlight">\(H\)</span>.</p>
 </dd></dl>
 
@@ -286,7 +273,7 @@ though the validity of the data is not checked.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

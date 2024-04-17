@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.9.5. graph/Union &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -154,17 +156,17 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="graph-union">
-<span id="py-graph-union"></span><h1><span class="section-number">4.1.9.5. </span>graph/Union<a class="headerlink" href="#graph-union" title="Link to this heading">¶</a></h1>
+<span id="py-graph-union"></span><h1><span class="section-number">4.1.9.5. </span>graph/Union<a class="headerlink" href="#graph-union" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.UnionGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">UnionGraph</span></span><a class="headerlink" href="#mod.UnionGraph" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">UnionGraph</span></span><a class="headerlink" href="#mod.UnionGraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>An adaptor for a multiset of <a class="reference internal" href="Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>s to present them
 as their disjoint union.</p>
 <p>It functions as an iterable of the adapted graphs,
 and it implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph" title="mod.protocols.LabelledGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph</span></code></a> protocol.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.UnionGraph.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__init__" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphs</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Construct a graph representing the disjoint union of <code class="docutils literal notranslate"><span class="pre">graphs</span></code>.
@@ -181,7 +183,7 @@ Thus, if no graphs are given the empty graph is constructed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.UnionGraph.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__str__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__str__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
@@ -191,7 +193,7 @@ Thus, if no graphs are given the empty graph is constructed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.UnionGraph.__len__">
-<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__len__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__len__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the number of adapted graphs.</p>
@@ -204,7 +206,7 @@ Thus, if no graphs are given the empty graph is constructed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.UnionGraph.__iter__">
-<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__iter__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__iter__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the range of graphs adapted by this object.</p>
@@ -214,7 +216,7 @@ Thus, if no graphs are given the empty graph is constructed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.UnionGraph.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__getitem__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the <code class="docutils literal notranslate"><span class="pre">i</span></code>th adapted graph.</p>
@@ -230,13 +232,13 @@ Thus, if no graphs are given the empty graph is constructed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.UnionGraph.printTermState">
-<span class="sig-name descname"><span class="pre">printTermState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.printTermState" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">printTermState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.printTermState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the term state for the graph.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.UnionGraph.Vertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.UnionGraph.Vertex" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.UnionGraph.Vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.
 Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numVertices[\)</span>.</p>
 <p>A non-null vertex represents a specific <a class="reference internal" href="GraphInterface.html#mod.Graph.Vertex" title="mod.Graph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph.Vertex</span></code></a>.
@@ -245,7 +247,7 @@ a vertex also has a graph index to determine which instance of a <a class="refer
 in the <a class="reference internal" href="#mod.UnionGraph" title="mod.UnionGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnionGraph</span></code></a> the vertex refers to.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.UnionGraph.Vertex.graphIndex">
-<span class="sig-name descname"><span class="pre">graphIndex</span></span><a class="headerlink" href="#mod.UnionGraph.Vertex.graphIndex" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphIndex</span></span><a class="headerlink" href="#mod.UnionGraph.Vertex.graphIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The index of the graph in the owning <a class="reference internal" href="#mod.UnionGraph" title="mod.UnionGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnionGraph</span></code></a> this vertex
 is from. The index is thus in the range <span class="math notranslate nohighlight">\([0, len(graph)[\)</span>.</p>
 <p>We can obtain the underlying <a class="reference internal" href="Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> this vertex, <code class="docutils literal notranslate"><span class="pre">self</span></code>,
@@ -263,7 +265,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.UnionGraph.Vertex.vertex">
-<span class="sig-name descname"><span class="pre">vertex</span></span><a class="headerlink" href="#mod.UnionGraph.Vertex.vertex" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">vertex</span></span><a class="headerlink" href="#mod.UnionGraph.Vertex.vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The underlying <a class="reference internal" href="GraphInterface.html#mod.Graph.Vertex" title="mod.Graph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph.Vertex</span></code></a> this vertex represents.</p>
 <p>We can obtain the underlying <a class="reference internal" href="Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> this vertex, <code class="docutils literal notranslate"><span class="pre">self</span></code>,
 is from both directly via the <a class="reference internal" href="#mod.UnionGraph.Vertex.vertex" title="mod.UnionGraph.Vertex.vertex"><code class="xref py py-attr docutils literal notranslate"><span class="pre">vertex</span></code></a> attribute as <code class="docutils literal notranslate"><span class="pre">self.vertex.graph</span></code>,
@@ -282,7 +284,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.UnionGraph.Edge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.UnionGraph.Edge" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.UnionGraph.Edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.</p>
 <p>A non-null edge represents a specific <a class="reference internal" href="GraphInterface.html#mod.Graph.Edge" title="mod.Graph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph.Edge</span></code></a>.
 As the same <a class="reference internal" href="Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> can be part of a <a class="reference internal" href="#mod.UnionGraph" title="mod.UnionGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnionGraph</span></code></a> multiple times,
@@ -290,7 +292,7 @@ an edge also has a graph index to determine which instance of a <a class="refere
 in the <a class="reference internal" href="#mod.UnionGraph" title="mod.UnionGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnionGraph</span></code></a> the edge refers to.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.UnionGraph.Edge.graphIndex">
-<span class="sig-name descname"><span class="pre">graphIndex</span></span><a class="headerlink" href="#mod.UnionGraph.Edge.graphIndex" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphIndex</span></span><a class="headerlink" href="#mod.UnionGraph.Edge.graphIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The index of the graph in the owning <a class="reference internal" href="#mod.UnionGraph" title="mod.UnionGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnionGraph</span></code></a> this edge
 is from. The index is thus in the range <span class="math notranslate nohighlight">\([0, len(graph)[\)</span>.</p>
 <p>We can obtain the underlying <a class="reference internal" href="Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> this edge, <code class="docutils literal notranslate"><span class="pre">self</span></code>,
@@ -308,7 +310,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.UnionGraph.Edge.edge">
-<span class="sig-name descname"><span class="pre">edge</span></span><a class="headerlink" href="#mod.UnionGraph.Edge.edge" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">edge</span></span><a class="headerlink" href="#mod.UnionGraph.Edge.edge" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The underlying <a class="reference internal" href="GraphInterface.html#mod.Graph.Edge" title="mod.Graph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph.Edge</span></code></a> this edge represents.</p>
 <p>We can obtain the underlying <a class="reference internal" href="Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> this edge, <code class="docutils literal notranslate"><span class="pre">self</span></code>,
 is from both directly via the <a class="reference internal" href="#mod.UnionGraph.Edge.edge" title="mod.UnionGraph.Edge.edge"><code class="xref py py-attr docutils literal notranslate"><span class="pre">edge</span></code></a> attribute as <code class="docutils literal notranslate"><span class="pre">self.edge.graph</span></code>,
@@ -327,12 +329,12 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.UnionGraph.VertexRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.UnionGraph.VertexRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.UnionGraph.VertexRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol,
 in addition to the following functionality.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.UnionGraph.VertexRange.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.VertexRange.__getitem__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.UnionGraph.VertexRange.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the <code class="docutils literal notranslate"><span class="pre">i</span></code>th vertex of the graph.</p>
@@ -347,13 +349,13 @@ in addition to the following functionality.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.UnionGraph.EdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.UnionGraph.EdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.UnionGraph.EdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.UnionGraph.IncidentEdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.UnionGraph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.UnionGraph.IncidentEdgeRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
@@ -361,7 +363,7 @@ in addition to the following functionality.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.VertexMapUnionGraphUnionGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">VertexMapUnionGraphUnionGraph</span></span><a class="headerlink" href="#mod.VertexMapUnionGraphUnionGraph" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">VertexMapUnionGraphUnionGraph</span></span><a class="headerlink" href="#mod.VertexMapUnionGraphUnionGraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.VertexMap" title="mod.protocols.VertexMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.VertexMap</span></code></a> protocol.</p>
 </dd></dl>
 
@@ -376,7 +378,7 @@ in addition to the following functionality.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

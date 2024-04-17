@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.9.2. graph/Graph &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -185,10 +187,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="graph-graph">
-<span id="py-graph-graph"></span><h1><span class="section-number">4.1.9.2. </span>graph/Graph<a class="headerlink" href="#graph-graph" title="Link to this heading">¶</a></h1>
+<span id="py-graph-graph"></span><h1><span class="section-number">4.1.9.2. </span>graph/Graph<a class="headerlink" href="#graph-graph" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Graph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><a class="headerlink" href="#mod.Graph" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><a class="headerlink" href="#mod.Graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class models an undirected graph with labels on vertices and edges,
 without loops and without parallel edges.
 See <a class="reference internal" href="../../graphModel/index.html#graph-model"><span class="std std-ref">Graph, Rule, and Molecule Model</span></a> for more details.</p>
@@ -196,7 +198,7 @@ See <a class="reference internal" href="../../graphModel/index.html#graph-model"
 See <a class="reference internal" href="GraphInterface.html#py-graph-graphinterface"><span class="std std-ref">graph/GraphInterface</span></a> for additional guarantees.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.Graph.id" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.Graph.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A unique instance id among <a class="reference internal" href="#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -207,7 +209,7 @@ See <a class="reference internal" href="GraphInterface.html#py-graph-graphinterf
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.aut">
-<span class="sig-name descname"><span class="pre">aut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.aut" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">aut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.aut" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – the label settings to use.</p>
@@ -223,7 +225,7 @@ See <a class="reference internal" href="GraphInterface.html#py-graph-graphinterf
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.print">
-<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.print" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.print" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Print the graph, using either the default options or the options in <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">second</span></code>.
@@ -248,13 +250,13 @@ If <code class="docutils literal notranslate"><span class="pre">first</span></co
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.printTermState">
-<span class="sig-name descname"><span class="pre">printTermState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.printTermState" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">printTermState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.printTermState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the term state for the graph.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.getGMLString">
-<span class="sig-name descname"><span class="pre">getGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.getGMLString" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.getGMLString" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> representation of the graph,
@@ -272,7 +274,7 @@ none can be generated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.printGML">
-<span class="sig-name descname"><span class="pre">printGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.printGML" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">printGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.printGML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> representation of the graph,
 optionally with generated 2D coordinates.</p>
 <dl class="field-list simple">
@@ -291,7 +293,7 @@ none can be generated.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#mod.Graph.name" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#mod.Graph.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The name of the graph. The default name includes the unique instance id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -302,7 +304,7 @@ none can be generated.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.smiles">
-<span class="sig-name descname"><span class="pre">smiles</span></span><a class="headerlink" href="#mod.Graph.smiles" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">smiles</span></span><a class="headerlink" href="#mod.Graph.smiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) If the graph models a molecule, this is the canonical <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES string</span></a> for it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -316,7 +318,7 @@ none can be generated.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.smilesWithIds">
-<span class="sig-name descname"><span class="pre">smilesWithIds</span></span><a class="headerlink" href="#mod.Graph.smilesWithIds" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">smilesWithIds</span></span><a class="headerlink" href="#mod.Graph.smilesWithIds" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) If the graph models a molecule, this is the canonical <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES string</span></a> for it,
 that includes the internal vertex id as a class label on each atom.</p>
 <dl class="field-list simple">
@@ -331,7 +333,7 @@ that includes the internal vertex id as a class label on each atom.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.graphDFS">
-<span class="sig-name descname"><span class="pre">graphDFS</span></span><a class="headerlink" href="#mod.Graph.graphDFS" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphDFS</span></span><a class="headerlink" href="#mod.Graph.graphDFS" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) This is a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> of the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -342,7 +344,7 @@ that includes the internal vertex id as a class label on each atom.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.graphDFSWithIds">
-<span class="sig-name descname"><span class="pre">graphDFSWithIds</span></span><a class="headerlink" href="#mod.Graph.graphDFSWithIds" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphDFSWithIds</span></span><a class="headerlink" href="#mod.Graph.graphDFSWithIds" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) This is a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> of the graph, where each vertex have an explicit id,
 corresponding to its internal vertex id.</p>
 <dl class="field-list simple">
@@ -354,7 +356,7 @@ corresponding to its internal vertex id.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.linearEncoding">
-<span class="sig-name descname"><span class="pre">linearEncoding</span></span><a class="headerlink" href="#mod.Graph.linearEncoding" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">linearEncoding</span></span><a class="headerlink" href="#mod.Graph.linearEncoding" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) If the graph models a molecule this is the <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES string</span></a> string, otherwise it is the <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -365,7 +367,7 @@ corresponding to its internal vertex id.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.isMolecule">
-<span class="sig-name descname"><span class="pre">isMolecule</span></span><a class="headerlink" href="#mod.Graph.isMolecule" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isMolecule</span></span><a class="headerlink" href="#mod.Graph.isMolecule" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) Whether the graph models a molecule. See <a class="reference internal" href="../../graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -376,7 +378,7 @@ corresponding to its internal vertex id.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.energy">
-<span class="sig-name descname"><span class="pre">energy</span></span><a class="headerlink" href="#mod.Graph.energy" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">energy</span></span><a class="headerlink" href="#mod.Graph.energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) If the graph models a molecule, this is some energy value.
 The energy is calculated using Open Babel, unless already calculated or cached by <a class="reference internal" href="#mod.Graph.cacheEnergy" title="mod.Graph.cacheEnergy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.cacheEnergy()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -388,7 +390,7 @@ The energy is calculated using Open Babel, unless already calculated or cached b
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.cacheEnergy">
-<span class="sig-name descname"><span class="pre">cacheEnergy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.cacheEnergy" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cacheEnergy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.cacheEnergy" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the graph models a molecule, sets the energy to a given value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -399,7 +401,7 @@ The energy is calculated using Open Babel, unless already calculated or cached b
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.exactMass">
-<span class="sig-name descname"><span class="pre">exactMass</span></span><a class="headerlink" href="#mod.Graph.exactMass" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">exactMass</span></span><a class="headerlink" href="#mod.Graph.exactMass" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The exact mass of the graph, if it is a molecule.
 It is the sum of the exact mass of each atom, with the mass of electrons subtracted corresponding to the integer charge.
 That is, the mass is <span class="math notranslate nohighlight">\(\sum_a (mass(a) - mass(e)\cdot charge(a))\)</span>.
@@ -416,7 +418,7 @@ If an atom has no specified isotope, then the most abundant is used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.vLabelCount">
-<span class="sig-name descname"><span class="pre">vLabelCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.vLabelCount" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">vLabelCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.vLabelCount" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – some label for querying.</p>
@@ -432,7 +434,7 @@ If an atom has no specified isotope, then the most abundant is used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.eLabelCount">
-<span class="sig-name descname"><span class="pre">eLabelCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.eLabelCount" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">eLabelCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.eLabelCount" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – some label for querying.</p>
@@ -448,9 +450,9 @@ If an atom has no specified isotope, then the most abundant is used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.isomorphism">
-<span class="sig-name descname"><span class="pre">isomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.isomorphism" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.isomorphism" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.monomorphism">
-<span class="sig-name descname"><span class="pre">monomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.monomorphism" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">monomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.monomorphism" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -473,9 +475,9 @@ If an atom has no specified isotope, then the most abundant is used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.enumerateIsomorphisms">
-<span class="sig-name descname"><span class="pre">enumerateIsomorphisms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.enumerateIsomorphisms" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">enumerateIsomorphisms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.enumerateIsomorphisms" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.enumerateMonomorphisms">
-<span class="sig-name descname"><span class="pre">enumerateMonomorphisms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.enumerateMonomorphisms" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">enumerateMonomorphisms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.enumerateMonomorphisms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform (sub)structure search of this graph into the given codomain graph.
 Whenever a match is found, the corresponding isomorphism/monomorphism is copied into a vertex map
 and the given callback is invoked with it.</p>
@@ -499,7 +501,7 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.makePermutation">
-<span class="sig-name descname"><span class="pre">makePermutation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.makePermutation" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">makePermutation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.makePermutation" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a graph isomorphic to this, but with the vertex indices randomly permuted.</p>
@@ -512,7 +514,7 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.image">
-<span class="sig-name descname"><span class="pre">image</span></span><a class="headerlink" href="#mod.Graph.image" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">image</span></span><a class="headerlink" href="#mod.Graph.image" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Write-only) A custom depiction for the graph. The depiction file used will be the string
 returned by the given function, with <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> appended.
 The function will only be called once.</p>
@@ -525,7 +527,7 @@ The function will only be called once.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.imageCommand">
-<span class="sig-name descname"><span class="pre">imageCommand</span></span><a class="headerlink" href="#mod.Graph.imageCommand" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">imageCommand</span></span><a class="headerlink" href="#mod.Graph.imageCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>A command to be run in post-processing if a custom depiction is set.
 The command is only run once.</p>
 <dl class="field-list simple">
@@ -537,7 +539,7 @@ The command is only run once.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.instantiateStereo">
-<span class="sig-name descname"><span class="pre">instantiateStereo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.instantiateStereo" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">instantiateStereo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.instantiateStereo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make sure that stereo data is instantiated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -548,7 +550,7 @@ The command is only run once.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.getVertexFromExternalId">
-<span class="sig-name descname"><span class="pre">getVertexFromExternalId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.getVertexFromExternalId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getVertexFromExternalId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.getVertexFromExternalId" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the graph was not loaded from an external data format, then this function
 always return a null descriptor.
 If the graph was loaded from a SMILES string, but <em>any</em> class label was not unique,
@@ -573,9 +575,9 @@ The descriptor is null if the external id was not used.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.minExternalId">
-<span class="sig-name descname"><span class="pre">minExternalId</span></span><a class="headerlink" href="#mod.Graph.minExternalId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">minExternalId</span></span><a class="headerlink" href="#mod.Graph.minExternalId" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.maxExternalId">
-<span class="sig-name descname"><span class="pre">maxExternalId</span></span><a class="headerlink" href="#mod.Graph.maxExternalId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">maxExternalId</span></span><a class="headerlink" href="#mod.Graph.maxExternalId" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only)
 If the graph was not loaded from an external data format, then these attributes
 are always return 0. Otherwise, they are the minimum/maximum external id from which
@@ -590,7 +592,7 @@ If no such minimum and maximum exists, then they are 0.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Graph.loadingWarnings">
-<span class="sig-name descname"><span class="pre">loadingWarnings</span></span><a class="headerlink" href="#mod.Graph.loadingWarnings" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">loadingWarnings</span></span><a class="headerlink" href="#mod.Graph.loadingWarnings" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only)
 The list of warnings stored when the graph was created from an external format.
 Each entry is a message and then an indicator of whether
@@ -608,12 +610,12 @@ the warning was printed before construction (<code class="docutils literal notra
 </dd></dl>
 
 <section id="loading-functions">
-<h2><span class="section-number">4.1.9.2.1. </span>Loading Functions<a class="headerlink" href="#loading-functions" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.9.2.1. </span>Loading Functions<a class="headerlink" href="#loading-functions" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromGMLString">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLString" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLString" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.fromGMLFile">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLFile" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a graph in <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> format from a given string, <code class="docutils literal notranslate"><span class="pre">s</span></code>,
 or given file <code class="docutils literal notranslate"><span class="pre">f</span></code>.
 The graph must be connected.
@@ -642,9 +644,9 @@ If not, use <a class="reference internal" href="#mod.Graph.fromGMLStringMulti" t
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromGMLStringMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLStringMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLStringMulti" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.fromGMLFileMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLFileMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLFileMulti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a set of graphs in <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> format from a given string, <code class="docutils literal notranslate"><span class="pre">s</span></code>,
 or given file <code class="docutils literal notranslate"><span class="pre">f</span></code>,
 with each graph being a connected component of the graph specified in the GML data.</p>
@@ -662,7 +664,7 @@ for a description of the parameters and exceptions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromDFS">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromDFS" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromDFS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a graph from a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string.
 The graph must be connected.
 If not, use <a class="reference internal" href="#mod.Graph.fromDFSMulti" title="mod.Graph.fromDFSMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromDFSMulti()</span></code></a>.</p>
@@ -688,7 +690,7 @@ If not, use <a class="reference internal" href="#mod.Graph.fromDFSMulti" title="
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromDFSMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromDFSMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromDFSMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromDFSMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromDFSMulti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a set of graphs from a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string,
 with each graph being a connected component of the graph specified in the DFS data.</p>
 <dl class="field-list simple">
@@ -712,7 +714,7 @@ with each graph being a connected component of the graph specified in the DFS da
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromSMILES">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSMILES</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowAbstract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SmilesClassPolicy.NoneOnDuplicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSMILES" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSMILES</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowAbstract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SmilesClassPolicy.NoneOnDuplicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSMILES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a molecule from a <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES</span></a> string.
 The molecule must be a connected graph. If not, use <a class="reference internal" href="#mod.Graph.fromSMILESMulti" title="mod.Graph.fromSMILESMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSMILESMulti()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -739,7 +741,7 @@ The molecule must be a connected graph. If not, use <a class="reference internal
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromSMILESMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSMILESMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowAbstract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SmilesClassPolicy.NoneOnDuplicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSMILESMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSMILESMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowAbstract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SmilesClassPolicy.NoneOnDuplicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSMILESMulti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a set of molecules from a <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES</span></a> string,
 with each molecule being a connected component of the graph specified in the SMILES string.</p>
 <p>See <a class="reference internal" href="#mod.Graph.fromSMILES" title="mod.Graph.fromSMILES"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSMILES()</span></code></a> for a description of the parameters and exceptions.</p>
@@ -755,9 +757,9 @@ with each molecule being a connected component of the graph specified in the SMI
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromMOLString">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLString" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLString" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.fromMOLFile">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLFile" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a molecule in <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">MOL</span></a> format from a given string or file.
 The molecule must be a connected graph.
 If not, use <a class="reference internal" href="#mod.Graph.fromMOLStringMulti" title="mod.Graph.fromMOLStringMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLStringMulti()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromMOLFileMulti" title="mod.Graph.fromMOLFileMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLFileMulti()</span></code></a>.</p>
@@ -785,9 +787,9 @@ If not, use <a class="reference internal" href="#mod.Graph.fromMOLStringMulti" t
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromMOLStringMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLStringMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLStringMulti" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.fromMOLFileMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLFileMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLFileMulti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a set of molecules from a given string or file with <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">MOL</span></a> data,
 with each molecule being a connected component of the graph specified in the data.</p>
 <p>See <a class="reference internal" href="#mod.Graph.fromMOLString" title="mod.Graph.fromMOLString"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLString()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromMOLFile" title="mod.Graph.fromMOLFile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLFile()</span></code></a>
@@ -804,9 +806,9 @@ for a description of the parameters and exceptions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromSDString">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDString" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDString" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.fromSDFile">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDFile" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a list of molecules in <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">SD</span></a> format from a given string or file,
 with each molecule being a connected component of each of the graphs specified in the data.
 If any graph is not connected, use <a class="reference internal" href="#mod.Graph.fromSDStringMulti" title="mod.Graph.fromSDStringMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSDStringMulti()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromSDFileMulti" title="mod.Graph.fromSDFileMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSDFileMulti()</span></code></a> instead.</p>
@@ -833,9 +835,9 @@ If any graph is not connected, use <a class="reference internal" href="#mod.Grap
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Graph.fromSDStringMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDStringMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDStringMulti" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Graph.fromSDFileMulti">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDFileMulti" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDFileMulti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a list of molecules in <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">SD</span></a> format from a given string or file.
 Each molecule is returned as a list of graphs, with each corresponding to a connected
 component of the MOL entry.</p>
@@ -854,31 +856,31 @@ The items of the outer list correspond to each MOL entry in the SD data.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.graphGMLString">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphGMLString" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphGMLString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromGMLString" title="mod.Graph.fromGMLString"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromGMLString()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.graphGML">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphGML" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphGML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromGMLFile" title="mod.Graph.fromGMLFile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromGMLFile()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.graphDFS">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphDFS" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphDFS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromDFS" title="mod.Graph.fromDFS"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromDFS()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.smiles">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">smiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.smiles" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">smiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.smiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromSMILES" title="mod.Graph.fromSMILES"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromSMILES()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="mod.inputGraphs">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">inputGraphs</span></span><a class="headerlink" href="#mod.inputGraphs" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">inputGraphs</span></span><a class="headerlink" href="#mod.inputGraphs" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of graphs to which explicitly loaded graphs as default are appended.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -899,7 +901,7 @@ The items of the outer list correspond to each MOL entry in the SD data.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

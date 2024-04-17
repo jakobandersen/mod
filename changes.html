@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>12. Changes &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
-    <script src="_static/documentation_options.js?v=ef97403f"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haxes.css" />
+    <script src="_static/jquery.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -190,11 +192,11 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="changes">
-<h1><span class="section-number">12. </span>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<h1><span class="section-number">12. </span>Changes<a class="headerlink" href="#changes" title="Permalink to this heading">¶</a></h1>
 <section id="v0-15-0-2024-01-26">
-<h2><span class="section-number">12.1. </span>v0.15.0 (2024-01-26)<a class="headerlink" href="#v0-15-0-2024-01-26" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.1. </span>v0.15.0 (2024-01-26)<a class="headerlink" href="#v0-15-0-2024-01-26" title="Permalink to this heading">¶</a></h2>
 <section id="incompatible-changes">
-<h3><span class="section-number">12.1.1. </span>Incompatible Changes<a class="headerlink" href="#incompatible-changes" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.1.1. </span>Incompatible Changes<a class="headerlink" href="#incompatible-changes" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The graphs created by
 <a class="reference internal" href="libmod/dg/Builder.html#_CPPv4N3mod2dg7Builder11addAbstractERKNSt6stringE" title="mod::dg::Builder::addAbstract"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::Builder::addAbstract()</span></code></a>/<a class="reference internal" href="pymod/dg/Builder.html#mod.DGBuilder.addAbstract" title="mod.DGBuilder.addAbstract"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGBuilder.addAbstract()</span></code></a>
@@ -213,7 +215,7 @@ duplicate rules. The old behaviour can be obtained by setting the new parameter
 </ul>
 </section>
 <section id="new-features">
-<h3><span class="section-number">12.1.2. </span>New Features<a class="headerlink" href="#new-features" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.1.2. </span>New Features<a class="headerlink" href="#new-features" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>Added support for LLDB in <a class="reference internal" href="exe/index.html#cmdoption-mod-debug"><code class="xref std std-option docutils literal notranslate"><span class="pre">mod</span> <span class="pre">--debug</span></code></a>. It will be used if
 GDB is not available.</p></li>
@@ -250,7 +252,7 @@ operating systems.</p></li>
 </ul>
 </section>
 <section id="bugs-fixed">
-<h3><span class="section-number">12.1.3. </span>Bugs Fixed<a class="headerlink" href="#bugs-fixed" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.1.3. </span>Bugs Fixed<a class="headerlink" href="#bugs-fixed" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fix CMake finding proper Python version on macOS when multiple are installed.</p></li>
 <li><p>Fix :ref:mod-wrapper: such that it uses the Python executable that was found
@@ -278,9 +280,9 @@ instead of showing an empty string and a seperator.</p></li>
 </section>
 </section>
 <section id="v0-14-0-2022-11-29">
-<h2><span class="section-number">12.2. </span>v0.14.0 (2022-11-29)<a class="headerlink" href="#v0-14-0-2022-11-29" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.2. </span>v0.14.0 (2022-11-29)<a class="headerlink" href="#v0-14-0-2022-11-29" title="Permalink to this heading">¶</a></h2>
 <section id="id1">
-<h3><span class="section-number">12.2.1. </span>Incompatible Changes<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.2.1. </span>Incompatible Changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>Doc, several pages have changed URL:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">libmod/libmod.html</span></code> to <code class="docutils literal notranslate"><span class="pre">libmod/index.html</span></code></p></li>
@@ -303,7 +305,7 @@ Python 3.10 (<a class="reference external" href="https://github.com/boostorg/pyt
 </ul>
 </section>
 <section id="id2">
-<h3><span class="section-number">12.2.2. </span>New Features<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.2.2. </span>New Features<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Doc, a new section, <a class="reference internal" href="graphModel/index.html#graph-model"><span class="std std-ref">Graph, Rule, and Molecule Model</span></a>, and restructuring of
 <a class="reference internal" href="formats/index.html#formats"><span class="std std-ref">Data Formats</span></a>.</p></li>
@@ -349,7 +351,7 @@ See <a class="reference internal" href="libmod/Post.html#cpp-post"><span class="
 </ul>
 </section>
 <section id="id3">
-<h3><span class="section-number">12.2.3. </span>Bugs Fixed<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.2.3. </span>Bugs Fixed<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Rule GML loading, check for edges dangling due to wrong vertex membership.</p></li>
 <li><p><a class="reference internal" href="libmod/dg/Builder.html#_CPPv4N3mod2dg7Builder7executeENSt10shared_ptrI8StrategyEE" title="mod::dg::Builder::execute"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::Builder::execute()</span></code></a>/<a class="reference internal" href="pymod/dg/Builder.html#mod.DGBuilder.execute" title="mod.DGBuilder.execute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGBuilder.execute()</span></code></a> and
@@ -408,9 +410,9 @@ using a <a class="reference internal" href="libmod/dg/Printer.html#_CPPv4N3mod2d
 </section>
 </section>
 <section id="v0-13-0-2021-07-08">
-<h2><span class="section-number">12.3. </span>v0.13.0 (2021-07-08)<a class="headerlink" href="#v0-13-0-2021-07-08" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.3. </span>v0.13.0 (2021-07-08)<a class="headerlink" href="#v0-13-0-2021-07-08" title="Permalink to this heading">¶</a></h2>
 <section id="id4">
-<h3><span class="section-number">12.3.1. </span>Incompatible Changes<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.3.1. </span>Incompatible Changes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The package name has been changed to simply “MØD”.</p></li>
 <li><p>Use more C++17 features, making some code not compile with GCC 7.</p></li>
@@ -450,7 +452,7 @@ has been changed name from <code class="docutils literal notranslate"><span clas
 </ul>
 </section>
 <section id="id5">
-<h3><span class="section-number">12.3.2. </span>New Features<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.3.2. </span>New Features<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Added <code class="docutils literal notranslate"><span class="pre">printCombined</span></code> parameter to
 <a class="reference internal" href="libmod/rule/Rule.html#_CPPv4NK3mod4rule4Rule5printEv" title="mod::rule::Rule::print"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rule::Rule::print()</span></code></a>/<a class="reference internal" href="pymod/rule/Rule.html#mod.Rule.print" title="mod.Rule.print"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Rule.print()</span></code></a>
@@ -494,7 +496,7 @@ interpreter the <a class="reference internal" href="exe/index.html#mod-wrapper">
 </ul>
 </section>
 <section id="id6">
-<h3><span class="section-number">12.3.3. </span>Bugs Fixed<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.3.3. </span>Bugs Fixed<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="libmod/rule/Rule.html#_CPPv4N3mod4rule4Rule11fromGMLFileERKNSt6stringEbb" title="mod::rule::Rule::fromGMLFile"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rule::Rule::fromGMLFile()</span></code></a>/<a class="reference internal" href="pymod/rule/Rule.html#mod.Rule.fromGMLFile" title="mod.Rule.fromGMLFile"><code class="xref py py-func docutils literal notranslate"><span class="pre">Rule.fromGMLFile()</span></code></a> and
 <a class="reference internal" href="libmod/rule/Rule.html#_CPPv4N3mod4rule4Rule13fromGMLStringERKNSt6stringEbb" title="mod::rule::Rule::fromGMLString"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rule::Rule::fromGMLString()</span></code></a>/<a class="reference internal" href="pymod/rule/Rule.html#mod.Rule.fromGMLString" title="mod.Rule.fromGMLString"><code class="xref py py-func docutils literal notranslate"><span class="pre">Rule.fromGMLString()</span></code></a>:</p>
@@ -523,7 +525,7 @@ when running <code class="docutils literal notranslate"><span class="pre">sudo</
 </ul>
 </section>
 <section id="other">
-<h3><span class="section-number">12.3.4. </span>Other<a class="headerlink" href="#other" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.3.4. </span>Other<a class="headerlink" href="#other" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Test, set C++ standard in CMake tests.</p></li>
 <li><p>Doc, fix description of <a class="reference internal" href="pymod/rule/Composition.html#mod.RCExpExp" title="mod.RCExpExp"><code class="xref py py-class docutils literal notranslate"><span class="pre">RCExpExp</span></code></a> and <a class="reference internal" href="pymod/rule/Composition.html#mod.RCExpComposeCommon" title="mod.RCExpComposeCommon"><code class="xref py py-class docutils literal notranslate"><span class="pre">RCExpComposeCommon</span></code></a>.</p></li>
@@ -549,9 +551,9 @@ regarding “hasActiveBuilder” and “isLocked”.</p></li>
 </section>
 </section>
 <section id="v0-12-0-2021-01-18">
-<h2><span class="section-number">12.4. </span>v0.12.0 (2021-01-18)<a class="headerlink" href="#v0-12-0-2021-01-18" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.4. </span>v0.12.0 (2021-01-18)<a class="headerlink" href="#v0-12-0-2021-01-18" title="Permalink to this heading">¶</a></h2>
 <section id="id7">
-<h3><span class="section-number">12.4.1. </span>Incompatible Changes<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.4.1. </span>Incompatible Changes<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Require C++17.</p></li>
 <li><p>Require Boost 1.73 to avoid CMake issue in 1.72.</p></li>
@@ -579,7 +581,7 @@ of results, possibly with duplicates, instead of only a collection of unique rul
 </ul>
 </section>
 <section id="id8">
-<h3><span class="section-number">12.4.2. </span>New Features<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.4.2. </span>New Features<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>A pre-compiled Conda installation is now available on Linux,
 see <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> and <a class="reference external" href="https://anaconda.org/jakobandersen/mod">https://anaconda.org/jakobandersen/mod</a>.</p></li>
@@ -620,7 +622,7 @@ the underlying enumeration algorithm.</p></li>
 </ul>
 </section>
 <section id="id9">
-<h3><span class="section-number">12.4.3. </span>Bugs Fixed<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.4.3. </span>Bugs Fixed<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Flush stdout in the end of
 <a class="reference internal" href="libmod/dg/Builder.html#_CPPv4NK3mod2dg13ExecuteResult4listEb" title="mod::dg::ExecuteResult::list"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::ExecuteResult::list()</span></code></a>/<a class="reference internal" href="pymod/dg/Builder.html#mod.DGExecuteResult.list" title="mod.DGExecuteResult.list"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGExecuteResult.list()</span></code></a>.</p></li>
@@ -645,7 +647,7 @@ Latex errors on the form
 </ul>
 </section>
 <section id="id10">
-<h3><span class="section-number">12.4.4. </span>Other<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.4.4. </span>Other<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Doc, rearrange and deduplicate documentation for graph interfaces
 in PyMØD.
@@ -663,9 +665,9 @@ referring to these protocols:</p>
 </section>
 </section>
 <section id="v0-11-0-2020-08-31">
-<h2><span class="section-number">12.5. </span>v0.11.0 (2020-08-31)<a class="headerlink" href="#v0-11-0-2020-08-31" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.5. </span>v0.11.0 (2020-08-31)<a class="headerlink" href="#v0-11-0-2020-08-31" title="Permalink to this heading">¶</a></h2>
 <section id="id11">
-<h3><span class="section-number">12.5.1. </span>Incompatible Changes<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.5.1. </span>Incompatible Changes<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Bump version requirement of Boost to 1.72.</p></li>
 <li><p><a class="reference internal" href="libmod/dg/Printer.html#_CPPv4N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE" title="mod::dg::Printer::pushVertexVisible"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::Printer::pushVertexVisible()</span></code></a>/<a class="reference internal" href="pymod/dg/Printer.html#mod.DGPrinter.pushVertexVisible" title="mod.DGPrinter.pushVertexVisible"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGPrinter.pushVertexVisible()</span></code></a>,
@@ -690,7 +692,7 @@ an easy way to fix it.</p></li>
 </ul>
 </section>
 <section id="id12">
-<h3><span class="section-number">12.5.2. </span>New Features<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.5.2. </span>New Features<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Added <a class="reference internal" href="libmod/dg/Builder.html#_CPPv4N3mod2dg7Builder5applyERKNSt6vectorINSt10shared_ptrIN5graph5GraphEEEEENSt10shared_ptrIN4rule4RuleEEE" title="mod::dg::Builder::apply"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::Builder::apply()</span></code></a>/<a class="reference internal" href="pymod/dg/Builder.html#mod.DGBuilder.apply" title="mod.DGBuilder.apply"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGBuilder.apply()</span></code></a>
 as a lower-level function for computing proper direct derivations.</p></li>
@@ -723,7 +725,7 @@ equality comparable.</p></li>
 </ul>
 </section>
 <section id="id13">
-<h3><span class="section-number">12.5.3. </span>Bugs Fixed<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.5.3. </span>Bugs Fixed<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fix handling of null pointers:</p>
 <ul>
@@ -810,7 +812,7 @@ remove some linker flags when AppleClang is used.</p></li>
 </ul>
 </section>
 <section id="id14">
-<h3><span class="section-number">12.5.4. </span>Other<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.5.4. </span>Other<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Doc, update theming again to increase readability.</p></li>
 <li><p>Doc, add more formal API for the
@@ -850,9 +852,9 @@ notes on the use of the dependency files.</p></li>
 </section>
 </section>
 <section id="v0-10-0-2020-02-05">
-<h2><span class="section-number">12.6. </span>v0.10.0 (2020-02-05)<a class="headerlink" href="#v0-10-0-2020-02-05" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.6. </span>v0.10.0 (2020-02-05)<a class="headerlink" href="#v0-10-0-2020-02-05" title="Permalink to this heading">¶</a></h2>
 <section id="id15">
-<h3><span class="section-number">12.6.1. </span>Incompatible Changes<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.6.1. </span>Incompatible Changes<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dg::DG::abstract</span></code>/<code class="docutils literal notranslate"><span class="pre">dgAbstract</span></code> has been removed. Use
 <a class="reference internal" href="libmod/dg/Builder.html#_CPPv4N3mod2dg7Builder11addAbstractERKNSt6stringE" title="mod::dg::Builder::addAbstract"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::Builder::addAbstract()</span></code></a>/<a class="reference internal" href="pymod/dg/Builder.html#mod.DGBuilder.addAbstract" title="mod.DGBuilder.addAbstract"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGBuilder.addAbstract()</span></code></a>
@@ -880,7 +882,7 @@ instead.</p></li>
 </ul>
 </section>
 <section id="id16">
-<h3><span class="section-number">12.6.2. </span>New Features<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.6.2. </span>New Features<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Added new incremental build interface for <a class="reference internal" href="pymod/dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>/<a class="reference internal" href="libmod/dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">dg::DG</span></code></a>.
 It includes:</p>
@@ -908,7 +910,7 @@ deprecated behaviour.</p></li>
 </ul>
 </section>
 <section id="id17">
-<h3><span class="section-number">12.6.3. </span>Bugs Fixed<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.6.3. </span>Bugs Fixed<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Changed assert to a proper error message at code related to Open Babel.
 If MØD, or an extension library, is loaded with <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> without the
@@ -931,7 +933,7 @@ problem.</p></li>
 </ul>
 </section>
 <section id="id18">
-<h3><span class="section-number">12.6.4. </span>Other<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.6.4. </span>Other<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Various fixes for documentation formatting including new themeing.</p></li>
 <li><p>Installation, highlight the more relevant <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> instead of
@@ -943,9 +945,9 @@ problem.</p></li>
 </section>
 </section>
 <section id="v0-9-0-2019-08-02">
-<h2><span class="section-number">12.7. </span>v0.9.0 (2019-08-02)<a class="headerlink" href="#v0-9-0-2019-08-02" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.7. </span>v0.9.0 (2019-08-02)<a class="headerlink" href="#v0-9-0-2019-08-02" title="Permalink to this heading">¶</a></h2>
 <section id="id19">
-<h3><span class="section-number">12.7.1. </span>Incompatible Changes<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.7.1. </span>Incompatible Changes<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Change to CMake as build system.
 See <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> for how to build the package,
@@ -962,7 +964,7 @@ has been added to disable symbol hiding.</p></li>
 </ul>
 </section>
 <section id="id20">
-<h3><span class="section-number">12.7.2. </span>New Features<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.7.2. </span>New Features<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dgDump</span></code>/<code class="docutils literal notranslate"><span class="pre">dg::DG::dump</span></code> should now be much, much faster
 in parsing the input file and loading the contained derivation graph.</p></li>
@@ -973,14 +975,14 @@ during calculation.</p></li>
 </ul>
 </section>
 <section id="id21">
-<h3><span class="section-number">12.7.3. </span>Bugs Fixed<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.7.3. </span>Bugs Fixed<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fixed off-by-one error in DG dump loading, <code class="docutils literal notranslate"><span class="pre">dgDump</span></code>/<code class="docutils literal notranslate"><span class="pre">dg::DG::dump</span></code>.</p></li>
 <li><p>Fixed issues with <code class="docutils literal notranslate"><span class="pre">auto</span></code> in function signatures which is not yet in the C++ standard.</p></li>
 </ul>
 </section>
 <section id="id22">
-<h3><span class="section-number">12.7.4. </span>Other<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.7.4. </span>Other<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The functions <a class="reference internal" href="pymod/Misc.html#mod.prefixFilename" title="mod.prefixFilename"><code class="xref py py-func docutils literal notranslate"><span class="pre">prefixFilename()</span></code></a>, <a class="reference internal" href="pymod/Misc.html#mod.pushFilePrefix" title="mod.pushFilePrefix"><code class="xref py py-func docutils literal notranslate"><span class="pre">pushFilePrefix()</span></code></a>, and <a class="reference internal" href="pymod/Misc.html#mod.popFilePrefix" title="mod.popFilePrefix"><code class="xref py py-func docutils literal notranslate"><span class="pre">popFilePrefix()</span></code></a>
 used by the <a class="reference internal" href="exe/index.html#mod.include" title="mod.include"><code class="xref py py-func docutils literal notranslate"><span class="pre">include()</span></code></a> function are now documented.
@@ -991,9 +993,9 @@ It can be disabled with a configuration option.</p></li>
 </section>
 </section>
 <section id="v0-8-0-2019-04-04">
-<h2><span class="section-number">12.8. </span>v0.8.0 (2019-04-04)<a class="headerlink" href="#v0-8-0-2019-04-04" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.8. </span>v0.8.0 (2019-04-04)<a class="headerlink" href="#v0-8-0-2019-04-04" title="Permalink to this heading">¶</a></h2>
 <section id="id23">
-<h3><span class="section-number">12.8.1. </span>Incompatible Changes<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.8.1. </span>Incompatible Changes<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Now requires v0.3 of
 <a class="reference external" href="https://github.com/jakobandersen/graph_canon">GraphCanon</a>
@@ -1015,7 +1017,7 @@ hash function removed. This is to prevent inconsistencies between hash and equal
 </ul>
 </section>
 <section id="id24">
-<h3><span class="section-number">12.8.2. </span>New Features<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.8.2. </span>New Features<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Added support for isotopes (see <a class="reference internal" href="graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>).</p></li>
 <li><p>Added <a class="reference internal" href="libmod/graph/Graph.html#_CPPv4NK3mod5graph5Graph12getExactMassEv" title="mod::graph::Graph::getExactMass"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">graph::Graph::getExactMass()</span></code></a>/<a class="reference internal" href="pymod/graph/Graph.html#mod.Graph.exactMass" title="mod.Graph.exactMass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Graph.exactMass</span></code></a>.</p></li>
@@ -1058,7 +1060,7 @@ and <a class="reference internal" href="libmod/dg/Printer.html#_CPPv4N3mod2dg7Pr
 </ul>
 </section>
 <section id="id25">
-<h3><span class="section-number">12.8.3. </span>Bugs Fixed<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.8.3. </span>Bugs Fixed<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Throw <a class="reference internal" href="libmod/Error.html#_CPPv4N3mod10InputErrorE" title="mod::InputError"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">InputError</span></code></a>/<a class="reference internal" href="pymod/Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InputError</span></code></a> when loading a DG dump
 when a rule in the dump can not be linked to a rule from the user.</p></li>
@@ -1081,7 +1083,7 @@ making term morphisms and stereo morphisms slow.</p></li>
 </ul>
 </section>
 <section id="id26">
-<h3><span class="section-number">12.8.4. </span>Other<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.8.4. </span>Other<a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Now compiles with <code class="docutils literal notranslate"><span class="pre">-fno-stack-protector</span></code> (some OS distributions messes with default flags).</p></li>
 <li><p>The Makefile from <code class="docutils literal notranslate"><span class="pre">mod</span> <span class="pre">--get-latex</span></code> now cleans <code class="docutils literal notranslate"><span class="pre">.vrb</span></code>, <code class="docutils literal notranslate"><span class="pre">.snm</span></code>, and <code class="docutils literal notranslate"><span class="pre">.nav</span></code> files as well.</p></li>
@@ -1089,9 +1091,9 @@ making term morphisms and stereo morphisms slow.</p></li>
 </section>
 </section>
 <section id="v0-7-0-2018-03-08">
-<h2><span class="section-number">12.9. </span>v0.7.0 (2018-03-08)<a class="headerlink" href="#v0-7-0-2018-03-08" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.9. </span>v0.7.0 (2018-03-08)<a class="headerlink" href="#v0-7-0-2018-03-08" title="Permalink to this heading">¶</a></h2>
 <section id="id27">
-<h3><span class="section-number">12.9.1. </span>Incompatible Changes<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.9.1. </span>Incompatible Changes<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Boost &gt;= 1.64 is now required.</p></li>
 <li><p>Two new libraries,
@@ -1113,7 +1115,7 @@ has been removed.</p></li>
 </ul>
 </section>
 <section id="id28">
-<h3><span class="section-number">12.9.2. </span>New Features<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.9.2. </span>New Features<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Added functions to map external ids of graphs and rules to internal vertices.</p></li>
 <li><p>Added functions to get vertex coordinates for rules.</p></li>
@@ -1130,7 +1132,7 @@ for getting a string annotated with the internal vertex ids in form of the class
 </ul>
 </section>
 <section id="experimental-new-features">
-<h3><span class="section-number">12.9.3. </span>Experimental New Features<a class="headerlink" href="#experimental-new-features" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.9.3. </span>Experimental New Features<a class="headerlink" href="#experimental-new-features" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Vertex/edge labels in graphs/rules can now be interpreted as first-order terms.
 Syntactic unification is then performed during morphism finding.
@@ -1148,7 +1150,7 @@ documented in a future version.</p></li>
 </ul>
 </section>
 <section id="id29">
-<h3><span class="section-number">12.9.4. </span>Bugs Fixed<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.9.4. </span>Bugs Fixed<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Multiple rules for the same derivation is now properly recorded.</p></li>
 <li><p>Fix documentation of <a class="reference internal" href="libmod/rule/Rule.html#_CPPv4NK3mod4rule4Rule11makeInverseEv" title="mod::rule::Rule::makeInverse"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">rule::Rule::makeInverse()</span></code></a>/<a class="reference internal" href="pymod/rule/Rule.html#mod.Rule.makeInverse" title="mod.Rule.makeInverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rule.makeInverse</span></code></a>,
@@ -1175,7 +1177,7 @@ is called before <code class="docutils literal notranslate"><span class="pre">dg
 </ul>
 </section>
 <section id="id30">
-<h3><span class="section-number">12.9.5. </span>Other<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.9.5. </span>Other<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>The documentation now has a “Known Issues” section, describing an issue where
 post-processing may fail if <code class="docutils literal notranslate"><span class="pre">pdflatex</span></code> has been upgraded after installation</p></li>
@@ -1183,9 +1185,9 @@ post-processing may fail if <code class="docutils literal notranslate"><span cla
 </section>
 </section>
 <section id="v0-6-0-2016-12-22">
-<h2><span class="section-number">12.10. </span>v0.6.0 (2016-12-22)<a class="headerlink" href="#v0-6-0-2016-12-22" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.10. </span>v0.6.0 (2016-12-22)<a class="headerlink" href="#v0-6-0-2016-12-22" title="Permalink to this heading">¶</a></h2>
 <section id="id31">
-<h3><span class="section-number">12.10.1. </span>Incompatible Changes<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.10.1. </span>Incompatible Changes<a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>A C++14 compiler is now required (e.g., GCC 5.1 or later).</p></li>
 <li><p>The required Boost version is now either 1.59 or at least 1.61.
@@ -1223,7 +1225,7 @@ changes. Now different colours are used in L, K, R.</p></li>
 </ul>
 </section>
 <section id="id32">
-<h3><span class="section-number">12.10.2. </span>New Features<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.10.2. </span>New Features<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="libmod/rule/Rule.html#_CPPv4NK3mod4rule4Rule11makeInverseEv" title="mod::rule::Rule::makeInverse"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">rule::Rule::makeInverse()</span></code></a>/<a class="reference internal" href="pymod/rule/Rule.html#mod.Rule.makeInverse" title="mod.Rule.makeInverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rule.makeInverse</span></code></a>.</p></li>
 <li><p>Reimplementation of GML parsing. It is now less strict with respect to ordering.</p></li>
@@ -1245,7 +1247,7 @@ Internally computed coordinates will be rotated by the set amount of degrees.</p
 </ul>
 </section>
 <section id="id33">
-<h3><span class="section-number">12.10.3. </span>Bugs Fixed<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.10.3. </span>Bugs Fixed<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;</span></code> for Derivation: only try to print the rule if there is one.</p></li>
 <li><p>Properly throw an exception when graph GML parsing fails.</p></li>
@@ -1256,7 +1258,7 @@ Internally computed coordinates will be rotated by the set amount of degrees.</p
 </section>
 </section>
 <section id="v0-5-0-2016-03-07">
-<h2><span class="section-number">12.11. </span>v0.5.0 (2016-03-07)<a class="headerlink" href="#v0-5-0-2016-03-07" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">12.11. </span>v0.5.0 (2016-03-07)<a class="headerlink" href="#v0-5-0-2016-03-07" title="Permalink to this heading">¶</a></h2>
 <p>Initial public version.</p>
 </section>
 </section>
@@ -1270,7 +1272,7 @@ Internally computed coordinates will be rotated by the set amount of degrees.</p
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

@@ -8,19 +8,18 @@ Rule Composition
 
 
 
-Parallel Composition
+Overall Formose Reaction
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A pair of rules can be merged to a new rule implementing the parallel
-transformation.
+A complete pathway can be composed to obtain the overall rules.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=010_rc__
-101_rcParallel.py>`__.
+120_rcFormose.py>`__.
 
-.. literalinclude:: /_static/examples/py/010_rc/101_rcParallel.py
+.. literalinclude:: /_static/examples/py/010_rc/120_rcFormose.py
 	:language: python
 	:linenos:
-	:lines: 1-7
+	:lines: 1-20
 	:tab-width: 3
 
 
@@ -54,16 +53,17 @@ Special rules can be constructed from graphs.
 	:tab-width: 3
 
 
-Overall Formose Reaction
+Parallel Composition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A complete pathway can be composed to obtain the overall rules.
+A pair of rules can be merged to a new rule implementing the parallel
+transformation.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=010_rc__
-120_rcFormose.py>`__.
+101_rcParallel.py>`__.
 
-.. literalinclude:: /_static/examples/py/010_rc/120_rcFormose.py
+.. literalinclude:: /_static/examples/py/010_rc/101_rcParallel.py
 	:language: python
 	:linenos:
-	:lines: 1-20
+	:lines: 1-7
 	:tab-width: 3

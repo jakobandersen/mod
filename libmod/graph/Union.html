@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>3.2.12.6. graph/Union.hpp &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -80,108 +82,44 @@
 		<ul>
 <li><a class="reference internal" href="#">3.2.12.6. graph/Union.hpp</a><ul>
 <li><a class="reference internal" href="#class-graph-union">3.2.12.6.1. Class <code class="docutils literal notranslate"><span class="pre">graph::Union</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE"><code class="docutils literal notranslate"><span class="pre">Union</span></code></a></li>
 <li><a class="reference internal" href="#synopsis">3.2.12.6.1.1. Synopsis</a></li>
-<li><a class="reference internal" href="#details">3.2.12.6.1.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE"><code class="docutils literal notranslate"><span class="pre">const_iterator</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union8iteratorE"><code class="docutils literal notranslate"><span class="pre">iterator</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union5UnionEv"><code class="docutils literal notranslate"><span class="pre">Union()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE"><code class="docutils literal notranslate"><span class="pre">Union()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5UnionlsERNSt7ostreamERK5Union"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4sizeEv"><code class="docutils literal notranslate"><span class="pre">size()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union5beginEv"><code class="docutils literal notranslate"><span class="pre">begin()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union3endEv"><code class="docutils literal notranslate"><span class="pre">end()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5UnionixENSt6size_tE"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union11numVerticesEv"><code class="docutils literal notranslate"><span class="pre">numVertices()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union8verticesEv"><code class="docutils literal notranslate"><span class="pre">vertices()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union8numEdgesEv"><code class="docutils literal notranslate"><span class="pre">numEdges()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union5edgesEv"><code class="docutils literal notranslate"><span class="pre">edges()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union14printTermStateEv"><code class="docutils literal notranslate"><span class="pre">printTermState()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#details">3.2.12.6.1.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-vertex">3.2.12.6.2. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::Vertex</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union6VertexE"><code class="docutils literal notranslate"><span class="pre">Vertex</span></code></a></li>
 <li><a class="reference internal" href="#id1">3.2.12.6.2.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id2">3.2.12.6.2.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union6Vertex6VertexEv"><code class="docutils literal notranslate"><span class="pre">Vertex()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6VertexcvbEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">bool()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex6isNullEv"><code class="docutils literal notranslate"><span class="pre">isNull()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex5getIdEv"><code class="docutils literal notranslate"><span class="pre">getId()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex8getGraphEv"><code class="docutils literal notranslate"><span class="pre">getGraph()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex9getDegreeEv"><code class="docutils literal notranslate"><span class="pre">getDegree()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex13incidentEdgesEv"><code class="docutils literal notranslate"><span class="pre">incidentEdges()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex14getStringLabelEv"><code class="docutils literal notranslate"><span class="pre">getStringLabel()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex9getAtomIdEv"><code class="docutils literal notranslate"><span class="pre">getAtomId()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex10getIsotopeEv"><code class="docutils literal notranslate"><span class="pre">getIsotope()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex9getChargeEv"><code class="docutils literal notranslate"><span class="pre">getCharge()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex10getRadicalEv"><code class="docutils literal notranslate"><span class="pre">getRadical()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex11printStereoEv"><code class="docutils literal notranslate"><span class="pre">printStereo()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex11printStereoERK7Printer"><code class="docutils literal notranslate"><span class="pre">printStereo()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex13getGraphIndexEv"><code class="docutils literal notranslate"><span class="pre">getGraphIndex()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex9getVertexEv"><code class="docutils literal notranslate"><span class="pre">getVertex()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id2">3.2.12.6.2.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-edge">3.2.12.6.3. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::Edge</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union4EdgeE"><code class="docutils literal notranslate"><span class="pre">Edge</span></code></a></li>
 <li><a class="reference internal" href="#id3">3.2.12.6.3.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id4">3.2.12.6.3.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union4Edge4EdgeEv"><code class="docutils literal notranslate"><span class="pre">Edge()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4EdgecvbEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">bool()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge6isNullEv"><code class="docutils literal notranslate"><span class="pre">isNull()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge8getGraphEv"><code class="docutils literal notranslate"><span class="pre">getGraph()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge6sourceEv"><code class="docutils literal notranslate"><span class="pre">source()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge6targetEv"><code class="docutils literal notranslate"><span class="pre">target()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge14getStringLabelEv"><code class="docutils literal notranslate"><span class="pre">getStringLabel()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge11getBondTypeEv"><code class="docutils literal notranslate"><span class="pre">getBondType()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge13getGraphIndexEv"><code class="docutils literal notranslate"><span class="pre">getGraphIndex()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge7getEdgeEv"><code class="docutils literal notranslate"><span class="pre">getEdge()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id4">3.2.12.6.3.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-vertexiterator">3.2.12.6.4. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::VertexIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union14VertexIteratorE"><code class="docutils literal notranslate"><span class="pre">VertexIterator</span></code></a></li>
 <li><a class="reference internal" href="#id5">3.2.12.6.4.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id6">3.2.12.6.4.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union14VertexIterator14VertexIteratorEv"><code class="docutils literal notranslate"><span class="pre">VertexIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id6">3.2.12.6.4.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-vertexrange">3.2.12.6.5. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::VertexRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union11VertexRangeE"><code class="docutils literal notranslate"><span class="pre">VertexRange</span></code></a></li>
 <li><a class="reference internal" href="#id7">3.2.12.6.5.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-edgeiterator">3.2.12.6.6. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::EdgeIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union12EdgeIteratorE"><code class="docutils literal notranslate"><span class="pre">EdgeIterator</span></code></a></li>
 <li><a class="reference internal" href="#id8">3.2.12.6.6.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id9">3.2.12.6.6.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union12EdgeIterator12EdgeIteratorEv"><code class="docutils literal notranslate"><span class="pre">EdgeIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id9">3.2.12.6.6.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-edgerange">3.2.12.6.7. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::EdgeRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union9EdgeRangeE"><code class="docutils literal notranslate"><span class="pre">EdgeRange</span></code></a></li>
 <li><a class="reference internal" href="#id10">3.2.12.6.7.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-incidentedgeiterator">3.2.12.6.8. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::IncidentEdgeIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union20IncidentEdgeIteratorE"><code class="docutils literal notranslate"><span class="pre">IncidentEdgeIterator</span></code></a></li>
 <li><a class="reference internal" href="#id11">3.2.12.6.8.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id12">3.2.12.6.8.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv"><code class="docutils literal notranslate"><span class="pre">IncidentEdgeIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id12">3.2.12.6.8.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-union-incidentedgerange">3.2.12.6.9. Class <code class="docutils literal notranslate"><span class="pre">graph::Union::IncidentEdgeRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Union17IncidentEdgeRangeE"><code class="docutils literal notranslate"><span class="pre">IncidentEdgeRange</span></code></a></li>
 <li><a class="reference internal" href="#id13">3.2.12.6.9.1. Synopsis</a></li>
 </ul>
 </li>
@@ -234,18 +172,18 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="graph-union-hpp">
-<span id="cpp-graph-union"></span><h1><span class="section-number">3.2.12.6. </span>graph/Union.hpp<a class="headerlink" href="#graph-union-hpp" title="Link to this heading">¶</a></h1>
+<span id="cpp-graph-union"></span><h1><span class="section-number">3.2.12.6. </span>graph/Union.hpp<a class="headerlink" href="#graph-union-hpp" title="Permalink to this heading">¶</a></h1>
 <section id="class-graph-union">
-<h2><span class="section-number">3.2.12.6.1. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union</span></code><a class="headerlink" href="#class-graph-union" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.1. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union</span></code><a class="headerlink" href="#class-graph-union" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5UnionE">
-<span id="_CPPv3N3mod5graph5UnionE"></span><span id="_CPPv2N3mod5graph5UnionE"></span><span id="mod::graph::Union"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5UnionE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5UnionE"></span><span id="_CPPv2N3mod5graph5UnionE"></span><span id="mod::graph::Union"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5UnionE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An adaptor for a multiset of <a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Graph</span></code></a>s to present them
 as their disjoint union.</p>
 </dd></dl>
 
 <section id="synopsis">
-<h3><span class="section-number">3.2.12.6.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">type</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="mod::graph::Union::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><br /></dt>
@@ -295,24 +233,24 @@ as their disjoint union.</p>
 
 </section>
 <section id="details">
-<h3><span class="section-number">3.2.12.6.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.1.2. </span>Details<a class="headerlink" href="#details" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union14const_iteratorE">
-<span id="_CPPv3N3mod5graph5Union14const_iteratorE"></span><span id="_CPPv2N3mod5graph5Union14const_iteratorE"></span><span id="mod::graph::Union::const_iterator"></span><span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union14const_iteratorE"></span><span id="_CPPv2N3mod5graph5Union14const_iteratorE"></span><span id="mod::graph::Union::const_iterator"></span><span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union8iteratorE">
-<span id="_CPPv3N3mod5graph5Union8iteratorE"></span><span id="_CPPv2N3mod5graph5Union8iteratorE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="mod::graph::Union::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><a class="headerlink" href="#_CPPv4N3mod5graph5Union8iteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union8iteratorE"></span><span id="_CPPv2N3mod5graph5Union8iteratorE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="mod::graph::Union::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><a class="headerlink" href="#_CPPv4N3mod5graph5Union8iteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A random-access iterator over the <a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Graph</span></code></a>s adapted by this object.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union5UnionEv">
-<span id="_CPPv3N3mod5graph5Union5UnionEv"></span><span id="_CPPv2N3mod5graph5Union5UnionEv"></span><span id="mod::graph::Union::Union"></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union5UnionEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union5UnionEv"></span><span id="_CPPv2N3mod5graph5Union5UnionEv"></span><span id="mod::graph::Union::Union"></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union5UnionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct an empty graph.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE">
-<span id="_CPPv3N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE"></span><span id="_CPPv2N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE"></span><span id="mod::graph::Union::Union__std::vector:std::shared_ptr:Graph::"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">graphs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE"></span><span id="_CPPv2N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE"></span><span id="mod::graph::Union::Union__std::vector:std::shared_ptr:Graph::"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">graphs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a graph representing the disjoint union of <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod5graph5Union5UnionENSt6vectorINSt10shared_ptrI5GraphEEEE" title="mod::graph::Union::Union::graphs"><span class="n">graphs</span></a></span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Throws<span class="colon">:</span></dt>
@@ -323,12 +261,12 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5UnionlsERNSt7ostreamERK5Union">
-<span id="_CPPv3N3mod5graph5UnionlsERNSt7ostreamERK5Union"></span><span id="_CPPv2N3mod5graph5UnionlsERNSt7ostreamERK5Union"></span><span id="mod::graph::Union::lshift-operator__osR.UnionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ug</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5UnionlsERNSt7ostreamERK5Union" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5UnionlsERNSt7ostreamERK5Union"></span><span id="_CPPv2N3mod5graph5UnionlsERNSt7ostreamERK5Union"></span><span id="mod::graph::Union::lshift-operator__osR.UnionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ug</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5UnionlsERNSt7ostreamERK5Union" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4sizeEv">
-<span id="_CPPv3NK3mod5graph5Union4sizeEv"></span><span id="_CPPv2NK3mod5graph5Union4sizeEv"></span><span id="mod::graph::Union::sizeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4sizeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4sizeEv"></span><span id="_CPPv2NK3mod5graph5Union4sizeEv"></span><span id="mod::graph::Union::sizeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the number of adapted graphs.</p>
@@ -338,9 +276,9 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union5beginEv">
-<span id="_CPPv3NK3mod5graph5Union5beginEv"></span><span id="_CPPv2NK3mod5graph5Union5beginEv"></span><span id="mod::graph::Union::beginC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="mod::graph::Union::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union5beginEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union5beginEv"></span><span id="_CPPv2NK3mod5graph5Union5beginEv"></span><span id="mod::graph::Union::beginC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="mod::graph::Union::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union5beginEv" title="Permalink to this definition">¶</a><br /></dt>
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union3endEv">
-<span id="_CPPv3NK3mod5graph5Union3endEv"></span><span id="_CPPv2NK3mod5graph5Union3endEv"></span><span id="mod::graph::Union::endC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="mod::graph::Union::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union3endEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union3endEv"></span><span id="_CPPv2NK3mod5graph5Union3endEv"></span><span id="mod::graph::Union::endC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union14const_iteratorE" title="mod::graph::Union::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union3endEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the range of graphs adapted by this object.</p>
@@ -350,7 +288,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5UnionixENSt6size_tE">
-<span id="_CPPv3NK3mod5graph5UnionixENSt6size_tE"></span><span id="_CPPv2NK3mod5graph5UnionixENSt6size_tE"></span><span id="mod::graph::Union::subscript-operator__std::sC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5UnionixENSt6size_tE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5UnionixENSt6size_tE"></span><span id="_CPPv2NK3mod5graph5UnionixENSt6size_tE"></span><span id="mod::graph::Union::subscript-operator__std::sC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5UnionixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod5graph5UnionixENSt6size_tE" title="mod::graph::Union::operator[]::i"><span class="n">i</span></a></span>th adapted graph.</p>
@@ -363,7 +301,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union11numVerticesEv">
-<span id="_CPPv3NK3mod5graph5Union11numVerticesEv"></span><span id="_CPPv2NK3mod5graph5Union11numVerticesEv"></span><span id="mod::graph::Union::numVerticesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numVertices</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union11numVerticesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union11numVerticesEv"></span><span id="_CPPv2NK3mod5graph5Union11numVerticesEv"></span><span id="mod::graph::Union::numVerticesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numVertices</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union11numVerticesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the number of vertices in the graph.</p>
@@ -373,7 +311,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union8verticesEv">
-<span id="_CPPv3NK3mod5graph5Union8verticesEv"></span><span id="_CPPv2NK3mod5graph5Union8verticesEv"></span><span id="mod::graph::Union::verticesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union11VertexRangeE" title="mod::graph::Union::VertexRange"><span class="n"><span class="pre">VertexRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vertices</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union8verticesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union8verticesEv"></span><span id="_CPPv2NK3mod5graph5Union8verticesEv"></span><span id="mod::graph::Union::verticesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union11VertexRangeE" title="mod::graph::Union::VertexRange"><span class="n"><span class="pre">VertexRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vertices</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union8verticesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a range of all vertices in the graph.</p>
@@ -383,7 +321,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union8numEdgesEv">
-<span id="_CPPv3NK3mod5graph5Union8numEdgesEv"></span><span id="_CPPv2NK3mod5graph5Union8numEdgesEv"></span><span id="mod::graph::Union::numEdgesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union8numEdgesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union8numEdgesEv"></span><span id="_CPPv2NK3mod5graph5Union8numEdgesEv"></span><span id="mod::graph::Union::numEdgesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union8numEdgesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the number of edges in the graph.</p>
@@ -393,7 +331,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union5edgesEv">
-<span id="_CPPv3NK3mod5graph5Union5edgesEv"></span><span id="_CPPv2NK3mod5graph5Union5edgesEv"></span><span id="mod::graph::Union::edgesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union9EdgeRangeE" title="mod::graph::Union::EdgeRange"><span class="n"><span class="pre">EdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">edges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union5edgesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union5edgesEv"></span><span id="_CPPv2NK3mod5graph5Union5edgesEv"></span><span id="mod::graph::Union::edgesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union9EdgeRangeE" title="mod::graph::Union::EdgeRange"><span class="n"><span class="pre">EdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">edges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union5edgesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a range of all edges in the graph.</p>
@@ -403,22 +341,22 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union14printTermStateEv">
-<span id="_CPPv3NK3mod5graph5Union14printTermStateEv"></span><span id="_CPPv2NK3mod5graph5Union14printTermStateEv"></span><span id="mod::graph::Union::printTermStateC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printTermState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union14printTermStateEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union14printTermStateEv"></span><span id="_CPPv2NK3mod5graph5Union14printTermStateEv"></span><span id="mod::graph::Union::printTermStateC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printTermState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union14printTermStateEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Print the term state for the graph.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-graph-union-vertex">
-<h2><span class="section-number">3.2.12.6.2. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::Vertex</span></code><a class="headerlink" href="#class-graph-union-vertex" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.2. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::Vertex</span></code><a class="headerlink" href="#class-graph-union-vertex" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union6VertexE">
-<span id="_CPPv3N3mod5graph5Union6VertexE"></span><span id="_CPPv2N3mod5graph5Union6VertexE"></span><span id="mod::graph::Union::Vertex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union6VertexE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union6VertexE"></span><span id="_CPPv2N3mod5graph5Union6VertexE"></span><span id="mod::graph::Union::Vertex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union6VertexE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A descriptor of either a vertex in a union graph, or a null vertex.</p>
 </dd></dl>
 
 <section id="id1">
-<h3><span class="section-number">3.2.12.6.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Union6Vertex6VertexEv" title="mod::graph::Union::Vertex::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -456,16 +394,16 @@ as their disjoint union.</p>
 
 </section>
 <section id="id2">
-<h3><span class="section-number">3.2.12.6.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.2.2. </span>Details<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union6Vertex6VertexEv">
-<span id="_CPPv3N3mod5graph5Union6Vertex6VertexEv"></span><span id="_CPPv2N3mod5graph5Union6Vertex6VertexEv"></span><span id="mod::graph::Union::Vertex::Vertex"></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union6Vertex6VertexEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union6Vertex6VertexEv"></span><span id="_CPPv2N3mod5graph5Union6Vertex6VertexEv"></span><span id="mod::graph::Union::Vertex::Vertex"></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union6Vertex6VertexEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a null descriptor.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6VertexcvbEv">
-<span id="_CPPv3NK3mod5graph5Union6VertexcvbEv"></span><span id="_CPPv2NK3mod5graph5Union6VertexcvbEv"></span><span id="mod::graph::Union::Vertex::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6VertexcvbEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6VertexcvbEv"></span><span id="_CPPv2NK3mod5graph5Union6VertexcvbEv"></span><span id="mod::graph::Union::Vertex::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6VertexcvbEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod5graph5Union6Vertex6isNullEv" title="mod::graph::Union::Vertex::isNull"><span class="n">isNull</span></a><span class="p">(</span><span class="p">)</span></span></p>
@@ -475,7 +413,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex6isNullEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex6isNullEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex6isNullEv"></span><span id="mod::graph::Union::Vertex::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex6isNullEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex6isNullEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex6isNullEv"></span><span id="mod::graph::Union::Vertex::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex6isNullEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>whether this is a null descriptor or not.</p>
@@ -485,7 +423,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex5getIdEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex5getIdEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex5getIdEv"></span><span id="mod::graph::Union::Vertex::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex5getIdEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex5getIdEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex5getIdEv"></span><span id="mod::graph::Union::Vertex::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex5getIdEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the index of the vertex. It will be in the range <span class="math notranslate nohighlight">\([0, numVertices[\)</span>.</p>
@@ -498,7 +436,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex8getGraphEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex8getGraphEv"></span><span id="mod::graph::Union::Vertex::getGraphC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex8getGraphEv"></span><span id="mod::graph::Union::Vertex::getGraphC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex8getGraphEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the union graph the vertex belongs to.</p>
@@ -511,7 +449,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex9getDegreeEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex9getDegreeEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getDegreeEv"></span><span id="mod::graph::Union::Vertex::getDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getDegreeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex9getDegreeEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getDegreeEv"></span><span id="mod::graph::Union::Vertex::getDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getDegreeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the degree of the vertex.</p>
@@ -524,7 +462,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex13incidentEdgesEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex13incidentEdgesEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex13incidentEdgesEv"></span><span id="mod::graph::Union::Vertex::incidentEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union17IncidentEdgeRangeE" title="mod::graph::Union::IncidentEdgeRange"><span class="n"><span class="pre">IncidentEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">incidentEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex13incidentEdgesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex13incidentEdgesEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex13incidentEdgesEv"></span><span id="mod::graph::Union::Vertex::incidentEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union17IncidentEdgeRangeE" title="mod::graph::Union::IncidentEdgeRange"><span class="n"><span class="pre">IncidentEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">incidentEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex13incidentEdgesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a range of incident edges to this vertex.</p>
@@ -537,7 +475,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex14getStringLabelEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex14getStringLabelEv"></span><span id="mod::graph::Union::Vertex::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex14getStringLabelEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex14getStringLabelEv"></span><span id="mod::graph::Union::Vertex::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex14getStringLabelEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the string label of the vertex.</p>
@@ -550,7 +488,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex9getAtomIdEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex9getAtomIdEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getAtomIdEv"></span><span id="mod::graph::Union::Vertex::getAtomIdC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAtomId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getAtomIdEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex9getAtomIdEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getAtomIdEv"></span><span id="mod::graph::Union::Vertex::getAtomIdC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAtomId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getAtomIdEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the atom id of the vertex.</p>
@@ -563,7 +501,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex10getIsotopeEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex10getIsotopeEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex10getIsotopeEv"></span><span id="mod::graph::Union::Vertex::getIsotopeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIsotope</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex10getIsotopeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex10getIsotopeEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex10getIsotopeEv"></span><span id="mod::graph::Union::Vertex::getIsotopeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIsotope</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex10getIsotopeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the isotope of the vertex.</p>
@@ -576,7 +514,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex9getChargeEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex9getChargeEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getChargeEv"></span><span id="mod::graph::Union::Vertex::getChargeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCharge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getChargeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex9getChargeEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getChargeEv"></span><span id="mod::graph::Union::Vertex::getChargeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCharge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getChargeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the charge of the vertex.</p>
@@ -589,7 +527,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex10getRadicalEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex10getRadicalEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex10getRadicalEv"></span><span id="mod::graph::Union::Vertex::getRadicalC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRadical</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex10getRadicalEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex10getRadicalEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex10getRadicalEv"></span><span id="mod::graph::Union::Vertex::getRadicalC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRadical</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex10getRadicalEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the radical status of the vertex.</p>
@@ -602,9 +540,9 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex11printStereoEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex11printStereoEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex11printStereoEv"></span><span id="mod::graph::Union::Vertex::printStereoC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex11printStereoEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex11printStereoEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex11printStereoEv"></span><span id="mod::graph::Union::Vertex::printStereoC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex11printStereoEv" title="Permalink to this definition">¶</a><br /></dt>
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex11printStereoERK7Printer">
-<span id="_CPPv3NK3mod5graph5Union6Vertex11printStereoERK7Printer"></span><span id="_CPPv2NK3mod5graph5Union6Vertex11printStereoERK7Printer"></span><span id="mod::graph::Union::Vertex::printStereo__PrinterCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex11printStereoERK7Printer" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex11printStereoERK7Printer"></span><span id="_CPPv2NK3mod5graph5Union6Vertex11printStereoERK7Printer"></span><span id="mod::graph::Union::Vertex::printStereo__PrinterCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex11printStereoERK7Printer" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Print the stereo configuration for the vertex.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -618,7 +556,7 @@ as their disjoint union.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex13getGraphIndexEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex13getGraphIndexEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex13getGraphIndexEv"></span><span id="mod::graph::Union::Vertex::getGraphIndexC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraphIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex13getGraphIndexEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex13getGraphIndexEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex13getGraphIndexEv"></span><span id="mod::graph::Union::Vertex::getGraphIndexC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraphIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex13getGraphIndexEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p>The index of the graph in the owning <a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Union</span></code></a> graph this vertex
@@ -636,7 +574,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union6Vertex9getVertexEv">
-<span id="_CPPv3NK3mod5graph5Union6Vertex9getVertexEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getVertexEv"></span><span id="mod::graph::Union::Vertex::getVertexC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getVertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getVertexEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union6Vertex9getVertexEv"></span><span id="_CPPv2NK3mod5graph5Union6Vertex9getVertexEv"></span><span id="mod::graph::Union::Vertex::getVertexC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getVertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union6Vertex9getVertexEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p>The underlying <a class="reference internal" href="GraphInterface.html#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Graph::Vertex</span></code></a> this vertex represents.</p>
@@ -654,15 +592,15 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 </section>
 </section>
 <section id="class-graph-union-edge">
-<h2><span class="section-number">3.2.12.6.3. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::Edge</span></code><a class="headerlink" href="#class-graph-union-edge" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.3. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::Edge</span></code><a class="headerlink" href="#class-graph-union-edge" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union4EdgeE">
-<span id="_CPPv3N3mod5graph5Union4EdgeE"></span><span id="_CPPv2N3mod5graph5Union4EdgeE"></span><span id="mod::graph::Union::Edge"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union4EdgeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union4EdgeE"></span><span id="_CPPv2N3mod5graph5Union4EdgeE"></span><span id="mod::graph::Union::Edge"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union4EdgeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A descriptor of either an edge in a union graph, or a null edge.</p>
 </dd></dl>
 
 <section id="id3">
-<h3><span class="section-number">3.2.12.6.3.1. </span>Synopsis<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.3.1. </span>Synopsis<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Union4Edge4EdgeEv" title="mod::graph::Union::Edge::Edge"><span class="n"><span class="pre">Edge</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -688,16 +626,16 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 </section>
 <section id="id4">
-<h3><span class="section-number">3.2.12.6.3.2. </span>Details<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.3.2. </span>Details<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union4Edge4EdgeEv">
-<span id="_CPPv3N3mod5graph5Union4Edge4EdgeEv"></span><span id="_CPPv2N3mod5graph5Union4Edge4EdgeEv"></span><span id="mod::graph::Union::Edge::Edge"></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union4Edge4EdgeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union4Edge4EdgeEv"></span><span id="_CPPv2N3mod5graph5Union4Edge4EdgeEv"></span><span id="mod::graph::Union::Edge::Edge"></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union4Edge4EdgeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a null descriptor.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4EdgecvbEv">
-<span id="_CPPv3NK3mod5graph5Union4EdgecvbEv"></span><span id="_CPPv2NK3mod5graph5Union4EdgecvbEv"></span><span id="mod::graph::Union::Edge::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4EdgecvbEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4EdgecvbEv"></span><span id="_CPPv2NK3mod5graph5Union4EdgecvbEv"></span><span id="mod::graph::Union::Edge::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4EdgecvbEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod5graph5Union4Edge6isNullEv" title="mod::graph::Union::Edge::isNull"><span class="n">isNull</span></a><span class="p">(</span><span class="p">)</span></span></p>
@@ -707,7 +645,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge6isNullEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge6isNullEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge6isNullEv"></span><span id="mod::graph::Union::Edge::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge6isNullEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge6isNullEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge6isNullEv"></span><span id="mod::graph::Union::Edge::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge6isNullEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>whether this is a null descriptor or not.</p>
@@ -717,7 +655,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge8getGraphEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge8getGraphEv"></span><span id="mod::graph::Union::Edge::getGraphC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge8getGraphEv"></span><span id="mod::graph::Union::Edge::getGraphC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge8getGraphEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the graph the edge belongs to.</p>
@@ -730,7 +668,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge6sourceEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge6sourceEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge6sourceEv"></span><span id="mod::graph::Union::Edge::sourceC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union6VertexE" title="mod::graph::Union::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">source</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge6sourceEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge6sourceEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge6sourceEv"></span><span id="mod::graph::Union::Edge::sourceC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union6VertexE" title="mod::graph::Union::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">source</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge6sourceEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the source vertex of the edge.</p>
@@ -743,7 +681,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge6targetEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge6targetEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge6targetEv"></span><span id="mod::graph::Union::Edge::targetC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union6VertexE" title="mod::graph::Union::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">target</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge6targetEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge6targetEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge6targetEv"></span><span id="mod::graph::Union::Edge::targetC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Union6VertexE" title="mod::graph::Union::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">target</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge6targetEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the target vertex of the edge.</p>
@@ -756,7 +694,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge14getStringLabelEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge14getStringLabelEv"></span><span id="mod::graph::Union::Edge::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge14getStringLabelEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge14getStringLabelEv"></span><span id="mod::graph::Union::Edge::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge14getStringLabelEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the string label of the edge.</p>
@@ -769,7 +707,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge11getBondTypeEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge11getBondTypeEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge11getBondTypeEv"></span><span id="mod::graph::Union::Edge::getBondTypeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod8BondTypeE" title="mod::BondType"><span class="n"><span class="pre">BondType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBondType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge11getBondTypeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge11getBondTypeEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge11getBondTypeEv"></span><span id="mod::graph::Union::Edge::getBondTypeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod8BondTypeE" title="mod::BondType"><span class="n"><span class="pre">BondType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBondType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge11getBondTypeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the bond type of the edge.</p>
@@ -782,7 +720,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge13getGraphIndexEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge13getGraphIndexEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge13getGraphIndexEv"></span><span id="mod::graph::Union::Edge::getGraphIndexC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraphIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge13getGraphIndexEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge13getGraphIndexEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge13getGraphIndexEv"></span><span id="mod::graph::Union::Edge::getGraphIndexC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraphIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge13getGraphIndexEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p>The index of the graph in the owning <a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Union</span></code></a> graph this e
@@ -800,7 +738,7 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Union4Edge7getEdgeEv">
-<span id="_CPPv3NK3mod5graph5Union4Edge7getEdgeEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge7getEdgeEv"></span><span id="mod::graph::Union::Edge::getEdgeC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEdge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge7getEdgeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Union4Edge7getEdgeEv"></span><span id="_CPPv2NK3mod5graph5Union4Edge7getEdgeEv"></span><span id="mod::graph::Union::Edge::getEdgeC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEdge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Union4Edge7getEdgeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p>The underlying <a class="reference internal" href="GraphInterface.html#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Graph::Vertex</span></code></a> this vertex represents.</p>
@@ -818,16 +756,16 @@ or via the graph index as <code class="docutils literal notranslate"><span class
 </section>
 </section>
 <section id="class-graph-union-vertexiterator">
-<h2><span class="section-number">3.2.12.6.4. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::VertexIterator</span></code><a class="headerlink" href="#class-graph-union-vertexiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.4. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::VertexIterator</span></code><a class="headerlink" href="#class-graph-union-vertexiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union14VertexIteratorE">
-<span id="_CPPv3N3mod5graph5Union14VertexIteratorE"></span><span id="_CPPv2N3mod5graph5Union14VertexIteratorE"></span><span id="mod::graph::Union::VertexIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union14VertexIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union14VertexIteratorE"></span><span id="_CPPv2N3mod5graph5Union14VertexIteratorE"></span><span id="mod::graph::Union::VertexIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union14VertexIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all vertices in a union graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id5">
-<h3><span class="section-number">3.2.12.6.4.1. </span>Synopsis<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.4.1. </span>Synopsis<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Union14VertexIterator14VertexIteratorEv" title="mod::graph::Union::VertexIterator::VertexIterator"><span class="n"><span class="pre">VertexIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -835,41 +773,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id6">
-<h3><span class="section-number">3.2.12.6.4.2. </span>Details<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.4.2. </span>Details<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union14VertexIterator14VertexIteratorEv">
-<span id="_CPPv3N3mod5graph5Union14VertexIterator14VertexIteratorEv"></span><span id="_CPPv2N3mod5graph5Union14VertexIterator14VertexIteratorEv"></span><span id="mod::graph::Union::VertexIterator::VertexIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union14VertexIterator14VertexIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union14VertexIterator14VertexIteratorEv"></span><span id="_CPPv2N3mod5graph5Union14VertexIterator14VertexIteratorEv"></span><span id="mod::graph::Union::VertexIterator::VertexIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union14VertexIterator14VertexIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-graph-union-vertexrange">
-<h2><span class="section-number">3.2.12.6.5. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::VertexRange</span></code><a class="headerlink" href="#class-graph-union-vertexrange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.5. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::VertexRange</span></code><a class="headerlink" href="#class-graph-union-vertexrange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union11VertexRangeE">
-<span id="_CPPv3N3mod5graph5Union11VertexRangeE"></span><span id="_CPPv2N3mod5graph5Union11VertexRangeE"></span><span id="mod::graph::Union::VertexRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union11VertexRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union11VertexRangeE"></span><span id="_CPPv2N3mod5graph5Union11VertexRangeE"></span><span id="mod::graph::Union::VertexRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union11VertexRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all vertices in a union graph.</p>
 </dd></dl>
 
 <section id="id7">
-<h3><span class="section-number">3.2.12.6.5.1. </span>Synopsis<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.5.1. </span>Synopsis<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-graph-union-edgeiterator">
-<h2><span class="section-number">3.2.12.6.6. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::EdgeIterator</span></code><a class="headerlink" href="#class-graph-union-edgeiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.6. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::EdgeIterator</span></code><a class="headerlink" href="#class-graph-union-edgeiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union12EdgeIteratorE">
-<span id="_CPPv3N3mod5graph5Union12EdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Union12EdgeIteratorE"></span><span id="mod::graph::Union::EdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union12EdgeIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union12EdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Union12EdgeIteratorE"></span><span id="mod::graph::Union::EdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union12EdgeIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all edges in a union graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id8">
-<h3><span class="section-number">3.2.12.6.6.1. </span>Synopsis<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.6.1. </span>Synopsis<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Union12EdgeIterator12EdgeIteratorEv" title="mod::graph::Union::EdgeIterator::EdgeIterator"><span class="n"><span class="pre">EdgeIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -877,41 +815,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id9">
-<h3><span class="section-number">3.2.12.6.6.2. </span>Details<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.6.2. </span>Details<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union12EdgeIterator12EdgeIteratorEv">
-<span id="_CPPv3N3mod5graph5Union12EdgeIterator12EdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Union12EdgeIterator12EdgeIteratorEv"></span><span id="mod::graph::Union::EdgeIterator::EdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union12EdgeIterator12EdgeIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union12EdgeIterator12EdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Union12EdgeIterator12EdgeIteratorEv"></span><span id="mod::graph::Union::EdgeIterator::EdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union12EdgeIterator12EdgeIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-graph-union-edgerange">
-<h2><span class="section-number">3.2.12.6.7. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::EdgeRange</span></code><a class="headerlink" href="#class-graph-union-edgerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.7. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::EdgeRange</span></code><a class="headerlink" href="#class-graph-union-edgerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union9EdgeRangeE">
-<span id="_CPPv3N3mod5graph5Union9EdgeRangeE"></span><span id="_CPPv2N3mod5graph5Union9EdgeRangeE"></span><span id="mod::graph::Union::EdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union9EdgeRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union9EdgeRangeE"></span><span id="_CPPv2N3mod5graph5Union9EdgeRangeE"></span><span id="mod::graph::Union::EdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union9EdgeRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all edges in a union graph.</p>
 </dd></dl>
 
 <section id="id10">
-<h3><span class="section-number">3.2.12.6.7.1. </span>Synopsis<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.7.1. </span>Synopsis<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-graph-union-incidentedgeiterator">
-<h2><span class="section-number">3.2.12.6.8. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::IncidentEdgeIterator</span></code><a class="headerlink" href="#class-graph-union-incidentedgeiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.8. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::IncidentEdgeIterator</span></code><a class="headerlink" href="#class-graph-union-incidentedgeiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union20IncidentEdgeIteratorE">
-<span id="_CPPv3N3mod5graph5Union20IncidentEdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Union20IncidentEdgeIteratorE"></span><span id="mod::graph::Union::IncidentEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union20IncidentEdgeIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union20IncidentEdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Union20IncidentEdgeIteratorE"></span><span id="mod::graph::Union::IncidentEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union20IncidentEdgeIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all edges in a union graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id11">
-<h3><span class="section-number">3.2.12.6.8.1. </span>Synopsis<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.8.1. </span>Synopsis<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv" title="mod::graph::Union::IncidentEdgeIterator::IncidentEdgeIterator"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -919,25 +857,25 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id12">
-<h3><span class="section-number">3.2.12.6.8.2. </span>Details<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.8.2. </span>Details<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv">
-<span id="_CPPv3N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="mod::graph::Union::IncidentEdgeIterator::IncidentEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="mod::graph::Union::IncidentEdgeIterator::IncidentEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Union20IncidentEdgeIterator20IncidentEdgeIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-graph-union-incidentedgerange">
-<h2><span class="section-number">3.2.12.6.9. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::IncidentEdgeRange</span></code><a class="headerlink" href="#class-graph-union-incidentedgerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.6.9. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Union::IncidentEdgeRange</span></code><a class="headerlink" href="#class-graph-union-incidentedgerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Union17IncidentEdgeRangeE">
-<span id="_CPPv3N3mod5graph5Union17IncidentEdgeRangeE"></span><span id="_CPPv2N3mod5graph5Union17IncidentEdgeRangeE"></span><span id="mod::graph::Union::IncidentEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union17IncidentEdgeRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Union17IncidentEdgeRangeE"></span><span id="_CPPv2N3mod5graph5Union17IncidentEdgeRangeE"></span><span id="mod::graph::Union::IncidentEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5UnionE" title="mod::graph::Union"><span class="n"><span class="pre">Union</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Union17IncidentEdgeRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all incident edges to a vertex in a union graph.</p>
 </dd></dl>
 
 <section id="id13">
-<h3><span class="section-number">3.2.12.6.9.1. </span>Synopsis<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.6.9.1. </span>Synopsis<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
@@ -954,7 +892,7 @@ It models a forward iterator.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.8.4. dg/Printer &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -168,10 +170,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="dg-printer">
-<span id="py-dg-printer"></span><h1><span class="section-number">4.1.8.4. </span>dg/Printer<a class="headerlink" href="#dg-printer" title="Link to this heading">¶</a></h1>
+<span id="py-dg-printer"></span><h1><span class="section-number">4.1.8.4. </span>dg/Printer<a class="headerlink" href="#dg-printer" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.DGPrintData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DGPrintData</span></span><a class="headerlink" href="#mod.DGPrintData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DGPrintData</span></span><a class="headerlink" href="#mod.DGPrintData" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to hold extra data about how a specific derivation graph
 is visualised.</p>
 <p>The idea is that in the visualized network each vertex/hyperedge is specified
@@ -185,7 +187,7 @@ while the vertex duplicates are managed implicitly by <a class="reference intern
 In the end, when the data is used for printing, it will be compiled to form the actual duplication data.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrintData.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct a data object where all derivations have a single version, duplicate number 0,
 connected to version 0 of all heads and tails.</p>
 <dl class="field-list simple">
@@ -200,13 +202,13 @@ connected to version 0 of all heads and tails.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrintData.dg">
-<span class="sig-name descname"><span class="pre">dg</span></span><a class="headerlink" href="#mod.DGPrintData.dg" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dg</span></span><a class="headerlink" href="#mod.DGPrintData.dg" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The derivation graph the object holds data for.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrintData.makeDuplicate">
-<span class="sig-name descname"><span class="pre">makeDuplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.makeDuplicate" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">makeDuplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.makeDuplicate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create another version of the given hyperedge and give it the given duplicate number.
 It will connect to duplicate 0 of all head and tail vertices.</p>
 <dl class="field-list simple">
@@ -230,7 +232,7 @@ It will connect to duplicate 0 of all head and tail vertices.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrintData.removeDuplicate">
-<span class="sig-name descname"><span class="pre">removeDuplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.removeDuplicate" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">removeDuplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.removeDuplicate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the version of the given hyperedge with the given duplicate number.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -253,7 +255,7 @@ It will connect to duplicate 0 of all head and tail vertices.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrintData.reconnectSource">
-<span class="sig-name descname"><span class="pre">reconnectSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vDupTar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.reconnectSource" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reconnectSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vDupTar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.reconnectSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>For the given hyperedge duplicate, reconnect the given source vertex to the given duplicate of that source.
 If the vertex is a source multiple times, then an arbitrary one of them is reconnected.</p>
 <dl class="field-list simple">
@@ -288,7 +290,7 @@ If the vertex is a source multiple times, then an arbitrary one of them is recon
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrintData.reconnectTarget">
-<span class="sig-name descname"><span class="pre">reconnectTarget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vDupTar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.reconnectTarget" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reconnectTarget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eDup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vDupTar</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrintData.reconnectTarget" title="Permalink to this definition">¶</a></dt>
 <dd><p>For the given hyperedge duplicate, reconnect the given head to the given duplicate of that head.
 If the vertex is a head multiple times, then an arbitrary one of them is reconnected.</p>
 <dl class="field-list simple">
@@ -325,12 +327,12 @@ If the vertex is a head multiple times, then an arbitrary one of them is reconne
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.DGPrinter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DGPrinter</span></span><a class="headerlink" href="#mod.DGPrinter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DGPrinter</span></span><a class="headerlink" href="#mod.DGPrinter" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to configure how derivation graphs are visualised,
 how much is visualised and which extra properties are printed.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.graphPrinter">
-<span class="sig-name descname"><span class="pre">graphPrinter</span></span><a class="headerlink" href="#mod.DGPrinter.graphPrinter" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphPrinter</span></span><a class="headerlink" href="#mod.DGPrinter.graphPrinter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Access the <a class="reference internal" href="../graph/Printer.html#mod.GraphPrinter" title="mod.GraphPrinter"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphPrinter</span></code></a> used when printing images of graphs.
 Note that assignment to the property copies the argument.</p>
 <dl class="field-list simple">
@@ -342,7 +344,7 @@ Note that assignment to the property copies the argument.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.withShortcutEdges">
-<span class="sig-name descname"><span class="pre">withShortcutEdges</span></span><a class="headerlink" href="#mod.DGPrinter.withShortcutEdges" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withShortcutEdges</span></span><a class="headerlink" href="#mod.DGPrinter.withShortcutEdges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether hyperedges <span class="math notranslate nohighlight">\((T, H)\)</span> with <span class="math notranslate nohighlight">\(|T| = |H| = 1\)</span>
 are printed as a simple arrow without the usual rectangle.</p>
 <dl class="field-list simple">
@@ -354,7 +356,7 @@ are printed as a simple arrow without the usual rectangle.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.withGraphImages">
-<span class="sig-name descname"><span class="pre">withGraphImages</span></span><a class="headerlink" href="#mod.DGPrinter.withGraphImages" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withGraphImages</span></span><a class="headerlink" href="#mod.DGPrinter.withGraphImages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether each vertex is printed with a image of its graph in it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -365,7 +367,7 @@ are printed as a simple arrow without the usual rectangle.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.labelsAsLatexMath">
-<span class="sig-name descname"><span class="pre">labelsAsLatexMath</span></span><a class="headerlink" href="#mod.DGPrinter.labelsAsLatexMath" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">labelsAsLatexMath</span></span><a class="headerlink" href="#mod.DGPrinter.labelsAsLatexMath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether labels on vertices and hyperedges are put inline <span class="math notranslate nohighlight">\(\LaTeX\)</span> math.
 Specifically, a label <code class="docutils literal notranslate"><span class="pre">label</span></code> is written as <code class="docutils literal notranslate"><span class="pre">$\mathrm{label'}$</span></code>, with <code class="docutils literal notranslate"><span class="pre">label'</span></code> being
 <code class="docutils literal notranslate"><span class="pre">label</span></code> with all space characters escaped.</p>
@@ -378,7 +380,7 @@ Specifically, a label <code class="docutils literal notranslate"><span class="pr
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.pushVertexVisible">
-<span class="sig-name descname"><span class="pre">pushVertexVisible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushVertexVisible" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pushVertexVisible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushVertexVisible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add another function or constant controlling the visibility of vertices.
 All visibility functions must return <code class="docutils literal notranslate"><span class="pre">true</span></code> for a vertex to be visible.</p>
 <dl class="field-list simple">
@@ -390,7 +392,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.popVertexVisible">
-<span class="sig-name descname"><span class="pre">popVertexVisible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popVertexVisible" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">popVertexVisible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popVertexVisible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the last pushed vertex visibility function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -401,7 +403,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.pushEdgeVisible">
-<span class="sig-name descname"><span class="pre">pushEdgeVisible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushEdgeVisible" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pushEdgeVisible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushEdgeVisible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add another function or constant controlling the visibility of hyperedges.
 All visibility functions must return <code class="docutils literal notranslate"><span class="pre">true</span></code> for a hyperedge to be visible.</p>
 <dl class="field-list simple">
@@ -413,7 +415,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.popEdgeVisible">
-<span class="sig-name descname"><span class="pre">popEdgeVisible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popEdgeVisible" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">popEdgeVisible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popEdgeVisible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the last pushed hyperedge visibility function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -424,7 +426,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.withShortcutEdgesAfterVisibility">
-<span class="sig-name descname"><span class="pre">withShortcutEdgesAfterVisibility</span></span><a class="headerlink" href="#mod.DGPrinter.withShortcutEdgesAfterVisibility" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withShortcutEdgesAfterVisibility</span></span><a class="headerlink" href="#mod.DGPrinter.withShortcutEdgesAfterVisibility" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -435,7 +437,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.vertexLabelSep">
-<span class="sig-name descname"><span class="pre">vertexLabelSep</span></span><a class="headerlink" href="#mod.DGPrinter.vertexLabelSep" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">vertexLabelSep</span></span><a class="headerlink" href="#mod.DGPrinter.vertexLabelSep" title="Permalink to this definition">¶</a></dt>
 <dd><p>The string used as separator between each part of each vertex label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -446,7 +448,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.edgeLabelSep">
-<span class="sig-name descname"><span class="pre">edgeLabelSep</span></span><a class="headerlink" href="#mod.DGPrinter.edgeLabelSep" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">edgeLabelSep</span></span><a class="headerlink" href="#mod.DGPrinter.edgeLabelSep" title="Permalink to this definition">¶</a></dt>
 <dd><p>The string used as separator between each part of each edge label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -457,7 +459,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.pushVertexLabel">
-<span class="sig-name descname"><span class="pre">pushVertexLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushVertexLabel" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pushVertexLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushVertexLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add another function or constant for vertex labelling.
 The result of this function is added to the end of each label.</p>
 <dl class="field-list simple">
@@ -469,7 +471,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.popVertexLabel">
-<span class="sig-name descname"><span class="pre">popVertexLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popVertexLabel" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">popVertexLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popVertexLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the last pushed vertex labelling function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -480,7 +482,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.pushEdgeLabel">
-<span class="sig-name descname"><span class="pre">pushEdgeLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushEdgeLabel" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pushEdgeLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushEdgeLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add another function or constant for edge labelling. The result of this function is appended to each label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -491,7 +493,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.popEdgeLabel">
-<span class="sig-name descname"><span class="pre">popEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popEdgeLabel" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">popEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popEdgeLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the last pushed edge labelling function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -502,7 +504,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.withGraphName">
-<span class="sig-name descname"><span class="pre">withGraphName</span></span><a class="headerlink" href="#mod.DGPrinter.withGraphName" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withGraphName</span></span><a class="headerlink" href="#mod.DGPrinter.withGraphName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether graph names are appended to the vertex labels (see also <a class="reference internal" href="#mod.DGPrinter.pushVertexLabel" title="mod.DGPrinter.pushVertexLabel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGPrinter.pushVertexLabel()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -513,7 +515,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.withRuleName">
-<span class="sig-name descname"><span class="pre">withRuleName</span></span><a class="headerlink" href="#mod.DGPrinter.withRuleName" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withRuleName</span></span><a class="headerlink" href="#mod.DGPrinter.withRuleName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether rule names are appended to the edge labels (see also <a class="reference internal" href="#mod.DGPrinter.pushEdgeLabel" title="mod.DGPrinter.pushEdgeLabel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGPrinter.pushEdgeLabel()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -524,7 +526,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.withRuleId">
-<span class="sig-name descname"><span class="pre">withRuleId</span></span><a class="headerlink" href="#mod.DGPrinter.withRuleId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withRuleId</span></span><a class="headerlink" href="#mod.DGPrinter.withRuleId" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether rule IDs are appended to the edge labels (see also <a class="reference internal" href="#mod.DGPrinter.pushEdgeLabel" title="mod.DGPrinter.pushEdgeLabel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGPrinter.pushEdgeLabel()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -535,7 +537,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.withInlineGraphs">
-<span class="sig-name descname"><span class="pre">withInlineGraphs</span></span><a class="headerlink" href="#mod.DGPrinter.withInlineGraphs" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withInlineGraphs</span></span><a class="headerlink" href="#mod.DGPrinter.withInlineGraphs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether graph depictions should be precompiled, or be included inline in the DG figure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -546,7 +548,7 @@ The result of this function is added to the end of each label.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.pushVertexColour">
-<span class="sig-name descname"><span class="pre">pushVertexColour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extendToEdges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushVertexColour" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pushVertexColour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extendToEdges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushVertexColour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add another function or constant for colouring vertices. The final colour of a vertex is the result of the first colour function returning a non-empty string.
 The functions are evaluated in the order they are pushed and the resulting string is used directly as a colour in Tikz.
 A hyperedge is also coloured if at least one head and one tail <em>can</em> be coloured with a colour for which <code class="docutils literal notranslate"><span class="pre">extendToEdges</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.
@@ -564,7 +566,7 @@ The edge extension of vertex colour takes lower precedence than explicitly added
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.popVertexColour">
-<span class="sig-name descname"><span class="pre">popVertexColour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popVertexColour" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">popVertexColour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popVertexColour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the last pushed vertex colouring function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -575,7 +577,7 @@ The edge extension of vertex colour takes lower precedence than explicitly added
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.pushEdgeColour">
-<span class="sig-name descname"><span class="pre">pushEdgeColour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushEdgeColour" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pushEdgeColour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.pushEdgeColour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add another function or constant for colouring hyperedges. The final colour of a hyperedge (and all of its head and tail connectors) is the result of the
 first colour function returning a non-empty string.</p>
 <dl class="field-list simple">
@@ -587,7 +589,7 @@ first colour function returning a non-empty string.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.popEdgeColour">
-<span class="sig-name descname"><span class="pre">popEdgeColour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popEdgeColour" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">popEdgeColour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.popEdgeColour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the last pushed hyperedge colouring function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -598,7 +600,7 @@ first colour function returning a non-empty string.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.setRotationOverwrite">
-<span class="sig-name descname"><span class="pre">setRotationOverwrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.setRotationOverwrite" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setRotationOverwrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.setRotationOverwrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrite the rotation set in the nested <a class="reference internal" href="../graph/Printer.html#mod.GraphPrinter" title="mod.GraphPrinter"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphPrinter</span></code></a>. The given function will be used
 to set the rotation of each printed graph.</p>
 <dl class="field-list simple">
@@ -610,7 +612,7 @@ to set the rotation of each printed graph.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.setMirrorOverwrite">
-<span class="sig-name descname"><span class="pre">setMirrorOverwrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.setMirrorOverwrite" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setMirrorOverwrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.setMirrorOverwrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrite the mirror set in the nested <a class="reference internal" href="../graph/Printer.html#mod.GraphPrinter" title="mod.GraphPrinter"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphPrinter</span></code></a>. The given function will be used
 to set the mirror of each printed graph.</p>
 <dl class="field-list simple">
@@ -622,7 +624,7 @@ to set the mirror of each printed graph.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGPrinter.setImageOverwrite">
-<span class="sig-name descname"><span class="pre">setImageOverwrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.setImageOverwrite" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setImageOverwrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGPrinter.setImageOverwrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrite the image generation for graphs depicted in the vertices of the printed derivation graph.
 For each duplicate of each vertex to be depicted, the given callback is called.
 It must then return two strings:</p>
@@ -656,7 +658,7 @@ that code into the PDF needed by inclusion.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.graphvizPrefix">
-<span class="sig-name descname"><span class="pre">graphvizPrefix</span></span><a class="headerlink" href="#mod.DGPrinter.graphvizPrefix" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphvizPrefix</span></span><a class="headerlink" href="#mod.DGPrinter.graphvizPrefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>The string that will be inserted into generated DOT files,
 just after the graph declaration.</p>
 <dl class="field-list simple">
@@ -668,7 +670,7 @@ just after the graph declaration.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGPrinter.tikzpictureOption">
-<span class="sig-name descname"><span class="pre">tikzpictureOption</span></span><a class="headerlink" href="#mod.DGPrinter.tikzpictureOption" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tikzpictureOption</span></span><a class="headerlink" href="#mod.DGPrinter.tikzpictureOption" title="Permalink to this definition">¶</a></dt>
 <dd><p>Access the string that will be inserted into generated Tikz files,
 in the options for the <code class="docutils literal notranslate"><span class="pre">\tikzpicture</span></code> macro used for the DG.</p>
 <dl class="field-list simple">
@@ -691,7 +693,7 @@ in the options for the <code class="docutils literal notranslate"><span class="p
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

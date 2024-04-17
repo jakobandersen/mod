@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.8.2. dg/DG &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -151,10 +153,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="dg-dg">
-<span id="py-dg-dg"></span><h1><span class="section-number">4.1.8.2. </span>dg/DG<a class="headerlink" href="#dg-dg" title="Link to this heading">¶</a></h1>
+<span id="py-dg-dg"></span><h1><span class="section-number">4.1.8.2. </span>dg/DG<a class="headerlink" href="#dg-dg" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.DG">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DG</span></span><a class="headerlink" href="#mod.DG" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DG</span></span><a class="headerlink" href="#mod.DG" title="Permalink to this definition">¶</a></dt>
 <dd><p>The derivation graph class. A derivation graph is a directed multi-hypergraph
 <span class="math notranslate nohighlight">\(\mathcal{H} = (V, E)\)</span>. Each hyperedge <span class="math notranslate nohighlight">\(e\in E\)</span> is thus an ordered pair
 <span class="math notranslate nohighlight">\((e^+, e^-)\)</span> of multisets of vertices, the sources and the targets.
@@ -163,7 +165,7 @@ A derivation graph is constructed incrementally using a <a class="reference inte
 function. When the obtained builder is destructed the derivation graph becomes locked and can no longer be modified.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphDatabase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphDatabase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an empty unlocked derivation graph object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -191,7 +193,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.DG.id" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.DG.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>The unique instance id among all <a class="reference internal" href="#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -202,7 +204,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.labelSettings">
-<span class="sig-name descname"><span class="pre">labelSettings</span></span><a class="headerlink" href="#mod.DG.labelSettings" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">labelSettings</span></span><a class="headerlink" href="#mod.DG.labelSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The label settings for the derivation graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -213,7 +215,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.hasActiveBuilder">
-<span class="sig-name descname"><span class="pre">hasActiveBuilder</span></span><a class="headerlink" href="#mod.DG.hasActiveBuilder" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">hasActiveBuilder</span></span><a class="headerlink" href="#mod.DG.hasActiveBuilder" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) Whether <a class="reference internal" href="#mod.DG.build" title="mod.DG.build"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build()</span></code></a> has been called and the returned <a class="reference internal" href="Builder.html#mod.DGBuilder" title="mod.DGBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGBuilder</span></code></a> is still active.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -224,7 +226,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.locked">
-<span class="sig-name descname"><span class="pre">locked</span></span><a class="headerlink" href="#mod.DG.locked" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">locked</span></span><a class="headerlink" href="#mod.DG.locked" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) Whether the derivation graph is locked or not.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -235,7 +237,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.numVertices">
-<span class="sig-name descname"><span class="pre">numVertices</span></span><a class="headerlink" href="#mod.DG.numVertices" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">numVertices</span></span><a class="headerlink" href="#mod.DG.numVertices" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The number of vertices in the derivation graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -249,7 +251,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.vertices">
-<span class="sig-name descname"><span class="pre">vertices</span></span><a class="headerlink" href="#mod.DG.vertices" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">vertices</span></span><a class="headerlink" href="#mod.DG.vertices" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) An iterable of all vertices in the derivation graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -263,7 +265,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.numEdges">
-<span class="sig-name descname"><span class="pre">numEdges</span></span><a class="headerlink" href="#mod.DG.numEdges" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">numEdges</span></span><a class="headerlink" href="#mod.DG.numEdges" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The number of hyperedges in the derivation graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -277,7 +279,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.edges">
-<span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#mod.DG.edges" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#mod.DG.edges" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) An iterable of all hyperedges in the derivation graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -291,7 +293,7 @@ in <code class="docutils literal notranslate"><span class="pre">graphDatabase</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.findVertex">
-<span class="sig-name descname"><span class="pre">findVertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.findVertex" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">findVertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.findVertex" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>g</strong> (<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – the graph to find a vertex which has it associated.</p>
@@ -314,7 +316,7 @@ or a null descriptor if no such vertex exists.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.findEdge">
-<span class="sig-name descname"><span class="pre">findEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.findEdge" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">findEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.findEdge" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">findEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sourceGraphs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetGraphs</span></span></em><span class="sig-paren">)</span></dt>
 <dd><dl class="field-list simple">
@@ -345,7 +347,7 @@ In the second version, the graphs are put through <a class="reference internal" 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.build">
-<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.build" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.build" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>an RAII-style object which can be used to construct the derivation graph.
@@ -365,7 +367,7 @@ It can be used as a context manager in a <code class="docutils literal notransla
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.graphDatabase">
-<span class="sig-name descname"><span class="pre">graphDatabase</span></span><a class="headerlink" href="#mod.DG.graphDatabase" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphDatabase</span></span><a class="headerlink" href="#mod.DG.graphDatabase" title="Permalink to this definition">¶</a></dt>
 <dd><p>All graphs known to the derivation graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -376,7 +378,7 @@ It can be used as a context manager in a <code class="docutils literal notransla
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DG.products">
-<span class="sig-name descname"><span class="pre">products</span></span><a class="headerlink" href="#mod.DG.products" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">products</span></span><a class="headerlink" href="#mod.DG.products" title="Permalink to this definition">¶</a></dt>
 <dd><p>The subset of the vertex graphs which were discovered by the calculation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -387,7 +389,7 @@ It can be used as a context manager in a <code class="docutils literal notransla
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.print">
-<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">printer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DGPrinter()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.print" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">printer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DGPrinter()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.print" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the derivation graph in style of a hypergraph. The appearance and structure
 of the visualisation can optionally be configured by giving a DG printer and/or data object.</p>
 <dl class="field-list simple">
@@ -408,7 +410,7 @@ of the visualisation can optionally be configured by giving a DG printer and/or 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.printNonHyper">
-<span class="sig-name descname"><span class="pre">printNonHyper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.printNonHyper" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">printNonHyper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.printNonHyper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the derivation graph in style of a digraph, where each edge represents a hyperedge.
 Each vertex in the depiction then represents a multiset of vertices in the hypergraph.</p>
 <dl class="field-list simple">
@@ -423,7 +425,7 @@ Each vertex in the depiction then represents a multiset of vertices in the hyper
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.dump">
-<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.dump" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.dump" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Exports the derivation graph to a file, including associated graphs and rules.
@@ -457,7 +459,7 @@ prefixed according to the current script location as input filenames are.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.listStats">
-<span class="sig-name descname"><span class="pre">listStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.listStats" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">listStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.listStats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists various statistics for the derivation graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -468,7 +470,7 @@ prefixed according to the current script location as input filenames are.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DG.load">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ruleDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.load" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ruleDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a derivation graph dump as a locked object.
 Use <a class="reference internal" href="Builder.html#mod.DGBuilder.load" title="mod.DGBuilder.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGBuilder.load()</span></code></a> to load a dump into a derivation graph under construction.</p>
 <p>This is done roughly by making a <a class="reference internal" href="#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> with the given <cite>graphDatabase</cite> and <cite>graphPolicy</cite>.
@@ -516,7 +518,7 @@ create the dump in the first place.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.diffDGs">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">diffDGs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dg2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.diffDGs" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">diffDGs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dg2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.diffDGs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compare two derivation graphs and lists the difference.
 This is not a general isomorphism check; two vertices are equal if they have
 the same graph attached. Edges are equal if the head and tail sets are equal
@@ -542,7 +544,7 @@ and if the attached rule is the same.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

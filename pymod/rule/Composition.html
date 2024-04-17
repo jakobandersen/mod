@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.10.1. rule/Composition &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -152,12 +154,12 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="rule-composition">
-<span id="py-rule-composition"></span><h1><span class="section-number">4.1.10.1. </span>rule/Composition<a class="headerlink" href="#rule-composition" title="Link to this heading">¶</a></h1>
+<span id="py-rule-composition"></span><h1><span class="section-number">4.1.10.1. </span>rule/Composition<a class="headerlink" href="#rule-composition" title="Permalink to this heading">¶</a></h1>
 <p>This page contains the core functionality for composing rules and creating rules from graphs.
 Note that there is both a low-level interface for constructing expressions,
 and an embedded mini-language for defining the expressions using normal Python operators.</p>
 <section id="the-embedded-rule-composition-expression-language">
-<h2><span class="section-number">4.1.10.1.1. </span>The Embedded Rule Composition Expression Language<a class="headerlink" href="#the-embedded-rule-composition-expression-language" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.10.1.1. </span>The Embedded Rule Composition Expression Language<a class="headerlink" href="#the-embedded-rule-composition-expression-language" title="Permalink to this heading">¶</a></h2>
 <p>The embedded language is really a collection of proxy classes with a lot of operator overloading, thus
 the normal syntax and semantics of Python applies.</p>
 <p>A rule composition expression always returns a list of rules when evaluated.
@@ -183,10 +185,10 @@ See the API below for more details on the semantics of each expression,
 and the corresponding <a class="reference internal" href="../../libmod/rule/CompositionExpr.html#cpp-rule-compositionexpr"><span class="std std-ref">C++ page</span></a>.</p>
 </section>
 <section id="expression-evaluator">
-<h2><span class="section-number">4.1.10.1.2. </span>Expression Evaluator<a class="headerlink" href="#expression-evaluator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.10.1.2. </span>Expression Evaluator<a class="headerlink" href="#expression-evaluator" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCEvaluator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCEvaluator</span></span><a class="headerlink" href="#mod.RCEvaluator" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCEvaluator</span></span><a class="headerlink" href="#mod.RCEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class can evaluate rule composition expressions. During evaluation an expression graph is recorded.</p>
 <p>The expression graph is a directed hypergraph <span class="math notranslate nohighlight">\((V, E)\)</span>, with each vertex representing a rule.
 Each edge represent all compositions calculated for a unique input. That is every edge <span class="math notranslate nohighlight">\(e\in E\)</span> is on the form
@@ -196,7 +198,7 @@ of all resulting rules found.</p>
 hyperedge vertices are labelled with 1 and 2.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.RCEvaluator.ruleDatabase">
-<span class="sig-name descname"><span class="pre">ruleDatabase</span></span><a class="headerlink" href="#mod.RCEvaluator.ruleDatabase" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ruleDatabase</span></span><a class="headerlink" href="#mod.RCEvaluator.ruleDatabase" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The list of unique rules known by the evaluator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -207,7 +209,7 @@ hyperedge vertices are labelled with 1 and 2.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.RCEvaluator.products">
-<span class="sig-name descname"><span class="pre">products</span></span><a class="headerlink" href="#mod.RCEvaluator.products" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">products</span></span><a class="headerlink" href="#mod.RCEvaluator.products" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The list of unique rules this evaluator has constructed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -218,7 +220,7 @@ hyperedge vertices are labelled with 1 and 2.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCEvaluator.eval">
-<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onlyUnique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCEvaluator.eval" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onlyUnique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCEvaluator.eval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates a rule composition expression.
 Any created rule is replaced by a rule in the database if they are isomorphic.
 A rule may appear multiple times in the result if multiple overlaps resulted in the same composed rule.</p>
@@ -242,7 +244,7 @@ See <a class="reference internal" href="../../libmod/rule/Composer.html#_CPPv4N3
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.RCEvaluator.print">
-<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCEvaluator.print" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCEvaluator.print" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the graph representing all expressions evaluated so far.</p>
 </dd></dl>
 
@@ -250,7 +252,7 @@ See <a class="reference internal" href="../../libmod/rule/Composer.html#_CPPv4N3
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.rcEvaluator">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">rcEvaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.rcEvaluator" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">rcEvaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.rcEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -273,42 +275,42 @@ See <a class="reference internal" href="../../libmod/rule/Composer.html#_CPPv4N3
 
 </section>
 <section id="rule-composition-expressions">
-<h2><span class="section-number">4.1.10.1.3. </span>Rule Composition Expressions<a class="headerlink" href="#rule-composition-expressions" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.10.1.3. </span>Rule Composition Expressions<a class="headerlink" href="#rule-composition-expressions" title="Permalink to this heading">¶</a></h2>
 <p>An expression, <code class="docutils literal notranslate"><span class="pre">RCExpExp</span></code>, can be evaluated through the method <a class="reference internal" href="#mod.RCEvaluator.eval" title="mod.RCEvaluator.eval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">RCEvaluator.eval()</span></code></a>.
 The result of an expression is a list of rules.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpUnion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpUnion</span></span><a class="headerlink" href="#mod.RCExpUnion" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpUnion</span></span><a class="headerlink" href="#mod.RCExpUnion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the union of the subexpressions. I.e., flatten the subresult lists into a single list.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpBind">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpBind</span></span><a class="headerlink" href="#mod.RCExpBind" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpBind</span></span><a class="headerlink" href="#mod.RCExpBind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the singleton list with the rule <span class="math notranslate nohighlight">\((\emptyset, \emptyset, G)\)</span> for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpId">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpId</span></span><a class="headerlink" href="#mod.RCExpId" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpId</span></span><a class="headerlink" href="#mod.RCExpId" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the singleton list with the rule <span class="math notranslate nohighlight">\((G, G, G)\)</span> for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpUnbind">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpUnbind</span></span><a class="headerlink" href="#mod.RCExpUnbind" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpUnbind</span></span><a class="headerlink" href="#mod.RCExpUnbind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the singleton list with the rule <span class="math notranslate nohighlight">\((G, \emptyset, \emptyset)\)</span> for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpExp">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpExp</span></span><a class="headerlink" href="#mod.RCExpExp" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpExp</span></span><a class="headerlink" href="#mod.RCExpExp" title="Permalink to this definition">¶</a></dt>
 <dd><p>The base class for the composition of two rule <span class="math notranslate nohighlight">\((L_1, K_1, R_1)\)</span> and <span class="math notranslate nohighlight">\((L_2, K_2, R_2)\)</span>.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpComposeCommon">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeCommon</span></span><a class="headerlink" href="#mod.RCExpComposeCommon" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeCommon</span></span><a class="headerlink" href="#mod.RCExpComposeCommon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose the rules by all common subgraphs of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>,
 possibly limited to connected subgraphs or to the subgraphs of maximum size.
 By default the empty overlap is not considered, but can be enabled to be.</p>
@@ -316,20 +318,20 @@ By default the empty overlap is not considered, but can be enabled to be.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpComposeParallel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeParallel</span></span><a class="headerlink" href="#mod.RCExpComposeParallel" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeParallel</span></span><a class="headerlink" href="#mod.RCExpComposeParallel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose the rules by all common subgraphs of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>,
 possibly limited to connected subgraphs or to the subgraphs of maximum size.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpComposeSub">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeSub</span></span><a class="headerlink" href="#mod.RCExpComposeSub" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeSub</span></span><a class="headerlink" href="#mod.RCExpComposeSub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose the rules by the empty graph, i.e., create a rule representing the parallel application of two input rules.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.RCExpComposeSuper">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeSuper</span></span><a class="headerlink" href="#mod.RCExpComposeSuper" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">RCExpComposeSuper</span></span><a class="headerlink" href="#mod.RCExpComposeSuper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose the rules such that overlapping connected components of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span> have the <span class="math notranslate nohighlight">\(L_2\)</span> component as a subgraph of <span class="math notranslate nohighlight">\(R_1\)</span>.
 The overlap is <cite>partial</cite> if not every connected component of <span class="math notranslate nohighlight">\(L_2\)</span> is participating in the common subgraph.</p>
 </dd></dl>
@@ -346,7 +348,7 @@ The overlap is <cite>partial</cite> if not every connected component of <span cl
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

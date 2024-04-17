@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.3. Creating a Python Extension &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5. PostMØD" href="../postmod/index.html" />
@@ -131,14 +133,14 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="creating-a-python-extension">
-<span id="creatingpymodext"></span><h1><span class="section-number">4.3. </span>Creating a Python Extension<a class="headerlink" href="#creating-a-python-extension" title="Link to this heading">¶</a></h1>
+<span id="creatingpymodext"></span><h1><span class="section-number">4.3. </span>Creating a Python Extension<a class="headerlink" href="#creating-a-python-extension" title="Permalink to this heading">¶</a></h1>
 <p>PyMØD is primarily Python bindings for libMØD made using
 <a class="reference external" href="http://www.boost.org/libs/python/">Boost.Python</a>.
 The following shows a template for creating a Python extension with C++
 functions (e.g., to extend libMØD).
 The complete source code for the example can be found <a class="reference external" href="../_static/examples/pymod_extension/">here</a>.</p>
 <section id="library-source-and-headers">
-<h2><span class="section-number">4.3.1. </span>Library Source and Headers<a class="headerlink" href="#library-source-and-headers" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.3.1. </span>Library Source and Headers<a class="headerlink" href="#library-source-and-headers" title="Permalink to this heading">¶</a></h2>
 <p>For this examples the following C++ source with header should be exposed
 in the Python module. Header:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef AWESOMELIB_HPP</span>
@@ -171,7 +173,7 @@ in the Python module. Header:</p>
 </div>
 </section>
 <section id="exposing-the-interface">
-<h2><span class="section-number">4.3.2. </span>Exposing the Interface<a class="headerlink" href="#exposing-the-interface" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.3.2. </span>Exposing the Interface<a class="headerlink" href="#exposing-the-interface" title="Permalink to this heading">¶</a></h2>
 <p>See the Boost.Python documentation for instructions how to expose C++ code.
 Below is the code for creating our simple Python extension.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/python.hpp&gt;</span>
@@ -205,7 +207,7 @@ instances of the library. The function <code class="docutils literal notranslate
 that this is true (see the test script below).</p>
 </section>
 <section id="building-with-cmake">
-<h2><span class="section-number">4.3.3. </span>Building With CMake<a class="headerlink" href="#building-with-cmake" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.3.3. </span>Building With CMake<a class="headerlink" href="#building-with-cmake" title="Permalink to this heading">¶</a></h2>
 <p>We can use CMake to build the example:</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.10</span><span class="p">)</span>
 <span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span><span class="w"> </span><span class="s">CMAKE_MODULE_PATH</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_LIST_DIR</span><span class="o">}</span><span class="s">/cmake</span><span class="p">)</span>
@@ -259,7 +261,7 @@ that this is true (see the test script below).</p>
 </div>
 </section>
 <section id="testing-the-extension">
-<h2><span class="section-number">4.3.4. </span>Testing the Extension<a class="headerlink" href="#testing-the-extension" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.3.4. </span>Testing the Extension<a class="headerlink" href="#testing-the-extension" title="Permalink to this heading">¶</a></h2>
 <p>After configuring and building there should be a shared library <code class="docutils literal notranslate"><span class="pre">awesome.so</span></code> which contains
 the extension. Executing the following script using the wrapper script in the same folder
 as the shared libray should now work:</p>
@@ -295,7 +297,7 @@ as the shared libray should now work:</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

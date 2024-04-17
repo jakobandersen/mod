@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>10.2. Rule Composition &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="10.3. Derivations and Reaction Networks" href="020_dg.html" />
@@ -78,10 +80,10 @@
 	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
 		<ul>
 <li><a class="reference internal" href="#">10.2. Rule Composition</a><ul>
-<li><a class="reference internal" href="#parallel-composition">10.2.1. Parallel Composition</a></li>
+<li><a class="reference internal" href="#overall-formose-reaction">10.2.1. Overall Formose Reaction</a></li>
 <li><a class="reference internal" href="#supergraph-composition">10.2.2. Supergraph Composition</a></li>
 <li><a class="reference internal" href="#unary-operators">10.2.3. Unary Operators</a></li>
-<li><a class="reference internal" href="#overall-formose-reaction">10.2.4. Overall Formose Reaction</a></li>
+<li><a class="reference internal" href="#parallel-composition">10.2.4. Parallel Composition</a></li>
 </ul>
 </li>
 </ul>
@@ -131,24 +133,36 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="rule-composition">
-<span id="examples-010-rc"></span><span id="examples-rc"></span><h1><span class="section-number">10.2. </span>Rule Composition<a class="headerlink" href="#rule-composition" title="Link to this heading">¶</a></h1>
-<section id="parallel-composition">
-<h2><span class="section-number">10.2.1. </span>Parallel Composition<a class="headerlink" href="#parallel-composition" title="Link to this heading">¶</a></h2>
-<p>A pair of rules can be merged to a new rule implementing the parallel
-transformation.</p>
-<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=010_rc__101_rcParallel.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
-<span class="linenos">2</span><span class="n">rc</span> <span class="o">=</span> <span class="n">rcEvaluator</span><span class="p">(</span><span class="n">inputRules</span><span class="p">)</span>
-<span class="linenos">3</span><span class="c1"># The special global object &#39;rcParallel&#39; is used to make a pseudo-operator:</span>
-<span class="linenos">4</span><span class="n">exp</span> <span class="o">=</span> <span class="n">rcId</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span> <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span>  <span class="n">rcUnbind</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span>
-<span class="linenos">5</span><span class="n">rules</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-<span class="linenos">6</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
-<span class="linenos">7</span>   <span class="n">p</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+<span id="examples-010-rc"></span><span id="examples-rc"></span><h1><span class="section-number">10.2. </span>Rule Composition<a class="headerlink" href="#rule-composition" title="Permalink to this heading">¶</a></h1>
+<section id="overall-formose-reaction">
+<h2><span class="section-number">10.2.1. </span>Overall Formose Reaction<a class="headerlink" href="#overall-formose-reaction" title="Permalink to this heading">¶</a></h2>
+<p>A complete pathway can be composed to obtain the overall rules.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=010_rc__120_rcFormose.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">rc</span> <span class="o">=</span> <span class="n">rcEvaluator</span><span class="p">(</span><span class="n">inputRules</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="n">exp</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos"> 4</span>   <span class="n">rcId</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span>
+<span class="linenos"> 5</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_F</span>
+<span class="linenos"> 6</span>   <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span> <span class="n">rcId</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span>
+<span class="linenos"> 7</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="p">(</span><span class="n">allowPartial</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">*</span> <span class="n">aldolAdd_F</span>
+<span class="linenos"> 8</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_F</span>
+<span class="linenos"> 9</span>   <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span> <span class="n">rcId</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span>
+<span class="linenos">10</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="p">(</span><span class="n">allowPartial</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">*</span> <span class="n">aldolAdd_F</span>
+<span class="linenos">11</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_F</span>
+<span class="linenos">12</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_B</span>
+<span class="linenos">13</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">aldolAdd_B</span>
+<span class="linenos">14</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_B</span>
+<span class="linenos">15</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="p">(</span><span class="n">allowPartial</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">*</span>
+<span class="linenos">16</span>   <span class="p">(</span><span class="n">rcId</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span> <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span> <span class="n">rcId</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">))</span>
+<span class="linenos">17</span><span class="p">)</span>
+<span class="linenos">18</span><span class="n">rules</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="linenos">19</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+<span class="linenos">20</span>   <span class="n">p</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="supergraph-composition">
-<h2><span class="section-number">10.2.2. </span>Supergraph Composition<a class="headerlink" href="#supergraph-composition" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">10.2.2. </span>Supergraph Composition<a class="headerlink" href="#supergraph-composition" title="Permalink to this heading">¶</a></h2>
 <p>A pair of rules can (maybe) be composed using a sueprgraph relation.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=010_rc__102_rcSuper.py">Explore in the playground</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
@@ -162,7 +176,7 @@ transformation.</p>
 </div>
 </section>
 <section id="unary-operators">
-<h2><span class="section-number">10.2.3. </span>Unary Operators<a class="headerlink" href="#unary-operators" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">10.2.3. </span>Unary Operators<a class="headerlink" href="#unary-operators" title="Permalink to this heading">¶</a></h2>
 <p>Special rules can be constructed from graphs.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=010_rc__100_rcGraphOps.py">Explore in the playground</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
@@ -192,30 +206,18 @@ transformation.</p>
 </pre></div>
 </div>
 </section>
-<section id="overall-formose-reaction">
-<h2><span class="section-number">10.2.4. </span>Overall Formose Reaction<a class="headerlink" href="#overall-formose-reaction" title="Link to this heading">¶</a></h2>
-<p>A complete pathway can be composed to obtain the overall rules.</p>
-<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=010_rc__120_rcFormose.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="n">rc</span> <span class="o">=</span> <span class="n">rcEvaluator</span><span class="p">(</span><span class="n">inputRules</span><span class="p">)</span>
-<span class="linenos"> 3</span><span class="n">exp</span> <span class="o">=</span> <span class="p">(</span>
-<span class="linenos"> 4</span>   <span class="n">rcId</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span>
-<span class="linenos"> 5</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_F</span>
-<span class="linenos"> 6</span>   <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span> <span class="n">rcId</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span>
-<span class="linenos"> 7</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="p">(</span><span class="n">allowPartial</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">*</span> <span class="n">aldolAdd_F</span>
-<span class="linenos"> 8</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_F</span>
-<span class="linenos"> 9</span>   <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span> <span class="n">rcId</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span>
-<span class="linenos">10</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="p">(</span><span class="n">allowPartial</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">*</span> <span class="n">aldolAdd_F</span>
-<span class="linenos">11</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_F</span>
-<span class="linenos">12</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_B</span>
-<span class="linenos">13</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">aldolAdd_B</span>
-<span class="linenos">14</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="o">*</span> <span class="n">ketoEnol_B</span>
-<span class="linenos">15</span>   <span class="o">*</span><span class="n">rcSuper</span><span class="p">(</span><span class="n">allowPartial</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">*</span>
-<span class="linenos">16</span>   <span class="p">(</span><span class="n">rcId</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span> <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span> <span class="n">rcId</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">))</span>
-<span class="linenos">17</span><span class="p">)</span>
-<span class="linenos">18</span><span class="n">rules</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
-<span class="linenos">19</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
-<span class="linenos">20</span>   <span class="n">p</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+<section id="parallel-composition">
+<h2><span class="section-number">10.2.4. </span>Parallel Composition<a class="headerlink" href="#parallel-composition" title="Permalink to this heading">¶</a></h2>
+<p>A pair of rules can be merged to a new rule implementing the parallel
+transformation.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=010_rc__101_rcParallel.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">rc</span> <span class="o">=</span> <span class="n">rcEvaluator</span><span class="p">(</span><span class="n">inputRules</span><span class="p">)</span>
+<span class="linenos">3</span><span class="c1"># The special global object &#39;rcParallel&#39; is used to make a pseudo-operator:</span>
+<span class="linenos">4</span><span class="n">exp</span> <span class="o">=</span> <span class="n">rcId</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span> <span class="o">*</span><span class="n">rcParallel</span><span class="o">*</span>  <span class="n">rcUnbind</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">rules</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="linenos">6</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+<span class="linenos">7</span>   <span class="n">p</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -230,7 +232,7 @@ transformation.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>3.2.11.4. dg/GraphInterface.hpp &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -80,138 +82,75 @@
 		<ul>
 <li><a class="reference internal" href="#">3.2.11.4. dg/GraphInterface.hpp</a><ul>
 <li><a class="reference internal" href="#class-dg-dg-vertex">3.2.11.4.1. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::Vertex</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG6VertexE"><code class="docutils literal notranslate"><span class="pre">Vertex</span></code></a></li>
 <li><a class="reference internal" href="#synopsis">3.2.11.4.1.1. Synopsis</a></li>
-<li><a class="reference internal" href="#details">3.2.11.4.1.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG6Vertex6VertexEv"><code class="docutils literal notranslate"><span class="pre">Vertex()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6VertexcvbEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">bool()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex6isNullEv"><code class="docutils literal notranslate"><span class="pre">isNull()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex5getIdEv"><code class="docutils literal notranslate"><span class="pre">getId()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex5getDGEv"><code class="docutils literal notranslate"><span class="pre">getDG()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex8inDegreeEv"><code class="docutils literal notranslate"><span class="pre">inDegree()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex7inEdgesEv"><code class="docutils literal notranslate"><span class="pre">inEdges()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex12getOutDegreeEv"><code class="docutils literal notranslate"><span class="pre">getOutDegree()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex8outEdgesEv"><code class="docutils literal notranslate"><span class="pre">outEdges()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex8getGraphEv"><code class="docutils literal notranslate"><span class="pre">getGraph()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#details">3.2.11.4.1.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-hyperedge">3.2.11.4.2. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::HyperEdge</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG9HyperEdgeE"><code class="docutils literal notranslate"><span class="pre">HyperEdge</span></code></a></li>
 <li><a class="reference internal" href="#id1">3.2.11.4.2.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id2">3.2.11.4.2.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG9HyperEdge9HyperEdgeEv"><code class="docutils literal notranslate"><span class="pre">HyperEdge()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdgecvbEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">bool()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge6isNullEv"><code class="docutils literal notranslate"><span class="pre">isNull()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge5getIdEv"><code class="docutils literal notranslate"><span class="pre">getId()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge5getDGEv"><code class="docutils literal notranslate"><span class="pre">getDG()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge10numSourcesEv"><code class="docutils literal notranslate"><span class="pre">numSources()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge7sourcesEv"><code class="docutils literal notranslate"><span class="pre">sources()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge10numTargetsEv"><code class="docutils literal notranslate"><span class="pre">numTargets()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge7targetsEv"><code class="docutils literal notranslate"><span class="pre">targets()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge5rulesEv"><code class="docutils literal notranslate"><span class="pre">rules()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge10getInverseEv"><code class="docutils literal notranslate"><span class="pre">getInverse()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id2">3.2.11.4.2.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-vertexiterator">3.2.11.4.3. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::VertexIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14VertexIteratorE"><code class="docutils literal notranslate"><span class="pre">VertexIterator</span></code></a></li>
 <li><a class="reference internal" href="#id3">3.2.11.4.3.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id4">3.2.11.4.3.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14VertexIterator14VertexIteratorEv"><code class="docutils literal notranslate"><span class="pre">VertexIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id4">3.2.11.4.3.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-vertexrange">3.2.11.4.4. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::VertexRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG11VertexRangeE"><code class="docutils literal notranslate"><span class="pre">VertexRange</span></code></a></li>
 <li><a class="reference internal" href="#id5">3.2.11.4.4.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-edgeiterator">3.2.11.4.5. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::EdgeIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG12EdgeIteratorE"><code class="docutils literal notranslate"><span class="pre">EdgeIterator</span></code></a></li>
 <li><a class="reference internal" href="#id6">3.2.11.4.5.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id7">3.2.11.4.5.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG12EdgeIterator12EdgeIteratorEv"><code class="docutils literal notranslate"><span class="pre">EdgeIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id7">3.2.11.4.5.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-edgerange">3.2.11.4.6. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::EdgeRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG9EdgeRangeE"><code class="docutils literal notranslate"><span class="pre">EdgeRange</span></code></a></li>
 <li><a class="reference internal" href="#id8">3.2.11.4.6.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-inedgeiterator">3.2.11.4.7. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::InEdgeIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14InEdgeIteratorE"><code class="docutils literal notranslate"><span class="pre">InEdgeIterator</span></code></a></li>
 <li><a class="reference internal" href="#id9">3.2.11.4.7.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id10">3.2.11.4.7.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv"><code class="docutils literal notranslate"><span class="pre">InEdgeIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id10">3.2.11.4.7.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-inedgerange">3.2.11.4.8. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::InEdgeRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG11InEdgeRangeE"><code class="docutils literal notranslate"><span class="pre">InEdgeRange</span></code></a></li>
 <li><a class="reference internal" href="#id11">3.2.11.4.8.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-outedgeiterator">3.2.11.4.9. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::OutEdgeIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG15OutEdgeIteratorE"><code class="docutils literal notranslate"><span class="pre">OutEdgeIterator</span></code></a></li>
 <li><a class="reference internal" href="#id12">3.2.11.4.9.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id13">3.2.11.4.9.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv"><code class="docutils literal notranslate"><span class="pre">OutEdgeIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id13">3.2.11.4.9.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-outedgerange">3.2.11.4.10. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::OutEdgeRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG12OutEdgeRangeE"><code class="docutils literal notranslate"><span class="pre">OutEdgeRange</span></code></a></li>
 <li><a class="reference internal" href="#id14">3.2.11.4.10.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-sourceiterator">3.2.11.4.11. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::SourceIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14SourceIteratorE"><code class="docutils literal notranslate"><span class="pre">SourceIterator</span></code></a></li>
 <li><a class="reference internal" href="#id15">3.2.11.4.11.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id16">3.2.11.4.11.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14SourceIterator14SourceIteratorEv"><code class="docutils literal notranslate"><span class="pre">SourceIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id16">3.2.11.4.11.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-sourcerange">3.2.11.4.12. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::SourceRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG11SourceRangeE"><code class="docutils literal notranslate"><span class="pre">SourceRange</span></code></a></li>
 <li><a class="reference internal" href="#id17">3.2.11.4.12.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-targetiterator">3.2.11.4.13. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::TargetIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14TargetIteratorE"><code class="docutils literal notranslate"><span class="pre">TargetIterator</span></code></a></li>
 <li><a class="reference internal" href="#id18">3.2.11.4.13.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id19">3.2.11.4.13.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG14TargetIterator14TargetIteratorEv"><code class="docutils literal notranslate"><span class="pre">TargetIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id19">3.2.11.4.13.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-targetrange">3.2.11.4.14. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::TargetRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG11TargetRangeE"><code class="docutils literal notranslate"><span class="pre">TargetRange</span></code></a></li>
 <li><a class="reference internal" href="#id20">3.2.11.4.14.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-ruleiterator">3.2.11.4.15. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::RuleIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG12RuleIteratorE"><code class="docutils literal notranslate"><span class="pre">RuleIterator</span></code></a></li>
 <li><a class="reference internal" href="#id21">3.2.11.4.15.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id22">3.2.11.4.15.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG12RuleIterator12RuleIteratorEv"><code class="docutils literal notranslate"><span class="pre">RuleIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id22">3.2.11.4.15.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-dg-dg-rulerange">3.2.11.4.16. Class <code class="docutils literal notranslate"><span class="pre">dg::DG::RuleRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod2dg2DG9RuleRangeE"><code class="docutils literal notranslate"><span class="pre">RuleRange</span></code></a></li>
 <li><a class="reference internal" href="#id23">3.2.11.4.16.1. Synopsis</a></li>
 </ul>
 </li>
@@ -264,18 +203,18 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="dg-graphinterface-hpp">
-<span id="cpp-dg-graphinterface"></span><h1><span class="section-number">3.2.11.4. </span>dg/GraphInterface.hpp<a class="headerlink" href="#dg-graphinterface-hpp" title="Link to this heading">¶</a></h1>
+<span id="cpp-dg-graphinterface"></span><h1><span class="section-number">3.2.11.4. </span>dg/GraphInterface.hpp<a class="headerlink" href="#dg-graphinterface-hpp" title="Permalink to this heading">¶</a></h1>
 <p>This header contains the definitions for the hypergraph interface for <a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">dg::DG</span></code></a>.</p>
 <section id="class-dg-dg-vertex">
-<h2><span class="section-number">3.2.11.4.1. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::Vertex</span></code><a class="headerlink" href="#class-dg-dg-vertex" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.1. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::Vertex</span></code><a class="headerlink" href="#class-dg-dg-vertex" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG6VertexE">
-<span id="_CPPv3N3mod2dg2DG6VertexE"></span><span id="_CPPv2N3mod2dg2DG6VertexE"></span><span id="mod::dg::DG::Vertex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG6VertexE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG6VertexE"></span><span id="_CPPv2N3mod2dg2DG6VertexE"></span><span id="mod::dg::DG::Vertex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG6VertexE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A descriptor of either a vertex in a graph, or a null vertex.</p>
 </dd></dl>
 
 <section id="synopsis">
-<h3><span class="section-number">3.2.11.4.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG6Vertex6VertexEv" title="mod::dg::DG::Vertex::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -301,16 +240,16 @@
 
 </section>
 <section id="details">
-<h3><span class="section-number">3.2.11.4.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.1.2. </span>Details<a class="headerlink" href="#details" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG6Vertex6VertexEv">
-<span id="_CPPv3N3mod2dg2DG6Vertex6VertexEv"></span><span id="_CPPv2N3mod2dg2DG6Vertex6VertexEv"></span><span id="mod::dg::DG::Vertex::Vertex"></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG6Vertex6VertexEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG6Vertex6VertexEv"></span><span id="_CPPv2N3mod2dg2DG6Vertex6VertexEv"></span><span id="mod::dg::DG::Vertex::Vertex"></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG6Vertex6VertexEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a null descriptor.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6VertexcvbEv">
-<span id="_CPPv3NK3mod2dg2DG6VertexcvbEv"></span><span id="_CPPv2NK3mod2dg2DG6VertexcvbEv"></span><span id="mod::dg::DG::Vertex::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6VertexcvbEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6VertexcvbEv"></span><span id="_CPPv2NK3mod2dg2DG6VertexcvbEv"></span><span id="mod::dg::DG::Vertex::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6VertexcvbEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod2dg2DG6Vertex6isNullEv" title="mod::dg::DG::Vertex::isNull"><span class="n">isNull</span></a><span class="p">(</span><span class="p">)</span></span></p>
@@ -320,7 +259,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex6isNullEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex6isNullEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex6isNullEv"></span><span id="mod::dg::DG::Vertex::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex6isNullEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex6isNullEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex6isNullEv"></span><span id="mod::dg::DG::Vertex::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex6isNullEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>whether this is a null descriptor or not.</p>
@@ -330,7 +269,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex5getIdEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex5getIdEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex5getIdEv"></span><span id="mod::dg::DG::Vertex::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex5getIdEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex5getIdEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex5getIdEv"></span><span id="mod::dg::DG::Vertex::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex5getIdEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the index of the vertex. It will be in the range <span class="math notranslate nohighlight">\([0, numVertices + numEdges[\)</span>.</p>
@@ -343,7 +282,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex5getDGEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex5getDGEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex5getDGEv"></span><span id="mod::dg::DG::Vertex::getDGC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDG</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex5getDGEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex5getDGEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex5getDGEv"></span><span id="mod::dg::DG::Vertex::getDGC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDG</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex5getDGEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the derivation graph the vertex belongs to.</p>
@@ -356,7 +295,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex8inDegreeEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex8inDegreeEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex8inDegreeEv"></span><span id="mod::dg::DG::Vertex::inDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex8inDegreeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex8inDegreeEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex8inDegreeEv"></span><span id="mod::dg::DG::Vertex::inDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex8inDegreeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the in-degree of the vertex, including multiplicity of target multisets.</p>
@@ -369,7 +308,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex7inEdgesEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex7inEdgesEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex7inEdgesEv"></span><span id="mod::dg::DG::Vertex::inEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG11InEdgeRangeE" title="mod::dg::DG::InEdgeRange"><span class="n"><span class="pre">InEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex7inEdgesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex7inEdgesEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex7inEdgesEv"></span><span id="mod::dg::DG::Vertex::inEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG11InEdgeRangeE" title="mod::dg::DG::InEdgeRange"><span class="n"><span class="pre">InEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex7inEdgesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a range of in-hyperedges for this vertex.</p>
@@ -382,7 +321,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex12getOutDegreeEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex12getOutDegreeEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex12getOutDegreeEv"></span><span id="mod::dg::DG::Vertex::getOutDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getOutDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex12getOutDegreeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex12getOutDegreeEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex12getOutDegreeEv"></span><span id="mod::dg::DG::Vertex::getOutDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getOutDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex12getOutDegreeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the out-degree of the vertex, including multiplicity of source multisets.</p>
@@ -395,7 +334,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex8outEdgesEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex8outEdgesEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex8outEdgesEv"></span><span id="mod::dg::DG::Vertex::outEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG12OutEdgeRangeE" title="mod::dg::DG::OutEdgeRange"><span class="n"><span class="pre">OutEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">outEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex8outEdgesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex8outEdgesEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex8outEdgesEv"></span><span id="mod::dg::DG::Vertex::outEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG12OutEdgeRangeE" title="mod::dg::DG::OutEdgeRange"><span class="n"><span class="pre">OutEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">outEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex8outEdgesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a range of out-hyperedges for this vertex.</p>
@@ -408,7 +347,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG6Vertex8getGraphEv">
-<span id="_CPPv3NK3mod2dg2DG6Vertex8getGraphEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex8getGraphEv"></span><span id="mod::dg::DG::Vertex::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG6Vertex8getGraphEv"></span><span id="_CPPv2NK3mod2dg2DG6Vertex8getGraphEv"></span><span id="mod::dg::DG::Vertex::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG6Vertex8getGraphEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the graph label of the vertex.</p>
@@ -422,15 +361,15 @@
 </section>
 </section>
 <section id="class-dg-dg-hyperedge">
-<h2><span class="section-number">3.2.11.4.2. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::HyperEdge</span></code><a class="headerlink" href="#class-dg-dg-hyperedge" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.2. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::HyperEdge</span></code><a class="headerlink" href="#class-dg-dg-hyperedge" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG9HyperEdgeE">
-<span id="_CPPv3N3mod2dg2DG9HyperEdgeE"></span><span id="_CPPv2N3mod2dg2DG9HyperEdgeE"></span><span id="mod::dg::DG::HyperEdge"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">HyperEdge</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9HyperEdgeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG9HyperEdgeE"></span><span id="_CPPv2N3mod2dg2DG9HyperEdgeE"></span><span id="mod::dg::DG::HyperEdge"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">HyperEdge</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9HyperEdgeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A descriptor of either a hyperedge in a derivation graph, or a null edge.</p>
 </dd></dl>
 
 <section id="id1">
-<h3><span class="section-number">3.2.11.4.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG9HyperEdge9HyperEdgeEv" title="mod::dg::DG::HyperEdge::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -460,16 +399,16 @@
 
 </section>
 <section id="id2">
-<h3><span class="section-number">3.2.11.4.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.2.2. </span>Details<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG9HyperEdge9HyperEdgeEv">
-<span id="_CPPv3N3mod2dg2DG9HyperEdge9HyperEdgeEv"></span><span id="_CPPv2N3mod2dg2DG9HyperEdge9HyperEdgeEv"></span><span id="mod::dg::DG::HyperEdge::HyperEdge"></span><span class="sig-name descname"><span class="n"><span class="pre">HyperEdge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9HyperEdge9HyperEdgeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG9HyperEdge9HyperEdgeEv"></span><span id="_CPPv2N3mod2dg2DG9HyperEdge9HyperEdgeEv"></span><span id="mod::dg::DG::HyperEdge::HyperEdge"></span><span class="sig-name descname"><span class="n"><span class="pre">HyperEdge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9HyperEdge9HyperEdgeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a null descriptor.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdgecvbEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdgecvbEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdgecvbEv"></span><span id="mod::dg::DG::HyperEdge::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdgecvbEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdgecvbEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdgecvbEv"></span><span id="mod::dg::DG::HyperEdge::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdgecvbEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge6isNullEv" title="mod::dg::DG::HyperEdge::isNull"><span class="n">isNull</span></a><span class="p">(</span><span class="p">)</span></span></p>
@@ -479,7 +418,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge6isNullEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge6isNullEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge6isNullEv"></span><span id="mod::dg::DG::HyperEdge::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge6isNullEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge6isNullEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge6isNullEv"></span><span id="mod::dg::DG::HyperEdge::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge6isNullEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>whether this is a null descriptor or not.</p>
@@ -489,7 +428,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge5getIdEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge5getIdEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5getIdEv"></span><span id="mod::dg::DG::HyperEdge::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5getIdEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge5getIdEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5getIdEv"></span><span id="mod::dg::DG::HyperEdge::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5getIdEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the index of the hyperedge. It will be in the range <span class="math notranslate nohighlight">\([0, numVertices + numEdges[\)</span>.</p>
@@ -502,7 +441,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge5getDGEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge5getDGEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5getDGEv"></span><span id="mod::dg::DG::HyperEdge::getDGC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDG</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5getDGEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge5getDGEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5getDGEv"></span><span id="mod::dg::DG::HyperEdge::getDGC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDG</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5getDGEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the derivation graph the hyperedge belongs to.</p>
@@ -515,7 +454,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge10numSourcesEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge10numSourcesEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge10numSourcesEv"></span><span id="mod::dg::DG::HyperEdge::numSourcesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numSources</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge10numSourcesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge10numSourcesEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge10numSourcesEv"></span><span id="mod::dg::DG::HyperEdge::numSourcesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numSources</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge10numSourcesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the number of sources of the hyperedge.</p>
@@ -528,7 +467,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge7sourcesEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge7sourcesEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge7sourcesEv"></span><span id="mod::dg::DG::HyperEdge::sourcesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG11SourceRangeE" title="mod::dg::DG::SourceRange"><span class="n"><span class="pre">SourceRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sources</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge7sourcesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge7sourcesEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge7sourcesEv"></span><span id="mod::dg::DG::HyperEdge::sourcesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG11SourceRangeE" title="mod::dg::DG::SourceRange"><span class="n"><span class="pre">SourceRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sources</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge7sourcesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the sources of the hyperedge.</p>
@@ -541,7 +480,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge10numTargetsEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge10numTargetsEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge10numTargetsEv"></span><span id="mod::dg::DG::HyperEdge::numTargetsC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numTargets</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge10numTargetsEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge10numTargetsEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge10numTargetsEv"></span><span id="mod::dg::DG::HyperEdge::numTargetsC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numTargets</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge10numTargetsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the number of targets of the hyperedge.</p>
@@ -554,7 +493,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge7targetsEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge7targetsEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge7targetsEv"></span><span id="mod::dg::DG::HyperEdge::targetsC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG11TargetRangeE" title="mod::dg::DG::TargetRange"><span class="n"><span class="pre">TargetRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">targets</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge7targetsEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge7targetsEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge7targetsEv"></span><span id="mod::dg::DG::HyperEdge::targetsC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG11TargetRangeE" title="mod::dg::DG::TargetRange"><span class="n"><span class="pre">TargetRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">targets</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge7targetsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the targets of the hyperedge.</p>
@@ -567,7 +506,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge5rulesEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge5rulesEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5rulesEv"></span><span id="mod::dg::DG::HyperEdge::rulesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG9RuleRangeE" title="mod::dg::DG::RuleRange"><span class="n"><span class="pre">RuleRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rules</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5rulesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge5rulesEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5rulesEv"></span><span id="mod::dg::DG::HyperEdge::rulesC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG9RuleRangeE" title="mod::dg::DG::RuleRange"><span class="n"><span class="pre">RuleRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rules</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5rulesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a range of the rules associated with the hyperedge.</p>
@@ -580,7 +519,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge10getInverseEv">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge10getInverseEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge10getInverseEv"></span><span id="mod::dg::DG::HyperEdge::getInverseC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getInverse</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge10getInverseEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge10getInverseEv"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge10getInverseEv"></span><span id="mod::dg::DG::HyperEdge::getInverseC"></span><a class="reference internal" href="#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getInverse</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge10getInverseEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a descriptor for the inverse hyperedge of this one, if it exists.
@@ -597,7 +536,7 @@ Otherwise a null descriptor is returned.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi">
-<span id="_CPPv3NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi"></span><span id="mod::dg::DG::HyperEdge::print__graph::PrinterCR.ssCR.ssCR.iC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">printer</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">nomatchColour</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">matchColour</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">verbosity</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi"></span><span id="_CPPv2NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi"></span><span id="mod::dg::DG::HyperEdge::print__graph::PrinterCR.ssCR.ssCR.iC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">printer</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">nomatchColour</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">matchColour</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">verbosity</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Print the derivations represented by the hyperedge.
 All possible Double-Pushout diagrams are printed.
 The <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod2dg2DG9HyperEdge5printERKN5graph7PrinterERKNSt6stringERKNSt6stringEi" title="mod::dg::DG::HyperEdge::print::matchColour"><span class="n">matchColour</span></a></span> must be a valid colour for TikZ, which is applied to the rule
@@ -630,16 +569,16 @@ The second entry is completed similarly by appending <code class="docutils liter
 </section>
 </section>
 <section id="class-dg-dg-vertexiterator">
-<h2><span class="section-number">3.2.11.4.3. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::VertexIterator</span></code><a class="headerlink" href="#class-dg-dg-vertexiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.3. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::VertexIterator</span></code><a class="headerlink" href="#class-dg-dg-vertexiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14VertexIteratorE">
-<span id="_CPPv3N3mod2dg2DG14VertexIteratorE"></span><span id="_CPPv2N3mod2dg2DG14VertexIteratorE"></span><span id="mod::dg::DG::VertexIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14VertexIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14VertexIteratorE"></span><span id="_CPPv2N3mod2dg2DG14VertexIteratorE"></span><span id="mod::dg::DG::VertexIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14VertexIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all vertices in a derivation graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id3">
-<h3><span class="section-number">3.2.11.4.3.1. </span>Synopsis<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.3.1. </span>Synopsis<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG14VertexIterator14VertexIteratorEv" title="mod::dg::DG::VertexIterator::VertexIterator"><span class="n"><span class="pre">VertexIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -647,41 +586,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id4">
-<h3><span class="section-number">3.2.11.4.3.2. </span>Details<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.3.2. </span>Details<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14VertexIterator14VertexIteratorEv">
-<span id="_CPPv3N3mod2dg2DG14VertexIterator14VertexIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14VertexIterator14VertexIteratorEv"></span><span id="mod::dg::DG::VertexIterator::VertexIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14VertexIterator14VertexIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14VertexIterator14VertexIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14VertexIterator14VertexIteratorEv"></span><span id="mod::dg::DG::VertexIterator::VertexIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14VertexIterator14VertexIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-vertexrange">
-<h2><span class="section-number">3.2.11.4.4. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::VertexRange</span></code><a class="headerlink" href="#class-dg-dg-vertexrange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.4. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::VertexRange</span></code><a class="headerlink" href="#class-dg-dg-vertexrange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG11VertexRangeE">
-<span id="_CPPv3N3mod2dg2DG11VertexRangeE"></span><span id="_CPPv2N3mod2dg2DG11VertexRangeE"></span><span id="mod::dg::DG::VertexRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11VertexRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG11VertexRangeE"></span><span id="_CPPv2N3mod2dg2DG11VertexRangeE"></span><span id="mod::dg::DG::VertexRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11VertexRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all vertices in a derivation graph.</p>
 </dd></dl>
 
 <section id="id5">
-<h3><span class="section-number">3.2.11.4.4.1. </span>Synopsis<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.4.1. </span>Synopsis<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-edgeiterator">
-<h2><span class="section-number">3.2.11.4.5. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::EdgeIterator</span></code><a class="headerlink" href="#class-dg-dg-edgeiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.5. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::EdgeIterator</span></code><a class="headerlink" href="#class-dg-dg-edgeiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG12EdgeIteratorE">
-<span id="_CPPv3N3mod2dg2DG12EdgeIteratorE"></span><span id="_CPPv2N3mod2dg2DG12EdgeIteratorE"></span><span id="mod::dg::DG::EdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12EdgeIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG12EdgeIteratorE"></span><span id="_CPPv2N3mod2dg2DG12EdgeIteratorE"></span><span id="mod::dg::DG::EdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12EdgeIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all edges in a graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id6">
-<h3><span class="section-number">3.2.11.4.5.1. </span>Synopsis<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.5.1. </span>Synopsis<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG12EdgeIterator12EdgeIteratorEv" title="mod::dg::DG::EdgeIterator::EdgeIterator"><span class="n"><span class="pre">EdgeIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -689,41 +628,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id7">
-<h3><span class="section-number">3.2.11.4.5.2. </span>Details<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.5.2. </span>Details<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG12EdgeIterator12EdgeIteratorEv">
-<span id="_CPPv3N3mod2dg2DG12EdgeIterator12EdgeIteratorEv"></span><span id="_CPPv2N3mod2dg2DG12EdgeIterator12EdgeIteratorEv"></span><span id="mod::dg::DG::EdgeIterator::EdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12EdgeIterator12EdgeIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG12EdgeIterator12EdgeIteratorEv"></span><span id="_CPPv2N3mod2dg2DG12EdgeIterator12EdgeIteratorEv"></span><span id="mod::dg::DG::EdgeIterator::EdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12EdgeIterator12EdgeIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-edgerange">
-<h2><span class="section-number">3.2.11.4.6. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::EdgeRange</span></code><a class="headerlink" href="#class-dg-dg-edgerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.6. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::EdgeRange</span></code><a class="headerlink" href="#class-dg-dg-edgerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG9EdgeRangeE">
-<span id="_CPPv3N3mod2dg2DG9EdgeRangeE"></span><span id="_CPPv2N3mod2dg2DG9EdgeRangeE"></span><span id="mod::dg::DG::EdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9EdgeRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG9EdgeRangeE"></span><span id="_CPPv2N3mod2dg2DG9EdgeRangeE"></span><span id="mod::dg::DG::EdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9EdgeRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all edges in a derivation graph.</p>
 </dd></dl>
 
 <section id="id8">
-<h3><span class="section-number">3.2.11.4.6.1. </span>Synopsis<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.6.1. </span>Synopsis<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-inedgeiterator">
-<h2><span class="section-number">3.2.11.4.7. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::InEdgeIterator</span></code><a class="headerlink" href="#class-dg-dg-inedgeiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.7. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::InEdgeIterator</span></code><a class="headerlink" href="#class-dg-dg-inedgeiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14InEdgeIteratorE">
-<span id="_CPPv3N3mod2dg2DG14InEdgeIteratorE"></span><span id="_CPPv2N3mod2dg2DG14InEdgeIteratorE"></span><span id="mod::dg::DG::InEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">InEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14InEdgeIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14InEdgeIteratorE"></span><span id="_CPPv2N3mod2dg2DG14InEdgeIteratorE"></span><span id="mod::dg::DG::InEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">InEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14InEdgeIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for enumerating all in-edges of a vertex.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id9">
-<h3><span class="section-number">3.2.11.4.7.1. </span>Synopsis<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.7.1. </span>Synopsis<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv" title="mod::dg::DG::InEdgeIterator::InEdgeIterator"><span class="n"><span class="pre">InEdgeIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -731,41 +670,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id10">
-<h3><span class="section-number">3.2.11.4.7.2. </span>Details<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.7.2. </span>Details<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv">
-<span id="_CPPv3N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv"></span><span id="mod::dg::DG::InEdgeIterator::InEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">InEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv"></span><span id="mod::dg::DG::InEdgeIterator::InEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">InEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14InEdgeIterator14InEdgeIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-inedgerange">
-<h2><span class="section-number">3.2.11.4.8. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::InEdgeRange</span></code><a class="headerlink" href="#class-dg-dg-inedgerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.8. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::InEdgeRange</span></code><a class="headerlink" href="#class-dg-dg-inedgerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG11InEdgeRangeE">
-<span id="_CPPv3N3mod2dg2DG11InEdgeRangeE"></span><span id="_CPPv2N3mod2dg2DG11InEdgeRangeE"></span><span id="mod::dg::DG::InEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">InEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11InEdgeRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG11InEdgeRangeE"></span><span id="_CPPv2N3mod2dg2DG11InEdgeRangeE"></span><span id="mod::dg::DG::InEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">InEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11InEdgeRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all in-edges of a vertex.</p>
 </dd></dl>
 
 <section id="id11">
-<h3><span class="section-number">3.2.11.4.8.1. </span>Synopsis<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.8.1. </span>Synopsis<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-outedgeiterator">
-<h2><span class="section-number">3.2.11.4.9. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::OutEdgeIterator</span></code><a class="headerlink" href="#class-dg-dg-outedgeiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.9. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::OutEdgeIterator</span></code><a class="headerlink" href="#class-dg-dg-outedgeiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG15OutEdgeIteratorE">
-<span id="_CPPv3N3mod2dg2DG15OutEdgeIteratorE"></span><span id="_CPPv2N3mod2dg2DG15OutEdgeIteratorE"></span><span id="mod::dg::DG::OutEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">OutEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG15OutEdgeIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG15OutEdgeIteratorE"></span><span id="_CPPv2N3mod2dg2DG15OutEdgeIteratorE"></span><span id="mod::dg::DG::OutEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">OutEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG15OutEdgeIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for enumerating all out-edges of a vertex.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id12">
-<h3><span class="section-number">3.2.11.4.9.1. </span>Synopsis<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.9.1. </span>Synopsis<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv" title="mod::dg::DG::OutEdgeIterator::OutEdgeIterator"><span class="n"><span class="pre">OutEdgeIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -773,41 +712,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id13">
-<h3><span class="section-number">3.2.11.4.9.2. </span>Details<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.9.2. </span>Details<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv">
-<span id="_CPPv3N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv"></span><span id="_CPPv2N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv"></span><span id="mod::dg::DG::OutEdgeIterator::OutEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">OutEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv"></span><span id="_CPPv2N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv"></span><span id="mod::dg::DG::OutEdgeIterator::OutEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">OutEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG15OutEdgeIterator15OutEdgeIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-outedgerange">
-<h2><span class="section-number">3.2.11.4.10. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::OutEdgeRange</span></code><a class="headerlink" href="#class-dg-dg-outedgerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.10. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::OutEdgeRange</span></code><a class="headerlink" href="#class-dg-dg-outedgerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG12OutEdgeRangeE">
-<span id="_CPPv3N3mod2dg2DG12OutEdgeRangeE"></span><span id="_CPPv2N3mod2dg2DG12OutEdgeRangeE"></span><span id="mod::dg::DG::OutEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">OutEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12OutEdgeRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG12OutEdgeRangeE"></span><span id="_CPPv2N3mod2dg2DG12OutEdgeRangeE"></span><span id="mod::dg::DG::OutEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">OutEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12OutEdgeRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all out-edges of a vertex.</p>
 </dd></dl>
 
 <section id="id14">
-<h3><span class="section-number">3.2.11.4.10.1. </span>Synopsis<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.10.1. </span>Synopsis<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-sourceiterator">
-<h2><span class="section-number">3.2.11.4.11. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::SourceIterator</span></code><a class="headerlink" href="#class-dg-dg-sourceiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.11. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::SourceIterator</span></code><a class="headerlink" href="#class-dg-dg-sourceiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14SourceIteratorE">
-<span id="_CPPv3N3mod2dg2DG14SourceIteratorE"></span><span id="_CPPv2N3mod2dg2DG14SourceIteratorE"></span><span id="mod::dg::DG::SourceIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SourceIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14SourceIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14SourceIteratorE"></span><span id="_CPPv2N3mod2dg2DG14SourceIteratorE"></span><span id="mod::dg::DG::SourceIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SourceIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14SourceIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for enumerating all sources of a hyperedge.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id15">
-<h3><span class="section-number">3.2.11.4.11.1. </span>Synopsis<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.11.1. </span>Synopsis<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG14SourceIterator14SourceIteratorEv" title="mod::dg::DG::SourceIterator::SourceIterator"><span class="n"><span class="pre">SourceIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -815,41 +754,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id16">
-<h3><span class="section-number">3.2.11.4.11.2. </span>Details<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.11.2. </span>Details<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14SourceIterator14SourceIteratorEv">
-<span id="_CPPv3N3mod2dg2DG14SourceIterator14SourceIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14SourceIterator14SourceIteratorEv"></span><span id="mod::dg::DG::SourceIterator::SourceIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">SourceIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14SourceIterator14SourceIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14SourceIterator14SourceIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14SourceIterator14SourceIteratorEv"></span><span id="mod::dg::DG::SourceIterator::SourceIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">SourceIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14SourceIterator14SourceIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-sourcerange">
-<h2><span class="section-number">3.2.11.4.12. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::SourceRange</span></code><a class="headerlink" href="#class-dg-dg-sourcerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.12. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::SourceRange</span></code><a class="headerlink" href="#class-dg-dg-sourcerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG11SourceRangeE">
-<span id="_CPPv3N3mod2dg2DG11SourceRangeE"></span><span id="_CPPv2N3mod2dg2DG11SourceRangeE"></span><span id="mod::dg::DG::SourceRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SourceRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11SourceRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG11SourceRangeE"></span><span id="_CPPv2N3mod2dg2DG11SourceRangeE"></span><span id="mod::dg::DG::SourceRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SourceRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11SourceRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all sources of a hyperedge.</p>
 </dd></dl>
 
 <section id="id17">
-<h3><span class="section-number">3.2.11.4.12.1. </span>Synopsis<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.12.1. </span>Synopsis<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-targetiterator">
-<h2><span class="section-number">3.2.11.4.13. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::TargetIterator</span></code><a class="headerlink" href="#class-dg-dg-targetiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.13. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::TargetIterator</span></code><a class="headerlink" href="#class-dg-dg-targetiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14TargetIteratorE">
-<span id="_CPPv3N3mod2dg2DG14TargetIteratorE"></span><span id="_CPPv2N3mod2dg2DG14TargetIteratorE"></span><span id="mod::dg::DG::TargetIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">TargetIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14TargetIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14TargetIteratorE"></span><span id="_CPPv2N3mod2dg2DG14TargetIteratorE"></span><span id="mod::dg::DG::TargetIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">TargetIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14TargetIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for enumerating all targets of a hyperedge.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id18">
-<h3><span class="section-number">3.2.11.4.13.1. </span>Synopsis<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.13.1. </span>Synopsis<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG14TargetIterator14TargetIteratorEv" title="mod::dg::DG::TargetIterator::TargetIterator"><span class="n"><span class="pre">TargetIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -857,41 +796,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id19">
-<h3><span class="section-number">3.2.11.4.13.2. </span>Details<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.13.2. </span>Details<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG14TargetIterator14TargetIteratorEv">
-<span id="_CPPv3N3mod2dg2DG14TargetIterator14TargetIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14TargetIterator14TargetIteratorEv"></span><span id="mod::dg::DG::TargetIterator::TargetIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">TargetIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14TargetIterator14TargetIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG14TargetIterator14TargetIteratorEv"></span><span id="_CPPv2N3mod2dg2DG14TargetIterator14TargetIteratorEv"></span><span id="mod::dg::DG::TargetIterator::TargetIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">TargetIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG14TargetIterator14TargetIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-targetrange">
-<h2><span class="section-number">3.2.11.4.14. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::TargetRange</span></code><a class="headerlink" href="#class-dg-dg-targetrange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.14. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::TargetRange</span></code><a class="headerlink" href="#class-dg-dg-targetrange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG11TargetRangeE">
-<span id="_CPPv3N3mod2dg2DG11TargetRangeE"></span><span id="_CPPv2N3mod2dg2DG11TargetRangeE"></span><span id="mod::dg::DG::TargetRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">TargetRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11TargetRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG11TargetRangeE"></span><span id="_CPPv2N3mod2dg2DG11TargetRangeE"></span><span id="mod::dg::DG::TargetRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">TargetRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG11TargetRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all sources of a hyperedge.</p>
 </dd></dl>
 
 <section id="id20">
-<h3><span class="section-number">3.2.11.4.14.1. </span>Synopsis<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.14.1. </span>Synopsis<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-ruleiterator">
-<h2><span class="section-number">3.2.11.4.15. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::RuleIterator</span></code><a class="headerlink" href="#class-dg-dg-ruleiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.15. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::RuleIterator</span></code><a class="headerlink" href="#class-dg-dg-ruleiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG12RuleIteratorE">
-<span id="_CPPv3N3mod2dg2DG12RuleIteratorE"></span><span id="_CPPv2N3mod2dg2DG12RuleIteratorE"></span><span id="mod::dg::DG::RuleIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RuleIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12RuleIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG12RuleIteratorE"></span><span id="_CPPv2N3mod2dg2DG12RuleIteratorE"></span><span id="mod::dg::DG::RuleIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RuleIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12RuleIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for enumerating all rules of a hyperedge.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id21">
-<h3><span class="section-number">3.2.11.4.15.1. </span>Synopsis<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.15.1. </span>Synopsis<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod2dg2DG12RuleIterator12RuleIteratorEv" title="mod::dg::DG::RuleIterator::RuleIterator"><span class="n"><span class="pre">RuleIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -899,25 +838,25 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id22">
-<h3><span class="section-number">3.2.11.4.15.2. </span>Details<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.15.2. </span>Details<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG12RuleIterator12RuleIteratorEv">
-<span id="_CPPv3N3mod2dg2DG12RuleIterator12RuleIteratorEv"></span><span id="_CPPv2N3mod2dg2DG12RuleIterator12RuleIteratorEv"></span><span id="mod::dg::DG::RuleIterator::RuleIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">RuleIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12RuleIterator12RuleIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG12RuleIterator12RuleIteratorEv"></span><span id="_CPPv2N3mod2dg2DG12RuleIterator12RuleIteratorEv"></span><span id="mod::dg::DG::RuleIterator::RuleIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">RuleIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg2DG12RuleIterator12RuleIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-dg-dg-rulerange">
-<h2><span class="section-number">3.2.11.4.16. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::RuleRange</span></code><a class="headerlink" href="#class-dg-dg-rulerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.11.4.16. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::DG::RuleRange</span></code><a class="headerlink" href="#class-dg-dg-rulerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod2dg2DG9RuleRangeE">
-<span id="_CPPv3N3mod2dg2DG9RuleRangeE"></span><span id="_CPPv2N3mod2dg2DG9RuleRangeE"></span><span id="mod::dg::DG::RuleRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RuleRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9RuleRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod2dg2DG9RuleRangeE"></span><span id="_CPPv2N3mod2dg2DG9RuleRangeE"></span><span id="mod::dg::DG::RuleRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RuleRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg2DG9RuleRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all rules of a hyperedge.</p>
 </dd></dl>
 
 <section id="id23">
-<h3><span class="section-number">3.2.11.4.16.1. </span>Synopsis<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.11.4.16.1. </span>Synopsis<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
@@ -934,7 +873,7 @@ It models a forward iterator.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

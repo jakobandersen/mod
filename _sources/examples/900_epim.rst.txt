@@ -8,49 +8,45 @@ EpiM
 
 
 
-Config for Visualization of Encodings
+Process Execution Spaces with Recursive Processes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The graphs of the encoded processes can be filtered and "prettified" using either
-the print options used by MØD for graph visualization or the image config provided
-by EpiM.
+We can compute the execution space of processes defined with recursive processes.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
-3_encoding_config.py>`__.
+5_exec_space_recursive.py>`__.
 
-.. literalinclude:: /_static/examples/py/900_epim/3_encoding_config.py
+.. literalinclude:: /_static/examples/py/900_epim/5_exec_space_recursive.py
 	:language: python
 	:linenos:
-	:lines: 1-30
+	:lines: 1-26
 	:tab-width: 3
 
 
-Hospital
+A Recursive Encoding
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The execution space for the process Hospital. From the execution space, 
-we see that Hospital can end up in a deadlock. This happens specifically,
-when the process P synchronizes with the process H.
+We can also specify process calls in an encoding.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
-6_hospital.py>`__.
+2_encoding_recursive.py>`__.
 
-.. literalinclude:: /_static/examples/py/900_epim/6_hospital.py
+.. literalinclude:: /_static/examples/py/900_epim/2_encoding_recursive.py
 	:language: python
 	:linenos:
-	:lines: 1-36
+	:lines: 1-15
 	:tab-width: 3
 
 
-Compute Execution Spaces
+A Process Encoding with Restrictions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can compute the execution space of a process.
+We can restrict names of a process.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
-4_exec_space_simple.py>`__.
+1_encoding_restriction.py>`__.
 
-.. literalinclude:: /_static/examples/py/900_epim/4_exec_space_simple.py
+.. literalinclude:: /_static/examples/py/900_epim/1_encoding_restriction.py
 	:language: python
 	:linenos:
 	:lines: 1-18
@@ -75,46 +71,50 @@ process respectively.
 	:tab-width: 3
 
 
-A Recursive Encoding
+Compute Execution Spaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can also specify process calls in an encoding.
+We can compute the execution space of a process.
 
 `Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
-2_encoding_recursive.py>`__.
+4_exec_space_simple.py>`__.
 
-.. literalinclude:: /_static/examples/py/900_epim/2_encoding_recursive.py
-	:language: python
-	:linenos:
-	:lines: 1-15
-	:tab-width: 3
-
-
-Process Execution Spaces with Recursive Processes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-We can compute the execution space of processes defined with recursive processes.
-
-`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
-5_exec_space_recursive.py>`__.
-
-.. literalinclude:: /_static/examples/py/900_epim/5_exec_space_recursive.py
-	:language: python
-	:linenos:
-	:lines: 1-26
-	:tab-width: 3
-
-
-A Process Encoding with Restrictions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-We can restrict names of a process.
-
-`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
-1_encoding_restriction.py>`__.
-
-.. literalinclude:: /_static/examples/py/900_epim/1_encoding_restriction.py
+.. literalinclude:: /_static/examples/py/900_epim/4_exec_space_simple.py
 	:language: python
 	:linenos:
 	:lines: 1-18
+	:tab-width: 3
+
+
+Hospital
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The execution space for the process Hospital. From the execution space, 
+we see that Hospital can end up in a deadlock. This happens specifically,
+when the process P synchronizes with the process H.
+
+`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
+6_hospital.py>`__.
+
+.. literalinclude:: /_static/examples/py/900_epim/6_hospital.py
+	:language: python
+	:linenos:
+	:lines: 1-36
+	:tab-width: 3
+
+
+Config for Visualization of Encodings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The graphs of the encoded processes can be filtered and "prettified" using either
+the print options used by MØD for graph visualization or the image config provided
+by EpiM.
+
+`Explore in the playground <https://cheminf-live.imada.sdu.dk/mod?example=900_epim__
+3_encoding_config.py>`__.
+
+.. literalinclude:: /_static/examples/py/900_epim/3_encoding_config.py
+	:language: python
+	:linenos:
+	:lines: 1-30
 	:tab-width: 3

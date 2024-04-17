@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>3.2.7. Misc.hpp &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3.2.8. Post.hpp" href="Post.html" />
@@ -77,12 +79,7 @@
 	</a>
 	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
 		<ul>
-<li><a class="reference internal" href="#">3.2.7. Misc.hpp</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod7versionEv"><code class="docutils literal notranslate"><span class="pre">version()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod9rngReseedEj"><code class="docutils literal notranslate"><span class="pre">rngReseed()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mod14rngUniformRealEv"><code class="docutils literal notranslate"><span class="pre">rngUniformReal()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">3.2.7. Misc.hpp</a></li>
 </ul>
 
 	</ul>
@@ -130,10 +127,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="misc-hpp">
-<span id="cpp-misc"></span><h1><span class="section-number">3.2.7. </span>Misc.hpp<a class="headerlink" href="#misc-hpp" title="Link to this heading">¶</a></h1>
+<span id="cpp-misc"></span><h1><span class="section-number">3.2.7. </span>Misc.hpp<a class="headerlink" href="#misc-hpp" title="Permalink to this heading">¶</a></h1>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod7versionEv">
-<span id="_CPPv3N3mod7versionEv"></span><span id="_CPPv2N3mod7versionEv"></span><span id="mod::version"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">version</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod7versionEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod7versionEv"></span><span id="_CPPv2N3mod7versionEv"></span><span id="mod::version"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">version</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod7versionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the version of MØD.</p>
@@ -143,13 +140,13 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod9rngReseedEj">
-<span id="_CPPv3N3mod9rngReseedEj"></span><span id="_CPPv2N3mod9rngReseedEj"></span><span id="mod::rngReseed__unsigned-i"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rngReseed</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">seed</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9rngReseedEj" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod9rngReseedEj"></span><span id="_CPPv2N3mod9rngReseedEj"></span><span id="mod::rngReseed__unsigned-i"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rngReseed</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">seed</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9rngReseedEj" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Reseed the random bit generator used in the library.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod14rngUniformRealEv">
-<span id="_CPPv3N3mod14rngUniformRealEv"></span><span id="_CPPv2N3mod14rngUniformRealEv"></span><span id="mod::rngUniformReal"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rngUniformReal</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod14rngUniformRealEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod14rngUniformRealEv"></span><span id="_CPPv2N3mod14rngUniformRealEv"></span><span id="mod::rngUniformReal"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rngUniformReal</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod14rngUniformRealEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a uniformly random real number between 0 and 1.</p>
@@ -168,7 +165,7 @@
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

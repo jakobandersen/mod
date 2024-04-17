@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.8.5. dg/Strategies &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -162,14 +164,14 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="dg-strategies">
-<span id="py-dg-strategies"></span><h1><span class="section-number">4.1.8.5. </span>dg/Strategies<a class="headerlink" href="#dg-strategies" title="Link to this heading">¶</a></h1>
+<span id="py-dg-strategies"></span><h1><span class="section-number">4.1.8.5. </span>dg/Strategies<a class="headerlink" href="#dg-strategies" title="Permalink to this heading">¶</a></h1>
 <p>This section describes two interfaces for the derivation graph strategies;
 the basic API and an embedded language which is built on the basic API.
 Usually the embedded strategy language is easiest and sufficient for constructing strategies.</p>
 <p>The semantics of the individual strategies are described in <a class="reference internal" href="../../dgStrat/index.html#dgstrat"><span class="std std-ref">Derivation Graph Strategies</span></a>.
 Note that a <a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGStrat</span></code></a> is a representation of a strategy and must be given to a derivation graph to be evaluated.</p>
 <section id="the-embedded-strategy-language">
-<span id="dg-edsl"></span><h2><span class="section-number">4.1.8.5.1. </span>The Embedded Strategy Language<a class="headerlink" href="#the-embedded-strategy-language" title="Link to this heading">¶</a></h2>
+<span id="dg-edsl"></span><h2><span class="section-number">4.1.8.5.1. </span>The Embedded Strategy Language<a class="headerlink" href="#the-embedded-strategy-language" title="Permalink to this heading">¶</a></h2>
 <p>The strategy language is really a collection of proxy classes with a lot of operator overloading, thus
 the normal syntax and semantics of Python applies.</p>
 <p>The following is the grammar for the strategies.</p>
@@ -193,9 +195,9 @@ or a function taking no arguments and returning a list of graphs.</p>
 <p>The functions in the language have the following signatures.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mod.addSubset">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">addSubset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">gs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.addSubset" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">addSubset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">gs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.addSubset" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.addUniverse">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">addUniverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">gs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.addUniverse" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">addUniverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">gs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.addUniverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Depending on <code class="docutils literal notranslate"><span class="pre">g</span></code> it calls either <a class="reference internal" href="#mod.DGStrat.makeAddStatic" title="mod.DGStrat.makeAddStatic"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeAddStatic()</span></code></a> or <a class="reference internal" href="#mod.DGStrat.makeAddDynamic" title="mod.DGStrat.makeAddDynamic"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeAddDynamic()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -214,7 +216,7 @@ a <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.L
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mod.execute">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.execute" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.execute" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the result of <a class="reference internal" href="#mod.DGStrat.makeExecute" title="mod.DGStrat.makeExecute"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeExecute()</span></code></a>.</p>
@@ -224,9 +226,9 @@ a <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.L
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mod.filterSubset">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">filterSubset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.filterSubset" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">filterSubset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.filterSubset" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.filterUniverse">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">filterUniverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.filterUniverse" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">filterUniverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.filterUniverse" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the result of the corresponding <a class="reference internal" href="#mod.DGStrat.makeFilter" title="mod.DGStrat.makeFilter"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeFilter()</span></code></a>.</p>
@@ -236,23 +238,23 @@ a <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.L
 
 <dl class="py data">
 <dt class="sig sig-object py" id="mod.leftPredicate">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">leftPredicate</span></span><a class="headerlink" href="#mod.leftPredicate" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">leftPredicate</span></span><a class="headerlink" href="#mod.leftPredicate" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.rightPredicate">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">rightPredicate</span></span><a class="headerlink" href="#mod.rightPredicate" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">rightPredicate</span></span><a class="headerlink" href="#mod.rightPredicate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Objects of unspecified type which can be used as <code class="docutils literal notranslate"><span class="pre">obj[pred](strat)</span></code>.
 This will call respectively <a class="reference internal" href="#mod.DGStrat.makeLeftPredicate" title="mod.DGStrat.makeLeftPredicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeLeftPredicate()</span></code></a> or <a class="reference internal" href="#mod.DGStrat.makeRightPredicate" title="mod.DGStrat.makeRightPredicate"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeRightPredicate()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="mod.repeat">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">repeat</span></span><a class="headerlink" href="#mod.repeat" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">repeat</span></span><a class="headerlink" href="#mod.repeat" title="Permalink to this definition">¶</a></dt>
 <dd><p>An object of unspecified type which can be used either as <code class="docutils literal notranslate"><span class="pre">repeat(strat)</span></code> or <code class="docutils literal notranslate"><span class="pre">repeat[limit](strat)</span></code>.
 This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" title="mod.DGStrat.makeRepeat"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeRepeat()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mod.revive">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">revive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.revive" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">revive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.revive" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the result of <a class="reference internal" href="#mod.DGStrat.makeRevive" title="mod.DGStrat.makeRevive"><code class="xref py py-func docutils literal notranslate"><span class="pre">DGStrat.makeRevive()</span></code></a>.</p>
@@ -262,13 +264,13 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 
 </section>
 <section id="the-basic-api">
-<h2><span class="section-number">4.1.8.5.2. </span>The Basic API<a class="headerlink" href="#the-basic-api" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.8.5.2. </span>The Basic API<a class="headerlink" href="#the-basic-api" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.DGStrat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DGStrat</span></span><a class="headerlink" href="#mod.DGStrat" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DGStrat</span></span><a class="headerlink" href="#mod.DGStrat" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeAddStatic">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeAddStatic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onlyUniverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeAddStatic" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeAddStatic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onlyUniverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeAddStatic" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -291,7 +293,7 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeAddDynamic">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeAddDynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onlyUniverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphsFunc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeAddDynamic" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeAddDynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onlyUniverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphsFunc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeAddDynamic" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -311,7 +313,7 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeSequence">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strats</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeSequence" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strats</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeSequence" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>strats</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a><em>]</em>) – the strategies to evaluate in sequence.</p>
@@ -333,7 +335,7 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeParallel">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strats</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeParallel" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strats</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeParallel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>strats</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a><em>]</em>) – the sub-strategies to evaluate.</p>
@@ -355,7 +357,7 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeFilter">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alsoUniverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeFilter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alsoUniverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeFilter" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -376,7 +378,7 @@ the call is the first in the filtering process.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeExecute">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeExecute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeExecute" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeExecute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeExecute" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>func</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="#mod.DGStrat.GraphState" title="mod.DGStrat.GraphState"><em>DGStrat.GraphState</em></a><em>]</em><em>, </em><em>None</em><em>]</em>) – A function being executed when the strategy is evaluated.</p>
@@ -392,7 +394,7 @@ the call is the first in the filtering process.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeRule">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRule" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRule" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>r</strong> (<a class="reference internal" href="../rule/Rule.html#mod.Rule" title="mod.Rule"><em>Rule</em></a>) – the rule to make into a strategy.</p>
@@ -411,7 +413,7 @@ the call is the first in the filtering process.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeLeftPredicate">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeLeftPredicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeLeftPredicate" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeLeftPredicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeLeftPredicate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -434,7 +436,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeRightPredicate">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRightPredicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRightPredicate" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRightPredicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRightPredicate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -456,7 +458,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeRevive">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRevive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRevive" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRevive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRevive" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>strat</strong> (<a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a>) – the strategy to encapsulate.</p>
@@ -475,7 +477,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.DGStrat.makeRepeat">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRepeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRepeat" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeRepeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeRepeat" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -500,11 +502,11 @@ Even though the predicate is called with a <a class="reference internal" href=".
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.DGStrat.GraphState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GraphState</span></span><a class="headerlink" href="#mod.DGStrat.GraphState" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GraphState</span></span><a class="headerlink" href="#mod.DGStrat.GraphState" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents a graph state with a subset <span class="math notranslate nohighlight">\(S\)</span> and a universe <span class="math notranslate nohighlight">\(U\)</span> fulfilling <span class="math notranslate nohighlight">\(S\subseteq U\)</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGStrat.GraphState.subset">
-<span class="sig-name descname"><span class="pre">subset</span></span><a class="headerlink" href="#mod.DGStrat.GraphState.subset" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">subset</span></span><a class="headerlink" href="#mod.DGStrat.GraphState.subset" title="Permalink to this definition">¶</a></dt>
 <dd><p>The subset <span class="math notranslate nohighlight">\(\mathcal{S}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -515,7 +517,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.DGStrat.GraphState.universe">
-<span class="sig-name descname"><span class="pre">universe</span></span><a class="headerlink" href="#mod.DGStrat.GraphState.universe" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">universe</span></span><a class="headerlink" href="#mod.DGStrat.GraphState.universe" title="Permalink to this definition">¶</a></dt>
 <dd><p>The universe <span class="math notranslate nohighlight">\(\mathcal{U}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -540,7 +542,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>7. Graph, Rule, and Molecule Model &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -143,7 +145,7 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="graph-rule-and-molecule-model">
-<span id="graph-model"></span><h1><span class="section-number">7. </span>Graph, Rule, and Molecule Model<a class="headerlink" href="#graph-rule-and-molecule-model" title="Link to this heading">¶</a></h1>
+<span id="graph-model"></span><h1><span class="section-number">7. </span>Graph, Rule, and Molecule Model<a class="headerlink" href="#graph-rule-and-molecule-model" title="Permalink to this heading">¶</a></h1>
 <p>A central component of MØD is the <a class="reference internal" href="../libmod/graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Graph</span></code></a>/<a class="reference internal" href="../pymod/graph/Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>
 which simplified represents simple graphs with labels on vertices and edges.
 However, how the labels are interepreted and how graph morphisms are defined
@@ -163,7 +165,7 @@ formally make the graph transformation composable.
 Lastly we see how MØD interprets graphs as molecule (fragments) in order to
 create depictions that resembles ordinary molecule depictions.</p>
 <section id="simple-graphs-with-string-labels">
-<span id="graph-model-basic"></span><h2><span class="section-number">7.1. </span>Simple Graphs with String Labels<a class="headerlink" href="#simple-graphs-with-string-labels" title="Link to this heading">¶</a></h2>
+<span id="graph-model-basic"></span><h2><span class="section-number">7.1. </span>Simple Graphs with String Labels<a class="headerlink" href="#simple-graphs-with-string-labels" title="Permalink to this heading">¶</a></h2>
 <p>In the simplified model, a graph
 <span class="math notranslate nohighlight">\(G = (V, E, l\colon V\cup E\rightarrow \Omega)\)</span>
 is undirected, and neither has loop edges nor parallel edges.
@@ -203,7 +205,7 @@ therefore not explore it further.</p>
 connected.</p>
 </section>
 <section id="switching-category-first-order-terms-as-labels">
-<span id="graph-model-terms"></span><h2><span class="section-number">7.2. </span>Switching Category — First-Order Terms as Labels<a class="headerlink" href="#switching-category-first-order-terms-as-labels" title="Link to this heading">¶</a></h2>
+<span id="graph-model-terms"></span><h2><span class="section-number">7.2. </span>Switching Category — First-Order Terms as Labels<a class="headerlink" href="#switching-category-first-order-terms-as-labels" title="Permalink to this heading">¶</a></h2>
 <p>We can imbue the label set <span class="math notranslate nohighlight">\(Omega\)</span> with extra structure by using
 <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType4TermE" title="mod::LabelType::Term"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::Term</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.Term" title="mod.LabelType.Term"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.Term</span></code></a> instead of
 <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType6StringE" title="mod::LabelType::String"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::String</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.String" title="mod.LabelType.String"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.String</span></code></a>.
@@ -244,7 +246,7 @@ the first-order terms are serialized back into strings:</p>
 comma.</p></li>
 </ul>
 <section id="morphisms">
-<h3><span class="section-number">7.2.1. </span>Morphisms<a class="headerlink" href="#morphisms" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">7.2.1. </span>Morphisms<a class="headerlink" href="#morphisms" title="Permalink to this heading">¶</a></h3>
 <p>First-order terms are partially ordered, and we thus have additional choice in
 how to define morphisms.
 This choice is in the API selected through the
@@ -308,14 +310,14 @@ isomorphisms on the label part.</p>
 </section>
 </section>
 <section id="rule-model">
-<span id="graph-model-rules"></span><h2><span class="section-number">7.3. </span>Rule Model<a class="headerlink" href="#rule-model" title="Link to this heading">¶</a></h2>
+<span id="graph-model-rules"></span><h2><span class="section-number">7.3. </span>Rule Model<a class="headerlink" href="#rule-model" title="Permalink to this heading">¶</a></h2>
 <p>A <a class="reference internal" href="../libmod/rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">rule::Rule</span></code></a>/<a class="reference internal" href="../pymod/rule/Rule.html#mod.Rule" title="mod.Rule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rule</span></code></a> represents a
 <a class="reference external" href="https://en.wikipedia.org/wiki/Double_pushout_graph_rewriting">Double Pushout</a>
 (DPO) graph transformation rule <span class="math notranslate nohighlight">\(p = (L\xleftarrow{l}K\xrightarrow{r}R)\)</span>.
 Specifically, they are in the DPO variant with all morphisms being at least
 graph monomorphisms.</p>
 <section id="label-change">
-<h3><span class="section-number">7.3.1. </span>Label Change<a class="headerlink" href="#label-change" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">7.3.1. </span>Label Change<a class="headerlink" href="#label-change" title="Permalink to this heading">¶</a></h3>
 <p>The rules allow both for vertices and edges to change labels, but only the
 latter is well-defined in traditional DPO transformation.
 Thus, mathematically it is not immediately possible to define the graphs as
@@ -328,7 +330,7 @@ Note that all morphisms are required to be at least graph monomorphisms, so a
 loop edge can not be created inadvertently.</p>
 </section>
 <section id="avoiding-parallel-edges">
-<h3><span class="section-number">7.3.2. </span>Avoiding Parallel Edges<a class="headerlink" href="#avoiding-parallel-edges" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">7.3.2. </span>Avoiding Parallel Edges<a class="headerlink" href="#avoiding-parallel-edges" title="Permalink to this heading">¶</a></h3>
 <p>Our graphs are defined to be without parallel edges, which presents a
 mathematical problem in that certain pushouts are not allowed.
 In a DPO direct derivation we can avoid parallel edges by simply introducing
@@ -349,14 +351,14 @@ there is a NAC on <span class="math notranslate nohighlight">\(R\)</span> preven
 </section>
 </section>
 <section id="molecule-encoding">
-<span id="mol-enc"></span><h2><span class="section-number">7.4. </span>Molecule Encoding<a class="headerlink" href="#molecule-encoding" title="Link to this heading">¶</a></h2>
+<span id="mol-enc"></span><h2><span class="section-number">7.4. </span>Molecule Encoding<a class="headerlink" href="#molecule-encoding" title="Permalink to this heading">¶</a></h2>
 <p>There is no strict requirement that graphs/rules encode molecule (fragments),
 however several optimizations are in place when they do, and depictions are
 prettified based on “moleculeness”.
 The following describes the encoding of molecules in the
 <a class="reference internal" href="#graph-model-basic"><span class="std std-ref">basic graph model</span></a>, that MØD recognizes.</p>
 <section id="edges-bonds">
-<h3><span class="section-number">7.4.1. </span>Edges / Bonds<a class="headerlink" href="#edges-bonds" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">7.4.1. </span>Edges / Bonds<a class="headerlink" href="#edges-bonds" title="Permalink to this heading">¶</a></h3>
 <p>An edge encodes a chemical bond if and only if its label is listed in the table below.</p>
 <table class="docutils align-default">
 <thead>
@@ -381,7 +383,7 @@ The following describes the encoding of molecules in the
 </table>
 </section>
 <section id="vertices-atoms">
-<h3><span class="section-number">7.4.2. </span>Vertices / Atoms<a class="headerlink" href="#vertices-atoms" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">7.4.2. </span>Vertices / Atoms<a class="headerlink" href="#vertices-atoms" title="Permalink to this heading">¶</a></h3>
 <p>A vertex encodes an atom if and only if its label conforms to the following grammar.</p>
 <pre>
 <strong id="grammar-token-molecularVertexLabel-vertexLabel">vertexLabel</strong> ::=  [ <a class="reference internal" href="#grammar-token-molecularVertexLabel-isotope"><code class="xref docutils literal notranslate"><span class="pre">isotope</span></code></a> ] <a class="reference internal" href="#grammar-token-molecularVertexLabel-atomSymbol"><code class="xref docutils literal notranslate"><span class="pre">atomSymbol</span></code></a> [ <a class="reference internal" href="#grammar-token-molecularVertexLabel-charge"><code class="xref docutils literal notranslate"><span class="pre">charge</span></code></a> ] [ <a class="reference internal" href="#grammar-token-molecularVertexLabel-radical"><code class="xref docutils literal notranslate"><span class="pre">radical</span></code></a> ]
@@ -407,7 +409,7 @@ The following describes the encoding of molecules in the
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

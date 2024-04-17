@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>3.2.12.4. graph/GraphInterface.hpp &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -80,82 +82,39 @@
 		<ul>
 <li><a class="reference internal" href="#">3.2.12.4. graph/GraphInterface.hpp</a><ul>
 <li><a class="reference internal" href="#class-graph-graph-vertex">3.2.12.4.1. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Vertex</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph6VertexE"><code class="docutils literal notranslate"><span class="pre">Vertex</span></code></a></li>
 <li><a class="reference internal" href="#synopsis">3.2.12.4.1.1. Synopsis</a></li>
-<li><a class="reference internal" href="#details">3.2.12.4.1.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph6Vertex6VertexEv"><code class="docutils literal notranslate"><span class="pre">Vertex()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6VertexcvbEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">bool()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex6isNullEv"><code class="docutils literal notranslate"><span class="pre">isNull()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex5getIdEv"><code class="docutils literal notranslate"><span class="pre">getId()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex8getGraphEv"><code class="docutils literal notranslate"><span class="pre">getGraph()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex9getDegreeEv"><code class="docutils literal notranslate"><span class="pre">getDegree()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex13incidentEdgesEv"><code class="docutils literal notranslate"><span class="pre">incidentEdges()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex14getStringLabelEv"><code class="docutils literal notranslate"><span class="pre">getStringLabel()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex9getAtomIdEv"><code class="docutils literal notranslate"><span class="pre">getAtomId()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex10getIsotopeEv"><code class="docutils literal notranslate"><span class="pre">getIsotope()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex9getChargeEv"><code class="docutils literal notranslate"><span class="pre">getCharge()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex10getRadicalEv"><code class="docutils literal notranslate"><span class="pre">getRadical()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex11printStereoEv"><code class="docutils literal notranslate"><span class="pre">printStereo()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex11printStereoERK7Printer"><code class="docutils literal notranslate"><span class="pre">printStereo()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#details">3.2.12.4.1.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-graph-edge">3.2.12.4.2. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Edge</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph4EdgeE"><code class="docutils literal notranslate"><span class="pre">Edge</span></code></a></li>
 <li><a class="reference internal" href="#id1">3.2.12.4.2.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id2">3.2.12.4.2.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph4Edge4EdgeEv"><code class="docutils literal notranslate"><span class="pre">Edge()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4EdgecvbEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">bool()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4Edge6isNullEv"><code class="docutils literal notranslate"><span class="pre">isNull()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4Edge8getGraphEv"><code class="docutils literal notranslate"><span class="pre">getGraph()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4Edge6sourceEv"><code class="docutils literal notranslate"><span class="pre">source()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4Edge6targetEv"><code class="docutils literal notranslate"><span class="pre">target()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4Edge14getStringLabelEv"><code class="docutils literal notranslate"><span class="pre">getStringLabel()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4Edge11getBondTypeEv"><code class="docutils literal notranslate"><span class="pre">getBondType()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id2">3.2.12.4.2.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-graph-vertexiterator">3.2.12.4.3. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::VertexIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph14VertexIteratorE"><code class="docutils literal notranslate"><span class="pre">VertexIterator</span></code></a></li>
 <li><a class="reference internal" href="#id3">3.2.12.4.3.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id4">3.2.12.4.3.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph14VertexIterator14VertexIteratorEv"><code class="docutils literal notranslate"><span class="pre">VertexIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id4">3.2.12.4.3.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-graph-vertexrange">3.2.12.4.4. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::VertexRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph11VertexRangeE"><code class="docutils literal notranslate"><span class="pre">VertexRange</span></code></a></li>
 <li><a class="reference internal" href="#id5">3.2.12.4.4.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-graph-edgeiterator">3.2.12.4.5. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::EdgeIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph12EdgeIteratorE"><code class="docutils literal notranslate"><span class="pre">EdgeIterator</span></code></a></li>
 <li><a class="reference internal" href="#id6">3.2.12.4.5.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id7">3.2.12.4.5.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv"><code class="docutils literal notranslate"><span class="pre">EdgeIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id7">3.2.12.4.5.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-graph-edgerange">3.2.12.4.6. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::EdgeRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph9EdgeRangeE"><code class="docutils literal notranslate"><span class="pre">EdgeRange</span></code></a></li>
 <li><a class="reference internal" href="#id8">3.2.12.4.6.1. Synopsis</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-graph-incidentedgeiterator">3.2.12.4.7. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::IncidentEdgeIterator</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph20IncidentEdgeIteratorE"><code class="docutils literal notranslate"><span class="pre">IncidentEdgeIterator</span></code></a></li>
 <li><a class="reference internal" href="#id9">3.2.12.4.7.1. Synopsis</a></li>
-<li><a class="reference internal" href="#id10">3.2.12.4.7.2. Details</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv"><code class="docutils literal notranslate"><span class="pre">IncidentEdgeIterator()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id10">3.2.12.4.7.2. Details</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class-graph-graph-incidentedgerange">3.2.12.4.8. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::IncidentEdgeRange</span></code></a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph17IncidentEdgeRangeE"><code class="docutils literal notranslate"><span class="pre">IncidentEdgeRange</span></code></a></li>
 <li><a class="reference internal" href="#id11">3.2.12.4.8.1. Synopsis</a></li>
 </ul>
 </li>
@@ -208,18 +167,18 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="graph-graphinterface-hpp">
-<span id="cpp-graph-graphinterface"></span><h1><span class="section-number">3.2.12.4. </span>graph/GraphInterface.hpp<a class="headerlink" href="#graph-graphinterface-hpp" title="Link to this heading">¶</a></h1>
+<span id="cpp-graph-graphinterface"></span><h1><span class="section-number">3.2.12.4. </span>graph/GraphInterface.hpp<a class="headerlink" href="#graph-graphinterface-hpp" title="Permalink to this heading">¶</a></h1>
 <p>This header contains the definitions for the graph interface for <a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Graph</span></code></a>.</p>
 <section id="class-graph-graph-vertex">
-<h2><span class="section-number">3.2.12.4.1. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Vertex</span></code><a class="headerlink" href="#class-graph-graph-vertex" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.1. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Vertex</span></code><a class="headerlink" href="#class-graph-graph-vertex" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph6VertexE">
-<span id="_CPPv3N3mod5graph5Graph6VertexE"></span><span id="_CPPv2N3mod5graph5Graph6VertexE"></span><span id="mod::graph::Graph::Vertex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph6VertexE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph6VertexE"></span><span id="_CPPv2N3mod5graph5Graph6VertexE"></span><span id="mod::graph::Graph::Vertex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph6VertexE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A descriptor of either a vertex in a graph, or a null vertex.</p>
 </dd></dl>
 
 <section id="synopsis">
-<h3><span class="section-number">3.2.12.4.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Graph6Vertex6VertexEv" title="mod::graph::Graph::Vertex::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -253,16 +212,16 @@
 
 </section>
 <section id="details">
-<h3><span class="section-number">3.2.12.4.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.1.2. </span>Details<a class="headerlink" href="#details" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph6Vertex6VertexEv">
-<span id="_CPPv3N3mod5graph5Graph6Vertex6VertexEv"></span><span id="_CPPv2N3mod5graph5Graph6Vertex6VertexEv"></span><span id="mod::graph::Graph::Vertex::Vertex"></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph6Vertex6VertexEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph6Vertex6VertexEv"></span><span id="_CPPv2N3mod5graph5Graph6Vertex6VertexEv"></span><span id="mod::graph::Graph::Vertex::Vertex"></span><span class="sig-name descname"><span class="n"><span class="pre">Vertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph6Vertex6VertexEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a null descriptor.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6VertexcvbEv">
-<span id="_CPPv3NK3mod5graph5Graph6VertexcvbEv"></span><span id="_CPPv2NK3mod5graph5Graph6VertexcvbEv"></span><span id="mod::graph::Graph::Vertex::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6VertexcvbEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6VertexcvbEv"></span><span id="_CPPv2NK3mod5graph5Graph6VertexcvbEv"></span><span id="mod::graph::Graph::Vertex::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6VertexcvbEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph6Vertex6isNullEv" title="mod::graph::Graph::Vertex::isNull"><span class="n">isNull</span></a><span class="p">(</span><span class="p">)</span></span></p>
@@ -272,7 +231,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex6isNullEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex6isNullEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex6isNullEv"></span><span id="mod::graph::Graph::Vertex::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex6isNullEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex6isNullEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex6isNullEv"></span><span id="mod::graph::Graph::Vertex::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex6isNullEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>whether this is a null descriptor or not.</p>
@@ -282,7 +241,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex5getIdEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex5getIdEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex5getIdEv"></span><span id="mod::graph::Graph::Vertex::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex5getIdEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex5getIdEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex5getIdEv"></span><span id="mod::graph::Graph::Vertex::getIdC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex5getIdEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the index of the vertex. It will be in the range <span class="math notranslate nohighlight">\([0, numVertices[\)</span>.</p>
@@ -295,7 +254,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex8getGraphEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex8getGraphEv"></span><span id="mod::graph::Graph::Vertex::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex8getGraphEv"></span><span id="mod::graph::Graph::Vertex::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex8getGraphEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the graph the vertex belongs to.</p>
@@ -308,7 +267,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex9getDegreeEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex9getDegreeEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex9getDegreeEv"></span><span id="mod::graph::Graph::Vertex::getDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex9getDegreeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex9getDegreeEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex9getDegreeEv"></span><span id="mod::graph::Graph::Vertex::getDegreeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDegree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex9getDegreeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the degree of the vertex.</p>
@@ -321,7 +280,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex13incidentEdgesEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex13incidentEdgesEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex13incidentEdgesEv"></span><span id="mod::graph::Graph::Vertex::incidentEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph17IncidentEdgeRangeE" title="mod::graph::Graph::IncidentEdgeRange"><span class="n"><span class="pre">IncidentEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">incidentEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex13incidentEdgesEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex13incidentEdgesEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex13incidentEdgesEv"></span><span id="mod::graph::Graph::Vertex::incidentEdgesC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph17IncidentEdgeRangeE" title="mod::graph::Graph::IncidentEdgeRange"><span class="n"><span class="pre">IncidentEdgeRange</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">incidentEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex13incidentEdgesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a range of incident edges to this vertex.</p>
@@ -334,7 +293,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex14getStringLabelEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex14getStringLabelEv"></span><span id="mod::graph::Graph::Vertex::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex14getStringLabelEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex14getStringLabelEv"></span><span id="mod::graph::Graph::Vertex::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex14getStringLabelEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the string label of the vertex.</p>
@@ -347,7 +306,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex9getAtomIdEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex9getAtomIdEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex9getAtomIdEv"></span><span id="mod::graph::Graph::Vertex::getAtomIdC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAtomId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex9getAtomIdEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex9getAtomIdEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex9getAtomIdEv"></span><span id="mod::graph::Graph::Vertex::getAtomIdC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6AtomIdE" title="mod::AtomId"><span class="n"><span class="pre">AtomId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAtomId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex9getAtomIdEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the atom id of the vertex.</p>
@@ -360,7 +319,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex10getIsotopeEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex10getIsotopeEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex10getIsotopeEv"></span><span id="mod::graph::Graph::Vertex::getIsotopeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIsotope</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex10getIsotopeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex10getIsotopeEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex10getIsotopeEv"></span><span id="mod::graph::Graph::Vertex::getIsotopeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod7IsotopeE" title="mod::Isotope"><span class="n"><span class="pre">Isotope</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIsotope</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex10getIsotopeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the isotope of the vertex.</p>
@@ -373,7 +332,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex9getChargeEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex9getChargeEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex9getChargeEv"></span><span id="mod::graph::Graph::Vertex::getChargeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCharge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex9getChargeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex9getChargeEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex9getChargeEv"></span><span id="mod::graph::Graph::Vertex::getChargeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod6ChargeE" title="mod::Charge"><span class="n"><span class="pre">Charge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCharge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex9getChargeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the charge of the vertex.</p>
@@ -386,7 +345,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex10getRadicalEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex10getRadicalEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex10getRadicalEv"></span><span id="mod::graph::Graph::Vertex::getRadicalC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRadical</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex10getRadicalEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex10getRadicalEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex10getRadicalEv"></span><span id="mod::graph::Graph::Vertex::getRadicalC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRadical</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex10getRadicalEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the radical status of the vertex.</p>
@@ -399,9 +358,9 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex11printStereoEv">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex11printStereoEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex11printStereoEv"></span><span id="mod::graph::Graph::Vertex::printStereoC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex11printStereoEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex11printStereoEv"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex11printStereoEv"></span><span id="mod::graph::Graph::Vertex::printStereoC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex11printStereoEv" title="Permalink to this definition">¶</a><br /></dt>
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph6Vertex11printStereoERK7Printer">
-<span id="_CPPv3NK3mod5graph5Graph6Vertex11printStereoERK7Printer"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex11printStereoERK7Printer"></span><span id="mod::graph::Graph::Vertex::printStereo__PrinterCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex11printStereoERK7Printer" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph6Vertex11printStereoERK7Printer"></span><span id="_CPPv2NK3mod5graph5Graph6Vertex11printStereoERK7Printer"></span><span id="mod::graph::Graph::Vertex::printStereo__PrinterCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printStereo</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph6Vertex11printStereoERK7Printer" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Print the stereo configuration for the vertex.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -416,15 +375,15 @@
 </section>
 </section>
 <section id="class-graph-graph-edge">
-<h2><span class="section-number">3.2.12.4.2. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Edge</span></code><a class="headerlink" href="#class-graph-graph-edge" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.2. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Edge</span></code><a class="headerlink" href="#class-graph-graph-edge" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph4EdgeE">
-<span id="_CPPv3N3mod5graph5Graph4EdgeE"></span><span id="_CPPv2N3mod5graph5Graph4EdgeE"></span><span id="mod::graph::Graph::Edge"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph4EdgeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph4EdgeE"></span><span id="_CPPv2N3mod5graph5Graph4EdgeE"></span><span id="mod::graph::Graph::Edge"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph4EdgeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A descriptor of either an edge in a graph, or a null edge.</p>
 </dd></dl>
 
 <section id="id1">
-<h3><span class="section-number">3.2.12.4.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Graph4Edge4EdgeEv" title="mod::graph::Graph::Edge::Edge"><span class="n"><span class="pre">Edge</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -446,16 +405,16 @@
 
 </section>
 <section id="id2">
-<h3><span class="section-number">3.2.12.4.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.2.2. </span>Details<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph4Edge4EdgeEv">
-<span id="_CPPv3N3mod5graph5Graph4Edge4EdgeEv"></span><span id="_CPPv2N3mod5graph5Graph4Edge4EdgeEv"></span><span id="mod::graph::Graph::Edge::Edge"></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph4Edge4EdgeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph4Edge4EdgeEv"></span><span id="_CPPv2N3mod5graph5Graph4Edge4EdgeEv"></span><span id="mod::graph::Graph::Edge::Edge"></span><span class="sig-name descname"><span class="n"><span class="pre">Edge</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph4Edge4EdgeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a null descriptor.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph4EdgecvbEv">
-<span id="_CPPv3NK3mod5graph5Graph4EdgecvbEv"></span><span id="_CPPv2NK3mod5graph5Graph4EdgecvbEv"></span><span id="mod::graph::Graph::Edge::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4EdgecvbEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph4EdgecvbEv"></span><span id="_CPPv2NK3mod5graph5Graph4EdgecvbEv"></span><span id="mod::graph::Graph::Edge::castto-b-operatorC"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4EdgecvbEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph4Edge6isNullEv" title="mod::graph::Graph::Edge::isNull"><span class="n">isNull</span></a><span class="p">(</span><span class="p">)</span></span></p>
@@ -465,7 +424,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph4Edge6isNullEv">
-<span id="_CPPv3NK3mod5graph5Graph4Edge6isNullEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge6isNullEv"></span><span id="mod::graph::Graph::Edge::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge6isNullEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph4Edge6isNullEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge6isNullEv"></span><span id="mod::graph::Graph::Edge::isNullC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNull</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge6isNullEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>whether this is a null descriptor or not.</p>
@@ -475,7 +434,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph4Edge8getGraphEv">
-<span id="_CPPv3NK3mod5graph5Graph4Edge8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge8getGraphEv"></span><span id="mod::graph::Graph::Edge::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph4Edge8getGraphEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge8getGraphEv"></span><span id="mod::graph::Graph::Edge::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge8getGraphEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the graph the edge belongs to.</p>
@@ -488,7 +447,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph4Edge6sourceEv">
-<span id="_CPPv3NK3mod5graph5Graph4Edge6sourceEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge6sourceEv"></span><span id="mod::graph::Graph::Edge::sourceC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">source</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge6sourceEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph4Edge6sourceEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge6sourceEv"></span><span id="mod::graph::Graph::Edge::sourceC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">source</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge6sourceEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the source vertex of the edge.</p>
@@ -501,7 +460,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph4Edge6targetEv">
-<span id="_CPPv3NK3mod5graph5Graph4Edge6targetEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge6targetEv"></span><span id="mod::graph::Graph::Edge::targetC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">target</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge6targetEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph4Edge6targetEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge6targetEv"></span><span id="mod::graph::Graph::Edge::targetC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">target</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge6targetEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the target vertex of the edge.</p>
@@ -514,7 +473,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph4Edge14getStringLabelEv">
-<span id="_CPPv3NK3mod5graph5Graph4Edge14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge14getStringLabelEv"></span><span id="mod::graph::Graph::Edge::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge14getStringLabelEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph4Edge14getStringLabelEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge14getStringLabelEv"></span><span id="mod::graph::Graph::Edge::getStringLabelC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getStringLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge14getStringLabelEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the string label of the edge.</p>
@@ -527,7 +486,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph4Edge11getBondTypeEv">
-<span id="_CPPv3NK3mod5graph5Graph4Edge11getBondTypeEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge11getBondTypeEv"></span><span id="mod::graph::Graph::Edge::getBondTypeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod8BondTypeE" title="mod::BondType"><span class="n"><span class="pre">BondType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBondType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge11getBondTypeEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod5graph5Graph4Edge11getBondTypeEv"></span><span id="_CPPv2NK3mod5graph5Graph4Edge11getBondTypeEv"></span><span id="mod::graph::Graph::Edge::getBondTypeC"></span><a class="reference internal" href="../Chem.html#_CPPv4N3mod8BondTypeE" title="mod::BondType"><span class="n"><span class="pre">BondType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBondType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph4Edge11getBondTypeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the bond type of the edge.</p>
@@ -541,16 +500,16 @@
 </section>
 </section>
 <section id="class-graph-graph-vertexiterator">
-<h2><span class="section-number">3.2.12.4.3. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::VertexIterator</span></code><a class="headerlink" href="#class-graph-graph-vertexiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.3. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::VertexIterator</span></code><a class="headerlink" href="#class-graph-graph-vertexiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph14VertexIteratorE">
-<span id="_CPPv3N3mod5graph5Graph14VertexIteratorE"></span><span id="_CPPv2N3mod5graph5Graph14VertexIteratorE"></span><span id="mod::graph::Graph::VertexIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph14VertexIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph14VertexIteratorE"></span><span id="_CPPv2N3mod5graph5Graph14VertexIteratorE"></span><span id="mod::graph::Graph::VertexIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph14VertexIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all vertices in a graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id3">
-<h3><span class="section-number">3.2.12.4.3.1. </span>Synopsis<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.3.1. </span>Synopsis<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Graph14VertexIterator14VertexIteratorEv" title="mod::graph::Graph::VertexIterator::VertexIterator"><span class="n"><span class="pre">VertexIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -558,41 +517,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id4">
-<h3><span class="section-number">3.2.12.4.3.2. </span>Details<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.3.2. </span>Details<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph14VertexIterator14VertexIteratorEv">
-<span id="_CPPv3N3mod5graph5Graph14VertexIterator14VertexIteratorEv"></span><span id="_CPPv2N3mod5graph5Graph14VertexIterator14VertexIteratorEv"></span><span id="mod::graph::Graph::VertexIterator::VertexIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph14VertexIterator14VertexIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph14VertexIterator14VertexIteratorEv"></span><span id="_CPPv2N3mod5graph5Graph14VertexIterator14VertexIteratorEv"></span><span id="mod::graph::Graph::VertexIterator::VertexIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">VertexIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph14VertexIterator14VertexIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-graph-graph-vertexrange">
-<h2><span class="section-number">3.2.12.4.4. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::VertexRange</span></code><a class="headerlink" href="#class-graph-graph-vertexrange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.4. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::VertexRange</span></code><a class="headerlink" href="#class-graph-graph-vertexrange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph11VertexRangeE">
-<span id="_CPPv3N3mod5graph5Graph11VertexRangeE"></span><span id="_CPPv2N3mod5graph5Graph11VertexRangeE"></span><span id="mod::graph::Graph::VertexRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph11VertexRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph11VertexRangeE"></span><span id="_CPPv2N3mod5graph5Graph11VertexRangeE"></span><span id="mod::graph::Graph::VertexRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">VertexRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph11VertexRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all vertices in a graph.</p>
 </dd></dl>
 
 <section id="id5">
-<h3><span class="section-number">3.2.12.4.4.1. </span>Synopsis<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.4.1. </span>Synopsis<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-graph-graph-edgeiterator">
-<h2><span class="section-number">3.2.12.4.5. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::EdgeIterator</span></code><a class="headerlink" href="#class-graph-graph-edgeiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.5. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::EdgeIterator</span></code><a class="headerlink" href="#class-graph-graph-edgeiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph12EdgeIteratorE">
-<span id="_CPPv3N3mod5graph5Graph12EdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Graph12EdgeIteratorE"></span><span id="mod::graph::Graph::EdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph12EdgeIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph12EdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Graph12EdgeIteratorE"></span><span id="mod::graph::Graph::EdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph12EdgeIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all edges in a graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id6">
-<h3><span class="section-number">3.2.12.4.5.1. </span>Synopsis<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.5.1. </span>Synopsis<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv" title="mod::graph::Graph::EdgeIterator::EdgeIterator"><span class="n"><span class="pre">EdgeIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -600,41 +559,41 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id7">
-<h3><span class="section-number">3.2.12.4.5.2. </span>Details<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.5.2. </span>Details<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv">
-<span id="_CPPv3N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv"></span><span id="mod::graph::Graph::EdgeIterator::EdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv"></span><span id="mod::graph::Graph::EdgeIterator::EdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph12EdgeIterator12EdgeIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-graph-graph-edgerange">
-<h2><span class="section-number">3.2.12.4.6. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::EdgeRange</span></code><a class="headerlink" href="#class-graph-graph-edgerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.6. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::EdgeRange</span></code><a class="headerlink" href="#class-graph-graph-edgerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph9EdgeRangeE">
-<span id="_CPPv3N3mod5graph5Graph9EdgeRangeE"></span><span id="_CPPv2N3mod5graph5Graph9EdgeRangeE"></span><span id="mod::graph::Graph::EdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph9EdgeRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph9EdgeRangeE"></span><span id="_CPPv2N3mod5graph5Graph9EdgeRangeE"></span><span id="mod::graph::Graph::EdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph9EdgeRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all edges in a graph.</p>
 </dd></dl>
 
 <section id="id8">
-<h3><span class="section-number">3.2.12.4.6.1. </span>Synopsis<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.6.1. </span>Synopsis<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
 </section>
 </section>
 <section id="class-graph-graph-incidentedgeiterator">
-<h2><span class="section-number">3.2.12.4.7. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::IncidentEdgeIterator</span></code><a class="headerlink" href="#class-graph-graph-incidentedgeiterator" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.7. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::IncidentEdgeIterator</span></code><a class="headerlink" href="#class-graph-graph-incidentedgeiterator" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph20IncidentEdgeIteratorE">
-<span id="_CPPv3N3mod5graph5Graph20IncidentEdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Graph20IncidentEdgeIteratorE"></span><span id="mod::graph::Graph::IncidentEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph20IncidentEdgeIteratorE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph20IncidentEdgeIteratorE"></span><span id="_CPPv2N3mod5graph5Graph20IncidentEdgeIteratorE"></span><span id="mod::graph::Graph::IncidentEdgeIterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph20IncidentEdgeIteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An iterator for traversing all edges in a graph.
 It models a forward iterator.</p>
 </dd></dl>
 
 <section id="id9">
-<h3><span class="section-number">3.2.12.4.7.1. </span>Synopsis<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.7.1. </span>Synopsis<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt class="sig sig-object cpp">
 <a class="reference internal" href="#_CPPv4N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv" title="mod::graph::Graph::IncidentEdgeIterator::IncidentEdgeIterator"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
@@ -642,25 +601,25 @@ It models a forward iterator.</p>
 
 </section>
 <section id="id10">
-<h3><span class="section-number">3.2.12.4.7.2. </span>Details<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.7.2. </span>Details<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv">
-<span id="_CPPv3N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="mod::graph::Graph::IncidentEdgeIterator::IncidentEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="_CPPv2N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv"></span><span id="mod::graph::Graph::IncidentEdgeIterator::IncidentEdgeIterator"></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeIterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph20IncidentEdgeIterator20IncidentEdgeIteratorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Construct a past-the-end iterator.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="class-graph-graph-incidentedgerange">
-<h2><span class="section-number">3.2.12.4.8. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::IncidentEdgeRange</span></code><a class="headerlink" href="#class-graph-graph-incidentedgerange" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">3.2.12.4.8. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::IncidentEdgeRange</span></code><a class="headerlink" href="#class-graph-graph-incidentedgerange" title="Permalink to this heading">¶</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph17IncidentEdgeRangeE">
-<span id="_CPPv3N3mod5graph5Graph17IncidentEdgeRangeE"></span><span id="_CPPv2N3mod5graph5Graph17IncidentEdgeRangeE"></span><span id="mod::graph::Graph::IncidentEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph17IncidentEdgeRangeE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod5graph5Graph17IncidentEdgeRangeE"></span><span id="_CPPv2N3mod5graph5Graph17IncidentEdgeRangeE"></span><span id="mod::graph::Graph::IncidentEdgeRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncidentEdgeRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph17IncidentEdgeRangeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A range of all incident edges to a vertex in a graph.</p>
 </dd></dl>
 
 <section id="id11">
-<h3><span class="section-number">3.2.12.4.8.1. </span>Synopsis<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.12.4.8.1. </span>Synopsis<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dd></dd></dl>
 
@@ -677,7 +636,7 @@ It models a forward iterator.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

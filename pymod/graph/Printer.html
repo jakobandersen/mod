@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.9.4. graph/Printer &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.1.9.5. graph/Union" href="Union.html" />
@@ -150,10 +152,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="graph-printer">
-<span id="py-graph-printer"></span><h1><span class="section-number">4.1.9.4. </span>graph/Printer<a class="headerlink" href="#graph-printer" title="Link to this heading">¶</a></h1>
+<span id="py-graph-printer"></span><h1><span class="section-number">4.1.9.4. </span>graph/Printer<a class="headerlink" href="#graph-printer" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.GraphPrinter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">GraphPrinter</span></span><a class="headerlink" href="#mod.GraphPrinter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">GraphPrinter</span></span><a class="headerlink" href="#mod.GraphPrinter" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to configure how graphs are visualised.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -163,37 +165,37 @@ and may make non-molecules look like molecules.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.GraphPrinter.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>The default constructor enables edges as bonds, raised charges, and raised isotopes.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.GraphPrinter.setMolDefault">
-<span class="sig-name descname"><span class="pre">setMolDefault</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.setMolDefault" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setMolDefault</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.setMolDefault" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut for enabling all but thickening and index printing.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.GraphPrinter.setReactionDefault">
-<span class="sig-name descname"><span class="pre">setReactionDefault</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.setReactionDefault" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setReactionDefault</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.setReactionDefault" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut for enabling all but thickening, index printing and simplification of carbon atoms.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.GraphPrinter.disableAll">
-<span class="sig-name descname"><span class="pre">disableAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.disableAll" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">disableAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.disableAll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable all special printing features.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.GraphPrinter.enableAll">
-<span class="sig-name descname"><span class="pre">enableAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.enableAll" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">enableAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.GraphPrinter.enableAll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable all special printing features, except typewriter font.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.edgesAsBonds">
-<span class="sig-name descname"><span class="pre">edgesAsBonds</span></span><a class="headerlink" href="#mod.GraphPrinter.edgesAsBonds" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">edgesAsBonds</span></span><a class="headerlink" href="#mod.GraphPrinter.edgesAsBonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether edges with special labels are drawn as chemical bonds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -204,7 +206,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.collapseHydrogens">
-<span class="sig-name descname"><span class="pre">collapseHydrogens</span></span><a class="headerlink" href="#mod.GraphPrinter.collapseHydrogens" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">collapseHydrogens</span></span><a class="headerlink" href="#mod.GraphPrinter.collapseHydrogens" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether vertices representing hydrogen atoms are collapsed into their neighbours labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -215,7 +217,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.raiseIsotopes">
-<span class="sig-name descname"><span class="pre">raiseIsotopes</span></span><a class="headerlink" href="#mod.GraphPrinter.raiseIsotopes" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">raiseIsotopes</span></span><a class="headerlink" href="#mod.GraphPrinter.raiseIsotopes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether a vertex label prefix encoding an isotope is written as a superscript to the rest of the label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -226,7 +228,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.raiseCharges">
-<span class="sig-name descname"><span class="pre">raiseCharges</span></span><a class="headerlink" href="#mod.GraphPrinter.raiseCharges" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">raiseCharges</span></span><a class="headerlink" href="#mod.GraphPrinter.raiseCharges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether a vertex label suffix encoding a charge is written as a superscript to the rest of the label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -237,7 +239,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.simpleCarbons">
-<span class="sig-name descname"><span class="pre">simpleCarbons</span></span><a class="headerlink" href="#mod.GraphPrinter.simpleCarbons" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">simpleCarbons</span></span><a class="headerlink" href="#mod.GraphPrinter.simpleCarbons" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether some vertices encoding carbon atoms are depicted without any label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -248,7 +250,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.thick">
-<span class="sig-name descname"><span class="pre">thick</span></span><a class="headerlink" href="#mod.GraphPrinter.thick" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">thick</span></span><a class="headerlink" href="#mod.GraphPrinter.thick" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether all edges are drawn thicker than normal and all labels are written in bold.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -259,7 +261,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.withColour">
-<span class="sig-name descname"><span class="pre">withColour</span></span><a class="headerlink" href="#mod.GraphPrinter.withColour" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withColour</span></span><a class="headerlink" href="#mod.GraphPrinter.withColour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether colour is applied to certain elements of the graph which are molecule-like.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -270,7 +272,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.withIndex">
-<span class="sig-name descname"><span class="pre">withIndex</span></span><a class="headerlink" href="#mod.GraphPrinter.withIndex" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withIndex</span></span><a class="headerlink" href="#mod.GraphPrinter.withIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether the underlying indices of the vertices are printed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -281,7 +283,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.withTexttt">
-<span class="sig-name descname"><span class="pre">withTexttt</span></span><a class="headerlink" href="#mod.GraphPrinter.withTexttt" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withTexttt</span></span><a class="headerlink" href="#mod.GraphPrinter.withTexttt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether the vertex and edge labels are written with typewriter font.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -292,7 +294,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.withRawStereo">
-<span class="sig-name descname"><span class="pre">withRawStereo</span></span><a class="headerlink" href="#mod.GraphPrinter.withRawStereo" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withRawStereo</span></span><a class="headerlink" href="#mod.GraphPrinter.withRawStereo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether the vertices and edges are annotated with the raw stereo properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -303,7 +305,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.withPrettyStereo">
-<span class="sig-name descname"><span class="pre">withPrettyStereo</span></span><a class="headerlink" href="#mod.GraphPrinter.withPrettyStereo" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withPrettyStereo</span></span><a class="headerlink" href="#mod.GraphPrinter.withPrettyStereo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Control whether the vertices and edges are annotated with stylized stereo properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -314,7 +316,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.rotation">
-<span class="sig-name descname"><span class="pre">rotation</span></span><a class="headerlink" href="#mod.GraphPrinter.rotation" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rotation</span></span><a class="headerlink" href="#mod.GraphPrinter.rotation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotation of internally computed coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -325,7 +327,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.mirror">
-<span class="sig-name descname"><span class="pre">mirror</span></span><a class="headerlink" href="#mod.GraphPrinter.mirror" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">mirror</span></span><a class="headerlink" href="#mod.GraphPrinter.mirror" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mirror internally computed coordinates in the y-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -336,7 +338,7 @@ and may make non-molecules look like molecules.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.withGraphvizCoords">
-<span class="sig-name descname"><span class="pre">withGraphvizCoords</span></span><a class="headerlink" href="#mod.GraphPrinter.withGraphvizCoords" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">withGraphvizCoords</span></span><a class="headerlink" href="#mod.GraphPrinter.withGraphvizCoords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not use Open Babel for coordinate generation, but only the Graphviz fallback
 during post-processing.
 When setting this to <code class="docutils literal notranslate"><span class="pre">True</span></code> consider setting <cite>simpleCarbons = False`</cite> to avoid
@@ -350,7 +352,7 @@ misleading depictions due to collinear carbon chains.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.GraphPrinter.graphvizPrefix">
-<span class="sig-name descname"><span class="pre">graphvizPrefix</span></span><a class="headerlink" href="#mod.GraphPrinter.graphvizPrefix" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">graphvizPrefix</span></span><a class="headerlink" href="#mod.GraphPrinter.graphvizPrefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>The string that will be inserted into generated DOT files,
 just after the graph declaration.
 DOT files are only generated when <code class="docutils literal notranslate"><span class="pre">withGraphvizCoords</span> <span class="pre">==</span> <span class="pre">True</span></code>.</p>
@@ -374,7 +376,7 @@ DOT files are only generated when <code class="docutils literal notranslate"><sp
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

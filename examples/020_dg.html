@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>10.3. Derivations and Reaction Networks &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css" />
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="10.4. Local Geometry and Stereochemistry" href="030_stereo.html" />
@@ -78,11 +80,11 @@
 	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
 		<ul>
 <li><a class="reference internal" href="#">10.3. Derivations and Reaction Networks</a><ul>
-<li><a class="reference internal" href="#double-pushout-printing">10.3.1. Double Pushout Printing</a></li>
-<li><a class="reference internal" href="#repetition">10.3.2. Repetition</a></li>
-<li><a class="reference internal" href="#rule-application">10.3.3. Rule Application</a></li>
-<li><a class="reference internal" href="#application-constraints">10.3.4. Application Constraints</a></li>
-<li><a class="reference internal" href="#advanced-printing">10.3.5. Advanced Printing</a></li>
+<li><a class="reference internal" href="#application-constraints">10.3.1. Application Constraints</a></li>
+<li><a class="reference internal" href="#advanced-printing">10.3.2. Advanced Printing</a></li>
+<li><a class="reference internal" href="#repetition">10.3.3. Repetition</a></li>
+<li><a class="reference internal" href="#rule-application">10.3.4. Rule Application</a></li>
+<li><a class="reference internal" href="#double-pushout-printing">10.3.5. Double Pushout Printing</a></li>
 </ul>
 </li>
 </ul>
@@ -132,62 +134,9 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="derivations-and-reaction-networks">
-<span id="examples-020-dg"></span><span id="examples-dg"></span><h1><span class="section-number">10.3. </span>Derivations and Reaction Networks<a class="headerlink" href="#derivations-and-reaction-networks" title="Link to this heading">¶</a></h1>
-<section id="double-pushout-printing">
-<h2><span class="section-number">10.3.1. </span>Double Pushout Printing<a class="headerlink" href="#double-pushout-printing" title="Link to this heading">¶</a></h2>
-<p>Each reaction/derivation can be visualised as a DPO diagram.</p>
-<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__260_dpoPrinting.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;212_dgPredicate.py&quot;</span><span class="p">)</span>
-<span class="linenos">2</span><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">dg</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
-<span class="linenos">3</span>   <span class="n">e</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="repetition">
-<h2><span class="section-number">10.3.2. </span>Repetition<a class="headerlink" href="#repetition" title="Link to this heading">¶</a></h2>
-<p>A sub-strategy can be repeated.</p>
-<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__211_dgRepeat.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="n">strat</span> <span class="o">=</span> <span class="p">(</span>
-<span class="linenos"> 3</span>   <span class="n">addUniverse</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span>
-<span class="linenos"> 4</span>   <span class="o">&gt;&gt;</span> <span class="n">addSubset</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span>
-<span class="linenos"> 5</span>   <span class="c1"># Iterate the rule application 4 times.</span>
-<span class="linenos"> 6</span>   <span class="o">&gt;&gt;</span> <span class="n">repeat</span><span class="p">[</span><span class="mi">4</span><span class="p">](</span>
-<span class="linenos"> 7</span>      <span class="n">inputRules</span>
-<span class="linenos"> 8</span>   <span class="p">)</span>
-<span class="linenos"> 9</span><span class="p">)</span>
-<span class="linenos">10</span><span class="n">dg</span> <span class="o">=</span> <span class="n">DG</span><span class="p">(</span><span class="n">graphDatabase</span><span class="o">=</span><span class="n">inputGraphs</span><span class="p">)</span>
-<span class="linenos">11</span><span class="n">dg</span><span class="o">.</span><span class="n">build</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">strat</span><span class="p">)</span>
-<span class="linenos">12</span><span class="n">dg</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="rule-application">
-<h2><span class="section-number">10.3.3. </span>Rule Application<a class="headerlink" href="#rule-application" title="Link to this heading">¶</a></h2>
-<p>Transformation rules (reaction patterns) can be applied to graphs
-(molecules) to create new graphs (molecules). The transformations
-(reactions) implicitly form a directed (multi-)hypergraph (chemical
-reaction network).</p>
-<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__210_dgFixed.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="c1"># Reaction networks are expaned using a strategy:</span>
-<span class="linenos"> 3</span><span class="n">strat</span> <span class="o">=</span> <span class="p">(</span>
-<span class="linenos"> 4</span>   <span class="c1"># A molecule can be active or passive during evaluation.</span>
-<span class="linenos"> 5</span>   <span class="n">addUniverse</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span> <span class="c1"># passive</span>
-<span class="linenos"> 6</span>   <span class="o">&gt;&gt;</span> <span class="n">addSubset</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span> <span class="c1"># active</span>
-<span class="linenos"> 7</span>   <span class="c1"># Aach reaction must have a least 1 active educt.</span>
-<span class="linenos"> 8</span>   <span class="o">&gt;&gt;</span> <span class="n">inputRules</span>
-<span class="linenos"> 9</span><span class="p">)</span>
-<span class="linenos">10</span><span class="c1"># We call a reaction network a &#39;derivation graph&#39;.</span>
-<span class="linenos">11</span><span class="n">dg</span> <span class="o">=</span> <span class="n">DG</span><span class="p">(</span><span class="n">graphDatabase</span><span class="o">=</span><span class="n">inputGraphs</span><span class="p">)</span>
-<span class="linenos">12</span><span class="n">dg</span><span class="o">.</span><span class="n">build</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">strat</span><span class="p">)</span>
-<span class="linenos">13</span><span class="c1"># They can also be visualised.</span>
-<span class="linenos">14</span><span class="n">dg</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
+<span id="examples-020-dg"></span><span id="examples-dg"></span><h1><span class="section-number">10.3. </span>Derivations and Reaction Networks<a class="headerlink" href="#derivations-and-reaction-networks" title="Permalink to this heading">¶</a></h1>
 <section id="application-constraints">
-<h2><span class="section-number">10.3.4. </span>Application Constraints<a class="headerlink" href="#application-constraints" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">10.3.1. </span>Application Constraints<a class="headerlink" href="#application-constraints" title="Permalink to this heading">¶</a></h2>
 <p>We may want to impose constraints on which reactions are accepted.
 E.g., in formose the molecules should not have too many carbon atoms.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__212_dgPredicate.py">Explore in the playground</a>.</p>
@@ -213,7 +162,7 @@ E.g., in formose the molecules should not have too many carbon atoms.</p>
 </div>
 </section>
 <section id="advanced-printing">
-<h2><span class="section-number">10.3.5. </span>Advanced Printing<a class="headerlink" href="#advanced-printing" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">10.3.2. </span>Advanced Printing<a class="headerlink" href="#advanced-printing" title="Permalink to this heading">¶</a></h2>
 <p>Reaction networks can become large, and often it is necessary to hide
 parts of the network, or in general change the appearance.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__250_dgPrinting.py">Explore in the playground</a>.</p>
@@ -237,6 +186,59 @@ parts of the network, or in general change the appearance.</p>
 </pre></div>
 </div>
 </section>
+<section id="repetition">
+<h2><span class="section-number">10.3.3. </span>Repetition<a class="headerlink" href="#repetition" title="Permalink to this heading">¶</a></h2>
+<p>A sub-strategy can be repeated.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__211_dgRepeat.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">strat</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos"> 3</span>   <span class="n">addUniverse</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span>
+<span class="linenos"> 4</span>   <span class="o">&gt;&gt;</span> <span class="n">addSubset</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span>
+<span class="linenos"> 5</span>   <span class="c1"># Iterate the rule application 4 times.</span>
+<span class="linenos"> 6</span>   <span class="o">&gt;&gt;</span> <span class="n">repeat</span><span class="p">[</span><span class="mi">4</span><span class="p">](</span>
+<span class="linenos"> 7</span>      <span class="n">inputRules</span>
+<span class="linenos"> 8</span>   <span class="p">)</span>
+<span class="linenos"> 9</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">dg</span> <span class="o">=</span> <span class="n">DG</span><span class="p">(</span><span class="n">graphDatabase</span><span class="o">=</span><span class="n">inputGraphs</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">dg</span><span class="o">.</span><span class="n">build</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">strat</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">dg</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="rule-application">
+<h2><span class="section-number">10.3.4. </span>Rule Application<a class="headerlink" href="#rule-application" title="Permalink to this heading">¶</a></h2>
+<p>Transformation rules (reaction patterns) can be applied to graphs
+(molecules) to create new graphs (molecules). The transformations
+(reactions) implicitly form a directed (multi-)hypergraph (chemical
+reaction network).</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__210_dgFixed.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;../000_basics/050_formoseGrammar.py&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="c1"># Reaction networks are expaned using a strategy:</span>
+<span class="linenos"> 3</span><span class="n">strat</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos"> 4</span>   <span class="c1"># A molecule can be active or passive during evaluation.</span>
+<span class="linenos"> 5</span>   <span class="n">addUniverse</span><span class="p">(</span><span class="n">formaldehyde</span><span class="p">)</span> <span class="c1"># passive</span>
+<span class="linenos"> 6</span>   <span class="o">&gt;&gt;</span> <span class="n">addSubset</span><span class="p">(</span><span class="n">glycolaldehyde</span><span class="p">)</span> <span class="c1"># active</span>
+<span class="linenos"> 7</span>   <span class="c1"># Aach reaction must have a least 1 active educt.</span>
+<span class="linenos"> 8</span>   <span class="o">&gt;&gt;</span> <span class="n">inputRules</span>
+<span class="linenos"> 9</span><span class="p">)</span>
+<span class="linenos">10</span><span class="c1"># We call a reaction network a &#39;derivation graph&#39;.</span>
+<span class="linenos">11</span><span class="n">dg</span> <span class="o">=</span> <span class="n">DG</span><span class="p">(</span><span class="n">graphDatabase</span><span class="o">=</span><span class="n">inputGraphs</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">dg</span><span class="o">.</span><span class="n">build</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">strat</span><span class="p">)</span>
+<span class="linenos">13</span><span class="c1"># They can also be visualised.</span>
+<span class="linenos">14</span><span class="n">dg</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="double-pushout-printing">
+<h2><span class="section-number">10.3.5. </span>Double Pushout Printing<a class="headerlink" href="#double-pushout-printing" title="Permalink to this heading">¶</a></h2>
+<p>Each reaction/derivation can be visualised as a DPO diagram.</p>
+<p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=020_dg__260_dpoPrinting.py">Explore in the playground</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;212_dgPredicate.py&quot;</span><span class="p">)</span>
+<span class="linenos">2</span><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">dg</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+<span class="linenos">3</span>   <span class="n">e</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -248,7 +250,7 @@ parts of the network, or in general change the appearance.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4.1.10.4. rule/Rule &#8212; MØD 0.15.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
-    <script src="../../_static/documentation_options.js?v=ef97403f"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css" />
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -159,10 +161,10 @@
 		<div class="body col-md-12 content" role="main">
 			
   <section id="rule-rule">
-<span id="py-rule-rule"></span><h1><span class="section-number">4.1.10.4. </span>rule/Rule<a class="headerlink" href="#rule-rule" title="Link to this heading">¶</a></h1>
+<span id="py-rule-rule"></span><h1><span class="section-number">4.1.10.4. </span>rule/Rule<a class="headerlink" href="#rule-rule" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Rule">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Rule</span></span><a class="headerlink" href="#mod.Rule" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Rule</span></span><a class="headerlink" href="#mod.Rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class models a graph transformation rule in the Double Pushout formalism,
 as the span <span class="math notranslate nohighlight">\(L \leftarrow K \rightarrow R\)</span>.
 The three graphs are referred to as respectively
@@ -176,7 +178,7 @@ there are also three graph views representing the <a class="reference internal" 
 See <a class="reference internal" href="GraphInterface.html#py-rule-graphinterface"><span class="std std-ref">rule/GraphInterface</span></a> for details of how to use these four graph interfaces.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.Rule.id" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.Rule.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The unique instance id among all <a class="reference internal" href="#mod.Rule" title="mod.Rule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rule</span></code></a> instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -187,7 +189,7 @@ See <a class="reference internal" href="GraphInterface.html#py-rule-graphinterfa
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.left">
-<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.left" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.left" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A proxy object representing the left graph of the rule.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -198,7 +200,7 @@ See <a class="reference internal" href="GraphInterface.html#py-rule-graphinterfa
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.context">
-<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.context" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A proxy object representing the context graph of the rule.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -209,7 +211,7 @@ See <a class="reference internal" href="GraphInterface.html#py-rule-graphinterfa
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.right">
-<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.right" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.right" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) A proxy object representing the right graph of the rule.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -220,7 +222,7 @@ See <a class="reference internal" href="GraphInterface.html#py-rule-graphinterfa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.makeInverse">
-<span class="sig-name descname"><span class="pre">makeInverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.makeInverse" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">makeInverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.makeInverse" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a rule representing the inversion of this rule.</p>
@@ -236,7 +238,7 @@ See <a class="reference internal" href="GraphInterface.html#py-rule-graphinterfa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.print">
-<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">printCombined</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.print" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">printCombined</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.print" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printCombined</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Print the rule, using either the default options or the options in <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">second</span></code>.
@@ -264,13 +266,13 @@ If <code class="docutils literal notranslate"><span class="pre">first</span></co
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.printTermState">
-<span class="sig-name descname"><span class="pre">printTermState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.printTermState" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">printTermState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.printTermState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the term state for the rule.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.getGMLString">
-<span class="sig-name descname"><span class="pre">getGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.getGMLString" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.getGMLString" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the <a class="reference internal" href="../../formats/index.html#rule-gml"><span class="std std-ref">GML</span></a> representation of the rule,
@@ -288,7 +290,7 @@ none can be generated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.printGML">
-<span class="sig-name descname"><span class="pre">printGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.printGML" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">printGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.printGML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the rule in <a class="reference internal" href="../../formats/index.html#rule-gml"><span class="std std-ref">GML</span></a> format,
 optionally with generated 2D coordinates.</p>
 <dl class="field-list simple">
@@ -307,7 +309,7 @@ none can be generated.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#mod.Rule.name" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#mod.Rule.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The name of the rule. The default name includes the unique instance id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -318,7 +320,7 @@ none can be generated.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.labelType">
-<span class="sig-name descname"><span class="pre">labelType</span></span><a class="headerlink" href="#mod.Rule.labelType" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">labelType</span></span><a class="headerlink" href="#mod.Rule.labelType" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The intended label type for this rule, or None if no specific label type is intended.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -329,7 +331,7 @@ none can be generated.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.numLeftComponents">
-<span class="sig-name descname"><span class="pre">numLeftComponents</span></span><a class="headerlink" href="#mod.Rule.numLeftComponents" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">numLeftComponents</span></span><a class="headerlink" href="#mod.Rule.numLeftComponents" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The number of connected components of the left graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -340,7 +342,7 @@ none can be generated.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.numRightComponents">
-<span class="sig-name descname"><span class="pre">numRightComponents</span></span><a class="headerlink" href="#mod.Rule.numRightComponents" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">numRightComponents</span></span><a class="headerlink" href="#mod.Rule.numRightComponents" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read-only) The number of connected components of the right graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -351,7 +353,7 @@ none can be generated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.isomorphism">
-<span class="sig-name descname"><span class="pre">isomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.isomorphism" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.isomorphism" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -371,7 +373,7 @@ none can be generated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.monomorphism">
-<span class="sig-name descname"><span class="pre">monomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.monomorphism" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">monomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.monomorphism" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -391,7 +393,7 @@ none can be generated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.isomorphicLeftRight">
-<span class="sig-name descname"><span class="pre">isomorphicLeftRight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.isomorphicLeftRight" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isomorphicLeftRight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.isomorphicLeftRight" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -410,7 +412,7 @@ none can be generated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.getVertexFromExternalId">
-<span class="sig-name descname"><span class="pre">getVertexFromExternalId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.getVertexFromExternalId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getVertexFromExternalId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.getVertexFromExternalId" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the rule was not loaded from an external data format, then this function
 always return a null descriptor.</p>
 <div class="admonition note">
@@ -433,9 +435,9 @@ The descriptor is null if the external id was not used.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Rule.minExternalId">
-<span class="sig-name descname"><span class="pre">minExternalId</span></span><a class="headerlink" href="#mod.Rule.minExternalId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">minExternalId</span></span><a class="headerlink" href="#mod.Rule.minExternalId" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Rule.maxExternalId">
-<span class="sig-name descname"><span class="pre">maxExternalId</span></span><a class="headerlink" href="#mod.Rule.maxExternalId" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">maxExternalId</span></span><a class="headerlink" href="#mod.Rule.maxExternalId" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the rule was not loaded from an external data format, then these attributes
 are always return 0. Otherwise, they are the minimum/maximum external id from which
 non-null vertices can be obtained from <a class="reference internal" href="#mod.Rule.getVertexFromExternalId" title="mod.Rule.getVertexFromExternalId"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getVertexFromExternalId()</span></code></a>.
@@ -450,12 +452,12 @@ If no such minimum and maximum exists, then they are 0.</p>
 </dd></dl>
 
 <section id="loading-functions">
-<h2><span class="section-number">4.1.10.4.1. </span>Loading Functions<a class="headerlink" href="#loading-functions" title="Link to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.10.4.1. </span>Loading Functions<a class="headerlink" href="#loading-functions" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.fromGMLString">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">fromGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.fromGMLString" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">fromGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.fromGMLString" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py" id="mod.Rule.fromGMLFile">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">fromGMLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.fromGMLFile" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">fromGMLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.fromGMLFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a rule from a <a class="reference internal" href="../../formats/index.html#rule-gml"><span class="std std-ref">GML</span></a> string or file, and maybe store it in a global list.
 The name of the rule is the one specified in the GML string, though when <code class="docutils literal notranslate"><span class="pre">invert=True</span></code>
 the string “, inverse” is appended to the name.</p>
@@ -485,7 +487,7 @@ There is however a configuration option to ignore matching constraints when inve
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.Rule.fromDFS">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">fromDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.fromDFS" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">fromDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.fromDFS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a rule from a <a class="reference internal" href="../../formats/index.html#format-ruledfs"><span class="std std-ref">RuleDFS</span></a> string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -510,19 +512,19 @@ There is however a configuration option to ignore matching constraints when inve
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mod.ruleGMLString">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">ruleGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.ruleGMLString" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">ruleGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.ruleGMLString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference internal" href="#mod.Rule.fromGMLString" title="mod.Rule.fromGMLString"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Rule.fromGMLString()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.ruleGML">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">ruleGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.ruleGML" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">ruleGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.ruleGML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference internal" href="#mod.Rule.fromGMLFile" title="mod.Rule.fromGMLFile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Rule.fromGMLFile()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="mod.inputRules">
-<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">inputRules</span></span><a class="headerlink" href="#mod.inputRules" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">inputRules</span></span><a class="headerlink" href="#mod.inputRules" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of rules to which explicitly loaded rules as default are appended.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -543,7 +545,7 @@ There is however a configuration option to ignore matching constraints when inve
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.5.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
 		</p>
 	</div>
 	<div class="col-auto">
