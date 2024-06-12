@@ -263,6 +263,7 @@ void Rule::executeImpl(PrintSettings settings, const GraphState &input) {
 				firstGraph, lastGraph, inputRules,
 				getExecutionEnv().graphAsRuleCache,
 				getExecutionEnv().labelSettings,
+				getExecutionEnv().doRuleIsomorphism,
 				onOutput);
 		if(round != 0) {
 			// in round 0 the inputRules is the actual original input rule, so don't delete it

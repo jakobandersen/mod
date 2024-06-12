@@ -341,6 +341,7 @@ struct Config {
         ((bool, disableRepeatFixedPointCheck, false))                               \
         ((bool, applyAssumeConfluence, false))                                      \
         ((int, applyLimit, -1))                                                     \
+        ((bool, doRuleIsomorphismDuringBinding, true))                              \
     ))                                                                              \
     ((Graph, graph,                                                                 \
         ((bool, smilesCheckAST, false))                                             \
@@ -399,7 +400,7 @@ struct Config {
 #define MOD_toString(s) MOD_toString1(s)
 #define MOD_toString1(s) #s
 
-BOOST_PP_SEQ_FOR_EACH(MOD_CONFIG_nsIter, ~, MOD_CONFIG_DATA())
+	BOOST_PP_SEQ_FOR_EACH(MOD_CONFIG_nsIter, ~, MOD_CONFIG_DATA())
 
 #undef MOD_CONFIG_settingIterCons
 #undef MOD_CONFIG_settingIter

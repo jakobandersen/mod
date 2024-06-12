@@ -37,7 +37,7 @@ void ExecuteResult::list(bool withUniverse) const {
 // -----------------------------------------------------------------------------
 
 Builder::Builder(NonHyperBuilder *dg,
-				 std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
+                 std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
                  std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge) : dg(dg) {
 	if(dg->getHasCalculated()) {
 		this->dg = nullptr;
@@ -103,8 +103,9 @@ std::pair<NonHyper::Edge, bool> Builder::addDerivation(const Derivations &d, Iso
 }
 
 struct NonHyperBuilder::ExecutionEnv final : public Strategies::ExecutionEnv {
-	ExecutionEnv(NonHyperBuilder &owner, LabelSettings labelSettings, Rules::GraphAsRuleCache &graphAsRuleCache)
-			: Strategies::ExecutionEnv(labelSettings, graphAsRuleCache), owner(owner) {}
+	ExecutionEnv(NonHyperBuilder &owner, LabelSettings labelSettings, bool doRuleIsomorphism,
+	             Rules::GraphAsRuleCache &graphAsRuleCache)
+			: Strategies::ExecutionEnv(labelSettings, doRuleIsomorphism, graphAsRuleCache), owner(owner) {}
 
 	void tryAddGraph(std::shared_ptr<graph::Graph> gCand) override {
 		owner.tryAddGraph(gCand);
@@ -184,8 +185,10 @@ private: // state for computation
 
 ExecuteResult
 Builder::execute(std::unique_ptr<Strategies::Strategy> strategy_, int verbosity, bool ignoreRuleLabelTypes) {
+	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding.get();
 	NonHyperBuilder::StrategyExecution exec{
-			std::make_unique<NonHyperBuilder::ExecutionEnv>(*dg, dg->getLabelSettings(), dg->graphAsRuleCache),
+			std::make_unique<NonHyperBuilder::ExecutionEnv>(*dg, dg->getLabelSettings(), doRuleIsomorphism,
+			                                                dg->graphAsRuleCache),
 			std::make_unique<Strategies::GraphState>(),
 			std::move(strategy_)
 	};
@@ -196,8 +199,9 @@ Builder::execute(std::unique_ptr<Strategies::Strategy> strategy_, int verbosity,
 				if(dg->getLabelSettings().type == LabelType::Term) {
 					const auto &term = get_term(gCand->getGraph().getLabelledGraph());
 					if(!isValid(term)) {
-						std::string msg = "Parsing failed for graph '" + gCand->getName() + "' in static add strategy. " +
-						                  term.getParsingError();
+						std::string msg =
+								"Parsing failed for graph '" + gCand->getName() + "' in static add strategy. " +
+								term.getParsingError();
 						throw TermParsingError(std::move(msg));
 					}
 				}
@@ -232,6 +236,7 @@ std::vector<std::pair<NonHyper::Edge, bool>>
 Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
                std::shared_ptr<rule::Rule> rOrig,
                int verbosity, IsomorphismPolicy graphPolicy) {
+	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding.get();
 	IO::Logger logger(std::cout);
 	dg->rules.insert(rOrig);
 	switch(graphPolicy) {
@@ -288,7 +293,7 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 					verbosity, logger,
 					round,
 					firstGraph, firstGraph + round + 1, inputRules,
-					dg->graphAsRuleCache, ls,
+					dg->graphAsRuleCache, ls, doRuleIsomorphism,
 					onOutput);
 			for(BoundRule &br: outputRules) {
 				// always go to the next graph
@@ -353,6 +358,7 @@ std::vector<std::pair<NonHyper::Edge, bool>>
 Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
                       std::shared_ptr<rule::Rule> rOrig,
                       int verbosity, IsomorphismPolicy graphPolicy) {
+	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding.get();
 	IO::Logger logger(std::cout);
 	dg->rules.insert(rOrig);
 	switch(graphPolicy) {
@@ -439,7 +445,7 @@ Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 				(verbosity, logger,
 				 round,
 				 firstGraph, lastGraph, inputRules,
-				 dg->graphAsRuleCache, ls,
+				 dg->graphAsRuleCache, ls, doRuleIsomorphism,
 				 onOutput);
 		for(BoundRule &br: outputRules) {
 			// always go to the next graph
@@ -656,7 +662,8 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 			for(int src: e[1]) {
 				auto gIter = graphFromId.find(src);
 				if(gIter == end(graphFromId)) {
-					err << "Corrupt data for edge " << e[0].get<int>() << ". Source " << src << " is not a yet a vertex.";
+					err << "Corrupt data for edge " << e[0].get<int>() << ". Source " << src
+					    << " is not a yet a vertex.";
 					return false;
 				}
 				srcGraphs.push_back(gIter->second);
@@ -664,7 +671,8 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 			for(int tar: e[2]) {
 				auto gIter = graphFromId.find(tar);
 				if(gIter == end(graphFromId)) {
-					err << "Corrupt data for edge " << e[0].get<int>() << ". Target " << tar << " is not a yet a vertex.";
+					err << "Corrupt data for edge " << e[0].get<int>() << ". Target " << tar
+					    << " is not a yet a vertex.";
 					return false;
 				}
 				tarGraphs.push_back(gIter->second);
@@ -676,7 +684,8 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 			} else {
 				for(const int rId: ruleIds) {
 					if(rId < 0 || rId >= rules.size()) {
-						err << "Corrupt data for edge " << e[0].get<int>() << ". Rule offset " << rId << " is not in range.";
+						err << "Corrupt data for edge " << e[0].get<int>() << ". Rule offset " << rId
+						    << " is not in range.";
 						return false;
 					}
 					const auto r = rules[rId];

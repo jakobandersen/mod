@@ -35,7 +35,7 @@ public:
 	friend std::ostream &operator<<(std::ostream &s, const BoundRule &br) {
 		s << "{rule=" << br.rule->getName() << ", boundGraphs=[";
 		bool first = true;
-		for(const auto *g : br.boundGraphs) {
+		for(const auto *g: br.boundGraphs) {
 			if(!first) s << ", ";
 			else first = false;
 			s << g->getName();
@@ -67,6 +67,7 @@ template<typename Iter, typename OnOutput>
 		const std::vector<BoundRule> &inputRules,
 		Rules::GraphAsRuleCache &graphAsRuleCache,
 		const LabelSettings labelSettings,
+		const bool doRuleIsomorphism,
 		OnOutput onOutput) {
 	if(verbosity >= V_RuleApplication) {
 		logger.indent() << "Bind round " << (bindRound + 1) << " with "
@@ -77,7 +78,7 @@ template<typename Iter, typename OnOutput>
 	int numDup = 0;
 	int numUnique = 0;
 	std::vector<BoundRule> outputRules;
-	for(const BoundRule &brInput : inputRules) {
+	for(const BoundRule &brInput: inputRules) {
 		if(verbosity >= V_RuleApplication_Binding) {
 			logger.indent() << "Processing input rule " << brInput << std::endl;
 			++logger.indentLevel;
@@ -92,7 +93,7 @@ template<typename Iter, typename OnOutput>
 				++logger.indentLevel;
 			}
 			const auto reporter =
-					[labelSettings, &logger, &brInput, &outputRules, firstGraph, iterGraph, onOutput, &numUnique, &numDup]
+					[labelSettings, doRuleIsomorphism, &logger, &brInput, &outputRules, firstGraph, iterGraph, onOutput, &numUnique, &numDup]
 							(std::unique_ptr<lib::Rules::Real> r) -> bool {
 						BoundRule brOutput{r.release(), brInput.boundGraphs,
 						                   static_cast<int>(iterGraph - firstGraph)};
@@ -100,11 +101,13 @@ template<typename Iter, typename OnOutput>
 						if(!brOutput.rule->isOnlyRightSide()) {
 							// check if we have it already
 							brOutput.makeCanonical();
-							for(const BoundRule &brStored : outputRules) {
-								if(brStored.isomorphicTo(brOutput, labelSettings)) {
-									delete brOutput.rule;
-									++numDup;
-									return true;
+							if(doRuleIsomorphism) {
+								for(const BoundRule &brStored: outputRules) {
+									if(brStored.isomorphicTo(brOutput, labelSettings)) {
+										delete brOutput.rule;
+										++numDup;
+										return true;
+									}
 								}
 							}
 							// we store a copy of the bound info so the user can mess with their copy
@@ -155,7 +158,7 @@ struct BoundRuleStorage {
 				return g1->getId() < g2->getId();
 			});
 
-			for(BoundRule &rp : ruleStore) {
+			for(BoundRule &rp: ruleStore) {
 				if(rThis.size() != rp.boundGraphs.size()) continue;
 				std::vector<const lib::Graph::Single *> &rOther = rp.boundGraphs;
 
@@ -183,7 +186,7 @@ struct BoundRuleStorage {
 			ruleStore.push_back(p);
 			if(verbose) {
 				logger.indent() << "BoundRules: added <" << r->getName() << ", {";
-				for(const auto *g : p.boundGraphs)
+				for(const auto *g: p.boundGraphs)
 					logger.s << " " << g->getName();
 				logger.s << " }> onlyRight: " << std::boolalpha << r->isOnlySide(lib::Rules::Membership::R)
 				         << std::endl;
@@ -235,14 +238,14 @@ std::vector<std::shared_ptr<graph::Graph>> splitRule(const lib::Rules::LabelledR
 	auto rpString = get_string(get_labelled_right(rDPO));
 	assert(num_vertices(gRight) == num_vertices(get_graph(rDPO)));
 	std::vector<Vertex> vertexMap(num_vertices(gRight));
-	for(const auto vSide : asRange(vertices(gRight))) {
+	for(const auto vSide: asRange(vertices(gRight))) {
 		const auto comp = compMap[get(boost::vertex_index_t(), gRight, vSide)];
 		auto &p = products[comp];
 		const auto v = add_vertex(*p.gPtr);
 		vertexMap[get(boost::vertex_index_t(), gRight, vSide)] = v;
 		p.pStringPtr->addVertex(v, rpString[vSide]);
 	}
-	for(const auto eSide : asRange(edges(gRight))) {
+	for(const auto eSide: asRange(edges(gRight))) {
 		const auto vSideSrc = source(eSide, gRight);
 		const auto vSideTar = target(eSide, gRight);
 		const auto comp = compMap[get(boost::vertex_index_t(), gRight, vSideSrc)];
@@ -256,16 +259,16 @@ std::vector<std::shared_ptr<graph::Graph>> splitRule(const lib::Rules::LabelledR
 
 	if(withStereo && has_stereo(rDPO)) {
 		// make the inverse vertex maps
-		for(auto &p : products)
+		for(auto &p: products)
 			p.vertexMap.resize(num_vertices(*p.gPtr));
-		for(const auto vSide : asRange(vertices(gRight))) {
+		for(const auto vSide: asRange(vertices(gRight))) {
 			const auto comp = compMap[get(boost::vertex_index_t(), gRight, vSide)];
 			auto &p = products[comp];
 			const auto v = vertexMap[get(boost::vertex_index_t(), gRight, vSide)];
 			p.vertexMap[get(boost::vertex_index_t(), *p.gPtr, v)] = vSide;
 		}
 
-		for(auto &p : products) {
+		for(auto &p: products) {
 			const auto &lgRight = get_labelled_right(rDPO);
 			assert(has_stereo(lgRight));
 			const auto vertexMap = [&p](const auto &vProduct) {
@@ -288,13 +291,13 @@ std::vector<std::shared_ptr<graph::Graph>> splitRule(const lib::Rules::LabelledR
 	} // end of stereo prop
 	// wrap them
 	std::vector<std::shared_ptr<graph::Graph>> right;
-	for(auto &g : products) {
+	for(auto &g: products) {
 		// check against the database
 		auto gCand = std::make_unique<lib::Graph::Single>(std::move(g.gPtr), std::move(g.pStringPtr),
 		                                                  std::move(g.pStereoPtr));
 		std::shared_ptr<graph::Graph> gWrapped = checkIfNew(std::move(gCand));
 		// checkIfNew does not add the graph, so we must check against the previous products as well
-		for(auto gPrev : right) {
+		for(auto gPrev: right) {
 			const auto ls = mod::LabelSettings(labelType, LabelRelation::Isomorphism, withStereo,
 			                                   LabelRelation::Isomorphism);
 			const bool iso = lib::Graph::Single::isomorphic(gPrev->getGraph(), gWrapped->getGraph(), ls);
