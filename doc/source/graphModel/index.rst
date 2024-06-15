@@ -277,6 +277,7 @@ Examples
   Assuming the vertex has ID 42 in the rule, this becomes the following in GML:
   ``constraintAdj [ id 42 nodeLabels [ label "O" label "S" ] op "=" count 1 ]``.
 
+.. _label-unification-constraint:
 
 Label Unification Constraint
 ----------------------------

@@ -13,6 +13,7 @@ New Features
 
 - Added a new documentation section describing rule application constraints:
   :ref:`rule-constraints`.
+- Added a new rule application constraint, :ref:`label-unification-constraint`.
 
 
 Bugs Fixed
