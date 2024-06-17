@@ -32,7 +32,7 @@ struct Collection::Store {
 			const bool iso = lib::Graph::Single::isomorphic(*g, *gCand, ls);
 			if(iso) return gCand->getAPIReference();
 			// if iso:
-			//			if(getConfig().dg.calculateDetailsVerbose.get()) {
+			//			if(getConfig().dg.calculateDetailsVerbose) {
 			//				std::cout << "Discarding product " << gCand->getName() << ", isomorphic to " << g->getName() << std::endl;
 			//				std::cout << "\tLabelSettings: withStereo=" << std::boolalpha << this->labelSettings.withStereo << std::endl;
 			//				mod::postSection("Discarded");

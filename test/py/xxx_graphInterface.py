@@ -24,7 +24,7 @@ def checkGraph(g, *, string: str, vertexString: str, edgeString: str,
 	assert type(vNull.__hash__()) == int
 	assert not vNull
 	assert vNull.isNull()
-	fail(lambda: vNull.id, "Can not get id on a null vertex.")
+	fail(lambda: vNull.id, "Can not get ID on a null vertex.")
 	fail(lambda: vNull.graph, "Can not get graph on a null vertex.")
 	fail(lambda: vNull.degree, "Can not get degree on a null vertex.")
 	fail(lambda: vNull.incidentEdges, "Can not get incident edges on a null vertex.")

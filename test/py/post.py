@@ -3,7 +3,6 @@ include("xxx_helpers.py")
 assert type(makeUniqueFilePrefix()) == str
 
 post.command("echo hello")
-checkDeprecated(lambda: post("echo hello"))
 
 post.flushCommands()
 checkDeprecated(lambda: postFlush())

@@ -253,53 +253,12 @@ struct MOD_DECL MDLOptions {
 	Action onUnsupportedQueryBondType = Action::Error;
 };
 
+
 // rst: .. function:: Config &getConfig()
 // rst: 
 // rst:		:returns: the singleton :cpp:class:`Config` instance used by the library.
 // rst:
 MOD_DECL Config &getConfig();
-
-// rst-class: template<typename T> ConfigSetting
-// rst: 
-// rst:		Holds a single option of type :cpp:any:`T`.
-// rst-class-start:
-
-template<typename T>
-struct ConfigSetting {
-	ConfigSetting(T value, std::string name) : val(std::move(value)), name(std::move(name)) {}
-
-	// rst: .. function:: void set(T value)
-	// rst:
-	// rst:		Sets the configuration value.
-	// rst:
-	void set(T value) {
-		val = value;
-	};
-
-	// rst: .. function:: T get() const
-	// rst:
-	// rst:		:returns: The configuration value.
-	// rst:
-	T get() const {
-		return val;
-	}
-
-	// rst: .. function: T &operator()()
-	// rst:
-	// rst:		Access the value.
-	// rst:
-	T &operator()() {
-		return val;
-	}
-
-	const std::string &getName() const {
-		return name;
-	}
-private:
-	T val;
-	const std::string name;
-};
-// rst-class-end:
 
 // rst-class: Config
 // rst:
@@ -331,7 +290,6 @@ struct Config {
         ((bool, printStats, false))                                                 \
     ))                                                                              \
     ((Common, common,                                                               \
-        ((bool, quiet, false))                                                      \
         ((bool, ignoreDeprecation, true))                                           \
         ((unsigned int, numThreads, 1))                                             \
     ))                                                                              \
@@ -376,33 +334,23 @@ struct Config {
         Self &operator=(const Self&) = delete;                                        \
         BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 0, tNS)(Self&&) = delete;      \
         Self &operator=(Self&&) = delete;                                             \
-        inline BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 0, tNS)() :             \
-        BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_TRANSFORM(MOD_CONFIG_settingIterCons,          \
-            BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 0, tNS),                   \
-            BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 2, tNS))                   \
-        ) {}                                                                          \
+        inline BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 0, tNS)() = default;    \
+    public:                                                                           \
         BOOST_PP_SEQ_FOR_EACH_I(MOD_CONFIG_settingIter,                               \
             BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 0, tNS),                   \
             BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 2, tNS))                   \
     } BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 1, tNS);
 
-#define MOD_CONFIG_settingIterCons(rSettting, dataSetting, tSetting)                                    \
-    BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 1, tSetting)(                                   \
-        BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 2, tSetting),                               \
-        MOD_toString(dataSetting) "::"                                                                  \
-        MOD_toString(BOOST_PP_EXPAND(BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 1, tSetting))) \
-    )
-
 #define MOD_CONFIG_settingIter(rSettting, dataSetting, nSetting, tSetting)          \
-    ConfigSetting<BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 0, tSetting)> \
-        BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 1, tSetting);
+    BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 0, tSetting)                \
+        BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 1, tSetting) =          \
+        BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 2, tSetting);
 
 #define MOD_toString(s) MOD_toString1(s)
 #define MOD_toString1(s) #s
 
 	BOOST_PP_SEQ_FOR_EACH(MOD_CONFIG_nsIter, ~, MOD_CONFIG_DATA())
 
-#undef MOD_CONFIG_settingIterCons
 #undef MOD_CONFIG_settingIter
 #undef MOD_CONFIG_nsIter
 };

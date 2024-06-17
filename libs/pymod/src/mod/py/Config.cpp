@@ -233,7 +233,8 @@ void Config_doExport() {
 					// rst:			skip the storage, but only for a pre-defined known subset of properties.
 					// rst:
 					// rst:			:type: bool
-			.def_readwrite("fullyIgnoreV2000UnhandledKnownProperty", &MDLOptions::fullyIgnoreV2000UnhandledKnownProperty)
+			.def_readwrite("fullyIgnoreV2000UnhandledKnownProperty",
+			               &MDLOptions::fullyIgnoreV2000UnhandledKnownProperty)
 					// rst:		.. attribute:: onV3000UnhandledAtomProperty = Action.Warn
 					// rst:
 					// rst:			What to do when a property in atom line in a V3000 MOL file is not recognized.
@@ -302,30 +303,14 @@ void Config_doExport() {
             BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 0, tNS),                                     \
             BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 2, tNS))                                     \
       ;
-#define SettingIter(rSetting, dataSetting, iSetting, tSetting)                  \
-      .add_property(AddConfig(                                                  \
-         BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 0, tSetting),      \
-         BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 1, tSetting),      \
-         dataSetting                                                            \
-      ))
-#define AddConfig(Type, Name, Class)                                            \
-   MOD_toString(Name),                                                          \
-   py::make_function([] (Config::Class *c) -> Type {                            \
-         return c->Name.get();                                                  \
-      },                                                                        \
-      py::default_call_policies(),                                              \
-      boost::mpl::vector<Type, Config::Class*>()),                              \
-   py::make_function([] (Config::Class *c, Type t) -> void {                    \
-         c->Name.set(t);                                                        \
-      },                                                                        \
-      py::default_call_policies(),                                              \
-      boost::mpl::vector<void, Config::Class*, Type>())
+#define SettingIter(rSetting, dataSetting, iSetting, tSetting)                                          \
+      .def_readwrite(MOD_toString(BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 1, tSetting)),    \
+         &Config::dataSetting::BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_SETTING_SIZE(), 1, tSetting))
 
 		BOOST_PP_SEQ_FOR_EACH(NSIter, ~, MOD_CONFIG_DATA())
 
 #undef NSIter
 #undef SettingIter
-#undef AddConfig
 
 		py::list classNames;
 #define NSIter(rNS, dataNS, tNS)                                                \

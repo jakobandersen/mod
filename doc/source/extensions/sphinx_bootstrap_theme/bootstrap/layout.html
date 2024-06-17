@@ -3,7 +3,7 @@
 {% set bootstrap_version, navbar_version = "4.4.1", "" %}
 {% set bs_span_prefix = "col-md-" %}
 
-{%- set render_sidebar = (not embedded) and (not theme_nosidebar|tobool) and sidebars %}
+{%- set render_sidebar = False and (not embedded) and (not theme_nosidebar|tobool) and sidebars %}
 
 {%- set bs_content_width = render_sidebar and "9" or "12"%}
 
@@ -24,6 +24,7 @@
 {%- endmacro %}
 
 {%- block extrahead %}
+<!-- {{ sidebars }}  -->
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>

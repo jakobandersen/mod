@@ -234,7 +234,7 @@ struct MatchConstraints : Null {
 		assert(&dpoFirst == &rFirst.getRule());
 		assert(&dpoSecond == &rSecond.getRule());
 
-		if(!getConfig().rc.composeConstraints.get()) return true;
+		if(!getConfig().rc.composeConstraints) return true;
 
 		for(const auto &cFirst: get_match_constraints(get_labelled_left(rFirst))) {
 			detail::ConvertFirst<labelType, RuleFirst, RuleSecond, Result> visitor(rFirst, result);

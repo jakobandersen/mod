@@ -62,9 +62,10 @@ RUN \
 
 WORKDIR /opt/mod/build
 ENV CXXFLAGS=-Werror
-RUN cmake ../ -DBUILD_DOC=no                                                   \
- -DCMAKE_BUILD_TYPE=Release                                                    \
- -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j" -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j" \
+RUN cmake ../ -DBUILD_DOC=no                  \
+ -DCMAKE_BUILD_TYPE=Release                   \
+ -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j"       \
+ -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j"       \
  -DBUILD_TESTING=on                           \
  && make -j $j                                \
  && make tests -j $j                          \

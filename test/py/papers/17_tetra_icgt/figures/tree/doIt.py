@@ -4,9 +4,9 @@ include("../stereoIsoCommon.py")
 #g = smiles("N[C@](O)([C@](S)(P)(O))([C@](S)(P)(O))")
 g = smiles("[N][C@]([O])([C@]([S])([P])([O]))([C@]([S])([P])([O]))")
 
-dg = dgRuleComp(inputGraphs, addSubset(g) >> repeat(change),
+dg = DG(graphDatabase=inputGraphs,
 	labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation, LabelRelation.Specialisation))
-dg.calc()
+dg.build().execute(addSubset(g) >> repeat(change))
 p = DGPrinter()
 p.withRuleName = True
 p.withRuleId = False

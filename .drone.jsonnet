@@ -1,5 +1,5 @@
 local image = "localhost:5000/jla/mod";
-local boostArg(v) = "-DBOOST_ROOT=/opt/boost/%s" % v;
+local boostArg(v) = "-DCMAKE_PREFIX_PATH=/opt/boost/%s" % v;
 
 local CoverageStep(withCoverage, compiler, boost) = if !withCoverage then [] else [{
 	name: "coverage",
@@ -67,7 +67,8 @@ local Configure(compiler, boost, dep=false) = {
 		"bindep testing",
 		"mkdir build",
 		"cd build",
-		"cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on %s" % [boostArg(boost)],
+		"cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on %s"
+			% [boostArg(boost)],
 	],
 	[ if dep then "depends_on"]: [ "bootstrap" ],
 };
@@ -254,6 +255,6 @@ local Pipeline(withCoverage, compiler, boost) = {
 	]
 	for boost in [
 		"1_76_0", "1_77_0", "1_78_0", "1_79_0", "1_80_0", "1_81_0", "1_82_0", "1_83_0",
-		"1_84_0",
+		"1_84_0", "1_85_0",
 	]
 ]

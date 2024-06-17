@@ -40,7 +40,7 @@ void DG_doExport() {
 	// rst:		:math:`\mathcal{H} = (V, E)`. Each hyperedge :math:`e\in E` is thus an ordered pair
 	// rst:		:math:`(e^+, e^-)` of multisets of vertices, the sources and the targets.
 	// rst:		Each vertex is annotated with a graph, and each hyperedge is annotated with list of transformation rules.
-	// rst:		A derivation graph is constructed incrementally using a :class:`DGBuilder` obtained from the :meth:`build()`
+	// rst:		A derivation graph is constructed incrementally using a :class:`DG.Builder` obtained from the :meth:`build()`
 	// rst:		function. When the obtained builder is destructed the derivation graph becomes locked and can no longer be modified.
 	// rst:
 	py::class_<DG, std::shared_ptr<DG>, boost::noncopyable>("DG", py::no_init)
@@ -80,7 +80,7 @@ void DG_doExport() {
 					//------------------------------------------------------------------
 					// rst:		.. attribute:: hasActiveBuilder
 					// rst:
-					// rst:			(Read-only) Whether :meth:`build` has been called and the returned :class:`DGBuilder` is still active.
+					// rst:			(Read-only) Whether :meth:`build` has been called and the returned :class:`DG.Builder` is still active.
 					// rst:
 					// rst:			:type: bool
 			.add_property("hasActiveBuilder", &DG::hasActiveBuilder)
@@ -102,7 +102,7 @@ void DG_doExport() {
 					// rst:
 					// rst:			(Read-only) An iterable of all vertices in the derivation graph.
 					// rst:
-					// rst:			:type: DGVertexRange
+					// rst:			:type: DG.VertexRange
 					// rst:			:raises: :class:`LogicError` if neither ``hasActiveBuilder`` nor ``isLocked``.
 			.add_property("vertices", &DG::vertices)
 					// rst:		.. attribute:: numEdges
@@ -116,7 +116,7 @@ void DG_doExport() {
 					// rst:
 					// rst:			(Read-only) An iterable of all hyperedges in the derivation graph.
 					// rst:
-					// rst:			:type: DGEdgeRange
+					// rst:			:type: DG.EdgeRange
 					// rst:			:raises: :class:`LogicError` if neither ``hasActiveBuilder`` nor ``isLocked``.
 			.add_property("edges", &DG::edges)
 					//------------------------------------------------------------------
@@ -125,17 +125,17 @@ void DG_doExport() {
 					// rst:			:param Graph g: the graph to find a vertex which has it associated.
 					// rst:			:returns: a vertex descriptor for which the given graph is associated,
 					// rst:				or a null descriptor if no such vertex exists.
-					// rst:			:rtype: DGVertex
+					// rst:			:rtype: DG.Vertex
 					// rst:			:raises: :class:`LogicError` if neither ``hasActiveBuilder`` nor ``isLocked``.
 					// rst:			:raises: :class:`LogicError` if ``g`` is ``None``.
 			.def("findVertex", &DG::findVertex)
 					// rst:		.. method:: findEdge(sources, targets)
-					// rst:		               findEdge(sourceGraphs, targetGraphs)
+					// rst:		            findEdge(sourceGraphs, targetGraphs)
 					// rst:
 					// rst:			:param sources: the list of source vertices the resulting hyperedge must have.
-					// rst:			:type sources: list[DGVertex]
+					// rst:			:type sources: list[DG.Vertex]
 					// rst:			:param targets: the list of targets vertices the resulting hyperedge must have.
-					// rst:			:type targets: list[DGVertex]
+					// rst:			:type targets: list[DG.Vertex]
 					// rst:			:param sourceGraphs: the list of graphs that must be associated with the source vertices the resulting hyperedge must have.
 					// rst:			:type sourceGraphs: list[Graph]
 					// rst:			:param targetGraphs: the list of graphs that must be associated with the targets vertices the resulting hyperedge must have.
@@ -143,18 +143,22 @@ void DG_doExport() {
 					// rst:			:returns: a hyperedge with the given sources and targets.
 					// rst:			  If no such hyperedge exists in the derivation graph then a null edge is returned.
 					// rst:			  In the second version, the graphs are put through :meth:`findVertex` first.
-					// rst:			:rtype: DGHyperEdge
+					// rst:			:rtype: DG.HyperEdge
 					// rst:			:raises: :class:`LogicError` if a vertex descriptor is null, or does not belong to the derivation graph.
 					// rst:			:raises: :class:`LogicError` if neither ``hasActiveBuilder`` nor ``isLocked``.
 			.def("findEdge", findEdgeVertices)
 			.def("findEdge", findEdgeGraphs)
 					//------------------------------------------------------------------
-					// rst:		.. method:: build()
+					// rst:		.. method:: build(onNewVertex=None, onNewHyperEdge=None)
 					// rst:
+					// rst:			:param onNewVertex: a callback invoked when a new vertex is added to the underlying derivation graph.
+					// rst: 		:type onNewVertex: Optional[Callable[[DG.Vertex], None]]
+					// rst:			:param onNewHyperEdge: a callback invoked when a new hyperedge is added to the underlying derivation graph.
+					// rst: 		:type onNewVertex: Optional[Callable[[DG.HyperEdge], None]]
 					// rst:			:returns: an RAII-style object which can be used to construct the derivation graph.
-					// rst:				It can be used as a context manager in a ``with``-statement (see the documentation of :class:`DGBuilder`).
-					//	rst:				On destruction of an active builder object the associated DG object becomes locked for further modifications.
-					// rst:			:rtype: DGBuilder
+					// rst:				It can be used as a context manager in a ``with``-statement (see the documentation of :class:`DG.Builder`).
+					// rst:				On destruction of an active builder object the associated DG object becomes locked for further modifications.
+					// rst:			:rtype: DG.Builder
 					// rst:			:raises: :class:`LogicError` if the DG already has an active builder (see :attr:`hasActiveBuilder`).
 					// rst:			:raises: :class:`LogicError` if the DG is locked (see :attr:`locked`).
 			.def("build", &DG_build)
@@ -194,7 +198,7 @@ void DG_doExport() {
 					// rst:		            dump(filename)
 					// rst:
 					// rst:			Exports the derivation graph to a file, including associated graphs and rules.
-					// rst:			Use :meth:`load` or :meth:`DGBuilder.load` to import the derivation graph again.
+					// rst:			Use :meth:`load` or :meth:`DG.Builder.load` to import the derivation graph again.
 					// rst:
 					// rst:			:param str filename: the name of the file to save the dump to.
 					// rst:				If non is given an auto-generated name in the ``out/`` folder is used.
@@ -217,7 +221,7 @@ void DG_doExport() {
 					// rst:		.. staticmethod:: load(graphDatabase, ruleDatabase, f, graphPolicy=IsomorphismPolicy.Check, verbosity=2)
 					// rst:
 					// rst:			Load a derivation graph dump as a locked object.
-					// rst:			Use :func:`DGBuilder.load` to load a dump into a derivation graph under construction.
+					// rst:			Use :func:`DG.Builder.load` to load a dump into a derivation graph under construction.
 					// rst:
 					// rst:			This is done roughly by making a :class:`DG` with the given `graphDatabase` and `graphPolicy`.
 					// rst:			The label settings are retrieved from the dump file.

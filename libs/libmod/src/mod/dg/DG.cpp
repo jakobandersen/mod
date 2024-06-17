@@ -104,7 +104,7 @@ DG::EdgeRange DG::edges() const {
 DG::Vertex DG::findVertex(std::shared_ptr<graph::Graph> g) const {
 	if(!(hasActiveBuilder() || isLocked()))
 		throw LogicError("The DG neither has an active builder nor is locked yet.");
-	if(!g) throw LogicError("The graph is a nullptr.");
+	if(!g) throw LogicError("The graph is a null pointer.");
 	const auto &dg = getHyper();
 	const auto v = dg.getVertexOrNullFromGraph(&g->getGraph());
 	return dg.getInterfaceVertex(v);
@@ -118,16 +118,16 @@ DG::HyperEdge DG::findEdge(const std::vector<Vertex> &sources, const std::vector
 	const auto vs = vertices(dg).first;
 	std::vector<lib::DG::Hyper::Vertex> vSources, vTargets;
 	for(auto v : sources) {
-		if(v.isNull()) throw LogicError("Source vertex descriptor is null.");
+		if(v.isNull()) throw LogicError("Source vertex is null.");
 		if(v.getDG() != getNonHyper().getAPIReference())
-			throw LogicError("Source vertex descriptor does not belong to this derivation graph: "
+			throw LogicError("Source vertex does not belong to this derivation graph: "
 			                 + boost::lexical_cast<std::string>(v));
 		vSources.push_back(vs[v.getId()]);
 	}
 	for(auto v : targets) {
-		if(v.isNull()) throw LogicError("Target vertex descriptor is null.");
+		if(v.isNull()) throw LogicError("Target vertex is null.");
 		if(v.getDG() != getNonHyper().getAPIReference())
-			throw LogicError("Target vertex descriptor does not belong to this derivation graph: "
+			throw LogicError("Target vertex does not belong to this derivation graph: "
 			                 + boost::lexical_cast<std::string>(v));
 		vTargets.push_back(vs[v.getId()]);
 	}
@@ -140,8 +140,14 @@ DG::HyperEdge DG::findEdge(const std::vector<std::shared_ptr<graph::Graph> > &so
 	if(!(hasActiveBuilder() || isLocked()))
 		throw LogicError("The DG neither has an active builder nor is locked yet.");
 	std::vector<Vertex> vSources, vTargets;
-	for(auto g : sources) vSources.push_back(findVertex(g));
-	for(auto g : targets) vTargets.push_back(findVertex(g));
+	for(auto g : sources) {
+		if(!g) throw LogicError("Source graph is a null pointer.");
+		vSources.push_back(findVertex(g));
+	}
+	for(auto g : targets) {
+		if(!g) throw LogicError("Target graph is a null pointer.");
+		vTargets.push_back(findVertex(g));
+	}
 	return findEdge(vSources, vTargets);
 }
 
@@ -226,7 +232,7 @@ std::shared_ptr<DG> DG::make(LabelSettings labelSettings,
 	if(std::any_of(graphDatabase.begin(), graphDatabase.end(), [](const auto &g) {
 		return !g;
 	}))
-		throw LogicError("Nullptr in graph database.");
+		throw LogicError("Null pointer in graph database.");
 	auto dgInternal = std::make_unique<lib::DG::NonHyperBuilder>(labelSettings, graphDatabase, graphPolicy);
 	return wrapIt(new DG(std::move(dgInternal)));
 }
@@ -245,12 +251,12 @@ std::shared_ptr<DG> DG::load(const std::vector<std::shared_ptr<graph::Graph>> &g
 	if(std::any_of(graphDatabase.begin(), graphDatabase.end(), [](const auto &g) {
 		return !g;
 	})) {
-		throw LogicError("Nullptr in graph database.");
+		throw LogicError("Null pointer in graph database.");
 	}
 	if(std::any_of(ruleDatabase.begin(), ruleDatabase.end(), [](const auto &r) {
 		return !r;
 	})) {
-		throw LogicError("Nullptr in rule database.");
+		throw LogicError("Null pointer in rule database.");
 	}
 
 	std::ostringstream err;

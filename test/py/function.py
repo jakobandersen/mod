@@ -1,7 +1,7 @@
 include("formoseCommon/grammar.py")
 
-dg = dgRuleComp(inputGraphs, addSubset(inputGraphs) >> inputRules[0] >> inputRules[2])
-dg.calc()
+dg = DG(graphDatabase=inputGraphs)
+dg.build().execute(addSubset(inputGraphs) >> inputRules[0] >> inputRules[2])
 
 printer = DGPrinter()
 post.summarySection("Const False")
@@ -14,7 +14,7 @@ dg.print(printer)
 printer.popVertexVisible()
 
 post.summarySection("Func")
-def f(g, dg): return all(g != a for a in inputGraphs)
+def f(v): return all(v.graph != a for a in inputGraphs)
 printer.pushVertexVisible(f)
 dg.print(printer)
 printer.popVertexVisible()
@@ -24,6 +24,6 @@ dg.print(printer)
 printer.popVertexVisible()
 
 post.summarySection("Lambda")
-printer.pushVertexVisible(lambda g, dg: all(g != a for a in inputGraphs))
+printer.pushVertexVisible(lambda v: all(v.graph != a for a in inputGraphs))
 dg.print(printer)
 printer.popVertexVisible()

@@ -619,7 +619,7 @@ struct Converter {
 			assert(!a.isImplicit);
 			std::string label = a.symbol;
 			if(a.class_ != -1) {
-				if(getConfig().graph.appendSmilesClass.get()) {
+				if(getConfig().graph.appendSmilesClass) {
 					label += ":";
 					label += boost::lexical_cast<std::string>(a.class_);
 				}
@@ -651,7 +651,7 @@ struct Converter {
 			}
 			if(a.radical) label += '.';
 			if(a.class_ != -1) {
-				if(getConfig().graph.appendSmilesClass.get()) {
+				if(getConfig().graph.appendSmilesClass) {
 					label += ":";
 					label += boost::lexical_cast<std::string>(a.class_);
 				}
@@ -885,7 +885,7 @@ parseSmiles(lib::IO::Warnings &warnings, const bool printStereoWarnings,
 	} catch(const lib::IO::ParsingError &e) {
 		return lib::IO::Result<>::Error(e.msg);
 	}
-	if(getConfig().graph.smilesCheckAST.get()) {
+	if(getConfig().graph.smilesCheckAST) {
 		std::stringstream astStr;
 		astStr << ast;
 		if(smiles != astStr.str()) {

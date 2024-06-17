@@ -18,6 +18,6 @@ a = ruleGMLString("""rule [
 a.print()
 a.printTermState()
 print(a.getGMLString())
-dg = dgRuleComp(inputGraphs, addSubset(inputGraphs) >> inputRules, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation))
-dg.calc()
+dg = DG(graphDatabase=inputGraphs, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation))
+dg.build().execute(addSubset(inputGraphs) >> inputRules)
 dg.print()

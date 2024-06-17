@@ -601,7 +601,6 @@ void termStateImpl(const std::string &name, const LGraph &g) {
 		}
 		lib::Term::Write::wam(getMachine(termState), lib::Term::getStrings(),
 		                      IO::Logger(s), [&](Address addr, std::ostream &s) {
-					s << "        ";
 					bool first = true;
 					for(const auto &str: annotations[addr]) {
 						if(!first) s << ", ";

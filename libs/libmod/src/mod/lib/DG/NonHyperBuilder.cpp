@@ -185,7 +185,7 @@ private: // state for computation
 
 ExecuteResult
 Builder::execute(std::unique_ptr<Strategies::Strategy> strategy_, int verbosity, bool ignoreRuleLabelTypes) {
-	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding.get();
+	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding;
 	NonHyperBuilder::StrategyExecution exec{
 			std::make_unique<NonHyperBuilder::ExecutionEnv>(*dg, dg->getLabelSettings(), doRuleIsomorphism,
 			                                                dg->graphAsRuleCache),
@@ -236,7 +236,7 @@ std::vector<std::pair<NonHyper::Edge, bool>>
 Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
                std::shared_ptr<rule::Rule> rOrig,
                int verbosity, IsomorphismPolicy graphPolicy) {
-	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding.get();
+	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding;
 	IO::Logger logger(std::cout);
 	dg->rules.insert(rOrig);
 	switch(graphPolicy) {
@@ -251,7 +251,7 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 	}
 
 	if(verbosity >= V_RuleApplication) {
-		logger.indent() << "Binding " << graphs.size() << " graphs to rule '" << rOrig->getName() << "' with "
+		logger.indent() << "Apply: Binding " << graphs.size() << " graphs to rule '" << rOrig->getName() << "' with "
 		                << rOrig->getNumLeftComponents() << " left-hand components." << std::endl;
 		++logger.indentLevel;
 	}
@@ -272,7 +272,7 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 		for(int round = 0; round != libGraphs.size(); ++round) {
 			const auto onOutput = [
 					isLast = round + 1 == libGraphs.size(),
-					assumeConfluence = getConfig().dg.applyAssumeConfluence.get(),
+					assumeConfluence = getConfig().dg.applyAssumeConfluence,
 					&resultRules]
 					(IO::Logger logger, BoundRule br) -> bool {
 				if(isLast) {
@@ -316,7 +316,7 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 
 	std::vector<std::pair<NonHyper::Edge, bool>> res;
 	for(const BoundRule &br: resultRules) {
-		if(getConfig().dg.applyLimit.get() == res.size()) break;
+		if(getConfig().dg.applyLimit == res.size()) break;
 
 		const auto &r = *br.rule;
 		assert(r.isOnlyRightSide());
@@ -358,7 +358,7 @@ std::vector<std::pair<NonHyper::Edge, bool>>
 Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
                       std::shared_ptr<rule::Rule> rOrig,
                       int verbosity, IsomorphismPolicy graphPolicy) {
-	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding.get();
+	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding;
 	IO::Logger logger(std::cout);
 	dg->rules.insert(rOrig);
 	switch(graphPolicy) {

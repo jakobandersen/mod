@@ -19,4 +19,4 @@ Note that the :token:`~dgAbstract:identifier` definition
 in particular means that whitespace is important between coefficients and
 identifiers. E.g., ``2 A -> B`` is different from ``2A -> B``.
 
-See also :py:func:`DGBuilder.addAbstract`/:cpp:func:`dg::Builder::addAbstract`.
+See also :py:func:`DG.Builder.addAbstract`/:cpp:func:`dg::Builder::addAbstract`.

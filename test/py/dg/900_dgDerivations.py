@@ -18,7 +18,7 @@ def check(rs):
 			d.rule = r
 			d.right = [g3, g4]
 			ders.append(d)
-	dg = dgDerivations(ders)
+	dg = checkDeprecated(lambda: dgDerivations(ders))
 	assert dg.numVertices == 4
 	assert sorted((v.graph for v in dg.vertices)) == sorted(([g1, g2, g3, g4]))
 	assert dg.numEdges == 1

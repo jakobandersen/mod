@@ -551,7 +551,7 @@ auto getCanonForm(const Single &g, EdgeHandler eHandler, LabelType labelType, bo
 	auto res = can(graph, idx, vLess, vis);
 	std::vector<int> perm = std::move(res.first);
 	const auto &stats = get(graph_canon::stats_visitor::result_t(), res.second);
-	if(getConfig().canon.printStats.get()) {
+	if(getConfig().canon.printStats) {
 		//		std::ofstream tree("tree.dot");
 		//		graph_canonicalization::stats_visitor stats(&tree);
 		//		canon_permutation = can(getGraph(), idx, vLess,

@@ -14,6 +14,7 @@ _oldFlags = sys.getdlopenflags()
 sys.setdlopenflags(_oldFlags | ctypes.RTLD_GLOBAL)
 from . import libpymod
 from .libpymod import *
+from . import post
 sys.setdlopenflags(_oldFlags)
 
 # from http://mail.python.org/pipermail/tutor/2003-November/026645.html
@@ -62,9 +63,13 @@ def _fixClass(name: str, c: Any, indent: int) -> None:
 		if a[0] == "__class__": continue
 		_fixClass(a[0], a[1], indent + 1)
 
-classes = inspect.getmembers(libpymod, inspect.isclass)
-for c in classes:
-	_fixClass(c[0], c[1], 0)
+def _fixModule(modObj):
+	classes = inspect.getmembers(modObj, inspect.isclass)
+	for c in classes:
+		_fixClass(c[0], c[1], 0)
+
+_fixModule(libpymod)
+_fixModule(post)
 
 #----------------------------------------------------------
 
@@ -280,8 +285,8 @@ DG.print = _DG_print  # type: ignore
 
 _DG_findEdge_orig = DG.findEdge
 def _DG_findEdge(self: DG,
-		srcsI: Union[Sequence[Graph], Sequence[DGVertex]],
-		tarsI: Union[Sequence[Graph], Sequence[DGVertex]]) -> DGHyperEdge:
+		srcsI: Union[Sequence[Graph], Sequence[DG.Vertex]],
+		tarsI: Union[Sequence[Graph], Sequence[DG.Vertex]]) -> DG.HyperEdge:
 	srcs = srcsI
 	tars = tarsI
 
@@ -327,8 +332,8 @@ DG.__eq__ = lambda self, other: self.id == other.id  # type: ignore
 DG.__hash__ = lambda self: self.id  # type: ignore
 
 
-class DGBuilder:
-	_builder: Optional[libpymod._DGBuilder]
+class DGBuildContextManager:
+	_builder: Optional[DG.Builder]
 
 	def __init__(self, dg: DG, onNewVertex, onNewHyperEdge) -> None:
 		assert dg is not None
@@ -337,7 +342,7 @@ class DGBuilder:
 			None if onNewHyperEdge is None else _funcWrap(libpymod._Func_VoidDGHyperEdge, onNewHyperEdge)
 		)
 
-	def __enter__(self) -> "DGBuilder":
+	def __enter__(self) -> "DGBuildContextManager":
 		return self
 
 	def __exit__(self, exc_type, exc_val, exc_tb) -> None:
@@ -355,21 +360,21 @@ class DGBuilder:
 		return self._builder.isActive
 
 	def addDerivation(self, d: Derivations,
-			graphPolicy: IsomorphismPolicy = IsomorphismPolicy.Check) -> DGHyperEdge:
+			graphPolicy: IsomorphismPolicy = IsomorphismPolicy.Check) -> DG.HyperEdge:
 		assert self._builder
 		return self._builder.addDerivation(d, graphPolicy)
 
-	def addHyperEdge(self, e: DGHyperEdge,
-			graphPolicy: IsomorphismPolicy = IsomorphismPolicy.Check) -> DGHyperEdge:
+	def addHyperEdge(self, e: DG.HyperEdge,
+			graphPolicy: IsomorphismPolicy = IsomorphismPolicy.Check) -> DG.HyperEdge:
 		assert self._builder
 		return self._builder.addHyperEdge(e, graphPolicy)
 
-	def execute(self, strategy: DGStrat, *, verbosity: int=2, ignoreRuleLabelTypes: bool=False) -> DGExecuteResult:
+	def execute(self, strategy: DGStrat, *, verbosity: int=2, ignoreRuleLabelTypes: bool=False) -> DG.Builder.ExecuteResult:
 		assert self._builder
 		return self._builder.execute(dgStrat(strategy), verbosity, ignoreRuleLabelTypes)  # type: ignore
 	
 	def apply(self, graphs: Iterable[Graph], rule: Rule, onlyProper: bool=True, verbosity: int=0,
-			graphPolicy: IsomorphismPolicy=IsomorphismPolicy.Check) -> List[DGHyperEdge]:
+			graphPolicy: IsomorphismPolicy=IsomorphismPolicy.Check) -> List[DG.HyperEdge]:
 		assert self._builder
 		return _unwrap(self._builder.apply(_wrap(libpymod._VecGraph, graphs), rule, onlyProper, verbosity, graphPolicy))
 
@@ -384,32 +389,32 @@ class DGBuilder:
 			prefixFilename(f), verbosity)
 
 _DG_build_orig = DG.build
-DG.build = lambda self, *, onNewVertex=None, onNewHyperEdge=None: DGBuilder(self, onNewVertex, onNewHyperEdge)  # type: ignore
+DG.build = lambda self, *, onNewVertex=None, onNewHyperEdge=None: DGBuildContextManager(self, onNewVertex, onNewHyperEdge)  # type: ignore
 
 
 #----------------------------------------------------------
-# DGExecuteResult
+# DG.Builder.ExecuteResult
 #----------------------------------------------------------
 
-def _DGExecuteResult__getattribute__(self: DGExecuteResult, name: str) -> Any:
+def _DGExecuteResult__getattribute__(self: DG.Builder.ExecuteResult, name: str) -> Any:
 	if name in ("subset", "universe"):
 		return _unwrap(object.__getattribute__(self, name))
 	return object.__getattribute__(self, name)
 
-DGExecuteResult.__getattribute__ = _DGExecuteResult__getattribute__  # type: ignore
+DG.Builder.ExecuteResult.__getattribute__ = _DGExecuteResult__getattribute__  # type: ignore
 
-_DGExecuteResult_list_orig = DGExecuteResult.list
-def _DGExecuteResult_list(self: DGExecuteResult, *, withUniverse: bool=False) -> None:
+_DGExecuteResult_list_orig = DG.Builder.ExecuteResult.list
+def _DGExecuteResult_list(self: DG.Builder.ExecuteResult, *, withUniverse: bool=False) -> None:
 	return _DGExecuteResult_list_orig(self, withUniverse)  # type: ignore
-DGExecuteResult.list = _DGExecuteResult_list  # type: ignore
+DG.Builder.ExecuteResult.list = _DGExecuteResult_list  # type: ignore
 
 
 #----------------------------------------------------------
-# DGHyperEdge
+# DG.HyperEdge
 #----------------------------------------------------------
 
-_DGHyperEdge_print_orig = DGHyperEdge.print
-DGHyperEdge.print = lambda self, *args, **kwargs: _unwrap(_DGHyperEdge_print_orig(self, *args, **kwargs))  # type: ignore
+_DGHyperEdge_print_orig = DG.HyperEdge.print
+DG.HyperEdge.print = lambda self, *args, **kwargs: _unwrap(_DGHyperEdge_print_orig(self, *args, **kwargs))  # type: ignore
 
 
 #----------------------------------------------------------
@@ -422,7 +427,7 @@ def _makeGraphToVertexCallback(orig, name, func):
 			import inspect
 			spec = inspect.getfullargspec(f)
 			if len(spec.args) == 2:
-				_deprecation("The callback for {} seems to take two arguments, a graph and a derivation graph. This is deprecated, the callback should take a single DGVertex argument.".format(name))
+				_deprecation("The callback for {} seems to take two arguments, a graph and a derivation graph. This is deprecated, the callback should take a single DG.Vertex argument.".format(name))
 				fOrig = f
 				f = lambda v, fOrig=fOrig: fOrig(v.graph, v.dg)
 		return orig(self, _funcWrap(func, f), *args, **kwargs)

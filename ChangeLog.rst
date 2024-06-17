@@ -4,8 +4,28 @@
 Changes
 #######
 
+
 develop
 =======
+
+Incompatible Changes
+--------------------
+
+- Several classes have in Python become nested classes and changed name:
+
+  - ``DGVertex`` to :py:class:`DG.Vertex`
+  - ``DGHyperEdge`` to :py:class:`DG.HyperEdge`
+  - ``DGVertexRange`` to :py:class:`DG.VertexRange`
+  - ``DGEdgeRange`` to :py:class:`DG.EdgeRange`
+  - ``DGInEdgeRange`` to :py:class:`DG.InEdgeRange`
+  - ``DGOutEdgeRange`` to :py:class:`DG.OutEdgeRange`
+  - ``DGSourceRange`` to :py:class:`DG.SourceRange`
+  - ``DGTargetRange`` to :py:class:`DG.TargetRange`
+  - ``DGRuleRange`` to :py:class:`DG.RuleRange`
+  - ``DGBuilder`` to :py:class:`DG.Builder`
+  - ``DGExecuteResult`` to :py:class:`DG.Builder.ExecuteResult`
+
+- The version requirement for Sphinx has been raised to 7.3.
 
 
 New Features
@@ -14,15 +34,31 @@ New Features
 - Added a new documentation section describing rule application constraints:
   :ref:`rule-constraints`.
 - Added a new rule application constraint, :ref:`label-unification-constraint`.
+- Instead of VF2, use canonicalization when checking for isomorhpism of
+  :cpp:class:`graph::Graph`/:py:class:`Graph`, when in term mode,
+  when there are no variables in the attached terms,
+  thereby speeding up the check.
+- Make :cpp:class:`dg::Printer`/:py:class:`DGPrinter` copyable.
+- Add optinal callbacks to :cpp:func:`dg::DG::build`/:py:meth:`DG.build`,
+  to enable real-time status of what is being added.
 
 
 Bugs Fixed
 ----------
 
+- Summary generation: fix page numbers to use "of" instead of "af".
 - Fix adjacency constraint when in term mode and multiple labels in the constraint
   matches the same label in the candidate graph.
 - Fix :cpp:func:`rule::Rule::makeInverse`/:py:meth:`Rule.makeInverse` to not crash
   when the rule has no external IDs recorded.
+- Document the value of the default nested
+  :cpp:class:`graph::Printer`/:py:class:`GraphPrinter` in
+  :cpp:class:`dg::Printer`/:py:class:`DGPrinter`.
+- Clarify what :option:`mod -q` does.
+- Actually throw an exception when using
+  :cpp:func:`dg::DG::Vertex::getGraph`/:py:attr:`DG.Vertex.graph` on a null vertex,
+  instead of having undefined behaviour.
+- Doc, show default arguments for :py:func:`rcEvaluator`.
 
 
 v0.15.0 (2024-01-26)
@@ -32,11 +68,11 @@ Incompatible Changes
 --------------------
 
 - The graphs created by
-  :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DGBuilder.addAbstract`
+  :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DG.Builder.addAbstract`
   will no longer be empty, but have a single vertex with the label set to the
   identifier given in the description.
 - Repeated calls to
-  :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DGBuilder.addAbstract`
+  :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DG.Builder.addAbstract`
   will no longer create subnetworks independently, but will act as if
   a single call was made with a concatenation of the inputs.
 - CMake, change the option ``BUILD_TESTING_SANITIZERS`` to ``BUILD_WITH_SANITIZERS``
@@ -55,7 +91,7 @@ New Features
 - Added :envvar:`MOD_DEBUGGER` to overwrite which debugger is invoked.
 - Added :cpp:func:`graph::Graph::enumerateIsomorphisms`/:py:meth:`Graph.enumerateIsomorphisms`.
 - Added :cpp:func:`graph::Union::printTermState`/:py:meth:`UnionGraph.printTermState`.
-- Added ``verbosity`` argument for :cpp:func:`dg::DG::HyperEdge::print`/:py:meth:`DGHyperEdge.print` for printing debug information.
+- Added ``verbosity`` argument for :cpp:func:`dg::DG::HyperEdge::print`/:py:meth:`DG.HyperEdge.print` for printing debug information.
 - Added ``printStereoWarnings`` flag to several loading functions:
 
   - :cpp:func:`graph::Graph::fromGMLString`/:py:meth:`Graph.fromGMLString`/:py:func:`graphGMLString`
@@ -163,7 +199,7 @@ New Features
   - :cpp:func:`graph::Graph::fromSDFileMulti`/:py:func:`Graph.fromSDFileMulti`,
 - PyMØD: add installation of the bindings via ``pip``.
   See the setting ``-DBUILD_PY_MOD_PIP=on`` in :ref:`compiling`.
-- Added :cpp:func:`dg::Builder::addHyperEdge`/:py:meth:`DGBuilder.addHyperEdge`.
+- Added :cpp:func:`dg::Builder::addHyperEdge`/:py:meth:`DG.Builder.addHyperEdge`.
 - Added :cpp:func:`graph::Printer::setRaiseIsotopes`/:cpp:func:`graph::Printer::getRaiseIsotopes`/:py:attr:`GraphPrinter.raiseIsotopes`.
   It was previously only available in the internal interface.
 - Added :cpp:func:`graph::Printer::setWithGraphvizCoords`/:cpp:func:`graph::Printer::getWithGraphvizCoords`/:py:attr:`GraphPrinter.withGraphvizCoords`.
@@ -177,19 +213,20 @@ New Features
   See :ref:`cpp-Post`/:ref:`py-Post`.
 - Added :cpp:func:`graph::Graph::enumerateMonomorphisms`/:py:meth:`Graph.enumerateMonomorphisms`.
 - Added :cpp:func:`dg::Printer::setImageOverwrite`/:py:meth:`DGPrinter.setImageOverwrite`.
-- Added :cpp:func:`dg::Builder::getDG`/:py:attr:`DGBuilder.dg` and
-  :py:attr:`DGBuilder.isActive`.
+- Added :cpp:func:`dg::Builder::getDG`/:py:attr:`DG.Builder.dg` and
+  :py:attr:`DG.Builder.isActive`.
+
 
 Bugs Fixed
 ----------
 
 - Rule GML loading, check for edges dangling due to wrong vertex membership.
-- :cpp:func:`dg::Builder::execute`/:py:meth:`DGBuilder.execute` and
-  :cpp:func:`dg::Builder::apply`/:py:meth:`DGBuilder.apply`,
+- :cpp:func:`dg::Builder::execute`/:py:meth:`DG.Builder.execute` and
+  :cpp:func:`dg::Builder::apply`/:py:meth:`DG.Builder.apply`,
   properly ignore direct derivations with empty right-hand sides,
   instead of crashing.
 - :cpp:func:`dg::DG::load`/:py:meth:`DG.load` and
-  :cpp:func:`dg::Builder::load`/:py:meth:`DGBuilder.load`,
+  :cpp:func:`dg::Builder::load`/:py:meth:`DG.Builder.load`,
   reenable loading of very old dump formats.
 - Fix critical bugs in
   :cpp:class:`rule::CompositionMatch`/:py:class:`RCMatch`.
@@ -212,7 +249,7 @@ Bugs Fixed
 - Py, use :py:func:`inspect.getfullargspec` instead of the deprecated/removed
   ``inspect.getargspec()``.
 - ``mod_post`` scrub more unreproducible meta-info from figure PDFs.
-- Fix memory leaks in :cpp:func:`dg::Builder::apply`/:py:meth:`DGBuilder.apply`.
+- Fix memory leaks in :cpp:func:`dg::Builder::apply`/:py:meth:`DG.Builder.apply`.
 - Fix colour on changed stereo-information in the right-side graph when printing
   rules and direct derivations.
 - Stop recreating vertex-orders for connected components of rule sides,
@@ -269,7 +306,7 @@ Incompatible Changes
   behaviour.
 - The ``BUILD_DOC`` option for building from source now defaults to ``OFF``.
 - Add :cpp:class:`rule::CompositionMatch`/:py:class:`RCMatch`.
-- The file parameter for :py:func:`DG.load` and :py:func:`DGBuilder.load`
+- The file parameter for :py:func:`DG.load` and :py:func:`DG.Builder.load`
   has been changed name from ``file`` to ``f``.
 - :py:func:`Graph.fromSMILES` has changed order of parameters,
   ``add`` is now the last one.
@@ -334,7 +371,7 @@ Bugs Fixed
   :cpp:func:`graph::Graph::fromGMLFile`/:py:func:`Graph.fromGMLFile`,
   :cpp:func:`rule::Rule::fromGMLFile`/:py:func:`Rule.fromGMLFile`,
   :cpp:func:`dg::DG::load`/:py:meth:`DG.load`,
-  :cpp:func:`dg::Builder::load`/:py:meth:`DGBuilder.load`.
+  :cpp:func:`dg::Builder::load`/:py:meth:`DG.Builder.load`.
 - Fixes to support Boost 1.76.
 - Fixes to support GCC 11.
 - Build system, use ``add_custom_command`` to avoid recompilation of
@@ -359,7 +396,7 @@ Other
 - Doc, properly document that a :py:class:`CWDPath` is a valid argument for
 
   - :py:func:`DG.load`,
-  - :py:func:`DGBuilder.load`,
+  - :py:func:`DG.Builder.load`,
   - :py:func:`Graph.fromGMLFile`, and
   - :py:func:`Rule.fromGMLFile`.
 - Doc, clarify conditions on methods in :cpp:class:`dg::DG`/:py:class:`DG`
@@ -407,12 +444,12 @@ New Features
 - Update ``bindep.txt`` and :ref:`quick-start` guide for Arch.
 - Add ``Brewfile`` to to make installation of dependencies much easier on macOS.
 - Improved verbose output from "add" strategies during
-  :cpp:func:`dg::Builder::execute`/:py:func:`DGBuilder.execute`.
+  :cpp:func:`dg::Builder::execute`/:py:func:`DG.Builder.execute`.
 - Improved rule application performance when evaluating
   :ref:`rule strategies <strat-rule>` and executing
-  :cpp:func:`dg::Builder::apply`/:py:meth:`DGBuilder.apply`.
+  :cpp:func:`dg::Builder::apply`/:py:meth:`DG.Builder.apply`.
 - Added a relaxed mode to 
-  :cpp:func:`dg::Builder::apply`/:py:meth:`DGBuilder.apply`
+  :cpp:func:`dg::Builder::apply`/:py:meth:`DG.Builder.apply`
   via the ``onlyProper`` parameter.
 - Add missing ``graph`` attributes to vertices and edges of the
   four graph interfaces of :py:class:`Rule`.
@@ -441,7 +478,7 @@ Bugs Fixed
 ----------
 
 - Flush stdout in the end of
-  :cpp:func:`dg::ExecuteResult::list`/:py:func:`DGExecuteResult.list`.
+  :cpp:func:`dg::ExecuteResult::list`/:py:func:`DG.Builder.ExecuteResult.list`.
 - Fix printing/stringification of a null vertices for
   :cpp:class:`graph::Graph`/:py:class:`Graph`,
   :cpp:class:`rule::Rule`/:py:class:`Rule`,
@@ -486,11 +523,11 @@ Incompatible Changes
   :cpp:func:`dg::Printer::pushVertexLabel`/:py:func:`DGPrinter.pushVertexLabel`, and
   :cpp:func:`dg::Printer::pushVertexColour`/:py:func:`DGPrinter.pushVertexColour`
   now requies a callback taking a
-  :cpp:class:`dg::DG::Vertex`/:py:class:`DGVertex`, instead of a
+  :cpp:class:`dg::DG::Vertex`/:py:class:`DG.Vertex`, instead of a
   :cpp:class:`graph::Graph`/:py:class:`Graph` and
   :cpp:class:`dg::DG`/:py:class:`DG`.
   The previous style is removed in libMØD and deprecated in PyMØD.
-- :cpp:func:`dg::DG::HyperEdge::print`/:py:func:`DGHyperEdge.print`
+- :cpp:func:`dg::DG::HyperEdge::print`/:py:func:`DG.HyperEdge.print`
   now throws exceptions if either no rules are associated with the hyperedge
   or if at least one of the associated rules does not lead to a derivation.
 - :cpp:class:`dg::PrintData`/:py:class:`DGPrintData`, many interface changes,
@@ -506,7 +543,7 @@ Incompatible Changes
 New Features
 ------------
 
-- Added :cpp:func:`dg::Builder::apply`/:py:meth:`DGBuilder.apply`
+- Added :cpp:func:`dg::Builder::apply`/:py:meth:`DG.Builder.apply`
   as a lower-level function for computing proper direct derivations.
 - :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`smiles`:
 
@@ -527,11 +564,11 @@ New Features
 - Added :cpp:func:`dg::Printer::setGraphvizPrefix`/:cpp:func:`dg::Printer::getGraphvizPrefix`/:py:attr:`DGPrinter.graphvizPrefix`.
 - Added ``makeUniqueFilePrefix``/:py:func:`makeUniqueFilePrefix`.
 - Improve verbosity level 8 information from
-  :cpp:func:`dg::Builder::execute`/:py:func:`DGBuilder.execute` to the universe
+  :cpp:func:`dg::Builder::execute`/:py:func:`DG.Builder.execute` to the universe
   size.
 - Make :cpp:class:`LabelSettings`/:py:class:`LabelSettings`
   equality comparable.
-- Added :cpp:func:`dg::Builder::load`/:py:func:`DGBuilder.load`.
+- Added :cpp:func:`dg::Builder::load`/:py:func:`DG.Builder.load`.
 - Added :cpp:func:`rngUniformReal`/:py:func:`rngUniformReal`.
 
 
@@ -542,7 +579,7 @@ Bugs Fixed
 
   - :cpp:class:`Derivation`/:py:class:`Derivation` printing.
   - :cpp:class:`Derivations`/:py:class:`Derivations` printing.
-  - :cpp:func:`dg::Builder::addDerivation`/:py:meth:`DGBuilder.apply`.
+  - :cpp:func:`dg::Builder::addDerivation`/:py:meth:`DG.Builder.apply`.
   - :cpp:func:`dg::Builder::execute`
   - :cpp:func:`dg::DG::make`/:py:meth:`DG.__init__`
   - :cpp:func:`dg::DG::findVertex`/:py:meth:`DG.findVertex`
@@ -594,7 +631,7 @@ Bugs Fixed
 - :cpp:func:`dg::DG::print`/:py:meth:`DG.print`, fix missing labels on shortcut
   edges when using a :cpp:class:`dg::Printer`/:py:class:`DGPrinter` with
   "labels as Latex math" set to false.
-- :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DGBuilder.addAbstract`:
+- :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DG.Builder.addAbstract`:
 
   - Improve parsing error messages.
   - Fix assertion on non-ASCII input.
@@ -627,8 +664,8 @@ Other
 
   - :py:attr:`AtomData.atomId`
   - :py:attr:`AtomData.isotope`
-  - :py:attr:`DGVertex.inDegree`
-  - :py:attr:`DGVertex.outDegree`
+  - :py:attr:`DG.Vertex.inDegree`
+  - :py:attr:`DG.Vertex.outDegree`
 
 - Doc, various typo fixes.
 - :ref:`mod <mod-wrapper>`, don't log output when invoked with
@@ -663,18 +700,18 @@ Incompatible Changes
 --------------------
 
 - ``dg::DG::abstract``/``dgAbstract`` has been removed. Use
-  :cpp:func:`dg::Builder::addAbstract`/:py:func:`DGBuilder.addAbstract`
+  :cpp:func:`dg::Builder::addAbstract`/:py:func:`DG.Builder.addAbstract`
   instead. Added slightly better documentation as well, :ref:`dg_abstract-desc`.
 - ``dg::DG::derivations`` has been removed. Use the repeated calls
   to :cpp:func:`dg::Builder::addDerivation` instead.
 - ``dg::DG::ruleComp`` and ``dg::DG::calc()`` has been removed.
   Use the new :cpp:func:`dg::Builder::execute` instead.
 - ``dgRuleComp`` and ``DG.calc`` has been deprecated,
-  and their implementation is now based on :py:meth:`DGBuilder.execute`.
-  Use :py:meth:`DGBuilder.execute` directly instead.
+  and their implementation is now based on :py:meth:`DG.Builder.execute`.
+  Use :py:meth:`DG.Builder.execute` directly instead.
 - The implementation of ``dgDerivations`` has changed and the function
   is now deprecated. Use repeated calls to
-  :py:meth:`DGBuilder.addDerivation` instead.
+  :py:meth:`DG.Builder.addDerivation` instead.
 - :cpp:func:`dg::Strategy::makeAdd` overloads,
   :py:meth:`DGStrat.makeAddStatic`, and :py:meth:`DGStrat.makeAddDynamic`
   now requires another argument of type
@@ -682,7 +719,7 @@ Incompatible Changes
 - :ref:`strat-addSubset` and :ref:`strat-addUniverse` now accepts a new optional
   keyword argument ``graphPolicy`` of type :py:class:`IsomorphismPolicy`.
 - ``dg::DG::list``/``DG.list`` has been removed,
-  use :cpp:func:`dg::ExecuteResult::list`/:py:meth:`DGExecuteResult.list`
+  use :cpp:func:`dg::ExecuteResult::list`/:py:meth:`DG.Builder.ExecuteResult.list`
   instead.
 - Information from strategies has been updated.
 
@@ -697,7 +734,7 @@ New Features
     derivation graph with this new interface.
   - :py:meth:`DG.build`/:cpp:func:`dg::DG::build` for obtaining an RAII-style
     proxy object for controlling the construction
-    (:py:class:`DGBuilder`/:cpp:class:`dg::Builder`).
+    (:py:class:`DG.Builder`/:cpp:class:`dg::Builder`).
   - :py:attr:`DG.hasActiveBuilder`/:cpp:func:`dg::DG::hasActiveBuilder`
   - :py:attr:`DG.locked`/:cpp:func:`dg::DG::isLocked`
 
@@ -723,7 +760,7 @@ Bugs Fixed
   the same time, which prevent MØD from accessing Open Babel operations..
 - Document and check proper preconditions on :cpp:class:`dg::DG`/:py:class:`DG`.
 - Document and check precondition on
-  :cpp:func:`dg::DG::HyperEdge::getInverse`/:py:attr:`DGHyperEdge.inverse`,
+  :cpp:func:`dg::DG::HyperEdge::getInverse`/:py:attr:`DG.HyperEdge.inverse`,
   that it is only avilable after the DG is locked.
 - Properly throw an exception if
   :py:meth:`DGStrat.makeSequence`/:cpp:func:`dg::Strategy::makeSequence`
@@ -842,7 +879,7 @@ New Features
   This mirrors the previously added :cpp:any:`graph::Graph::getSmilesWithIds`/:py:obj:`Graph.smilesWithIds`.
 - Improve error messages from GML parsing of lists.
 - Changed the return type of :cpp:func:`dg::DG::getGraphDatabase` from a `std::set` to a `std::unordered_set`.
-- :cpp:func:`dg::DG::HyperEdge::print`/:py:func:`DGHyperEdge.print` now returns a list of file data.
+- :cpp:func:`dg::DG::HyperEdge::print`/:py:func:`DG.HyperEdge.print` now returns a list of file data.
 - The vertices and edges of all graph interfaces now have a conversion to bool:
 
   - :cpp:class:`graph::Graph::Vertex`/:py:class:`Graph.Vertex`,
@@ -855,8 +892,8 @@ New Features
     :cpp:class:`rule::Rule::ContextGraph::Edge`/:py:class:`Rule.ContextGraph.Edge`
   - :cpp:class:`rule::Rule::RightGraph::Vertex`/:py:class:`Rule.RightGraph.Vertex`,
     :cpp:class:`rule::Rule::RightGraph::Edge`/:py:class:`Rule.RightGraph.Edge`
-  - :cpp:class:`dg::DG::Vertex`/:py:class:`DGVertex`,
-    :cpp:class:`dg::DG::HyperEdge`/:py:class:`DGHyperEdge`
+  - :cpp:class:`dg::DG::Vertex`/:py:class:`DG.Vertex`,
+    :cpp:class:`dg::DG::HyperEdge`/:py:class:`DG.HyperEdge`
 
 - The vertices of all graph interfaces now have a proper hash support.
 - Added :cpp:func:`dg::Printer::setRotationOverwrite`/:py:func:`DGPrinter.setRotationOverwrite`
@@ -904,7 +941,7 @@ Incompatible Changes
   `GraphCanon <https://github.com/jakobandersen/graph_canon>`__ and
   `PermGroup <https://github.com/jakobandersen/perm_group>`__, are now required dependencies.
 - Sphinx 1.7.1 is now required for building the documentation.
-- :cpp:any:`dg::DG::HyperEdge::print`/:py:obj:`DGHyperEdge.print`
+- :cpp:any:`dg::DG::HyperEdge::print`/:py:obj:`DG.HyperEdge.print`
   now also takes an argument for colouring vertices/edges
   that are not matched by the rule. The default is now that matched vertices/edges
   are the default colour, while those that are not matched are grey.
@@ -1002,7 +1039,7 @@ Incompatible Changes
   Use the graph interface instead. E.g.,
 
   - Deprecate ``DerivationRef``. They now interconvert with
-    :cpp:any:`dg::DG::HyperEdge`/:py:obj:`DGHyperEdge`.
+    :cpp:any:`dg::DG::HyperEdge`/:py:obj:`DG.HyperEdge`.
   - Change ``DG::getDerivationRef`` into :cpp:any:`dg::DG::findEdge`/:py:obj:`DG.findEdge`.
   - Make ``DG.derivations`` return the edges instead in the Python interface.
     It is removed in the C++ interface. It will be removed from Python in the future.
@@ -1023,7 +1060,7 @@ Incompatible Changes
   the two printers are equal.
 - :cpp:any:`rule::Rule::print`/:py:obj:`Rule.print`, change the default colours used to indicate
   changes. Now different colours are used in L, K, R.
-- :py:obj:`DGHyperEdge.print`, change the default match colour.
+- :py:obj:`DG.HyperEdge.print`, change the default match colour.
 - Add < operator to vertices and edges of Graph, Rule, and DG.
 
 

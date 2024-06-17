@@ -87,4 +87,4 @@ data = """rule [
 ]"""
 r = Rule.fromGMLString(data)
 fail(lambda: Rule.fromGMLString(data, invert=True), err=InputError,
-	pattern="has matching constraints and can not be reversed. Use Rule::ignoreConstraintsDuringInversion == true to strip constraints.")
+	pattern="has matching constraints and can not be reversed. Use config.rule.ignoreConstraintsDuringInversion == True to strip constraints.")

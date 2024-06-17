@@ -36,11 +36,11 @@ dg = DG()
 dg.build()
 f = dg.dump()
 
-fail(lambda: DG.load([None], [], f), "Nullptr in graph database.")
+fail(lambda: DG.load([None], [], f), "Null pointer in graph database.")
 fail(lambda: DG.load([g1, g2], [], CWDPath(f)), "Isomorphic graphs '{}' and '{}' in initial graph database.".format(g1.name, g2.name))
 dg = DG.load([g1, g2], [], CWDPath(f), graphPolicy=IsomorphismPolicy.TrustMe)
 
-fail(lambda: DG.load([], [None], CWDPath(f)), "Nullptr in rule database.")
+fail(lambda: DG.load([], [None], CWDPath(f)), "Null pointer in rule database.")
 fail(lambda: DG.load([], [], 'doesNotExist.dg'),
 	"DG load error: Could not open file",
 	err=InputError, isSubstring=True)
@@ -84,13 +84,13 @@ dg3 = DG.load(dg.graphDatabase, inputRules, CWDPath(f))
 _compareDGs(dg, dg3)
 
 
-# DGBuilder.load
+# DG.Builder.load
 
 dg = DG()
 dg.build()
 f = dg.dump()
 
-fail(lambda: DG().build().load([None], CWDPath(f)), "Nullptr in rule database.")
+fail(lambda: DG().build().load([None], CWDPath(f)), "Null pointer in rule database.")
 fail(lambda: DG().build().load([], 'doesNotExist.dg'),
 	"DG load error: Could not open file ",
 	err=InputError, isSubstring=True)

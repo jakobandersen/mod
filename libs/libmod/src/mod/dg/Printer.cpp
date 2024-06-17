@@ -119,6 +119,15 @@ Printer::Printer() : graphPrinter(std::make_unique<graph::Printer>()),
 
 Printer::~Printer() = default;
 
+Printer::Printer(const Printer &other) : graphPrinter(std::make_unique<graph::Printer>(*other.graphPrinter)),
+                                         printer(std::make_unique<lib::DG::Write::Printer>(*other.printer)) {}
+
+Printer &Printer::operator=(const Printer &other) {
+	*graphPrinter = *other.graphPrinter;
+	*printer = *other.printer;
+	return *this;
+}
+
 lib::DG::Write::Printer &Printer::getPrinter() const {
 	return *printer;
 }

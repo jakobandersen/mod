@@ -346,7 +346,7 @@ public:
 
 bool disallowHydrogenCollapseByChangeThenCallback(const Real &r, const CombinedVertex vCG,
                                                   std::function<bool(CombinedVertex)> disallowCollapse) {
-	if(getConfig().rule.collapseChangedHydrogens.get())
+	if(getConfig().rule.collapseChangedHydrogens)
 		return disallowCollapse(vCG);
 	const auto &gCombined = r.getDPORule().getRule().getCombinedGraph();
 	// if we are changed, then disallow
@@ -678,7 +678,7 @@ tikz(const std::string &fileCoordsNoExt, const Real &r, unsigned int idOffset, c
 		const auto &g = getL(rDPO);
 		const auto &depict = r.getDepictionData().getLeft();
 		const auto adv = AdvOptionsSide(r, idOffset, args, disallowCollapse,
-		                                getConfig().rule.changeColourL.get(),
+		                                getConfig().rule.changeColourL,
 		                                g, getMorL(rDPO), rDPO.getLtoCG(),
 		                                r.getDepictionData().getLeft(),
 		                                get_labelled_left(r.getDPORule()));
@@ -695,7 +695,7 @@ tikz(const std::string &fileCoordsNoExt, const Real &r, unsigned int idOffset, c
 			EdgeVisible(const Real &r) : r(&r) {}
 
 			bool operator()(const CombinedEdge e) const {
-				if(getConfig().rule.printChangedEdgesInContext.get()) return true;
+				if(getConfig().rule.printChangedEdgesInContext) return true;
 				return !get_string(r->getDPORule()).isChanged(e);
 			}
 		private:
@@ -703,7 +703,7 @@ tikz(const std::string &fileCoordsNoExt, const Real &r, unsigned int idOffset, c
 		};
 		boost::filtered_graph<lib::DPO::CombinedRule::KGraphType, EdgeVisible> gFiltered(g, EdgeVisible(r));
 		const auto adv = AdvOptionsK(r, idOffset, args, disallowCollapse,
-		                             getConfig().rule.changeColourK.get());
+		                             getConfig().rule.changeColourK);
 		IO::Graph::Write::tikz(s, options, gFiltered, depict, fileCoords, adv, jla_boost::Nop<>(), "");
 	}
 	{ // right
@@ -711,7 +711,7 @@ tikz(const std::string &fileCoordsNoExt, const Real &r, unsigned int idOffset, c
 		const auto &g = getR(rDPO);
 		const auto &depict = r.getDepictionData().getRight();
 		const auto adv = AdvOptionsSide(r, idOffset, args, disallowCollapse,
-		                                getConfig().rule.changeColourR.get(),
+		                                getConfig().rule.changeColourR,
 		                                g, getMorR(rDPO), rDPO.getRtoCG(),
 		                                r.getDepictionData().getRight(),
 		                                get_labelled_right(r.getDPORule()));

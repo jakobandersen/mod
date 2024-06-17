@@ -116,7 +116,7 @@ void handleBoundRulePair(int verbosity, IO::Logger logger, Context context, cons
 		}
 	}
 	{ // now the derivation is good, so add the products to output
-		if(getConfig().dg.putAllProductsInSubset.get()) {
+		if(getConfig().dg.putAllProductsInSubset) {
 			for(const auto &g: d.right)
 				context.output->addToSubset(&g->getGraph());
 		} else {

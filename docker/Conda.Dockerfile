@@ -35,8 +35,9 @@ WORKDIR /opt/mod/build
 ENV CXXFLAGS=-Werror
 RUN conda activate mod-env && conda env list && \
  cmake ../ -DBUILD_DOC=no                     \
- -DCMAKE_BUILD_TYPE=Release                                                    \
- -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j" -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j" \
+ -DCMAKE_BUILD_TYPE=Release                   \
+ -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j"       \
+ -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j"       \
  -DBUILD_TESTING=on                           \
  -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX         \
  && make -j $j                                \

@@ -14,12 +14,14 @@ struct PropTerm : Prop<PropTerm, std::size_t, std::size_t> {
 	using Base = Prop<PropTerm, std::size_t, std::size_t>;
 public:
 	PropTerm(const GraphType &g, const PropString &pString, const StringStore &stringStore); // parse-construct
+	bool getHasVariables() const;
 	const std::string &getParsingError() const; // requires !isValid
 	friend bool isValid(const PropTerm &p);
 	friend const lib::Term::Wam &getMachine(const PropTerm &p);
 private:
 	std::optional<std::string> parsingError;
 	lib::Term::Wam machine;
+	bool hasVariables = false;
 };
 
 } // namespace mod::lib::Graph

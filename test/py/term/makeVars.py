@@ -26,8 +26,8 @@ pWild = ruleGMLString("""rule [
 ]""")
 	
 
-dg = dgRuleComp(inputGraphs, addSubset(inputGraphs) >> inputRules, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Unification))
-dg.calc()
+dg = DG(graphDatabase=inputGraphs, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Unification))
+dg.build().execute(addSubset(inputGraphs) >> inputRules)
 dg.print()
 post.summarySection("Input Graphs")
 for a in inputGraphs:
