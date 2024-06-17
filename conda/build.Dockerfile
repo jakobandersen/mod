@@ -10,10 +10,10 @@ ENV PATH /opt/conda/bin:$PATH
 RUN apt-get update --fix-missing                               \
  && apt-get install -y wget bzip2 ca-certificates curl git
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py38_23.11.0-2-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
-    /opt/conda/bin/conda clean -tipsy && \
+    /opt/conda/bin/conda clean -afy && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
@@ -46,6 +46,7 @@ RUN echo "END CONDA BUILD"
 RUN echo "START INSTALLATION TEST"
 
 FROM ubuntu:20.04 AS test
+ARG MinicondaURL
 # Based on continuumio/miniconda3
 
 #ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -54,10 +55,10 @@ ENV PATH /opt/conda/bin:$PATH
 RUN apt-get update --fix-missing                               \
  && apt-get install -y wget bzip2 ca-certificates curl git
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py38_23.11.0-2-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
-    /opt/conda/bin/conda clean -tipsy && \
+    /opt/conda/bin/conda clean -afy && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
