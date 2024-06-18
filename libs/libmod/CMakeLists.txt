@@ -79,14 +79,6 @@ if(ENABLE_SYMBOL_HIDING)
             )
 endif()
 target_compile_definitions(libmod PRIVATE MOD_SOURCE)
-if(ENABLE_IPO)
-    check_ipo_supported(RESULT result OUTPUT output)
-    if(result)
-        set_property(TARGET libmod PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
-    else()
-        message(FATAL_ERROR "Interprocedural optimization was requested ('ENABLE_IPO=on'), but it is not supported: ${output}")
-    endif()
-endif()
 
 install(TARGETS libmod
         EXPORT PROJECT_exports

@@ -86,7 +86,7 @@ bool GraphClass::Vertex::isNull() const {                                       
 #define MOD_GRAPHPIMPL_Define_Vertex_id(GraphClass, getMacroGraph)                   \
                                                                                      \
 std::size_t GraphClass::Vertex::getId() const {                                      \
-    if(!*this) throw LogicError("Can not get id on a null vertex.");                 \
+    if(!*this) throw LogicError("Can not get ID on a null vertex.");                 \
     const auto &graph = getMacroGraph;                                               \
     using boost::vertices;                                                           \
     auto v = *std::next(vertices(graph).first, vId);                                 \

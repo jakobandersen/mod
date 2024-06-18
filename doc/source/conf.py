@@ -2,15 +2,16 @@ import sys
 import os
 
 # -- General configuration ------------------------------------------------
-needs_sphinx = '3.5.0'
+needs_sphinx = '7.3.0'
 
-sys.path.append(os.path.abspath('extensions'))
+sys.path.insert(0, os.path.abspath('extensions'))
 extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
 	'sphinx.ext.githubpages',
 	'sphinx.ext.intersphinx',
 	'sphinx_bootstrap_theme',
+	'sphinxcontrib.jquery',
 	'ignore_missing_refs',
 	'sphinx_design',
 ]

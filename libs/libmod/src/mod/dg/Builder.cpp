@@ -64,11 +64,11 @@ DG::HyperEdge Builder::addDerivation(const Derivations &d, IsomorphismPolicy gra
 		return !p;
 	};
 	if(std::any_of(d.left.begin(), d.left.end(), checkPtr))
-		throw LogicError("Derivation has a nullptr in the left side: " + boost::lexical_cast<std::string>(d));
+		throw LogicError("Derivation has a null pointer in the left side: " + boost::lexical_cast<std::string>(d));
 	if(std::any_of(d.right.begin(), d.right.end(), checkPtr))
-		throw LogicError("Derivation has a nullptr in the right side: " + boost::lexical_cast<std::string>(d));
+		throw LogicError("Derivation has a null pointer in the right side: " + boost::lexical_cast<std::string>(d));
 	if(std::any_of(d.rules.begin(), d.rules.end(), checkPtr))
-		throw LogicError("Derivation has a nullptr in the rule list: " + boost::lexical_cast<std::string>(d));
+		throw LogicError("Derivation has a null pointer in the rule list: " + boost::lexical_cast<std::string>(d));
 	auto innerRes = p->b.addDerivation(d, graphPolicy);
 	return p->dg_->getHyper().getInterfaceEdge(p->dg_->getNonHyper().getHyperEdge(innerRes.first));
 }
@@ -149,7 +149,7 @@ void Builder::load(const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase,
 	if(std::any_of(ruleDatabase.begin(), ruleDatabase.end(), [](const auto &r) {
 		return !r;
 	})) {
-		throw LogicError("Nullptr in rule database.");
+		throw LogicError("Null pointer in rule database.");
 	}
 
 	std::ostringstream err;

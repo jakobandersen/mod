@@ -66,7 +66,7 @@ std::string pdf(const Evaluator &rc) {
 
 void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const CoreCoreMap &match,
           const lib::Rules::Real &rNew) {
-	if(getConfig().rc.printMatchesOnlyHaxChem.get()) {
+	if(getConfig().rc.printMatchesOnlyHaxChem) {
 		const auto &lg = get_labelled_left(rNew.getDPORule());
 		const auto &g = get_graph(lg);
 		const auto &mol = get_molecule(lg);
@@ -110,7 +110,7 @@ void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const
 	Rules::Write::Options options;
 	options.CollapseHydrogens(true);
 	options.EdgesAsBonds(true);
-	if(getConfig().rc.matchesWithIndex.get())
+	if(getConfig().rc.matchesWithIndex)
 		options.WithIndex(true);
 	const auto visible = [](CoreVertex) {
 		return true;

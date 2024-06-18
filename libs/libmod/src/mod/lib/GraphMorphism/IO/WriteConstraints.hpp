@@ -64,6 +64,17 @@ struct ConstraintsTexPrintVisitor : Constraints::AllVisitor<Graph> {
 		s << " " << c.count << "\n\\end{align*}\n";
 	}
 
+	virtual void operator()(const Constraints::LabelAny<Graph> &c) override {
+		s << "$\\texttt{" << IO::escapeForLatex(c.label) << "} \\in \\{";
+		bool first = true;
+		for(const std::string &str: c.labels) {
+			if(!first) s << ", ";
+			first = false;
+			s << " \\text{`\\texttt{" << IO::escapeForLatex(str) << "}'}";
+		}
+		s << " \\}$\n";
+	}
+
 	virtual void operator()(const Constraints::ShortestPath<Graph> &c) override {
 		s << "$\\mathrm{shortestPath}(" << get(boost::vertex_index_t(), g, c.vSrc) << ", "
 		  << get(boost::vertex_index_t(), g, c.vTar) << ") ";
@@ -113,6 +124,15 @@ struct ConstraintsGMLPrintVisitor : Constraints::AllVisitor<Graph> {
 		s << " ]\n";
 		s << prefix << "	edgeLabels [";
 		for(const auto &str: c.edgeLabels) s << " label \"" << str << "\"";
+		s << " ]\n";
+		s << prefix << "]\n";
+	}
+
+	virtual void operator()(const Constraints::LabelAny<Graph> &c) {
+		s << prefix << "constrainLabelAny [\n";
+		s << prefix << "	label \"" << c.label << "\"\n";
+		s << prefix << "	labels [";
+		for(const auto &str: c.labels) s << " label \"" << str << "\"";
 		s << " ]\n";
 		s << prefix << "]\n";
 	}

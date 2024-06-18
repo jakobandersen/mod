@@ -86,7 +86,7 @@ void Repeat::executeImpl(PrintSettings settings, const GraphState &input) {
 				settings.indent() << "Round " << (i + 1) << ": Breaking repeat due to empty subset." << std::endl;
 			break;
 		}
-		if(!getConfig().dg.disableRepeatFixedPointCheck.get()) {
+		if(!getConfig().dg.disableRepeatFixedPointCheck) {
 			if(i > 0) {
 				if(subStrats.back()->getOutput() == subStrats[i - 1]->getOutput()) {
 					if(settings.verbosity >= PrintSettings::V_RepeatBreak)

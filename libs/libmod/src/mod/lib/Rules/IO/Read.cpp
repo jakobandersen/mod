@@ -1,5 +1,6 @@
 #include "Read.hpp"
 
+#include <mod/lib/GraphMorphism/Constraints/LabelAny.hpp>
 #include <mod/lib/GraphMorphism/Constraints/ShortestPath.hpp>
 #include <mod/lib/GraphMorphism/Constraints/VertexAdjacency.hpp>
 #include <mod/lib/IO/DFS.hpp>
@@ -63,6 +64,9 @@ Result<GML::Rule> parseGML(std::string_view input) {
 			(string("op", &GML::AdjacencyConstraint::op), 1, 1)
 			(int_("count", &GML::AdjacencyConstraint::count), 1, 1)
 			(nodeLabels)(edgeLabels);
+	auto constrainLabelAny = list<GML::LabelAnyConstraint>("constrainLabelAny", &GML::Rule::matchConstraints)
+			(string("label", &GML::LabelAnyConstraint::label), 1, 1)
+			(list<Parent>("labels")(string("label", &GML::LabelAnyConstraint::labels), 1), 1, 1);
 	auto constrainShortestPath = list<GML::ShortestPathConstraint>("constrainShortestPath",
 	                                                               &GML::Rule::matchConstraints)
 			(int_("source", &GML::ShortestPathConstraint::source), 1, 1)
@@ -78,7 +82,7 @@ Result<GML::Rule> parseGML(std::string_view input) {
 			(makeSide("left", &GML::Rule::left), 0, 1)
 			(makeSide("context", &GML::Rule::context), 0, 1)
 			(makeSide("right", &GML::Rule::right), 0, 1)
-			(constrainAdj)(constrainShortestPath);
+			(constrainAdj)(constrainLabelAny)(constrainShortestPath);
 	auto iterBegin = &ast;
 	auto iterEnd = iterBegin + 1;
 	try {
@@ -184,6 +188,14 @@ struct MatchConstraintConverter {
 		>(vConstrained, op, cGML.count);
 		c->vertexLabels.insert(cGML.nodeLabels.begin(), cGML.nodeLabels.end());
 		c->edgeLabels.insert(cGML.edgeLabels.begin(), cGML.edgeLabels.end());
+		dpoResult.leftData.matchConstraints.push_back(std::move(c));
+		return Result<>();
+	}
+
+	Result<> operator()(const GML::LabelAnyConstraint &cGML) {
+		auto c = std::make_unique<
+				lib::GraphMorphism::Constraints::LabelAny<LabelledRule::SideGraphType>
+		>(cGML.label, cGML.labels);
 		dpoResult.leftData.matchConstraints.push_back(std::move(c));
 		return Result<>();
 	}

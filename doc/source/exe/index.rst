@@ -82,7 +82,8 @@ Execution Customization
 
 .. option:: -q
 
-  Use quiet mode. Certain messages are not printed.
+  Do not print messages from the wrapper script and the :py:func:`include` function.
+  This does not influence the library.
 
 .. envvar:: MOD_PYTHON
 

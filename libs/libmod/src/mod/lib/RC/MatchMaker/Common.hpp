@@ -40,7 +40,7 @@ struct Common {
 		if(labelSettings.withStereo && labelSettings.stereoRelation == LabelRelation::Specialisation) {
 			MOD_ABORT;
 		}
-		if(getConfig().rc.useBoostCommonSubgraph.get()) {
+		if(getConfig().rc.useBoostCommonSubgraph) {
 			lib::GraphMorphism::morphismSelectByLabelSettings(
 					lgDom, lgCodom, labelSettings,
 					lib::GraphMorphism::CommonSubgraphFinder<true>(maximum, connected),

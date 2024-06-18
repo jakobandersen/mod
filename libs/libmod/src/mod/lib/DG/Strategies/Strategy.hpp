@@ -13,8 +13,8 @@ namespace mod::lib::DG::Strategies {
 class GraphState;
 
 struct ExecutionEnv {
-	ExecutionEnv(LabelSettings labelSettings, Rules::GraphAsRuleCache &graphAsRuleCache)
-			: labelSettings(labelSettings), graphAsRuleCache(graphAsRuleCache) {}
+	ExecutionEnv(LabelSettings labelSettings, bool doRuleIsomorphism, Rules::GraphAsRuleCache &graphAsRuleCache)
+			: labelSettings(labelSettings), doRuleIsomorphism(doRuleIsomorphism), graphAsRuleCache(graphAsRuleCache) {}
 	virtual ~ExecutionEnv() {};
 	// May throw LogicError if exists.
 	virtual void tryAddGraph(std::shared_ptr<graph::Graph> g) = 0;
@@ -37,6 +37,7 @@ struct ExecutionEnv {
 	virtual void popRightPredicate() = 0;
 public:
 	const LabelSettings labelSettings;
+	const bool doRuleIsomorphism;
 	Rules::GraphAsRuleCache &graphAsRuleCache;
 };
 

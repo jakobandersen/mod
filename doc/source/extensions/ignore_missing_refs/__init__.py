@@ -11,7 +11,7 @@ exacts = {
 		"lib", "boost",
 	],
 	'py': [
-		"DGRuleRange", "DGSourceRange", "DGTargetRange", "DGOutEdgeRange", "DGInEdgeRange", "DGEdgeRange", "DGVertexRange",
+		"DG.RuleRange", "DG.SourceRange", "DG.TargetRange", "DG.OutEdgeRange", "DG.InEdgeRange", "DG.EdgeRange", "DG.VertexRange",
 	],
 }
 prefixes = {

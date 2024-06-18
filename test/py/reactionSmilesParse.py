@@ -1,5 +1,4 @@
-# type: str -> Rule
-def makeReactionSmiles(line):
+def parseReactionSmiles(line: str) -> Rule:
 	sLeft, sRight = line.split(">>")
 	ssLeft = sLeft.split(".")
 	ssRight = sRight.split(".")
@@ -25,7 +24,7 @@ def makeReactionSmiles(line):
 	for m in mRight:
 		s += printGraph(m)
 	s += "\t]\n]\n"
-	return ruleGMLString(s, add=False)
+	return Rule.fromGMLString(s, add=False)
 
 
 strs = [
@@ -34,7 +33,7 @@ strs = [
 	"[C:1]1([C:2]([H:10])=[C:3]([C:4]([O:5][C-:6]([H:14])[H:13])=[C:7]([C:0]=1[H:8])[H:12])[H:11])[H:9]>>[C:3]1([C-:4]=[C:7]([C:0]([H:8])=[C:1]([C:2]=1[H:10])[H:9])[H:12])[H:11].[C:6]([H:13])([H:14])=[O:5]",
 ]
 for s in strs:
-	r = makeReactionSmiles(s)
+	r = parseReactionSmiles(s)
 	p = GraphPrinter()
 	p.setReactionDefault()
 	p.withIndex = True

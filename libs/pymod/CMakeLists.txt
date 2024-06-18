@@ -30,14 +30,6 @@ set_target_properties(pymod PROPERTIES
         CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 target_compile_definitions(pymod PRIVATE PYMOD_SOURCE)
-if(ENABLE_IPO)
-    check_ipo_supported(RESULT result OUTPUT output)
-    if(result)
-        set_property(TARGET pymod PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
-    else()
-        message(FATAL_ERROR "Interprocedural optimization was requested ('ENABLE_IPO=on'), but it is not supported: ${output}")
-    endif()
-endif()
 
 install(TARGETS pymod
         EXPORT PROJECT_exports

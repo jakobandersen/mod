@@ -1,9 +1,9 @@
-#ifndef MOD_MISC_H
-#define MOD_MISC_H
+#ifndef MOD_MISC_HPP
+#define MOD_MISC_HPP
 
 #include <mod/BuildConfig.hpp>
-#include <mod/graph/ForwardDecl.hpp>
 #include <mod/dg/ForwardDecl.hpp>
+#include <mod/graph/ForwardDecl.hpp>
 
 #include <memory>
 #include <string>
@@ -32,4 +32,4 @@ MOD_DECL void printGeometryGraph();
 
 } // namespace mod
 
-#endif	/* MOD_MISC_H */
+#endif // MOD_MISC_HPP

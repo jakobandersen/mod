@@ -87,7 +87,7 @@ void Printer_doExport() {
 					// rst:			Create another version of the given hyperedge and give it the given duplicate number.
 					// rst:			It will connect to duplicate 0 of all head and tail vertices.
 					// rst:
-					// rst:			:param DGHyperEdge e: a reference to the derivation to duplicate.
+					// rst:			:param DG.HyperEdge e: a reference to the derivation to duplicate.
 					// rst:			:param int eDup: the duplicate number for the new version of the derivation.
 					// rst:			:raises: :class:`LogicError` if ``not e``.
 					// rst:			:raises: :class:`LogicError` if ``e.dg != dg``.
@@ -97,7 +97,7 @@ void Printer_doExport() {
 					// rst:
 					// rst:			Remove the version of the given hyperedge with the given duplicate number.
 					// rst:
-					// rst:			:param DGHyperEdge e: a reference to the derivation to duplicate.
+					// rst:			:param DG.HyperEdge e: a reference to the derivation to duplicate.
 					// rst:			:param int eDup: the duplicate number for the version of the derivation to remove.
 					// rst:			:raises: :class:`LogicError` if ``not e``.
 					// rst:			:raises: :class:`LogicError` if ``e.dg != dg``.
@@ -108,9 +108,9 @@ void Printer_doExport() {
 					// rst:			For the given hyperedge duplicate, reconnect the given source vertex to the given duplicate of that source.
 					// rst:			If the vertex is a source multiple times, then an arbitrary one of them is reconnected.
 					// rst:
-					// rst:			:param DGHyperEdge e: a reference to the derivation to reconnect.
+					// rst:			:param DG.HyperEdge e: a reference to the derivation to reconnect.
 					// rst:			:param int eDup: the duplicate number of the derivation to reconnect.
-					// rst:			:param DGVertex v: a source vertex to reconnect.
+					// rst:			:param DG.Vertex v: a source vertex to reconnect.
 					// rst:			:param int vDupTar: the new duplicate number for the source vertex.
 					// rst:			:raises: :class:`LogicError` if ``not e``.
 					// rst:			:raises: :class:`LogicError` if ``e.dg != dg``.
@@ -124,9 +124,9 @@ void Printer_doExport() {
 					// rst:			For the given hyperedge duplicate, reconnect the given head to the given duplicate of that head.
 					// rst:			If the vertex is a head multiple times, then an arbitrary one of them is reconnected.
 					// rst:
-					// rst:			:param DGHyperEdge e: a reference to the derivation to reconnect.
+					// rst:			:param DG.HyperEdge e: a reference to the derivation to reconnect.
 					// rst:			:param int eDup: the duplicate number of the derivation to reconnect.
-					// rst:			:param DGVertex v: a target vertex to reconnect.
+					// rst:			:param DG.Vertex v: a target vertex to reconnect.
 					// rst:			:param int vDupTar: the new duplicate number for the target vertex.
 					// rst:			:raises: :class:`LogicError` if ``not e``.
 					// rst:			:raises: :class:`LogicError` if ``e.dg != dg``.
@@ -150,6 +150,9 @@ void Printer_doExport() {
 			// rst:
 			// rst:			Access the :class:`GraphPrinter` used when printing images of graphs.
 			// rst:			Note that assignment to the property copies the argument.
+			// rst:
+			// rst:			The initial printer has :meth:`GraphPrinter.enableAll` called,
+			// rst:			and then indices are removed (:attr:`GraphPrinter.withIndex` set to ``False``).
 			// rst:
 			// rst:			:type: GraphPrinter
 			.add_property("graphPrinter",
@@ -182,7 +185,7 @@ void Printer_doExport() {
 					// rst:			All visibility functions must return ``true`` for a vertex to be visible.
 					// rst:
 					// rst:			:param f: the function or constant to push for specifying vertex visibility.
-					// rst:			:type f: Callable[[DGVertex], bool] or bool
+					// rst:			:type f: Callable[[DG.Vertex], bool] or bool
 			.def("pushVertexVisible", &Printer_pushVertexVisible)
 					// rst:		.. method:: popVertexVisible()
 					// rst:
@@ -196,7 +199,7 @@ void Printer_doExport() {
 					// rst:			All visibility functions must return ``true`` for a hyperedge to be visible.
 					// rst:
 					// rst:			:param f: the function or constant to push for specifying hyperedge visibility.
-					// rst:			:type f: Callable[[DGHyperEdge], bool] or bool
+					// rst:			:type f: Callable[[DG.HyperEdge], bool] or bool
 			.def("pushEdgeVisible", &Printer_pushEdgeVisible)
 					// rst:		.. method:: popEdgeVisible()
 					// rst:
@@ -235,7 +238,7 @@ void Printer_doExport() {
 					// rst:			The result of this function is added to the end of each label.
 					// rst:
 					// rst:			:param f: the function or constant to push for labelling vertices.
-					// rst:			:type f: Callable[[DGVertex], str] or str
+					// rst:			:type f: Callable[[DG.Vertex], str] or str
 			.def("pushVertexLabel", &Printer_pushVertexLabel)
 					// rst:		.. method:: popVertexLabel()
 					// rst:
@@ -248,7 +251,7 @@ void Printer_doExport() {
 					// rst:			Add another function or constant for edge labelling. The result of this function is appended to each label.
 					// rst:
 					// rst:			:param f: the function or constant to push for labelling edges.
-					// rst:			:type f: Callable[[DGHyperEdge], str] or str
+					// rst:			:type f: Callable[[DG.HyperEdge], str] or str
 			.def("pushEdgeLabel", &Printer_pushEdgeLabel)
 					// rst:		.. method:: popEdgeLabel()
 					// rst:
@@ -289,7 +292,7 @@ void Printer_doExport() {
 					// rst:			The edge extension of vertex colour takes lower precedence than explicitly added hyperedge colouring functions.
 					// rst:
 					// rst:			:param f: the function to push for colouring vertices.
-					// rst:			:type f: Callable[[DGVertex], str] or str
+					// rst:			:type f: Callable[[DG.Vertex], str] or str
 					// rst:			:param bool extendToEdges: whether some hyperedges are coloured as well (see above).
 			.def("pushVertexColour", &Printer_pushVertexColour)
 					// rst:		.. method:: popVertexColour()
@@ -304,7 +307,7 @@ void Printer_doExport() {
 					// rst:			first colour function returning a non-empty string.
 					// rst:
 					// rst:			:param f: the function or constant to push for colouring hyperedges.
-					// rst:			:type f: Callable[[DGHyperEdge], str] or str
+					// rst:			:type f: Callable[[DG.HyperEdge], str] or str
 			.def("pushEdgeColour", &Printer_pushEdgeColour)
 					// rst:		.. method:: popEdgeColour()
 					// rst:
@@ -349,7 +352,7 @@ void Printer_doExport() {
 					// rst:			The image overwrite can be removed by calling with ``None``.
 					// rst:
 					// rst:			:param f: the callback to use, or ``None`` to remove an existing callback.
-					// rst:			:type f: Callable[[DGVertex, int], tuple[str, str]] or None
+					// rst:			:type f: Callable[[DG.Vertex, int], tuple[str, str]] or None
 			.def("setImageOverwrite", &Printer_setImageOverride)
 					// rst:		.. attribute:: graphvizPrefix
 					// rst:

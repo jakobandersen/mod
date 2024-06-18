@@ -103,7 +103,7 @@ struct MatchMakerCallback {
 				logger.indent() << "RuleComp\t" << rResult->getName()
 				                << "\t= " << rFirst.getName()
 				                << "\t. " << rSecond.getName() << std::endl;
-			if(getConfig().rc.printMatches.get()) {
+			if(getConfig().rc.printMatches) {
 				RC::Write::test(rFirst, rSecond, m, *rResult);
 			}
 			const bool cont = rr(std::move(rResult));
@@ -128,7 +128,7 @@ void composeRuleRealByMatchMakerGeneric(const lib::Rules::Real &rFirst,
                                         MatchMaker mm,
                                         std::function<bool(std::unique_ptr<lib::Rules::Real>)> rr,
                                         LabelSettings labelSettings) {
-	if(getConfig().rc.printMatches.get())
+	if(getConfig().rc.printMatches)
 		IO::post() << "summarySection \"RC Matches\"\n";
 	mm.makeMatches(rFirst, rSecond, detail::MatchMakerCallback(rr), labelSettings);
 }

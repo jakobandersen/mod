@@ -6,5 +6,5 @@ strat = (addUniverse(water) >> addSubset(ribuloseP)
 		transAldo >> transKeto,
 		aldoKetoB >> aldolase >> phosphohydro
 	])
-dg = dgRuleComp(inputGraphs, strat)
-dg.calc()
+dg = DG(graphDatabase=inputGraphs)
+dg.build().execute(strat)

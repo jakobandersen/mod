@@ -28,11 +28,12 @@ DG::InEdgeRange DG::Vertex::inEdges() const {
 }
 
 DG::OutEdgeRange DG::Vertex::outEdges() const {
-	if(!g) throw LogicError("Can not get in-edges on a null vertex.");
+	if(!g) throw LogicError("Can not get out-edges on a null vertex.");
 	return OutEdgeRange(g, vId);
 }
 
 std::shared_ptr<graph::Graph> DG::Vertex::getGraph() const {
+	if(!g) throw LogicError("Can not get graph on a null vertex.");
 	const auto &hyper = g->getHyper();
 	const auto v = hyper.getInternalVertex(*this);
 	return hyper.getGraph()[v].graph->getAPIReference();
@@ -100,7 +101,7 @@ bool DG::HyperEdge::isNull() const {
 }
 
 std::size_t DG::HyperEdge::getId() const {
-	if(isNull()) throw LogicError("Can not get id on a null hyperedge.");
+	if(isNull()) throw LogicError("Can not get ID on a null hyperedge.");
 	const auto &dg = g->getHyper().getGraph();
 	using boost::vertices;
 	auto v = *std::next(vertices(dg).first, eId);
@@ -108,42 +109,42 @@ std::size_t DG::HyperEdge::getId() const {
 }
 
 std::shared_ptr<DG> DG::HyperEdge::getDG() const {
-	if(isNull()) throw LogicError("Can not get derivation graph on a null hyperedge.");
+	if(isNull()) throw LogicError("Can not get DG on a null hyperedge.");
 	return g;
 }
 
 std::size_t DG::HyperEdge::numSources() const {
-	if(isNull()) throw LogicError("Can not get number of sources on a null edge.");
+	if(isNull()) throw LogicError("Can not get number of sources on a null hyperedge.");
 	const auto &dg = g->getHyper();
 	const auto v = dg.getInternalVertex(*this);
 	return in_degree(v, dg.getGraph());
 }
 
 DG::SourceRange DG::HyperEdge::sources() const {
-	if(isNull()) throw LogicError("Can not get sources on a null edge.");
+	if(isNull()) throw LogicError("Can not get sources on a null hyperedge.");
 	return SourceRange(g, eId);
 }
 
 std::size_t DG::HyperEdge::numTargets() const {
-	if(isNull()) throw LogicError("Can not get number of targets on a null edge.");
+	if(isNull()) throw LogicError("Can not get number of targets on a null hyperedge.");
 	const auto &dg = g->getHyper();
 	const auto v = dg.getInternalVertex(*this);
 	return out_degree(v, dg.getGraph());
 }
 
 DG::TargetRange DG::HyperEdge::targets() const {
-	if(isNull()) throw LogicError("Can not get targets on a null edge.");
+	if(isNull()) throw LogicError("Can not get targets on a null hyperedge.");
 	return TargetRange(g, eId);
 }
 
 DG::RuleRange DG::HyperEdge::rules() const {
-	if(isNull()) throw LogicError("Can not get rules on a null edge.");
+	if(isNull()) throw LogicError("Can not get rules on a null hyperedge.");
 	return RuleRange(*this);
 }
 
 DG::HyperEdge DG::HyperEdge::getInverse() const {
-	if(isNull()) throw LogicError("Can not get inverse of null edge.");
-	if(!getDG()->isLocked()) throw LogicError("Can not get inverse edge before the DG is locked.");
+	if(isNull()) throw LogicError("Can not get inverse on a null hyperedge.");
+	if(!getDG()->isLocked()) throw LogicError("Can not get inverse before the DG is locked.");
 	const auto &dg = g->getHyper();
 	const auto v = dg.getInternalVertex(*this);
 	return dg.getInterfaceEdge(dg.getReverseEdge(v));
@@ -152,8 +153,8 @@ DG::HyperEdge DG::HyperEdge::getInverse() const {
 std::vector<std::pair<std::string, std::string> >
 DG::HyperEdge::print(const graph::Printer &printer, const std::string &nomatchColour,
                      const std::string &matchColour, int verbosity) const {
-	if(isNull()) throw LogicError("Can not print null edge.");
-	if(rules().size() == 0) throw LogicError("The edge has no rules.");
+	if(isNull()) throw LogicError("Can not print a null hyperedge.");
+	if(rules().size() == 0) throw LogicError("The hyperedge has no rules.");
 	const auto &dg = g->getHyper();
 	const auto v = dg.getInternalVertex(*this);
 	return lib::DG::Write::summaryDerivation(g->getNonHyper(), v, printer.getOptions(), nomatchColour, matchColour,

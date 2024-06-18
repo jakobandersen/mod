@@ -1,6 +1,6 @@
 include("../xxx_helpers.py")
 
-fail(lambda: DGVertexMapper(DGHyperEdge()),
+fail(lambda: DGVertexMapper(DG.HyperEdge()),
 	"Can not find vertex maps for null edge.")
 
 O = smiles("[O]", name="O")

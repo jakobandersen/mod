@@ -1,6 +1,7 @@
 #ifndef MOD_LIB_GRAPHMORPHISM_ALLVISITOR_HPP
 #define MOD_LIB_GRAPHMORPHISM_ALLVISITOR_HPP
 
+#include <mod/lib/GraphMorphism/Constraints/LabelAny.hpp>
 #include <mod/lib/GraphMorphism/Constraints/ShortestPath.hpp>
 #include <mod/lib/GraphMorphism/Constraints/VertexAdjacency.hpp>
 #include <mod/lib/GraphMorphism/Constraints/Visitor.hpp>
@@ -20,6 +21,7 @@ struct AllVisitorNonConst : BaseVisitorNonConst<Graph>, Visitor<Cs<Graph> > ... 
 
 template<typename Graph>
 struct AllVisitor : detail::AllVisitor<Graph,
+/*   */ LabelAny,
 /*   */ ShortestPath,
 /*   */ VertexAdjacency
 > {
@@ -27,6 +29,7 @@ struct AllVisitor : detail::AllVisitor<Graph,
 
 template<typename Graph>
 struct AllVisitorNonConst : detail::AllVisitorNonConst<Graph,
+/*   */ LabelAny,
 /*   */ ShortestPath,
 /*   */ VertexAdjacency
 > {

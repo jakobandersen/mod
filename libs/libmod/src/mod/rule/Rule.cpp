@@ -78,7 +78,7 @@ Rule::RightGraph Rule::getRight() const {
 
 std::shared_ptr<Rule> Rule::makeInverse() const {
 	lib::Rules::LabelledRule dpoRule(getRule().getDPORule(), true);
-	if(getConfig().rule.ignoreConstraintsDuringInversion.get()) {
+	if(getConfig().rule.ignoreConstraintsDuringInversion) {
 		if(get_match_constraints(get_labelled_left(dpoRule)).size() > 0
 		   || get_match_constraints(get_labelled_right(dpoRule)).size() > 0) {
 			std::cout << "WARNING: inversion of rule strips constraints.\n";
@@ -92,11 +92,14 @@ std::shared_ptr<Rule> Rule::makeInverse() const {
 		}
 	}
 	dpoRule.invert();
-	const bool ignore = getConfig().rule.ignoreConstraintsDuringInversion.get();
+	const bool ignore = getConfig().rule.ignoreConstraintsDuringInversion;
 	if(ignore) dpoRule.rightData.matchConstraints.clear();
 	auto rInner = std::make_unique<lib::Rules::Real>(std::move(dpoRule), getLabelType());
 	rInner->setName(this->getName() + ", inverse");
-	return makeRule(std::move(rInner), *p->externalToInternalIds);
+	if(p->externalToInternalIds)
+		return makeRule(std::move(rInner), *p->externalToInternalIds);
+	else
+		return makeRule(std::move(rInner), {});
 }
 
 std::pair<std::string, std::string> Rule::print() const {
@@ -225,7 +228,7 @@ std::shared_ptr<Rule> handleLoadedRule(lib::IO::Result<lib::Rules::Read::Data> d
 	assert(data.rule->pString);
 	if(invert) {
 		if(!get_match_constraints(get_labelled_left(*data.rule)).empty()) {
-			const bool ignore = getConfig().rule.ignoreConstraintsDuringInversion.get();
+			const bool ignore = getConfig().rule.ignoreConstraintsDuringInversion;
 			std::string msg = "The rule '";
 			if(data.name) msg += *data.name;
 			else msg += "anon";
@@ -233,9 +236,7 @@ std::shared_ptr<Rule> handleLoadedRule(lib::IO::Result<lib::Rules::Read::Data> d
 			msg += dataSource;
 			msg += " has matching constraints ";
 			if(!ignore) {
-				msg += "and can not be reversed. Use ";
-				msg += getConfig().rule.ignoreConstraintsDuringInversion.getName();
-				msg += " == true to strip constraints.";
+				msg += "and can not be reversed. Use config.rule.ignoreConstraintsDuringInversion == True to strip constraints.";
 				throw InputError(std::move(msg));
 			} else {
 				msg += "and these will be stripped from the reversed rule.";

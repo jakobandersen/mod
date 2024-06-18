@@ -59,5 +59,11 @@
 		"5004_exec_space_simple.py": "900_epim/4_exec_space_simple.py",
 		"5005_exec_space_recursive.py": "900_epim/5_exec_space_recursive.py",
 		"5006_hospital.py": "900_epim/6_hospital.py"
+	},
+	{
+		"050_flow/500_basicFlow.py": "050_hyperflow/500_basicFlow.py",
+		"050_flow/501_extraConstraints.py": "050_hyperflow/501_extraConstraints.py",
+		"050_flow/502_multipleSolutions.py": "050_hyperflow/502_multipleSolutions.py",
+		"050_flow/510_autocatalysis.py": "050_hyperflow/510_autocatalysis.py"
 	}
 ]

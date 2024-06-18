@@ -92,7 +92,7 @@ private:
 			auto maybeMap = matchFromPosition(rFirst, rSecond, position);
 			if(!maybeMap) {
 				if(verbosity >= V_MorphismGen)
-					std::cout << "Super: matchFromPosition returned none." << std::endl;
+					logger.indent() << "Super: matchFromPosition returned none." << std::endl;
 				continue;
 			}
 			auto map = *std::move(maybeMap);

@@ -35,3 +35,10 @@
    ...
    fun:_PyObject_GC_Resize
 }
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   ...
+   fun:_PyObject_GC_NewVar
+}

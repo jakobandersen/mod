@@ -38,7 +38,7 @@ NonHyper::NonHyper(LabelSettings labelSettings,
                    const std::vector<std::shared_ptr<graph::Graph> > &graphDatabase, IsomorphismPolicy graphPolicy)
 		: id(nextDGNum++),
 		  labelSettings(labelSettings),
-		  graphDatabase(labelSettings, getConfig().graph.isomorphismAlg.get()) {
+		  graphDatabase(labelSettings, getConfig().graph.isomorphismAlg) {
 	switch(graphPolicy) {
 	case IsomorphismPolicy::TrustMe:
 		for(const auto &gCand : graphDatabase) {

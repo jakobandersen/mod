@@ -104,7 +104,7 @@ void Composition_doExport() {
 					// rst:			Print the graph representing all expressions evaluated so far.
 			.def("print", &Composer::print);
 
-	// rst: .. method:: rcEvaluator(database, labelSettings)
+	// rst: .. method:: rcEvaluator(database, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
 	// rst:
 	// rst:		:param database: a list of isomorphic rules the evaluator will compare against.
 	// rst:		:type database: list[Rule]

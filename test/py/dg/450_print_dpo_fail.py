@@ -1,12 +1,12 @@
 include("../xxx_helpers.py")
 
-e = DGHyperEdge()
-fail(lambda: e.print(), "Can not print null edge.")
+e = DG.HyperEdge()
+fail(lambda: e.print(), "Can not print a null hyperedge.")
 
 dg = DG()
 dg.build().addAbstract("A -> B")
 e = next(iter(dg.edges))
-fail(lambda: e.print(), "The edge has no rules.")
+fail(lambda: e.print(), "The hyperedge has no rules.")
 
 r = ruleGMLString("""rule [
 	left [ node [ id 1 label "B" ] ]

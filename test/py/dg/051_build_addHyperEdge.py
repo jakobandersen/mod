@@ -18,7 +18,7 @@ assert dg.numEdges == 1
 
 dg2 = DG()
 with dg2.build() as b:
-	fail(lambda: b.addHyperEdge(DGHyperEdge()), "The hyperedge is null.")
+	fail(lambda: b.addHyperEdge(DG.HyperEdge()), "The hyperedge is null.")
 
 	e2 = b.addHyperEdge(e)
 

@@ -13,7 +13,7 @@ change = ruleGMLString("""rule [
 	right   [   node [ id 0 stereo "tetrahedral[1, 2, 3, 4]!" ]   ]
 ]""")
 
-dg = dgRuleComp(inputGraphs, addSubset(inputGraphs) >> repeat(change),
+dg = DG(graphDatabase=inputGraphs,
 	# seldctino of attributes and morphisms for matching
 	labelSettings=LabelSettings(
 		# use terms as labels, instead of strings
@@ -24,7 +24,7 @@ dg = dgRuleComp(inputGraphs, addSubset(inputGraphs) >> repeat(change),
 		# with specialisation in the morphisms
 		LabelRelation.Specialisation)
 )
-dg.calc()
+dg.build().execute(addSubset(inputGraphs) >> repeat(change))
 
 p = GraphPrinter()
 p.setMolDefault()

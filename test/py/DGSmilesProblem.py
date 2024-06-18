@@ -130,6 +130,6 @@ right [
 	edge [ source 96 target 97 label "-" ]
 ]
 ]""")
-dg = dgRuleComp([a], addSubset(a) >> p)
-dg.calc()
+dg = DG(graphDatabase=[a])
+dg.build().execute(addSubset(a) >> p)
 dg.print()

@@ -130,7 +130,7 @@ summaryDerivation(const NonHyper &dg,
 				const lib::Rules::Real &rLower,
 				const lib::Rules::GraphType &gUpper, const lib::Rules::GraphType &gLower,
 				const auto &m, const std::string &strMatch) {
-			if(!getConfig().dg.dryDerivationPrinting.get()) {
+			if(!getConfig().dg.dryDerivationPrinting) {
 				if(first) printHeader();
 				first = false;
 

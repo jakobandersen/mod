@@ -14,7 +14,8 @@ PropTerm::PropTerm(const GraphType &g, const PropString &pString, const StringSt
 	// take every unique string and parse it
 	std::unordered_map<std::string, std::size_t> labelToAddress;
 	lib::Term::RawAppendStore varToAddr;
-	const auto handleLabel = [&stringStore, &labelToAddress, &varToAddr, this](const std::string &label) -> std::size_t {
+	const auto handleLabel = [&stringStore, &labelToAddress, &varToAddr, this](
+			const std::string &label) -> std::size_t {
 		// if there is a * in the label, then we can not just use label caching
 		if(label.find('*') == std::string::npos) {
 			auto iter = labelToAddress.find(label);
@@ -33,17 +34,27 @@ PropTerm::PropTerm(const GraphType &g, const PropString &pString, const StringSt
 		return addr.addr;
 	};
 	this->vertexState.resize(num_vertices(g));
-	for(Vertex v : asRange(vertices(g))) {
+	for(Vertex v: asRange(vertices(g))) {
 		std::size_t vId = get(boost::vertex_index_t(), *this->g, v);
 		assert(vId < this->vertexState.size());
 		this->vertexState[vId] = handleLabel(pString[v]);
 	}
 	this->edgeState.reserve(num_edges(g));
-	for(Edge e : asRange(edges(g))) {
+	for(Edge e: asRange(edges(g))) {
 		assert(get(boost::edge_index_t(), g, e) == this->edgeState.size());
 		this->edgeState.push_back(handleLabel(pString[e]));
 	}
+	for(const auto &c: machine.getHeap()) {
+		if(c.tag == Term::Cell::Tag::REF) {
+			hasVariables = true;
+			break;
+		}
+	}
 	verify(this->g);
+}
+
+bool PropTerm::getHasVariables() const {
+	return hasVariables;
 }
 
 const std::string &PropTerm::getParsingError() const {

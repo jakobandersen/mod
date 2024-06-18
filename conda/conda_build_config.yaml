@@ -8,7 +8,7 @@ python:
   - 3.11
   - 3.12
 boost:
-  - 1.78.0  # currently globally pinned version in conda-forge
+  - 1.84.0  # currently globally pinned version in conda-forge
 pin_run_as_build:
   python: x.x
   boost: x.x.x

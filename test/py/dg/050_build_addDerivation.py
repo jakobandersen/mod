@@ -68,14 +68,14 @@ fail(lambda: DG().build().addDerivation(d), "Isomorphic graphs. Candidate graph 
 d = Derivations()
 d.left = [None]
 d.right = [smiles("O")]
-fail(lambda: DG().build().addDerivation(d), "Derivation has a nullptr in the left side: " + str(d))
+fail(lambda: DG().build().addDerivation(d), "Derivation has a null pointer in the left side: " + str(d))
 d.left = [smiles("O")]
 d.right = [None]
-fail(lambda: DG().build().addDerivation(d), "Derivation has a nullptr in the right side: " + str(d))
+fail(lambda: DG().build().addDerivation(d), "Derivation has a null pointer in the right side: " + str(d))
 d.left = [smiles("O")]
 d.right = [smiles("O")]
 d.rules = [None]
-fail(lambda: DG().build().addDerivation(d), "Derivation has a nullptr in the rule list: " + str(d))
+fail(lambda: DG().build().addDerivation(d), "Derivation has a null pointer in the rule list: " + str(d))
 
 
 g = smiles("O")

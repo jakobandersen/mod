@@ -10,11 +10,13 @@
 namespace mod::dg::Py {
 
 void GraphInterface_doExport() {
-	// rst: .. class:: DGVertex
+	py::object DGobj = py::scope().attr("DG");
+	py::scope DGscope = DGobj;
+	// rst: .. class:: DG.Vertex
 	// rst:
 	// rst:		A descriptor of either a vertex in a derivation graph, or a null vertex.
 	// rst:
-	py::class_<DG::Vertex>("DGVertex", py::no_init)
+	py::class_<DG::Vertex>("Vertex", py::no_init)
 			// rst:		.. method:: __init__()
 			// rst: 
 			// rst:			Constructs a null descriptor.
@@ -59,7 +61,7 @@ void GraphInterface_doExport() {
 					// rst:
 					// rst:			(Read-only) A range of in-hyperedges for this vertex.
 					// rst:
-					// rst:			:type: DGInEdgeRange
+					// rst:			:type: DG.InEdgeRange
 					// rst:			:raises: :class:`LogicError` if it is a null descriptor.
 			.add_property("inEdges", &DG::Vertex::inEdges)
 					// rst:		.. attribute:: outDegree
@@ -73,7 +75,7 @@ void GraphInterface_doExport() {
 					// rst:
 					// rst:			(Read-only) A range of out-hyperedges for this vertex.
 					// rst:
-					// rst:			:type: DGOutEdgeRange
+					// rst:			:type: DG.OutEdgeRange
 					// rst:			:raises: :class:`LogicError` if it is a null descriptor.
 			.add_property("outEdges", &DG::Vertex::outEdges)
 					// rst:		.. attribute:: graph
@@ -84,11 +86,11 @@ void GraphInterface_doExport() {
 					// rst:			:raises: :class:`LogicError` if it is a null descriptor.
 			.add_property("graph", &DG::Vertex::getGraph);
 
-	// rst: .. class:: DGHyperEdge
+	// rst: .. class:: DG.HyperEdge
 	// rst:
 	// rst:		A descriptor of either a hyperedge in a derivation graph, or a null edge.
 	// rst:
-	py::class_<DG::HyperEdge>("DGHyperEdge", py::no_init)
+	py::class_<DG::HyperEdge>("HyperEdge", py::no_init)
 			// rst:		.. method:: __init__()
 			// rst:
 			// rst:			Constructs a null descriptor.
@@ -132,7 +134,7 @@ void GraphInterface_doExport() {
 					// rst:
 					// rst:			(Read-only) The sources of the hyperedge.
 					// rst:
-					// rst:			:type: DGSourceRange
+					// rst:			:type: DG.SourceRange
 					// rst: 		:raises: :class:`LogicError` if it is a null descriptor.
 			.add_property("sources", &DG::HyperEdge::sources)
 					// rst:		.. attribute:: numTargets
@@ -145,14 +147,14 @@ void GraphInterface_doExport() {
 					// rst:
 					// rst:			(Read-only) The targets of the hyperedge.
 					// rst:
-					// rst:			:type: DGTargetRange
+					// rst:			:type: DG.TargetRange
 					// rst: 		:raises: :class:`LogicError` if it is a null descriptor.
 			.add_property("targets", &DG::HyperEdge::targets)
 					// rst:		.. attribute:: rules
 					// rst:
 					// rst:			(Read-only) The rules associated with the hyperedge.
 					// rst:
-					// rst:			:type: DGRuleRange
+					// rst:			:type: DG.RuleRange
 					// rst:			:raises: :class:`LogicError` if it is a null descriptor.
 			.add_property("rules", &DG::HyperEdge::rules)
 					// rst:		.. attribute:: inverse
@@ -160,7 +162,7 @@ void GraphInterface_doExport() {
 					// rst:			(Read-only) A descriptor for the inverse hyperedge of this one, if it exists.
 					// rst:			Otherwise a null descriptor is returned.
 					// rst:
-					// rst:			:type: DGHyperEdge
+					// rst:			:type: DG.HyperEdge
 					// rst:			:raises: :class:`LogicError` if it is a null descriptor.
 					// rst:			:raises: :class:`LogicError` if not ``dg.locked``.
 			.add_property("inverse", &DG::HyperEdge::getInverse)
@@ -185,19 +187,19 @@ void GraphInterface_doExport() {
 					py::arg("verbosity") = 0)
 			);
 
-	py::class_<DG::VertexRange>("DGVertexRange", py::no_init)
+	py::class_<DG::VertexRange>("VertexRange", py::no_init)
 			.def("__iter__", py::iterator<DG::VertexRange>());
-	py::class_<DG::EdgeRange>("DGEdgeRange", py::no_init)
+	py::class_<DG::EdgeRange>("EdgeRange", py::no_init)
 			.def("__iter__", py::iterator<DG::EdgeRange>());
-	py::class_<DG::InEdgeRange>("DGInEdgeRange", py::no_init)
+	py::class_<DG::InEdgeRange>("InEdgeRange", py::no_init)
 			.def("__iter__", py::iterator<DG::InEdgeRange>());
-	py::class_<DG::OutEdgeRange>("DGOutEdgeRange", py::no_init)
+	py::class_<DG::OutEdgeRange>("OutEdgeRange", py::no_init)
 			.def("__iter__", py::iterator<DG::OutEdgeRange>());
-	py::class_<DG::SourceRange>("DGSourceRange", py::no_init)
+	py::class_<DG::SourceRange>("SourceRange", py::no_init)
 			.def("__iter__", py::iterator<DG::SourceRange>());
-	py::class_<DG::TargetRange>("DGTargetRange", py::no_init)
+	py::class_<DG::TargetRange>("TargetRange", py::no_init)
 			.def("__iter__", py::iterator<DG::TargetRange>());
-	py::class_<DG::RuleRange>("DGRuleRange", py::no_init)
+	py::class_<DG::RuleRange>("RuleRange", py::no_init)
 			.def("__iter__", py::iterator<DG::RuleRange>())
 			.def("__len__", &DG::RuleRange::size);
 }

@@ -75,6 +75,14 @@ PropString::PropString(const RuleType &rule,
 				c.edgeLabels.insert(termToString(t));
 		}
 
+		virtual void operator()(lib::GraphMorphism::Constraints::LabelAny<SideGraphType> &c) override {
+			assert(c.label.size() == 0);
+			assert(c.labels.size() == 0);
+			c.label = termToString(c.term);
+			for(const auto &t: c.terms)
+				c.labels.push_back(termToString(t));
+		}
+
 		virtual void operator()(lib::GraphMorphism::Constraints::ShortestPath<SideGraphType> &c) override {}
 	private:
 		HandlerType termToString;

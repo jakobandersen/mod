@@ -17,12 +17,14 @@ Builder_execute(std::shared_ptr<Builder> b, std::shared_ptr<Strategy> strategy, 
 } // namespace
 
 void Builder_doExport() {
+	py::object DGobj = py::scope().attr("DG");
+	py::scope DGscope = DGobj;
 	using AddDerivation = DG::HyperEdge (Builder::*)(const Derivations &, IsomorphismPolicy);
 	using AddHyperEdge = DG::HyperEdge (Builder::*)(const DG::HyperEdge &, IsomorphismPolicy);
 	using Apply = std::vector<DG::HyperEdge> (Builder::*)(const std::vector<std::shared_ptr<graph::Graph> > &,
 	                                                      std::shared_ptr<rule::Rule>, bool,
 	                                                      int, IsomorphismPolicy);
-	// rst: .. class:: DGBuilder
+	// rst: .. class:: DG.Builder
 	// rst:
 	// rst:		An RAII-style object obtained from :meth:`DG.build`.
 	// rst:		On destruction of an active builder object the owning :class:`DG` will be locked
@@ -34,12 +36,12 @@ void Builder_doExport() {
 	// rst:
 	// rst:			dg = DG()
 	// rst:			with dg.build() as b:
-	// rst:				# b is a DGBuilder
+	// rst:				# b is a DG.Builder
 	// rst:			# b has now been destructed and dg is locked.
 	// rst:
 	// rst:		Otherwise one can manually use ``del`` on the obtained builder to trigger the destruction.
 	// rst:
-	py::class_<Builder, std::shared_ptr<Builder>, boost::noncopyable>("_DGBuilder", py::no_init)
+	py::object BuilderObj = py::class_<Builder, std::shared_ptr<Builder>, boost::noncopyable>("Builder", py::no_init)
 			// rst:		.. attribute:: dg
 			// rst:
 			// rst:			The derivation graph this builder can modify.
@@ -60,7 +62,7 @@ void Builder_doExport() {
 					// rst:			:param Derivations d: a derivation to add a hyperedge for.
 					// rst:			:param IsomorphismPolicy graphPolicy: the isomorphism policy for adding the given graphs.
 					// rst:			:returns: the hyperedge corresponding to the given derivation.
-					// rst:			:rtype: DGHyperEdge
+					// rst:			:rtype: HyperEdge
 					// rst:			:raises: :class:`LogicError` if ``d.left`` or ``d.right`` is empty.
 					// rst:			:raises: :class:`LogicError` if a ``None``is in ``d.left``, ``d.right``, or ``d.rules``.
 					// rst:			:raises: :class:`LogicError` if ``graphPolicy == IsomorphismPolicy.Check`` and a given graph object
@@ -73,10 +75,10 @@ void Builder_doExport() {
 					// rst:			(from a different :class:`DG`).
 					// rst:			If it already exists, only add the rules to the edge.
 					// rst:
-					// rst:			:param DGHyperEdge e: a hyperedge to copy.
+					// rst:			:param HyperEdge e: a hyperedge to copy.
 					// rst:			:param IsomorphismPolicy graphPolicy: the isomorphism policy for adding the given graphs.
 					// rst:			:returns: the hyperedge corresponding to the copy of the given hyperedge.
-					// rst:			:rtype: DGHyperEdge
+					// rst:			:rtype: HyperEdge
 					// rst:			:raises: :class:`LogicError` if ``e`` is a null edge.
 					// rst:			:raises: :class:`LogicError` if ``graphPolicy == IsomorphismPolicy.Check`` and a given graph object
 					// rst:				is different but isomorphic to another given graph object or to a graph object already
@@ -93,7 +95,7 @@ void Builder_doExport() {
 					// rst:			:param bool ignoreRuleLabelTypes: whether rules in the strategy should be checked beforehand for
 					// rst:				whether they have an associated :class:`LabelType` which matches the one in the underlying derivation graph.
 					// rst:			:returns: a proxy object for accessing the result of the execution.
-					// rst:			:rtype: DGExecuteResult
+					// rst:			:rtype: ExecuteResult
 					// rst:			:throws: :class:`LogicError` if a static "add" strategy has :attr:`IsomorphismPolicy.Check` as graph policy,
 					// rst:				and it tries to add a graph object isomorphic to an already known, but different, graph object in the database.
 					// rst:				This is checked before execution, so there is strong exception guarantee.
@@ -125,7 +127,7 @@ void Builder_doExport() {
 					// rst:			:returns: a list of hyper edges representing the found direct derivations.
 					// rst:				The list may contain duplicates if there are multiple ways of constructing
 					// rst:				the same direct derivation when ignoring the specific match morphism.
-					// rst:			:rtype: list[DGHyperEdge]
+					// rst:			:rtype: list[HyperEdge]
 					// rst:			:raises: :class:`LogicError` if there is a ``None`` in ``graphs``.
 					// rst:			:raises: :class:`LogicError` if ``r`` is ``None``.
 					// rst:			:raises: :class:`LogicError` if ``graphPolicy == IsomorphismPolicy.Check`` and a given graph object
@@ -163,16 +165,17 @@ void Builder_doExport() {
 					// rst:			:type f: str or CWDPath
 					// rst:			:raises: :class:`LogicError` if there is a ``None`` in ``ruleDatabase``.
 					// rst:			:raises: :class:`LogicError` if the label settings of the dump does not match those of this DG.
-					// rst: 			:raises: :class:`InputError` if the file can not be opened or its content is bad.
+					// rst: 		:raises: :class:`InputError` if the file can not be opened or its content is bad.
 			.def("load", &Builder::load);
 
-	// rst: .. class:: DGExecuteResult
+	// rst: .. class:: DG.Builder.ExecuteResult
 	// rst:
-	// rst:		The result from calling :func:`DGBuilder.execute`.
+	// rst:		The result from calling :func:`DG.Builder.execute`.
 	// rst:
-	py::class_<ExecuteResult, std::shared_ptr<ExecuteResult>, boost::noncopyable>("DGExecuteResult", py::no_init)
+	py::scope Builderscope = BuilderObj;
+	py::class_<ExecuteResult, std::shared_ptr<ExecuteResult>, boost::noncopyable>("ExecuteResult", py::no_init)
 			// rst:		.. attribute:: subset
-			// rst:		                  universe
+			// rst:		               universe
 			// rst:
 			// rst:			(Read-only) Respectively the subset and the universe computed
 			// rst:			by the strategy execution (see also :ref:`dgStrat`).

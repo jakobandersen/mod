@@ -91,7 +91,7 @@ public:
 	                              LabelSettings labelSettings,
 	                              bool verbose, IO::Logger &logger)
 			: rsDom(rsDom), rsCodom(rsCodom), enforceConstraints(enforceConstraints), labelSettings(labelSettings),
-			  verbose(verbose), logger(logger), haxMorphismLimit(getConfig().rc.componentWiseMorphismLimit.get()) {}
+			  verbose(verbose), logger(logger), haxMorphismLimit(getConfig().rc.componentWiseMorphismLimit) {}
 
 	std::vector<Morphism> operator()(const std::size_t idDom, const std::size_t idCodom) const {
 		const auto doIt = [this, idDom, idCodom](auto mrStore) {

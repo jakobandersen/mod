@@ -9,7 +9,7 @@ namespace mod::dg::Py {
 void VertexMapper_doExport() {
 	// rst: .. class:: DGVertexMapper
 	// rst:
-	// rst:		A class for enumerating all valid vertex maps for a given :class:`DGHyperEdge`.
+	// rst:		A class for enumerating all valid vertex maps for a given :class:`DG.HyperEdge`.
 	// rst:		That is, for such a hyperedge, collect the graphs associated with
 	// rst:		respectively the source and target vertices, and create the disjoint union of those graphs.
 	// rst:		Let the result be the graphs :math:`G'` and :math:`H'`.
@@ -28,7 +28,7 @@ void VertexMapper_doExport() {
 			// rst:			By default all maps :math:`V(G) \rightarrow V(H)` are enumerated.
 			// rst:			To only enumerate a singular vertex map per rule, use ``upToIsomorphismG = True`` and ``leftLimit = rightLimit = 1``.
 			// rst:
-			// rst:			:param DGHyperEdge e: the hyperedge to construct vertex maps for.
+			// rst:			:param DG.HyperEdge e: the hyperedge to construct vertex maps for.
 			// rst:			:param bool upToIsomrophismG: whether to enumerate all :math:`m`, or just those such that all bottom spans
 			// rst:				:math:`(G\leftarrow D\rightarrow H)` up to isomorphism are generated.
 			// rst:			:param int leftLimit: after bottom span generation, find this many isomorphisms back to the sources of the hyperedge.
@@ -42,7 +42,7 @@ void VertexMapper_doExport() {
 					// rst:
 					// rst:			(Read-only) The hyperedge to calculate vertex maps for.
 					// rst:
-					// rst:			:type: DGHyperEdge
+					// rst:			:type: DG.HyperEdge
 			.def_readonly("edge", &VertexMapper::getEdge)
 					// rst:		.. attribute:: left
 					// rst:		               right

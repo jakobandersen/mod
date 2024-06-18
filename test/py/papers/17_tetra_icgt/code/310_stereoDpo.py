@@ -15,7 +15,7 @@ r = ruleGMLString("""rule [
 ]""")
 
 g = smiles("[C@](C)(P)(S)(O)")
-dg = dgRuleComp(inputGraphs, addSubset(g) >> r,
+dg = DG(graphDatabase=inputGraphs,
 	# seldctino of attributes and morphisms for matching
 	labelSettings=LabelSettings(
 		# use terms as labels, instead of strings
@@ -26,7 +26,7 @@ dg = dgRuleComp(inputGraphs, addSubset(g) >> r,
 		# with specialisation in the morphisms
 		LabelRelation.Specialisation)
 )
-dg.calc()
+dg.build().execute(addSubset(g) >> r)
 # print DPO digram with special settings
 p = GraphPrinter()
 p.setReactionDefault()

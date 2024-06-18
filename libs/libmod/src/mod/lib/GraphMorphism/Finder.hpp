@@ -94,7 +94,7 @@ struct DefaultFinderArgsProvider {
 	template<typename Graph>
 	friend std::vector<typename boost::graph_traits<Graph>::vertex_descriptor>
 	get_vertex_order(const DefaultFinderArgsProvider &, const Graph &g) {
-		if(getConfig().graph.vf2UseOrigVertexOrder.get())
+		if(getConfig().graph.vf2UseOrigVertexOrder)
 			return jla_boost::GraphMorphism::vertex_order_by_mult(g);
 		else
 			return vertex_order_by_max_connectivity(g);

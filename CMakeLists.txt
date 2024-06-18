@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 include(FindPythonModule)
 include(MODUtils)
@@ -53,7 +53,6 @@ option(BUILD_COVERAGE "Enable code coverage." OFF)
 option(ENABLE_SYMBOL_HIDING "Hide internal symbols in the library." ON)
 option(ENABLE_DEP_SYMBOL_HIDING "Hide symbols provided by library dependencies." ON)
 option(ENABLE_IPO "Using link-time optimization." ON)
-include(CheckIPOSupported)
 
 option(USE_NESTED_GRAPH_CANON "Use the GraphCanon version in external/graph_canon." ON)
 option(USE_NESTED_NLOHMANN_JSON "Use the nlohmann/json version in external/nlohmann_json." ON)
@@ -68,6 +67,19 @@ if(hasParent)
     set(BUILD_EXAMPLES 0)
     set(BUILD_TESTING 0)
     set(BUILD_COVERAGE 0)
+else()
+    set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
+    include(CheckIPOSupported)
+    if(ENABLE_IPO)
+        check_ipo_supported(RESULT result OUTPUT output)
+        if(result)
+            set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+        else()
+            message(FATAL_ERROR "Interprocedural optimization was requested ('ENABLE_IPO=on'), but it is not supported: ${output}")
+        endif()
+    else()
+        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION FALSE)
+    endif()
 endif()
 if(NOT BUILD_TESTING)
     set(BUILD_EXAMPLES OFF)
@@ -97,6 +109,7 @@ if(BUILD_PY_MOD)
         if(Boost_FOUND)
             find_package(Boost ${v} COMPONENTS ${lib})
             set(PYTHON_TARGET ${lib})
+            string(APPEND libmod_config_dependencies "find_dependency(Boost ${v} COMPONENTS ${lib})\n")
             break()
         endif()
     endforeach()
@@ -110,10 +123,8 @@ if(BUILD_TESTING)
 else()
     find_package(Boost ${v} REQUIRED COMPONENTS graph iostreams)
 endif()
-message(STATUS "(Boost include dir is ${Boost_INCLUDE_DIRS})")
-string(APPEND libmod_config_dependencies "set(Boost_NO_BOOST_CMAKE ON)\n")
-string(APPEND libmod_config_dependencies "set(BOOST_FOUND 0)\n") # TODO: remove when CMake 3.15 is required https://gitlab.kitware.com/cmake/cmake/issues/18590
 string(APPEND libmod_config_dependencies "find_dependency(Boost ${v} COMPONENTS graph iostreams)\n")
+message(STATUS "(Boost include dir is ${Boost_INCLUDE_DIRS})")
 
 
 # GraphCanon
@@ -210,13 +221,11 @@ endif()
 if(WITH_OPENBABEL)
     find_package(OpenBabel3 3)
     if(OpenBabel3_FOUND)
-        string(APPEND libmod_config_dependencies "set(OpenBabel3_FOUND 0)\n") # TODO: remove with CMake 3.15 is required https://gitlab.kitware.com/cmake/cmake/issues/18590
         string(APPEND libmod_config_dependencies "find_dependency(OpenBabel3 3)\n")
         list(APPEND libmod_config_find_files "FindOpenBabel3.cmake")
     else()
         find_package(OpenBabel2 2.3.2)
         if(OpenBabel2_FOUND)
-            string(APPEND libmod_config_dependencies "set(OpenBabel2_FOUND 0)\n") # TODO: remove with CMake 3.15 is required https://gitlab.kitware.com/cmake/cmake/issues/18590
             string(APPEND libmod_config_dependencies "find_dependency(OpenBabel2 2.3.2)\n")
             list(APPEND libmod_config_find_files "FindOpenBabel2.cmake")
         else()
@@ -248,6 +257,7 @@ endif()
 # -------------------------------------------------------------------------
 if(BUILD_PY_MOD)
     find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+    string(APPEND libmod_config_dependencies "find_dependency(Python3 REQUIRED COMPONENTS Interpreter Development)\n")
 endif()
 
 
@@ -274,6 +284,7 @@ string(APPEND libmod_config_dependencies "find_dependency(Threads)\n")
 if(BUILD_EPIM)
 
 endif()
+
 
 
 ###########################################################################

@@ -136,7 +136,7 @@ const std::string &Single::getGraphDFSWithIds() const {
 const std::string &Single::getSmiles() const {
 	if(getMoleculeState().getIsMolecule()) {
 		if(!smiles) {
-			if(getConfig().graph.useWrongSmilesCanonAlg.get()) {
+			if(getConfig().graph.useWrongSmilesCanonAlg) {
 				smiles = Chem::getSmiles(getGraph(), getMoleculeState(), nullptr, false);
 			} else {
 				getCanonForm(LabelType::String, false); // TODO: make the withStereo a parameter
@@ -147,7 +147,7 @@ const std::string &Single::getSmiles() const {
 	} else {
 		std::string text;
 		text += "Graph " + boost::lexical_cast<std::string>(getId()) + " with name '" + getName() +
-				"' is not a molecule.\n";
+		        "' is not a molecule.\n";
 		text += "Can not generate SMILES string. GraphDFS is\n\t" + getGraphDFS().first + "\n";
 		throw LogicError(std::move(text));
 	}
@@ -156,7 +156,7 @@ const std::string &Single::getSmiles() const {
 const std::string &Single::getSmilesWithIds() const {
 	if(getMoleculeState().getIsMolecule()) {
 		if(!smilesWithIds) {
-			if(getConfig().graph.useWrongSmilesCanonAlg.get()) {
+			if(getConfig().graph.useWrongSmilesCanonAlg) {
 				smilesWithIds = Chem::getSmiles(getGraph(), getMoleculeState(), nullptr, true);
 			} else {
 				getCanonForm(LabelType::String, false); // TODO: make the withStereo a parameter
@@ -167,7 +167,7 @@ const std::string &Single::getSmilesWithIds() const {
 	} else {
 		std::string text;
 		text += "Graph " + boost::lexical_cast<std::string>(getId()) + " with name '" + getName() +
-				"' is not a molecule.\n";
+		        "' is not a molecule.\n";
 		text += "Can not generate SMILES string. GraphDFS is\n\t" + getGraphDFS().first + "\n";
 		throw LogicError(std::move(text));
 	}
@@ -227,7 +227,7 @@ const Single::CanonForm &Single::getCanonForm(LabelType labelType, bool withSter
 	if(!canon_form_string) {
 		assert(!aut_group_string);
 		std::tie(canon_perm_string, canon_form_string, aut_group_string) = lib::Graph::getCanonForm(*this, labelType,
-																									withStereo);
+		                                                                                            withStereo);
 	}
 	assert(canon_form_string);
 	assert(aut_group_string);
@@ -250,20 +250,20 @@ namespace GM_MOD = lib::GraphMorphism;
 
 template<typename Finder, typename Callback>
 void morphism(const Single &gDomain,
-			  const Single &gCodomain,
-			  LabelSettings labelSettings,
-			  Finder finder,
-			  Callback callback) {
+              const Single &gCodomain,
+              LabelSettings labelSettings,
+              Finder finder,
+              Callback callback) {
 	lib::GraphMorphism::morphismSelectByLabelSettings(gDomain.getLabelledGraph(), gCodomain.getLabelledGraph(),
-													  labelSettings, finder, callback);
+	                                                  labelSettings, finder, callback);
 }
 
 template<typename Finder>
 std::size_t morphismMax(const Single &gDomain,
-						const Single &gCodomain,
-						std::size_t maxNumMatches,
-						LabelSettings labelSettings,
-						Finder finder) {
+                        const Single &gCodomain,
+                        std::size_t maxNumMatches,
+                        LabelSettings labelSettings,
+                        Finder finder) {
 	auto mr = GM::makeLimit(maxNumMatches);
 	morphism(gDomain, gCodomain, labelSettings, finder, std::ref(mr));
 	return mr.getNumHits();
@@ -275,13 +275,20 @@ std::size_t isomorphismSmilesOrCanonOrVF2(const Single &gDom, const Single &gCod
 	// first try if we can compare canonical SMILES strings
 	if(!labelSettings.withStereo
 	   && get_molecule(ggDom).getIsMolecule() && get_molecule(ggCodom).getIsMolecule()
-	   && !getConfig().graph.useWrongSmilesCanonAlg.get())
+	   && !getConfig().graph.useWrongSmilesCanonAlg)
 		return gDom.getSmiles() == gCodom.getSmiles() ? 1 : 0;
 
 	// otherwise maybe we can still do canonical form comparison
-	if(labelSettings.type == LabelType::String && !labelSettings.withStereo
-	   && get_molecule(ggDom).getHasOnlyChemicalBonds() && get_molecule(ggCodom).getHasOnlyChemicalBonds()) {
-		return canonicalCompare(gDom, gCodom, labelSettings.type, labelSettings.withStereo) ? 1 : 0;
+	if(!labelSettings.withStereo
+	   && get_molecule(ggDom).getHasOnlyChemicalBonds()
+	   && get_molecule(ggCodom).getHasOnlyChemicalBonds()) {
+		if(labelSettings.type == LabelType::String) {
+			return canonicalCompare(gDom, gCodom, labelSettings.type, false) ? 1 : 0;
+		} else {
+			assert(labelSettings.type == LabelType::Term);
+			if(!get_term(ggDom).getHasVariables() && !get_term(ggCodom).getHasVariables())
+				return canonicalCompare(gDom, gCodom, LabelType::String, false) ? 1 : 0;
+		}
 	}
 
 	// otherwise, we have no choice but to use VF2
@@ -291,34 +298,34 @@ std::size_t isomorphismSmilesOrCanonOrVF2(const Single &gDom, const Single &gCod
 } // namespace
 
 std::size_t Single::isomorphismVF2(const Single &gDom, const Single &gCodom, std::size_t maxNumMatches,
-								   LabelSettings labelSettings) {
+                                   LabelSettings labelSettings) {
 	return morphismMax(gDom, gCodom, maxNumMatches, labelSettings, GM_MOD::VF2Isomorphism());
 }
 
 bool Single::isomorphic(const Single &gDom, const Single &gCodom, LabelSettings labelSettings) {
-	++getConfig().graph.numIsomorphismCalls();
+	++getConfig().graph.numIsomorphismCalls;
 	const auto nDom = num_vertices(gDom.getGraph());
 	const auto nCodom = num_vertices(gCodom.getGraph());
 	if(nDom != nCodom) return false; // early bail-out
 	if(&gDom == &gCodom) return true;
-	switch(getConfig().graph.isomorphismAlg.get()) {
-		case Config::IsomorphismAlg::SmilesCanonVF2:
-			return isomorphismSmilesOrCanonOrVF2(gDom, gCodom, labelSettings);
-		case Config::IsomorphismAlg::VF2:
-			return isomorphismVF2(gDom, gCodom, 1, labelSettings);
-		case Config::IsomorphismAlg::Canon:
-			if(labelSettings.relation != LabelRelation::Isomorphism)
-				throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism relation.");
-			if(labelSettings.withStereo && labelSettings.stereoRelation != LabelRelation::Isomorphism)
-				throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism stereo relation.");
-			return canonicalCompare(gDom, gCodom, labelSettings.type, labelSettings.withStereo);
+	switch(getConfig().graph.isomorphismAlg) {
+	case Config::IsomorphismAlg::SmilesCanonVF2:
+		return isomorphismSmilesOrCanonOrVF2(gDom, gCodom, labelSettings);
+	case Config::IsomorphismAlg::VF2:
+		return isomorphismVF2(gDom, gCodom, 1, labelSettings);
+	case Config::IsomorphismAlg::Canon:
+		if(labelSettings.relation != LabelRelation::Isomorphism)
+			throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism relation.");
+		if(labelSettings.withStereo && labelSettings.stereoRelation != LabelRelation::Isomorphism)
+			throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism stereo relation.");
+		return canonicalCompare(gDom, gCodom, labelSettings.type, labelSettings.withStereo);
 	}
 	MOD_ABORT;
 }
 
 std::size_t
 Single::isomorphism(const Single &gDom, const Single &gCodom, std::size_t maxNumMatches, LabelSettings labelSettings) {
-	++getConfig().graph.numIsomorphismCalls();
+	++getConfig().graph.numIsomorphismCalls;
 	if(maxNumMatches == 1)
 		return isomorphic(gDom, gCodom, labelSettings) ? 1 : 0;
 	// this hax with name comparing is basically to make abstract derivation graphs
@@ -339,7 +346,7 @@ Single::monomorphism(const Single &gDom, const Single &gCodom, std::size_t maxNu
 namespace {
 
 auto makeMorphismEnumerationCallback(const Single &gDom, const Single &gCodom,
-									 std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback) {
+                                     std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback) {
 	return GM::makeSliceProps( // Slice away the properties for now
 			GM::makeTransform(
 					GM::ToInvertibleVectorVertexMap(),
@@ -374,17 +381,17 @@ auto makeMorphismEnumerationCallback(const Single &gDom, const Single &gCodom,
 } // namespace
 
 void Single::enumerateIsomorphisms(const Single &gDom, const Single &gCodom,
-								   std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
-								   LabelSettings labelSettings) {
+                                   std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
+                                   LabelSettings labelSettings) {
 	morphism(gDom, gCodom, labelSettings, GM_MOD::VF2Isomorphism(),
-			 makeMorphismEnumerationCallback(gDom, gCodom, callback));
+	         makeMorphismEnumerationCallback(gDom, gCodom, callback));
 }
 
 void Single::enumerateMonomorphisms(const Single &gDom, const Single &gCodom,
-									std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
-									LabelSettings labelSettings) {
+                                    std::function<bool(VertexMap<graph::Graph, graph::Graph>)> callback,
+                                    LabelSettings labelSettings) {
 	morphism(gDom, gCodom, labelSettings, GM_MOD::VF2Monomorphism(),
-			 makeMorphismEnumerationCallback(gDom, gCodom, callback));
+	         makeMorphismEnumerationCallback(gDom, gCodom, callback));
 }
 
 bool Single::nameLess(const Single *g1, const Single *g2) {
@@ -403,22 +410,22 @@ Single makePermutation(const Single &g) {
 	//		throw mod::FatalError("Can not (yet) permute graphs with stereo information.");
 	std::unique_ptr<PropString> pString;
 	auto gBoost = lib::makePermutedGraph(g.getGraph(),
-										 [&pString](GraphType &gNew) {
-											 pString.reset(new PropString(gNew));
-										 },
-										 [&g, &pString](Vertex vOld, const GraphType &gOld, Vertex vNew,
-														GraphType &gNew) {
-											 pString->addVertex(vNew, g.getStringState()[vOld]);
-										 },
-										 [&g, &pString](Edge eOld, const GraphType &gOld, Edge eNew, GraphType &gNew) {
-											 pString->addEdge(eNew, g.getStringState()[eOld]);
-										 }
+	                                     [&pString](GraphType &gNew) {
+		                                     pString.reset(new PropString(gNew));
+	                                     },
+	                                     [&g, &pString](Vertex vOld, const GraphType &gOld, Vertex vNew,
+	                                                    GraphType &gNew) {
+		                                     pString->addVertex(vNew, g.getStringState()[vOld]);
+	                                     },
+	                                     [&g, &pString](Edge eOld, const GraphType &gOld, Edge eNew, GraphType &gNew) {
+		                                     pString->addEdge(eNew, g.getStringState()[eOld]);
+	                                     }
 	);
 	Single gPerm(std::move(gBoost), std::move(pString), nullptr);
-	if(getConfig().graph.checkIsoInPermutation.get()) {
+	if(getConfig().graph.checkIsoInPermutation) {
 		const bool iso = 1 == Single::isomorphismVF2(g, gPerm, 1,
-													 {LabelType::String, LabelRelation::Isomorphism, false,
-													  LabelRelation::Isomorphism});
+		                                             {LabelType::String, LabelRelation::Isomorphism, false,
+		                                              LabelRelation::Isomorphism});
 		if(!iso) {
 			Write::Options graphLike, molLike;
 			graphLike.EdgesAsBonds(true).RaiseCharges(true).CollapseHydrogens(true).WithIndex(true);

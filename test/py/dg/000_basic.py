@@ -1,7 +1,7 @@
 include("xx0_helpers.py")
 
 g = smiles('O')
-v = DGVertex()
+v = DG.Vertex()
 
 dg =  DG()
 assert dg.id == 0
@@ -51,12 +51,11 @@ assert dg.labelSettings.relation == LabelRelation.Isomorphism
 assert dg.labelSettings.withStereo
 assert dg.labelSettings.stereoRelation == LabelRelation.Isomorphism
 
-fail(lambda: DG(graphDatabase=[None]), "Nullptr in graph database.")
+fail(lambda: DG(graphDatabase=[None]), "Null pointer in graph database.")
 g1 = smiles('O')
 g2 = smiles('O')
 fail(lambda: DG(graphDatabase=[g1, g2]), "Isomorphic graphs '{}' and '{}' in initial graph database.".format(g1.name, g2.name))
 dg = DG(graphDatabase=[g1, g2], graphPolicy=IsomorphismPolicy.TrustMe)
-
 
 dg = DG(graphDatabase=[g])
 assert dg.products == []

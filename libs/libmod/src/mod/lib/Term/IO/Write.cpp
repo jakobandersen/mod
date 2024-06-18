@@ -4,9 +4,8 @@
 
 #include <array>
 #include <iomanip>
-#include <unordered_set>
-
 #include <iostream>
+#include <sstream>
 
 namespace mod::lib::Term::Write {
 namespace {
@@ -51,18 +50,21 @@ std::ostream &rawTerm(const RawTerm &term, const StringStore &strings, std::ostr
 }
 
 std::ostream &element(Cell cell, const StringStore &strings, std::ostream &s) {
+	std::ostringstream res;
 	switch(cell.tag) {
 	case Cell::Tag::STR:
-		return s << "STR " << cell.STR.addr;
+		res << "STR " << cell.STR.addr;
+		break;
 	case Cell::Tag::Structure:
-		s << strings.getString(cell.Structure.name);
+		res << strings.getString(cell.Structure.name);
 		if(cell.Structure.arity > 0)
-			s << "/" << cell.Structure.arity;
-		return s;
+			res << "/" << cell.Structure.arity;
+		break;
 	case Cell::Tag::REF:
-		return s << "REF " << cell.REF.addr;
+		res << "REF " << cell.REF.addr;
 	}
-	__builtin_unreachable();
+	s << std::setw(10) << res.str();
+	return s;
 }
 
 void wam(const Wam &machine, const StringStore &strings, IO::Logger logger) {

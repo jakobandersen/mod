@@ -14,7 +14,7 @@ def processExamples(topSrcDir):
 			assert "title" in section
 		section['id'] = sec
 		section['exs'] = []
-		for ex in os.listdir(root + sec):
+		for ex in sorted(os.listdir(root + sec)):
 			if ex in ('out', 'summary'):
 				continue
 			exFull = root + sec + "/" + ex

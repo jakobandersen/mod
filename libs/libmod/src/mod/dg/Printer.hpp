@@ -98,14 +98,16 @@ private:
 // rst-class-start:
 struct MOD_DECL Printer {
 	Printer();
-	Printer(const Printer &) = delete;
-	Printer &operator=(const Printer &) = delete;
+	Printer(const Printer &other);
+	Printer &operator=(const Printer &other);
 	~Printer();
 	lib::DG::Write::Printer &getPrinter() const;
 	// rst: .. function:: graph::Printer &getGraphPrinter()
 	// rst:               const graph::Printer &getGraphPrinter() const
 	// rst:
 	// rst:		:returns: a reference to the :class:`graph::Printer` used for graphs in vertices of the DG.
+	// rst:			The initial :class:`graph::Printer` has :func:`graph::Printer::enableAll` called,
+	// rst:			and then indices are removed (:texpr:`graph::Printer::setWithIndex(false)`).
 	graph::Printer &getGraphPrinter();
 	const graph::Printer &getGraphPrinter() const;
 	// rst: .. function:: void setWithShortcutEdges(bool value)

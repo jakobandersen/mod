@@ -40,13 +40,18 @@ struct AdjacencyConstraint {
 	std::vector<std::string> nodeLabels, edgeLabels;
 };
 
+struct LabelAnyConstraint {
+	std::string label;
+	std::vector<std::string> labels;
+};
+
 struct ShortestPathConstraint {
 	int source, target;
 	std::string op;
 	int length;
 };
 
-using MatchConstraint = std::variant<AdjacencyConstraint, ShortestPathConstraint>;
+using MatchConstraint = std::variant<AdjacencyConstraint, LabelAnyConstraint, ShortestPathConstraint>;
 
 struct Rule {
 	std::optional<std::string> id;

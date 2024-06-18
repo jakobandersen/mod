@@ -39,7 +39,7 @@ aconitase = ruleGMLString("""rule [
 	]
 ]""")
 
-dg = dgRuleComp(inputGraphs, addSubset(cit, water) >> aconitase,
+dg = DG(graphDatabase=inputGraphs,
 	# seldctino of attributes and morphisms for matching
 	labelSettings=LabelSettings(
 		# use terms as labels, instead of strings
@@ -50,7 +50,7 @@ dg = dgRuleComp(inputGraphs, addSubset(cit, water) >> aconitase,
 		# with specialisation in the morphisms
 		LabelRelation.Specialisation)
 )
-dg.calc()
+dg.build().execute(addSubset(cit, water) >> aconitase)
 for e in dg.edges:
 	p = GraphPrinter()
 	p.withColour = True

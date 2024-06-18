@@ -15,12 +15,15 @@ res.list(withUniverse=True)
 
 
 print("deprecated dgRuleComp")
-dg = dgRuleComp([g1a], addSubset(g2a),
-	labelSettings=LabelSettings(LabelType.Term, LabelRelation.Isomorphism))
+dg = checkDeprecated(lambda: dgRuleComp([g1a], addSubset(g2a),
+	labelSettings=LabelSettings(LabelType.Term, LabelRelation.Isomorphism)))
 assert dg.labelSettings.type == LabelType.Term
 assert dg.labelSettings.relation == LabelRelation.Isomorphism
 assert dg.graphDatabase == [g1a]
+old = config.common.ignoreDeprecation
+config.common.ignoreDeprecation = True
 dg.calc(printInfo=False)
+config.common.ignoreDeprecation = old
 assert dg.graphDatabase == [g1a, g2a]
 
 

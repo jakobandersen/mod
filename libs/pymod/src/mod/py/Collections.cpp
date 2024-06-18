@@ -4,7 +4,6 @@
 #include <mod/dg/DG.hpp>
 #include <mod/dg/GraphInterface.hpp>
 #include <mod/dg/Strategies.hpp>
-#include <mod/dg/VertexMapper.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/rule/CompositionExpr.hpp>
 #include <mod/rule/Rule.hpp>
@@ -79,7 +78,6 @@ void Collections_doExport() {
 	makePair<std::string, bool>();
 	makePair<int, int>();
 	makePair<double, double>();
-	makePair<std::shared_ptr<rule::Rule>, dg::VertexMapper::Map>();
 
 	// Optional
 	py::to_python_converter<std::optional<int>, ToPythonOptionalValue<int>>();

@@ -1,17 +1,21 @@
 include("../xxx_helpers.py")
 
-p = DGPrinter()
-assert type(p.graphPrinter) == GraphPrinter
+# nested GraphPrinter
+assert type(DGPrinter().graphPrinter) == GraphPrinter
 gp = GraphPrinter()
 gp.enableAll()
 gp.withIndex = False
-assert p.graphPrinter == gp
+assert DGPrinter().graphPrinter == gp
+# check that assignment is a true copy
 gp = GraphPrinter()
 assert not gp.withIndex
+p = DGPrinter()
 p.graphPrinter = gp
 gp.withIndex = True
 assert gp.withIndex
 assert not p.graphPrinter.withIndex
+
+# And now the rest of the DGPrinter
 
 p = DGPrinter()
 assert p.withShortcutEdges

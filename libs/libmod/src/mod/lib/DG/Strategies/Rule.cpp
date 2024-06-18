@@ -116,7 +116,7 @@ void handleBoundRulePair(int verbosity, IO::Logger logger, Context context, cons
 		}
 	}
 	{ // now the derivation is good, so add the products to output
-		if(getConfig().dg.putAllProductsInSubset.get()) {
+		if(getConfig().dg.putAllProductsInSubset) {
 			for(const auto &g: d.right)
 				context.output->addToSubset(&g->getGraph());
 		} else {
@@ -263,6 +263,7 @@ void Rule::executeImpl(PrintSettings settings, const GraphState &input) {
 				firstGraph, lastGraph, inputRules,
 				getExecutionEnv().graphAsRuleCache,
 				getExecutionEnv().labelSettings,
+				getExecutionEnv().doRuleIsomorphism,
 				onOutput);
 		if(round != 0) {
 			// in round 0 the inputRules is the actual original input rule, so don't delete it

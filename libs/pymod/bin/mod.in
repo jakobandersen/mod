@@ -13,7 +13,8 @@ function printHelp {
 	echo "  Execution Customization Options"
 	echo ""
 	echo "	-i              Enter interactive mode after execution, and disable the log."
-	echo "	-q              Use quiet mode."
+	echo "	-q              Do not print messages from this script and the include()-function."
+	echo "                  This does not influence the library."
 	echo ""
 	echo "  Post-processing Options"
 	echo ""
@@ -320,10 +321,10 @@ mod.includedFiles = set()
 def include(fName, checkDup=True, putDup=True, skipDup=True):
 	t = fName.rpartition("/")
 	if(fName != prefixFilename(fName)):
-		if not mod.config.common.quiet:
+		if not _modWrapperScriptQuiet:
 			print("Executing code from '", fName, "' ('", prefixFilename(fName), "')", sep="")
 	else:
-		if not mod.config.common.quiet:
+		if not _modWrapperScriptQuiet:
 			print("Executing code from '", fName, "'", sep="")
 	fPrefixed = prefixFilename(fName)
 	skip = False
@@ -340,7 +341,7 @@ def include(fName, checkDup=True, putDup=True, skipDup=True):
 	if t[1] != "":
 		pushFilePrefix(t[0] + t[1])
 	if skip:
-		if not mod.config.common.quiet:
+		if not _modWrapperScriptQuiet:
 			print("Skipping inclusion (already included)")
 	else:
 		with open(fPrefixed, 'rb') as f:
@@ -348,7 +349,7 @@ def include(fName, checkDup=True, putDup=True, skipDup=True):
 		exec(code, globals())
 	if t[1] != "":
 		popFilePrefix()
-	if not mod.config.common.quiet:
+	if not _modWrapperScriptQuiet:
 		if(fName != prefixFilename(fName)):
 			print("End of code from '", fName, "' ('", prefixFilename(fName), "')", sep="")
 		else:
@@ -376,7 +377,9 @@ EOF
 
 	echo '# From command line arguments' >> $pyFile
 	if test "$quiet" = "true"; then
-		echo "config.common.quiet = True" >> $pyFile
+		echo "_modWrapperScriptQuiet = True" >> $pyFile
+	else
+		echo "_modWrapperScriptQuiet = False" >> $pyFile
 	fi
 	while [ "$1" ]; do
 		case $1 in

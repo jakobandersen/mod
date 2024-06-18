@@ -19,16 +19,22 @@ r3 = makeRule("r3")
 r4 = makeRule("r4")
 
 print("DG1")
-dg1 = dgDerivations([
-	makeDer([a], r1, [b]),
-	makeDer([a], r2, [b]),
-	makeDer([a, a], r1, [b]),
-])
+dg1 = DG()
+with dg1.build() as builder:
+	for d in [
+		makeDer([a], r1, [b]),
+		makeDer([a], r2, [b]),
+		makeDer([a, a], r1, [b]),
+	]:
+		builder.addDerivation(d)
 print("DG2")
-dg2 = dgDerivations([
-	makeDer([a, a], r2, [b]),
-	makeDer([a], r1, [b]),
-])
+dg2 = DG()
+with dg2.build() as builder:
+	for d in [
+		makeDer([a, a], r2, [b]),
+		makeDer([a], r1, [b]),
+	]:
+		builder.addDerivation(d)
 diffDGs(dg1, dg2)
 dg1.print()
 dg2.print()

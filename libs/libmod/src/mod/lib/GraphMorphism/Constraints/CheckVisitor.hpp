@@ -14,6 +14,10 @@ struct CheckVisitor : AllVisitor<GraphDom> {
 		result = c.matches(*this, gDom, lgCodom, m, ls);
 	}
 
+	virtual void operator()(const LabelAny <GraphDom> &c) override {
+		result = c.matches(*this, gDom, lgCodom, m, ls);
+	}
+
 	virtual void operator()(const ShortestPath <GraphDom> &c) override {
 		result = c.matches(*this, gDom, lgCodom, m, ls);
 	}
