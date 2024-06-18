@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.7. Post &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.1.8. dg" href="dg/index.html" />
+    <link rel="prev" title="4.1.6. Misc" href="Misc.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.7. Post</a><ul>
+<li><a class="reference internal" href="#mod.makeUniqueFilePrefix"><code class="docutils literal notranslate"><span class="pre">makeUniqueFilePrefix()</span></code></a></li>
+<li><a class="reference internal" href="#post.command"><code class="docutils literal notranslate"><span class="pre">command()</span></code></a></li>
+<li><a class="reference internal" href="#post.flushCommands"><code class="docutils literal notranslate"><span class="pre">flushCommands()</span></code></a></li>
+<li><a class="reference internal" href="#post.disableCommands"><code class="docutils literal notranslate"><span class="pre">disableCommands()</span></code></a></li>
+<li><a class="reference internal" href="#post.enableCommands"><code class="docutils literal notranslate"><span class="pre">enableCommands()</span></code></a></li>
+<li><a class="reference internal" href="#post.reopenCommandFile"><code class="docutils literal notranslate"><span class="pre">reopenCommandFile()</span></code></a></li>
+<li><a class="reference internal" href="#post.summaryChapter"><code class="docutils literal notranslate"><span class="pre">summaryChapter()</span></code></a></li>
+<li><a class="reference internal" href="#post.summarySection"><code class="docutils literal notranslate"><span class="pre">summarySection()</span></code></a></li>
+<li><a class="reference internal" href="#post.summaryRaw"><code class="docutils literal notranslate"><span class="pre">summaryRaw()</span></code></a></li>
+<li><a class="reference internal" href="#post.summaryInput"><code class="docutils literal notranslate"><span class="pre">summaryInput()</span></code></a></li>
+<li><a class="reference internal" href="#post.disableInvokeMake"><code class="docutils literal notranslate"><span class="pre">disableInvokeMake()</span></code></a></li>
+<li><a class="reference internal" href="#post.enableInvokeMake"><code class="docutils literal notranslate"><span class="pre">enableInvokeMake()</span></code></a></li>
+<li><a class="reference internal" href="#post.disableCompileSummary"><code class="docutils literal notranslate"><span class="pre">disableCompileSummary()</span></code></a></li>
+<li><a class="reference internal" href="#post.enableCompileSummary"><code class="docutils literal notranslate"><span class="pre">enableCompileSummary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Misc.html" title="Previous Chapter: 4.1.6. Misc">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.6. Misc
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="dg/index.html" title="Next Chapter: 4.1.8. dg">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.8. dg &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="post">
+<span id="py-post"></span><h1><span class="section-number">4.1.7. </span>Post<a class="headerlink" href="#post" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.makeUniqueFilePrefix">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">makeUniqueFilePrefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.makeUniqueFilePrefix" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a string on the form <code class="docutils literal notranslate"><span class="pre">out/iii_</span></code> where <code class="docutils literal notranslate"><span class="pre">`iii`</span></code> is the next zero-padded integer
+from an internal counter.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-post">The <code class="docutils literal notranslate"><span class="pre">post</span></code> submodule contains various functions to manipulate post-processing (<a class="reference internal" href="../postmod/index.html#mod-post"><span class="std std-ref">PostMØD</span></a>).
+Commands for the post-processor are written to the command file <code class="docutils literal notranslate"><span class="pre">out/post.sh</span></code>
+which the post-processor executes internally as a Bash script.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="post.command">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#post.command" title="Link to this definition">¶</a></dt>
+<dd><p>Write the given text to the command file and write a newline character.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the text to be written.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The contents of the command file is executed without any security checks.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.flushCommands">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">flushCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.flushCommands" title="Link to this definition">¶</a></dt>
+<dd><p>Flush the command file buffer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.disableCommands">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">disableCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.disableCommands" title="Link to this definition">¶</a></dt>
+<dd><p>Disable command writing and flushing, also for commands emitted internally in the library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.enableCommands">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">enableCommands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.enableCommands" title="Link to this definition">¶</a></dt>
+<dd><p>Enable command writing and flushing, also for commands emitted internally in the library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.reopenCommandFile">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">reopenCommandFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.reopenCommandFile" title="Link to this definition">¶</a></dt>
+<dd><p>Reopen the command file, which may be useful if it was modified externally while open by the library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.summaryChapter">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">summaryChapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heading</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#post.summaryChapter" title="Link to this definition">¶</a></dt>
+<dd><p>Command the post-processor to insert a <code class="docutils literal notranslate"><span class="pre">\chapter</span></code> macro in the summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>heading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the chapter heading to insert.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.summarySection">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">summarySection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heading</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#post.summarySection" title="Link to this definition">¶</a></dt>
+<dd><p>Command the post-processor to insert a <code class="docutils literal notranslate"><span class="pre">\section</span></code> macro in the summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>heading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the section heading to insert.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.summaryRaw">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">summaryRaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latexCode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#post.summaryRaw" title="Link to this definition">¶</a></dt>
+<dd><p>Command the post-processor to insert the given code verbatim in the summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>latexCode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the code to insert.</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – if given then that will be appended to a unique prefix for the final filename the code is stored in.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.summaryInput">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">summaryInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#post.summaryInput" title="Link to this definition">¶</a></dt>
+<dd><p>Command the post-processor to insert a <code class="docutils literal notranslate"><span class="pre">\input</span></code> macro in the summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the filename to input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.disableInvokeMake">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">disableInvokeMake</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.disableInvokeMake" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="post.enableInvokeMake">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">enableInvokeMake</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.enableInvokeMake" title="Link to this definition">¶</a></dt>
+<dd><p>Disable/enable the invocation of Make in the post-processor.
+The processing of commands and generation of Makefiles will still be carried out,
+and Make invocation can be done manually afterwards through the post-processor</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="post.disableCompileSummary">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">disableCompileSummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.disableCompileSummary" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="post.enableCompileSummary">
+<span class="sig-prename descclassname"><span class="pre">post.</span></span><span class="sig-name descname"><span class="pre">enableCompileSummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#post.enableCompileSummary" title="Link to this definition">¶</a></dt>
+<dd><p>Disable/enable the compilation of the final summary during post-processing.
+The compilation can be invoked manually afterwards through the post-processor.</p>
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/pymod/Post.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

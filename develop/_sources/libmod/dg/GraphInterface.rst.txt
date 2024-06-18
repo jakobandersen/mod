@@ -1,0 +1,493 @@
+.. _cpp-dg/GraphInterface:
+
+**********************************************************
+dg/GraphInterface.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:expr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+This header contains the definitions for the hypergraph interface for :class:`dg::DG`.
+
+
+Class ``dg::DG::Vertex``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::Vertex
+    
+
+    A descriptor of either a vertex in a graph, or a null vertex.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::Vertex
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::Vertex
+
+.. function:: Vertex()
+
+    Constructs a null descriptor.
+.. function:: explicit operator bool() const
+
+    :returns: `!isNull()`
+.. function:: bool isNull() const
+
+    :returns: whether this is a null descriptor or not.
+.. function:: std::size_t getId() const
+
+    :returns: the index of the vertex. It will be in the range :math:`[0, numVertices + numEdges[`.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: std::shared_ptr<DG> getDG() const
+
+    :returns: the derivation graph the vertex belongs to.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: std::size_t inDegree() const
+
+    :returns: the in-degree of the vertex, including multiplicity of target multisets.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: InEdgeRange inEdges() const
+
+    :returns: a range of in-hyperedges for this vertex.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: std::size_t getOutDegree() const
+
+    :returns: the out-degree of the vertex, including multiplicity of source multisets.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: OutEdgeRange outEdges() const
+
+    :returns: a range of out-hyperedges for this vertex.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: std::shared_ptr<graph::Graph> &getGraph() const
+
+    :returns: the graph label of the vertex.
+    :throws: :class:`LogicError` if it is a null descriptor.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::HyperEdge``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::HyperEdge
+    
+
+    A descriptor of either a hyperedge in a derivation graph, or a null edge.
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::HyperEdge
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::HyperEdge
+
+.. function:: HyperEdge()
+
+    Constructs a null descriptor.
+.. function:: explicit operator bool() const
+
+    :returns: `!isNull()`
+.. function:: bool isNull() const
+
+    :returns: whether this is a null descriptor or not.
+.. function:: std::size_t getId() const
+
+    :returns: the index of the hyperedge. It will be in the range :math:`[0, numVertices + numEdges[`.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: std::shared_ptr<DG> getDG() const
+
+    :returns: the derivation graph the hyperedge belongs to.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: std::size_t numSources() const
+
+    :returns: the number of sources of the hyperedge.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: SourceRange sources() const
+
+    :returns: the sources of the hyperedge.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: std::size_t numTargets() const
+
+    :returns: the number of targets of the hyperedge.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: TargetRange targets() const
+
+    :returns: the targets of the hyperedge.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: RuleRange rules() const
+
+    :returns: a range of the rules associated with the hyperedge.
+    :throws: :class:`LogicError` if it is a null descriptor.
+.. function:: HyperEdge getInverse() const
+
+    :returns: a descriptor for the inverse hyperedge of this one, if it exists.
+        Otherwise a null descriptor is returned.
+    :throws: :class:`LogicError` if it is a null descriptor.
+    :throws: :class:`LogicError` if not `getDG()->isLocked()`.
+.. function:: std::vector<std::pair<std::string, std::string>> \
+              print(const graph::Printer &printer, const std::string &nomatchColour, const std::string &matchColour, int verbosity) const
+
+    Print the derivations represented by the hyperedge.
+    All possible Double-Pushout diagrams are printed.
+    The `matchColour` must be a valid colour for TikZ, which is applied to the rule
+    and its image in the bottom span.
+
+    :param verbosity: the level of debug information to print. Defaults to 0.
+
+        - 0 (or less): print no information.
+        - 1: print debug information within the outer printing algorithm, but not debug information related to rule composition.
+        - 10: also print information for morphism generation for rule composition.
+        - 20: also print rule composition information.
+
+    :returns: A list with file data for each DPO diagram printed.
+        Each element is a pair of filename prefixes, where the first entry is completed by appending ``_derL``, ``_derK``, or ``_derR``.
+        The second entry is completed similarly by appending ``_derG``, ``_derD``, or ``_derH``.
+    :throws: :class:`LogicError` if it is a null descriptor.
+    :throws: :class:`LogicError` if it has no rules.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::VertexIterator``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::VertexIterator
+    
+
+    An iterator for traversing all vertices in a derivation graph.
+    It models a forward iterator.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::VertexIterator
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::VertexIterator
+
+.. function:: VertexIterator()
+
+    Construct a past-the-end iterator.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::VertexRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::VertexRange
+    
+
+    A range of all vertices in a derivation graph.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::VertexRange
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``dg::DG::EdgeIterator``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::EdgeIterator
+    
+
+    An iterator for traversing all edges in a graph.
+    It models a forward iterator.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::EdgeIterator
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::EdgeIterator
+
+.. function:: EdgeIterator()
+
+    Construct a past-the-end iterator.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::EdgeRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::EdgeRange
+    
+
+    A range of all edges in a derivation graph.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::EdgeRange
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``dg::DG::InEdgeIterator``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::InEdgeIterator
+    
+
+    An iterator for enumerating all in-edges of a vertex.
+    It models a forward iterator.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::InEdgeIterator
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::InEdgeIterator
+
+.. function:: InEdgeIterator()
+
+    Construct a past-the-end iterator.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::InEdgeRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::InEdgeRange
+    
+
+    A range of all in-edges of a vertex.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::InEdgeRange
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``dg::DG::OutEdgeIterator``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::OutEdgeIterator
+    
+
+    An iterator for enumerating all out-edges of a vertex.
+    It models a forward iterator.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::OutEdgeIterator
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::OutEdgeIterator
+
+.. function:: OutEdgeIterator()
+
+    Construct a past-the-end iterator.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::OutEdgeRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::OutEdgeRange
+    
+
+    A range of all out-edges of a vertex.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::OutEdgeRange
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``dg::DG::SourceIterator``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::SourceIterator
+    
+
+    An iterator for enumerating all sources of a hyperedge.
+    It models a forward iterator.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::SourceIterator
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::SourceIterator
+
+.. function:: SourceIterator()
+
+    Construct a past-the-end iterator.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::SourceRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::SourceRange
+    
+
+    A range of all sources of a hyperedge.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::SourceRange
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``dg::DG::TargetIterator``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::TargetIterator
+    
+
+    An iterator for enumerating all targets of a hyperedge.
+    It models a forward iterator.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::TargetIterator
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::TargetIterator
+
+.. function:: TargetIterator()
+
+    Construct a past-the-end iterator.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::TargetRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::TargetRange
+    
+
+    A range of all sources of a hyperedge.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::TargetRange
+    :maxdepth: 2
+    :noroot:
+
+
+Class ``dg::DG::RuleIterator``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::RuleIterator
+    
+
+    An iterator for enumerating all rules of a hyperedge.
+    It models a forward iterator.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::RuleIterator
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG::RuleIterator
+
+.. function:: RuleIterator()
+
+    Construct a past-the-end iterator.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::DG::RuleRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG::RuleRange
+    
+
+    A range of all rules of a hyperedge.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG::RuleRange
+    :maxdepth: 2
+    :noroot:
+

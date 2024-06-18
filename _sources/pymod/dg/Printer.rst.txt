@@ -1,0 +1,275 @@
+.. _py-dg/Printer:
+
+**********************************************************
+dg/Printer
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: DGPrintData
+
+    This class is used to hold extra data about how a specific derivation graph
+    is visualised.
+
+    The idea is that in the visualized network each vertex/hyperedge is specified
+    by a pair :math:`(id, dup)` where :math:`id` is the ID of the vertex/hyperedge
+    and :math:`dup` is an versioning integer that can be specified in objects of this class.
+
+    Initially, each vertex/hyperedge has only one version: duplicate number 0.
+    The duplication is primarily specified via the hyperedges, with the duplication
+    of vertices being induced afterwards.
+    Thus hyperedge duplicates are managed by :func:`makeDuplicate` and :func:`removeDuplicate`,
+    while the vertex duplicates are managed implicitly by :func:`reconnectSource` and :func:`reconnectTarget`.
+    In the end, when the data is used for printing, it will be compiled to form the actual duplication data.
+
+    .. method:: __init__(dg)
+
+        Construct a data object where all derivations have a single version, duplicate number 0,
+        connected to version 0 of all heads and tails.
+
+        :param DG dg: the derivation graph to hold data for.
+        :raises: :class:`LogicError` if ``not dg.isLocked``.
+    .. attribute:: dg
+
+        (Read-only) The derivation graph the object holds data for.
+    .. method:: makeDuplicate(e, eDup)
+
+        Create another version of the given hyperedge and give it the given duplicate number.
+        It will connect to duplicate 0 of all head and tail vertices.
+
+        :param DG.HyperEdge e: a reference to the derivation to duplicate.
+        :param int eDup: the duplicate number for the new version of the derivation.
+        :raises: :class:`LogicError` if ``not e``.
+        :raises: :class:`LogicError` if ``e.dg != dg``.
+        :raises: :class:`LogicError` if duplicate ``eDup`` already exists for ``e``.
+    .. method:: removeDuplicate(e, eDup)
+
+        Remove the version of the given hyperedge with the given duplicate number.
+
+        :param DG.HyperEdge e: a reference to the derivation to duplicate.
+        :param int eDup: the duplicate number for the version of the derivation to remove.
+        :raises: :class:`LogicError` if ``not e``.
+        :raises: :class:`LogicError` if ``e.dg != dg``.
+        :raises: :class:`LogicError` if duplicate ``eDup`` does not exist for ``e``.
+    .. method:: reconnectSource(e, eDup, v, vDupTar)
+
+        For the given hyperedge duplicate, reconnect the given source vertex to the given duplicate of that source.
+        If the vertex is a source multiple times, then an arbitrary one of them is reconnected.
+
+        :param DG.HyperEdge e: a reference to the derivation to reconnect.
+        :param int eDup: the duplicate number of the derivation to reconnect.
+        :param DG.Vertex v: a source vertex to reconnect.
+        :param int vDupTar: the new duplicate number for the source vertex.
+        :raises: :class:`LogicError` if ``not e``.
+        :raises: :class:`LogicError` if ``e.dg != dg``.
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if ``v.dg != dg``.
+        :raises: :class:`LogicError` if ``v`` is not a source vertex of ``e``.
+        :raises: :class:`LogicError` if duplicate ``eDup`` does not exist for ``e``.
+    .. method:: reconnectTarget(e, eDup, v, vDupTar)
+
+        For the given hyperedge duplicate, reconnect the given head to the given duplicate of that head.
+        If the vertex is a head multiple times, then an arbitrary one of them is reconnected.
+
+        :param DG.HyperEdge e: a reference to the derivation to reconnect.
+        :param int eDup: the duplicate number of the derivation to reconnect.
+        :param DG.Vertex v: a target vertex to reconnect.
+        :param int vDupTar: the new duplicate number for the target vertex.
+        :raises: :class:`LogicError` if ``not e``.
+        :raises: :class:`LogicError` if ``e.dg != dg``.
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if ``v.dg != dg``.
+        :raises: :class:`LogicError` if ``v`` is not a target vertex of ``e``.
+        :raises: :class:`LogicError` if duplicate ``eDup`` does not exist for ``e``.
+.. class:: DGPrinter
+
+    This class is used to configure how derivation graphs are visualised,
+    how much is visualised and which extra properties are printed.
+
+    .. attribute:: graphPrinter
+
+        Access the :class:`GraphPrinter` used when printing images of graphs.
+        Note that assignment to the property copies the argument.
+
+        The initial printer has :meth:`GraphPrinter.enableAll` called,
+        and then indices are removed (:attr:`GraphPrinter.withIndex` set to ``False``).
+
+        :type: GraphPrinter
+    .. attribute:: withShortcutEdges
+
+        Control whether hyperedges :math:`(T, H)` with :math:`|T| = |H| = 1`
+        are printed as a simple arrow without the usual rectangle.
+
+        :type: bool
+    .. attribute:: withGraphImages
+
+        Control whether each vertex is printed with a image of its graph in it.
+
+        :type: bool
+    .. attribute:: labelsAsLatexMath
+
+        Control whether labels on vertices and hyperedges are put inline :math:`\LaTeX` math.
+        Specifically, a label ``label`` is written as ``$\mathrm{label'}$``, with ``label'`` being
+        ``label`` with all space characters escaped.
+
+        :type: bool
+    .. method:: pushVertexVisible(f)
+
+        Add another function or constant controlling the visibility of vertices.
+        All visibility functions must return ``true`` for a vertex to be visible.
+
+        :param f: the function or constant to push for specifying vertex visibility.
+        :type f: Callable[[DG.Vertex], bool] or bool
+    .. method:: popVertexVisible()
+
+        Remove the last pushed vertex visibility function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. method:: pushEdgeVisible(f)
+
+        Add another function or constant controlling the visibility of hyperedges.
+        All visibility functions must return ``true`` for a hyperedge to be visible.
+
+        :param f: the function or constant to push for specifying hyperedge visibility.
+        :type f: Callable[[DG.HyperEdge], bool] or bool
+    .. method:: popEdgeVisible()
+
+        Remove the last pushed hyperedge visibility function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. attribute:: withShortcutEdgesAfterVisibility
+
+        Control whether hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.
+
+        :type: bool
+    .. attribute:: vertexLabelSep
+
+        The string used as separator between each part of each vertex label.
+
+        :type: str
+    .. attribute:: edgeLabelSep
+
+        The string used as separator between each part of each edge label.
+
+        :type: str
+    .. method:: pushVertexLabel(f)
+
+        Add another function or constant for vertex labelling.
+        The result of this function is added to the end of each label.
+
+        :param f: the function or constant to push for labelling vertices.
+        :type f: Callable[[DG.Vertex], str] or str
+    .. method:: popVertexLabel()
+
+        Remove the last pushed vertex labelling function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. method:: pushEdgeLabel(f)
+
+        Add another function or constant for edge labelling. The result of this function is appended to each label.
+
+        :param f: the function or constant to push for labelling edges.
+        :type f: Callable[[DG.HyperEdge], str] or str
+    .. method:: popEdgeLabel()
+
+        Remove the last pushed edge labelling function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. attribute:: withGraphName
+
+        Control whether graph names are appended to the vertex labels (see also :meth:`DGPrinter.pushVertexLabel`).
+
+        :type: bool
+    .. attribute:: withRuleName
+
+        Control whether rule names are appended to the edge labels (see also :meth:`DGPrinter.pushEdgeLabel`).
+
+        :type: bool
+    .. attribute:: withRuleId
+
+        Control whether rule IDs are appended to the edge labels (see also :meth:`DGPrinter.pushEdgeLabel`).
+
+        :type: bool
+    .. attribute:: withInlineGraphs
+
+        Control whether graph depictions should be precompiled, or be included inline in the DG figure.
+
+        :type: bool
+    .. method:: pushVertexColour(f, extendToEdges=True)
+
+        Add another function or constant for colouring vertices. The final colour of a vertex is the result of the first colour function returning a non-empty string.
+        The functions are evaluated in the order they are pushed and the resulting string is used directly as a colour in Tikz.
+        A hyperedge is also coloured if at least one head and one tail *can* be coloured with a colour for which ``extendToEdges`` is ``True``.
+        In this case, the hyperedge (and a subset of the head and tail connectors) is coloured with the first applicable colour.
+        The edge extension of vertex colour takes lower precedence than explicitly added hyperedge colouring functions.
+
+        :param f: the function to push for colouring vertices.
+        :type f: Callable[[DG.Vertex], str] or str
+        :param bool extendToEdges: whether some hyperedges are coloured as well (see above).
+    .. method:: popVertexColour()
+
+        Remove the last pushed vertex colouring function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. method:: pushEdgeColour(f)
+
+        Add another function or constant for colouring hyperedges. The final colour of a hyperedge (and all of its head and tail connectors) is the result of the
+        first colour function returning a non-empty string.
+
+        :param f: the function or constant to push for colouring hyperedges.
+        :type f: Callable[[DG.HyperEdge], str] or str
+    .. method:: popEdgeColour()
+
+        Remove the last pushed hyperedge colouring function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. method:: setRotationOverwrite(f)
+
+        Overwrite the rotation set in the nested :class:`GraphPrinter`. The given function will be used
+        to set the rotation of each printed graph.
+
+        :param f: the constant or the function called on each graph to retrieve the rotation to render it with.
+        :type f: Callable[[Graph], int] or int
+    .. method:: setMirrorOverwrite(f)
+
+        Overwrite the mirror set in the nested :class:`GraphPrinter`. The given function will be used
+        to set the mirror of each printed graph.
+
+        :param f: the function called on each graph to retrieve the mirror to render it with.
+        :type f: Callable[[Graph], bool] or bool
+    .. method:: setImageOverwrite(f)
+
+        Overwrite the image generation for graphs depicted in the vertices of the printed derivation graph.
+        For each duplicate of each vertex to be depicted, the given callback is called.
+        It must then return two strings:
+
+        1. Either
+
+            - an empty string if the standard depiction should be used, in which case the second string is ignored, or
+            - the filename of the PDF that should be included in the final compiled figure.
+
+        2. Either
+
+            - an empty string if no additional post-processing command is needed, or
+            - a string of Bash code which will be inserted in the post-processing instructions.
+              For example, one can write out source code in the callback, and then return a command that compiles
+              that code into the PDF needed by inclusion.
+
+        The image overwrite can be removed by calling with ``None``.
+
+        :param f: the callback to use, or ``None`` to remove an existing callback.
+        :type f: Callable[[DG.Vertex, int], tuple[str, str]] or None
+    .. attribute:: graphvizPrefix
+
+        The string that will be inserted into generated DOT files,
+        just after the graph declaration.
+
+        :type: str
+    .. attribute:: tikzpictureOption
+
+        Access the string that will be inserted into generated Tikz files,
+        in the options for the ``\tikzpicture`` macro used for the DG.
+
+        :type: str

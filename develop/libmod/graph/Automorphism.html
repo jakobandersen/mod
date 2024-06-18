@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.12.1. graph/Automorphism.hpp &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.12.2. graph/ForwardDecl.hpp" href="ForwardDecl.html" />
+    <link rel="prev" title="3.2.12. graph" href="index.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.12.1. graph/Automorphism.hpp</a><ul>
+<li><a class="reference internal" href="#class-graph-graph-aut">3.2.12.1.1. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Aut</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph3AutE"><code class="docutils literal notranslate"><span class="pre">Aut</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.12.1.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.12.1.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph3AutixE6Vertex"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-graph-graph-autgroup">3.2.12.1.2. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::AutGroup</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroupE"><code class="docutils literal notranslate"><span class="pre">AutGroup</span></code></a></li>
+<li><a class="reference internal" href="#id1">3.2.12.1.2.1. Synopsis</a></li>
+<li><a class="reference internal" href="#id2">3.2.12.1.2.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroup8AutGroupENSt10shared_ptrIK5GraphEE13LabelSettings"><code class="docutils literal notranslate"><span class="pre">AutGroup()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph8AutGroup4gensEv"><code class="docutils literal notranslate"><span class="pre">gens()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-graph-graph-autgroup-gens">3.2.12.1.3. Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::AutGroup::Gens</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroup4GensE"><code class="docutils literal notranslate"><span class="pre">Gens</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="index.html" title="Previous Chapter: 3.2.12. graph">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.12. graph
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="ForwardDecl.html" title="Next Chapter: 3.2.12.2. graph/ForwardDecl.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.12.2. gra... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="graph-automorphism-hpp">
+<span id="cpp-graph-automorphism"></span><h1><span class="section-number">3.2.12.1. </span>graph/Automorphism.hpp<a class="headerlink" href="#graph-automorphism-hpp" title="Link to this heading">¶</a></h1>
+<section id="class-graph-graph-aut">
+<h2><span class="section-number">3.2.12.1.1. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::Aut</span></code><a class="headerlink" href="#class-graph-graph-aut" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph3AutE">
+<span id="_CPPv3N3mod5graph5Graph3AutE"></span><span id="_CPPv2N3mod5graph5Graph3AutE"></span><span id="mod::graph::Graph::Aut"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Aut</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph3AutE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A class representing an automorphism of a <a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Graph</span></code></a>.</p>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.12.1.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="GraphInterface.html#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph3AutixE6Vertex" title="mod::graph::Graph::Aut::operator[]"><span class="sig-name descname"><span class="pre">[]</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.12.1.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph3AutixE6Vertex">
+<span id="_CPPv3NK3mod5graph5Graph3AutixE6Vertex"></span><span id="_CPPv2NK3mod5graph5Graph3AutixE6Vertex"></span><span id="mod::graph::Graph::Aut::subscript-operator__VertexC"></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod5graph5Graph6VertexE" title="mod::graph::Graph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph3AutixE6Vertex" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the image of the given vertex under the permutation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="class-graph-graph-autgroup">
+<h2><span class="section-number">3.2.12.1.2. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::AutGroup</span></code><a class="headerlink" href="#class-graph-graph-autgroup" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph8AutGroupE">
+<span id="_CPPv3N3mod5graph5Graph8AutGroupE"></span><span id="_CPPv2N3mod5graph5Graph8AutGroupE"></span><span id="mod::graph::Graph::AutGroup"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AutGroup</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph8AutGroupE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A class representing the automorphism group of a <a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Graph</span></code></a>.</p>
+</dd></dl>
+
+<section id="id1">
+<h3><span class="section-number">3.2.12.1.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroup8AutGroupENSt10shared_ptrIK5GraphEE13LabelSettings" title="mod::graph::Graph::AutGroup::AutGroup"><span class="n"><span class="pre">AutGroup</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="n"><span class="pre">labelSettings</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroup4GensE" title="mod::graph::Graph::AutGroup::Gens"><span class="n"><span class="pre">Gens</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod5graph5Graph8AutGroup4gensEv" title="mod::graph::Graph::AutGroup::gens"><span class="n"><span class="pre">gens</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroupE" title="mod::graph::Graph::AutGroup"><span class="n"><span class="pre">AutGroup</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroup4GensE" title="mod::graph::Graph::AutGroup::Gens"><span class="n"><span class="pre">Gens</span></span></a><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id2">
+<h3><span class="section-number">3.2.12.1.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph8AutGroup8AutGroupENSt10shared_ptrIK5GraphEE13LabelSettings">
+<span id="_CPPv3N3mod5graph5Graph8AutGroup8AutGroupENSt10shared_ptrIK5GraphEE13LabelSettings"></span><span id="_CPPv2N3mod5graph5Graph8AutGroup8AutGroupENSt10shared_ptrIK5GraphEE13LabelSettings"></span><span id="mod::graph::Graph::AutGroup::AutGroup__std::shared_ptr:GraphC:.LabelSettings"></span><span class="sig-name descname"><span class="n"><span class="pre">AutGroup</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span>, <a class="reference internal" href="../Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">labelSettings</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph8AutGroup8AutGroupENSt10shared_ptrIK5GraphEE13LabelSettings" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod5graph5Graph8AutGroup4gensEv">
+<span id="_CPPv3NK3mod5graph5Graph8AutGroup4gensEv"></span><span id="_CPPv2NK3mod5graph5Graph8AutGroup4gensEv"></span><span id="mod::graph::Graph::AutGroup::gensC"></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroup4GensE" title="mod::graph::Graph::AutGroup::Gens"><span class="n"><span class="pre">Gens</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gens</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod5graph5Graph8AutGroup4gensEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a range of the generators for the group.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="class-graph-graph-autgroup-gens">
+<h2><span class="section-number">3.2.12.1.3. </span>Class <code class="docutils literal notranslate"><span class="pre">graph::Graph::AutGroup::Gens</span></code><a class="headerlink" href="#class-graph-graph-autgroup-gens" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod5graph5Graph8AutGroup4GensE">
+<span id="_CPPv3N3mod5graph5Graph8AutGroup4GensE"></span><span id="_CPPv2N3mod5graph5Graph8AutGroup4GensE"></span><span id="mod::graph::Graph::AutGroup::Gens"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod5graph5Graph8AutGroupE" title="mod::graph::Graph::AutGroup"><span class="n"><span class="pre">AutGroup</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Gens</span></span></span><a class="headerlink" href="#_CPPv4N3mod5graph5Graph8AutGroup4GensE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A random-access range of the generators for the automorphism group.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/graph/Automorphism.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

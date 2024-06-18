@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.2. Chem &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.1.3. Config" href="Config.html" />
+    <link rel="prev" title="4.1.1. Protocols" href="protocols.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.2. Chem</a><ul>
+<li><a class="reference internal" href="#mod.AtomId"><code class="docutils literal notranslate"><span class="pre">AtomId</span></code></a><ul>
+<li><a class="reference internal" href="#mod.AtomId.__init__"><code class="docutils literal notranslate"><span class="pre">AtomId.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.AtomId.symbol"><code class="docutils literal notranslate"><span class="pre">AtomId.symbol</span></code></a></li>
+<li><a class="reference internal" href="#mod.AtomId.__int__"><code class="docutils literal notranslate"><span class="pre">AtomId.__int__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Isotope"><code class="docutils literal notranslate"><span class="pre">Isotope</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Isotope.__init__"><code class="docutils literal notranslate"><span class="pre">Isotope.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Isotope.__int__"><code class="docutils literal notranslate"><span class="pre">Isotope.__int__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Charge"><code class="docutils literal notranslate"><span class="pre">Charge</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Charge.__init__"><code class="docutils literal notranslate"><span class="pre">Charge.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Charge.__int__"><code class="docutils literal notranslate"><span class="pre">Charge.__int__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.AtomData"><code class="docutils literal notranslate"><span class="pre">AtomData</span></code></a><ul>
+<li><a class="reference internal" href="#mod.AtomData.__init__"><code class="docutils literal notranslate"><span class="pre">AtomData.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.AtomData.atomId"><code class="docutils literal notranslate"><span class="pre">AtomData.atomId</span></code></a></li>
+<li><a class="reference internal" href="#mod.AtomData.isotope"><code class="docutils literal notranslate"><span class="pre">AtomData.isotope</span></code></a></li>
+<li><a class="reference internal" href="#mod.AtomData.charge"><code class="docutils literal notranslate"><span class="pre">AtomData.charge</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.BondType"><code class="docutils literal notranslate"><span class="pre">BondType</span></code></a><ul>
+<li><a class="reference internal" href="#mod.BondType.Invalid"><code class="docutils literal notranslate"><span class="pre">BondType.Invalid</span></code></a></li>
+<li><a class="reference internal" href="#mod.BondType.Single"><code class="docutils literal notranslate"><span class="pre">BondType.Single</span></code></a></li>
+<li><a class="reference internal" href="#mod.BondType.Aromatic"><code class="docutils literal notranslate"><span class="pre">BondType.Aromatic</span></code></a></li>
+<li><a class="reference internal" href="#mod.BondType.Double"><code class="docutils literal notranslate"><span class="pre">BondType.Double</span></code></a></li>
+<li><a class="reference internal" href="#mod.BondType.Triple"><code class="docutils literal notranslate"><span class="pre">BondType.Triple</span></code></a></li>
+<li><a class="reference internal" href="#mod.BondType.__str__"><code class="docutils literal notranslate"><span class="pre">BondType.__str__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.AtomIds"><code class="docutils literal notranslate"><span class="pre">AtomIds</span></code></a><ul>
+<li><a class="reference internal" href="#mod.AtomIds.Invalid"><code class="docutils literal notranslate"><span class="pre">AtomIds.Invalid</span></code></a></li>
+<li><a class="reference internal" href="#mod.AtomIds.Max"><code class="docutils literal notranslate"><span class="pre">AtomIds.Max</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="protocols.html" title="Previous Chapter: 4.1.1. Protocols">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.1. Protocols
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Config.html" title="Next Chapter: 4.1.3. Config">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.3. Config &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="chem">
+<span id="py-chem"></span><h1><span class="section-number">4.1.2. </span>Chem<a class="headerlink" href="#chem" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.AtomId">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomId</span></span><a class="headerlink" href="#mod.AtomId" title="Link to this definition">¶</a></dt>
+<dd><p>Representation of the chemical element of an atom.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.AtomId.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AtomIds.Invalid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomId.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Construct an atom ID from an integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the atomic number to construct from, or <a class="reference internal" href="#mod.AtomIds.Invalid" title="mod.AtomIds.Invalid"><code class="xref py py-const docutils literal notranslate"><span class="pre">AtomIds.Invalid</span></code></a> to explicitly signal an invalid atom.
+Must be at most the same value as <a class="reference internal" href="#mod.AtomIds.Max" title="mod.AtomIds.Max"><code class="xref py py-const docutils literal notranslate"><span class="pre">AtomIds.Max</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.AtomId.symbol">
+<span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#mod.AtomId.symbol" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The symbol represented by the atom id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the id is invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.AtomId.__int__">
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomId.__int__" title="Link to this definition">¶</a></dt>
+<dd><p>Implicit conversion to an integer type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Isotope">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Isotope</span></span><a class="headerlink" href="#mod.Isotope" title="Link to this definition">¶</a></dt>
+<dd><p>Representation of the isotope of an atom.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Isotope.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Isotope.__init__" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Construct a representation of an isotope.
+If an isotope number is given, that specific one is constructed,
+otherwise the most abundant one is implicitly constructed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is a difference between constructing the most abundant isotope implicitly and explicitly.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>i</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – An isotope number for explicit construction. Passing -1 is equivalent to default-construction.
+The number must be either -1 or at least 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Isotope.__int__">
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Isotope.__int__" title="Link to this definition">¶</a></dt>
+<dd><p>Implicit conversion to an integer type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Charge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Charge</span></span><a class="headerlink" href="#mod.Charge" title="Link to this definition">¶</a></dt>
+<dd><p>Representation of the charge of an atom.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Charge.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Charge.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Construct a charge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The charge to construct. Must be in the range <span class="math notranslate nohighlight">\([-9, 9]\)</span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Charge.__int__">
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Charge.__int__" title="Link to this definition">¶</a></dt>
+<dd><p>Implicit conversion to an integer type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.AtomData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomData</span></span><a class="headerlink" href="#mod.AtomData" title="Link to this definition">¶</a></dt>
+<dd><p>Representation of basic data of an atom.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.AtomData.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atomId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AtomIds.Invalid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Isotope()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Charge()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.AtomData.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Construct an atom data object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.AtomData.atomId">
+<span class="sig-name descname"><span class="pre">atomId</span></span><a class="headerlink" href="#mod.AtomData.atomId" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The atom id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.AtomId" title="mod.AtomId">AtomId</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.AtomData.isotope">
+<span class="sig-name descname"><span class="pre">isotope</span></span><a class="headerlink" href="#mod.AtomData.isotope" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The isotope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Isotope" title="mod.Isotope">Isotope</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.AtomData.charge">
+<span class="sig-name descname"><span class="pre">charge</span></span><a class="headerlink" href="#mod.AtomData.charge" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The charge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Charge" title="mod.Charge">Charge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.BondType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">BondType</span></span><a class="headerlink" href="#mod.BondType" title="Link to this definition">¶</a></dt>
+<dd><p>Representation of a bond type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.BondType.Invalid">
+<span class="sig-name descname"><span class="pre">Invalid</span></span><a class="headerlink" href="#mod.BondType.Invalid" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.BondType.Single">
+<span class="sig-name descname"><span class="pre">Single</span></span><a class="headerlink" href="#mod.BondType.Single" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.BondType.Aromatic">
+<span class="sig-name descname"><span class="pre">Aromatic</span></span><a class="headerlink" href="#mod.BondType.Aromatic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.BondType.Double">
+<span class="sig-name descname"><span class="pre">Double</span></span><a class="headerlink" href="#mod.BondType.Double" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.BondType.Triple">
+<span class="sig-name descname"><span class="pre">Triple</span></span><a class="headerlink" href="#mod.BondType.Triple" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.BondType.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.BondType.__str__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string representation of the bond type adhering to the string encoding of bonds (see <a class="reference internal" href="../graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>).</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the bond type is <a class="reference internal" href="#mod.BondType.Invalid" title="mod.BondType.Invalid"><code class="xref py py-const docutils literal notranslate"><span class="pre">Invalid</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.AtomIds">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">AtomIds</span></span><a class="headerlink" href="#mod.AtomIds" title="Link to this definition">¶</a></dt>
+<dd><p>This class contains constants for each chemical element, both as their abbreviations and their full names.
+Two additional constants are provided for convenience.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.AtomIds.Invalid">
+<span class="sig-name descname"><span class="pre">Invalid</span></span><a class="headerlink" href="#mod.AtomIds.Invalid" title="Link to this definition">¶</a></dt>
+<dd><p>Constant for the invalid atom id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.AtomId" title="mod.AtomId">AtomId</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.AtomIds.Max">
+<span class="sig-name descname"><span class="pre">Max</span></span><a class="headerlink" href="#mod.AtomIds.Max" title="Link to this definition">¶</a></dt>
+<dd><p>An atom id equal to the atom id with the maximum valid id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.AtomId" title="mod.AtomId">AtomId</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/pymod/Chem.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

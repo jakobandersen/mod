@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.9.2. graph/Graph &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.9.3. graph/GraphInterface" href="GraphInterface.html" />
+    <link rel="prev" title="4.1.9.1. graph/Automorphism" href="Automorphism.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.9.2. graph/Graph</a><ul>
+<li><a class="reference internal" href="#mod.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Graph.id"><code class="docutils literal notranslate"><span class="pre">Graph.id</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.aut"><code class="docutils literal notranslate"><span class="pre">Graph.aut()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.print"><code class="docutils literal notranslate"><span class="pre">Graph.print()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.printTermState"><code class="docutils literal notranslate"><span class="pre">Graph.printTermState()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.getGMLString"><code class="docutils literal notranslate"><span class="pre">Graph.getGMLString()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.printGML"><code class="docutils literal notranslate"><span class="pre">Graph.printGML()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.name"><code class="docutils literal notranslate"><span class="pre">Graph.name</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.smiles"><code class="docutils literal notranslate"><span class="pre">Graph.smiles</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.smilesWithIds"><code class="docutils literal notranslate"><span class="pre">Graph.smilesWithIds</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.graphDFS"><code class="docutils literal notranslate"><span class="pre">Graph.graphDFS</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.graphDFSWithIds"><code class="docutils literal notranslate"><span class="pre">Graph.graphDFSWithIds</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.linearEncoding"><code class="docutils literal notranslate"><span class="pre">Graph.linearEncoding</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.isMolecule"><code class="docutils literal notranslate"><span class="pre">Graph.isMolecule</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.energy"><code class="docutils literal notranslate"><span class="pre">Graph.energy</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.cacheEnergy"><code class="docutils literal notranslate"><span class="pre">Graph.cacheEnergy()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.exactMass"><code class="docutils literal notranslate"><span class="pre">Graph.exactMass</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.vLabelCount"><code class="docutils literal notranslate"><span class="pre">Graph.vLabelCount()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.eLabelCount"><code class="docutils literal notranslate"><span class="pre">Graph.eLabelCount()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.isomorphism"><code class="docutils literal notranslate"><span class="pre">Graph.isomorphism()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.monomorphism"><code class="docutils literal notranslate"><span class="pre">Graph.monomorphism()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.enumerateIsomorphisms"><code class="docutils literal notranslate"><span class="pre">Graph.enumerateIsomorphisms()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.enumerateMonomorphisms"><code class="docutils literal notranslate"><span class="pre">Graph.enumerateMonomorphisms()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.makePermutation"><code class="docutils literal notranslate"><span class="pre">Graph.makePermutation()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.image"><code class="docutils literal notranslate"><span class="pre">Graph.image</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.imageCommand"><code class="docutils literal notranslate"><span class="pre">Graph.imageCommand</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.instantiateStereo"><code class="docutils literal notranslate"><span class="pre">Graph.instantiateStereo()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.getVertexFromExternalId"><code class="docutils literal notranslate"><span class="pre">Graph.getVertexFromExternalId()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.minExternalId"><code class="docutils literal notranslate"><span class="pre">Graph.minExternalId</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.maxExternalId"><code class="docutils literal notranslate"><span class="pre">Graph.maxExternalId</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.loadingWarnings"><code class="docutils literal notranslate"><span class="pre">Graph.loadingWarnings</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#loading-functions">4.1.9.2.1. Loading Functions</a><ul>
+<li><a class="reference internal" href="#mod.Graph.fromGMLString"><code class="docutils literal notranslate"><span class="pre">Graph.fromGMLString()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromGMLFile"><code class="docutils literal notranslate"><span class="pre">Graph.fromGMLFile()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromGMLStringMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromGMLStringMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromGMLFileMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromGMLFileMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromDFS"><code class="docutils literal notranslate"><span class="pre">Graph.fromDFS()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromDFSMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromDFSMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromSMILES"><code class="docutils literal notranslate"><span class="pre">Graph.fromSMILES()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromSMILESMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromSMILESMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromMOLString"><code class="docutils literal notranslate"><span class="pre">Graph.fromMOLString()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromMOLFile"><code class="docutils literal notranslate"><span class="pre">Graph.fromMOLFile()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromMOLStringMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromMOLStringMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromMOLFileMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromMOLFileMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromSDString"><code class="docutils literal notranslate"><span class="pre">Graph.fromSDString()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromSDFile"><code class="docutils literal notranslate"><span class="pre">Graph.fromSDFile()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromSDStringMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromSDStringMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Graph.fromSDFileMulti"><code class="docutils literal notranslate"><span class="pre">Graph.fromSDFileMulti()</span></code></a></li>
+<li><a class="reference internal" href="#mod.graphGMLString"><code class="docutils literal notranslate"><span class="pre">graphGMLString()</span></code></a></li>
+<li><a class="reference internal" href="#mod.graphGML"><code class="docutils literal notranslate"><span class="pre">graphGML()</span></code></a></li>
+<li><a class="reference internal" href="#mod.graphDFS"><code class="docutils literal notranslate"><span class="pre">graphDFS()</span></code></a></li>
+<li><a class="reference internal" href="#mod.smiles"><code class="docutils literal notranslate"><span class="pre">smiles()</span></code></a></li>
+<li><a class="reference internal" href="#mod.inputGraphs"><code class="docutils literal notranslate"><span class="pre">inputGraphs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Automorphism.html" title="Previous Chapter: 4.1.9.1. graph/Automorphism">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.9.1. grap...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="GraphInterface.html" title="Next Chapter: 4.1.9.3. graph/GraphInterface">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.9.3. grap... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="graph-graph">
+<span id="py-graph-graph"></span><h1><span class="section-number">4.1.9.2. </span>graph/Graph<a class="headerlink" href="#graph-graph" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Graph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><a class="headerlink" href="#mod.Graph" title="Link to this definition">¶</a></dt>
+<dd><p>This class models an undirected graph with labels on vertices and edges,
+without loops and without parallel edges.
+See <a class="reference internal" href="../../graphModel/index.html#graph-model"><span class="std std-ref">Graph, Rule, and Molecule Model</span></a> for more details.</p>
+<p>The class implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph" title="mod.protocols.LabelledGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph</span></code></a>.
+See <a class="reference internal" href="GraphInterface.html#py-graph-graphinterface"><span class="std std-ref">graph/GraphInterface</span></a> for additional guarantees.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.Graph.id" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) A unique instance id among <a class="reference internal" href="#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.aut">
+<span class="sig-name descname"><span class="pre">aut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.aut" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – the label settings to use.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an object representing the automorphism group of the graph, with the given label settings.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Automorphism.html#mod.Graph.AutGroup" title="mod.Graph.AutGroup">AutGroup</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.print">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.print" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Print the graph, using either the default options or the options in <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">second</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">second</span></code> are the same, only one depiction will be made.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>first</strong> (<a class="reference internal" href="Printer.html#mod.GraphPrinter" title="mod.GraphPrinter"><em>GraphPrinter</em></a>) – the printing options used for the first depiction.</p></li>
+<li><p><strong>second</strong> (<a class="reference internal" href="Printer.html#mod.GraphPrinter" title="mod.GraphPrinter"><em>GraphPrinter</em></a>) – the printing options used for the second depiction.
+If it is <code class="docutils literal notranslate"><span class="pre">None</span></code> then it is set to <code class="docutils literal notranslate"><span class="pre">first</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the names for the PDF-files that will be compiled in post-processing.
+If <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">second</span></code> are the same, the two file prefixes are equal.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.printTermState">
+<span class="sig-name descname"><span class="pre">printTermState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.printTermState" title="Link to this definition">¶</a></dt>
+<dd><p>Print the term state for the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.getGMLString">
+<span class="sig-name descname"><span class="pre">getGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.getGMLString" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> representation of the graph,
+optionally with generated 2D coordinates.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> when coordinates are requested, but
+none can be generated.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.printGML">
+<span class="sig-name descname"><span class="pre">printGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withCoords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.printGML" title="Link to this definition">¶</a></dt>
+<dd><p>Print the <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> representation of the graph,
+optionally with generated 2D coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the filename of the printed GML file.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> when coordinates are requested, but
+none can be generated.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#mod.Graph.name" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the graph. The default name includes the unique instance id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.smiles">
+<span class="sig-name descname"><span class="pre">smiles</span></span><a class="headerlink" href="#mod.Graph.smiles" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) If the graph models a molecule, this is the canonical <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES string</span></a> for it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the graph is not a molecule.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.smilesWithIds">
+<span class="sig-name descname"><span class="pre">smilesWithIds</span></span><a class="headerlink" href="#mod.Graph.smilesWithIds" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) If the graph models a molecule, this is the canonical <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES string</span></a> for it,
+that includes the internal vertex id as a class label on each atom.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the graph is not a molecule.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.graphDFS">
+<span class="sig-name descname"><span class="pre">graphDFS</span></span><a class="headerlink" href="#mod.Graph.graphDFS" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) This is a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> of the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.graphDFSWithIds">
+<span class="sig-name descname"><span class="pre">graphDFSWithIds</span></span><a class="headerlink" href="#mod.Graph.graphDFSWithIds" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) This is a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> of the graph, where each vertex have an explicit id,
+corresponding to its internal vertex id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.linearEncoding">
+<span class="sig-name descname"><span class="pre">linearEncoding</span></span><a class="headerlink" href="#mod.Graph.linearEncoding" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) If the graph models a molecule this is the <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES string</span></a> string, otherwise it is the <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.isMolecule">
+<span class="sig-name descname"><span class="pre">isMolecule</span></span><a class="headerlink" href="#mod.Graph.isMolecule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) Whether the graph models a molecule. See <a class="reference internal" href="../../graphModel/index.html#mol-enc"><span class="std std-ref">Molecule Encoding</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.energy">
+<span class="sig-name descname"><span class="pre">energy</span></span><a class="headerlink" href="#mod.Graph.energy" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) If the graph models a molecule, this is some energy value.
+The energy is calculated using Open Babel, unless already calculated or cached by <a class="reference internal" href="#mod.Graph.cacheEnergy" title="mod.Graph.cacheEnergy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.cacheEnergy()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.cacheEnergy">
+<span class="sig-name descname"><span class="pre">cacheEnergy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.cacheEnergy" title="Link to this definition">¶</a></dt>
+<dd><p>If the graph models a molecule, sets the energy to a given value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – the value for the energy to be set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.exactMass">
+<span class="sig-name descname"><span class="pre">exactMass</span></span><a class="headerlink" href="#mod.Graph.exactMass" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The exact mass of the graph, if it is a molecule.
+It is the sum of the exact mass of each atom, with the mass of electrons subtracted corresponding to the integer charge.
+That is, the mass is <span class="math notranslate nohighlight">\(\sum_a (mass(a) - mass(e)\cdot charge(a))\)</span>.
+If an atom has no specified isotope, then the most abundant is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is not a molecule, including if some isotope has not been tabulated.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.vLabelCount">
+<span class="sig-name descname"><span class="pre">vLabelCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.vLabelCount" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – some label for querying.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the number of vertices in the graph with the given label.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.eLabelCount">
+<span class="sig-name descname"><span class="pre">eLabelCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.eLabelCount" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – some label for querying.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the number of edges in the graph with the given label.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.isomorphism">
+<span class="sig-name descname"><span class="pre">isomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.isomorphism" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.monomorphism">
+<span class="sig-name descname"><span class="pre">monomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumMatches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.monomorphism" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>codomain</strong> (<a class="reference internal" href="#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – the codomain graph for finding morphisms.</p></li>
+<li><p><strong>maxNumMatches</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the maximum number of isomorphisms/monomorphisms to search for.</p></li>
+<li><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – the label settings to use during the search.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the number of isomorphisms/monomorphisms from this graph to <code class="docutils literal notranslate"><span class="pre">other</span></code>, but at most <code class="docutils literal notranslate"><span class="pre">maxNumMatches</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">codomain</span></code> is null.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.enumerateIsomorphisms">
+<span class="sig-name descname"><span class="pre">enumerateIsomorphisms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.enumerateIsomorphisms" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.enumerateMonomorphisms">
+<span class="sig-name descname"><span class="pre">enumerateMonomorphisms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.enumerateMonomorphisms" title="Link to this definition">¶</a></dt>
+<dd><p>Perform (sub)structure search of this graph into the given codomain graph.
+Whenever a match is found, the corresponding isomorphism/monomorphism is copied into a vertex map
+and the given callback is invoked with it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>codomain</strong> (<a class="reference internal" href="#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – the codomain graph for finding morphisms.</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../protocols.html#mod.protocols.VertexMap" title="mod.protocols.VertexMap"><em>protocols.VertexMap</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>]</em>) – the function to call with each found isomorphism/monomorphism.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> is returned from it, then the search is stopped.</p></li>
+<li><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – the label settings to use during the search.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">codomain</span></code> is null.</p></li>
+<li><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><strong>LogicError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">callback</span></code> is null.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.makePermutation">
+<span class="sig-name descname"><span class="pre">makePermutation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.makePermutation" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a graph isomorphic to this, but with the vertex indices randomly permuted.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.image">
+<span class="sig-name descname"><span class="pre">image</span></span><a class="headerlink" href="#mod.Graph.image" title="Link to this definition">¶</a></dt>
+<dd><p>(Write-only) A custom depiction for the graph. The depiction file used will be the string
+returned by the given function, with <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> appended.
+The function will only be called once.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[], <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.imageCommand">
+<span class="sig-name descname"><span class="pre">imageCommand</span></span><a class="headerlink" href="#mod.Graph.imageCommand" title="Link to this definition">¶</a></dt>
+<dd><p>A command to be run in post-processing if a custom depiction is set.
+The command is only run once.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.instantiateStereo">
+<span class="sig-name descname"><span class="pre">instantiateStereo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.instantiateStereo" title="Link to this definition">¶</a></dt>
+<dd><p>Make sure that stereo data is instantiated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.StereoDeductionError" title="mod.StereoDeductionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">StereoDeductionError</span></code></a> if the data was not instantiated and deduction failed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.getVertexFromExternalId">
+<span class="sig-name descname"><span class="pre">getVertexFromExternalId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.getVertexFromExternalId" title="Link to this definition">¶</a></dt>
+<dd><p>If the graph was not loaded from an external data format, then this function
+always return a null descriptor.
+If the graph was loaded from a SMILES string, but <em>any</em> class label was not unique,
+then the function always return a null descriptor.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In general there is no correlation between external and internal ids.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the external id to find the vertex descriptor for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the vertex descriptor for the given external id.
+The descriptor is null if the external id was not used.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="GraphInterface.html#mod.Graph.Vertex" title="mod.Graph.Vertex">Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.minExternalId">
+<span class="sig-name descname"><span class="pre">minExternalId</span></span><a class="headerlink" href="#mod.Graph.minExternalId" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.maxExternalId">
+<span class="sig-name descname"><span class="pre">maxExternalId</span></span><a class="headerlink" href="#mod.Graph.maxExternalId" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only)
+If the graph was not loaded from an external data format, then these attributes
+are always return 0. Otherwise, they are the minimum/maximum external id from which
+non-null vertices can be obtained from <a class="reference internal" href="#mod.Graph.getVertexFromExternalId" title="mod.Graph.getVertexFromExternalId"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getVertexFromExternalId()</span></code></a>.
+If no such minimum and maximum exists, then they are 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Graph.loadingWarnings">
+<span class="sig-name descname"><span class="pre">loadingWarnings</span></span><a class="headerlink" href="#mod.Graph.loadingWarnings" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only)
+The list of warnings stored when the graph was created from an external format.
+Each entry is a message and then an indicator of whether
+the warning was printed before construction (<code class="docutils literal notranslate"><span class="pre">True</span></code>), or was a silenced warning (<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the graph does not have data from external loading</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Tuple[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="loading-functions">
+<h2><span class="section-number">4.1.9.2.1. </span>Loading Functions<a class="headerlink" href="#loading-functions" title="Link to this heading">¶</a></h2>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromGMLString">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLString" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.fromGMLFile">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLFile" title="Link to this definition">¶</a></dt>
+<dd><p>Load a graph in <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> format from a given string, <code class="docutils literal notranslate"><span class="pre">s</span></code>,
+or given file <code class="docutils literal notranslate"><span class="pre">f</span></code>.
+The graph must be connected.
+If not, use <a class="reference internal" href="#mod.Graph.fromGMLStringMulti" title="mod.Graph.fromGMLStringMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromGMLStringMulti()</span></code></a> or <a class="reference internal" href="#mod.Graph.fromGMLFileMulti" title="mod.Graph.fromGMLFileMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromGMLFileMulti()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the string with the <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> data to load from.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – name of the <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> file to be loaded.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the name of the graph. If none is given the default name is used.</p></li>
+<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to append the graph to <a class="reference internal" href="#mod.inputGraphs" title="mod.inputGraphs"><code class="xref py py-data docutils literal notranslate"><span class="pre">inputGraphs</span></code></a> or not.</p></li>
+<li><p><strong>printStereoWarnings</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to print warnings due to unhandled stereo information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the loaded graph.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a> on bad input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromGMLStringMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLStringMulti" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.fromGMLFileMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromGMLFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromGMLFileMulti" title="Link to this definition">¶</a></dt>
+<dd><p>Load a set of graphs in <a class="reference internal" href="../../formats/index.html#graph-gml"><span class="std std-ref">GML</span></a> format from a given string, <code class="docutils literal notranslate"><span class="pre">s</span></code>,
+or given file <code class="docutils literal notranslate"><span class="pre">f</span></code>,
+with each graph being a connected component of the graph specified in the GML data.</p>
+<p>See <a class="reference internal" href="#mod.Graph.fromGMLString" title="mod.Graph.fromGMLString"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromGMLString()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromGMLFile" title="mod.Graph.fromGMLFile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromGMLFile()</span></code></a>
+for a description of the parameters and exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of the loaded graphs.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromDFS">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromDFS" title="Link to this definition">¶</a></dt>
+<dd><p>Load a graph from a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string.
+The graph must be connected.
+If not, use <a class="reference internal" href="#mod.Graph.fromDFSMulti" title="mod.Graph.fromDFSMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromDFSMulti()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string to parse.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the name of the graph. If none is given the default name is used.</p></li>
+<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to append the graph to <a class="reference internal" href="#mod.inputGraphs" title="mod.inputGraphs"><code class="xref py py-data docutils literal notranslate"><span class="pre">inputGraphs</span></code></a> or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the loaded graph.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a> on bad input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromDFSMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromDFSMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromDFSMulti" title="Link to this definition">¶</a></dt>
+<dd><p>Load a set of graphs from a <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string,
+with each graph being a connected component of the graph specified in the DFS data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the <a class="reference internal" href="../../formats/index.html#format-graphdfs"><span class="std std-ref">GraphDFS</span></a> string to parse.</p></li>
+<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to append the graphs to <a class="reference internal" href="#mod.inputGraphs" title="mod.inputGraphs"><code class="xref py py-data docutils literal notranslate"><span class="pre">inputGraphs</span></code></a> or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the loaded graphs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a> on bad input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromSMILES">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSMILES</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowAbstract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SmilesClassPolicy.NoneOnDuplicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSMILES" title="Link to this definition">¶</a></dt>
+<dd><p>Load a molecule from a <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES</span></a> string.
+The molecule must be a connected graph. If not, use <a class="reference internal" href="#mod.Graph.fromSMILESMulti" title="mod.Graph.fromSMILESMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSMILESMulti()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES</span></a> string to parse.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the name of the graph. If none is given the default name is used.</p></li>
+<li><p><strong>allowAbstract</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to allow abstract vertex labels in bracketed atoms.</p></li>
+<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to append the graph to <a class="reference internal" href="#mod.inputGraphs" title="mod.inputGraphs"><code class="xref py py-data docutils literal notranslate"><span class="pre">inputGraphs</span></code></a> or not.</p></li>
+<li><p><strong>printStereoWarnings</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to print warnings due to unhandled stereo information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the loaded molecule.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a> on bad input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromSMILESMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSMILESMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowAbstract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SmilesClassPolicy.NoneOnDuplicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStereoWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSMILESMulti" title="Link to this definition">¶</a></dt>
+<dd><p>Load a set of molecules from a <a class="reference internal" href="../../formats/index.html#graph-smiles"><span class="std std-ref">SMILES</span></a> string,
+with each molecule being a connected component of the graph specified in the SMILES string.</p>
+<p>See <a class="reference internal" href="#mod.Graph.fromSMILES" title="mod.Graph.fromSMILES"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSMILES()</span></code></a> for a description of the parameters and exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of the loaded molecules.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromMOLString">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLString" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.fromMOLFile">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLFile" title="Link to this definition">¶</a></dt>
+<dd><p>Load a molecule in <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">MOL</span></a> format from a given string or file.
+The molecule must be a connected graph.
+If not, use <a class="reference internal" href="#mod.Graph.fromMOLStringMulti" title="mod.Graph.fromMOLStringMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLStringMulti()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromMOLFileMulti" title="mod.Graph.fromMOLFileMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLFileMulti()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the string to parse.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – name of the file to load.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the name of the graph. If none is given the default name is used.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="../Config.html#mod.MDLOptions" title="mod.MDLOptions"><em>MDLOptions</em></a>) – the options to use for loading.</p></li>
+<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to append the graph to <a class="reference internal" href="#mod.inputGraphs" title="mod.inputGraphs"><code class="xref py py-data docutils literal notranslate"><span class="pre">inputGraphs</span></code></a> or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the loaded molecule.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a> on bad input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromMOLStringMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLStringMulti" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.fromMOLFileMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromMOLFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromMOLFileMulti" title="Link to this definition">¶</a></dt>
+<dd><p>Load a set of molecules from a given string or file with <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">MOL</span></a> data,
+with each molecule being a connected component of the graph specified in the data.</p>
+<p>See <a class="reference internal" href="#mod.Graph.fromMOLString" title="mod.Graph.fromMOLString"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLString()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromMOLFile" title="mod.Graph.fromMOLFile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromMOLFile()</span></code></a>
+for a description of the parameters and exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of the loaded molecules.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromSDString">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDString" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.fromSDFile">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDFile" title="Link to this definition">¶</a></dt>
+<dd><p>Load a list of molecules in <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">SD</span></a> format from a given string or file,
+with each molecule being a connected component of each of the graphs specified in the data.
+If any graph is not connected, use <a class="reference internal" href="#mod.Graph.fromSDStringMulti" title="mod.Graph.fromSDStringMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSDStringMulti()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromSDFileMulti" title="mod.Graph.fromSDFileMulti"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSDFileMulti()</span></code></a> instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the string to parse.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – name of the file to load.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="../Config.html#mod.MDLOptions" title="mod.MDLOptions"><em>MDLOptions</em></a>) – the options to use for loading.</p></li>
+<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to append the graphs to <a class="reference internal" href="#mod.inputGraphs" title="mod.inputGraphs"><code class="xref py py-data docutils literal notranslate"><span class="pre">inputGraphs</span></code></a> or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of the loaded molecules.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a> on bad input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Graph.fromSDStringMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDStringMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDStringMulti" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.Graph.fromSDFileMulti">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">fromSDFileMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MDLOptions()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Graph.fromSDFileMulti" title="Link to this definition">¶</a></dt>
+<dd><p>Load a list of molecules in <a class="reference internal" href="../../formats/index.html#graph-mdl"><span class="std std-ref">SD</span></a> format from a given string or file.
+Each molecule is returned as a list of graphs, with each corresponding to a connected
+component of the MOL entry.</p>
+<p>See <a class="reference internal" href="#mod.Graph.fromSDString" title="mod.Graph.fromSDString"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSDString()</span></code></a> and <a class="reference internal" href="#mod.Graph.fromSDFile" title="mod.Graph.fromSDFile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fromSDFile()</span></code></a>
+for a description of the parameters and exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of lists of the loaded molecules.
+The items of the outer list correspond to each MOL entry in the SD data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.graphGMLString">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphGMLString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphGMLString" title="Link to this definition">¶</a></dt>
+<dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromGMLString" title="mod.Graph.fromGMLString"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromGMLString()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.graphGML">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphGML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphGML" title="Link to this definition">¶</a></dt>
+<dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromGMLFile" title="mod.Graph.fromGMLFile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromGMLFile()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.graphDFS">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">graphDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.graphDFS" title="Link to this definition">¶</a></dt>
+<dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromDFS" title="mod.Graph.fromDFS"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromDFS()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.smiles">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">smiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.smiles" title="Link to this definition">¶</a></dt>
+<dd><p>Alias of <a class="reference internal" href="#mod.Graph.fromSMILES" title="mod.Graph.fromSMILES"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.fromSMILES()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.inputGraphs">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">inputGraphs</span></span><a class="headerlink" href="#mod.inputGraphs" title="Link to this definition">¶</a></dt>
+<dd><p>A list of graphs to which explicitly loaded graphs as default are appended.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="#mod.Graph" title="mod.Graph">Graph</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/graph/Graph.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

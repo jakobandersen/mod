@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.8.2. dg/DG &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.8.3. dg/GraphInterface" href="GraphInterface.html" />
+    <link rel="prev" title="4.1.8.1. dg/Builder" href="Builder.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.8.2. dg/DG</a><ul>
+<li><a class="reference internal" href="#mod.DG"><code class="docutils literal notranslate"><span class="pre">DG</span></code></a><ul>
+<li><a class="reference internal" href="#mod.DG.__init__"><code class="docutils literal notranslate"><span class="pre">DG.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.id"><code class="docutils literal notranslate"><span class="pre">DG.id</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.labelSettings"><code class="docutils literal notranslate"><span class="pre">DG.labelSettings</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.hasActiveBuilder"><code class="docutils literal notranslate"><span class="pre">DG.hasActiveBuilder</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.locked"><code class="docutils literal notranslate"><span class="pre">DG.locked</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.numVertices"><code class="docutils literal notranslate"><span class="pre">DG.numVertices</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.vertices"><code class="docutils literal notranslate"><span class="pre">DG.vertices</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.numEdges"><code class="docutils literal notranslate"><span class="pre">DG.numEdges</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.edges"><code class="docutils literal notranslate"><span class="pre">DG.edges</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.findVertex"><code class="docutils literal notranslate"><span class="pre">DG.findVertex()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.findEdge"><code class="docutils literal notranslate"><span class="pre">DG.findEdge()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.build"><code class="docutils literal notranslate"><span class="pre">DG.build()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.graphDatabase"><code class="docutils literal notranslate"><span class="pre">DG.graphDatabase</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.products"><code class="docutils literal notranslate"><span class="pre">DG.products</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.print"><code class="docutils literal notranslate"><span class="pre">DG.print()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.printNonHyper"><code class="docutils literal notranslate"><span class="pre">DG.printNonHyper()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.dump"><code class="docutils literal notranslate"><span class="pre">DG.dump()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.listStats"><code class="docutils literal notranslate"><span class="pre">DG.listStats()</span></code></a></li>
+<li><a class="reference internal" href="#mod.DG.load"><code class="docutils literal notranslate"><span class="pre">DG.load()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.diffDGs"><code class="docutils literal notranslate"><span class="pre">diffDGs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Builder.html" title="Previous Chapter: 4.1.8.1. dg/Builder">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.8.1. dg/Builder
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="GraphInterface.html" title="Next Chapter: 4.1.8.3. dg/GraphInterface">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.8.3. dg/G... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="dg-dg">
+<span id="py-dg-dg"></span><h1><span class="section-number">4.1.8.2. </span>dg/DG<a class="headerlink" href="#dg-dg" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.DG">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">DG</span></span><a class="headerlink" href="#mod.DG" title="Link to this definition">¶</a></dt>
+<dd><p>The derivation graph class. A derivation graph is a directed multi-hypergraph
+<span class="math notranslate nohighlight">\(\mathcal{H} = (V, E)\)</span>. Each hyperedge <span class="math notranslate nohighlight">\(e\in E\)</span> is thus an ordered pair
+<span class="math notranslate nohighlight">\((e^+, e^-)\)</span> of multisets of vertices, the sources and the targets.
+Each vertex is annotated with a graph, and each hyperedge is annotated with list of transformation rules.
+A derivation graph is constructed incrementally using a <a class="reference internal" href="Builder.html#mod.DG.Builder" title="mod.DG.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG.Builder</span></code></a> obtained from the <a class="reference internal" href="#mod.DG.build" title="mod.DG.build"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build()</span></code></a>
+function. When the obtained builder is destructed the derivation graph becomes locked and can no longer be modified.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelSettings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LabelSettings(LabelType.String,</span> <span class="pre">LabelRelation.Isomorphism)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphDatabase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Create an empty unlocked derivation graph object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – defines which category the derivation graph object works in.
+All morphism calculations (monomorphism and isomorphism) are thus defined by the <a class="reference internal" href="../Config.html#mod.LabelType" title="mod.LabelType"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelType</span></code></a>,
+while the <a class="reference internal" href="../Config.html#mod.LabelRelation" title="mod.LabelRelation"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelRelation</span></code></a> is used for for monomorphism enumeration.</p></li>
+<li><p><strong>graphDatabase</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – an initial graph database.
+Any subsequently added or constructed graph for this object
+will be checked for isomorphism against the graph database.</p></li>
+<li><p><strong>graphPolicy</strong> (<a class="reference internal" href="../Config.html#mod.IsomorphismPolicy" title="mod.IsomorphismPolicy"><em>IsomorphismPolicy</em></a>) – the policy for how the graphs of <code class="docutils literal notranslate"><span class="pre">graphDatabase</span></code> are checked for
+isomorphism against each other initially. Only use <code class="docutils literal notranslate"><span class="pre">IsomorphismPolicy.TrustMe</span></code> if you are
+absolutely sure that the graphs are unique up to isomorphism.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">graphPolicy</span> <span class="pre">==</span> <span class="pre">IsomorphismPolicy.Check</span></code> and two graphs
+in <code class="docutils literal notranslate"><span class="pre">graphDatabase</span></code> are different objects but represents isomorphic graphs.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if there is a <code class="docutils literal notranslate"><span class="pre">None</span></code> in <code class="docutils literal notranslate"><span class="pre">graphDatabase</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.DG.id" title="Link to this definition">¶</a></dt>
+<dd><p>The unique instance id among all <a class="reference internal" href="#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.labelSettings">
+<span class="sig-name descname"><span class="pre">labelSettings</span></span><a class="headerlink" href="#mod.DG.labelSettings" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The label settings for the derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings">LabelSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.hasActiveBuilder">
+<span class="sig-name descname"><span class="pre">hasActiveBuilder</span></span><a class="headerlink" href="#mod.DG.hasActiveBuilder" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) Whether <a class="reference internal" href="#mod.DG.build" title="mod.DG.build"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build()</span></code></a> has been called and the returned <a class="reference internal" href="Builder.html#mod.DG.Builder" title="mod.DG.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG.Builder</span></code></a> is still active.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.locked">
+<span class="sig-name descname"><span class="pre">locked</span></span><a class="headerlink" href="#mod.DG.locked" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) Whether the derivation graph is locked or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.numVertices">
+<span class="sig-name descname"><span class="pre">numVertices</span></span><a class="headerlink" href="#mod.DG.numVertices" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The number of vertices in the derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <code class="docutils literal notranslate"><span class="pre">hasActiveBuilder</span></code> nor <code class="docutils literal notranslate"><span class="pre">isLocked</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.vertices">
+<span class="sig-name descname"><span class="pre">vertices</span></span><a class="headerlink" href="#mod.DG.vertices" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) An iterable of all vertices in the derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DG.VertexRange</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <code class="docutils literal notranslate"><span class="pre">hasActiveBuilder</span></code> nor <code class="docutils literal notranslate"><span class="pre">isLocked</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.numEdges">
+<span class="sig-name descname"><span class="pre">numEdges</span></span><a class="headerlink" href="#mod.DG.numEdges" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The number of hyperedges in the derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <code class="docutils literal notranslate"><span class="pre">hasActiveBuilder</span></code> nor <code class="docutils literal notranslate"><span class="pre">isLocked</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#mod.DG.edges" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) An iterable of all hyperedges in the derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DG.EdgeRange</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <code class="docutils literal notranslate"><span class="pre">hasActiveBuilder</span></code> nor <code class="docutils literal notranslate"><span class="pre">isLocked</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.findVertex">
+<span class="sig-name descname"><span class="pre">findVertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.findVertex" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>g</strong> (<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – the graph to find a vertex which has it associated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a vertex descriptor for which the given graph is associated,
+or a null descriptor if no such vertex exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <code class="docutils literal notranslate"><span class="pre">hasActiveBuilder</span></code> nor <code class="docutils literal notranslate"><span class="pre">isLocked</span></code>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">g</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.findEdge">
+<span class="sig-name descname"><span class="pre">findEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.findEdge" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">findEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sourceGraphs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetGraphs</span></span></em><span class="sig-paren">)</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em>) – the list of source vertices the resulting hyperedge must have.</p></li>
+<li><p><strong>targets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em>) – the list of targets vertices the resulting hyperedge must have.</p></li>
+<li><p><strong>sourceGraphs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the list of graphs that must be associated with the source vertices the resulting hyperedge must have.</p></li>
+<li><p><strong>targetGraphs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the list of graphs that must be associated with the targets vertices the resulting hyperedge must have.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a hyperedge with the given sources and targets.
+If no such hyperedge exists in the derivation graph then a null edge is returned.
+In the second version, the graphs are put through <a class="reference internal" href="#mod.DG.findVertex" title="mod.DG.findVertex"><code class="xref py py-meth docutils literal notranslate"><span class="pre">findVertex()</span></code></a> first.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge">DG.HyperEdge</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if a vertex descriptor is null, or does not belong to the derivation graph.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <code class="docutils literal notranslate"><span class="pre">hasActiveBuilder</span></code> nor <code class="docutils literal notranslate"><span class="pre">isLocked</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onNewVertex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onNewHyperEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.build" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>onNewVertex</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a><em>]</em><em>, </em><em>None</em><em>]</em><em>]</em>) – a callback invoked when a new vertex is added to the underlying derivation graph.</p></li>
+<li><p><strong>onNewHyperEdge</strong> – a callback invoked when a new hyperedge is added to the underlying derivation graph.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an RAII-style object which can be used to construct the derivation graph.
+It can be used as a context manager in a <code class="docutils literal notranslate"><span class="pre">with</span></code>-statement (see the documentation of <a class="reference internal" href="Builder.html#mod.DG.Builder" title="mod.DG.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG.Builder</span></code></a>).
+On destruction of an active builder object the associated DG object becomes locked for further modifications.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Builder.html#mod.DG.Builder" title="mod.DG.Builder">DG.Builder</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the DG already has an active builder (see <a class="reference internal" href="#mod.DG.hasActiveBuilder" title="mod.DG.hasActiveBuilder"><code class="xref py py-attr docutils literal notranslate"><span class="pre">hasActiveBuilder</span></code></a>).</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the DG is locked (see <a class="reference internal" href="#mod.DG.locked" title="mod.DG.locked"><code class="xref py py-attr docutils literal notranslate"><span class="pre">locked</span></code></a>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.graphDatabase">
+<span class="sig-name descname"><span class="pre">graphDatabase</span></span><a class="headerlink" href="#mod.DG.graphDatabase" title="Link to this definition">¶</a></dt>
+<dd><p>All graphs known to the derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph">Graph</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.DG.products">
+<span class="sig-name descname"><span class="pre">products</span></span><a class="headerlink" href="#mod.DG.products" title="Link to this definition">¶</a></dt>
+<dd><p>The subset of the vertex graphs which were discovered by the calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph">Graph</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.print">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">printer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DGPrinter()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.print" title="Link to this definition">¶</a></dt>
+<dd><p>Print the derivation graph in style of a hypergraph. The appearance and structure
+of the visualisation can optionally be configured by giving a DG printer and/or data object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>printer</strong> (<a class="reference internal" href="Printer.html#mod.DGPrinter" title="mod.DGPrinter"><em>DGPrinter</em></a>) – the printer to use governing the appearance.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="Printer.html#mod.DGPrintData" title="mod.DGPrintData"><em>DGPrintData</em></a>) – the extra data to use encoding the structure of the graph.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the name of the PDF-file that will be compiled in post-processing and the name of the coordinate tex-file used.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.printNonHyper">
+<span class="sig-name descname"><span class="pre">printNonHyper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.printNonHyper" title="Link to this definition">¶</a></dt>
+<dd><p>Print the derivation graph in style of a digraph, where each edge represents a hyperedge.
+Each vertex in the depiction then represents a multiset of vertices in the hypergraph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the name of the PDF-file that will be compiled in post-processing.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.dump" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Exports the derivation graph to a file, including associated graphs and rules.
+Use <a class="reference internal" href="#mod.DG.load" title="mod.DG.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load()</span></code></a> or <a class="reference internal" href="Builder.html#mod.DG.Builder.load" title="mod.DG.Builder.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DG.Builder.load()</span></code></a> to import the derivation graph again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>the name of the file to save the dump to.
+If non is given an auto-generated name in the <code class="docutils literal notranslate"><span class="pre">out/</span></code> folder is used.
+If an empty string is given, it is treated as if non is given.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The filename is being used literally, i.e., it is not being
+prefixed according to the current script location as input filenames are.</p>
+</div>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the filename of the exported derivation graph.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the DG is not <a class="reference internal" href="#mod.DG.locked" title="mod.DG.locked"><code class="xref py py-attr docutils literal notranslate"><span class="pre">locked</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the target file can not be opened.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.listStats">
+<span class="sig-name descname"><span class="pre">listStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.listStats" title="Link to this definition">¶</a></dt>
+<dd><p>Lists various statistics for the derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the DG has not been calculated.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.DG.load">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ruleDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">IsomorphismPolicy.Check</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DG.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load a derivation graph dump as a locked object.
+Use <a class="reference internal" href="Builder.html#mod.DG.Builder.load" title="mod.DG.Builder.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">DG.Builder.load()</span></code></a> to load a dump into a derivation graph under construction.</p>
+<p>This is done roughly by making a <a class="reference internal" href="#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> with the given <cite>graphDatabase</cite> and <cite>graphPolicy</cite>.
+The label settings are retrieved from the dump file.
+Vertices with graphs and hyperedges with rules are then added from the dump.
+Any graph in the dump which is isomorphic to a given graph is replaced by the given graph.
+The same procedure is done for the rules.
+If a graph/rule is not found in the given lists, a new object is instantiated and used.
+In the end the derivation graph is locked.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the dump to be loaded was made by version 0.10 or earlier, it does not contain the full rules
+but only the rule name. It is then crucial that the names of the given rules match with those used to
+create the dump in the first place.</p>
+</div>
+<p>See <a class="reference internal" href="../../libmod/dg/DG.html#_CPPv4N3mod2dg2DG4loadERKNSt6vectorINSt10shared_ptrIN5graph5GraphEEEEERKNSt6vectorINSt10shared_ptrIN4rule4RuleEEEEERKNSt6stringE17IsomorphismPolicy" title="mod::dg::DG::load"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::DG::load()</span></code></a> for an explanation of the verbosity levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graphDatabase</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – A list of graphs that will be given as graph database to <a class="reference internal" href="#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__()</span></code></a>.</p></li>
+<li><p><strong>ruleDatabase</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>[</em><a class="reference internal" href="../rule/Rule.html#mod.Rule" title="mod.Rule"><em>Rule</em></a><em>]</em>) – A list of rules used as explained above.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – a DG dump file to load.</p></li>
+<li><p><strong>graphPolicy</strong> (<a class="reference internal" href="../Config.html#mod.IsomorphismPolicy" title="mod.IsomorphismPolicy"><em>IsomorphismPolicy</em></a>) – the policy that will be given as graph policy to <a class="reference internal" href="#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the loaded derivation graph.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.DG" title="mod.DG">DG</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>the same exceptions <a class="reference internal" href="#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__()</span></code></a> raises related to <code class="docutils literal notranslate"><span class="pre">graphDatabase</span></code> and <code class="docutils literal notranslate"><span class="pre">graphPolicy</span></code>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if there is a <code class="docutils literal notranslate"><span class="pre">None</span></code> in <code class="docutils literal notranslate"><span class="pre">ruleDatabase</span></code>.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a> if the file can not be opened or its content is bad.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.diffDGs">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">diffDGs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dg2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.diffDGs" title="Link to this definition">¶</a></dt>
+<dd><p>Compare two derivation graphs and lists the difference.
+This is not a general isomorphism check; two vertices are equal if they have
+the same graph attached. Edges are equal if the head and tail sets are equal
+and if the attached rule is the same.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dg1</strong> (<a class="reference internal" href="#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>) – the first derivation graph.</p></li>
+<li><p><strong>dg2</strong> (<a class="reference internal" href="#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>) – the second derivation graph.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/dg/DG.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

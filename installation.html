@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Installation &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
+    <script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Compiling from Source" href="compiling.html" />
+    <link rel="prev" title="MØD" href="index.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">1. Installation</a><ul>
+<li><a class="reference internal" href="#conda">1.1. Conda</a></li>
+<li><a class="reference internal" href="#docker">1.2. Docker</a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="index.html" title="Previous Chapter: MØD">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; MØD
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="compiling.html" title="Next Chapter: 2. Compiling from Source">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">2. Compiling ... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="installation">
+<span id="id1"></span><h1><span class="section-number">1. </span>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<p>Currently there are the following options for installing the
+package:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="compiling.html#compiling"><span class="std std-ref">Compiling from Source</span></a></p></li>
+<li><p>Installing via Conda.</p></li>
+<li><p>Running via a pre-compiled Docker image.</p></li>
+</ul>
+<section id="conda">
+<h2><span class="section-number">1.1. </span>Conda<a class="headerlink" href="#conda" title="Link to this heading">¶</a></h2>
+<p>This is currently only available for Linux.</p>
+<ol class="arabic">
+<li><p>Install Latex on your system.
+E.g., see the provided <code class="docutils literal notranslate"><span class="pre">bindep.txt</span></code> file for which
+TeX Live packages are needed for a selection of popular
+Linux distribuions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">jakobandersen</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">mod</span></code></p></li>
+<li><p>(Optional, but recommended) Install a pre-compiled Latex
+format file.
+During figure generation by <a class="reference internal" href="postmod/index.html#mod-post"><span class="std std-ref">PostMØD</span></a> a Latex format
+file is needed. It depends on your Latex installation and
+can therefore not be provided in the Conda package.
+It will then be compiled at each invocation. To check,
+try running, e.g., <code class="docutils literal notranslate"><span class="pre">mod</span> <span class="pre">-e</span> <span class="pre">&quot;smiles('O').print()&quot;</span></code>.
+If the post-processor output has a line with
+<code class="docutils literal notranslate"><span class="pre">compileFmt</span></code>, the format file is not installed.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">mod_post</span> <span class="pre">--install-format</span></code> to install the format
+file (or <code class="docutils literal notranslate"><span class="pre">mod_post</span> <span class="pre">--install-format-sudo</span></code> if you don’t
+own the folder with the Conda installation).</p>
+</li>
+</ol>
+</section>
+<section id="docker">
+<h2><span class="section-number">1.2. </span>Docker<a class="headerlink" href="#docker" title="Link to this heading">¶</a></h2>
+<p>A Docker image with an installation is available at
+<a class="reference external" href="https://hub.docker.com/r/jakobandersen/mod">Docker Hub</a>,
+so getting started can be done simply via</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>jakobandersen/mod
+</pre></div>
+</div>
+<p>It will put you into an empty folder <code class="docutils literal notranslate"><span class="pre">/workDir</span></code>.
+The image is build with a copy of the <a class="reference internal" href="examples/index.html#examples"><span class="std std-ref">Examples</span></a> in <code class="docutils literal notranslate"><span class="pre">/examples</span></code>.</p>
+<p>In order to exchange data with the container it may be convient to start the
+container with a local folder mounted, for example the current folder</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir<span class="w"> </span>jakobandersen/mod
+</pre></div>
+</div>
+<p>However, the user running inside the container is <code class="docutils literal notranslate"><span class="pre">root</span></code> so all files you
+create inside the shared folder will have <code class="docutils literal notranslate"><span class="pre">root</span></code> as owner and group.
+Therefore, it may be better to tell Docker to run with your own user and group
+inside</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span>jakobandersen/mod
+</pre></div>
+</div>
+<p>Note though, that your user/group probably doesn’t exist in the container so
+you may get some warnings about the group not existing and that the user does
+not have a name. This is however usually not a problem.</p>
+<p>As a final optimization, every time you execute the command above, you create
+a new container. You can use <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">prune</span></code> to delete stopped
+containers. Assuming you only work within the shared <code class="docutils literal notranslate"><span class="pre">/workdir</span></code> there is
+no particular reason for the container to hang around once you exit,
+so you can add <code class="docutils literal notranslate"><span class="pre">--rm</span></code> to the command to let Docker automatically delete it
+once you exit.
+We thus arrive at the following full command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span>jakobandersen/mod
+</pre></div>
+</div>
+<p>As a quick test, you can try running <code class="docutils literal notranslate"><span class="pre">mod</span> <span class="pre">-e</span> <span class="pre">&quot;smiles('O').print()&quot;</span></code> inside
+the container. When it’s done, then outside the container you should now be
+able to open the printed summary <code class="docutils literal notranslate"><span class="pre">summary/summary.pdf</span></code>.
+You can thus use the <code class="docutils literal notranslate"><span class="pre">mod</span></code> command inside the container, but otherwise
+do all file manipulation outside the container.</p>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="_sources/installation.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

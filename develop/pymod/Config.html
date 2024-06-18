@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.3. Config &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.1.4. Derivation" href="Derivation.html" />
+    <link rel="prev" title="4.1.2. Chem" href="Chem.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.3. Config</a><ul>
+<li><a class="reference internal" href="#mod.LabelType"><code class="docutils literal notranslate"><span class="pre">LabelType</span></code></a><ul>
+<li><a class="reference internal" href="#mod.LabelType.String"><code class="docutils literal notranslate"><span class="pre">LabelType.String</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelType.Term"><code class="docutils literal notranslate"><span class="pre">LabelType.Term</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.LabelRelation"><code class="docutils literal notranslate"><span class="pre">LabelRelation</span></code></a><ul>
+<li><a class="reference internal" href="#mod.LabelRelation.Isomorphism"><code class="docutils literal notranslate"><span class="pre">LabelRelation.Isomorphism</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelRelation.Specialisation"><code class="docutils literal notranslate"><span class="pre">LabelRelation.Specialisation</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelRelation.Unification"><code class="docutils literal notranslate"><span class="pre">LabelRelation.Unification</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings</span></code></a><ul>
+<li><a class="reference internal" href="#mod.LabelSettings.__init__"><code class="docutils literal notranslate"><span class="pre">LabelSettings.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelSettings.type"><code class="docutils literal notranslate"><span class="pre">LabelSettings.type</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelSettings.relation"><code class="docutils literal notranslate"><span class="pre">LabelSettings.relation</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelSettings.withStereo"><code class="docutils literal notranslate"><span class="pre">LabelSettings.withStereo</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelSettings.stereoRelation"><code class="docutils literal notranslate"><span class="pre">LabelSettings.stereoRelation</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.IsomorphismPolicy"><code class="docutils literal notranslate"><span class="pre">IsomorphismPolicy</span></code></a><ul>
+<li><a class="reference internal" href="#mod.IsomorphismPolicy.Check"><code class="docutils literal notranslate"><span class="pre">IsomorphismPolicy.Check</span></code></a></li>
+<li><a class="reference internal" href="#mod.IsomorphismPolicy.TrustMe"><code class="docutils literal notranslate"><span class="pre">IsomorphismPolicy.TrustMe</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.SmilesClassPolicy"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy</span></code></a><ul>
+<li><a class="reference internal" href="#mod.SmilesClassPolicy.AllOrNone"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy.AllOrNone</span></code></a></li>
+<li><a class="reference internal" href="#mod.SmilesClassPolicy.ThrowOnDuplicate"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy.ThrowOnDuplicate</span></code></a></li>
+<li><a class="reference internal" href="#mod.SmilesClassPolicy.MapUnique"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy.MapUnique</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Action"><code class="docutils literal notranslate"><span class="pre">Action</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Action.Error"><code class="docutils literal notranslate"><span class="pre">Action.Error</span></code></a></li>
+<li><a class="reference internal" href="#mod.Action.Warn"><code class="docutils literal notranslate"><span class="pre">Action.Warn</span></code></a></li>
+<li><a class="reference internal" href="#mod.Action.Ignore"><code class="docutils literal notranslate"><span class="pre">Action.Ignore</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.MDLOptions"><code class="docutils literal notranslate"><span class="pre">MDLOptions</span></code></a></li>
+<li><a class="reference internal" href="#mod.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+<li><a class="reference internal" href="#mod.config"><code class="docutils literal notranslate"><span class="pre">config</span></code></a></li>
+<li><a class="reference internal" href="#mod.getConfig"><code class="docutils literal notranslate"><span class="pre">getConfig()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Chem.html" title="Previous Chapter: 4.1.2. Chem">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.2. Chem
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Derivation.html" title="Next Chapter: 4.1.4. Derivation">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.4. Derivation &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="config">
+<span id="py-config"></span><h1><span class="section-number">4.1.3. </span>Config<a class="headerlink" href="#config" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.LabelType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelType</span></span><a class="headerlink" href="#mod.LabelType" title="Link to this definition">¶</a></dt>
+<dd><p>Selector for which type of label to use in algorithms.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelType.String">
+<span class="sig-name descname"><span class="pre">String</span></span><a class="headerlink" href="#mod.LabelType.String" title="Link to this definition">¶</a></dt>
+<dd><p>Vertices and edges are considered to be labelled with
+character strings. If only first-order terms are present,
+then strings are generated as a serialisation of the term.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelType.Term">
+<span class="sig-name descname"><span class="pre">Term</span></span><a class="headerlink" href="#mod.LabelType.Term" title="Link to this definition">¶</a></dt>
+<dd><p>Vertices and edges are considered to be labelled with
+first-order terms. If only strings are present, then first-order
+terms are generated by parsing the strings. This may result
+in an <a class="reference internal" href="Error.html#mod.TermParsingError" title="mod.TermParsingError"><code class="xref py py-class docutils literal notranslate"><span class="pre">TermParsingError</span></code></a> if a string can not be parsed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.LabelRelation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelRelation</span></span><a class="headerlink" href="#mod.LabelRelation" title="Link to this definition">¶</a></dt>
+<dd><p>Selector for which type of labelled morphism to use in an algorithm.
+For strings they are all defined to be equivalent to string equality.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelRelation.Isomorphism">
+<span class="sig-name descname"><span class="pre">Isomorphism</span></span><a class="headerlink" href="#mod.LabelRelation.Isomorphism" title="Link to this definition">¶</a></dt>
+<dd><p>Terms are considered isomorphic when their most general unifier
+is a renaming.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelRelation.Specialisation">
+<span class="sig-name descname"><span class="pre">Specialisation</span></span><a class="headerlink" href="#mod.LabelRelation.Specialisation" title="Link to this definition">¶</a></dt>
+<dd><p>A term <span class="math notranslate nohighlight">\(t_2\)</span> is more special than, or isomorphic to, a term <span class="math notranslate nohighlight">\(t_1\)</span> if there is a substitution
+which can be applied to :math: <cite>t_1</cite> to make the terms equal.
+This relation means that the right-hand side of a comparison is the more specialised term.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelRelation.Unification">
+<span class="sig-name descname"><span class="pre">Unification</span></span><a class="headerlink" href="#mod.LabelRelation.Unification" title="Link to this definition">¶</a></dt>
+<dd><p>Terms unify if a most general unifier (MGU) exists. The found MGU
+is used for substitution in some algorithms.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.LabelSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelSettings</span></span><a class="headerlink" href="#mod.LabelSettings" title="Link to this definition">¶</a></dt>
+<dd><p>A group label settings commonly used together in algorithms.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.LabelSettings.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.LabelSettings.__init__" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stereoRelation</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">withStereo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stereoRelation</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Construct label settings that only uses at least the vertex and edge labels.
+If <code class="docutils literal notranslate"><span class="pre">stereoRelation</span></code> is given but <code class="docutils literal notranslate"><span class="pre">withStereo</span></code> is not, then <code class="docutils literal notranslate"><span class="pre">withStereo</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference internal" href="#mod.LabelType" title="mod.LabelType"><em>LabelType</em></a>) – How to interpret labels.</p></li>
+<li><p><strong>relation</strong> (<a class="reference internal" href="#mod.LabelRelation" title="mod.LabelRelation"><em>LabelRelation</em></a>) – The relation that should hold in morphisms between two labels.</p></li>
+<li><p><strong>withStereo</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – A flag to specify if stereo information should be included.
+Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>, unless <code class="docutils literal notranslate"><span class="pre">stereoRelation</span></code> is given, then <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>stereoRelation</strong> (<a class="reference internal" href="#mod.LabelRelation" title="mod.LabelRelation"><em>LabelRelation</em></a>) – The relation that should hold in morphisms between stereo data.
+Defaults to <a class="reference internal" href="#mod.LabelRelation.Isomorphism" title="mod.LabelRelation.Isomorphism"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelRelation.Isomorphism</span></code></a>, but is only used when <code class="docutils literal notranslate"><span class="pre">withStereo</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelSettings.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#mod.LabelSettings.type" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.LabelType" title="mod.LabelType">LabelType</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelSettings.relation">
+<span class="sig-name descname"><span class="pre">relation</span></span><a class="headerlink" href="#mod.LabelSettings.relation" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.LabelRelation" title="mod.LabelRelation">LabelRelation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelSettings.withStereo">
+<span class="sig-name descname"><span class="pre">withStereo</span></span><a class="headerlink" href="#mod.LabelSettings.withStereo" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelSettings.stereoRelation">
+<span class="sig-name descname"><span class="pre">stereoRelation</span></span><a class="headerlink" href="#mod.LabelSettings.stereoRelation" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.LabelRelation" title="mod.LabelRelation">LabelRelation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.IsomorphismPolicy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">IsomorphismPolicy</span></span><a class="headerlink" href="#mod.IsomorphismPolicy" title="Link to this definition">¶</a></dt>
+<dd><p>For some functions there is a choice of how to handle given arguments
+where two different objects may be isomorphic. Most notably the case is with graphs (<a class="reference internal" href="graph/Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.IsomorphismPolicy.Check">
+<span class="sig-name descname"><span class="pre">Check</span></span><a class="headerlink" href="#mod.IsomorphismPolicy.Check" title="Link to this definition">¶</a></dt>
+<dd><p>Objects are checked for isomorphism as needed and exceptions are thrown when different objects are isomorphic.
+If in doubt, use this.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.IsomorphismPolicy.TrustMe">
+<span class="sig-name descname"><span class="pre">TrustMe</span></span><a class="headerlink" href="#mod.IsomorphismPolicy.TrustMe" title="Link to this definition">¶</a></dt>
+<dd><p>No checks are performed and the function trusts the caller to have performed the equivalent isomorphism checks.
+Only use this when you are completely sure that no exceptions would have been thrown if using <a class="reference internal" href="#mod.IsomorphismPolicy.Check" title="mod.IsomorphismPolicy.Check"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Check</span></code></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Generally the library has undefined behaviour if you use this option
+but an exception would have been thrown with <a class="reference internal" href="#mod.IsomorphismPolicy.Check" title="mod.IsomorphismPolicy.Check"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Check</span></code></a>.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.SmilesClassPolicy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">SmilesClassPolicy</span></span><a class="headerlink" href="#mod.SmilesClassPolicy" title="Link to this definition">¶</a></dt>
+<dd><p>When loading SMILES strings, the class labels can be recorded and mapped into the corresponding
+vertices of the loaded graph. This policy dictates what should happen when the same class label
+is written on multiple atoms.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.SmilesClassPolicy.AllOrNone">
+<span class="sig-name descname"><span class="pre">AllOrNone</span></span><a class="headerlink" href="#mod.SmilesClassPolicy.AllOrNone" title="Link to this definition">¶</a></dt>
+<dd><p>If a class label is duplicated, then no labels are mapped to vertices.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.SmilesClassPolicy.ThrowOnDuplicate">
+<span class="sig-name descname"><span class="pre">ThrowOnDuplicate</span></span><a class="headerlink" href="#mod.SmilesClassPolicy.ThrowOnDuplicate" title="Link to this definition">¶</a></dt>
+<dd><p>If a class label is duplicated, throw a <a class="reference internal" href="Error.html#mod.InputError" title="mod.InputError"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.SmilesClassPolicy.MapUnique">
+<span class="sig-name descname"><span class="pre">MapUnique</span></span><a class="headerlink" href="#mod.SmilesClassPolicy.MapUnique" title="Link to this definition">¶</a></dt>
+<dd><p>Map all class labels that are unique to vertices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Action">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Action</span></span><a class="headerlink" href="#mod.Action" title="Link to this definition">¶</a></dt>
+<dd><p>Utility enum for deciding what to do in certain cases.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Action.Error">
+<span class="sig-name descname"><span class="pre">Error</span></span><a class="headerlink" href="#mod.Action.Error" title="Link to this definition">¶</a></dt>
+<dd><p>Abort the function and produce an error message, e.g., through and exception.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Action.Warn">
+<span class="sig-name descname"><span class="pre">Warn</span></span><a class="headerlink" href="#mod.Action.Warn" title="Link to this definition">¶</a></dt>
+<dd><p>Write a warning, but otherwise do as if it was <cite>Ignore</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Action.Ignore">
+<span class="sig-name descname"><span class="pre">Ignore</span></span><a class="headerlink" href="#mod.Action.Ignore" title="Link to this definition">¶</a></dt>
+<dd><p>Ignore the case. The function taking the action as argument should describe what this means.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.MDLOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">MDLOptions</span></span><a class="headerlink" href="#mod.MDLOptions" title="Link to this definition">¶</a></dt>
+<dd><p>An aggregation of options for the various loading functions for MDL formats.
+Generally each option is defaulted to follow the specification of the formats,
+unless it is harmless to deviate (e.g., relaxed white-space parsing).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">addHydrogens</span> <span class="pre">=</span> <span class="pre">True</span></span></dt>
+<dd><p>Use the MDL valence model to add hydrogens to atoms with default valence, or disable all hydrogen addition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">allowAbstract</span> <span class="pre">=</span> <span class="pre">False</span></span></dt>
+<dd><p>Allow non-standard atom symbols. The standard symbols are the element symbols and those specifying wildcard atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">applyV2000AtomAliases</span> <span class="pre">=</span> <span class="pre">True</span></span></dt>
+<dd><p>In MOL V2000 CTAB blocks, replace atom labels by their aliases.
+After application, the atom is considered abstract without errors, and hydrogen addition is suppressed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Action</span> <span class="pre">onPatternIsotope</span> <span class="pre">=</span> <span class="pre">Action::Error</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Action</span> <span class="pre">onPatternCharge</span> <span class="pre">=</span> <span class="pre">Action::Error;</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Action</span> <span class="pre">onPatternRadical</span> <span class="pre">=</span> <span class="pre">Action::Error;</span></span></dt>
+<dd><p>What to do when an atom with symbol <code class="docutils literal notranslate"><span class="pre">*</span></code> has an isotope, charge, or radical.
+<code class="docutils literal notranslate"><span class="pre">Action.Ignore</span></code> means assuming the isotope, charge, or radical was not there.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onImplicitValenceOnAbstract</span> <span class="pre">=</span> <span class="pre">Action.Error</span></span></dt>
+<dd><p>What to do when <code class="docutils literal notranslate"><span class="pre">addHydrogens</span> <span class="pre">and</span> <span class="pre">allowAbstract</span></code> and an abstract atom is encountered with implicit valence.
+<code class="docutils literal notranslate"><span class="pre">Action.Ignore</span></code> means adding no hydrogens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Action" title="mod.Action">Action</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onV2000UnhandledProperty</span> <span class="pre">=</span> <span class="pre">Action.Warn</span></span></dt>
+<dd><p>What to do when a property line in a V2000 MOL file is not recognized.
+<code class="docutils literal notranslate"><span class="pre">Action.Ignore</span></code> means simply ignoring that particular line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Action" title="mod.Action">Action</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">fullyIgnoreV2000UnhandledKnownProperty</span> <span class="pre">=</span> <span class="pre">False</span></span></dt>
+<dd><p>Warnings are usually stored as “loading warnings”, even when they are ignored as during parsing.
+Setting this to <code class="docutils literal notranslate"><span class="pre">True</span></code> will act as if <code class="docutils literal notranslate"><span class="pre">onV2000UnhandledProperty</span> <span class="pre">=</span> <span class="pre">Actions::Ignore</span></code> and
+skip the storage, but only for a pre-defined known subset of properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onV3000UnhandledAtomProperty</span> <span class="pre">=</span> <span class="pre">Action.Warn</span></span></dt>
+<dd><p>What to do when a property in atom line in a V3000 MOL file is not recognized.
+<code class="docutils literal notranslate"><span class="pre">Action.Ignore</span></code> means simply ignoring that particular property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Action" title="mod.Action">Action</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onV2000Charge4</span> <span class="pre">=</span> <span class="pre">Action.Warn</span></span></dt>
+<dd><p>What to do when an atom in a V2000 MOL file has the charge 4 (doublet radical).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Action" title="mod.Action">Action</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onV2000AbstractISO</span> <span class="pre">=</span> <span class="pre">Action.Warn</span></span></dt>
+<dd><p>What to do when an abstract atom in a V2000 MOL file has a non-default ISO or mass difference value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Action" title="mod.Action">Action</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onRAD1</span> <span class="pre">=</span> <span class="pre">Action.Error</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onRAD3</span> <span class="pre">=</span> <span class="pre">Action.Error</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onRAD4</span> <span class="pre">=</span> <span class="pre">Action.Error</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onRAD5</span> <span class="pre">=</span> <span class="pre">Action.Error</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onRAD6</span> <span class="pre">=</span> <span class="pre">Action.Error</span></span></dt>
+<dd><p>What to do when an atom has assigned the indicated radical state.
+<code class="docutils literal notranslate"><span class="pre">Action.Ignore</span></code> means pretending the atom has no radical state assigned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Action" title="mod.Action">Action</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">onUnsupportedQueryBondType</span> <span class="pre">=</span> <span class="pre">Action.Error</span></span></dt>
+<dd><p>What to do when a bond type 5, 6, or 7 are encountered (constrained query bond types).
+<code class="docutils literal notranslate"><span class="pre">Action.Ignore</span></code> means assigning a term variable, as if the type was 8.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Action" title="mod.Action">Action</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#mod.Config" title="Link to this definition">¶</a></dt>
+<dd><p>This class contains a range of inner classes of config settings. See <a class="reference internal" href="../libmod/Config.html"><span class="doc">the libMØD documentation</span></a>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.config">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#mod.config" title="Link to this definition">¶</a></dt>
+<dd><p>This variable is initialised to the return value of <a class="reference internal" href="#mod.getConfig" title="mod.getConfig"><code class="xref py py-func docutils literal notranslate"><span class="pre">getConfig()</span></code></a>, i.e., just use this instead of the method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.getConfig">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">getConfig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.getConfig" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the singleton <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod6ConfigE" title="mod::Config"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Config</span></code></a> instance used by the library.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/pymod/Config.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.11.5. dg/Printer.hpp &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.11.6. dg/Strategies.hpp" href="Strategies.html" />
+    <link rel="prev" title="3.2.11.4. dg/GraphInterface.hpp" href="GraphInterface.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.11.5. dg/Printer.hpp</a><ul>
+<li><a class="reference internal" href="#class-dg-printdata">3.2.11.5.1. Class <code class="docutils literal notranslate"><span class="pre">dg::PrintData</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg9PrintDataE"><code class="docutils literal notranslate"><span class="pre">PrintData</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.11.5.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.11.5.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData9PrintDataENSt10shared_ptrI2DGEE"><code class="docutils literal notranslate"><span class="pre">PrintData()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv"><code class="docutils literal notranslate"><span class="pre">getDG()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi"><code class="docutils literal notranslate"><span class="pre">makeDuplicate()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi"><code class="docutils literal notranslate"><span class="pre">removeDuplicate()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi"><code class="docutils literal notranslate"><span class="pre">reconnectSource()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi"><code class="docutils literal notranslate"><span class="pre">reconnectTarget()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-dg-printer">3.2.11.5.2. Class <code class="docutils literal notranslate"><span class="pre">dg::Printer</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7PrinterE"><code class="docutils literal notranslate"><span class="pre">Printer</span></code></a></li>
+<li><a class="reference internal" href="#id1">3.2.11.5.2.1. Synopsis</a></li>
+<li><a class="reference internal" href="#id2">3.2.11.5.2.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15getGraphPrinterEv"><code class="docutils literal notranslate"><span class="pre">getGraphPrinter()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer15getGraphPrinterEv"><code class="docutils literal notranslate"><span class="pre">getGraphPrinter()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setWithShortcutEdgesEb"><code class="docutils literal notranslate"><span class="pre">setWithShortcutEdges()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer20getWithShortcutEdgesEv"><code class="docutils literal notranslate"><span class="pre">getWithShortcutEdges()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer18setWithGraphImagesEb"><code class="docutils literal notranslate"><span class="pre">setWithGraphImages()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer18getWithGraphImagesEv"><code class="docutils literal notranslate"><span class="pre">getWithGraphImages()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setLabelsAsLatexMathEb"><code class="docutils literal notranslate"><span class="pre">setLabelsAsLatexMath()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer20getLabelsAsLatexMathEv"><code class="docutils literal notranslate"><span class="pre">getLabelsAsLatexMath()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE"><code class="docutils literal notranslate"><span class="pre">pushVertexVisible()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16popVertexVisibleEv"><code class="docutils literal notranslate"><span class="pre">popVertexVisible()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15pushEdgeVisibleENSt8functionIFbN2DG9HyperEdgeEEEE"><code class="docutils literal notranslate"><span class="pre">pushEdgeVisible()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer14popEdgeVisibleEv"><code class="docutils literal notranslate"><span class="pre">popEdgeVisible()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer35setWithShortcutEdgesAfterVisibilityEb"><code class="docutils literal notranslate"><span class="pre">setWithShortcutEdgesAfterVisibility()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer35getWithShortcutEdgesAfterVisibilityEv"><code class="docutils literal notranslate"><span class="pre">getWithShortcutEdgesAfterVisibility()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17setVertexLabelSepENSt6stringE"><code class="docutils literal notranslate"><span class="pre">setVertexLabelSep()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17getVertexLabelSepEv"><code class="docutils literal notranslate"><span class="pre">getVertexLabelSep()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15setEdgeLabelSepENSt6stringE"><code class="docutils literal notranslate"><span class="pre">setEdgeLabelSep()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15getEdgeLabelSepEv"><code class="docutils literal notranslate"><span class="pre">getEdgeLabelSep()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE"><code class="docutils literal notranslate"><span class="pre">pushVertexLabel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer14popVertexLabelEv"><code class="docutils literal notranslate"><span class="pre">popVertexLabel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE"><code class="docutils literal notranslate"><span class="pre">pushEdgeLabel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer12popEdgeLabelEv"><code class="docutils literal notranslate"><span class="pre">popEdgeLabel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16setWithGraphNameEb"><code class="docutils literal notranslate"><span class="pre">setWithGraphName()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer16getWithGraphNameEv"><code class="docutils literal notranslate"><span class="pre">getWithGraphName()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15setWithRuleNameEb"><code class="docutils literal notranslate"><span class="pre">setWithRuleName()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer15getWithRuleNameEv"><code class="docutils literal notranslate"><span class="pre">getWithRuleName()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer13setWithRuleIdEb"><code class="docutils literal notranslate"><span class="pre">setWithRuleId()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer13getWithRuleIdEv"><code class="docutils literal notranslate"><span class="pre">getWithRuleId()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer19setWithInlineGraphsEb"><code class="docutils literal notranslate"><span class="pre">setWithInlineGraphs()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer19getWithInlineGraphsEv"><code class="docutils literal notranslate"><span class="pre">getWithInlineGraphs()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb"><code class="docutils literal notranslate"><span class="pre">pushVertexColour()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15popVertexColourEv"><code class="docutils literal notranslate"><span class="pre">popVertexColour()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer14pushEdgeColourENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE"><code class="docutils literal notranslate"><span class="pre">pushEdgeColour()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer13popEdgeColourEv"><code class="docutils literal notranslate"><span class="pre">popEdgeColour()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setRotationOverwriteENSt8functionIFiNSt10shared_ptrIN5graph5GraphEEEEEE"><code class="docutils literal notranslate"><span class="pre">setRotationOverwrite()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer18setMirrorOverwriteENSt8functionIFbNSt10shared_ptrIN5graph5GraphEEEEEE"><code class="docutils literal notranslate"><span class="pre">setMirrorOverwrite()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17setImageOverwriteENSt8functionIFNSt4pairINSt6stringENSt6stringEEEN2DG6VertexEiEEE"><code class="docutils literal notranslate"><span class="pre">setImageOverwrite()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17setGraphvizPrefixERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">setGraphvizPrefix()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer17getGraphvizPrefixEv"><code class="docutils literal notranslate"><span class="pre">getGraphvizPrefix()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setTikzpictureOptionERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">setTikzpictureOption()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer20getTikzpictureOptionEv"><code class="docutils literal notranslate"><span class="pre">getTikzpictureOption()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="GraphInterface.html" title="Previous Chapter: 3.2.11.4. dg/GraphInterface.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.11.4. dg/...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Strategies.html" title="Next Chapter: 3.2.11.6. dg/Strategies.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.11.6. dg/... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="dg-printer-hpp">
+<span id="cpp-dg-printer"></span><h1><span class="section-number">3.2.11.5. </span>dg/Printer.hpp<a class="headerlink" href="#dg-printer-hpp" title="Link to this heading">¶</a></h1>
+<section id="class-dg-printdata">
+<h2><span class="section-number">3.2.11.5.1. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::PrintData</span></code><a class="headerlink" href="#class-dg-printdata" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg9PrintDataE">
+<span id="_CPPv3N3mod2dg9PrintDataE"></span><span id="_CPPv2N3mod2dg9PrintDataE"></span><span id="mod::dg::PrintData"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PrintData</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg9PrintDataE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>This class is used to hold extra data about how a specific derivation graph
+is visualised.</p>
+<p>The idea is that in the visualized network each vertex/hyperedge is specified
+by a pair <span class="math notranslate nohighlight">\((id, dup)\)</span> where <span class="math notranslate nohighlight">\(id\)</span> is the ID of the vertex/hyperedge
+and <span class="math notranslate nohighlight">\(dup\)</span> is an versioning integer that can be specified in objects of this class.</p>
+<p>Initially, each vertex/hyperedge has only one version: duplicate number 0.
+The duplication is primarily specified via the hyperedges, with the duplication
+of vertices being induced afterwards.
+Thus hyperedge duplicates are managed by <a class="reference internal" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::makeDuplicate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">makeDuplicate()</span></code></a> and <a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::removeDuplicate"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">removeDuplicate()</span></code></a>,
+while the vertex duplicates are managed implicitly by <a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">reconnectSource()</span></code></a> and <a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">reconnectTarget()</span></code></a>.
+In the end, when the data is used for printing, it will be compiled to form the actual duplication data.</p>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.11.5.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">explicit</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData9PrintDataENSt10shared_ptrI2DGEE" title="mod::dg::PrintData::PrintData"><span class="n"><span class="pre">PrintData</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="mod::dg::PrintData::getDG"><span class="n"><span class="pre">getDG</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::makeDuplicate"><span class="n"><span class="pre">makeDuplicate</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">eDup</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::removeDuplicate"><span class="n"><span class="pre">removeDuplicate</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">eDup</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource"><span class="n"><span class="pre">reconnectSource</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">eDup</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">vDupTar</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget"><span class="n"><span class="pre">reconnectTarget</span></span></a><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">eDup</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">vDupTar</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.11.5.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg9PrintData9PrintDataENSt10shared_ptrI2DGEE">
+<span id="_CPPv3N3mod2dg9PrintData9PrintDataENSt10shared_ptrI2DGEE"></span><span id="_CPPv2N3mod2dg9PrintData9PrintDataENSt10shared_ptrI2DGEE"></span><span id="mod::dg::PrintData::PrintData__std::shared_ptr:DG:"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PrintData</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dg</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg9PrintData9PrintDataENSt10shared_ptrI2DGEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a data object where all derivations have a single version, duplicate number 0,
+connected to version 0 of all heads and tails.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData9PrintDataENSt10shared_ptrI2DGEE" title="mod::dg::PrintData::PrintData::dg"><span class="n">dg</span></a><span class="o">-&gt;</span><span class="n">isLocked</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg9PrintData5getDGEv">
+<span id="_CPPv3NK3mod2dg9PrintData5getDGEv"></span><span id="_CPPv2NK3mod2dg9PrintData5getDGEv"></span><span id="mod::dg::PrintData::getDGC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDG</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the derivation graph the object holds data for.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi">
+<span id="_CPPv3N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi"></span><span id="_CPPv2N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi"></span><span id="mod::dg::PrintData::makeDuplicate__DG::HyperEdge.i"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">makeDuplicate</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eDup</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Create another version of the given hyperedge and give it the given duplicate number.
+It will connect to duplicate 0 of all head and tail vertices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::makeDuplicate::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::makeDuplicate::e"><span class="n">e</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="mod::dg::PrintData::getDG"><span class="n">getDG</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if duplicate <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::makeDuplicate::eDup"><span class="n">eDup</span></a></span> already exists for <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData13makeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::makeDuplicate::e"><span class="n">e</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi">
+<span id="_CPPv3N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi"></span><span id="_CPPv2N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi"></span><span id="mod::dg::PrintData::removeDuplicate__DG::HyperEdge.i"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">removeDuplicate</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eDup</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the version of the given hyperedge with the given duplicate number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::removeDuplicate::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::removeDuplicate::e"><span class="n">e</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="mod::dg::PrintData::getDG"><span class="n">getDG</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if duplicate <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::removeDuplicate::eDup"><span class="n">eDup</span></a></span> does not exist for <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15removeDuplicateEN2DG9HyperEdgeEi" title="mod::dg::PrintData::removeDuplicate::e"><span class="n">e</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi">
+<span id="_CPPv3N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi"></span><span id="_CPPv2N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi"></span><span id="mod::dg::PrintData::reconnectSource__DG::HyperEdge.i.DG::Vertex.i"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reconnectSource</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eDup</span></span>, <a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vDupTar</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="Link to this definition">¶</a><br /></dt>
+<dd><p>For the given hyperedge duplicate, reconnect the given source vertex to the given duplicate of that source.
+If the vertex is a source multiple times, then an arbitrary one of them is reconnected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::e"><span class="n">e</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="mod::dg::PrintData::getDG"><span class="n">getDG</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::v"><span class="n">v</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::v"><span class="n">v</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="mod::dg::PrintData::getDG"><span class="n">getDG</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::v"><span class="n">v</span></a></span> is not a source vertex of <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if duplicate <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::eDup"><span class="n">eDup</span></a></span> does not exist for <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectSourceEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectSource::e"><span class="n">e</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi">
+<span id="_CPPv3N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi"></span><span id="_CPPv2N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi"></span><span id="mod::dg::PrintData::reconnectTarget__DG::HyperEdge.i.DG::Vertex.i"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reconnectTarget</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eDup</span></span>, <a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vDupTar</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="Link to this definition">¶</a><br /></dt>
+<dd><p>For the given hyperedge duplicate, reconnect the given head to the given duplicate of that head.
+If the vertex is a head multiple times, then an arbitrary one of them is reconnected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::e"><span class="n">e</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="mod::dg::PrintData::getDG"><span class="n">getDG</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::v"><span class="n">v</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::v"><span class="n">v</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg9PrintData5getDGEv" title="mod::dg::PrintData::getDG"><span class="n">getDG</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::v"><span class="n">v</span></a></span> is not a target vertex of <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if duplicate <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::eDup"><span class="n">eDup</span></a></span> does not exist for <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg9PrintData15reconnectTargetEN2DG9HyperEdgeEiN2DG6VertexEi" title="mod::dg::PrintData::reconnectTarget::e"><span class="n">e</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="class-dg-printer">
+<h2><span class="section-number">3.2.11.5.2. </span>Class <code class="docutils literal notranslate"><span class="pre">dg::Printer</span></code><a class="headerlink" href="#class-dg-printer" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7PrinterE">
+<span id="_CPPv3N3mod2dg7PrinterE"></span><span id="_CPPv2N3mod2dg7PrinterE"></span><span id="mod::dg::Printer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Printer</span></span></span><a class="headerlink" href="#_CPPv4N3mod2dg7PrinterE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>This class is used to configure how derivation graphs are visualised,
+how much is visualised and which extra properties are printed.</p>
+</dd></dl>
+
+<section id="id1">
+<h3><span class="section-number">3.2.11.5.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15getGraphPrinterEv" title="mod::dg::Printer::getGraphPrinter"><span class="n"><span class="pre">getGraphPrinter</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer15getGraphPrinterEv" title="mod::dg::Printer::getGraphPrinter"><span class="n"><span class="pre">getGraphPrinter</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setWithShortcutEdgesEb" title="mod::dg::Printer::setWithShortcutEdges"><span class="n"><span class="pre">setWithShortcutEdges</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer20getWithShortcutEdgesEv" title="mod::dg::Printer::getWithShortcutEdges"><span class="n"><span class="pre">getWithShortcutEdges</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer18setWithGraphImagesEb" title="mod::dg::Printer::setWithGraphImages"><span class="n"><span class="pre">setWithGraphImages</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer18getWithGraphImagesEv" title="mod::dg::Printer::getWithGraphImages"><span class="n"><span class="pre">getWithGraphImages</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setLabelsAsLatexMathEb" title="mod::dg::Printer::setLabelsAsLatexMath"><span class="n"><span class="pre">setLabelsAsLatexMath</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer20getLabelsAsLatexMathEv" title="mod::dg::Printer::getLabelsAsLatexMath"><span class="n"><span class="pre">getLabelsAsLatexMath</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE" title="mod::dg::Printer::pushVertexVisible"><span class="n"><span class="pre">pushVertexVisible</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16popVertexVisibleEv" title="mod::dg::Printer::popVertexVisible"><span class="n"><span class="pre">popVertexVisible</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15pushEdgeVisibleENSt8functionIFbN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeVisible"><span class="n"><span class="pre">pushEdgeVisible</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer14popEdgeVisibleEv" title="mod::dg::Printer::popEdgeVisible"><span class="n"><span class="pre">popEdgeVisible</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer35setWithShortcutEdgesAfterVisibilityEb" title="mod::dg::Printer::setWithShortcutEdgesAfterVisibility"><span class="n"><span class="pre">setWithShortcutEdgesAfterVisibility</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer35getWithShortcutEdgesAfterVisibilityEv" title="mod::dg::Printer::getWithShortcutEdgesAfterVisibility"><span class="n"><span class="pre">getWithShortcutEdgesAfterVisibility</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17setVertexLabelSepENSt6stringE" title="mod::dg::Printer::setVertexLabelSep"><span class="n"><span class="pre">setVertexLabelSep</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17getVertexLabelSepEv" title="mod::dg::Printer::getVertexLabelSep"><span class="n"><span class="pre">getVertexLabelSep</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15setEdgeLabelSepENSt6stringE" title="mod::dg::Printer::setEdgeLabelSep"><span class="n"><span class="pre">setEdgeLabelSep</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15getEdgeLabelSepEv" title="mod::dg::Printer::getEdgeLabelSep"><span class="n"><span class="pre">getEdgeLabelSep</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE" title="mod::dg::Printer::pushVertexLabel"><span class="n"><span class="pre">pushVertexLabel</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer14popVertexLabelEv" title="mod::dg::Printer::popVertexLabel"><span class="n"><span class="pre">popVertexLabel</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeLabel"><span class="n"><span class="pre">pushEdgeLabel</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer12popEdgeLabelEv" title="mod::dg::Printer::popEdgeLabel"><span class="n"><span class="pre">popEdgeLabel</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16setWithGraphNameEb" title="mod::dg::Printer::setWithGraphName"><span class="n"><span class="pre">setWithGraphName</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer16getWithGraphNameEv" title="mod::dg::Printer::getWithGraphName"><span class="n"><span class="pre">getWithGraphName</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15setWithRuleNameEb" title="mod::dg::Printer::setWithRuleName"><span class="n"><span class="pre">setWithRuleName</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer15getWithRuleNameEv" title="mod::dg::Printer::getWithRuleName"><span class="n"><span class="pre">getWithRuleName</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer13setWithRuleIdEb" title="mod::dg::Printer::setWithRuleId"><span class="n"><span class="pre">setWithRuleId</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer13getWithRuleIdEv" title="mod::dg::Printer::getWithRuleId"><span class="n"><span class="pre">getWithRuleId</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer19setWithInlineGraphsEb" title="mod::dg::Printer::setWithInlineGraphs"><span class="n"><span class="pre">setWithInlineGraphs</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer19getWithInlineGraphsEv" title="mod::dg::Printer::getWithInlineGraphs"><span class="n"><span class="pre">getWithInlineGraphs</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb" title="mod::dg::Printer::pushVertexColour"><span class="n"><span class="pre">pushVertexColour</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">extendToEdges</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15popVertexColourEv" title="mod::dg::Printer::popVertexColour"><span class="n"><span class="pre">popVertexColour</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer14pushEdgeColourENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeColour"><span class="n"><span class="pre">pushEdgeColour</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer13popEdgeColourEv" title="mod::dg::Printer::popEdgeColour"><span class="n"><span class="pre">popEdgeColour</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setRotationOverwriteENSt8functionIFiNSt10shared_ptrIN5graph5GraphEEEEEE" title="mod::dg::Printer::setRotationOverwrite"><span class="n"><span class="pre">setRotationOverwrite</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer18setMirrorOverwriteENSt8functionIFbNSt10shared_ptrIN5graph5GraphEEEEEE" title="mod::dg::Printer::setMirrorOverwrite"><span class="n"><span class="pre">setMirrorOverwrite</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17setImageOverwriteENSt8functionIFNSt4pairINSt6stringENSt6stringEEEN2DG6VertexEiEEE" title="mod::dg::Printer::setImageOverwrite"><span class="n"><span class="pre">setImageOverwrite</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">dupNum</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17setGraphvizPrefixERKNSt6stringE" title="mod::dg::Printer::setGraphvizPrefix"><span class="n"><span class="pre">setGraphvizPrefix</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer17getGraphvizPrefixEv" title="mod::dg::Printer::getGraphvizPrefix"><span class="n"><span class="pre">getGraphvizPrefix</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setTikzpictureOptionERKNSt6stringE" title="mod::dg::Printer::setTikzpictureOption"><span class="n"><span class="pre">setTikzpictureOption</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">option</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><a class="reference internal" href="#_CPPv4NK3mod2dg7Printer20getTikzpictureOptionEv" title="mod::dg::Printer::getTikzpictureOption"><span class="n"><span class="pre">getTikzpictureOption</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id2">
+<h3><span class="section-number">3.2.11.5.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer15getGraphPrinterEv">
+<span id="_CPPv3N3mod2dg7Printer15getGraphPrinterEv"></span><span id="_CPPv2N3mod2dg7Printer15getGraphPrinterEv"></span><span id="mod::dg::Printer::getGraphPrinter"></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getGraphPrinter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer15getGraphPrinterEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer15getGraphPrinterEv">
+<span id="_CPPv3NK3mod2dg7Printer15getGraphPrinterEv"></span><span id="_CPPv2NK3mod2dg7Printer15getGraphPrinterEv"></span><span id="mod::dg::Printer::getGraphPrinterC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getGraphPrinter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer15getGraphPrinterEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a reference to the <a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Printer</span></code></a> used for graphs in vertices of the DG.
+The initial <a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Printer</span></code></a> has <a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7Printer9enableAllEv" title="mod::graph::Printer::enableAll"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">graph::Printer::enableAll()</span></code></a> called,
+and then indices are removed (<span class="cpp-texpr sig sig-inline cpp"><span class="n">graph</span><span class="p">::</span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><span class="n">Printer</span></a><span class="p">::</span><a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7Printer12setWithIndexEb" title="mod::graph::Printer::setWithIndex"><span class="n">setWithIndex</span></a><span class="p">(</span><span class="k">false</span><span class="p">)</span></span>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer20setWithShortcutEdgesEb">
+<span id="_CPPv3N3mod2dg7Printer20setWithShortcutEdgesEb"></span><span id="_CPPv2N3mod2dg7Printer20setWithShortcutEdgesEb"></span><span id="mod::dg::Printer::setWithShortcutEdges__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setWithShortcutEdges</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer20setWithShortcutEdgesEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer20getWithShortcutEdgesEv">
+<span id="_CPPv3NK3mod2dg7Printer20getWithShortcutEdgesEv"></span><span id="_CPPv2NK3mod2dg7Printer20getWithShortcutEdgesEv"></span><span id="mod::dg::Printer::getWithShortcutEdgesC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getWithShortcutEdges</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer20getWithShortcutEdgesEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether hyperedges <span class="math notranslate nohighlight">\((T, H)\)</span> with <span class="math notranslate nohighlight">\(|T| = |H| = 1\)</span>
+are printed as a simple arrow without the usual rectangle.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer18setWithGraphImagesEb">
+<span id="_CPPv3N3mod2dg7Printer18setWithGraphImagesEb"></span><span id="_CPPv2N3mod2dg7Printer18setWithGraphImagesEb"></span><span id="mod::dg::Printer::setWithGraphImages__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setWithGraphImages</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer18setWithGraphImagesEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer18getWithGraphImagesEv">
+<span id="_CPPv3NK3mod2dg7Printer18getWithGraphImagesEv"></span><span id="_CPPv2NK3mod2dg7Printer18getWithGraphImagesEv"></span><span id="mod::dg::Printer::getWithGraphImagesC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getWithGraphImages</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer18getWithGraphImagesEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether each vertex is printed with an image of its graph in it.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer20setLabelsAsLatexMathEb">
+<span id="_CPPv3N3mod2dg7Printer20setLabelsAsLatexMathEb"></span><span id="_CPPv2N3mod2dg7Printer20setLabelsAsLatexMathEb"></span><span id="mod::dg::Printer::setLabelsAsLatexMath__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setLabelsAsLatexMath</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer20setLabelsAsLatexMathEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer20getLabelsAsLatexMathEv">
+<span id="_CPPv3NK3mod2dg7Printer20getLabelsAsLatexMathEv"></span><span id="_CPPv2NK3mod2dg7Printer20getLabelsAsLatexMathEv"></span><span id="mod::dg::Printer::getLabelsAsLatexMathC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLabelsAsLatexMath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer20getLabelsAsLatexMathEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether labels on vertices and hyperedges are put inline <span class="math notranslate nohighlight">\(\LaTeX\)</span> math.
+Specifically, a label <code class="docutils literal notranslate"><span class="pre">label</span></code> is written as <code class="docutils literal notranslate"><span class="pre">$\mathrm{label'}$</span></code>, with <code class="docutils literal notranslate"><span class="pre">label'</span></code> being
+<code class="docutils literal notranslate"><span class="pre">label</span></code> with all space characters escaped.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE">
+<span id="_CPPv3N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE"></span><span id="_CPPv2N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushVertexVisible</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function controlling the visibility of vertices.
+All visibility functions must return <span class="cpp-expr sig sig-inline cpp"><span class="k">true</span></span> for a vertex to be visible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer17pushVertexVisibleENSt8functionIFbN2DG6VertexEEEE" title="mod::dg::Printer::pushVertexVisible::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer16popVertexVisibleEv">
+<span id="_CPPv3N3mod2dg7Printer16popVertexVisibleEv"></span><span id="_CPPv2N3mod2dg7Printer16popVertexVisibleEv"></span><span id="mod::dg::Printer::popVertexVisible"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popVertexVisible</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer16popVertexVisibleEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed vertex visibility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer15pushEdgeVisibleENSt8functionIFbN2DG9HyperEdgeEEEE">
+<span id="_CPPv3N3mod2dg7Printer15pushEdgeVisibleENSt8functionIFbN2DG9HyperEdgeEEEE"></span><span id="_CPPv2N3mod2dg7Printer15pushEdgeVisibleENSt8functionIFbN2DG9HyperEdgeEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushEdgeVisible</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer15pushEdgeVisibleENSt8functionIFbN2DG9HyperEdgeEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function controlling the visibility of hyperedges.
+All visibility functions must return <span class="cpp-expr sig sig-inline cpp"><span class="k">true</span></span> for a hyperedge to be visible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15pushEdgeVisibleENSt8functionIFbN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeVisible::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer14popEdgeVisibleEv">
+<span id="_CPPv3N3mod2dg7Printer14popEdgeVisibleEv"></span><span id="_CPPv2N3mod2dg7Printer14popEdgeVisibleEv"></span><span id="mod::dg::Printer::popEdgeVisible"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popEdgeVisible</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer14popEdgeVisibleEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed hyperedge visibility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer35setWithShortcutEdgesAfterVisibilityEb">
+<span id="_CPPv3N3mod2dg7Printer35setWithShortcutEdgesAfterVisibilityEb"></span><span id="_CPPv2N3mod2dg7Printer35setWithShortcutEdgesAfterVisibilityEb"></span><span id="mod::dg::Printer::setWithShortcutEdgesAfterVisibility__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setWithShortcutEdgesAfterVisibility</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer35setWithShortcutEdgesAfterVisibilityEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer35getWithShortcutEdgesAfterVisibilityEv">
+<span id="_CPPv3NK3mod2dg7Printer35getWithShortcutEdgesAfterVisibilityEv"></span><span id="_CPPv2NK3mod2dg7Printer35getWithShortcutEdgesAfterVisibilityEv"></span><span id="mod::dg::Printer::getWithShortcutEdgesAfterVisibilityC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getWithShortcutEdgesAfterVisibility</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer35getWithShortcutEdgesAfterVisibilityEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer17setVertexLabelSepENSt6stringE">
+<span id="_CPPv3N3mod2dg7Printer17setVertexLabelSepENSt6stringE"></span><span id="_CPPv2N3mod2dg7Printer17setVertexLabelSepENSt6stringE"></span><span id="mod::dg::Printer::setVertexLabelSep__ss"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setVertexLabelSep</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sep</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer17setVertexLabelSepENSt6stringE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer17getVertexLabelSepEv">
+<span id="_CPPv3N3mod2dg7Printer17getVertexLabelSepEv"></span><span id="_CPPv2N3mod2dg7Printer17getVertexLabelSepEv"></span><span id="mod::dg::Printer::getVertexLabelSep"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getVertexLabelSep</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer17getVertexLabelSepEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Set/get the string used as separator between each part of each vertex label.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer15setEdgeLabelSepENSt6stringE">
+<span id="_CPPv3N3mod2dg7Printer15setEdgeLabelSepENSt6stringE"></span><span id="_CPPv2N3mod2dg7Printer15setEdgeLabelSepENSt6stringE"></span><span id="mod::dg::Printer::setEdgeLabelSep__ss"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setEdgeLabelSep</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sep</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer15setEdgeLabelSepENSt6stringE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer15getEdgeLabelSepEv">
+<span id="_CPPv3N3mod2dg7Printer15getEdgeLabelSepEv"></span><span id="_CPPv2N3mod2dg7Printer15getEdgeLabelSepEv"></span><span id="mod::dg::Printer::getEdgeLabelSep"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getEdgeLabelSep</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer15getEdgeLabelSepEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Set/get the string used as separator between each part of each edge label.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE">
+<span id="_CPPv3N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE"></span><span id="_CPPv2N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushVertexLabel</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function for vertex labelling. The result of this function is appended to each label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE" title="mod::dg::Printer::pushVertexLabel::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer14popVertexLabelEv">
+<span id="_CPPv3N3mod2dg7Printer14popVertexLabelEv"></span><span id="_CPPv2N3mod2dg7Printer14popVertexLabelEv"></span><span id="mod::dg::Printer::popVertexLabel"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popVertexLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer14popVertexLabelEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed vertex labelling function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE">
+<span id="_CPPv3N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE"></span><span id="_CPPv2N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushEdgeLabel</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function for edge labelling. The result of this function is appended to each label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeLabel::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer12popEdgeLabelEv">
+<span id="_CPPv3N3mod2dg7Printer12popEdgeLabelEv"></span><span id="_CPPv2N3mod2dg7Printer12popEdgeLabelEv"></span><span id="mod::dg::Printer::popEdgeLabel"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popEdgeLabel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer12popEdgeLabelEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed edge labelling function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer16setWithGraphNameEb">
+<span id="_CPPv3N3mod2dg7Printer16setWithGraphNameEb"></span><span id="_CPPv2N3mod2dg7Printer16setWithGraphNameEb"></span><span id="mod::dg::Printer::setWithGraphName__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setWithGraphName</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer16setWithGraphNameEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer16getWithGraphNameEv">
+<span id="_CPPv3NK3mod2dg7Printer16getWithGraphNameEv"></span><span id="_CPPv2NK3mod2dg7Printer16getWithGraphNameEv"></span><span id="mod::dg::Printer::getWithGraphNameC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getWithGraphName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer16getWithGraphNameEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether graph names are appended to the vertex labels (see also <a class="reference internal" href="#_CPPv4N3mod2dg7Printer15pushVertexLabelENSt8functionIFNSt6stringEN2DG6VertexEEEE" title="mod::dg::Printer::pushVertexLabel"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pushVertexLabel()</span></code></a>).</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer15setWithRuleNameEb">
+<span id="_CPPv3N3mod2dg7Printer15setWithRuleNameEb"></span><span id="_CPPv2N3mod2dg7Printer15setWithRuleNameEb"></span><span id="mod::dg::Printer::setWithRuleName__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setWithRuleName</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer15setWithRuleNameEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer15getWithRuleNameEv">
+<span id="_CPPv3NK3mod2dg7Printer15getWithRuleNameEv"></span><span id="_CPPv2NK3mod2dg7Printer15getWithRuleNameEv"></span><span id="mod::dg::Printer::getWithRuleNameC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getWithRuleName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer15getWithRuleNameEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether rules names are appended to the edge labels (see also <a class="reference internal" href="#_CPPv4N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeLabel"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pushEdgeLabel()</span></code></a>).</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer13setWithRuleIdEb">
+<span id="_CPPv3N3mod2dg7Printer13setWithRuleIdEb"></span><span id="_CPPv2N3mod2dg7Printer13setWithRuleIdEb"></span><span id="mod::dg::Printer::setWithRuleId__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setWithRuleId</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer13setWithRuleIdEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer13getWithRuleIdEv">
+<span id="_CPPv3NK3mod2dg7Printer13getWithRuleIdEv"></span><span id="_CPPv2NK3mod2dg7Printer13getWithRuleIdEv"></span><span id="mod::dg::Printer::getWithRuleIdC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getWithRuleId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer13getWithRuleIdEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether rules IDs are appended to the edge labels (see also <a class="reference internal" href="#_CPPv4N3mod2dg7Printer13pushEdgeLabelENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeLabel"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">pushEdgeLabel()</span></code></a>).</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer19setWithInlineGraphsEb">
+<span id="_CPPv3N3mod2dg7Printer19setWithInlineGraphsEb"></span><span id="_CPPv2N3mod2dg7Printer19setWithInlineGraphsEb"></span><span id="mod::dg::Printer::setWithInlineGraphs__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setWithInlineGraphs</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer19setWithInlineGraphsEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer19getWithInlineGraphsEv">
+<span id="_CPPv3NK3mod2dg7Printer19getWithInlineGraphsEv"></span><span id="_CPPv2NK3mod2dg7Printer19getWithInlineGraphsEv"></span><span id="mod::dg::Printer::getWithInlineGraphsC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getWithInlineGraphs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer19getWithInlineGraphsEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control whether graph depictions should be precompiled, or be included inline in the DG figure.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb">
+<span id="_CPPv3N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb"></span><span id="_CPPv2N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushVertexColour</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">extendToEdges</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function for colouring vertices. The final colour of a vertex is the result of the first colour function returning a non-empty string.
+The functions are evaluated in the order they are pushed and the resulting string is used directly as a colour in Tikz.
+A hyperedge is also coloured if at least one head and one tail <em>can</em> be coloured with a colour for which <span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb" title="mod::dg::Printer::pushVertexColour::extendToEdges"><span class="n">extendToEdges</span></a></span> is <span class="cpp-expr sig sig-inline cpp"><span class="k">true</span></span>.
+In this case, the hyperedge (and a subset of the head and tail connectors) is coloured with the first applicable colour.
+The edge extension of vertex colour takes lower precedence than explicitly added hyperedge colouring functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer16pushVertexColourENSt8functionIFNSt6stringEN2DG6VertexEEEEb" title="mod::dg::Printer::pushVertexColour::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer15popVertexColourEv">
+<span id="_CPPv3N3mod2dg7Printer15popVertexColourEv"></span><span id="_CPPv2N3mod2dg7Printer15popVertexColourEv"></span><span id="mod::dg::Printer::popVertexColour"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popVertexColour</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer15popVertexColourEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed vertex colouring function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer14pushEdgeColourENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE">
+<span id="_CPPv3N3mod2dg7Printer14pushEdgeColourENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE"></span><span id="_CPPv2N3mod2dg7Printer14pushEdgeColourENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushEdgeColour</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer14pushEdgeColourENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function for colouring hyperedges. The final colour of a hyperedge (and all of its head and tail connectors) is the result of the
+first colour function returning a non-empty string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer14pushEdgeColourENSt8functionIFNSt6stringEN2DG9HyperEdgeEEEE" title="mod::dg::Printer::pushEdgeColour::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer13popEdgeColourEv">
+<span id="_CPPv3N3mod2dg7Printer13popEdgeColourEv"></span><span id="_CPPv2N3mod2dg7Printer13popEdgeColourEv"></span><span id="mod::dg::Printer::popEdgeColour"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popEdgeColour</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer13popEdgeColourEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed hyperedge colouring function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer20setRotationOverwriteENSt8functionIFiNSt10shared_ptrIN5graph5GraphEEEEEE">
+<span id="_CPPv3N3mod2dg7Printer20setRotationOverwriteENSt8functionIFiNSt10shared_ptrIN5graph5GraphEEEEEE"></span><span id="_CPPv2N3mod2dg7Printer20setRotationOverwriteENSt8functionIFiNSt10shared_ptrIN5graph5GraphEEEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setRotationOverwrite</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer20setRotationOverwriteENSt8functionIFiNSt10shared_ptrIN5graph5GraphEEEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Overwrite the rotation set in the nested <a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Printer</span></code></a>. The given function will be used
+to set the rotation of each printed graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer20setRotationOverwriteENSt8functionIFiNSt10shared_ptrIN5graph5GraphEEEEEE" title="mod::dg::Printer::setRotationOverwrite::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer18setMirrorOverwriteENSt8functionIFbNSt10shared_ptrIN5graph5GraphEEEEEE">
+<span id="_CPPv3N3mod2dg7Printer18setMirrorOverwriteENSt8functionIFbNSt10shared_ptrIN5graph5GraphEEEEEE"></span><span id="_CPPv2N3mod2dg7Printer18setMirrorOverwriteENSt8functionIFbNSt10shared_ptrIN5graph5GraphEEEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMirrorOverwrite</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer18setMirrorOverwriteENSt8functionIFbNSt10shared_ptrIN5graph5GraphEEEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Overwrite the mirror set in the nested <a class="reference internal" href="../graph/Printer.html#_CPPv4N3mod5graph7PrinterE" title="mod::graph::Printer"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Printer</span></code></a>. The given function will be used
+to set the mirror of each printed graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-expr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod2dg7Printer18setMirrorOverwriteENSt8functionIFbNSt10shared_ptrIN5graph5GraphEEEEEE" title="mod::dg::Printer::setMirrorOverwrite::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer17setImageOverwriteENSt8functionIFNSt4pairINSt6stringENSt6stringEEEN2DG6VertexEiEEE">
+<span id="_CPPv3N3mod2dg7Printer17setImageOverwriteENSt8functionIFNSt4pairINSt6stringENSt6stringEEEN2DG6VertexEiEEE"></span><span id="_CPPv2N3mod2dg7Printer17setImageOverwriteENSt8functionIFNSt4pairINSt6stringENSt6stringEEEN2DG6VertexEiEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setImageOverwrite</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">dupNum</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer17setImageOverwriteENSt8functionIFNSt4pairINSt6stringENSt6stringEEEN2DG6VertexEiEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Overwrite the image generation for graphs depicted in the vertices of the printed derivation graph.
+For each duplicate of each vertex to be depicted, the given callback is called.
+It must then return two strings:</p>
+<ol class="arabic simple">
+<li><p>Either</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>an empty string if the standard depiction should be used, in which case the second string is ignored, or</p></li>
+<li><p>the filename of the PDF that should be included in the final compiled figure.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Either</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>an empty string if no additional post-processing command is needed, or</p></li>
+<li><p>a string of Bash code which will be inserted in the post-processing instructions.
+For example, one can write out source code in the callback, and then return a command that compiles
+that code into the PDF needed by inclusion.</p></li>
+</ul>
+</div></blockquote>
+<p>The image overwrite can be removed by calling with <span class="cpp-expr sig sig-inline cpp"><span class="k">nullptr</span></span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer17setGraphvizPrefixERKNSt6stringE">
+<span id="_CPPv3N3mod2dg7Printer17setGraphvizPrefixERKNSt6stringE"></span><span id="_CPPv2N3mod2dg7Printer17setGraphvizPrefixERKNSt6stringE"></span><span id="mod::dg::Printer::setGraphvizPrefix__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setGraphvizPrefix</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">prefix</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer17setGraphvizPrefixERKNSt6stringE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer17getGraphvizPrefixEv">
+<span id="_CPPv3NK3mod2dg7Printer17getGraphvizPrefixEv"></span><span id="_CPPv2NK3mod2dg7Printer17getGraphvizPrefixEv"></span><span id="mod::dg::Printer::getGraphvizPrefixC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getGraphvizPrefix</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer17getGraphvizPrefixEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Access the string that will be inserted into generated DOT files,
+just after the graph declaration.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod2dg7Printer20setTikzpictureOptionERKNSt6stringE">
+<span id="_CPPv3N3mod2dg7Printer20setTikzpictureOptionERKNSt6stringE"></span><span id="_CPPv2N3mod2dg7Printer20setTikzpictureOptionERKNSt6stringE"></span><span id="mod::dg::Printer::setTikzpictureOption__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTikzpictureOption</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">option</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod2dg7Printer20setTikzpictureOptionERKNSt6stringE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod2dg7Printer20getTikzpictureOptionEv">
+<span id="_CPPv3NK3mod2dg7Printer20getTikzpictureOptionEv"></span><span id="_CPPv2NK3mod2dg7Printer20getTikzpictureOptionEv"></span><span id="mod::dg::Printer::getTikzpictureOptionC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTikzpictureOption</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod2dg7Printer20getTikzpictureOptionEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Access the string that will be inserted into generated Tikz files,
+in the options for the <code class="docutils literal notranslate"><span class="pre">\tikzpicture</span></code> macro used for the DG.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/dg/Printer.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

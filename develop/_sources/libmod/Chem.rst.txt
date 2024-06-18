@@ -1,0 +1,221 @@
+.. _cpp-Chem:
+
+**********************************************************
+Chem.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:expr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``AtomId``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: AtomId
+    
+
+    Representation of the chemical element of an atom.
+
+Synopsis
+^^^^^^^^
+
+.. alias:: AtomId
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: AtomId
+
+.. function:: constexpr AtomId()
+
+    Construct an :cpp:var:`AtomIds::Invalid` atom id.
+.. function:: explicit constexpr AtomId(unsigned int id)
+
+    Construct a specific atom id. Pre-condition: the id must be at most that of :cpp:var:`AtomIds::Max`.
+.. function:: constexpr operator unsigned char() const
+
+    Implicit conversion to an integer type.
+.. function:: std::string symbol() const
+
+    :returns: the symbol represented by the atom id.
+    :raises: :cpp:class:`LogicError` if the id is invalid.
+.. function:: friend std::ostream &operator<<(std::ostream &s, AtomId atomId)
+
+    Inserts the `int` value of the atom id into the stream.
+
+.. cpp:namespace-pop::
+
+
+Class ``Isotope``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: Isotope
+    
+
+    Representation of the isotope of an atom.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: Isotope
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: Isotope
+
+.. function:: constexpr Isotope()
+
+    Construct a representation of the most abundant isotope.
+    
+    .. note:: This is different from explicitly specifying the isotope that is the most abundant one.
+.. function:: explicit constexpr Isotope(int i)
+
+    Construct a specific isotope. Pre-condition: the isotope must either be at least 1 or be -1.
+    Passing -1 is equivalent to default-construction.
+.. function:: constexpr operator int() const
+
+    Implicit conversion to an integer type.
+.. function:: friend std::ostream &operator<<(std::ostream &s, Isotope iso)
+
+    Inserts the integer value of the isotope into the stream.
+
+.. cpp:namespace-pop::
+
+
+Class ``Charge``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: Charge
+    
+
+    Representation of the charge of an atom.
+
+Synopsis
+^^^^^^^^
+
+.. alias:: Charge
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: Charge
+
+.. function:: constexpr Charge()
+
+    Construct a neutral charge.
+.. function:: explicit constexpr Charge(signed char c)
+
+    Construct a specific charge. Pre-condition: the charge must be in the range :math:`[-9, 9]`.
+.. function:: constexpr operator signed char() const
+
+    Implicit conversion to an integer type.
+.. function:: friend std::ostream &operator<<(std::ostream &s, Charge charge)
+
+    Inserts the `int` value of the charge into the stream.
+
+.. cpp:namespace-pop::
+
+
+Class ``AtomData``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: AtomData
+    
+
+    Representation of basic data of an atom.
+
+Synopsis
+^^^^^^^^
+
+.. alias:: AtomData
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: AtomData
+
+.. function:: constexpr AtomData()
+
+    Construct atom data with default values:
+
+    - :cpp:var:`AtomIds::Invalid` atom id,
+    - :cpp:expr:`Isotope()` as isotope,
+    - neutral charge, and
+    - no radical.
+.. function:: constexpr explicit AtomData(AtomId atomId)
+
+    Construct atom data the given atom id, and otherwise default values (see above).
+.. function:: constexpr AtomData(AtomId atomId, Charge charge, bool radical)
+
+    Construct atom data with given atom id, charge, and radical, but with default isotope.
+.. function:: constexpr AtomData(AtomId atomId, Isotope isotope, Charge charge, bool radical)
+
+    Construct atom data with given atom id, isotope, charge, and radical.
+.. function:: constexpr AtomId getAtomId() const
+
+    Retrieve the atom id.
+.. function:: constexpr Isotope getIsotope() const
+
+    Retrieve the isotope.
+.. function:: constexpr Charge getCharge() const
+
+    Retrieve the charge.
+.. function:: constexpr bool getRadical() const
+
+    Retrieve the radical status.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const AtomData &data)
+
+    Format the atom data adhering to the string encoding of atoms (see :ref:`mol-enc`).
+
+    :throws: :class:`LogicError` if the atom id is :cpp:var:`AtomIds::Invalid`.
+
+.. cpp:namespace-pop::
+
+Enum ``BondType``
+-------------------
+
+.. enum-struct:: BondType
+
+    Representation of a bond type (see :ref:`mol-enc`).
+
+    .. enumerator:: Invalid
+    .. enumerator:: Single
+    .. enumerator:: Aromatic
+    .. enumerator:: Double
+    .. enumerator:: Triple
+.. function:: std::ostream &operator<<(std::ostream &s, BondType bt)
+
+    Format the bond type adhering to the string encoding of bonds (see :ref:`mol-enc`).
+
+    :throws: :class:`LogicError` if the bond type is :cpp:any:`BondType::Invalid`.
+
+Namespace ``AtomIds``
+----------------------
+
+This namespace contains constants for each chemical element, both as their abbreviations and their full names.
+Two additional constants are provided for convenience.
+
+.. var:: AtomId AtomIds::Invalid
+
+    Constant for the invalid atom id.
+
+.. var:: AtomId AtomIds::Max
+
+    An atom id equal to the atom id with the maximum valid id.
+

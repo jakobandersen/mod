@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2. Compiling from Source &#8212; MØD 0.16.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d72f49f9" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
+    <script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="_static/documentation_options.js?v=7de89ed4"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. libMØD" href="libmod/index.html" />
+    <link rel="prev" title="1. Installation" href="installation.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.16.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">12. Changes</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">2. Compiling from Source</a><ul>
+<li><a class="reference internal" href="#quick-start">2.1. Quick Start</a></li>
+<li><a class="reference internal" href="#quick-start-in-a-conda-environment">2.2. Quick Start in a Conda Environment</a></li>
+<li><a class="reference internal" href="#from-a-git-repository">2.3. From a Git Repository</a></li>
+<li><a class="reference internal" href="#as-dependency-of-another-cmake-project">2.4. As Dependency of Another CMake Project</a></li>
+<li><a class="reference internal" href="#from-a-source-archive">2.5. From a Source Archive</a></li>
+<li><a class="reference internal" href="#dependencies">2.6. Dependencies</a></li>
+<li><a class="reference internal" href="#boost-and-boost-python-with-python-3">2.7. Boost and Boost.Python with Python 3</a><ul>
+<li><a class="reference internal" href="#basic-installation">2.7.1. Basic Installation</a></li>
+<li><a class="reference internal" href="#non-standard-python-installation">2.7.2. Non-standard Python Installation</a></li>
+<li><a class="reference internal" href="#custom-gcc-version">2.7.3. Custom GCC Version</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="installation.html" title="Previous Chapter: 1. Installation">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 1. Installation
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="libmod/index.html" title="Next Chapter: 3. libMØD">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3. libMØD &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="compiling-from-source">
+<span id="compiling"></span><h1><span class="section-number">2. </span>Compiling from Source<a class="headerlink" href="#compiling-from-source" title="Link to this heading">¶</a></h1>
+<section id="quick-start">
+<span id="id1"></span><h2><span class="section-number">2.1. </span>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
+<p>These are simplified instructions for Ubuntu, Fedora, Arch, and macOS.
+See <a class="reference internal" href="#compiling-conda"><span class="std std-ref">below</span></a> for instructions for compiling in a Conda
+environment.</p>
+<p>If a step doesn’t work or fit your case, please consult the sections below.</p>
+<p>First, you will need to have a Python virtual environment for your installation of MØD
+(if you use Ubuntu &lt; 23.04 or any Fedora version, you don’t need to, as they don’t implement <a class="reference external" href="https://peps.python.org/pep-0668/">PEP 668</a>).
+Here we will start with a completely new environment called <code class="docutils literal notranslate"><span class="pre">mod-env</span></code>.
+Go to anywhere you like that environment to be stored execute</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>--system-site-packages<span class="w"> </span>mod-env
+<span class="nb">source</span><span class="w"> </span>mod-env/bin/activate
+</pre></div>
+</div>
+<p>Then we can start the compilation.
+Retrive the MØD sources, create auto-generated files, and install Python dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/jakobandersen/mod.git
+<span class="nb">cd</span><span class="w"> </span>mod
+./bootstrap.sh
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>Then install the rest of the dependencies:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+Ubuntu</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span><span class="k">$(</span>bindep<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="k">)</span>
+</pre></div>
+</div>
+<p>Then</p>
+<ol class="arabic">
+<li><p>Install Boost from source, see <a class="reference internal" href="#install-boost-python"><span class="std std-ref">Boost and Boost.Python with Python 3</span></a>.
+Remember the installation path.</p></li>
+<li><p>Install Graphviz from source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>librsvg2-dev<span class="w"> </span>libpango1.0-dev
+<span class="c1"># Download a source archive from https://graphviz.org/download/source/</span>
+<span class="c1"># Extract the archive and cd into the extracted folder.</span>
+./configure
+make<span class="w"> </span>-j<span class="w"> </span>&lt;n&gt;<span class="w"> </span><span class="c1"># where &lt;n&gt; is the number of CPU cores you have, e.g., &#39;make -j 8&#39;</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="fedora" for="sd-tab-item-1">
+Fedora</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span><span class="k">$(</span>bindep<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="k">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="arch" for="sd-tab-item-2">
+Arch</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pacman<span class="w"> </span>-Suy<span class="w"> </span>--noconfirm<span class="w"> </span><span class="k">$(</span>bindep<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="k">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="macos" for="sd-tab-item-3">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>tap<span class="w"> </span>Homebrew/bundle<span class="w">  </span><span class="c1"># may not be needed</span>
+brew<span class="w"> </span>bundle<span class="w"> </span><span class="c1"># perhaps restart the terminal afterwards to pick up the new commands</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then we can begin the compilation and installation:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-4">
+Ubuntu</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+<span class="c1"># install to the virtual env folder</span>
+cmake<span class="w"> </span>../<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="nv">$VIRTUAL_ENV</span><span class="w"> </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>path/to/boost
+<span class="c1"># Build and install:</span>
+make<span class="w"> </span>-j<span class="w"> </span>&lt;n&gt;<span class="w">  </span><span class="c1"># where &lt;n&gt; is the number of CPU cores you have, e.g., &#39;make -j 8&#39;</span>
+make<span class="w"> </span>install
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-5">
+Fedora/Arch/macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+<span class="c1"># install to the virtual env folder</span>
+cmake<span class="w"> </span>../<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>
+<span class="c1"># Build and install:</span>
+make<span class="w"> </span>-j<span class="w"> </span>&lt;n&gt;<span class="w">  </span><span class="c1"># where &lt;n&gt; is the number of CPU cores you have, e.g., &#39;make -j 8&#39;</span>
+make<span class="w"> </span>install
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quick-start-in-a-conda-environment">
+<span id="compiling-conda"></span><h2><span class="section-number">2.2. </span>Quick Start in a Conda Environment<a class="headerlink" href="#quick-start-in-a-conda-environment" title="Link to this heading">¶</a></h2>
+<p>Retrive the MØD sources and create auto-generated files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/jakobandersen/mod.git
+<span class="nb">cd</span><span class="w"> </span>mod
+./bootstrap.sh
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">conda/environment.yaml</span></code> is a specification of the environment needed to compile.
+You can either create a new enviroment, called <code class="docutils literal notranslate"><span class="pre">mod-env</span></code> by defualt:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>conda/environment.yaml
+</pre></div>
+</div>
+<p>Or update an existing enviroment, say <code class="docutils literal notranslate"><span class="pre">my-env</span></code>, with the dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>update<span class="w"> </span>--name<span class="w"> </span>my-env<span class="w"> </span>-f<span class="w"> </span>conda/environment.yaml
+</pre></div>
+</div>
+<p>Install enought of Latex in your system, outside Conda:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
+Ubuntu</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>texlive-science<span class="w"> </span>texlive-pictures<span class="w"> </span>texlive-latex-extra<span class="w"> </span>lmodern
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="fedora" for="sd-tab-item-7">
+Fedora</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>texlive-collection-mathscience<span class="w"> </span>texlive-collection-pictures<span class="w"> </span>texlive-collection-latexextra
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="arch" for="sd-tab-item-8">
+Arch</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pacman<span class="w"> </span>-Suy<span class="w"> </span>texlive-science<span class="w"> </span>texlive-picture<span class="w"> </span>texlive-latexextra
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="macos" for="sd-tab-item-9">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>--cask<span class="w"> </span>mactex
+</pre></div>
+</div>
+</div>
+</div>
+<p>Activate the environment and then proceed with compilation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+<span class="c1"># install to Conda environment folder</span>
+cmake<span class="w"> </span>../<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="nv">$CONDA_PREFIX</span>
+<span class="c1"># Build and install:</span>
+make<span class="w"> </span>-j<span class="w"> </span>&lt;n&gt;<span class="w">  </span><span class="c1"># where &lt;n&gt; is the number of CPU cores you have, e.g., &#39;make -j 8&#39;</span>
+make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="from-a-git-repository">
+<h2><span class="section-number">2.3. </span>From a Git Repository<a class="headerlink" href="#from-a-git-repository" title="Link to this heading">¶</a></h2>
+<p>After a checkout of the desired version, do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+./bootstrap.sh
+</pre></div>
+</div>
+<p>This is needed to first fetch certain dependencies and second
+to generate build files, extract the API documentation,
+and create the file <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> based on the current commit.</p>
+<p>See <a class="reference internal" href="#source-build"><span class="std std-ref">From a Source Archive</span></a> on how to then build the package.</p>
+</section>
+<section id="as-dependency-of-another-cmake-project">
+<h2><span class="section-number">2.4. </span>As Dependency of Another CMake Project<a class="headerlink" href="#as-dependency-of-another-cmake-project" title="Link to this heading">¶</a></h2>
+<p>MØD supports use via <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> in CMake.
+The target <code class="docutils literal notranslate"><span class="pre">mod::libmod</span></code> is exported,
+which can be used with <code class="docutils literal notranslate"><span class="pre">target_link_libraries</span></code> to link against libMØD.
+The version is in the variable <code class="docutils literal notranslate"><span class="pre">mod_VERSION</span></code>.
+Note that running <code class="docutils literal notranslate"><span class="pre">./bootstrap.sh</span></code> is still needed if the
+source is a repository clone (e.g., a Git submodule).</p>
+</section>
+<section id="from-a-source-archive">
+<span id="source-build"></span><h2><span class="section-number">2.5. </span>From a Source Archive<a class="headerlink" href="#from-a-source-archive" title="Link to this heading">¶</a></h2>
+<p>The package is build and installed from source as a CMake project.
+Generally that means something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>../<span class="w"> </span>&lt;options&gt;
+make<span class="w"> </span>-j<span class="w"> </span>&lt;n&gt;
+make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>A source archive can also be created with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">dist</span></code>.</p>
+<p>The following is a list of commonly used options for <code class="docutils literal notranslate"><span class="pre">cmake</span></code>.
+Additional options specific for MØD along with their default valule are also
+listed.
+See also <a class="reference internal" href="#dependencies"><span class="std std-ref">Dependencies</span></a> for elaboration on some of them.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-DCMAKE_INSTALL_PREFIX=&lt;prefix&gt;</span></code>, set a non-standard installation
+directory. Note also that the <a class="reference external" href="https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html">GNUInstallDirs</a>
+module is used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DCMAKE_BUILD_TYPE=&lt;build</span> <span class="pre">type&gt;</span></code>, set a non-standard build type.
+The default is <a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=build_type#variable:CMAKE_BUILD_TYPE">RelWithDebInfo</a>.
+An additional build type <code class="docutils literal notranslate"><span class="pre">OptDebug</span></code> is available which adds the compilation
+flags <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">-O3</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH=&lt;paths&gt;</span></code>, set a <code class="docutils literal notranslate"><span class="pre">;</span></code>-separated list of paths used for
+finding most dependencies. The paths should generally be the prefixes
+specified when the dependency was installed.
+See also <a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_PREFIX_PATH.html#variable:CMAKE_PREFIX_PATH">https://cmake.org/cmake/help/latest/variable/CMAKE_PREFIX_PATH.html#variable:CMAKE_PREFIX_PATH</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_DOC=on</span></code>, whether to build documentation or not.
+This is forced to <code class="docutils literal notranslate"><span class="pre">off</span></code> when used via <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_POST_MOD=on</span></code>, whether to build the post-processor or not.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_POST_MOD_FMT=on</span></code>, whether to build the Latex format files used by
+the post-processor or not.
+Format files may need to be updated when the Latex compiler is updated,
+so when making a binary distribution of MØD that does not include the Latex
+compiler, it is probably a good idea to set this to <code class="docutils literal notranslate"><span class="pre">off</span></code>.
+If the format files are not installed they will be compiled dynamically
+by the post-processor when needed, i.e., making each post-processor run
+slightly slower.
+Alternatively, the format file can be (re)installed by the post-processor
+using the
+<a class="reference internal" href="postmod/index.html#cmdoption-mod_post-install-format"><code class="xref std std-option docutils literal notranslate"><span class="pre">mod_post</span> <span class="pre">--install-format</span></code></a>/<a class="reference internal" href="postmod/index.html#cmdoption-mod_post-install-format-sudo"><code class="xref std std-option docutils literal notranslate"><span class="pre">mod_post</span> <span class="pre">--install-format-sudo</span></code></a>
+options.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_PY_MOD=on</span></code>, whether to build the Python bindings or not.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_PY_MOD_PIP=on</span></code>, whether to install the Python bindings via pip or
+not. The bindings are always installed in the <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;/lib</span></code> folder, so
+a normal <code class="docutils literal notranslate"><span class="pre">import</span></code> in Python will probably not find the module.
+Having this setting on will enable a build of a fake Python package to be
+installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> in the default system folder. This fake package will
+redirect the import to the real location.
+This package can be uninstalled with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">mod-jakobandersen</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_TESTING=off</span></code>, whether to allow test building or not.
+This is forced to <code class="docutils literal notranslate"><span class="pre">off</span></code> when used via <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code>.
+When <code class="docutils literal notranslate"><span class="pre">on</span></code> the tests can be build with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tests</span></code> and run with <code class="docutils literal notranslate"><span class="pre">ctest</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_WITH_SANITIZERS=off</span></code>, whether to compile libraries and tests
+with sanitizers or not. This is forced to <code class="docutils literal notranslate"><span class="pre">off</span></code> when <code class="docutils literal notranslate"><span class="pre">BUILD_COVERAGE=on</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_EXAMPLES=off</span></code>, whether to build and allow running of examples as
+tests or not.
+This is forced to <code class="docutils literal notranslate"><span class="pre">off</span></code> when used via <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code>.
+This is forced to <code class="docutils literal notranslate"><span class="pre">off</span></code> when <code class="docutils literal notranslate"><span class="pre">BUILD_TESTING</span></code> is <code class="docutils literal notranslate"><span class="pre">off</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_COVERAGE=off</span></code>, whether to compile code and run tests with GCov.
+When <code class="docutils literal notranslate"><span class="pre">on</span></code> the sanitizers on tests will be disabled.
+After building the tests, execute <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">coverage_collect</span></code> without parallel
+jobs to run tests. Afterwards, execute <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">coverage_build</span></code> to compile the
+code coverage report.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DENABLE_SYMBOL_HIDING=on</span></code>, whether symbols internal to the library are
+hidden or not. Disabling this option may degrade performance, and should only
+be done while developing extensions to the C++ library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DENABLE_DEP_SYMBOL_HIDING=on</span></code>, whether symbols from library dependencies
+are hidden or not. Disabling this option may make it slower to load the
+library at runtime.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DENABLE_IPO=on</span></code>, whether to use link-time optimization or not.
+Disabling this option may degrade performance, but speed up linking time.
+As default the link-time optimizer will only use 1 thread.
+To use more threads, e.g., 7, use the following options for configuration
+<code class="docutils literal notranslate"><span class="pre">-DCMAKE_MODULE_LINKER_FLAGS=&quot;-flto=7&quot;</span> <span class="pre">-DCMAKE_SHARED_LINKER_FLAGS=&quot;-flto=7&quot;</span></code>,
+when using GCC as the compiler.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DUSE_NESTED_GRAPH_CANON=on</span></code>, whether to use the dependency GraphCanon
+from the Git submodule or not.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DUSE_NESTED_NLOHMANN_JSON=on</span></code>, whether to use the dependency
+<a class="reference external" href="https://github.com/nlohmann/json">nlohmann/json</a> from the Git submodule
+or not.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DWITH_OPENBABEL=on</span></code>, whether to enable/disable features depending on Open Babel.</p></li>
+</ul>
+</section>
+<section id="dependencies">
+<span id="id2"></span><h2><span class="section-number">2.6. </span>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h2>
+<p>Python dependencies are listed in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> (which includes
+<code class="docutils literal notranslate"><span class="pre">requirements_nodoc.txt</span></code>).</p>
+<p>Dependencies that can be satisfied via the system package manager are listed in
+<code class="docutils literal notranslate"><span class="pre">bindep.txt</span></code>. Any missing package can be listed using the
+<a class="reference external" href="https://docs.openstack.org/infra/bindep/readme.html">Bindep</a> program
+(which can be installed via <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>).</p>
+<p>The following is a detailed list of all dependencies and the CMake switches
+related to them.</p>
+<ul>
+<li><p>This documentation requires (<code class="docutils literal notranslate"><span class="pre">-DBUILD_DOC=on</span></code>):</p>
+<ul class="simple">
+<li><p>A supported version of <a class="reference external" href="http://sphinx-doc.org">Sphinx</a>.</p></li>
+<li><p>The Python package <code class="docutils literal notranslate"><span class="pre">sphinx-autoapi</span></code> (module name: <code class="docutils literal notranslate"><span class="pre">autoapi</span></code>).</p></li>
+</ul>
+</li>
+<li><p>libMØD:</p>
+<ul class="simple">
+<li><p>A C++ compiler with reasonable C++17 support is needed.</p></li>
+<li><p><a class="reference external" href="http://boost.org">Boost</a> dev &gt;= 1.76
+(use <code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH=&lt;path&gt;</span></code> for non-standard locations).</p></li>
+<li><p><a class="reference external" href="https://github.com/jakobandersen/graph_canon">GraphCanon</a> &gt;= 0.5.
+This is fulfilled via a Git submodule (make sure to do
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span> <span class="pre">--init</span> <span class="pre">--recursive</span></code>),
+but if another source is needed, set <code class="docutils literal notranslate"><span class="pre">-DUSE_NESTED_GRAPH_CANON=off</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/nlohmann/json">nlohmann/json</a> &gt;= 3.7.3.
+This is fulfilled via a Git submodule (make sure to do
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span> <span class="pre">--init</span> <span class="pre">--recursive</span></code>),
+but if another source is needed, set <code class="docutils literal notranslate"><span class="pre">-DUSE_NESTED_NLOHMANN_JSON=off</span></code>.</p></li>
+<li><p>(optional) <a class="reference external" href="http://openbabel.org">Open Babel</a> dev, &gt;= 2.3.2
+(<code class="docutils literal notranslate"><span class="pre">-DWITH_OPENBABEL=on</span></code>).</p></li>
+</ul>
+</li>
+<li><p>PyMØD (<code class="docutils literal notranslate"><span class="pre">-DBUILD_PY_MOD=on</span></code>):</p>
+<ul class="simple">
+<li><p>Python 3 dev</p></li>
+<li><p>Boost.Python built with Python 3</p></li>
+<li><p>(Optional) IPython 3</p></li>
+</ul>
+</li>
+<li><p>PostMØD (<code class="docutils literal notranslate"><span class="pre">-DBUILD_POST_MOD=on</span></code>):</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pdflatex</span></code> available in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or in <code class="docutils literal notranslate"><span class="pre">CMAKE_PROGRAM_PATH</span></code>,
+with not too old packages (Tex Live 2012 or newer should work).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pdf2svg</span></code> available in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or in <code class="docutils literal notranslate"><span class="pre">CMAKE_PROGRAM_PATH</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dot</span></code> and <code class="docutils literal notranslate"><span class="pre">neato</span></code> from Graphviz available in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or in
+<code class="docutils literal notranslate"><span class="pre">CMAKE_PROGRAM_PATH</span></code>.
+They must additionally be able to load SVG files and output as both SVG and
+PDF files (all via cairo).
+That is, in the output of <code class="docutils literal notranslate"><span class="pre">dot</span> <span class="pre">-P</span></code> the following edges must exist:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cairo_device_svg</span> <span class="pre">-&gt;</span> <span class="pre">output_svg</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cairo_device_pdf</span> <span class="pre">-&gt;</span> <span class="pre">output_pdf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rsvg_loadimage_svg</span> <span class="pre">-&gt;</span> <span class="pre">render_cairo</span></code></p></li>
+</ul>
+</li>
+<li><p>If you install Graphviz from source, you can check if the status output in
+the end of <code class="docutils literal notranslate"><span class="pre">configure</span></code> includes the following two lines:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pangocairo:    Yes
+rsvg:          Yes
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="boost-and-boost-python-with-python-3">
+<span id="install-boost-python"></span><h2><span class="section-number">2.7. </span>Boost and Boost.Python with Python 3<a class="headerlink" href="#boost-and-boost-python-with-python-3" title="Link to this heading">¶</a></h2>
+<p>A package with the sources of Boost can be downloaded from <cite>http://boost.org</cite>.</p>
+<section id="basic-installation">
+<h3><span class="section-number">2.7.1. </span>Basic Installation<a class="headerlink" href="#basic-installation" title="Link to this heading">¶</a></h3>
+<p>Boost uses a custom build system which may be difficult to use.
+A procedure for compiling and installing Boost with Python 3 for Boost.Python
+is the following.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">./bootstrap.sh</span> <span class="pre">--with-python=python3</span></code> (optionally give
+<code class="docutils literal notranslate"><span class="pre">--prefix=some/path</span></code> to specify a non-standard installation path.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./b2</span></code> (optionally give <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">N</span></code> (similar to GNU Make) to compile with
+multiple threads)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./b2</span> <span class="pre">install</span></code> (optionally give <code class="docutils literal notranslate"><span class="pre">--prefix=some/path</span></code> to specify a
+non-standard installation path (if not done earlier).</p></li>
+</ol>
+<p>After <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> has been run, the file <code class="docutils literal notranslate"><span class="pre">project-config.jam</span></code>
+has been created, which can be edited to customise installation path and a lot
+of other things. All edits should be done before running <code class="docutils literal notranslate"><span class="pre">b2</span></code>.</p>
+</section>
+<section id="non-standard-python-installation">
+<h3><span class="section-number">2.7.2. </span>Non-standard Python Installation<a class="headerlink" href="#non-standard-python-installation" title="Link to this heading">¶</a></h3>
+<p>Passing <code class="docutils literal notranslate"><span class="pre">--with-python=python3</span></code> to <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> should work.
+This adds a line similar to “<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">python</span> <span class="pre">:</span> <span class="pre">3.7</span> <span class="pre">;</span></code>” to
+<code class="docutils literal notranslate"><span class="pre">project-config.jam</span></code>.
+After compilation (running <code class="docutils literal notranslate"><span class="pre">b2</span></code>) the file <code class="docutils literal notranslate"><span class="pre">stage/lib/libboost_python3.so</span></code>
+should exist. If not, it did not detect Python 3 properly.</p>
+<p>If Python is installed in a non-standard location, add the a line similar to
+“<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">python</span> <span class="pre">:</span> <span class="pre">3.7</span> <span class="pre">:</span> <span class="pre">python3</span> <span class="pre">:</span> <span class="pre">/path/to/python/3/installtion/include</span> <span class="pre">;</span></code>” to
+<code class="docutils literal notranslate"><span class="pre">project-config.jam</span></code>, where the last path is the path to the
+<code class="docutils literal notranslate"><span class="pre">include</span></code>-folder of the Python-installation.</p>
+</section>
+<section id="custom-gcc-version">
+<h3><span class="section-number">2.7.3. </span>Custom GCC Version<a class="headerlink" href="#custom-gcc-version" title="Link to this heading">¶</a></h3>
+<p>Before running <code class="docutils literal notranslate"><span class="pre">b2</span></code> create the file <code class="docutils literal notranslate"><span class="pre">user-config.jam</span></code> in the root of the
+home dir (see <a class="reference external" href="http://www.boost.org/boost-build2/doc/html/bbv2/overview/configuration.html">here</a>
+for the full documentation). Put a line similar to
+“<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">gcc</span> <span class="pre">:</span> <span class="pre">:</span> <span class="pre">/path/to/g++-10</span></code>” in the file.</p>
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2024, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.3.7.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="_sources/compiling.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>
