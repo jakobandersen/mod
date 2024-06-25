@@ -42,7 +42,7 @@ New Features
   when there are no variables in the attached terms,
   thereby speeding up the check.
 - Make :cpp:class:`dg::Printer`/:py:class:`DGPrinter` copyable.
-- Add optinal callbacks to :cpp:func:`dg::DG::build`/:py:meth:`DG.build`,
+- Add optional callbacks to :cpp:func:`dg::DG::build`/:py:meth:`DG.build`,
   to enable real-time status of what is being added.
 
 
