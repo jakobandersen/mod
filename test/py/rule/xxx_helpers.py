@@ -28,13 +28,11 @@ def dfsFail(s, pattern):
 
 def dfsCheck(dfsInput, gmlInput):
 	print("DFS:", dfsInput)
-	dfs = Rule.fromDFS(dfsInput)
-	gml = Rule.fromGMLString("rule [ %s ]" % gmlInput)
+	dfs = Rule.fromDFS(dfsInput, "DFS")
+	gml = Rule.fromGMLString("rule [ %s ]" % gmlInput, "GML")
 	if dfs.isomorphism(gml) != 1:
 		print("DFS Input:", dfs)
 		print("GML Input: rule [\n%s\n]" % gmlInput)
-		dfs.name = "DFS"
-		gml.name = "GML"
 		dfs.print()
 		gml.print()
 		post.enableInvokeMake()

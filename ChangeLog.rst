@@ -12,8 +12,15 @@ Incompatible Changes
 
 - The rule loading functions in PyMØD, :py:func:`Rule.fromGMLString`,
   :py:func:`Rule.fromGMLFile`, and :py:func:`Rule.fromDFS`,
-  now only accepts the first argument as positional,
+  now only accepts the first argument and the new name argument as positional,
   while the remaning arguments must be specified by keyword.
+
+New Features
+------------
+
+- The rule loading functions in PyMØD, :py:func:`Rule.fromGMLString`,
+  :py:func:`Rule.fromGMLFile`, and :py:func:`Rule.fromDFS`, now optionally accepts
+  a name for the rule as a second positional argument.
 
 
 v0.16.0 (2024-06-18)

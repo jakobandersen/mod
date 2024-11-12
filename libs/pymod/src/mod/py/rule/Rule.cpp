@@ -175,7 +175,7 @@ void Rule_doExport() {
 					// rst:			:rtype: Vertex
 			.def("getVertexFromExternalId", &Rule::getVertexFromExternalId)
 					// rst:		.. attribute:: minExternalId
-					// rst:		                  maxExternalId
+					// rst:		               maxExternalId
 					// rst:
 					// rst:			If the rule was not loaded from an external data format, then these attributes
 					// rst:			are always return 0. Otherwise, they are the minimum/maximum external id from which
@@ -189,8 +189,8 @@ void Rule_doExport() {
 					// rst: Loading Functions
 					// rst: =================
 					// rst:
-					// rst: .. staticmethod:: Rule.fromGMLString(s, *, invert=False, add=True, printStereoWarnings=True)
-					// rst:                   Rule.fromGMLFile(f, *, invert=False, add=True, printStereoWarnings=True)
+					// rst: .. staticmethod:: Rule.fromGMLString(s, name=None, *, invert=False, add=True, printStereoWarnings=True)
+					// rst:                   Rule.fromGMLFile(f, name=None, *, invert=False, add=True, printStereoWarnings=True)
 					// rst:
 					// rst:		Load a rule from a :ref:`GML <rule-gml>` string or file, and maybe store it in a global list.
 					// rst:		The name of the rule is the one specified in the GML string, though when ``invert=True``
@@ -204,6 +204,8 @@ void Rule_doExport() {
 					// rst:		:param str s: the GML string to load a rule from.
 					// rst:		:param f: name of the GML file to be loaded.
 					// rst:		:type f: str or CWDPath
+					// rst:		:param str name: the name of the rule. If none is given the ``ruleID`` in the GML is used,
+					// rst:			and if that is not present, then the default name is used.
 					// rst:		:param bool invert: whether to invert the loaded rule.
 					// rst:		:param bool add: whether to append the rule to :data:`inputRules` or not.
 					// rst:		:param bool printStereoWarnings: whether to print warnings due to unhandled stereo information.
@@ -213,11 +215,12 @@ void Rule_doExport() {
 			.staticmethod("fromGMLString")
 			.def("fromGMLFile", &Rule::fromGMLFile)
 			.staticmethod("fromGMLFile")
-					// rst: .. staticmethod:: Rule.fromDFS(s, *, invert=False, add=True)
+					// rst: .. staticmethod:: Rule.fromDFS(s, name=None, *, invert=False, add=True)
 					// rst:
 					// rst:		Load a rule from a :ref:`RuleDFS <format-ruleDFS>` string.
 					// rst:
 					// rst:		:param str s: the :ref:`RuleDFS <format-ruleDFS>` string to parse.
+					// rst:		:param str name: the name of the rule. If none is given the default name is used.
 					// rst:		:param bool invert: whether to invert the loaded rule.
 					// rst:		:param str name: the name of the rule. If none is given the default name is used.
 					// rst:		:param bool add: whether to append the rule to :data:`inputRules` or not.
