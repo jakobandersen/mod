@@ -7,6 +7,14 @@ Changes
 develop
 =======
 
+Incompatible Changes
+--------------------
+
+- The rule loading functions in PyMØD, :py:func:`Rule.fromGMLString`,
+  :py:func:`Rule.fromGMLFile`, and :py:func:`Rule.fromDFS`,
+  now only accepts the first argument as positional,
+  while the remaning arguments must be specified by keyword.
+
 
 v0.16.0 (2024-06-18)
 ====================

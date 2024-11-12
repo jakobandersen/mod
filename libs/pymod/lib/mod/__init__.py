@@ -888,11 +888,11 @@ _Rule_fromGMLString_orig = Rule.fromGMLString
 _Rule_fromGMLFile_orig   = Rule.fromGMLFile
 _Rule_fromDFS_orig       = Rule.fromDFS
 
-def _Rule_fromGMLString(s: str, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
+def _Rule_fromGMLString(s: str, *, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
 	return _ruleLoad(_Rule_fromGMLString_orig(s, invert, printStereoWarnings), add)
-def _Rule_fromGMLFile(f: str, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
+def _Rule_fromGMLFile(f: str, *, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
 	return _ruleLoad(_Rule_fromGMLFile_orig(prefixFilename(f), invert, printStereoWarnings), add)
-def _Rule_fromDFS(s: str, invert: bool=False, add: bool=True) -> Rule:
+def _Rule_fromDFS(s: str, *, invert: bool=False, add: bool=True) -> Rule:
 	return _ruleLoad(_Rule_fromDFS_orig(s, invert), add)
 
 Rule.fromGMLString = _Rule_fromGMLString  # type: ignore

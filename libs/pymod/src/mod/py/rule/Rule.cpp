@@ -189,8 +189,8 @@ void Rule_doExport() {
 					// rst: Loading Functions
 					// rst: =================
 					// rst:
-					// rst: .. staticmethod:: Rule.fromGMLString(s, invert=False, add=True, printStereoWarnings=True)
-					// rst:                   Rule.fromGMLFile(f, invert=False, add=True, printStereoWarnings=True)
+					// rst: .. staticmethod:: Rule.fromGMLString(s, *, invert=False, add=True, printStereoWarnings=True)
+					// rst:                   Rule.fromGMLFile(f, *, invert=False, add=True, printStereoWarnings=True)
 					// rst:
 					// rst:		Load a rule from a :ref:`GML <rule-gml>` string or file, and maybe store it in a global list.
 					// rst:		The name of the rule is the one specified in the GML string, though when ``invert=True``
@@ -213,7 +213,7 @@ void Rule_doExport() {
 			.staticmethod("fromGMLString")
 			.def("fromGMLFile", &Rule::fromGMLFile)
 			.staticmethod("fromGMLFile")
-					// rst: .. staticmethod:: Rule.fromDFS(s, invert=False, add=True)
+					// rst: .. staticmethod:: Rule.fromDFS(s, *, invert=False, add=True)
 					// rst:
 					// rst:		Load a rule from a :ref:`RuleDFS <format-ruleDFS>` string.
 					// rst:
