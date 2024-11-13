@@ -23,6 +23,13 @@ New Features
   a name for the rule as a second positional argument.
 
 
+Bugs Fixed
+----------
+
+- Fix :py:meth:`Rule.isomorphicLeftRight`/:cpp:func:`rule::Rule::isomorphicLeftRight`,
+  it was completely broken.
+
+
 v0.16.0 (2024-06-18)
 ====================
 

@@ -8,6 +8,7 @@
 #include <mod/lib/GraphMorphism/LabelledMorphism.hpp>
 #include <mod/lib/GraphMorphism/VF2Finder.hpp>
 #include <mod/lib/LabelledGraph.hpp>
+#include <mod/lib/LabelledFilteredGraph.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/Rules/IO/DepictionData.hpp>
 #include <mod/lib/Rules/Properties/Molecule.hpp>
@@ -194,15 +195,15 @@ std::size_t Real::monomorphism(const Real &rDom,
 bool Real::isomorphicLeftRight(const Real &rDom, const Real &rCodom, LabelSettings labelSettings) {
 	auto mrLeft = jla_boost::GraphMorphism::makeLimit(1);
 	lib::GraphMorphism::morphismSelectByLabelSettings(
-			get_labelled_left(rDom.getDPORule()),
-			get_labelled_left(rCodom.getDPORule()),
+			LabelledFilteredGraph(get_labelled_left(rDom.getDPORule())),
+			LabelledFilteredGraph(get_labelled_left(rCodom.getDPORule())),
 			labelSettings,
 			lib::GraphMorphism::VF2Isomorphism(), std::ref(mrLeft));
 	if(mrLeft.getNumHits() == 0) return false;
 	auto mrRight = jla_boost::GraphMorphism::makeLimit(1);
 	lib::GraphMorphism::morphismSelectByLabelSettings(
-			get_labelled_right(rDom.getDPORule()),
-			get_labelled_right(rCodom.getDPORule()),
+			LabelledFilteredGraph(get_labelled_right(rDom.getDPORule())),
+			LabelledFilteredGraph(get_labelled_right(rCodom.getDPORule())),
 			labelSettings,
 			lib::GraphMorphism::VF2Isomorphism(), std::ref(mrRight));
 	return mrRight.getNumHits() == 1;
