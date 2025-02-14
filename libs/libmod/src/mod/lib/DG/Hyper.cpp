@@ -6,9 +6,9 @@
 #include <mod/dg/DG.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/lib/DG/NonHyper.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/IO/IO.hpp>
-#include <mod/lib/Rules/Real.hpp>
+#include <mod/lib/Rule/Rule.hpp>
 
 #include <jla_boost/graph/PairToRangeAdaptor.hpp>
 
@@ -42,7 +42,7 @@ HyperCreator::~HyperCreator() {
 	if(owner) owner->hasCalculated = true;
 }
 
-void HyperCreator::addVertex(const lib::Graph::Single *g) {
+void HyperCreator::addVertex(const lib::graph::Graph *g) {
 	assert(owner);
 	const auto[v, isNew] = owner->addVertex(g);
 	if(isNew && onNewVertex) (*onNewVertex)(owner->getInterfaceVertex(v));
@@ -59,13 +59,13 @@ HyperVertex HyperCreator::addEdge(NonHyper::Edge eNon) {
 	hyper[v].edge = eNon;
 
 	{ // source edges
-		for(const lib::Graph::Single *g: dg[vSrcNon].graphs) {
+		for(const lib::graph::Graph *g: dg[vSrcNon].graphs) {
 			Hyper::Vertex vSrc = owner->getVertexFromGraph(g);
 			add_edge(vSrc, v, hyper);
 		}
 	}
 	{ // target edges
-		for(const lib::Graph::Single *g: dg[vTarNon].graphs) {
+		for(const lib::graph::Graph *g: dg[vTarNon].graphs) {
 			Hyper::Vertex vTar = owner->getVertexFromGraph(g);
 			add_edge(v, vTar, hyper);
 		}
@@ -98,20 +98,20 @@ std::pair<std::unique_ptr<Hyper>, HyperCreator> Hyper::makeHyper(
 //	// first go through each vertex in dg, and create the needed vertices in dgHyper representing graphs
 //
 //	for(Vertex v : asRange(vertices(dg))) {
-//		const lib::Graph::Base *g = dg[v].graph;
+//		const lib::graph::Base *g = dg[v].graph;
 //		assert(g);
-//		for(const lib::Graph::Single *gSingle : g->getSingles()) addVertex(gSingle);
+//		for(const lib::graph::Graph *gSingle : g->getSingles()) addVertex(gSingle);
 //	}
 //
 //	// then go through all edge and add vertices for them, and edges
 //	std::map<NonHyperEdge, Vertex> edgeToHyper;
 //
 //	for(NonHyperEdge e : asRange(edges(dg))) {
-//		const lib::Rules::Base *r = dg[e].rule;
+//		const lib::rule::Base *r = dg[e].rule;
 //		Vertex from = source(e, dg);
-//		const lib::Graph::Base *gFrom = dg[from].graph;
+//		const lib::graph::Base *gFrom = dg[from].graph;
 //		Vertex to = target(e, dg);
-//		const lib::Graph::Base *gTo = dg[to].graph;
+//		const lib::graph::Base *gTo = dg[to].graph;
 //		// it's a hyper edge, so first add the vertex implemening the edge
 //		Hyper::Vertex v = add_vertex(hyper);
 //		hyper[v].kind = VertexKind::Edge;
@@ -136,7 +136,7 @@ std::pair<std::unique_ptr<Hyper>, HyperCreator> Hyper::makeHyper(
 //
 //		// add in edges to the rule
 //		{ // from
-//			for(const lib::Graph::Single *g : gFrom->getSingles()) {
+//			for(const lib::graph::Graph *g : gFrom->getSingles()) {
 //				// get the vertex descriptor representing this graph
 //				Hyper::Vertex vFrom = getVertexFromGraph(g);
 //				add_edge(vFrom, v, hyper);
@@ -145,7 +145,7 @@ std::pair<std::unique_ptr<Hyper>, HyperCreator> Hyper::makeHyper(
 //
 //		// add out edges from the rule
 //		{ // to
-//			for(const lib::Graph::Single *g : gTo->getSingles()) {
+//			for(const lib::graph::Graph *g : gTo->getSingles()) {
 //				// get the vertex descriptor representing this graph
 //				Hyper::Vertex vTo = getVertexFromGraph(g);
 //				add_edge(v, vTo, hyper);
@@ -154,7 +154,7 @@ std::pair<std::unique_ptr<Hyper>, HyperCreator> Hyper::makeHyper(
 //	}
 //}
 
-std::pair<HyperVertex, bool> Hyper::addVertex(const lib::Graph::Single *g) {
+std::pair<HyperVertex, bool> Hyper::addVertex(const lib::graph::Graph *g) {
 	{ // sanity check
 		assert(nonHyper.getGraphDatabase().contains(g->getAPIReference()));
 	}
@@ -302,18 +302,18 @@ void Hyper::printStats(std::ostream &s) const {
 	s << "------------------------------------------------------------------" << std::endl;
 }
 
-bool Hyper::isVertexGraph(const lib::Graph::Single *g) const {
+bool Hyper::isVertexGraph(const lib::graph::Graph *g) const {
 	const auto iter = graphToHyperVertex.find(g);
 	return iter != graphToHyperVertex.end();
 }
 
-Hyper::Vertex Hyper::getVertexOrNullFromGraph(const lib::Graph::Single *g) const {
+Hyper::Vertex Hyper::getVertexOrNullFromGraph(const lib::graph::Graph *g) const {
 	const auto iter = graphToHyperVertex.find(g);
 	if(iter == graphToHyperVertex.end()) return getGraph().null_vertex();
 	else return iter->second;
 }
 
-Hyper::Vertex Hyper::getVertexFromGraph(const lib::Graph::Single *g) const {
+Hyper::Vertex Hyper::getVertexFromGraph(const lib::graph::Graph *g) const {
 	const auto iter = graphToHyperVertex.find(g);
 	assert(iter != graphToHyperVertex.end());
 	return iter->second;
@@ -329,7 +329,7 @@ Hyper::Vertex Hyper::getReverseEdge(Vertex e) const {
 		return hyper.null_vertex();
 }
 
-const std::vector<const lib::Rules::Real *> &Hyper::getRulesFromEdge(Vertex e) const {
+const std::vector<const lib::rule::Rule *> &Hyper::getRulesFromEdge(Vertex e) const {
 	assert(hyper[e].kind == HyperVertexKind::Edge);
 	const auto &dgNon = getNonHyper().getGraph();
 	return dgNon[hyper[e].edge].rules;

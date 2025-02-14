@@ -2,7 +2,7 @@
 
 #include <mod/Config.hpp>
 #include <mod/lib/DG/Strategies/GraphState.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 
 #include <ostream>
 
@@ -16,11 +16,11 @@ std::unique_ptr<Strategy> Revive::clone() const {
 	return std::make_unique<Revive>(strat->clone());
 }
 
-void Revive::preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const {
+void Revive::preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const {
 	strat->preAddGraphs(add);
 }
 
-void Revive::forEachRule(std::function<void(const lib::Rules::Real &)> f) const {
+void Revive::forEachRule(std::function<void(const lib::rule::Rule &)> f) const {
 	strat->forEachRule(f);
 }
 
@@ -35,7 +35,7 @@ void Revive::printInfo(PrintSettings settings) const {
 	settings.s << '\n';
 }
 
-bool Revive::isConsumed(const Graph::Single *g) const {
+bool Revive::isConsumed(const lib::graph::Graph *g) const {
 	return strat->isConsumed(g);
 }
 

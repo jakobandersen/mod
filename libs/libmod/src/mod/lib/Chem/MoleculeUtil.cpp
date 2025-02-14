@@ -3,14 +3,8 @@
 #include <mod/Config.hpp>
 #include <mod/Error.hpp>
 
-#include <jla_boost/graph/PairToRangeAdaptor.hpp>
-
 #include <boost/algorithm/string.hpp>
-#include <boost/bimap/bimap.hpp>
-#include <boost/graph/copy.hpp>
 #include <boost/lexical_cast.hpp>
-
-#include <map>
 
 namespace mod::lib::Chem {
 
@@ -18,61 +12,11 @@ namespace mod::lib::Chem {
 // Other
 //------------------------------------------------------------------------------
 
-std::tuple<std::string, Isotope, Charge, bool> extractIsotopeChargeRadical(const std::string &label) {
-	auto res = extractIsotopeChargeRadicalLen(label);
-	std::string newLlabel(std::get<0>(res), std::get<1>(res));
-	return std::make_tuple(std::move(newLlabel), std::get<2>(res), std::get<3>(res), std::get<4>(res));
-}
-
-std::tuple<std::string::const_iterator, std::string::const_iterator, Isotope, Charge, bool>
-/*   */ extractIsotopeChargeRadicalLen(const std::string &label) {
-	assert(!label.empty());
-	auto first = label.begin();
-	// note: the range is inclusive, i.e., [first, end], _not_ [first, last[
-	auto end = label.end() - 1;
-	// radical
-	bool radical = false;
-	if(first != end && *end == '.') {
-		radical = true;
-		--end;
-	}
-	// charge
-	signed char charge = 0;
-	if(end != first // "+" and "-" as labels do not have charge
-			&& (*end == '+' || *end == '-')) {
-		charge = *end == '+' ? 1 : -1;
-		--end;
-		if(first != end) { // "4+" have charge +1, and label "4"
-			if(*end >= '0' && *end <= '9') {
-				charge *= *end - '0';
-				--end;
-			}
-		}
-	}
-	// isotope
-	int isotope = 0;
-	if(first != end) { // still inclusive range, leave at least 1 char (in the end) for the label
-		// leave at least 1 char for the atom type
-		if(*first != '0') {
-			for(; first != end && *first >= '0' && *first <= '9'; ++first) {
-				isotope *= 10;
-				isotope += *first - '0';
-			}
-		}
-	}
-	if(isotope == 0) isotope = -1;
-	return std::make_tuple(first, end + 1, Isotope(isotope), Charge(charge), radical);
-}
-
-AtomId atomIdFromSymbol(const std::string &label) {
-	return atomIdFromSymbol(label.begin(), label.end());
-}
-
-AtomId atomIdFromSymbol(const std::string::const_iterator first, const std::string::const_iterator last) {
+AtomId atomIdFromSymbol(std::string_view label) {
 	using namespace AtomIds;
-	const auto len = last - first;
+	const auto len = label.size();
 	if(len == 1) {
-		switch(first[0]) {
+		switch(label[0]) {
 		case 'B': return B;
 		case 'C': return C;
 		case 'F': return F;
@@ -90,7 +34,7 @@ AtomId atomIdFromSymbol(const std::string::const_iterator first, const std::stri
 		default: return Invalid;
 		}
 	} else if(len == 2) {
-		char c1 = first[0], c2 = first[1];
+		char c1 = label[0], c2 = label[1];
 		switch(c1) {
 		case 'Z':
 			switch(c2) {
@@ -279,7 +223,7 @@ AtomId atomIdFromSymbol(const std::string::const_iterator first, const std::stri
 		default: return Invalid;
 		}
 	} else if(len == 3) {
-		char c1 = first[0], c2 = first[1], c3 = first[2];
+		char c1 = label[0], c2 = label[1], c3 = label[2];
 		switch(c1) {
 		case 'U':
 			switch(c2) {
@@ -298,17 +242,59 @@ AtomId atomIdFromSymbol(const std::string::const_iterator first, const std::stri
 	} else return Invalid;
 }
 
-std::tuple<AtomId, Isotope, Charge, bool> decodeVertexLabel(const std::string &label) {
-	// This is a kind of "best effort", meaning that 42Lol4+. is decoded to isotope=42, charge=4, radical=.
-	const auto ex = extractIsotopeChargeRadicalLen(label);
-	const Isotope isotope = std::get<2>(ex);
-	const Charge charge = std::get<3>(ex);
-	const bool radical = std::get<4>(ex);
-	auto atomId = atomIdFromSymbol(std::get<0>(ex), std::get<1>(ex));
-	return std::make_tuple(atomId, isotope, charge, radical);
+VertexLabelParseResult parseVertexLabel(std::string_view label) {
+	assert(!label.empty());
+	auto first = label.begin();
+	// note: the range is inclusive, i.e., [first, end], _not_ [first, last[
+	auto end = label.end() - 1;
+	// radical
+	bool radical = false;
+	if(first != end && *end == '.') {
+		radical = true;
+		--end;
+	}
+	// charge
+	signed char charge = 0;
+	if(end != first // "+" and "-" as labels do not have charge
+	   && (*end == '+' || *end == '-')) {
+		charge = *end == '+' ? 1 : -1;
+		--end;
+		if(first != end) { // "4+" have charge +1, and label "4"
+			if(*end >= '0' && *end <= '9') {
+				charge *= *end - '0';
+				--end;
+			}
+		}
+	}
+	// isotope
+	int isotope = 0;
+	if(first != end) { // still inclusive range, leave at least 1 char (in the end) for the label
+		// leave at least 1 char for the atom type
+		if(*first != '0') {
+			for(; first != end && *first >= '0' && *first <= '9'; ++first) {
+				isotope *= 10;
+				isotope += *first - '0';
+			}
+		}
+	}
+	if(isotope == 0) isotope = -1;
+//	std::cout << "Prefix: " << std::string(label.begin(), first) << ", len=" << (first - label.begin()) << std::endl;
+//	std::cout << "Suffix: " << std::string(end + 1, label.end()) << ", len=" << (label.end() - (end + 1)) << std::endl;
+//	std::cout << "Label before: " << label << std::endl;
+	label.remove_suffix(label.end() - (end + 1));
+	label.remove_prefix(first - label.begin());
+//	std::cout << "Label after:  " << label << std::endl;
+	return {{Isotope(isotope), Charge(charge), radical}, label};
 }
 
-BondType decodeEdgeLabel(const std::string &label) {
+VertexLabelDecodeResult decodeVertexLabel(std::string_view label) {
+	// This is a kind of "best effort", meaning that 42Lol4+. is decoded to isotope=42, charge=4, radical=.
+	const auto ex = parseVertexLabel(label);
+	auto atomId = atomIdFromSymbol(ex.rest);
+	return {ex, atomId};
+}
+
+BondType decodeEdgeLabel(std::string_view label) {
 	if(label.size() == 1) {
 		switch(label[0]) {
 		case '-': return BondType::Single;
@@ -332,8 +318,8 @@ std::string symbolFromAtomId(AtomId atomId) {
 #define MOD_toString(s) MOD_toString1(s)
 #define MOD_toString1(s) #s
 #define MDO_CHEM_atomIdIter(r, data, t)                                         \
-	case BOOST_PP_TUPLE_ELEM(MOD_CHEM_ATOM_DATA_ELEM_SIZE(), 0, t): return MOD_toString(BOOST_PP_TUPLE_ELEM(3, 1, t));
-		BOOST_PP_SEQ_FOR_EACH(MDO_CHEM_atomIdIter, ~, MOD_CHEM_ATOM_DATA())
+    case BOOST_PP_TUPLE_ELEM(MOD_CHEM_ATOM_DATA_ELEM_SIZE(), 0, t): return MOD_toString(BOOST_PP_TUPLE_ELEM(3, 1, t));
+	BOOST_PP_SEQ_FOR_EACH(MDO_CHEM_atomIdIter, ~, MOD_CHEM_ATOM_DATA())
 	default: MOD_ABORT;
 	}
 #undef MDO_CHEM_atomIdIter
@@ -346,11 +332,11 @@ void appendSymbolFromAtomId(std::string &s, AtomId atomId) {
 #define MOD_toString(s) MOD_toString1(s)
 #define MOD_toString1(s) #s
 #define MDO_CHEM_atomIdIter(r, data, t)                                                      \
-	case BOOST_PP_TUPLE_ELEM(MOD_CHEM_ATOM_DATA_ELEM_SIZE(), 0, t):                            \
-		for(unsigned int i = 0; i < sizeof(MOD_toString(BOOST_PP_TUPLE_ELEM(3, 1, t))) - 1; i++) \
-			s += MOD_toString(BOOST_PP_TUPLE_ELEM(3, 1, t))[i];                                    \
-		break;
-		BOOST_PP_SEQ_FOR_EACH(MDO_CHEM_atomIdIter, ~, MOD_CHEM_ATOM_DATA())
+    case BOOST_PP_TUPLE_ELEM(MOD_CHEM_ATOM_DATA_ELEM_SIZE(), 0, t):                            \
+        for(unsigned int i = 0; i < sizeof(MOD_toString(BOOST_PP_TUPLE_ELEM(3, 1, t))) - 1; i++) \
+            s += MOD_toString(BOOST_PP_TUPLE_ELEM(3, 1, t))[i];                                    \
+        break;
+	BOOST_PP_SEQ_FOR_EACH(MDO_CHEM_atomIdIter, ~, MOD_CHEM_ATOM_DATA())
 	default: MOD_ABORT;
 	}
 #undef MDO_CHEM_atomIdIter
@@ -360,19 +346,13 @@ void appendSymbolFromAtomId(std::string &s, AtomId atomId) {
 
 char bondToChar(BondType bt) {
 	switch(bt) {
-	case BondType::Invalid:
-		MOD_ABORT;
+	case BondType::Invalid: MOD_ABORT;
 		break;
-	case BondType::Single:
-		return '-';
-	case BondType::Aromatic:
-		return ':';
-	case BondType::Double:
-		return '=';
-	case BondType::Triple:
-		return '#';
-	default:
-		MOD_ABORT;
+	case BondType::Single: return '-';
+	case BondType::Aromatic: return ':';
+	case BondType::Double: return '=';
+	case BondType::Triple: return '#';
+	default: MOD_ABORT;
 	}
 }
 

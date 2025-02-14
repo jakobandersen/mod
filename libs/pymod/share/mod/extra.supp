@@ -21,6 +21,15 @@
    ...
    fun:dlopen*
 }
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Addr8
+   fun:strncmp
+   ...
+   fun:dlopen*
+}
+
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
@@ -42,3 +51,4 @@
    ...
    fun:_PyObject_GC_NewVar
 }
+

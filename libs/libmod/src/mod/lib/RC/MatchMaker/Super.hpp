@@ -5,11 +5,11 @@
 #include <mod/Misc.hpp>
 #include <mod/lib/Algorithm/MultiDimSelector.hpp>
 #include <mod/lib/DPO/FilteredGraphProjection.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/RC/MatchMaker/ComponentWiseUtil.hpp>
 #include <mod/lib/RC/MatchMaker/LabelledMatch.hpp>
-#include <mod/lib/Rules/Properties/Term.hpp>
+#include <mod/lib/Rule/Properties/Term.hpp>
 #include <mod/lib/Term/WAM.hpp>
 
 #include <iomanip>
@@ -18,8 +18,8 @@
 namespace mod::lib::RC {
 
 struct Super {
-	using GraphDom = lib::Rules::LabelledRule::SideGraphType;
-	using GraphCodom = lib::Rules::LabelledRule::SideGraphType;
+	using GraphDom = lib::rule::LabelledRule::SideGraphType;
+	using GraphCodom = lib::rule::LabelledRule::SideGraphType;
 	using VertexMapType = jla_boost::GraphMorphism::InvertibleVectorVertexMap<GraphDom, GraphCodom>;
 public:
 	Super(int verbosity, IO::Logger logger, bool allowPartial, bool enforceConstraints)
@@ -103,8 +103,8 @@ private:
 	}
 public:
 	template<typename Position>
-	std::optional<VertexMapType> matchFromPosition(const lib::Rules::Real &rFirst,
-	                                               const lib::Rules::Real &rSecond,
+	std::optional<VertexMapType> matchFromPosition(const lib::rule::Rule &rFirst,
+	                                               const lib::rule::Rule &rSecond,
 	                                               const std::vector<Position> &position) const;
 private:
 	const int verbosity;
@@ -115,8 +115,8 @@ private:
 
 template<typename Position>
 inline std::optional<Super::VertexMapType>
-Super::matchFromPosition(const lib::Rules::Real &rFirst,
-                         const lib::Rules::Real &rSecond,
+Super::matchFromPosition(const lib::rule::Rule &rFirst,
+                         const lib::rule::Rule &rSecond,
                          const std::vector<Position> &position) const {
 	const auto &lgDom = get_labelled_left(rSecond.getDPORule());
 	const auto &gDom = get_graph(lgDom);

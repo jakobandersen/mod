@@ -7,19 +7,19 @@
 #include <mod/lib/DG/RuleApplicationUtils.hpp>
 #include <mod/lib/DG/Strategies/GraphState.hpp>
 #include <mod/lib/IO/IO.hpp>
-#include <mod/lib/RC/ComposeRuleReal.hpp>
+#include <mod/lib/RC/ComposeFromMatchMaker.hpp>
 #include <mod/lib/RC/MatchMaker/Super.hpp>
 
 namespace mod::lib::DG::Strategies {
 
-Rule::Rule(std::shared_ptr<rule::Rule> r)
+Rule::Rule(std::shared_ptr<mod::rule::Rule> r)
 		: Strategy(std::max(get_num_connected_components(get_labelled_left(r->getRule().getDPORule())),
 		                    get_num_connected_components(get_labelled_right(r->getRule().getDPORule())))),
 		  r(r), rRaw(&r->getRule()) {
 	assert(get_num_connected_components(get_labelled_left(rRaw->getDPORule())) > 0);
 }
 
-Rule::Rule(const lib::Rules::Real *r)
+Rule::Rule(const lib::rule::Rule *r)
 		: Strategy(std::max(get_num_connected_components(get_labelled_left(r->getDPORule())),
 		                    get_num_connected_components(get_labelled_right(r->getDPORule())))),
 		  rRaw(r) {
@@ -31,9 +31,9 @@ std::unique_ptr<Strategy> Rule::clone() const {
 	else return std::make_unique<Rule>(rRaw);
 }
 
-void Rule::preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const {}
+void Rule::preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const {}
 
-void Rule::forEachRule(std::function<void(const lib::Rules::Real &)> f) const {
+void Rule::forEachRule(std::function<void(const lib::rule::Rule &)> f) const {
 	f(*this->rRaw);
 }
 
@@ -42,36 +42,36 @@ void Rule::printInfo(PrintSettings settings) const {
 	++settings.indentLevel;
 	printBaseInfo(settings);
 	settings.indent() << "consumed =";
-	std::vector<const lib::Graph::Single *> temp(begin(consumedGraphs), end(consumedGraphs));
-	std::sort(begin(temp), end(temp), lib::Graph::Single::nameLess);
+	std::vector<const lib::graph::Graph *> temp(begin(consumedGraphs), end(consumedGraphs));
+	std::sort(begin(temp), end(temp), lib::graph::Graph::nameLess);
 	for(const auto *g: temp)
 		settings.s << " " << g->getName();
 	settings.s << '\n';
 }
 
-bool Rule::isConsumed(const lib::Graph::Single *g) const {
+bool Rule::isConsumed(const lib::graph::Graph *g) const {
 	return consumedGraphs.find(g) != consumedGraphs.end();
 }
 
 namespace {
 
 struct Context {
-	const std::shared_ptr<rule::Rule> &r;
+	const std::shared_ptr<mod::rule::Rule> &r;
 	ExecutionEnv &executionEnv;
 	GraphState *output;
-	std::unordered_set<const lib::Graph::Single *> &consumedGraphs;
+	std::unordered_set<const lib::graph::Graph *> &consumedGraphs;
 };
 
 void handleBoundRulePair(int verbosity, IO::Logger logger, Context context, const BoundRule &brp) {
 	assert(brp.rule);
 	// TODO: use a smart pointer so the rule for sure is deallocated, even though we do a 'continue'
-	const lib::Rules::Real &r = *brp.rule;
+	const lib::rule::Rule &r = *brp.rule;
 	const auto &rDPO = r.getDPORule();
 	assert(r.isOnlyRightSide()); // otherwise, it should have been deallocated.
 	// All max component results should be only right side
 	mod::Derivation d;
 	d.r = context.r;
-	for(const lib::Graph::Single *g: brp.boundGraphs) d.left.push_back(g->getAPIReference());
+	for(const lib::graph::Graph *g: brp.boundGraphs) d.left.push_back(g->getAPIReference());
 	{ // left predicate
 		bool result = context.executionEnv.checkLeftPredicate(d);
 		if(!result) {
@@ -86,13 +86,13 @@ void handleBoundRulePair(int verbosity, IO::Logger logger, Context context, cons
 		                << " graphs" << std::endl;
 		++logger.indentLevel;
 	}
-	const std::vector<const lib::Graph::Single *> &educts = brp.boundGraphs;
+	const std::vector<const lib::graph::Graph *> &educts = brp.boundGraphs;
 	d.right = splitRule(
 			rDPO, context.executionEnv.labelSettings.type, context.executionEnv.labelSettings.withStereo,
-			[&context](std::unique_ptr<lib::Graph::Single> gCand) {
+			[&context](std::unique_ptr<lib::graph::Graph> gCand) {
 				return context.executionEnv.checkIfNew(std::move(gCand));
 			},
-			[verbosity, &logger](std::shared_ptr<graph::Graph> gWrapped, std::shared_ptr<graph::Graph> gPrev) {
+			[verbosity, &logger](std::shared_ptr<mod::graph::Graph> gWrapped, std::shared_ptr<mod::graph::Graph> gPrev) {
 				if(verbosity >= PrintSettings::V_RuleApplication)
 					logger.indent() << "Discarding product " << gWrapped->getName()
 					                << ", isomorphic to other product " << gPrev->getName()
@@ -125,16 +125,16 @@ void handleBoundRulePair(int verbosity, IO::Logger logger, Context context, cons
 					context.output->addToSubset(&g->getGraph());
 		}
 		for(const auto &g: d.right)
-			context.executionEnv.addProduct(g);
+			context.executionEnv.addCreatedGraph(g);
 	}
-	std::vector<const lib::Graph::Single *> rightGraphs;
+	std::vector<const lib::graph::Graph *> rightGraphs;
 	rightGraphs.reserve(d.right.size());
-	for(const std::shared_ptr<graph::Graph> &g: d.right)
+	for(const std::shared_ptr<mod::graph::Graph> &g: d.right)
 		rightGraphs.push_back(&g->getGraph());
 	lib::DG::GraphMultiset gmsLeft(educts), gmsRight(std::move(rightGraphs));
 	bool inserted = context.executionEnv.suggestDerivation(gmsLeft, gmsRight, &context.r->getRule());
 	if(inserted) {
-		for(const lib::Graph::Single *g: educts)
+		for(const lib::graph::Graph *g: educts)
 			context.consumedGraphs.insert(g);
 	}
 }
@@ -144,10 +144,10 @@ unsigned int bindGraphs(PrintSettings settings, Context context,
                         const GraphRange &graphRange,
                         const std::vector<BoundRule> &rules,
                         std::vector<BoundRule> &outputRules,
-                        Rules::GraphAsRuleCache &graphAsRuleCache) {
+                        rule::GraphAsRuleCache &graphAsRuleCache) {
 	unsigned int processedRules = 0;
 
-	for(const lib::Graph::Single *g: graphRange) {
+	for(const lib::graph::Graph *g: graphRange) {
 		if(context.executionEnv.doExit()) break;
 		for(const BoundRule &p: rules) {
 			if(context.executionEnv.doExit()) break;
@@ -160,18 +160,18 @@ unsigned int bindGraphs(PrintSettings settings, Context context,
 			                           settings,
 			                           context.executionEnv.labelSettings.type,
 			                           context.executionEnv.labelSettings.withStereo, resultRules, p, g);
-			auto reporter = [&ruleStore](std::unique_ptr<lib::Rules::Real> r) {
+			auto reporter = [&ruleStore](std::unique_ptr<lib::rule::Rule> r) {
 				ruleStore.add(r.release());
 				return true;
 			};
 			assert(p.rule);
-			const lib::Rules::Real &rFirst = graphAsRuleCache.getBindRule(g)->getRule();
-			const lib::Rules::Real &rSecond = *p.rule;
+			const lib::rule::Rule &rFirst = graphAsRuleCache.getBindRule(g)->getRule();
+			const lib::rule::Rule &rSecond = *p.rule;
 			lib::RC::Super mm(
 					std::max(0, settings.verbosity - PrintSettings::V_RCMorphismGenBase),
 					settings,
 					true, true);
-			lib::RC::composeRuleRealByMatchMaker(rFirst, rSecond, mm, reporter, context.executionEnv.labelSettings);
+			lib::RC::composeFromMatchMaker(rFirst, rSecond, mm, reporter, context.executionEnv.labelSettings);
 			for(const BoundRule &brp: resultRules) {
 				processedRules++;
 				if(context.executionEnv.doExit()) delete brp.rule;
@@ -232,7 +232,7 @@ void Rule::executeImpl(PrintSettings settings, const GraphState &input) {
 	for(int idx: subset.getIndices())
 		inSubset[idx] = true;
 
-	std::vector<const lib::Graph::Single *> graphs = universe;
+	std::vector<const lib::graph::Graph *> graphs = universe;
 	auto subsetEnd = graphs.begin();
 	for(auto iter = graphs.begin(); iter != graphs.end(); ++iter) {
 		const auto offset = iter - graphs.begin();

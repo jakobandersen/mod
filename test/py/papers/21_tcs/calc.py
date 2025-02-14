@@ -163,7 +163,7 @@ def handleResult(r1: Rule, r2: Rule, res: Tuple[CompRes, CompRes],
 def compute(r1: Rule, r2: Rule, rc: RCEvaluator):
 	# In order to evaluate rule composition expressions we need an evaluator
 	# object.
-	# See also # http://jakobandersen.github.io/mod/pymod/rule/Composition.html#mod.rcEvaluator
+	# See also # http://jakobandersen.github.io/mod/pymod/rule/Composition.html#mod.RCEvaluator
 	# This object will also perform isomorphism checks between rules, such that
 	# all rules it creates are unique up to isomorphism. Thus, if two Rule
 	# objects do not compare equal, then they are not isomorphic by this
@@ -285,7 +285,7 @@ rule [
 """)
 
 
-rc = rcEvaluator(inputRules)
+rc = RCEvaluator(inputRules)
 
 post.summaryChapter("No no-edge 'constraints'")
 print("No no-edge 'constraints'")

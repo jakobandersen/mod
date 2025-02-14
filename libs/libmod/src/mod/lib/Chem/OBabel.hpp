@@ -8,7 +8,7 @@
 #include <mod/lib/IO/IO.hpp>
 #else
 
-#include <mod/lib/Rules/LabelledRule.hpp>
+#include <mod/lib/Rule/LabelledRule.hpp>
 
 #include <iosfwd>
 
@@ -21,13 +21,13 @@ enum class BondType;
 namespace mod::lib::IO::Graph::Write {
 enum struct EdgeFake3DType;
 } // namespace mod::lib::IO::Graph::Write
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 struct PropStereo;
-struct Single;
-} // namespace mod::lib::Graph
-namespace mod::lib::Rules {
+struct Graph;
+} // namespace mod::lib::graph
+namespace mod::lib::rule {
 struct PropStereo;
-} // namespace mod::lib::Rules
+} // namespace mod::lib::rule
 namespace mod::lib::Chem {
 
 #ifndef MOD_HAVE_OPENBABEL
@@ -60,13 +60,13 @@ public:
 };
 
 OBMolHandle copyOBMol(const OBMolHandle &mol);
-OBMolHandle makeOBMol(const lib::Graph::GraphType &g,
-                      std::function<const AtomData &(lib::Graph::Vertex)> atomData,
-                      std::function<BondType(lib::Graph::Edge)> bondData,
-                      std::function<bool(lib::Graph::Vertex)> hasImportantStereo,
-                      bool withHydrogen, const lib::Graph::PropStereo *pStereo);
+OBMolHandle makeOBMol(const lib::graph::GraphType &g,
+                      std::function<const AtomData &(lib::graph::Vertex)> atomData,
+                      std::function<BondType(lib::graph::Edge)> bondData,
+                      std::function<bool(lib::graph::Vertex)> hasImportantStereo,
+                      bool withHydrogen, const lib::graph::PropStereo *pStereo);
 std::tuple<OBMolHandle, OBMolHandle, OBMolHandle> makeOBMol(
-		const lib::Rules::LabelledRule &lr,
+		const lib::rule::LabelledRule &lr,
 		std::function<const AtomData &(lib::DPO::CombinedRule::CombinedVertex)> cgAtom,
 		std::function<BondType(lib::DPO::CombinedRule::CombinedEdge)> cgBond,
 		std::function<const AtomData &(lib::DPO::CombinedRule::SideVertex)> leftAtom,

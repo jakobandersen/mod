@@ -2,7 +2,7 @@
 
 #include <mod/Config.hpp>
 #include <mod/lib/DG/Strategies/GraphState.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 
 namespace mod::lib::DG::Strategies {
 

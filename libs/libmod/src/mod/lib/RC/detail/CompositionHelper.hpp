@@ -13,7 +13,7 @@ using lib::DPO::Membership;
 
 template<bool Verbose, typename Result, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Visitor>
 struct CompositionHelper {
-	using GraphResult = typename Result::RuleResult::GraphType;
+	using GraphResult = typename Result::CombinedGraph;
 	using VertexResult = typename boost::graph_traits<GraphResult>::vertex_descriptor;
 	using EdgeResult = typename boost::graph_traits<GraphResult>::edge_descriptor;
 
@@ -107,7 +107,7 @@ private:
 				                << get(boost::vertex_index_t(), gFirst, vFirst)
 				                << "(" << rFirst.getCombinedGraph()[vFirst].membership << ")"
 				                << "(";
-				visitor.template printVertexFirst(rFirst, rSecond, match, result, logger.s, vFirst);
+				visitor.printVertexFirst(rFirst, rSecond, match, result, logger.s, vFirst);
 				logger.s << ")" << std::endl;
 				++logger.indentLevel;
 			}
@@ -121,20 +121,20 @@ private:
 				return rSecond.getCombinedGraph()[vSecond].membership == Membership::L;
 			}();
 			if(getsDeleted) {
-				put(result.mFirstToResult, gFirst, gResult, vFirst, getNullResult());
+				put(result.mappings.mFirstToResult, gFirst, gResult, vFirst, getNullResult());
 				if(Verbose) logger.indent() << "gets deleted" << std::endl;
 			} else {
 				const auto vResult = add_vertex(gResult);
-				syncSize(result.mFirstToResult, gFirst, gResult);
-				syncSize(result.mSecondToResult, gSecond, gResult);
-				put(result.mFirstToResult, gFirst, gResult, vFirst, vResult);
+				syncSize(result.mappings.mFirstToResult, gFirst, gResult);
+				syncSize(result.mappings.mSecondToResult, gSecond, gResult);
+				put(result.mappings.mFirstToResult, gFirst, gResult, vFirst, vResult);
 				gResult[vResult].membership = rFirst.getCombinedGraph()[vFirst].membership;
 				visitor.template copyVertexFirst<Verbose>(logger, rFirst, rSecond, match, result, vFirst, vResult);
 				if(Verbose) {
 					logger.indent() << "new node:\t"
 					                << get(boost::vertex_index_t(), gResult, vResult)
 					                << "(" << gResult[vResult].membership << ")(";
-					visitor.template printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
+					visitor.printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
 					logger.s << ")" << std::endl;
 				}
 			}
@@ -158,7 +158,7 @@ private:
 				                << get(boost::vertex_index_t(), gSecond, vSecond)
 				                << "(" << rSecond.getCombinedGraph()[vSecond].membership << ")"
 				                << "(";
-				visitor.template printVertexSecond(rFirst, rSecond, match, result, logger.s, vSecond);
+				visitor.printVertexSecond(rFirst, rSecond, match, result, logger.s, vSecond);
 				logger.s << ")" << std::endl;
 				++logger.indentLevel;
 			}
@@ -167,21 +167,21 @@ private:
 			if(vFirst == getNullFirst()) {
 				// unmatched vertex, create it
 				const auto vResult = add_vertex(gResult);
-				syncSize(result.mFirstToResult, gFirst, gResult);
-				syncSize(result.mSecondToResult, gSecond, gResult);
-				put(result.mSecondToResult, gSecond, gResult, vSecond, vResult);
+				syncSize(result.mappings.mFirstToResult, gFirst, gResult);
+				syncSize(result.mappings.mSecondToResult, gSecond, gResult);
+				put(result.mappings.mSecondToResult, gSecond, gResult, vSecond, vResult);
 				gResult[vResult].membership = rSecond.getCombinedGraph()[vSecond].membership;
 				visitor.template copyVertexSecond<Verbose>(logger, rFirst, rSecond, match, result, vSecond, vResult);
 				if(Verbose) {
 					logger.indent() << "new node:\t" << get(boost::vertex_index_t(), gResult, vResult)
 					                << "(" << gResult[vResult].membership << ")"
 					                << "(";
-					visitor.template printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
+					visitor.printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
 					logger.s << ")" << std::endl;
 				}
 			} else { // vertex matched
-				const auto vResult = get(result.mFirstToResult, gFirst, gResult, vFirst);
-				put(result.mSecondToResult, gSecond, gResult, vSecond, vResult);
+				const auto vResult = get(result.mappings.mFirstToResult, gFirst, gResult, vFirst);
+				put(result.mappings.mSecondToResult, gSecond, gResult, vSecond, vResult);
 				if(vResult == getNullResult()) {
 					if(Verbose) logger.indent() << "deleted" << std::endl;
 				} else {
@@ -242,8 +242,8 @@ private:
 			const auto vTarFirst = target(eFirst, gFirst);
 			const auto meFirst = gFirst[eFirst].membership;
 			if(Verbose) {
-				const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
-				const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
+				const auto vSrcResult = get(result.mappings.mFirstToResult, gFirst, gResult, vSrcFirst);
+				const auto vTarResult = get(result.mappings.mFirstToResult, gFirst, gResult, vTarFirst);
 				// vSrcResult/vTarResult may be null_vertex
 				logger.indent() << "Edge first:\t(" << vSrcFirst << ", " << vTarFirst << ") maybe copy to new ("
 				                << vSrcResult << ", " << vTarResult << ")"
@@ -254,8 +254,8 @@ private:
 				++logger.indentLevel;
 			}
 			const auto makeCopy = [&]() {
-				const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
-				const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
+				const auto vSrcResult = get(result.mappings.mFirstToResult, gFirst, gResult, vSrcFirst);
+				const auto vTarResult = get(result.mappings.mFirstToResult, gFirst, gResult, vTarFirst);
 				// vResultSrc/vResultTar should be valid at this point
 				assert(vSrcResult != getNullResult());
 				assert(vTarResult != getNullResult());
@@ -301,8 +301,8 @@ private:
 					if(Verbose)
 						logger.indent() << "eFirst matched and in CONTEXT, copying to LEFT or CONTEXT (depending on eSecond ("
 						                << gSecond[eSecond].membership << "))" << std::endl;
-					const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
-					const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
+					const auto vSrcResult = get(result.mappings.mFirstToResult, gFirst, gResult, vSrcFirst);
+					const auto vTarResult = get(result.mappings.mFirstToResult, gFirst, gResult, vTarFirst);
 					// vResultSrc/vResultTar can not be null_vertex
 					assert(vSrcResult != getNullResult());
 					assert(vTarResult != getNullResult());
@@ -319,8 +319,8 @@ private:
 				}
 
 				// eFirst not matched, the ends must be consistent and not deleted
-				const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
-				const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
+				const auto vSrcResult = get(result.mappings.mFirstToResult, gFirst, gResult, vSrcFirst);
+				const auto vTarResult = get(result.mappings.mFirstToResult, gFirst, gResult, vTarFirst);
 				// vSrcResult/vTarResult may be null_vertex
 				const bool endPointDeleted = vSrcResult == getNullResult() || vTarResult == getNullResult();
 				if(endPointDeleted) {
@@ -347,8 +347,8 @@ private:
 			// at most 1 end matched
 			if(isSrcMatched != isTarMatched) {
 				if(Verbose) logger.indent() << "One end matched" << std::endl;
-				const auto vSrcResult = get(result.mFirstToResult, gFirst, gResult, vSrcFirst);
-				const auto vTarResult = get(result.mFirstToResult, gFirst, gResult, vTarFirst);
+				const auto vSrcResult = get(result.mappings.mFirstToResult, gFirst, gResult, vSrcFirst);
+				const auto vTarResult = get(result.mappings.mFirstToResult, gFirst, gResult, vTarFirst);
 				// vResultSrc/vResultTar may be null_vertex
 				const auto vResultMatched = isSrcMatched ? vSrcResult : vTarResult;
 				const bool matchedDeleted = vResultMatched == boost::graph_traits<GraphResult>::null_vertex();
@@ -393,8 +393,8 @@ private:
 			auto logger = loggerOrig;
 			auto vSecondSrc = source(eSecond, gSecond);
 			auto vSecondTar = target(eSecond, gSecond);
-			auto vResultSrc = get(result.mSecondToResult, gSecond, gResult, vSecondSrc);
-			auto vResultTar = get(result.mSecondToResult, gSecond, gResult, vSecondTar);
+			auto vResultSrc = get(result.mappings.mSecondToResult, gSecond, gResult, vSecondSrc);
+			auto vResultTar = get(result.mappings.mSecondToResult, gSecond, gResult, vSecondTar);
 			if(Verbose) {
 				++logger.indentLevel;
 				// vSrcNew/vTarNew may be null_vertex

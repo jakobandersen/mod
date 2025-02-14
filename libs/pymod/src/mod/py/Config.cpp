@@ -79,6 +79,8 @@ void Config_doExport() {
 	// rst:
 	// rst:		A group label settings commonly used together in algorithms.
 	// rst:
+	// rst:		.. note:: The implementation of the stereo-information handling is a protoype based on [AFMS-Stereo]_.
+	// rst:
 	py::class_<LabelSettings>("LabelSettings", py::no_init)
 			// rst:		.. method:: __init__(type, relation)
 			// rst:		               __init__(type, relation, stereoRelation)
@@ -144,7 +146,7 @@ void Config_doExport() {
 	// rst:		is written on multiple atoms.
 	// rst:
 	py::enum_<SmilesClassPolicy>("SmilesClassPolicy")
-			// rst:		.. attribute:: AllOrNone
+			// rst:		.. attribute:: NoneOnDuplicate
 			// rst:
 			// rst:			If a class label is duplicated, then no labels are mapped to vertices.
 			.value("NoneOnDuplicate", SmilesClassPolicy::NoneOnDuplicate)

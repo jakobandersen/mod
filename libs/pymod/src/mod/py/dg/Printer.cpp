@@ -35,12 +35,12 @@ void Printer_pushEdgeColour(Printer &printer, std::shared_ptr<mod::Function<std:
 }
 
 void
-Printer_setRotationOverwrite(Printer &printer, std::shared_ptr<mod::Function<int(std::shared_ptr<graph::Graph>)> > f) {
+Printer_setRotationOverwrite(Printer &printer, std::shared_ptr<mod::Function<int(std::shared_ptr<mod::graph::Graph>)> > f) {
 	printer.setRotationOverwrite(mod::toStdFunction(f));
 }
 
 void
-Printer_setMirrorOverwrite(Printer &printer, std::shared_ptr<mod::Function<bool(std::shared_ptr<graph::Graph>)> > f) {
+Printer_setMirrorOverwrite(Printer &printer, std::shared_ptr<mod::Function<bool(std::shared_ptr<mod::graph::Graph>)> > f) {
 	printer.setMirrorOverwrite(mod::toStdFunction(f));
 }
 

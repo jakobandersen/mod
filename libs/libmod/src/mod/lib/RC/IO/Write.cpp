@@ -4,10 +4,10 @@
 #include <mod/Post.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/RC/Evaluator.hpp>
-#include <mod/lib/Rules/Real.hpp>
-#include <mod/lib/Rules/IO/DepictionData.hpp>
-#include <mod/lib/Rules/IO/Write.hpp>
-#include <mod/lib/Rules/Properties/String.hpp>
+#include <mod/lib/Rule/Rule.hpp>
+#include <mod/lib/Rule/IO/DepictionData.hpp>
+#include <mod/lib/Rule/IO/Write.hpp>
+#include <mod/lib/Rule/Properties/String.hpp>
 
 namespace mod::lib::RC::Write {
 
@@ -64,8 +64,8 @@ std::string pdf(const Evaluator &rc) {
 	return fileNoExt;
 }
 
-void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const CoreCoreMap &match,
-          const lib::Rules::Real &rNew) {
+void test(const lib::rule::Rule &rFirst, const lib::rule::Rule &rSecond, const CoreCoreMap &match,
+          const lib::rule::Rule &rNew) {
 	if(getConfig().rc.printMatchesOnlyHaxChem) {
 		const auto &lg = get_labelled_left(rNew.getDPORule());
 		const auto &g = get_graph(lg);
@@ -105,9 +105,9 @@ void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const
 			}
 		}
 	}
-	using CoreVertex = lib::Rules::Vertex;
-	using CoreEdge = lib::Rules::Edge;
-	Rules::Write::Options options;
+	using CoreVertex = lib::rule::Vertex;
+	using CoreEdge = lib::rule::Edge;
+	rule::Write::Options options;
 	options.CollapseHydrogens(true);
 	options.EdgesAsBonds(true);
 	if(getConfig().rc.matchesWithIndex)
@@ -123,9 +123,9 @@ void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const
 	};
 	// make a fake rule with all the vertices and edges, just for coords
 	std::map<CoreVertex, CoreVertex> vFirstToCommon, vSecondToCommon, vNewToCommon;
-	lib::Rules::LabelledRule dpoCommon(rFirst.getDPORule(), false);
-	lib::Rules::GraphType &gComon = get_graph(dpoCommon);
-	lib::Rules::PropString &pStringCommon = *dpoCommon.pString;
+	lib::rule::LabelledRule dpoCommon(rFirst.getDPORule(), false);
+	lib::rule::GraphType &gComon = get_graph(dpoCommon);
+	lib::rule::PropString &pStringCommon = *dpoCommon.pString;
 	for(const CoreVertex v: asRange(vertices(rFirst.getGraph())))
 		vFirstToCommon[v] = v;
 	// TODO: this will completely break if vertices are deleted in the composed rule
@@ -139,8 +139,8 @@ void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const
 		} else {
 			const CoreVertex vCommon = add_vertex(gComon);
 			vSecondToCommon[v] = vCommon;
-			gComon[vCommon].membership = lib::Rules::Membership::K;
-			const std::string &label = rSecond.getGraph()[v].membership == lib::Rules::Membership::L
+			gComon[vCommon].membership = lib::rule::Membership::K;
+			const std::string &label = rSecond.getGraph()[v].membership == lib::rule::Membership::L
 			                           ? get_string(rSecond.getDPORule()).getLeft()[v]
 			                           : get_string(rSecond.getDPORule()).getRight()[v];
 			pStringCommon.add(vCommon, label, label);
@@ -158,16 +158,16 @@ void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const
 		const CoreVertex vTar = iterTar->second;
 		auto pEdge = edge(vSrc, vTar, gComon);
 		if(pEdge.second) continue;
-		pEdge = add_edge(vSrc, vTar, {lib::Rules::Membership::K}, gComon);
-		const std::string &label = rSecond.getGraph()[e].membership == lib::Rules::Membership::L
+		pEdge = add_edge(vSrc, vTar, {lib::rule::Membership::K}, gComon);
+		const std::string &label = rSecond.getGraph()[e].membership == lib::rule::Membership::L
 		                           ? get_string(rSecond.getDPORule()).getLeft()[e]
 		                           : get_string(rSecond.getDPORule()).getRight()[e];
 		pStringCommon.add(pEdge.first, label, label);
 	}
-	lib::Rules::Real rCommon(std::move(dpoCommon), rFirst.getLabelType());
-	lib::Rules::Real rFirstCopy(lib::Rules::LabelledRule(rFirst.getDPORule(), false), rFirst.getLabelType());
-	lib::Rules::Real rSecondCopy(lib::Rules::LabelledRule(rSecond.getDPORule(), false), rSecond.getLabelType());
-	lib::Rules::Real rNewCopy(lib::Rules::LabelledRule(rNew.getDPORule(), false), rNew.getLabelType());
+	lib::rule::Rule rCommon(std::move(dpoCommon), rFirst.getLabelType());
+	lib::rule::Rule rFirstCopy(lib::rule::LabelledRule(rFirst.getDPORule(), false), rFirst.getLabelType());
+	lib::rule::Rule rSecondCopy(lib::rule::LabelledRule(rSecond.getDPORule(), false), rSecond.getLabelType());
+	lib::rule::Rule rNewCopy(lib::rule::LabelledRule(rNew.getDPORule(), false), rNew.getLabelType());
 	rFirstCopy.getDepictionData().copyCoords(rCommon.getDepictionData(), vFirstToCommon);
 	rSecondCopy.getDepictionData().copyCoords(rCommon.getDepictionData(), vSecondToCommon);
 	rNewCopy.getDepictionData().copyCoords(rCommon.getDepictionData(), vNewToCommon);
@@ -195,14 +195,14 @@ void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const
 		assert(iter != end(vNewToCommon));
 		return matchVerticesInCommon.find(iter->second) != end(matchVerticesInCommon);
 	};
-	const auto rawFilesFirst = Rules::Write::tikz(rFirstCopy, 0, options, "L", "K", "R",
-	                                              Rules::Write::BaseArgs{visible, vColour, eColour},
+	const auto rawFilesFirst = rule::Write::tikz(rFirstCopy, 0, options, "L", "K", "R",
+	                                              rule::Write::BaseArgs{visible, vColour, eColour},
 	                                              disallowCollapseFirst);
-	const auto rawFilesSecond = Rules::Write::tikz(rSecondCopy, secondIdOffset, options, "L", "K", "R",
-	                                               Rules::Write::BaseArgs{visible, vColour, eColour},
+	const auto rawFilesSecond = rule::Write::tikz(rSecondCopy, secondIdOffset, options, "L", "K", "R",
+	                                               rule::Write::BaseArgs{visible, vColour, eColour},
 	                                               disallowCollapseSecond);
-	const auto rawFilesNew = Rules::Write::tikz(rNewCopy, 0, options, "L", "K", "R",
-	                                            Rules::Write::BaseArgs{visible, vColour, eColour},
+	const auto rawFilesNew = rule::Write::tikz(rNewCopy, 0, options, "L", "K", "R",
+	                                            rule::Write::BaseArgs{visible, vColour, eColour},
 	                                            disallowCollapseNew);
 	post::FileHandle s(IO::makeUniqueFilePrefix() + "rcMatch.tex");
 	{

@@ -9,11 +9,11 @@
 
 namespace mod::lib::DG::Strategies {
 
-Add::Add(const std::vector<std::shared_ptr<graph::Graph> > graphs, bool onlyUniverse, IsomorphismPolicy graphPolicy)
+Add::Add(const std::vector<std::shared_ptr<mod::graph::Graph> > graphs, bool onlyUniverse, IsomorphismPolicy graphPolicy)
 		: Strategy::Strategy(0),
 		  graphs(graphs), onlyUniverse(onlyUniverse), graphPolicy(graphPolicy) {}
 
-Add::Add(const std::shared_ptr<mod::Function<std::vector<std::shared_ptr<graph::Graph> >()> > generator,
+Add::Add(const std::shared_ptr<mod::Function<std::vector<std::shared_ptr<mod::graph::Graph> >()> > generator,
          bool onlyUniverse, IsomorphismPolicy graphPolicy)
 		: Strategy::Strategy(0),
 		  generator(generator), onlyUniverse(onlyUniverse), graphPolicy(graphPolicy) {}
@@ -27,7 +27,7 @@ std::unique_ptr<Strategy> Add::clone() const {
 		return std::make_unique<Add>(generator, onlyUniverse, graphPolicy);
 }
 
-void Add::preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const {
+void Add::preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const {
 	for(const auto &g : graphs)
 		add(g, graphPolicy);
 }
@@ -52,7 +52,7 @@ void Add::printInfo(PrintSettings settings) const {
 	printBaseInfo(settings);
 }
 
-bool Add::isConsumed(const lib::Graph::Single *g) const {
+bool Add::isConsumed(const lib::graph::Graph *g) const {
 	return false;
 }
 
@@ -67,7 +67,7 @@ void Add::executeImpl(PrintSettings settings, const GraphState &input) {
 		else
 			settings.s << " (static):" << std::endl;
 	}
-	std::vector<std::shared_ptr<graph::Graph>> graphsToAdd;
+	std::vector<std::shared_ptr<mod::graph::Graph>> graphsToAdd;
 	if(generator) {
 		graphsToAdd = (*generator)();
 		if(std::any_of(graphsToAdd.begin(), graphsToAdd.end(), [](const auto &g) {
@@ -91,7 +91,7 @@ void Add::executeImpl(PrintSettings settings, const GraphState &input) {
 	}
 	switch(graphPolicy) {
 	case IsomorphismPolicy::Check:
-		for(const std::shared_ptr<graph::Graph> &g : graphsToAdd) {
+		for(const std::shared_ptr<mod::graph::Graph> &g : graphsToAdd) {
 			// TODO: we need to add it as a vertex for backwards compatibility,
 			//       do this more elegantly
 			// TODO: actually, if this is a static add strategy, the graphs are probably already added,

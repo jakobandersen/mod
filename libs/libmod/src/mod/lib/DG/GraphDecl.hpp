@@ -7,12 +7,12 @@
 
 #include <optional>
 
-namespace mod::lib::Graph {
-struct Single;
-} // namespace mod::lib::Graph
-namespace mod::lib::Rules {
-struct Real;
-} // namespace mod::lib::Rules
+namespace mod::lib::graph {
+struct Graph;
+} // namespace mod::lib::graph
+namespace mod::lib::rule {
+struct Rule;
+} // namespace mod::lib::rule
 namespace mod::lib::DG {
 // NonHyper
 struct NonHyperVProp;
@@ -20,7 +20,7 @@ struct NonHyperEProp;
 using NonHyperGraphType = boost::adjacency_list<boost::vecS, boost::vecS, boost::bidirectionalS, NonHyperVProp, NonHyperEProp>;
 using NonHyperVertex = boost::graph_traits<NonHyperGraphType>::vertex_descriptor;
 using NonHyperEdge = boost::graph_traits<NonHyperGraphType>::edge_descriptor;
-using GraphMultiset = lib::Graph::Multiset<const lib::Graph::Single>;
+using GraphMultiset = lib::graph::Multiset<const lib::graph::Graph>;
 
 // Hyper
 struct HyperVProp;
@@ -38,7 +38,7 @@ public:
 struct NonHyperEProp {
 	HyperVertex hyper // the representative of this hyperedge
 			= boost::graph_traits<HyperGraphType>::null_vertex(); // initialized to prevent GCC warning
-	std::vector<const lib::Rules::Real *> rules;
+	std::vector<const lib::rule::Rule *> rules;
 	std::optional<NonHyperEdge> reverse;
 };
 
@@ -61,7 +61,7 @@ enum class HyperVertexKind {
 
 struct HyperVProp {
 	HyperVertexKind kind;
-	const lib::Graph::Single *graph; // only defined for kind == Vertex
+	const lib::graph::Graph *graph; // only defined for kind == Vertex
 	NonHyperEdge edge; // only defined for kind == Edge
 };
 

@@ -1,14 +1,12 @@
-#ifndef MOD_LIB_RC_MATCH_MAKER_COMPONENTWISE_UTIL_H
-#define MOD_LIB_RC_MATCH_MAKER_COMPONENTWISE_UTIL_H
+#ifndef MOD_LIB_RC_MATCH_MAKER_COMPONENTWISE_UTIL_HPP
+#define MOD_LIB_RC_MATCH_MAKER_COMPONENTWISE_UTIL_HPP
 
-#include <mod/Error.hpp>
 #include <mod/lib/GraphMorphism/LabelledMorphism.hpp>
 #include <mod/lib/GraphMorphism/VF2Finder.hpp>
 #include <mod/lib/GraphMorphism/Constraints/CheckVisitor.hpp>
-#include <mod/lib/Rules/Real.hpp>
+#include <mod/lib/Rule/Rule.hpp>
 
 #include <jla_boost/graph/FilteredWrapper.hpp>
-#include <jla_boost/graph/morphism/Predicates.hpp>
 #include <jla_boost/graph/morphism/callbacks/Limit.hpp>
 #include <jla_boost/graph/morphism/callbacks/SliceProps.hpp>
 #include <jla_boost/graph/morphism/callbacks/Store.hpp>
@@ -16,20 +14,16 @@
 #include <jla_boost/graph/morphism/callbacks/Unwrapper.hpp>
 #include <jla_boost/graph/morphism/models/Vector.hpp>
 
-namespace mod {
-namespace lib {
-namespace RC {
+namespace mod::lib::RC {
 
 namespace GM = jla_boost::GraphMorphism;
 namespace GM_MOD = lib::GraphMorphism;
 
 template<typename RuleSideDom, typename RuleSideCodom>
 struct FilteredWrapperReinterpretMRWrapper {
-
 	template<typename OuterDomain, typename OuterCodomain, typename MR>
 	auto operator()(const OuterDomain &gDomain, const OuterCodomain &gCodomain, MR mr) const {
-		return GM::makeUnwrapperDom<jla_boost::FilteredWrapper<typename RuleSideDom::ComponentGraph> >(
-				GM::makeUnwrapperCodom<jla_boost::FilteredWrapper<typename RuleSideCodom::ComponentGraph> >(mr));
+		return GM::unwrapBoth(mr);
 	}
 };
 
@@ -121,18 +115,17 @@ public:
 					// Store them in a vector (which runs through the domain graph):
 					GM::makeTransform(GM::ToVectorVertexMap(),
 							// Unwrap the filtering by connected component, so we get side graphs:
-							            GM::makeUnwrapperDom<typename RuleSideDom::ComponentGraph>(
-									            GM::makeUnwrapperCodom<typename RuleSideCodom::ComponentGraph>(
-											            // Check constraints using the side graphs:
-											            makeCheckConstraints(
-													            //				// Unwrap the filtering by rule side, so we get to core graphs:
-													            //				GM::makeUnwrapperLeft<typename RuleSideDom::GraphType > (
-													            //				GM::makeUnwrapperRight<typename RuleSideCodom::GraphType > (
-													            // Slice away the properties, the user must recreate that.
-													            GM::makeSliceProps(
-															            // And finally push it into our storage:
-															            mrStore
-													            )))))//))
+							            GM::unwrapBoth(
+										            // Check constraints using the side graphs:
+										            makeCheckConstraints(
+												            //				// Unwrap the filtering by rule side, so we get to core graphs:
+												            //				GM::makeUnwrapperLeft<typename RuleSideDom::GraphType > (
+												            //				GM::makeUnwrapperRight<typename RuleSideCodom::GraphType > (
+												            // Slice away the properties, the user must recreate that.
+												            GM::makeSliceProps(
+														            // And finally push it into our storage:
+														            mrStore
+												            ))))//))
 			;
 			auto predWrapper = lib::GraphMorphism::IdentityWrapper();
 
@@ -174,8 +167,6 @@ auto makeRuleRuleComponentMonomorphism(const RuleSideDom &rsDom,
 			rsDom, rsCodom, enforceConstraints, labelSettings, verbose, logger);
 }
 
-} // namespace RC
-} // namespace lib
-} // namespace mod
+} // namespace mod::lib::RC
 
-#endif /* MOD_LIB_RC_MATCH_MAKER_COMPONENTWISE_UTIL_H */
+#endif // MOD_LIB_RC_MATCH_MAKER_COMPONENTWISE_UTIL_HPP

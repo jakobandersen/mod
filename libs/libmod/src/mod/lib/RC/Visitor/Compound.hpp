@@ -167,7 +167,7 @@ public:
 								 const Result &result,
 								 std::ostream &s, const VertexFirst &vFirst) {
 		visitor.printVertexFirst(rFirst, rSecond, match, result, s, vFirst);
-		Base::template printVertexFirst(rFirst, rSecond, match, result, s, vFirst);
+		Base::printVertexFirst(rFirst, rSecond, match, result, s, vFirst);
 	}
 
 	template<typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result, typename VertexSecond>
@@ -175,7 +175,7 @@ public:
 								  const Result &result,
 								  std::ostream &s, const VertexSecond &vSecond) {
 		visitor.printVertexSecond(rFirst, rSecond, match, result, s, vSecond);
-		Base::template printVertexSecond(rFirst, rSecond, match, result, s, vSecond);
+		Base::printVertexSecond(rFirst, rSecond, match, result, s, vSecond);
 	}
 
 	template<typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result, typename VertexResult>
@@ -183,7 +183,7 @@ public:
 								  const Result &result,
 								  std::ostream &s, const VertexResult &vResult) {
 		visitor.printVertexResult(rFirst, rSecond, match, result, s, vResult);
-		Base::template printVertexResult(rFirst, rSecond, match, result, s, vResult);
+		Base::printVertexResult(rFirst, rSecond, match, result, s, vResult);
 	}
 
 	template<typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result, typename EdgeFirst>
@@ -191,7 +191,7 @@ public:
 							  const Result &result,
 							  std::ostream &s, const EdgeFirst &eFirst) {
 		visitor.printEdgeFirst(rFirst, rSecond, match, result, s, eFirst);
-		Base::template printEdgeFirst(rFirst, rSecond, match, result, s, eFirst);
+		Base::printEdgeFirst(rFirst, rSecond, match, result, s, eFirst);
 	}
 
 	template<typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result, typename EdgeSecond>
@@ -199,7 +199,7 @@ public:
 								const Result &result,
 								std::ostream &s, const EdgeSecond &eSecond) {
 		visitor.printEdgeSecond(rFirst, rSecond, match, result, s, eSecond);
-		Base::template printEdgeSecond(rFirst, rSecond, match, result, s, eSecond);
+		Base::printEdgeSecond(rFirst, rSecond, match, result, s, eSecond);
 	}
 public:
 	template<bool Verbose, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result,

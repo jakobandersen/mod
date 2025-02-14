@@ -5,7 +5,7 @@
 
 #include <ostream>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 template<typename GraphType>
 std::ostream &operator<<(std::ostream &s, const Multiset<GraphType> &ms) {
@@ -15,6 +15,6 @@ std::ostream &operator<<(std::ostream &s, const Multiset<GraphType> &ms) {
 	return s << "}";
 }
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 #endif // MOD_LIB_GRAPH_MULTISETIO_HPP

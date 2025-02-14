@@ -14,6 +14,8 @@ void CompositionMatch_doExport() {
 	// rst:		an object represents match between :math:`R_1` and :math:`L_2` which indicates
 	// rst:		a common subgraph :math:`R_1 \leftarrow M \rightarrow L_2`.
 	// rst:
+	// rst:		See also [AFMS-RC]_ for details of how composition of rules can be computed.
+	// rst:
 	py::class_<CompositionMatch>("RCMatch", py::no_init)
 			// rst:		.. method:: __init__(rFirst, rSecond, labelSettings=LabelSettings(LabelType.String, LabelRelation.Specialisation))
 			// rst:
@@ -26,7 +28,6 @@ void CompositionMatch_doExport() {
 			.def(py::init<std::shared_ptr<Rule>, std::shared_ptr<Rule>, LabelSettings>(
 					(py::args("rFirst"), py::args("rSecond"),
 							py::args("labelSettings") = LabelSettings{LabelType::String, LabelRelation::Specialisation})))
-					// rst:		.. method:: __str__()
 			.def(str(py::self))
 					// rst:		.. attribute:: first
 					// rst:		               second
@@ -62,7 +63,7 @@ void CompositionMatch_doExport() {
 			.def("__getitem__",
 			     static_cast<Rule::RightGraph::Vertex (CompositionMatch::*)(
 					     Rule::LeftGraph::Vertex) const>(&CompositionMatch::operator[]))
-					// rst:		.. method:: void push(vFirst, vSecond)
+					// rst:		.. method:: push(vFirst, vSecond)
 					// rst:
 					// rst:			Extend the common subgraph (match) of :math:`R_1` and :math:`L_2`
 					// rst:			by identifying the given vertices from each of the graphs.

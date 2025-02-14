@@ -15,13 +15,13 @@
       },
       {
          "commands": [
-            "./scripts/flake8.sh"
+            "./scripts/ruff.sh"
          ],
          "depends_on": [
             "clone"
          ],
          "image": "localhost:5000/jla/mod",
-         "name": "Python, flake8"
+         "name": "Python, ruff"
       },
       {
          "commands": [
@@ -975,7 +975,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "g++-9",
@@ -987,6 +987,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-9, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "g++-9",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-9, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "g++-9",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -1884,7 +2067,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "g++-10",
@@ -1896,6 +2079,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-10, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "g++-10",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-10, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "g++-10",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -2834,7 +3200,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "g++-11",
@@ -2846,6 +3212,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-11, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "g++-11",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-11, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "g++-11",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -3743,7 +4292,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "g++-12",
@@ -3755,6 +4304,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-12, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "g++-12",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-12, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "g++-12",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -4652,7 +5384,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "g++-13",
@@ -4664,6 +5396,1281 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-13, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "g++-13",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-13, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "g++-13",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_76_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_76_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_76_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_77_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_77_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_77_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_78_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_78_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_78_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_79_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_79_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_79_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_80_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_80_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_80_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_81_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_81_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_81_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_82_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_82_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_82_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_83_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_83_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_83_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_84_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_84_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_84_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_85_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "g++-14, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "g++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -5561,7 +7568,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "clang++-11",
@@ -5573,6 +7580,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-11, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "clang++-11",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-11, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "clang++-11",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -6470,7 +8660,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "clang++-12",
@@ -6482,6 +8672,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-12, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "clang++-12",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-12, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "clang++-12",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -7379,7 +9752,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "clang++-13",
@@ -7391,6 +9764,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-13, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "clang++-13",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-13, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "clang++-13",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -8288,7 +10844,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "clang++-14",
@@ -8300,6 +10856,189 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-14, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "clang++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-14, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "clang++-14",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",
@@ -9197,7 +11936,7 @@
             "bindep testing",
             "mkdir build",
             "cd build",
-            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
          ],
          "environment": {
             "CXX": "clang++-15",
@@ -9209,6 +11948,1281 @@
       {
          "commands": [
             "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-15, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "clang++-15",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-15, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "clang++-15",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_76_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_76_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_76_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_77_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_77_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_77_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_78_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_78_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_78_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_79_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_79_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_79_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_80_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_80_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_80_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_81_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_81_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_81_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_82_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_82_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_82_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_83_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_83_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_83_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_84_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_84_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_84_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_85_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_85_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_86_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_86_0",
+            "make"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "install"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make tests"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "build-test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -E cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "cd ../",
+            "mod -e \"smiles('O').print()\""
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "simple test"
+      },
+      {
+         "commands": [
+            "cd build",
+            "make install",
+            "ctest --output-on-failure -R cmake_add_subdirectory_build"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "test subdirectory build",
+         "when": {
+            "ref": [
+               "refs/heads/develop",
+               "refs/heads/master",
+               "refs/tags/v*"
+            ]
+         }
+      }
+   ],
+   "volumes": [ ]
+}
+---
+{
+   "kind": "pipeline",
+   "name": "clang++-19, Boost 1_87_0",
+   "steps": [
+      {
+         "commands": [
+            "git fetch --tags",
+            "git submodule update --init --recursive",
+            "./bootstrap.sh"
+         ],
+         "image": "localhost:5000/jla/mod",
+         "name": "bootstrap"
+      },
+      {
+         "commands": [
+            "bindep testing",
+            "mkdir build",
+            "cd build",
+            "cmake ../ -DCMAKE_BUILD_TYPE=OptDebug -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0"
+         ],
+         "environment": {
+            "CXX": "clang++-19",
+            "CXXFLAGS": "-Werror"
+         },
+         "image": "localhost:5000/jla/mod",
+         "name": "configure"
+      },
+      {
+         "commands": [
+            "cd build",
+            "cmake ../ -DBUILD_TESTING=on -DBUILD_TESTING_SANITIZERS=off -DCMAKE_PREFIX_PATH=/opt/boost/1_87_0",
             "make"
          ],
          "image": "localhost:5000/jla/mod",

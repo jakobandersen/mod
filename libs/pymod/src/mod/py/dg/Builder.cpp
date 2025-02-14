@@ -2,6 +2,7 @@
 
 #include <mod/Derivation.hpp>
 #include <mod/dg/Builder.hpp>
+#include <mod/graph/Graph.hpp>
 
 namespace mod::dg::Py {
 namespace {
@@ -14,6 +15,11 @@ Builder_execute(std::shared_ptr<Builder> b, std::shared_ptr<Strategy> strategy, 
 	return std::make_shared<ExecuteResult>(b->execute(strategy, verbosity, ignoreRuleLabelTypes));
 }
 
+std::shared_ptr<AddAbstractResult>
+Builder_addAbstract(std::shared_ptr<Builder> b, const std::string &description) {
+	return std::make_shared<AddAbstractResult>(b->addAbstract(description));
+}
+
 } // namespace
 
 void Builder_doExport() {
@@ -21,7 +27,7 @@ void Builder_doExport() {
 	py::scope DGscope = DGobj;
 	using AddDerivation = DG::HyperEdge (Builder::*)(const Derivations &, IsomorphismPolicy);
 	using AddHyperEdge = DG::HyperEdge (Builder::*)(const DG::HyperEdge &, IsomorphismPolicy);
-	using Apply = std::vector<DG::HyperEdge> (Builder::*)(const std::vector<std::shared_ptr<graph::Graph> > &,
+	using Apply = std::vector<DG::HyperEdge> (Builder::*)(const std::vector<std::shared_ptr<mod::graph::Graph> > &,
 	                                                      std::shared_ptr<rule::Rule>, bool,
 	                                                      int, IsomorphismPolicy);
 	// rst: .. class:: DG.Builder
@@ -143,8 +149,10 @@ void Builder_doExport() {
 					// rst:			The label of that vertex and the name of the graph is set to the given identifier.
 					// rst:
 					// rst:			:param str description: the description to parse into abstract derivations.
+					// rst:			:returns: an object which maps the names of graphs to the graphs in the description.
+					// rst:			:rtype: AddAbstractResult
 					// rst:			:raises: :class:`InputError` if the description could not be parsed.
-			.def("addAbstract", &Builder::addAbstract)
+			.def("addAbstract", Builder_addAbstract)
 					// rst:		.. method:: load(ruleDatabase, f, verbosity=2)
 					// rst:
 					// rst:			Load and add a derivation graph dump.
@@ -168,11 +176,11 @@ void Builder_doExport() {
 					// rst: 		:raises: :class:`InputError` if the file can not be opened or its content is bad.
 			.def("load", &Builder::load);
 
+	py::scope Builderscope = BuilderObj;
 	// rst: .. class:: DG.Builder.ExecuteResult
 	// rst:
 	// rst:		The result from calling :func:`DG.Builder.execute`.
 	// rst:
-	py::scope Builderscope = BuilderObj;
 	py::class_<ExecuteResult, std::shared_ptr<ExecuteResult>, boost::noncopyable>("ExecuteResult", py::no_init)
 			// rst:		.. attribute:: subset
 			// rst:		               universe
@@ -191,6 +199,29 @@ void Builder_doExport() {
 					// rst:
 					// rst:			:param bool withUniverse: The universe lists can be rather long. As default, they are omitted when listing.
 			.def("list", &ExecuteResult::list);
+
+	// rst: .. class:: DG.Builder.AddAbstractResult
+	// rst:
+	// rst:		The result from calling :func:`DG.Builder.addAbstract`.
+	// rst:
+	py::class_<AddAbstractResult, std::shared_ptr<AddAbstractResult>, boost::noncopyable>("AddAbstractResult",
+	                                                                                      py::no_init)
+			// rst:		.. method:: getGraph(name)
+			// rst:
+			// rst:			:param str name: The name of the graph in the original description.
+			// rst:			:returns: the graph associated with the given name from the initial description,
+			// rst:				or ``None`` if such a graph doesn't exist.
+			// rst:			:rtype: Graph or None
+			.def("getGraph", &AddAbstractResult::getGraph)
+					// rst:		.. method:: getEdge(name)
+					// rst:
+					// rst:			:param str name: The name of the hyperedge in the original description.
+					// rst:			:returns: the hyperedge associated with the given name from the initial description,
+					// rst:				or a null edge if such a hyperedge doesn't exist.
+					// rst:				If the name refers to a bidirectional derivation, then the returned hyperedge is
+					// rst:				for the left-to-right derivation. The other can be accessed as the inverse on that returned edge.
+					// rst:			:rtype: DG.HyperEdge
+			.def("getEdge", &AddAbstractResult::getEdge);
 }
 
 } // namespace mod::dg::Py

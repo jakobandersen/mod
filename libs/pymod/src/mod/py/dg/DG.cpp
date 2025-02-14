@@ -29,7 +29,7 @@ std::shared_ptr<Builder> DG_build(std::shared_ptr<DG> dg_,
 } // namespace
 
 void DG_doExport() {
-	using Load = std::shared_ptr<DG> (*)(const std::vector<std::shared_ptr<graph::Graph>> &,
+	using Load = std::shared_ptr<DG> (*)(const std::vector<std::shared_ptr<mod::graph::Graph>> &,
 	                                     const std::vector<std::shared_ptr<rule::Rule>> &,
 	                                     const std::string &,
 	                                     IsomorphismPolicy, int);
@@ -169,13 +169,13 @@ void DG_doExport() {
 					// rst:			:type: list[Graph]
 			.add_property("_graphDatabase",
 			              py::make_function(&DG::getGraphDatabase, py::return_value_policy<py::copy_const_reference>()))
-					// rst:		.. attribute:: products
+					// rst:		.. attribute:: createdGraphs
 					// rst:
-					// rst:			The subset of the vertex graphs which were discovered by the calculation.
+					// rst:			The graphs that have been constructed by builder functions.
 					// rst:
 					// rst:			:type: list[Graph]
-			.add_property("_products",
-			              py::make_function(&DG::getProducts, py::return_value_policy<py::copy_const_reference>()))
+			.add_property("_createdGraphs",
+			              py::make_function(&DG::getCreatedGraphs, py::return_value_policy<py::copy_const_reference>()))
 					// rst:		.. method:: print(printer=DGPrinter(), data=None)
 					// rst:
 					// rst:			Print the derivation graph in style of a hypergraph. The appearance and structure

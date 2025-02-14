@@ -7,6 +7,11 @@ The sources can be found in the GitHub repository:
 `<http://github.com/jakobandersen/mod>`_.
 For additional information see the webpage: `<http://mod.imada.sdu.dk>`_.
 
+If you use MØD in your research you may want to cite [AFMS-MØD]_,
+and other relevant publications, depending on the components used.
+A discussion of rule-based modelling of chemistry can be found in [AFMS-Levels]_.
+See :ref:`references` for a full list of publications.
+
 The package contains the following components.
 
 * :ref:`libmod`, a C++ shared library (``mod``)
@@ -14,7 +19,6 @@ The package contains the following components.
 * :ref:`pymod`, a Python module (``mod``)
 	Python bindings for the library and extra functionality for easier usage of
 	many features.
-	It additionally includes the submodule :ref:`epim`,
 * :ref:`mod_post`, a Bash script (``mod_post``)
 	The post-processor for compiling figures and summaries.
 * :ref:`mod-wrapper`, a Bash script (``mod``)
@@ -44,10 +48,12 @@ Contents
 
 	knownIssues
 	changes
+	references
 
 
 Contributors
 ============
 
 * `Jakob Lykke Andersen <https://imada.sdu.dk/~jlandersen>`__: main author.
-* `Nikolai Nøjgaard <https://imada.sdu.dk/~nojgaard>`__: author of :ref:`EpiM`.
+* `Nikolai Nøjgaard <https://imada.sdu.dk/~nojgaard>`__:
+  author of EpiM which was a Python module of MØD (see [AHMNP-EpiM]_).

@@ -90,10 +90,10 @@ void Strategy_doExport() {
 	// rst:
 
 	std::shared_ptr<Strategy> (*makeAdd_static)(bool,
-	                                            const std::vector<std::shared_ptr<graph::Graph>> &,
+	                                            const std::vector<std::shared_ptr<mod::graph::Graph>> &,
 	                                            IsomorphismPolicy) = &Strategy::makeAdd;
 	std::shared_ptr<Strategy> (*makeAdd_dynamic)(bool,
-	                                             const std::shared_ptr<mod::Function<std::vector<std::shared_ptr<graph::Graph>>()>>,
+	                                             const std::shared_ptr<mod::Function<std::vector<std::shared_ptr<mod::graph::Graph>>()>>,
 	                                             IsomorphismPolicy) = &Strategy::makeAdd;
 	// rst: .. class:: DGStrat
 	// rst: 

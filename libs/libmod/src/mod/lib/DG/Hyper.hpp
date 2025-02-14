@@ -9,9 +9,9 @@ namespace mod {
 template<typename>
 struct Function;
 } // namespace mod
-namespace mod::lib::Graph {
-struct Single;
-} // namespace mod::lib::Graph
+namespace mod::lib::graph {
+struct Graph;
+} // namespace mod::lib::graph
 namespace mod::lib::DG {
 struct Expanded;
 
@@ -29,7 +29,7 @@ public:
 	HyperCreator(HyperCreator &&other);
 	HyperCreator &operator=(HyperCreator &&other);
 	~HyperCreator();
-	void addVertex(const lib::Graph::Single *g);
+	void addVertex(const lib::graph::Graph *g);
 	HyperVertex addEdge(NonHyper::Edge eNon);
 private:
 	Hyper *owner = nullptr;
@@ -56,21 +56,21 @@ public:
 	//	Hyper(const NonHyper &dg, int dummy);
 private:
 	// the vertex, isNew
-	std::pair<Vertex, bool> addVertex(const lib::Graph::Single *g);
+	std::pair<Vertex, bool> addVertex(const lib::graph::Graph *g);
 public:
 	~Hyper();
 	const NonHyper &getNonHyper() const;
 	const GraphType &getGraph() const;
 	void printStats(std::ostream &s) const;
-	bool isVertexGraph(const lib::Graph::Single *g) const;
-	Vertex getVertexOrNullFromGraph(const lib::Graph::Single *g) const;
+	bool isVertexGraph(const lib::graph::Graph *g) const;
+	Vertex getVertexOrNullFromGraph(const lib::graph::Graph *g) const;
 	// requires: isVertexGraph(g)
-	Vertex getVertexFromGraph(const lib::Graph::Single *g) const;
+	Vertex getVertexFromGraph(const lib::graph::Graph *g) const;
 	// requires: getGraph()[e].kind == HyperVertexKind::Edge
 	// returns null_vertex is no reverse exists, or the data has not been initialized yet
 	Vertex getReverseEdge(Vertex e) const;
 	// requires: getGraph()[e].kind == HyperVertexKind::Edge
-	const std::vector<const lib::Rules::Real *> &getRulesFromEdge(Vertex e) const;
+	const std::vector<const lib::rule::Rule *> &getRulesFromEdge(Vertex e) const;
 public:
 	dg::DG::Vertex getInterfaceVertex(Vertex v) const;
 	dg::DG::HyperEdge getInterfaceEdge(Vertex e) const;
@@ -83,7 +83,7 @@ private:
 	const NonHyper &nonHyper;
 	GraphType hyper;
 private:
-	std::map<const lib::Graph::Single *, Vertex> graphToHyperVertex;
+	std::map<const lib::graph::Graph *, Vertex> graphToHyperVertex;
 };
 
 } // namespace mod::lib::DG

@@ -10,9 +10,9 @@
 namespace mod::lib::Chem {
 
 auto readMDLMOL(lib::IO::Warnings &warnings, std::string_view src,
-                const MDLOptions &options) -> lib::IO::Result<std::vector<lib::Graph::Read::Data>>;
+                const MDLOptions &options) -> lib::IO::Result<std::vector<lib::graph::Read::Data>>;
 auto readMDLSD(lib::IO::Warnings &warnings, std::string_view src,
-               const MDLOptions &options) -> lib::IO::Result<std::vector<std::vector<lib::Graph::Read::Data>>>;
+               const MDLOptions &options) -> lib::IO::Result<std::vector<std::vector<lib::graph::Read::Data>>>;
 
 } // namespace mod::lib::Chem
 

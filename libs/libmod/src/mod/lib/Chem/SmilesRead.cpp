@@ -36,8 +36,8 @@
 #include <iostream>
 
 namespace mod::lib::Chem::Smiles {
-using Vertex = lib::Graph::Vertex;
-using Edge = lib::Graph::Edge;
+using Vertex = lib::graph::Vertex;
+using Edge = lib::graph::Edge;
 
 struct Charge {
 	Charge() = default;
@@ -403,7 +403,7 @@ public:
 	std::map<char, std::pair<Atom *, RingBond *>> openRings;
 };
 
-Vertex addHydrogen(lib::Graph::GraphType &g, lib::Graph::PropString &pString, Vertex p) {
+Vertex addHydrogen(lib::graph::GraphType &g, lib::graph::PropString &pString, Vertex p) {
 	Vertex v = add_vertex(g);
 	pString.addVertex(v, "H");
 	Edge e = add_edge(v, p, g).first;
@@ -412,7 +412,7 @@ Vertex addHydrogen(lib::Graph::GraphType &g, lib::Graph::PropString &pString, Ve
 }
 
 lib::IO::Result<> addBond(lib::IO::Warnings &warnings,
-                          lib::Graph::GraphType &g, lib::Graph::PropString &pString,
+                          lib::graph::GraphType &g, lib::graph::PropString &pString,
                           Atom &p, Atom &v,
                           char bond, Edge &e,
                           const bool printStereoWarnings) {
@@ -521,8 +521,8 @@ public:
 };
 
 struct Converter {
-	Converter(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
-	          std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs,
+	Converter(std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs,
+	          std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs,
 	          const ConnectedComponents &components,
 	          lib::IO::Warnings &warnings, bool printStereoWarnings,
 	          bool allowAbstract)
@@ -668,8 +668,8 @@ struct Converter {
 	}
 
 private:
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
-	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
+	std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs;
+	std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs;
 	const ConnectedComponents &components;
 	lib::IO::Warnings &warnings;
 	const bool printStereoWarnings;
@@ -681,8 +681,8 @@ private:
 };
 
 struct ExplicitHydrogenAdder {
-	ExplicitHydrogenAdder(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
-	                      std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs,
+	ExplicitHydrogenAdder(std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs,
+	                      std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs,
 	                      const ConnectedComponents &components)
 			: gPtrs(gPtrs), pStringPtrs(pStringPtrs), components(components) {}
 
@@ -712,14 +712,14 @@ struct ExplicitHydrogenAdder {
 	}
 
 private:
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
-	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
+	std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs;
+	std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs;
 	const ConnectedComponents &components;
 };
 
 struct ImplicitHydrogenAdder {
-	ImplicitHydrogenAdder(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
-	                      std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs,
+	ImplicitHydrogenAdder(std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs,
+	                      std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs,
 	                      const ConnectedComponents &components)
 			: gPtrs(gPtrs), pStringPtrs(pStringPtrs), components(components) {}
 
@@ -747,14 +747,14 @@ struct ImplicitHydrogenAdder {
 	}
 
 private:
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
-	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
+	std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs;
+	std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs;
 	const ConnectedComponents &components;
 };
 
 struct StereoConverter {
-	StereoConverter(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
-	                const std::vector<lib::Graph::PropMolecule> &pMols,
+	StereoConverter(std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs,
+	                const std::vector<lib::graph::PropMolecule> &pMols,
 	                const ConnectedComponents &components,
 	                lib::IO::Warnings &warnings,
 	                bool printStereoWarnings)
@@ -865,17 +865,17 @@ private:
 	}
 
 public:
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
-	const std::vector<lib::Graph::PropMolecule> &pMols;
+	std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs;
+	const std::vector<lib::graph::PropMolecule> &pMols;
 	const ConnectedComponents &components;
 	lib::IO::Warnings &warnings;
 	const bool printStereoWarnings;
 public:
-	std::vector<lib::Stereo::Inference<lib::Graph::GraphType, lib::Graph::PropMolecule>> infs;
+	std::vector<lib::Stereo::Inference<lib::graph::GraphType, lib::graph::PropMolecule>> infs;
 	std::vector<bool> hasAssigned;
 };
 
-lib::IO::Result<std::vector<lib::Graph::Read::Data>>
+lib::IO::Result<std::vector<lib::graph::Read::Data>>
 parseSmiles(lib::IO::Warnings &warnings, const bool printStereoWarnings,
             std::string_view smiles, const bool allowAbstract,
             SmilesClassPolicy classPolicy) {
@@ -930,18 +930,18 @@ parseSmiles(lib::IO::Warnings &warnings, const bool printStereoWarnings,
 		assert(components[i] < numComponents);
 	}
 
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> gPtrs(numComponents);
-	std::vector<std::unique_ptr<lib::Graph::PropString>> pStringPtrs(numComponents);
+	std::vector<std::unique_ptr<lib::graph::GraphType>> gPtrs(numComponents);
+	std::vector<std::unique_ptr<lib::graph::PropString>> pStringPtrs(numComponents);
 	for(int i = 0; i != numComponents; ++i) {
-		gPtrs[i] = std::make_unique<lib::Graph::GraphType>();
-		pStringPtrs[i] = std::make_unique<lib::Graph::PropString>(*gPtrs[i]);
+		gPtrs[i] = std::make_unique<lib::graph::GraphType>();
+		pStringPtrs[i] = std::make_unique<lib::graph::PropString>(*gPtrs[i]);
 	}
 	Converter conv(gPtrs, pStringPtrs, components, warnings, printStereoWarnings, allowAbstract);
 	if(auto res = conv(ast); !res) return res;
 	(ExplicitHydrogenAdder(gPtrs, pStringPtrs, components))(ast);
 	(ImplicitHydrogenAdder(gPtrs, pStringPtrs, components)(ast));
 
-	std::vector<lib::Graph::Read::Data> datas(numComponents);
+	std::vector<lib::graph::Read::Data> datas(numComponents);
 
 	const auto iter = std::find_if(conv.classToVertexId.begin(), conv.classToVertexId.end(), [&conv](auto &vp) {
 		return conv.classToVertexId.count(vp.first) > 1;
@@ -979,7 +979,7 @@ parseSmiles(lib::IO::Warnings &warnings, const bool printStereoWarnings,
 	}
 
 	if(conv.hasStereo) {
-		std::vector<lib::Graph::PropMolecule> pMols;
+		std::vector<lib::graph::PropMolecule> pMols;
 		for(int i = 0; i != numComponents; ++i)
 			pMols.emplace_back(*gPtrs[i], *pStringPtrs[i]);
 		StereoConverter stereoConv(gPtrs, pMols, components, warnings, printStereoWarnings);
@@ -990,7 +990,7 @@ parseSmiles(lib::IO::Warnings &warnings, const bool printStereoWarnings,
 					return std::to_string(get(boost::vertex_index_t(), *gPtrs[i], v));
 				});
 				if(!deductionResult) return deductionResult;
-				datas[i].pStereo = std::make_unique<lib::Graph::PropStereo>(*gPtrs[i], std::move(stereoConv.infs[i]));
+				datas[i].pStereo = std::make_unique<lib::graph::PropStereo>(*gPtrs[i], std::move(stereoConv.infs[i]));
 			}
 		}
 	}
@@ -999,14 +999,14 @@ parseSmiles(lib::IO::Warnings &warnings, const bool printStereoWarnings,
 		datas[i].g = std::move(gPtrs[i]);
 		datas[i].pString = std::move(pStringPtrs[i]);
 	}
-	return lib::IO::Result<std::vector<lib::Graph::Read::Data>>(std::move(datas));
+	return lib::IO::Result<std::vector<lib::graph::Read::Data>>(std::move(datas));
 }
 
 } // namespace
 } // namespace mod::lib::Chem::Smiles
 namespace mod::lib::Chem {
 
-lib::IO::Result<std::vector<lib::Graph::Read::Data>>
+lib::IO::Result<std::vector<lib::graph::Read::Data>>
 readSmiles(lib::IO::Warnings &warnings, bool printStereoWarnings,
            std::string_view src, const bool allowAbstract,
            SmilesClassPolicy classPolicy) {

@@ -3,7 +3,7 @@
 #include <mod/BuildConfig.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/lib/DG/Hyper.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/Properties/Molecule.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/IO/Json.hpp>

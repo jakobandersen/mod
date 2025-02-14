@@ -21,6 +21,6 @@ rRight = Rule.fromGMLString("""rule [
 		count 0 op "="
 	]
 ]""")
-rc = rcEvaluator(inputRules)
+rc = RCEvaluator(inputRules)
 exp = rc.eval(rLeft *rcSuper(enforceConstraints=True)* rRight)
 assert len(exp) > 0

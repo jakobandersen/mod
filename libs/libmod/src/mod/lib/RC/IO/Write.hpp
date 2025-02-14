@@ -1,7 +1,7 @@
 #ifndef MOD_LIB_RC_IO_WRITE_HPP
 #define MOD_LIB_RC_IO_WRITE_HPP
 
-#include <mod/lib/Rules/Real.hpp>
+#include <mod/lib/Rule/Rule.hpp>
 
 #include <boost/bimap.hpp>
 
@@ -15,13 +15,13 @@ std::string dot(const Evaluator &rc);
 std::string svg(const Evaluator &rc);
 std::string pdf(const Evaluator &rc);
 
-using CoreCoreMap = boost::bimap<lib::Rules::Vertex, lib::Rules::Vertex>;
+using CoreCoreMap = boost::bimap<lib::rule::Vertex, lib::rule::Vertex>;
 
-void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const CoreCoreMap &match, const lib::Rules::Real &rNew);
+void test(const lib::rule::Rule &rFirst, const lib::rule::Rule &rSecond, const CoreCoreMap &match, const lib::rule::Rule &rNew);
 
 template<typename VertexMap>
-void test(const lib::Rules::Real &rFirst, const lib::Rules::Real &rSecond, const VertexMap &m, const lib::Rules::Real &rNew) {
-	using GraphDom = lib::Rules::LabelledRule::SideProjectedGraphType;
+void test(const lib::rule::Rule &rFirst, const lib::rule::Rule &rSecond, const VertexMap &m, const lib::rule::Rule &rNew) {
+	using GraphDom = lib::rule::LabelledRule::SideProjectedGraphType;
 	const auto &gDom = get_graph(get_labelled_left(rSecond.getDPORule()));
 	const auto &gCodom = get_graph(get_labelled_right(rFirst.getDPORule()));
 	CoreCoreMap match;

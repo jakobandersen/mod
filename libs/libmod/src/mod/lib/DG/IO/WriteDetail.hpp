@@ -1,7 +1,7 @@
 #ifndef MOD_LIB_DG_IO_WRITEDETAIL_HPP
 #define MOD_LIB_DG_IO_WRITEDETAIL_HPP
 
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/DG/IO/Write.hpp>
 
 #include <jla_boost/graph/PairToRangeAdaptor.hpp>

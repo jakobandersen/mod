@@ -8,7 +8,7 @@
 
 #include <optional>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 struct PropString;
 
 struct PropMolecule : Prop<PropMolecule, AtomData, BondType> {
@@ -33,6 +33,6 @@ private:
 	mutable std::optional<double> energy;
 };
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 #endif // MOD_LIB_GRAPH_PROP_MOLECULE_HPP

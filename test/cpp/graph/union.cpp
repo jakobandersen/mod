@@ -13,5 +13,5 @@
 
 int main() {
 	BOOST_CONCEPT_ASSERT((mod::concepts::LabelledGraph<mod::graph::Union>));
-	BOOST_CONCEPT_ASSERT((mod::lib::LabelledGraphConcept<mod::lib::LabelledUnionGraph<mod::lib::Graph::LabelledGraph>>));
+	BOOST_CONCEPT_ASSERT((mod::lib::LabelledGraphConcept<mod::lib::LabelledUnionGraph<mod::lib::graph::LabelledGraph>>));
 }

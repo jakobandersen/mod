@@ -7,6 +7,7 @@
 #include <boost/graph/properties.hpp>
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace mod {
@@ -18,13 +19,29 @@ inline bool isCleanHydrogen(const AtomData &ad) {
 } // namespace mod
 namespace mod::lib::Chem {
 
-std::tuple<std::string, Isotope, Charge, bool> extractIsotopeChargeRadical(const std::string &label);
-std::tuple<std::string::const_iterator, std::string::const_iterator, Isotope, Charge, bool>
-/*   */ extractIsotopeChargeRadicalLen(const std::string &label);
-AtomId atomIdFromSymbol(const std::string &label);
-AtomId atomIdFromSymbol(const std::string::const_iterator first, const std::string::const_iterator last);
-std::tuple<AtomId, Isotope, Charge, bool> decodeVertexLabel(const std::string &label); // we don't return an AtomData, because it could potentially have extra stuff that we don't decode
-BondType decodeEdgeLabel(const std::string &label);
+struct VertexLabelParseResultExtra {
+	Isotope isotope;
+	Charge charge;
+	bool radical;
+};
+
+struct VertexLabelParseResult : VertexLabelParseResultExtra {
+	std::string_view rest;
+};
+
+struct VertexLabelDecodeResult : VertexLabelParseResultExtra {
+	AtomId atomId;
+public:
+	AtomData asAtomData() const {
+		return {atomId, isotope, charge, radical};
+	}
+};
+
+AtomId atomIdFromSymbol(std::string_view label);
+VertexLabelParseResult parseVertexLabel(std::string_view label);
+// we don't return an AtomData, because it could potentially have extra stuff that we don't decode
+VertexLabelDecodeResult decodeVertexLabel(std::string_view label);
+BondType decodeEdgeLabel(std::string_view label);
 void markSpecialAtomsUsed(std::vector<bool> &used);
 std::string symbolFromAtomId(AtomId atomId);
 void appendSymbolFromAtomId(std::string &s, AtomId atomId);

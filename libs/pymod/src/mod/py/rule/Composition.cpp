@@ -21,22 +21,38 @@
 // rst: .. productionlist:: rcExp
 // rst:    rcExp: `rcExp` `op` `rcExp`
 // rst:         : "rcBind(" graphs ")"
-// rst:         : "rcUnbind(" graphs ")"
 // rst:         : "rcId(" graphs ")"
+// rst:         : "rcUnbind(" graphs ")"
 // rst:         : rules
 // rst:    op: "*" `opObject` "*"
 // rst:    opObject: "rcParallel"
-// rst:            : "rcSuper(allowPartial=False)"
 // rst:            : "rcSuper"
-// rst:            : "rcSub(allowPartial=False)"
+// rst:            : "rcSuper(allowPartial=True)"
 // rst:            : "rcSub"
+// rst:            : "rcSub(allowPartial=True)"
 // rst:            : "rcCommon"
+// rst:            : "rcCommon(maximum=False, connected=True, includeEmpty=False)"
 // rst:
 // rst: Here a ``graphs`` is any Python expression that is either a single :class:`Graph` or an iterable of graphs.
 // rst: Similarly, ``rules`` must be either a :class:`Rule` or an iterable of rules.
 // rst: An :token:`~rcExp:rcExp` may additionally be an iterable of expressions.
-// rst: See the API below for more details on the semantics of each expression,
-// rst: and the corresponding :ref:`C++ page<cpp-rule/CompositionExpr>`.
+// rst: The following table links each type of expression to the objects being created.
+// rst:
+// rst: ====================================================================================== =============================
+// rst: Expression                                                                             Object
+// rst: ====================================================================================== =============================
+// rst: An iterable of :class:`Rule`                                                           :class:`RCExpUnion`
+// rst: ``rcBind(graphs)``                                                                     :class:`RCExpBind`
+// rst: ``rcId(graphs)``                                                                       :class:`RCExpId`
+// rst: ``rcUnbind(graphs)``                                                                   :class:`RCExpUnbind`
+// rst:  :token:`~rcExp:rcExp` ``*rcParallel*`` :token:`~rcExp:rcExp`                          :class:`RCExpComposeParallel`
+// rst:  :token:`~rcExp:rcExp` ``*rcSuper*`` :token:`~rcExp:rcExp`                             :class:`RCExpComposeSuper`
+// rst:  :token:`~rcExp:rcExp` ``*rcSub*`` :token:`~rcExp:rcExp`                               :class:`RCExpComposeSub`
+// rst:  :token:`~rcExp:rcExp` ``*rcCommon*`` :token:`~rcExp:rcExp`                            :class:`RCExpComposeCommon`
+// rst: ====================================================================================== =============================
+// rst:
+// rst: See also [AFMS-RC]_, [AFMS-RC-AtomMap]_, and [AFMS-RC-Matrix]_ for details on how these expressions are computed internally,
+// rst: and further examples of how they can be used to solve particular problems.
 // rst:
 
 namespace mod::rule::Py {
@@ -46,18 +62,19 @@ std::vector<std::shared_ptr<Rule>> getRuleDatabase(std::shared_ptr<Composer> rc)
 	return std::vector<std::shared_ptr<Rule>>(begin(rc->getRuleDatabase()), end(rc->getRuleDatabase()));
 }
 
-std::vector<std::shared_ptr<Rule>> getProducts(std::shared_ptr<Composer> rc) {
-	return std::vector<std::shared_ptr<Rule>>(begin(rc->getProducts()), end(rc->getProducts()));
+std::vector<std::shared_ptr<Rule>> getCreatedRules(std::shared_ptr<Composer> rc) {
+	return std::vector<std::shared_ptr<Rule>>(begin(rc->getCreatedRules()), end(rc->getCreatedRules()));
 }
 
 std::shared_ptr<Composer> create(const std::vector<std::shared_ptr<Rule>> dVec, LabelSettings labelSettings) {
 	std::unordered_set<std::shared_ptr<Rule>> dUSet(begin(dVec), end(dVec));
-	return Composer::create(dUSet, labelSettings);
+	return std::make_shared<Composer>(dUSet, labelSettings);
 }
 
 } // namespace 
 
 void Composition_doExport() {
+	// rst:
 	// rst: Expression Evaluator
 	// rst: #################################################
 	// rst:
@@ -74,60 +91,55 @@ void Composition_doExport() {
 	// rst:		hyperedge vertices are labelled with 1 and 2.
 	// rst:
 	py::class_<Composer, std::shared_ptr<Composer>, boost::noncopyable>("RCEvaluator", py::no_init)
+			// rst:		.. method:: __init__(self, ruleDatabase, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+			// rst:
+			// rst:			:param ruleDatabase: a list of isomorphic rules the evaluator will compare against.
+			// rst:			:type database: list[Rule]
+			// rst:			:param LabelSettings labelSettings: the settings to use for morphisms.
+			// rst:
+			// rst:			.. note:: The caller is responsible for ensuring the given rules are unique.
+			// rst:
+			.def("__init__", py::make_constructor(&create))
 			// rst:		.. attribute:: ruleDatabase
 			// rst:
 			// rst:			(Read-only) The list of unique rules known by the evaluator.
 			// rst:
 			// rst:			:type: list[Rule]
 			.add_property("_ruleDatabase", &getRuleDatabase)
-					// rst:		.. attribute:: products
-					// rst:
-					// rst:			(Read-only) The list of unique rules this evaluator has constructed.
-					// rst:
-					// rst:			:type: list[Rule]
-			.add_property("_products", &getProducts)
-					// rst:		.. method:: eval(exp, *, onlyUnique=True, verbosity=0)
-					// rst:
-					// rst:			Evaluates a rule composition expression.
-					// rst:			Any created rule is replaced by a rule in the database if they are isomorphic.
-					// rst:			A rule may appear multiple times in the result if multiple overlaps resulted in the same composed rule.
-					// rst:
-					// rst:			:param RCExpExp exp: the expression to evaluate.
-					// rst:			:param bool onlyUnique: whether each composition (sub-)result may contain duplicates or not.
-					// rst:			:param int verbosity: the level of information being printed about the evaluation.
-					// rst:				See :cpp:func:`rule::Composer::eval` for details.
-					// rst:			:returns: the resulting list of rules of the expression.
-					// rst:			:rtype: list[Rule]
+			// rst:		.. attribute:: createdRules
+			// rst:
+			// rst:			(Read-only) The list of unique rules this evaluator has constructed.
+			// rst:
+			// rst:			:type: list[Rule]
+			.add_property("_createdRules", &getCreatedRules)
+			// rst:		.. method:: eval(exp, *, onlyUnique=True, verbosity=0)
+			// rst:
+			// rst:			Evaluates a rule composition expression.
+			// rst:			Any created rule is replaced by a rule in the database if they are isomorphic.
+			// rst:			A rule may appear multiple times in the result if multiple overlaps resulted in the same composed rule.
+			// rst:
+			// rst:			:param RCExpExp exp: the expression to evaluate.
+			// rst:			:param bool onlyUnique: whether each composition (sub-)result may contain duplicates or not.
+			// rst:			:param int verbosity: the level of information being printed about the evaluation.
+			// rst:				See :cpp:func:`rule::Composer::eval` for details.
+			// rst:			:returns: the resulting list of rules of the expression.
+			// rst:			:rtype: list[Rule]
 			.def("eval", &Composer::eval)
-					// rst:		.. method:: print()
-					// rst:
-					// rst:			Print the graph representing all expressions evaluated so far.
+			// rst:		.. method:: print()
+			// rst:
+			// rst:			Print the graph representing all expressions evaluated so far.
 			.def("print", &Composer::print);
 
-	// rst: .. method:: rcEvaluator(database, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
 	// rst:
-	// rst:		:param database: a list of isomorphic rules the evaluator will compare against.
-	// rst:		:type database: list[Rule]
-	// rst:		:param LabelSettings labelSettings: the settings to use for morphisms.
-	// rst:		:returns: a rule composition expression evaluator.
-	// rst:		:rtype: RCEvaluator
-	// rst:
-	// rst:		.. note:: The caller is responsible for ensuring the given rules are unique.
-	// rst:
-	py::def("_rcEvaluator", create);
-
 	// rst: Rule Composition Expressions
 	// rst: #################################################
 	// rst:
-	// rst: An expression, ``RCExpExp``, can be evaluated through the method :meth:`RCEvaluator.eval`.
+	// rst: An expression can be evaluated through the method :meth:`RCEvaluator.eval`.
 	// rst: The result of an expression is a list of rules.
 	// rst:
-
-	// Nullary/unary
-	//--------------------------------------------------------------------------
 	// rst: .. class:: RCExpUnion
 	// rst:
-	// rst:		Return the union of the subexpressions. I.e., flatten the subresult lists into a single list.
+	// rst:		When evaluated, return the union of the result of the sub-expressions.
 	// rst:
 	py::class_<RCExp::Union>("RCExpUnion", py::no_init)
 			.def(py::init<std::vector<RCExp::Expression>>())
@@ -137,21 +149,21 @@ void Composition_doExport() {
 	// rst:		Return the singleton list with the rule :math:`(\emptyset, \emptyset, G)` for the given graph :math:`G`.
 	// rst:
 	py::class_<RCExp::Bind>("RCExpBind", py::no_init)
-			.def(py::init<std::shared_ptr<graph::Graph>>())
+			.def(py::init<std::shared_ptr<mod::graph::Graph>>())
 			.def(str(py::self));
 	// rst: .. class:: RCExpId
 	// rst:
 	// rst:		Return the singleton list with the rule :math:`(G, G, G)` for the given graph :math:`G`.
 	// rst:
 	py::class_<RCExp::Id>("RCExpId", py::no_init)
-			.def(py::init<std::shared_ptr<graph::Graph>>())
+			.def(py::init<std::shared_ptr<mod::graph::Graph>>())
 			.def(str(py::self));
 	// rst: .. class:: RCExpUnbind
 	// rst:
 	// rst:		Return the singleton list with the rule :math:`(G, \emptyset, \emptyset)` for the given graph :math:`G`.
 	// rst:
 	py::class_<RCExp::Unbind>("RCExpUnbind", py::no_init)
-			.def(py::init<std::shared_ptr<graph::Graph>>())
+			.def(py::init<std::shared_ptr<mod::graph::Graph>>())
 			.def(str(py::self));
 
 	// Expression
@@ -172,7 +184,7 @@ void Composition_doExport() {
 	// rst:		By default the empty overlap is not considered, but can be enabled to be.
 	// rst:
 	py::class_<RCExp::ComposeCommon>("RCExpComposeCommon", py::no_init)
-			.def(py::init<RCExp::Expression, RCExp::Expression, bool, bool, bool, bool>())
+			.def(py::init<RCExp::Expression, RCExp::Expression, bool, bool, bool>())
 			.def(str(py::self));
 	// rst: .. class:: RCExpComposeParallel
 	// rst:
@@ -180,14 +192,14 @@ void Composition_doExport() {
 	// rst:		possibly limited to connected subgraphs or to the subgraphs of maximum size.
 	// rst:
 	py::class_<RCExp::ComposeParallel>("RCExpComposeParallel", py::no_init)
-			.def(py::init<RCExp::Expression, RCExp::Expression, bool>())
+			.def(py::init<RCExp::Expression, RCExp::Expression>())
 			.def(str(py::self));
 	// rst: .. class:: RCExpComposeSub
 	// rst:
 	// rst:		Compose the rules by the empty graph, i.e., create a rule representing the parallel application of two input rules.
 	// rst:
 	py::class_<RCExp::ComposeSub>("RCExpComposeSub", py::no_init)
-			.def(py::init<RCExp::Expression, RCExp::Expression, bool, bool>())
+			.def(py::init<RCExp::Expression, RCExp::Expression, bool>())
 			.def(str(py::self));
 	// rst: .. class:: RCExpComposeSuper
 	// rst:
@@ -195,7 +207,7 @@ void Composition_doExport() {
 	// rst:		The overlap is `partial` if not every connected component of :math:`L_2` is participating in the common subgraph.
 	// rst:
 	py::class_<RCExp::ComposeSuper>("RCExpComposeSuper", py::no_init)
-			.def(py::init<RCExp::Expression, RCExp::Expression, bool, bool, bool>())
+			.def(py::init<RCExp::Expression, RCExp::Expression, bool, bool>())
 			.def(str(py::self));
 
 	py::implicitly_convertible<std::shared_ptr<Rule>, RCExp::Expression>();

@@ -3,7 +3,7 @@
 
 #include <mod/lib/GraphMorphism/StereoVertexMap.hpp>
 #include <mod/lib/RC/Visitor/Compound.hpp>
-#include <mod/lib/Rules/Properties/Stereo.hpp>
+#include <mod/lib/Rule/Properties/Stereo.hpp>
 #include <mod/lib/Stereo/Inference.hpp>
 
 #include <vector>
@@ -55,7 +55,7 @@ private:
 		else return get_inverse(match, gDom, gCodom, vFirst);
 	}
 public:
-	Stereo(const lib::Rules::LabelledRule &rFirst, const lib::Rules::LabelledRule &rSecond)
+	Stereo(const lib::rule::LabelledRule &rFirst, const lib::rule::LabelledRule &rSecond)
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
@@ -262,7 +262,7 @@ public:
 						}
 						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_left(rFirst), vFirst,
 						                                     gFirst,
-						                                     result.mFirstToResult, vResult, result.rDPO->getLProjected(),
+						                                     result.mappings.mFirstToResult, vResult, result.rDPO->getLProjected(),
 						                                     vDataLeft, eDataLeft);
 						(void) partial;
 						assert(!partial);
@@ -287,7 +287,7 @@ public:
 						}
 						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_left(rFirst), vFirst,
 						                                     gFirst,
-						                                     result.mFirstToResult, vResult, result.rDPO->getLProjected(),
+						                                     result.mappings.mFirstToResult, vResult, result.rDPO->getLProjected(),
 						                                     vDataLeft, eDataLeft);
 						(void) partial;
 						assert(!partial);
@@ -329,7 +329,7 @@ public:
 						}
 						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rSecond), vSecond,
 						                                     gSecond,
-						                                     result.mSecondToResult, vResult, result.rDPO->getRProjected(),
+						                                     result.mappings.mSecondToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
 						assert(!partial);
@@ -341,7 +341,7 @@ public:
 						}
 						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rFirst), vFirst,
 						                                     gFirst,
-						                                     result.mFirstToResult, vResult, result.rDPO->getRProjected(),
+						                                     result.mappings.mFirstToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
 						assert(!partial);
@@ -363,7 +363,7 @@ public:
 						}
 						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rSecond), vSecond,
 						                                     gSecond,
-						                                     result.mSecondToResult, vResult, result.rDPO->getRProjected(),
+						                                     result.mappings.mSecondToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
 						assert(!partial);
@@ -379,7 +379,7 @@ public:
 						}
 						const bool partial = copyAllFromSide(logger, std::true_type(), get_labelled_right(rSecond), vSecond,
 						                                     gSecond,
-						                                     result.mSecondToResult, vResult, result.rDPO->getRProjected(),
+						                                     result.mappings.mSecondToResult, vResult, result.rDPO->getRProjected(),
 						                                     vDataRight, eDataRight);
 						(void) partial;
 						assert(!partial);
@@ -392,7 +392,7 @@ public:
 							const auto &glSide = get_labelled_right(rFirst);
 							const auto &glSideOther = get_labelled_left(rSecond);
 							const auto &gResultSide = result.rDPO->getRProjected();
-							const auto &mInputToResult = result.mFirstToResult;
+							const auto &mInputToResult = result.mappings.mFirstToResult;
 							const auto mapToOtherInput = [&](const auto &vFirst) {
 								// the "this->" part is needed to get GCC to not seg. fault
 								return this->getVertexSecondChecked(match, vFirst);
@@ -499,7 +499,7 @@ public:
 				if(false) {
 					if(Verbose) ++logger.indentLevel;
 					copyAllFromSide(logger, std::false_type(), get_labelled_right(rSecond), vSecond, gSecond,
-					                result.mSecondToResult,
+					                result.mappings.mSecondToResult,
 					                vResult, result.rDPO->getRProjected(), vDataRight, eDataRight);
 					const auto prevEmbSize = data.edges.size();
 
@@ -532,8 +532,8 @@ public:
 			const auto m = result.rDPO->getCombinedGraph()[vResult].membership;
 			const auto vResultId = get(boost::vertex_index_t(), gResult, vResult);
 			// If vResult is in only first or only second, we should be able to just copy the embedding.
-			const auto vFirst = get_inverse(result.mFirstToResult, gFirst, gResult, vResult);
-			const auto vSecond = get_inverse(result.mSecondToResult, gSecond, gResult, vResult);
+			const auto vFirst = get_inverse(result.mappings.mFirstToResult, gFirst, gResult, vResult);
+			const auto vSecond = get_inverse(result.mappings.mSecondToResult, gSecond, gResult, vResult);
 			assert(vFirst != NullVertex<GraphFirst>() || vSecond != NullVertex<GraphSecond>());
 			std::stringstream ssErr;
 			const auto instantiateConfs = [&](IO::Logger logger) {
@@ -565,11 +565,11 @@ public:
 			}; // instantiateCoefs()
 			if(vFirst == NullVertex<GraphFirst>()) {
 				if(Verbose) logger.indent() << "not in First, copy only from Second\n";
-				handleOnly(logger, vResult, vSecond, rSecond, result.mSecondToResult);
+				handleOnly(logger, vResult, vSecond, rSecond, result.mappings.mSecondToResult);
 				instantiateConfs(logger);
 			} else if(vSecond == NullVertex<GraphSecond>()) {
 				if(Verbose) logger.indent() << "not in Second, copy only from First\n";
-				handleOnly(logger, vResult, vFirst, rFirst, result.mFirstToResult);
+				handleOnly(logger, vResult, vFirst, rFirst, result.mappings.mFirstToResult);
 				instantiateConfs(logger);
 			} else {
 				if(Verbose) logger.indent() << "in both\n";
@@ -605,7 +605,7 @@ public:
 		const auto edgeInContext = [this, &gResult](const auto &e) -> bool {
 			return this->edgeInContext[get(boost::edge_index_t(), gResult, e)];
 		};
-		result.pStereo.reset(new lib::Rules::PropStereo(
+		result.pStereo.reset(new lib::rule::PropStereo(
 				*result.rDPO,
 				Inf{gResult, std::move(vDataLeft), std::move(eDataLeft)},
 				Inf{gResult, std::move(vDataRight), std::move(eDataRight)},
@@ -654,7 +654,7 @@ public:
 	                   const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                   const InvertibleVertexMap &match, const Result &result,
 	                   const EdgeFirst &eFirst, const EdgeResult &eResult) {
-		using GraphSecond = lib::Rules::LabelledRule::GraphType;
+		using GraphSecond = lib::rule::LabelledRule::GraphType;
 		const auto m = membership(rFirst, eFirst);
 		const auto &gFirst = get_graph(rFirst);
 		const auto &gSecond = get_graph(rSecond);
@@ -703,7 +703,7 @@ public:
 	                    const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	                    const InvertibleVertexMap &match, const Result &result,
 	                    const EdgeSecond &eSecond, const EdgeResult &eResult) {
-		using GraphFirst = lib::Rules::LabelledRule::GraphType;
+		using GraphFirst = lib::rule::LabelledRule::GraphType;
 		const auto &gFirst = get_graph(rFirst);
 		const auto &gSecond = get_graph(rSecond);
 		const auto &gResult = result.rDPO->getCombinedGraph();
@@ -929,8 +929,8 @@ public:
 		edgeInContext[eIdResult] = edgeInContext[eIdResult] && get_stereo(rSecond).inContext(eSecond);
 	}
 private:
-	const lib::Rules::LabelledRule &rFirst;
-	const lib::Rules::LabelledRule &rSecond;
+	const lib::rule::LabelledRule &rFirst;
+	const lib::rule::LabelledRule &rSecond;
 };
 
 } // namespace mod::lib::RC::Visitor

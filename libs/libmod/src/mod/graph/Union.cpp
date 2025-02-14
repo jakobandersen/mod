@@ -8,7 +8,7 @@
 #include <mod/lib/GraphPimpl.hpp>
 #include <mod/lib/LabelledUnionGraph.hpp>
 #include <mod/lib/Graph/LabelledGraph.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/IO/Write.hpp>
 #include <mod/lib/Graph/Properties/Molecule.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
@@ -34,7 +34,7 @@ struct Union::Pimpl {
 
 public:
 	std::vector<std::shared_ptr<Graph>> graphs;
-	lib::LabelledUnionGraph<lib::Graph::LabelledGraph> g;
+	lib::LabelledUnionGraph<lib::graph::LabelledGraph> g;
 };
 
 Union::Union() : p(std::make_unique<Pimpl>()) {}
@@ -56,7 +56,7 @@ Union &Union::operator=(const Union &other) = default;
 Union::Union(Union &&other) = default;
 Union &Union::operator=(Union &&other) = default;
 
-const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &Union::getInner() const {
+const lib::LabelledUnionGraph<lib::graph::LabelledGraph> &Union::getInner() const {
 	return p->g;
 }
 
@@ -110,7 +110,7 @@ Union::EdgeRange Union::edges() const {
 }
 
 void Union::printTermState() const {
-	lib::Graph::Write::termState(p->g, boost::lexical_cast<std::string>(*this));
+	lib::graph::Write::termState(p->g, boost::lexical_cast<std::string>(*this));
 }
 
 //------------------------------------------------------------------------------
@@ -183,7 +183,7 @@ std::string Union::Vertex::printStereo(const Printer &p) const {
 	const auto vInner = v.v;
 	const auto gIdx = v.gIdx;
 	const auto &gInner = g->p->graphs[gIdx]->getGraph();
-	return lib::Graph::Write::stereoSummary(
+	return lib::graph::Write::stereoSummary(
 			gInner, vInner, *conf, p.getOptions(), graph.get_vertex_idx_offset(gIdx),
 			" (" + boost::lexical_cast<std::string>(*this)) + ")";
 }

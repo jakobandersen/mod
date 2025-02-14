@@ -16,5 +16,4 @@ which automatically sets ``PYTHONPATH`` and inserts a small preamble.
 	:maxdepth: 2
 
 	api
-	../epim/index
 	extensions

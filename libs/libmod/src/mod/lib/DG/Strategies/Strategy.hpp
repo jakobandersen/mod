@@ -4,7 +4,7 @@
 #include <mod/dg/Strategies.hpp>
 #include <mod/lib/DG/NonHyper.hpp>
 #include <mod/lib/IO/IO.hpp>
-#include <mod/lib/Rules/GraphAsRuleCache.hpp>
+#include <mod/lib/Rule/GraphAsRuleCache.hpp>
 
 #include <iosfwd>
 #include <vector>
@@ -13,24 +13,24 @@ namespace mod::lib::DG::Strategies {
 class GraphState;
 
 struct ExecutionEnv {
-	ExecutionEnv(LabelSettings labelSettings, bool doRuleIsomorphism, Rules::GraphAsRuleCache &graphAsRuleCache)
+	ExecutionEnv(LabelSettings labelSettings, bool doRuleIsomorphism, rule::GraphAsRuleCache &graphAsRuleCache)
 			: labelSettings(labelSettings), doRuleIsomorphism(doRuleIsomorphism), graphAsRuleCache(graphAsRuleCache) {}
 	virtual ~ExecutionEnv() {};
 	// May throw LogicError if exists.
-	virtual void tryAddGraph(std::shared_ptr<graph::Graph> g) = 0;
-	virtual bool trustAddGraph(std::shared_ptr<graph::Graph> g) = 0;
-	virtual bool trustAddGraphAsVertex(std::shared_ptr<graph::Graph> g) = 0;
+	virtual void tryAddGraph(std::shared_ptr<mod::graph::Graph> g) = 0;
+	virtual bool trustAddGraph(std::shared_ptr<mod::graph::Graph> g) = 0;
+	virtual bool trustAddGraphAsVertex(std::shared_ptr<mod::graph::Graph> g) = 0;
 	virtual bool doExit() const = 0;
 	// the right side is always empty
 	virtual bool checkLeftPredicate(const mod::Derivation &d) const = 0;
 	// but here everything is defined
 	virtual bool checkRightPredicate(const mod::Derivation &d) const = 0;
-	virtual std::shared_ptr<graph::Graph> checkIfNew(std::unique_ptr<lib::Graph::Single> g) const = 0;
-	virtual bool addProduct(std::shared_ptr<graph::Graph> g) = 0;
+	virtual std::shared_ptr<mod::graph::Graph> checkIfNew(std::unique_ptr<lib::graph::Graph> g) const = 0;
+	virtual bool addCreatedGraph(std::shared_ptr<mod::graph::Graph> g) = 0;
 	virtual bool
-	isDerivation(const GraphMultiset &gmsSrc, const GraphMultiset &gmsTar, const lib::Rules::Real *r) const = 0;
+	isDerivation(const GraphMultiset &gmsSrc, const GraphMultiset &gmsTar, const lib::rule::Rule *r) const = 0;
 	virtual bool
-	suggestDerivation(const GraphMultiset &gmsSrc, const GraphMultiset &gmsTar, const lib::Rules::Real *r) = 0;
+	suggestDerivation(const GraphMultiset &gmsSrc, const GraphMultiset &gmsTar, const lib::rule::Rule *r) = 0;
 	virtual void pushLeftPredicate(std::shared_ptr<mod::Function<bool(const mod::Derivation &)> > pred) = 0;
 	virtual void pushRightPredicate(std::shared_ptr<mod::Function<bool(const mod::Derivation &)> > pred) = 0;
 	virtual void popLeftPredicate() = 0;
@@ -38,7 +38,7 @@ struct ExecutionEnv {
 public:
 	const LabelSettings labelSettings;
 	const bool doRuleIsomorphism;
-	Rules::GraphAsRuleCache &graphAsRuleCache;
+	rule::GraphAsRuleCache &graphAsRuleCache;
 };
 
 struct PrintSettings : IO::Logger {
@@ -79,13 +79,13 @@ struct Strategy {
 	virtual ~Strategy();
 	virtual std::unique_ptr<Strategy> clone() const = 0;
 	void setExecutionEnv(ExecutionEnv &env);
-	virtual void preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const = 0;
-	virtual void forEachRule(std::function<void(const lib::Rules::Real &)> f) const = 0;
+	virtual void preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const = 0;
+	virtual void forEachRule(std::function<void(const lib::rule::Rule &)> f) const = 0;
 	int getMaxComponents() const;
 	void execute(PrintSettings settings, const GraphState &input);
 	virtual void printInfo(PrintSettings settings) const = 0;
 	virtual const GraphState &getOutput() const;
-	virtual bool isConsumed(const lib::Graph::Single *g) const = 0;
+	virtual bool isConsumed(const lib::graph::Graph *g) const = 0;
 protected:
 	ExecutionEnv &getExecutionEnv();
 	void printBaseInfo(PrintSettings settings) const;

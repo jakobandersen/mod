@@ -3,14 +3,14 @@
 
 #include <mod/lib/RC/Visitor/Compound.hpp>
 
-#include <mod/lib/Rules/Properties/String.hpp>
+#include <mod/lib/Rule/Properties/String.hpp>
 
 namespace mod::lib::RC::Visitor {
 
 struct String {
 	using Membership = lib::DPO::Membership;
 public:
-	String(const lib::Rules::LabelledRule &rFirst, const lib::Rules::LabelledRule &rSecond)
+	String(const lib::rule::LabelledRule &rFirst, const lib::rule::LabelledRule &rSecond)
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
@@ -183,8 +183,8 @@ private:
 		}
 	}
 private:
-	const lib::Rules::LabelledRule &rFirst;
-	const lib::Rules::LabelledRule &rSecond;
+	const lib::rule::LabelledRule &rFirst;
+	const lib::rule::LabelledRule &rSecond;
 };
 
 } // namespace mod::lib::RC::Visitor

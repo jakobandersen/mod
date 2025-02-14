@@ -27,7 +27,7 @@ for a in dg.graphDatabase:
 	a.print()
 
 post.summaryChapter("RC")
-rc = rcEvaluator([r], labelSettings=ls)
+rc = RCEvaluator([r], labelSettings=ls)
 res = rc.eval(rcBind(g) *rcSuper* r)
 print("Res:", len(res))
 for a in res: a.print()

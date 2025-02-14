@@ -4,17 +4,17 @@ import ctypes
 import inspect
 import sys
 from typing import (
-	Any, Callable, cast, Generic, Iterable, List, Optional, Sequence,
-	TextIO, Tuple, Type, TypeVar, Union
+	Any, Callable, cast, Iterable, List, Optional, Sequence,
+	TextIO, Tuple, Type, Union
 )
 
 _redirected = False
 
 _oldFlags = sys.getdlopenflags()
 sys.setdlopenflags(_oldFlags | ctypes.RTLD_GLOBAL)
-from . import libpymod
-from .libpymod import *
-from . import post
+from . import libpymod  # noqa
+from .libpymod import *  # noqa
+from . import post  # noqa
 sys.setdlopenflags(_oldFlags)
 
 # from http://mail.python.org/pipermail/tutor/2003-November/026645.html
@@ -26,7 +26,7 @@ class _Unbuffered:
 		self.stream.flush()
 	def __getattr__(self, attr: str) -> Any:
 		return getattr(self.stream, attr)
-sys.stdout = _Unbuffered(sys.stdout)  # type: ignore
+sys.stdout = _Unbuffered(sys.stdout)
 
 def _NoNew__setattr__(self: Any, name: str, value: Any) -> None:
 	if hasattr(self, "_frozen") and self._frozen:
@@ -37,7 +37,8 @@ def _NoNew__setattr__(self: Any, name: str, value: Any) -> None:
 	else:
 		msg = "Can not create new attribute '%s' on object '%s' of type '%s'." % (name, self, type(self))
 		msg += "\ndir(" + str(self) + "):\n"
-		for name in dir(self): msg += "\t" + name + "\n"
+		for name in dir(self):
+			msg += "\t" + name + "\n"
 		raise AttributeError(msg)
 
 
@@ -60,7 +61,8 @@ def _fixClass(name: str, c: Any, indent: int) -> None:
 			assert c.__bool__ is not None
 
 	for a in inspect.getmembers(c, inspect.isclass):
-		if a[0] == "__class__": continue
+		if a[0] == "__class__":
+			continue
 		_fixClass(a[0], a[1], indent + 1)
 
 def _fixModule(modObj):
@@ -278,8 +280,10 @@ DG.__init__ = _DG__init__  # type: ignore
 
 _DG_print_orig = DG.print
 def _DG_print(self: DG, printer: Optional[DGPrinter] = None, data: Optional[DGPrintData] = None) -> Tuple[str, str]:
-	if printer is None: printer = DGPrinter()
-	if data is None: data = DGPrintData(self)
+	if printer is None:
+		printer = DGPrinter()
+	if data is None:
+		data = DGPrintData(self)
 	return _DG_print_orig(self, printer, data)
 DG.print = _DG_print  # type: ignore
 
@@ -322,8 +326,8 @@ DG.__repr__ = DG.__str__  # type: ignore
 def _DG__getattribute__(self: DG, name: str) -> Any:
 	if name == "graphDatabase":
 		return _unwrap(self._graphDatabase)  # type: ignore
-	elif name == "products":
-		return _unwrap(self._products)  # type: ignore
+	elif name == "createdGraphs":
+		return _unwrap(self._createdGraphs)  # type: ignore
 	else:
 		return object.__getattribute__(self, name)
 DG.__getattribute__ = _DG__getattribute__  # type: ignore
@@ -378,7 +382,7 @@ class DGBuildContextManager:
 		assert self._builder
 		return _unwrap(self._builder.apply(_wrap(libpymod._VecGraph, graphs), rule, onlyProper, verbosity, graphPolicy))
 
-	def addAbstract(self, description: str) -> None:
+	def addAbstract(self, description: str) -> DG.Builder.AddAbstractResult:
 		assert self._builder
 		return self._builder.addAbstract(description)
 
@@ -429,7 +433,7 @@ def _makeGraphToVertexCallback(orig, name, func):
 			if len(spec.args) == 2:
 				_deprecation("The callback for {} seems to take two arguments, a graph and a derivation graph. This is deprecated, the callback should take a single DG.Vertex argument.".format(name))
 				fOrig = f
-				f = lambda v, fOrig=fOrig: fOrig(v.graph, v.dg)
+				f = lambda v, fOrig=fOrig: fOrig(v.graph, v.dg)  # noqa
 		return orig(self, _funcWrap(func, f), *args, **kwargs)
 	return callback
 
@@ -606,7 +610,8 @@ rightPredicate = _DGStrat_DerivationPredicateProxy(False)
 # execute
 #----------------------------------------------------------
 
-execute = lambda func: DGStrat.makeExecute(func)
+def execute(func):
+	return DGStrat.makeExecute(func)
 
 # filter
 #----------------------------------------------------------
@@ -642,7 +647,8 @@ repeat = _DGStrat_RepeatProxy()
 # revive
 #----------------------------------------------------------
 
-revive = lambda s: DGStrat.makeRevive(dgStrat(s))
+def revive(s):
+	return DGStrat.makeRevive(dgStrat(s))
 
 # sequence
 #----------------------------------------------------------
@@ -914,11 +920,16 @@ Rule.__hash__ = lambda self: self.id  # type: ignore
 # Composition
 #----------------------------------------------------------
 
+_RCEvaluator__init__old = RCEvaluator.__init__
+def _RCEvaluator__init__(self: RCEvaluator, ruleDatabase: Iterable[Rule], labelSettings: LabelSettings=_lsString) -> None:
+	return _RCEvaluator__init__old(self, _wrap(libpymod._VecRule, ruleDatabase), labelSettings)
+RCEvaluator.__init__ = _RCEvaluator__init__  # type: ignore
+
 def _RCEvaluator__getattribute__(self: RCEvaluator, name: str) -> Any:
 	if name == "ruleDatabase":
 		return _unwrap(self._ruleDatabase)  # type: ignore
-	elif name == "products":
-		return _unwrap(self._products)  # type: ignore
+	elif name == "createdRules":
+		return _unwrap(self._createdRules)  # type: ignore
 	else:
 		return object.__getattribute__(self, name)
 RCEvaluator.__getattribute__ = _RCEvaluator__getattribute__  # type: ignore
@@ -927,7 +938,8 @@ _RCEvaluator_eval = RCEvaluator.eval
 RCEvaluator.eval = lambda self, exp, *, onlyUnique=True, verbosity=0: _unwrap(_RCEvaluator_eval(self, exp, onlyUnique, verbosity))  # type: ignore
 
 def rcEvaluator(rules: Iterable[Rule], labelSettings: LabelSettings=_lsString) -> RCEvaluator:
-	return libpymod._rcEvaluator(_wrap(libpymod._VecRule, rules), labelSettings)
+	_deprecation("The rcEvaluator() function is deprecated, use RCEvaluator() instead.")
+	return RCEvaluator(rules, labelSettings)
 
 
 #----------------------------------------------------------
@@ -976,7 +988,7 @@ def _rcConvertGraph(g: _GraphOrGraphs, cls: Type[Union[RCExpBind, RCExpId, RCExp
 		raise TypeError("Can not convert type '" + str(type(g)) + "' to " + str(cls))
 
 
-def rcBind(g: _GraphOrGraphs ) -> RCExpExp:
+def rcBind(g: _GraphOrGraphs) -> RCExpExp:
 	return _rcConvertGraph(g, RCExpBind, rcBind)
 
 
@@ -989,31 +1001,29 @@ def rcUnbind(g: _GraphOrGraphs) -> RCExpExp:
 
 
 class _RCCommonOpFirstBound:
-	def __init__(self, discardNonchemical: bool, maximum: bool, connected: bool, includeEmpty: bool, first: RCExpExp) -> None:
-		self.discardNonchemical = discardNonchemical
+	def __init__(self, maximum: bool, connected: bool, includeEmpty: bool, first: RCExpExp) -> None:
 		self.maximum = maximum
 		self.connected = connected
 		self.includeEmpty = includeEmpty
 		self.first = first
 
 	def __mul__(self, second: RCExpExp) -> RCExpExp:
-		return RCExpComposeCommon(rcExp(self.first), rcExp(second), self.discardNonchemical, self.maximum, self.connected, self.includeEmpty)
+		return RCExpComposeCommon(rcExp(self.first), rcExp(second), self.maximum, self.connected, self.includeEmpty)
 
 
 class _RCCommonOpArgsBound:
-	def __init__(self, discardNonchemical: bool, maximum: bool, connected: bool, includeEmpty: bool) -> None:
-		self.discardNonchemical = discardNonchemical
+	def __init__(self, maximum: bool, connected: bool, includeEmpty: bool) -> None:
 		self.maximum = maximum
 		self.connected = connected
 		self.includeEmpty = includeEmpty
 
 	def __rmul__(self, first: RCExpExp) -> _RCCommonOpFirstBound:
-		return _RCCommonOpFirstBound(self.discardNonchemical, self.maximum, self.connected, self.includeEmpty, first)
+		return _RCCommonOpFirstBound(self.maximum, self.connected, self.includeEmpty, first)
 
 
 class _RCCommonOp:
-	def __call__(self, discardNonchemical: bool=True, maximum: bool=False, connected: bool=True, includeEmpty: bool=False) -> _RCCommonOpArgsBound:
-		return _RCCommonOpArgsBound(discardNonchemical, maximum, connected, includeEmpty)
+	def __call__(self, maximum: bool=False, connected: bool=True, includeEmpty: bool=False) -> _RCCommonOpArgsBound:
+		return _RCCommonOpArgsBound(maximum, connected, includeEmpty)
 
 	def __rmul__(self, first: RCExpExp) -> _RCCommonOpFirstBound:
 		return first * self()
@@ -1023,55 +1033,41 @@ rcCommon = _RCCommonOp()
 
 
 class _RCParallelOpFirstBound:
-	def __init__(self, discardNonchemical: bool, first: RCExpExp) -> None:
-		self.discardNonchemical = discardNonchemical
+	def __init__(self, first: RCExpExp) -> None:
 		self.first = first
 
 	def __mul__(self, second: RCExpExp) -> RCExpExp:
-		return RCExpComposeParallel(rcExp(self.first), rcExp(second), self.discardNonchemical)
-
-
-class _RCParallelOpArgsBound:
-	def __init__(self, discardNonchemical: bool) -> None:
-		self.discardNonchemical = discardNonchemical
-
-	def __rmul__(self, first: RCExpExp) -> _RCParallelOpFirstBound:
-		return _RCParallelOpFirstBound(self.discardNonchemical, first)
+		return RCExpComposeParallel(rcExp(self.first), rcExp(second))
 
 
 class _RCParallelOp:
-	def __call__(self, discardNonchemical: bool=True) -> _RCParallelOpArgsBound:
-		return _RCParallelOpArgsBound(discardNonchemical)
-
 	def __rmul__(self, first: RCExpExp) -> _RCParallelOpFirstBound:
-		return first * self()
+		return _RCParallelOpFirstBound(first)
 
 
 rcParallel = _RCParallelOp()
 
 
 class _RCSubOpFirstBound:
-	def __init__(self, discardNonchemical: bool, allowPartial: bool, first: RCExpExp) -> None:
-		self.discardNonchemical = discardNonchemical
+	def __init__(self, allowPartial: bool, first: RCExpExp) -> None:
 		self.allowPartial = allowPartial
 		self.first = first
 
 	def __mul__(self, second: RCExpExp) -> RCExpExp:
-		return RCExpComposeSub(rcExp(self.first), rcExp(second), self.discardNonchemical, self.allowPartial)
+		return RCExpComposeSub(rcExp(self.first), rcExp(second), self.allowPartial)
 
 
 class _RCSubOpArgsBound:
-	def __init__(self, discardNonchemical: bool, allowPartial: bool) -> None:
-		self.discardNonchemical = discardNonchemical
+	def __init__(self, allowPartial: bool) -> None:
 		self.allowPartial = allowPartial
 
 	def __rmul__(self, first: RCExpExp) -> _RCSubOpFirstBound:
-		return _RCSubOpFirstBound(self.discardNonchemical, self.allowPartial, first)
+		return _RCSubOpFirstBound(self.allowPartial, first)
 
 
 class _RCSubOp:
-	def __call__(self, discardNonchemical: bool=True, allowPartial: bool=True) -> _RCSubOpArgsBound:
-		return _RCSubOpArgsBound(discardNonchemical, allowPartial)
+	def __call__(self, allowPartial: bool=True) -> _RCSubOpArgsBound:
+		return _RCSubOpArgsBound(allowPartial)
 
 	def __rmul__(self, first: RCExpExp) -> _RCSubOpFirstBound:
 		return first * self()
@@ -1081,29 +1077,27 @@ rcSub = _RCSubOp()
 
 
 class _RCSuperOpFirstBound:
-	def __init__(self, discardNonchemical: bool, allowPartial: bool, enforceConstraints: bool, first: RCExpExp) -> None:
-		self.discardNonchemical = discardNonchemical
+	def __init__(self, allowPartial: bool, enforceConstraints: bool, first: RCExpExp) -> None:
 		self.allowPartial = allowPartial
 		self.enforceConstraints = enforceConstraints
 		self.first = first
 
 	def __mul__(self, second: RCExpExp) -> RCExpExp:
-		return RCExpComposeSuper(rcExp(self.first), rcExp(second), self.discardNonchemical, self.allowPartial, self.enforceConstraints)
+		return RCExpComposeSuper(rcExp(self.first), rcExp(second), self.allowPartial, self.enforceConstraints)
 
 
 class _RCSuperOpArgsBound:
-	def __init__(self, discardNonchemical: bool, allowPartial: bool, enforceConstraints: bool) -> None:
-		self.discardNonchemical = discardNonchemical
+	def __init__(self, allowPartial: bool, enforceConstraints: bool) -> None:
 		self.allowPartial = allowPartial
 		self.enforceConstraints = enforceConstraints
 
 	def __rmul__(self, first: RCExpExp) -> _RCSuperOpFirstBound:
-		return _RCSuperOpFirstBound(self.discardNonchemical, self.allowPartial, self.enforceConstraints, first)
+		return _RCSuperOpFirstBound(self.allowPartial, self.enforceConstraints, first)
 
 
 class _RCSuperOp:
-	def __call__(self, discardNonchemical: bool=True, allowPartial: bool=True, enforceConstraints: bool=False) -> _RCSuperOpArgsBound:
-		return _RCSuperOpArgsBound(discardNonchemical, allowPartial, enforceConstraints)
+	def __call__(self, allowPartial: bool=True, enforceConstraints: bool=False) -> _RCSuperOpArgsBound:
+		return _RCSuperOpArgsBound(allowPartial, enforceConstraints)
 
 	def __rmul__(self, first: RCExpExp) -> _RCSuperOpFirstBound:
 		return first * self()

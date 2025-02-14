@@ -471,13 +471,18 @@ else # $1 == --mode
 			#---------------------------------------------------------------------
 			# The actual processing
 			#---------------------------------------------------------------------
-			error=$(. out/post.sh)
-			res=$?
-			if test "x$error" != "x" -o $res -ne 0; then
-				echo "Error in summary makefile generation."
-				echo $error
-				echo "Error code: $res"
-				return 1
+			if ! test -s out/post.sh; then
+				echo "Command file (out/post.sh) empty, skipping summary generation."
+				disableCompileSummary
+			else
+				error=$(. out/post.sh)
+				res=$?
+				if test "x$error" != "x" -o $res -ne 0; then
+					echo "Error in summary makefile generation."
+					echo $error
+					echo "Error code: $res"
+					return 1
+				fi
 			fi
 
 			echo "" >> $makefileDep

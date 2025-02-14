@@ -3,7 +3,7 @@
 
 #include <mod/lib/Graph/Properties/Property.hpp>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 struct PropString : Prop<PropString, std::string, std::string> {
 	using Base = Prop<PropString, std::string, std::string>;
@@ -17,6 +17,6 @@ public:
 	}
 };
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 #endif // MOD_LIB_GRAPH_PROP_LABEL_HPP

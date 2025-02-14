@@ -58,7 +58,7 @@ Rule::LeftGraph::Vertex CompositionMatch::operator[](Rule::RightGraph::Vertex vF
 	const auto &gSecond = p->rSecond->getRule().getGraph();
 	const auto vFirstInner = vertices(gFirst).first[vFirst.getId()];
 	const auto vSecondInner = p->mb.getSecondFromFirst(vFirstInner);
-	if(vSecondInner == boost::graph_traits<lib::Rules::GraphType>::null_vertex())
+	if(vSecondInner == boost::graph_traits<lib::rule::GraphType>::null_vertex())
 		return {};
 	const auto vCore = Rule::Vertex(p->rSecond, get(boost::vertex_index_t(), gSecond, vSecondInner));
 	assert(get(boost::vertex_index_t(), gSecond, vSecondInner) == vCore.getId());
@@ -73,7 +73,7 @@ Rule::RightGraph::Vertex CompositionMatch::operator[](Rule::LeftGraph::Vertex vS
 	const auto &gSecond = p->rSecond->getRule().getGraph();
 	const auto vSecondInner = vertices(gSecond).first[vSecond.getId()];
 	const auto vFirstInner = p->mb.getFirstFromSecond(vSecondInner);
-	if(vFirstInner == boost::graph_traits<lib::Rules::GraphType>::null_vertex())
+	if(vFirstInner == boost::graph_traits<lib::rule::GraphType>::null_vertex())
 		return {};
 	const auto vCore = Rule::Vertex(p->rFirst, get(boost::vertex_index_t(), gFirst, vFirstInner));
 	assert(get(boost::vertex_index_t(), gFirst, vFirstInner) == vCore.getId());

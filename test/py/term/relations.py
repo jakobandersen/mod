@@ -54,9 +54,9 @@ doRelations(xy1, xy2, xx)
 post.summaryChapter("Rule")
 print("Rule")
 print("="*80)
-xy1 = rcEvaluator([]).eval(rcId(xy1))[0]
-xy2 = rcEvaluator([]).eval(rcId(xy2))[0]
-xx = rcEvaluator([]).eval(rcId(xx))[0]
+xy1 = RCEvaluator([]).eval(rcId(xy1))[0]
+xy2 = RCEvaluator([]).eval(rcId(xy2))[0]
+xx = RCEvaluator([]).eval(rcId(xx))[0]
 doRelations(xy1, xy2, xx)
 
 

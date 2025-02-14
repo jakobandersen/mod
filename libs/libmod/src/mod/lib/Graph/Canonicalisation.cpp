@@ -27,7 +27,7 @@
 
 #include <vector>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 namespace {
 
 template<typename LabelledGraph, typename Grpah, typename Idx>
@@ -121,7 +121,7 @@ struct edge_handler_bond_impl {
 
 	static constexpr SizeType Max = 256;
 
-	explicit edge_handler_bond_impl(const Single &gWrap)
+	explicit edge_handler_bond_impl(const Graph &gWrap)
 			: lg(gWrap.getLabelledGraph()), str(get_string(lg)), mol(get_molecule(lg)) {}
 
 	template<typename State>
@@ -461,7 +461,7 @@ struct edge_handler_bond {
 	template<typename SizeType>
 	using type = edge_handler_bond_impl<SizeType>;
 
-	explicit edge_handler_bond(const Single &gWrap) : gWrap(&gWrap) {}
+	explicit edge_handler_bond(const Graph &gWrap) : gWrap(&gWrap) {}
 
 	template<typename SizeType>
 	auto make() const {
@@ -469,7 +469,7 @@ struct edge_handler_bond {
 	}
 
 public:
-	const Single *gWrap;
+	const Graph *gWrap;
 };
 
 template<typename LabelledGraph, typename Partition>
@@ -481,8 +481,8 @@ void printLeaf(std::ostream &s, const LabelledGraph &lg, const Partition &pi) {
 		MOD_ABORT; // should never be called, as we don't have parallel edges or loops
 		return str[lhs] < str[rhs];
 	};
-	Single::CanonIdxMap ordIdx(perm.begin(), get(boost::vertex_index_t(), get_graph(lg)));
-	Single::CanonForm form(get_graph(lg), ordIdx, eLess);
+	Graph::CanonIdxMap ordIdx(perm.begin(), get(boost::vertex_index_t(), get_graph(lg)));
+	Graph::CanonForm form(get_graph(lg), ordIdx, eLess);
 	printGraph(s, lg, form, ordIdx);
 }
 
@@ -532,7 +532,7 @@ private:
 };
 
 template<typename EdgeHandler>
-auto getCanonForm(const Single &g, EdgeHandler eHandler, LabelType labelType, bool withStereo) {
+auto getCanonForm(const Graph &g, EdgeHandler eHandler, LabelType labelType, bool withStereo) {
 	auto can = graph_canon::canonicalizer<int, EdgeHandler, false, false>(eHandler);
 	const auto &graph = get_graph(g.getLabelledGraph());
 	const auto idx = get(boost::vertex_index_t(), graph);
@@ -564,10 +564,10 @@ auto getCanonForm(const Single &g, EdgeHandler eHandler, LabelType labelType, bo
 		MOD_ABORT; // should never be called, as we don't have parallel edges or loops
 		return str[lhs] < str[rhs];
 	};
-	Single::CanonIdxMap ordIdx(perm.begin(), idx);
-	auto form = std::make_unique<Single::CanonForm>(graph, ordIdx, eLess);
+	Graph::CanonIdxMap ordIdx(perm.begin(), idx);
+	auto form = std::make_unique<Graph::CanonForm>(graph, ordIdx, eLess);
 	auto autPtr = std::move(get(graph_canon::aut_pruner_basic::result_t(), res.second));
-	auto autPtrRes = std::make_unique<Single::AutGroup>(autPtr->degree());
+	auto autPtrRes = std::make_unique<Graph::AutGroup>(autPtr->degree());
 	auto gens = autPtr->generators(); // skip the first, it should be the identity
 	for(const auto &p : asRange(++begin(gens), end(gens)))
 		autPtrRes->add_generator(p);
@@ -576,8 +576,8 @@ auto getCanonForm(const Single &g, EdgeHandler eHandler, LabelType labelType, bo
 
 } // namespace
 
-std::tuple<std::vector<int>, std::unique_ptr<Single::CanonForm>, std::unique_ptr<Single::AutGroup> >
-getCanonForm(const Single &g, LabelType labelType, bool withStereo) {
+std::tuple<std::vector<int>, std::unique_ptr<Graph::CanonForm>, std::unique_ptr<Graph::AutGroup> >
+getCanonForm(const Graph &g, LabelType labelType, bool withStereo) {
 	if(labelType != LabelType::String)
 		throw LogicError("Can only canonicalise with label type string.");
 	if(withStereo)
@@ -668,7 +668,7 @@ PrintVisitor<LGraph, Graph, Idx> makePrintVisitor(const LGraph &lg1,
 
 } // namespace
 
-bool canonicalCompare(const Single &g1, const Single &g2, LabelType labelType, bool withStereo) {
+bool canonicalCompare(const Graph &g1, const Graph &g2, LabelType labelType, bool withStereo) {
 	const auto &ord1 = g1.getCanonForm(labelType, withStereo);
 	const auto &ord2 = g2.getCanonForm(labelType, withStereo);
 	if(withStereo) throw LogicError("Can not currently compare canonical forms with stereo information.");
@@ -690,4 +690,4 @@ bool canonicalCompare(const Single &g1, const Single &g2, LabelType labelType, b
 	MOD_ABORT;
 }
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph

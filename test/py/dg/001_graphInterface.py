@@ -11,15 +11,13 @@ with dg.build() as b:
 	e1 = b.addDerivation(d1)
 	assert dg.numVertices == 2
 	assert dg.numEdges == 1
-	fail(lambda: e1.inverse, "Can not get inverse before the DG is locked.")
+	assert not e1.inverse
 
 	e2 = b.addDerivation(d2)
 	assert dg.numVertices == 2
 	assert dg.numEdges == 2
-	fail(lambda: e2.inverse, "Can not get inverse before the DG is locked.")
-
-assert e1.inverse == e2
-assert e2.inverse == e1
+	assert e1.inverse == e2
+	assert e2.inverse == e1
 
 fail(lambda: DG.Vertex().id, "Can not get ID on a null vertex.")
 fail(lambda: DG.Vertex().dg, "Can not get DG on a null vertex.")

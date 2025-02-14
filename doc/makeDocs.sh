@@ -23,8 +23,8 @@ BEGIN {
 	lastNested = ""
 }
 {
-	if($0 ~ /^[\t]*\/\/ rst:/) {
-		sub(/^[\t]*\/\/ rst:[ 	]?/, "")
+	if($0 ~ /^[ \t]*\/\/ rst:/) {
+		sub(/^[ \t]*\/\/ rst:[ 	]?/, "")
 		if(inClass)
 			if(inNested)
 				nestedRST[nestedLineNum++] = $0
@@ -32,8 +32,8 @@ BEGIN {
 				normalRST[lineNum++] = $0
 		else
 			print
-	} else if($0 ~ /^[\t]*\/\* rst:/) {
-		sub(/^[\t]*\/\* rst: ?/, "")
+	} else if($0 ~ /^[ \t]*\/\* rst:/) {
+		sub(/^[ \t]*\/\* rst: ?/, "")
 		sub(/\*\/[\t]*\\?/, "")
 		if(inClass)
 			if(inNested)
@@ -42,8 +42,8 @@ BEGIN {
 				normalRST[lineNum++] = $0
 		else
 			print
-	} else if($0 ~ /^[\t]*\/\/ rst-class:/) {
-		sub(/^[\t]*\/\/ rst-class: /, "")
+	} else if($0 ~ /^[ \t]*\/\/ rst-class:/) {
+		sub(/^[ \t]*\/\/ rst-class: /, "")
 		lastClass = $0
 		sub(/ : .*/, "", lastClass)
 		print ""
@@ -52,7 +52,7 @@ BEGIN {
 		print ""
 		print ".. class:: " $0
 		print "    "
-	} else if($0 ~ /^[\t]*\/\/ rst-class-start:/) {
+	} else if($0 ~ /^[ \t]*\/\/ rst-class-start:/) {
 		inClass	= 1
 		print ""
 		print "Synopsis"
@@ -62,7 +62,7 @@ BEGIN {
 		print "	:maxdepth: 2"
 		print "	:noroot:"
 		print ""
-	} else if($0 ~/^[\t]*\/\/ rst-class-end:/) {
+	} else if($0 ~/^[ \t]*\/\/ rst-class-end:/) {
 		inClass = 0
 		if(lineNum > 0) {
 			print ""
@@ -83,8 +83,8 @@ BEGIN {
 			print ""
 			nestedLineNum = 0
 		}
-	} else if($0 ~/^[\t]*\/\/ rst-nested:/) {
-		sub(/^[\t]*\/\/ rst-nested: /, "")
+	} else if($0 ~/^[ \t]*\/\/ rst-nested:/) {
+		sub(/^[ \t]*\/\/ rst-nested: /, "")
 		if(!inClass) {
 			print "Nested class outside class!" | "cat 1>&2"
 			exit 1
@@ -97,12 +97,12 @@ BEGIN {
 		nestedRST[nestedLineNum++] = ".. class:: " $0
 		nestedRST[nestedLineNum++] = ""
 		lastNested = $0
-	} else if($0 ~/^[\t]*\/\/ rst-nested-start:/) {
+	} else if($0 ~/^[ \t]*\/\/ rst-nested-start:/) {
 		nestedRST[nestedLineNum++] = ""
-	} else if($0 ~/^[\t]*\/\/ rst-nested-end:/) {
+	} else if($0 ~/^[ \t]*\/\/ rst-nested-end:/) {
 		nestedRST[nestedLineNum++] = ""
 		inNested = 0
-	} else if($0 ~/^[\t]*\/\/ rst/) {
+	} else if($0 ~/^[ \t]*\/\/ rst/) {
 		print "Unknown rst command in line " NR ":" | "cat 1>&2"
 		print $0 | "cat 1>&2"
 		exit 1
@@ -146,7 +146,7 @@ function makeLibMod {
 		echo "**********************************************************"
 		cat << "EOF"
 .. default-domain:: cpp
-.. default-role:: cpp:expr
+.. default-role:: cpp:texpr
 
 .. py:currentmodule:: mod
 .. cpp:namespace:: mod

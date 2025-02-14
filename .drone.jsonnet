@@ -157,10 +157,10 @@ local Pipeline(withCoverage, compiler, boost) = {
 				depends_on: [ "clone" ],
 			},
 			{
-				name: "Python, flake8",
+				name: "Python, ruff",
 				image: image,
 				commands: [
-					"./scripts/flake8.sh",
+					"./scripts/ruff.sh",
 				],
 				depends_on: [ "clone" ],
 			},
@@ -248,13 +248,14 @@ local Pipeline(withCoverage, compiler, boost) = {
 	for compiler in [
 		"g++-9", "g++-10",
 		"g++-11", "g++-12",
-		"g++-13",
+		"g++-13", "g++-14",
 		"clang++-11", "clang++-12",
 		"clang++-13", "clang++-14",
 		"clang++-15",
+		"clang++-19",
 	]
 	for boost in [
 		"1_76_0", "1_77_0", "1_78_0", "1_79_0", "1_80_0", "1_81_0", "1_82_0", "1_83_0",
-		"1_84_0", "1_85_0",
+		"1_84_0", "1_85_0", "1_86_0", "1_87_0",
 	]
 ]

@@ -63,8 +63,8 @@ void Collections_doExport() {
 	makeVector(VecDGVertex, dg::DG::Vertex);
 	makeVector(VecDGHyperEdge, dg::DG::HyperEdge);
 	makeVector(VecDGStrat, std::shared_ptr<dg::Strategy>);
-	makeVector(VecGraph, std::shared_ptr<graph::Graph>);
-	makeVector(VecVecGraph, std::vector<std::shared_ptr<graph::Graph>>);
+	makeVector(VecGraph, std::shared_ptr<mod::graph::Graph>);
+	makeVector(VecVecGraph, std::vector<std::shared_ptr<mod::graph::Graph>>);
 	makeVector(VecRule, std::shared_ptr<rule::Rule>);
 	using PairString = std::pair<std::string, std::string>;
 	makeVector(VecPairString, PairString);

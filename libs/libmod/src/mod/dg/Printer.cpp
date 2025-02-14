@@ -6,7 +6,7 @@
 #include <mod/graph/Printer.hpp>
 #include <mod/lib/DG/Hyper.hpp>
 #include <mod/lib/DG/IO/Write.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 
 #include <boost/lexical_cast.hpp>
 

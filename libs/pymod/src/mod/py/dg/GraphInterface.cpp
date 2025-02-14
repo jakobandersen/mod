@@ -164,7 +164,6 @@ void GraphInterface_doExport() {
 					// rst:
 					// rst:			:type: DG.HyperEdge
 					// rst:			:raises: :class:`LogicError` if it is a null descriptor.
-					// rst:			:raises: :class:`LogicError` if not ``dg.locked``.
 			.add_property("inverse", &DG::HyperEdge::getInverse)
 					// rst:		.. method:: print(printer=GraphPrinter(), nomatchColour="gray", matchColour="", verbosity=0)
 					// rst:

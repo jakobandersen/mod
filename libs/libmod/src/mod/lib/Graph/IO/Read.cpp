@@ -20,7 +20,7 @@
 #include <gml/converter.hpp>
 #include <gml/converter_edsl.hpp>
 
-namespace mod::lib::Graph::Read {
+namespace mod::lib::graph::Read {
 
 namespace GML = lib::IO::GML;
 using lib::IO::Result;
@@ -103,10 +103,10 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src,
 	const auto numComponents = components.finalize();
 
 	std::vector<Data> datas(numComponents);
-	std::vector<std::unordered_map<lib::Graph::Vertex, int>> extIDFromVertex(numComponents);
+	std::vector<std::unordered_map<lib::graph::Vertex, int>> extIDFromVertex(numComponents);
 	for(auto &d: datas) {
-		d.g = std::make_unique<lib::Graph::GraphType>();
-		d.pString = std::make_unique<lib::Graph::PropString>(*d.g);
+		d.g = std::make_unique<lib::graph::GraphType>();
+		d.pString = std::make_unique<lib::graph::PropString>(*d.g);
 	}
 
 	const auto atError = [&datas](std::string msg) -> Result<> {
@@ -151,8 +151,8 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src,
 	if(!doStereo) return std::move(datas); // TODO: remove std::move when C++20/P1825R0 is available
 	// Stereo
 	//============================================================================
-	std::vector<lib::Graph::PropMolecule> molStates;
-	std::vector<lib::Stereo::Inference<lib::Graph::GraphType, lib::Graph::PropMolecule>> stereoInferences;
+	std::vector<lib::graph::PropMolecule> molStates;
+	std::vector<lib::Stereo::Inference<lib::graph::GraphType, lib::graph::PropMolecule>> stereoInferences;
 	molStates.reserve(numComponents);
 	stereoInferences.reserve(numComponents);
 	for(int i = 0; i != numComponents; ++i) {
@@ -262,14 +262,14 @@ Result<std::vector<Data>> gml(lib::IO::Warnings &warnings, std::string_view src,
 	for(int comp = 0; comp != numComponents; ++comp) {
 		// TODO: the warning should only be printed once, instead of for each connected component
 		auto stereoResult = stereoInferences[comp].finalize(
-				warnings, printStereoWarnings, [comp, &extIDFromVertex](lib::Graph::Vertex v) {
+				warnings, printStereoWarnings, [comp, &extIDFromVertex](lib::graph::Vertex v) {
 					const auto iter = extIDFromVertex[comp].find(v);
 					assert(iter != extIDFromVertex[comp].end());
 					return std::to_string(iter->second);
 				});
 		if(!stereoResult)
 			return atError(stereoResult.extractError());
-		datas[comp].pStereo = std::make_unique<lib::Graph::PropStereo>(*datas[comp].g, std::move(stereoInferences[comp]));
+		datas[comp].pStereo = std::make_unique<lib::graph::PropStereo>(*datas[comp].g, std::move(stereoInferences[comp]));
 	}
 	return std::move(datas); // TODO: remove std::move when C++20/P1825R0 is available
 }
@@ -280,8 +280,8 @@ using namespace IO::DFS;
 using Vertex = IO::DFS::Vertex;
 using Edge = IO::DFS::Edge;
 
-using GVertex = lib::Graph::Vertex;
-using GEdge = lib::Graph::Edge;
+using GVertex = lib::graph::Vertex;
+using GEdge = lib::graph::Edge;
 
 struct JoinConnected {
 	using ConvertRes = std::pair<const LabelVertex *, bool>;
@@ -346,26 +346,26 @@ struct Converter {
 		bool isRingClosure;
 	};
 public:
-	Converter(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
-	          std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs,
+	Converter(std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs,
+	          std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs,
 	          const ConnectedComponents &components)
 			: gPtrs(gPtrs), pStringPtrs(pStringPtrs), components(components) {}
 
 	void operator()(Chain &chain) {
-		const auto sub = (*this)(chain.head, -1, lib::Graph::GraphType::null_vertex());
+		const auto sub = (*this)(chain.head, -1, lib::graph::GraphType::null_vertex());
 		int component = sub.component;
 		GVertex vPrev = sub.next;
 		assert(!sub.isRingClosure);
-		assert(vPrev != lib::Graph::GraphType::null_vertex());
+		assert(vPrev != lib::graph::GraphType::null_vertex());
 		for(EVPair &ev: chain.tail) {
 			std::tie(component, vPrev) = (*this)(ev, component, vPrev);
-			assert(vPrev != lib::Graph::GraphType::null_vertex());
+			assert(vPrev != lib::graph::GraphType::null_vertex());
 		}
 	}
 
 	ConvertRes operator()(Vertex &vertex, int component, GVertex prev) {
 		const auto sub = boost::apply_visitor(*this, vertex.vertex);
-		assert(!(sub.isRingClosure && prev == lib::Graph::GraphType::null_vertex()));
+		assert(!(sub.isRingClosure && prev == lib::graph::GraphType::null_vertex()));
 		const GVertex branchRoot = sub.isRingClosure ? prev : sub.next;
 		const int branchRootComponent = sub.isRingClosure ? component : sub.component;
 		for(Branch &branch: vertex.branches) {
@@ -373,7 +373,7 @@ public:
 			GVertex branchPrev = branchRoot;
 			for(EVPair &ev: branch.tail) {
 				std::tie(componentPrev, branchPrev) = (*this)(ev, componentPrev, branchPrev);
-				assert(branchPrev != lib::Graph::GraphType::null_vertex());
+				assert(branchPrev != lib::graph::GraphType::null_vertex());
 			}
 		}
 		return sub;
@@ -416,14 +416,14 @@ private:
 	}
 
 private:
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
-	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
+	std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs;
+	std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs;
 	const ConnectedComponents &components;
 };
 
 struct ImplicitHydrogenAdder {
-	ImplicitHydrogenAdder(std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs,
-	                      std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs,
+	ImplicitHydrogenAdder(std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs,
+	                      std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs,
 	                      const ConnectedComponents &components)
 			: gPtrs(gPtrs), pStringPtrs(pStringPtrs), components(components) {}
 
@@ -455,8 +455,8 @@ struct ImplicitHydrogenAdder {
 		                            end(lib::Chem::getSmilesOrganicSubset()), atomId);
 		if(iter == end(lib::Chem::getSmilesOrganicSubset()))
 			MOD_ABORT;
-		const auto hydrogenAdder = [](lib::Graph::GraphType &g, lib::Graph::PropString &pString,
-		                              lib::Graph::Vertex p) {
+		const auto hydrogenAdder = [](lib::graph::GraphType &g, lib::graph::PropString &pString,
+		                              lib::graph::Vertex p) {
 			const GVertex v = add_vertex(g);
 			pString.addVertex(v, "H");
 			const GEdge e = add_edge(v, p, g).first;
@@ -466,8 +466,8 @@ struct ImplicitHydrogenAdder {
 	}
 
 private:
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> &gPtrs;
-	std::vector<std::unique_ptr<lib::Graph::PropString>> &pStringPtrs;
+	std::vector<std::unique_ptr<lib::graph::GraphType>> &gPtrs;
+	std::vector<std::unique_ptr<lib::graph::PropString>> &pStringPtrs;
 	const ConnectedComponents &components;
 };
 
@@ -488,11 +488,11 @@ Result<std::vector<Data>> dfs(lib::IO::Warnings &warnings, std::string_view src)
 		assert(components[i] < numComponents);
 	}
 
-	std::vector<std::unique_ptr<lib::Graph::GraphType>> gPtrs(numComponents);
-	std::vector<std::unique_ptr<lib::Graph::PropString>> pStringPtrs(numComponents);
+	std::vector<std::unique_ptr<lib::graph::GraphType>> gPtrs(numComponents);
+	std::vector<std::unique_ptr<lib::graph::PropString>> pStringPtrs(numComponents);
 	for(int i = 0; i != numComponents; ++i) {
-		gPtrs[i] = std::make_unique<lib::Graph::GraphType>();
-		pStringPtrs[i] = std::make_unique<lib::Graph::PropString>(*gPtrs[i]);
+		gPtrs[i] = std::make_unique<lib::graph::GraphType>();
+		pStringPtrs[i] = std::make_unique<lib::graph::PropString>(*gPtrs[i]);
 	}
 
 	dfsDetail::Converter(gPtrs, pStringPtrs, components)(ast);
@@ -524,4 +524,4 @@ MDLSD(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &optio
 	return lib::Chem::readMDLSD(warnings, src, options);
 }
 
-} // namespace mod::lib::Graph::Read
+} // namespace mod::lib::graph::Read

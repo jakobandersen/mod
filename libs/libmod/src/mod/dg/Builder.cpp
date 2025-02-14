@@ -7,7 +7,7 @@
 #include <mod/lib/DG/Strategies/GraphState.hpp>
 #include <mod/lib/DG/Strategies/Strategy.hpp>
 #include <mod/lib/DG/IO/Read.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 
 #include <boost/lexical_cast.hpp>
 
@@ -139,9 +139,10 @@ std::vector<DG::HyperEdge> Builder::apply(const std::vector<std::shared_ptr<grap
 	return res;
 }
 
-void Builder::addAbstract(const std::string &description) {
+AddAbstractResult Builder::addAbstract(const std::string &description) {
 	check(p);
-	p->b.addAbstract(description);
+	auto res = p->b.addAbstract(description);
+	return AddAbstractResult(p->dg_, std::move(res));
 }
 
 void Builder::load(const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase,
@@ -196,6 +197,30 @@ const std::vector<std::shared_ptr<graph::Graph>> &ExecuteResult::getUniverse() c
 
 void ExecuteResult::list(bool withUniverse) const {
 	p->res.list(withUniverse);
+}
+
+// -----------------------------------------------------------------------------
+
+struct AddAbstractResult::Pimpl {
+	Pimpl(std::shared_ptr<DG> dg_, lib::DG::AddAbstractResult res) : dg_(dg_), res(std::move(res)) {}
+public:
+	std::shared_ptr<DG> dg_;
+	lib::DG::AddAbstractResult res;
+};
+
+AddAbstractResult::AddAbstractResult(std::shared_ptr<DG> dg_, lib::DG::AddAbstractResult innerRes)
+		: p(new Pimpl(dg_, std::move(innerRes))) {}
+
+AddAbstractResult::AddAbstractResult(AddAbstractResult &&other) = default;
+AddAbstractResult &AddAbstractResult::operator=(AddAbstractResult &&other) = default;
+AddAbstractResult::~AddAbstractResult() = default;
+
+std::shared_ptr<graph::Graph> AddAbstractResult::getGraph(const std::string &name) {
+	return p->res.getGraph(name);
+}
+
+DG::HyperEdge AddAbstractResult::getEdge(const std::string &name) {
+	return p->dg_->getHyper().getInterfaceEdge(p->res.getEdge(name));
 }
 
 } // namespace mod::dg

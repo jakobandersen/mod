@@ -45,9 +45,6 @@ void exportClass() {
 			.def(py::self == py::self)
 			.def(py::self != py::self)
 			.def(py::self < py::self)
-					// rst:		.. method:: __str__()
-					// rst:
-					// rst:			:rtype: str
 			.def(str(py::self))
 					// rst:		.. method:: __len__()
 					// rst:

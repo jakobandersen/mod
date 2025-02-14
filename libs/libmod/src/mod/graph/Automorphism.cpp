@@ -1,7 +1,7 @@
 #include "Automorphism.hpp"
 
 #include <mod/graph/GraphInterface.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 
 #include <perm_group/permutation/io.hpp>
 

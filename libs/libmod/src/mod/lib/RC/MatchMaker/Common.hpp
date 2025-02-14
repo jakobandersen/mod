@@ -4,7 +4,7 @@
 #include <mod/lib/GraphMorphism/LabelledMorphism.hpp>
 #include <mod/lib/GraphMorphism/CommonSubgraphFinder.hpp>
 #include <mod/lib/RC/MatchMaker/LabelledMatch.hpp>
-#include <mod/lib/Rules/Real.hpp>
+#include <mod/lib/Rule/Rule.hpp>
 
 #include <jla_boost/graph/morphism/callbacks/Unwrapper.hpp>
 #include <jla_boost/graph/morphism/models/InvertibleVector.hpp>
@@ -16,8 +16,8 @@ struct Common {
 			: verbosity(verbosity), logger(logger), maximum(maximum), connected(connected) {}
 
 	template<typename Callback>
-	void makeMatches(const lib::Rules::Real &rFirst,
-	                 const lib::Rules::Real &rSecond,
+	void makeMatches(const lib::rule::Rule &rFirst,
+	                 const lib::rule::Rule &rSecond,
 	                 Callback callback,
 	                 LabelSettings labelSettings) {
 		using MapImpl = std::vector<lib::DPO::CombinedRule::SideVertex>;

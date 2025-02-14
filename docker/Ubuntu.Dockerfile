@@ -47,7 +47,7 @@ RUN \
 # the folder can apparently not be called just 'boost', therefore 'boostDir'
 WORKDIR /opt/boostDir
 RUN wget                                                                   \
- https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.gz \
+ https://archives.boost.io/release/1.76.0/source/boost_1_76_0.tar.gz       \
  -O boost.tar.gz
 RUN \
  tar -xf boost.tar.gz --one-top-level=boostSrc --strip-components=1        \

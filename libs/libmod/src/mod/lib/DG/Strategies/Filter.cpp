@@ -3,11 +3,11 @@
 #include <mod/Config.hpp>
 #include <mod/Function.hpp>
 #include <mod/lib/DG/Strategies/GraphState.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 
 namespace mod::lib::DG::Strategies {
 
-Filter::Filter(std::shared_ptr<mod::Function<bool(std::shared_ptr<graph::Graph>, const dg::Strategy::GraphState &,
+Filter::Filter(std::shared_ptr<mod::Function<bool(std::shared_ptr<mod::graph::Graph>, const dg::Strategy::GraphState &,
                                                   bool)> > filterFunc, bool filterUniverse)
 		: Strategy(1), filterFunc(filterFunc), filterUniverse(filterUniverse) {
 	assert(filterFunc);
@@ -31,7 +31,7 @@ void Filter::printInfo(PrintSettings settings) const {
 	--settings.indentLevel;
 }
 
-bool Filter::isConsumed(const Graph::Single *g) const {
+bool Filter::isConsumed(const lib::graph::Graph *g) const {
 	return false;
 }
 
@@ -48,19 +48,19 @@ void Filter::executeImpl(PrintSettings settings, const GraphState &input) {
 	}
 	assert(!output);
 	dg::Strategy::GraphState graphState(
-			[&input](std::vector<std::shared_ptr<graph::Graph> > &subset) {
-				for(const lib::Graph::Single *g : input.getSubset())
+			[&input](std::vector<std::shared_ptr<mod::graph::Graph> > &subset) {
+				for(const lib::graph::Graph *g : input.getSubset())
 					subset.push_back(g->getAPIReference());
 			},
-			[&input](std::vector<std::shared_ptr<graph::Graph> > &universe) {
-				for(const lib::Graph::Single *g : input.getUniverse())
+			[&input](std::vector<std::shared_ptr<mod::graph::Graph> > &universe) {
+				for(const lib::graph::Graph *g : input.getUniverse())
 					universe.push_back(g->getAPIReference());
 			});
 	if(!filterUniverse) {
 		output = new GraphState(input.getUniverse());
 
 		bool first = true;
-		for(const lib::Graph::Single *g : input.getSubset()) {
+		for(const lib::graph::Graph *g : input.getSubset()) {
 			// TODO: the adding to the subset could be faster as the index is the same as in the input ResultSet
 			if((*filterFunc)(g->getAPIReference(), graphState, first)) {
 				assert(output->isInUniverse(g));
@@ -69,20 +69,20 @@ void Filter::executeImpl(PrintSettings settings, const GraphState &input) {
 			first = false;
 		}
 	} else {
-		std::map<const lib::Graph::Single *, bool> copyToOutput;
+		std::map<const lib::graph::Graph *, bool> copyToOutput;
 		bool first = true;
-		for(const lib::Graph::Single *g : input.getUniverse()) {
+		for(const lib::graph::Graph *g : input.getUniverse()) {
 			copyToOutput[g] = (*filterFunc)(g->getAPIReference(), graphState, first);
 			first = false;
 		}
-		std::vector<const lib::Graph::Single *> newUniverse;
+		std::vector<const lib::graph::Graph *> newUniverse;
 
-		for(const lib::Graph::Single *g : input.getUniverse()) {
+		for(const lib::graph::Graph *g : input.getUniverse()) {
 			if(copyToOutput[g]) newUniverse.push_back(g);
 		}
 		output = new GraphState(newUniverse);
 
-		for(const lib::Graph::Single *g : input.getSubset()) {
+		for(const lib::graph::Graph *g : input.getSubset()) {
 			// TODO: this could be faster if we had access to the individual indices, as we could map old to new
 			if(copyToOutput[g]) {
 				assert(output->isInUniverse(g));

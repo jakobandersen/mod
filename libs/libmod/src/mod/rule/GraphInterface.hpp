@@ -35,10 +35,8 @@ struct Rule::LeftGraph {
 	class EdgeRange;
 	class IncidentEdgeIterator;
 	class IncidentEdgeRange;
-private:
-	friend class Rule;
-	LeftGraph(std::shared_ptr<Rule> r);
 public:
+	LeftGraph(std::shared_ptr<Rule> r);
 	// rst: .. function:: friend bool operator==(const LeftGraph &a, const LeftGraph &b)
 	// rst:               friend bool operator!=(const LeftGraph &a, const LeftGraph &b)
 	// rst:               friend bool operator<(const LeftGraph &a, const LeftGraph &b)
@@ -83,11 +81,9 @@ private:
 // rst:		A descriptor of either a vertex in a rule, or a null vertex.
 // rst-class-start:
 class Rule::LeftGraph::Vertex {
-	friend class Rule::Vertex;
-	friend class LeftGraph;
 	friend class Edge;
 	friend class VertexIterator;
-	friend class VertexRange;
+	friend class lib::rule::Rule;
 	Vertex(LeftGraph g, std::size_t vId);
 public:
 	// rst:	.. function:: Vertex()
@@ -101,7 +97,7 @@ public:
 	std::size_t hash() const;
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -181,9 +177,9 @@ private:
 // rst:		A descriptor of either an edge in a rule, or a null edge.
 // rst-class-start:
 class Rule::LeftGraph::Edge {
-	friend class Rule::Edge;
 	friend class EdgeIterator;
 	friend class IncidentEdgeIterator;
+	friend class lib::rule::Rule;
 	Edge(LeftGraph g, std::size_t vId, std::size_t eId);
 public:
 	// rst:	.. function:: Edge()
@@ -196,7 +192,7 @@ public:
 	MOD_DECL friend bool operator<(const Edge &e1, const Edge &e2);
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -404,10 +400,8 @@ struct Rule::ContextGraph {
 	class EdgeRange;
 	class IncidentEdgeIterator;
 	class IncidentEdgeRange;
-private:
-	friend class Rule;
-	ContextGraph(std::shared_ptr<Rule> r);
 public:
+	ContextGraph(std::shared_ptr<Rule> r);
 	// rst: .. function:: friend bool operator==(const ContextGraph &a, const ContextGraph &b)
 	//	rst:               friend bool operator!=(const ContextGraph &a, const ContextGraph &b)
 	//	rst:               friend bool operator<(const ContextGraph &a, const ContextGraph &b)
@@ -451,10 +445,9 @@ private:
 // rst:		A descriptor of either a vertex in a rule, or a null vertex.
 // rst-class-start:
 class Rule::ContextGraph::Vertex {
-	friend class Rule;
 	friend class Edge;
 	friend class VertexIterator;
-	friend class VertexRange;
+	friend class lib::rule::Rule;
 	Vertex(ContextGraph g, std::size_t vId);
 public:
 	// rst:	.. function:: Vertex()
@@ -468,7 +461,7 @@ public:
 	std::size_t hash() const;
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -514,9 +507,9 @@ private:
 // rst:		A descriptor of either an edge in a rule, or a null edge.
 // rst-class-start:
 class Rule::ContextGraph::Edge {
-	friend class Rule::Edge;
 	friend class EdgeIterator;
 	friend class IncidentEdgeIterator;
+	friend class lib::rule::Rule;
 	Edge(ContextGraph g, std::size_t vId, std::size_t eId);
 public:
 	// rst:	.. function:: Edge()
@@ -529,7 +522,7 @@ public:
 	MOD_DECL friend bool operator<(const Edge &e1, const Edge &e2);
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -727,10 +720,8 @@ struct Rule::RightGraph {
 	class EdgeRange;
 	class IncidentEdgeIterator;
 	class IncidentEdgeRange;
-private:
-	friend class Rule;
-	RightGraph(std::shared_ptr<Rule> r);
 public:
+	RightGraph(std::shared_ptr<Rule> r);
 	// rst: .. function:: friend bool operator==(const RightGraph &a, const RightGraph &b)
 	// rst:               friend bool operator!=(const RightGraph &a, const RightGraph &b)
 	// rst:               friend bool operator<(const RightGraph &a, const RightGraph &b)
@@ -774,10 +765,9 @@ private:
 // rst:		A descriptor of either a vertex in a rule, or a null vertex.
 // rst-class-start:
 class Rule::RightGraph::Vertex {
-	friend class Rule;
 	friend class Edge;
 	friend class VertexIterator;
-	friend class VertexRange;
+	friend class lib::rule::Rule;
 	Vertex(RightGraph g, std::size_t vId);
 public:
 	// rst:	.. function:: Vertex()
@@ -791,7 +781,7 @@ public:
 	std::size_t hash() const;
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -871,9 +861,9 @@ private:
 // rst:		A descriptor of either an edge in a rule, or a null edge.
 // rst-class-start:
 class Rule::RightGraph::Edge {
-	friend class Rule::Edge;
 	friend class EdgeIterator;
 	friend class IncidentEdgeIterator;
+	friend class lib::rule::Rule;
 	Edge(RightGraph g, std::size_t vId, std::size_t eId);
 public:
 	// rst:	.. function:: Edge()
@@ -886,7 +876,7 @@ public:
 	MOD_DECL friend bool operator<(const Edge &e1, const Edge &e2);
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -1090,10 +1080,9 @@ private:
 // rst:		A descriptor of either a vertex in a rule, or a null vertex.
 // rst-class-start:
 struct Rule::Vertex {
-	friend class Rule;
 	friend class Edge;
 	friend class VertexIterator;
-	friend class VertexRange;
+	friend class lib::rule::Rule;
 	Vertex(std::shared_ptr<Rule> r, std::size_t vId);
 public:
 	// rst:	.. function:: Vertex()
@@ -1107,7 +1096,7 @@ public:
 	std::size_t hash() const;
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -1178,8 +1167,10 @@ class Rule::Edge {
 	friend class Rule::LeftGraph::Edge;
 	friend class Rule::ContextGraph::Edge;
 	friend class Rule::RightGraph::Edge;
+
 	friend class EdgeIterator;
 	friend class IncidentEdgeIterator;
+	friend class lib::rule::Rule;
 	Edge(std::shared_ptr<Rule> r, std::size_t vId, std::size_t eId);
 public:
 	// rst:	.. function:: Edge()
@@ -1192,7 +1183,7 @@ public:
 	MOD_DECL friend bool operator<(const Edge &e1, const Edge &e2);
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:

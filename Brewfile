@@ -2,7 +2,7 @@ brew "pkg-config"
 brew "cmake"
 brew "boost"
 brew "boost-python3"
-brew "open-babel"
+brew "open-babel", args: ["HEAD"]
 
 brew "graphviz"
 brew "pdf2svg"

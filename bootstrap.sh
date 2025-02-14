@@ -64,6 +64,11 @@ function gen_file_lists {
 	find test/cpp -iname "*.cpp" | sed -e "s!^test/!!" -e 's!\.cpp$!!' | indent
 	echo ")"
 	echo ""
+	echo "set(mod_DOC_PY_FILES"
+	find doc/source \( -path doc/source/_static -o -path doc/source/extensions \) \
+		-prune -o -iname "*.py"  -not -path doc/source/conf.py -print \
+		| sed -e "s!^doc/source/!!" -e 's!\.py$!!' | indent
+	echo ")"
 	echo "set(mod_EXAMPLES_PY_FILES"
 	find examples/py -iname "*.py" | sed -e "s!^examples/!!" -e 's!\.py$!!' | indent
 	echo ")"

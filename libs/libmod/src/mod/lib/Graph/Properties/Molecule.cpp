@@ -12,21 +12,17 @@
 #include <iostream>
 #include <numeric>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 PropMolecule::PropMolecule(const GraphType &g, const PropString &pString)
 		: Base(g), isMolecule(true), hasOnlyChemicalBonds(true) {
 	// atomData
 	this->vertexState.resize(num_vertices(g));
 	for(Vertex v: asRange(vertices(g))) {
-		AtomId atomId;
-		Isotope isotope;
-		Charge charge;
-		bool radical;
-		std::tie(atomId, isotope, charge, radical) = Chem::decodeVertexLabel(pString[v]);
+		const auto res = Chem::decodeVertexLabel(pString[v]);
 		//		std::cout << "Decode(" << pString[v] << "): " << atomId << ", " << isotope << ", " << charge << ", " << radical << std::endl;
-		this->vertexState[get(boost::vertex_index_t(), g, v)] = AtomData(atomId, isotope, charge, radical);
-		if(atomId == AtomIds::Invalid) isMolecule = false;
+		this->vertexState[get(boost::vertex_index_t(), g, v)] = res.asAtomData();
+		if(res.atomId == AtomIds::Invalid) isMolecule = false;
 	}
 
 	// edgeData
@@ -106,4 +102,4 @@ void PropMolecule::cacheEnergy(double value) const {
 	energy = value;
 }
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph

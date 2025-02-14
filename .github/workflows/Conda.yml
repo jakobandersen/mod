@@ -21,11 +21,11 @@ jobs:
       run: sudo apt install -y $(bindep -b | tr '\n' ' ')
     - name: Install Boost
       run: |
-        wget https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
+        wget https://archives.boost.io/release/1.80.0/source/boost_1_80_0.tar.gz
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams --with-test install
+        ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure

@@ -13,7 +13,7 @@
 
 #include <boost/lexical_cast.hpp>
 
-namespace mod::lib::Graph::Write {
+namespace mod::lib::graph::Write {
 
 DepictionData::DepictionData(const LabelledGraph &lg) : lg(lg), hasMoleculeEncoding(true) {
 	const auto &g = get_graph(lg);
@@ -29,9 +29,9 @@ DepictionData::DepictionData(const LabelledGraph &lg) : lg(lg), hasMoleculeEncod
 			else verticesToProcess.push_back(v);
 		}
 		// map non-atom labels to atoms
-		std::map<std::string, AtomId> labelNoStuff;
+		std::map<std::string, AtomId, std::less<>> labelNoStuff;
 		for(Vertex v: verticesToProcess) {
-			std::string label = std::get<0>(Chem::extractIsotopeChargeRadical(pString[v]));
+			std::string_view label = Chem::parseVertexLabel(pString[v]).rest;
 			auto iter = labelNoStuff.find(label);
 			if(iter == end(labelNoStuff)) {
 				unsigned char atomId = 1;
@@ -223,4 +223,4 @@ const lib::Chem::OBMolHandle &DepictionData::getOB(bool withHydrogen) const {
 }
 #endif
 
-} // namespace mod::lib::Graph::Write
+} // namespace mod::lib::graph::Write

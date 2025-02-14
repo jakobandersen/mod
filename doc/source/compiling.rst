@@ -377,7 +377,7 @@ related to them.
 Boost and Boost.Python with Python 3
 ------------------------------------
 
-A package with the sources of Boost can be downloaded from `http://boost.org`.
+A package with the sources of Boost can be downloaded from http://boost.org.
 
 
 Basic Installation

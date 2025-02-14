@@ -40,7 +40,7 @@ public:
 	std::size_t hash() const;
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:
@@ -123,7 +123,7 @@ public:
 	MOD_DECL friend bool operator<(const Edge &e1, const Edge &e2);
 	// rst: .. function:: explicit operator bool() const
 	// rst:
-	// rst:		:returns: :cpp:expr:`!isNull()`
+	// rst:		:returns: :cpp:texpr:`!isNull()`
 	explicit operator bool() const;
 	// rst:	.. function:: bool isNull() const
 	// rst:

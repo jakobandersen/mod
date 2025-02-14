@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 template<typename Derived, typename VertexType, typename EdgeType>
 struct Prop {
@@ -101,6 +101,6 @@ const Derived &Prop<Derived, VertexType, EdgeType>::getDerived() const {
 	return static_cast<const Derived &> (*this);
 }
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 #endif // MOD_LIB_GRAPH_PROPERTY_HPP

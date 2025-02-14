@@ -10,11 +10,11 @@ struct Repeat : Strategy {
 	Repeat(std::unique_ptr<Strategy> strat, int limit);
 	virtual ~Repeat() override;
 	virtual std::unique_ptr<Strategy> clone() const override;
-	virtual void preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const override;
-	virtual void forEachRule(std::function<void(const lib::Rules::Real &)> f) const override;
+	virtual void preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const override;
+	virtual void forEachRule(std::function<void(const lib::rule::Rule &)> f) const override;
 	virtual void printInfo(PrintSettings settings) const override;
 	virtual const GraphState &getOutput() const override;
-	virtual bool isConsumed(const lib::Graph::Single *g) const override;
+	virtual bool isConsumed(const lib::graph::Graph *g) const override;
 private:
 	virtual void setExecutionEnvImpl() override;
 	virtual void executeImpl(PrintSettings settings, const GraphState &input) override;

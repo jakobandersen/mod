@@ -3,7 +3,7 @@
 
 #include <mod/lib/GraphMorphism/Constraints/AllVisitor.hpp>
 #include <mod/lib/RC/Visitor/Compound.hpp>
-#include <mod/lib/Rules/LabelledRule.hpp>
+#include <mod/lib/Rule/LabelledRule.hpp>
 
 namespace mod::lib::RC::Visitor {
 namespace detail {
@@ -22,11 +22,7 @@ template<LabelType labelType, typename RuleFirst, typename RuleSecond, typename 
 struct ConvertFirst : public ConstraintVisitor<// GraphFirstLeft
 /*   */ typename RuleFirst::SideGraphType
 /*   */ > {
-	using GraphResult = typename Result::RuleResult::GraphType;
-	using GraphFirst = typename RuleFirst::GraphType;
-	using GraphSecond = typename RuleSecond::GraphType;
-
-	using GraphResultLeft = typename Result::RuleResult::SideGraphType;
+	using GraphResultLeft = typename Result::Rule::SideGraphType;
 	using GraphFirstLeft = typename RuleFirst::SideGraphType;
 	using GraphSecondLeft = typename RuleSecond::SideGraphType;
 
@@ -45,10 +41,10 @@ struct ConvertFirst : public ConstraintVisitor<// GraphFirstLeft
 			break;
 		}
 		auto vFirst = cResult->vConstrained;
-		auto vResult = get(result.mFirstToResult, get_graph(rFirst), result.rDPO->getCombinedGraph(), vFirst);
-		assert(vResult != boost::graph_traits<GraphResult>::null_vertex());
+		auto vResult = get(result.mappings.mFirstToResult, get_graph(rFirst), result.rDPO->getCombinedGraph(), vFirst);
+		assert(vResult != boost::graph_traits<GraphResultLeft>::null_vertex());
 		cResult->vConstrained = vResult;
-		// std::cout << "WARNING: check transfered constraint for " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
+		// std::cout << "WARNING: check transferred constraint for " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
 		this->cResult = std::move(cResult);
 	}
 private:
@@ -85,11 +81,7 @@ template<LabelType labelType, typename RuleFirst, typename RuleSecond, typename 
 struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
 /*   */ typename RuleSecond::SideGraphType
 /*   */ > {
-	using GraphResult = typename Result::RuleResult::GraphType;
-	using GraphFirst = typename RuleFirst::GraphType;
-	using GraphSecond = typename RuleSecond::GraphType;
-
-	using GraphResultLeft = typename Result::RuleResult::SideGraphType;
+	using GraphResultLeft = typename Result::Rule::SideGraphType;
 	using GraphFirstLeft = typename RuleFirst::SideGraphType;
 	using GraphSecondLeft = typename RuleSecond::SideGraphType;
 
@@ -98,9 +90,9 @@ struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
 
 	virtual void operator()(const ConstraintAdj<GraphSecondLeft> &c) override {
 		const auto vSecond = c.vConstrained;
-		const auto vResult = get(result.mSecondToResult, get_graph(rSecond), result.rDPO->getCombinedGraph(), vSecond);
+		const auto vResult = get(result.mappings.mSecondToResult, get_graph(rSecond), result.rDPO->getCombinedGraph(), vSecond);
 		// vResult may be null_vertex
-		if(vResult == boost::graph_traits<GraphResult>::null_vertex()) {
+		if(vResult == boost::graph_traits<GraphResultLeft>::null_vertex()) {
 			// std::cout << "WARNING: constrained vertex " << vSecondId << " deleted in " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
 			return;
 		}
@@ -112,7 +104,7 @@ struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
 		}
 
 		if(get(match, get_graph(get_labelled_left(rSecond)), get_graph(get_labelled_right(rFirst)), vSecond) !=
-		   boost::graph_traits<GraphFirst>::null_vertex()) {
+			boost::graph_traits<GraphFirstLeft>::null_vertex()) {
 			// std::cout << "WARNING: maybe missing constraint on " << vNew << " for " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
 			return;
 		}
@@ -190,10 +182,10 @@ public:
 
 	virtual void operator()(const ConstraintSP<GraphSecondLeft> &c) override {
 		const auto &gResult = result.rDPO->getCombinedGraph();
-		auto vResultSrc = get(result.mSecondToResult, get_graph(rSecond), gResult, c.vSrc);
-		auto vResultTar = get(result.mSecondToResult, get_graph(rSecond), gResult, c.vTar);
-		auto isSrcDeleted = vResultSrc == boost::graph_traits<GraphResult>::null_vertex();
-		auto isTarDeleted = vResultTar == boost::graph_traits<GraphResult>::null_vertex();
+		auto vResultSrc = get(result.mappings.mSecondToResult, get_graph(rSecond), gResult, c.vSrc);
+		auto vResultTar = get(result.mappings.mSecondToResult, get_graph(rSecond), gResult, c.vTar);
+		auto isSrcDeleted = vResultSrc == boost::graph_traits<GraphResultLeft>::null_vertex();
+		auto isTarDeleted = vResultTar == boost::graph_traits<GraphResultLeft>::null_vertex();
 		if(isSrcDeleted && isTarDeleted) {
 			MOD_ABORT;
 		}
@@ -222,14 +214,14 @@ public:
 
 template<LabelType labelType>
 struct MatchConstraints : Null {
-	MatchConstraints(const lib::Rules::LabelledRule &rFirst, const lib::Rules::LabelledRule &rSecond)
+	MatchConstraints(const lib::rule::LabelledRule &rFirst, const lib::rule::LabelledRule &rSecond)
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
 	bool finalize(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,
 	              InvertibleVertexMap &match, Result &result) {
-		using RuleFirst = lib::Rules::LabelledRule;
-		using RuleSecond = lib::Rules::LabelledRule;
+		using RuleFirst = lib::rule::LabelledRule;
+		using RuleSecond = lib::rule::LabelledRule;
 
 		assert(&dpoFirst == &rFirst.getRule());
 		assert(&dpoSecond == &rSecond.getRule());
@@ -252,8 +244,8 @@ struct MatchConstraints : Null {
 		return true;
 	}
 private:
-	const lib::Rules::LabelledRule &rFirst;
-	const lib::Rules::LabelledRule &rSecond;
+	const lib::rule::LabelledRule &rFirst;
+	const lib::rule::LabelledRule &rSecond;
 };
 
 } // namespace mod::lib::RC::Visitor

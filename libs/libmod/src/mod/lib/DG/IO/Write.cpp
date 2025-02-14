@@ -7,14 +7,14 @@
 #include <mod/lib/DG/Hyper.hpp>
 #include <mod/lib/DG/IO/WriteDetail.hpp>
 #include <mod/lib/Graph/MultisetIO.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/IO/Write.hpp>
 #include <mod/lib/GraphMorphism/VF2Finder.hpp>
 #include <mod/lib/IO/Config.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/IO/Json.hpp>
-#include <mod/lib/Rules/Real.hpp>
-#include <mod/lib/Rules/IO/Write.hpp>
+#include <mod/lib/Rule/Rule.hpp>
+#include <mod/lib/Rule/IO/Write.hpp>
 
 #include <boost/dynamic_bitset.hpp>
 #include <boost/lexical_cast.hpp>
@@ -39,31 +39,31 @@ nlohmann::json dumpToJson(const NonHyper &dgNonHyper) {
 	for(const auto v: asRange(vertices(dg))) {
 		if(dg[v].kind != VertexKind::Vertex) continue;
 		const auto id = get(boost::vertex_index_t(), dg, v);
-		const lib::Graph::Single *g = dg[v].graph;
+		const lib::graph::Graph *g = dg[v].graph;
 		assert(g);
 		nlohmann::json vertex;
 		vertex.push_back(id);
 		vertex.push_back(g->getName());
 		std::ostringstream ss;
-		lib::Graph::Write::gml(*g, false, ss);
+		lib::graph::Write::gml(*g, false, ss);
 		vertex.push_back(ss.str());
 		jVertices.push_back(std::move(vertex));
 	}
 	j["vertices"] = std::move(jVertices);
 
 
-	std::set<const lib::Rules::Real *, lib::Rules::LessById> rules;
+	std::set<const lib::rule::Rule *, lib::rule::LessById> rules;
 	for(const auto v: asRange(vertices(dg))) {
 		if(dg[v].kind != VertexKind::Edge) continue;
 		for(const auto *r: dgHyper.getRulesFromEdge(v))
 			rules.insert(r);
 	}
 	auto jRules = nlohmann::json::array();
-	std::unordered_map<const lib::Rules::Real *, int> idFromRule;
+	std::unordered_map<const lib::rule::Rule *, int> idFromRule;
 	int rId = 0;
 	for(const auto *r: rules) {
 		std::ostringstream ss;
-		Rules::Write::gml(*r, false, ss);
+		rule::Write::gml(*r, false, ss);
 		jRules.push_back(ss.str());
 		idFromRule.emplace(r, rId);
 		++rId;
@@ -293,9 +293,9 @@ TikzPrinter::getImageCreator() {
 		const auto &g = *dg.getGraph()[v].graph;
 		const auto doIt = [&](const auto &gOpts) {
 			if(this->options.withInlineGraphs) {
-				return lib::Graph::Write::tikz(g, gOpts, true, "v-" + id + "-");
+				return lib::graph::Write::tikz(g, gOpts, true, "v-" + id + "-");
 			} else {
-				return lib::Graph::Write::pdf(g, gOpts);
+				return lib::graph::Write::pdf(g, gOpts);
 			}
 		};
 		if(!options.rotationOverwrite && !options.mirrorOverwrite) {
@@ -629,11 +629,11 @@ bool Printer::hasEdgeColour() const {
 	return !edgeColour.empty();
 }
 
-void Printer::setRotationOverwrite(std::function<int(std::shared_ptr<graph::Graph>)> f) {
+void Printer::setRotationOverwrite(std::function<int(std::shared_ptr<mod::graph::Graph>)> f) {
 	baseOptions.rotationOverwrite = f;
 }
 
-void Printer::setMirrorOverwrite(std::function<bool(std::shared_ptr<graph::Graph>)> f) {
+void Printer::setMirrorOverwrite(std::function<bool(std::shared_ptr<mod::graph::Graph>)> f) {
 	baseOptions.mirrorOverwrite = f;
 }
 
@@ -975,7 +975,7 @@ std::string dot(const Hyper &dg, const Options &options, const IO::Graph::Write:
 			return [this](const Hyper &dg, HyperVertex v, Options::DupVertex vDup,
 						  const std::string &id) -> std::string {
 				const auto &g = *dg.getGraph()[v].graph;
-				return lib::Graph::Write::svg(g, graphOptions);
+				return lib::graph::Write::svg(g, graphOptions);
 			};
 		}
 

@@ -14,8 +14,8 @@ class NonHyper;
 } // namespace mod::lib::DG
 namespace mod::lib::DG::Dump {
 
-std::unique_ptr<NonHyper> load(const std::vector<std::shared_ptr<graph::Graph> > &graphs,
-                               const std::vector<std::shared_ptr<rule::Rule> > &rules,
+std::unique_ptr<NonHyper> load(const std::vector<std::shared_ptr<mod::graph::Graph> > &graphs,
+                               const std::vector<std::shared_ptr<mod::rule::Rule> > &rules,
                                const std::string &file,
                                std::ostream &err);
 
