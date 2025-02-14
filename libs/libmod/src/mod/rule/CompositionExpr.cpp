@@ -12,14 +12,15 @@ namespace mod::rule::RCExp {
 //------------------------------------------------------------------------------
 
 Union::Union(std::vector<Expression> exps) : exps(exps) {
-	if(exps.empty()) throw LogicError("A parallel RC expression must be non-empty.\n");
+	if(exps.empty())
+		throw LogicError("An RC Union expression must be instantiated with a non-empty list of subexpressions.");
 }
 
 std::ostream &operator<<(std::ostream &s, const Union &par) {
-	s << "{" << par.exps.front();
+	s << "[" << par.exps.front();
 	for(unsigned int i = 1; i < par.exps.size(); i++)
 		s << ", " << par.exps[i];
-	return s << "}";
+	return s << "]";
 }
 
 const std::vector<Expression> &Union::getExpressions() const {
@@ -30,7 +31,7 @@ const std::vector<Expression> &Union::getExpressions() const {
 //------------------------------------------------------------------------------
 
 Bind::Bind(std::shared_ptr<graph::Graph> g) : g(g) {
-	assert(g);
+	if(!g) throw LogicError("The graph is null.");
 }
 
 std::ostream &operator<<(std::ostream &s, const Bind &b) {
@@ -45,7 +46,7 @@ std::shared_ptr<graph::Graph> Bind::getGraph() const {
 //------------------------------------------------------------------------------
 
 Id::Id(std::shared_ptr<graph::Graph> g) : g(g) {
-	assert(g);
+	if(!g) throw LogicError("The graph is null.");
 }
 
 std::ostream &operator<<(std::ostream &s, const Id &i) {
@@ -60,7 +61,7 @@ std::shared_ptr<graph::Graph> Id::getGraph() const {
 //------------------------------------------------------------------------------
 
 Unbind::Unbind(std::shared_ptr<graph::Graph> g) : g(g) {
-	assert(g);
+	if(!g) throw LogicError("The graph is null.");
 }
 
 std::ostream &operator<<(std::ostream &s, const Unbind &u) {
@@ -75,7 +76,7 @@ std::shared_ptr<graph::Graph> Unbind::getGraph() const {
 //------------------------------------------------------------------------------
 
 Expression::Expression(std::shared_ptr<rule::Rule> r) : data(r) {
-	assert(r);
+	if(!r) throw LogicError("The rule is null.");
 }
 
 Expression::Expression(Union u) : data(u) {}
@@ -96,7 +97,7 @@ Expression::Expression(ComposeSuper compose) : data(compose) {}
 
 namespace {
 
-struct Visitor : boost::static_visitor<std::ostream &> {
+struct Visitor : boost::static_visitor<std::ostream&> {
 
 	Visitor(std::ostream &s) : s(s) {}
 
@@ -119,100 +120,47 @@ std::ostream &operator<<(std::ostream &s, const Expression &exp) {
 	return exp.applyVisitor(Visitor(s));
 }
 
-// ComposeBase
-//------------------------------------------------------------------------------
-
-ComposeBase::ComposeBase(Expression first, Expression second, bool discardNonchemical)
-		: first(first), second(second), discardNonchemical(discardNonchemical) {}
-
-ComposeBase::~ComposeBase() {}
-
-std::ostream &operator<<(std::ostream &s, const ComposeBase &compose) {
-	return compose.print(s << compose.getFirst() << " *")
-			<< "discardNonchemical=" << std::boolalpha << compose.discardNonchemical << ")* " << compose.getSecond();
-}
-
-const Expression &ComposeBase::getFirst() const {
-	return first;
-}
-
-const Expression &ComposeBase::getSecond() const {
-	return second;
-}
-
-bool ComposeBase::getDiscardNonchemical() const {
-	return discardNonchemical;
-}
-
 // ComposeCommon
 //------------------------------------------------------------------------------
 
-ComposeCommon::ComposeCommon(Expression first, Expression second, bool discardNonchemical, bool maximum, bool connected,
-                             bool includeEmpty)
-		: ComposeBase(first, second, discardNonchemical), maximum(maximum), connected(connected),
-		  includeEmpty(includeEmpty) {}
+ComposeCommon::ComposeCommon(Expression first, Expression second, bool maximum, bool connected, bool includeEmpty)
+	: first(first), second(second), maximum(maximum), connected(connected), includeEmpty(includeEmpty) {}
 
-bool ComposeCommon::getMaxmimum() const {
-	return maximum;
-}
-
-bool ComposeCommon::getConnected() const {
-	return connected;
-}
-
-bool ComposeCommon::getIncludeEmpty() const {
-	return includeEmpty;
-}
-
-std::ostream &ComposeCommon::print(std::ostream &s) const {
-	return s << std::boolalpha << "rcCommon(maximum=" << maximum
-	         << ", connected=" << connected << ", "
-	         << ", includeEmpty=" << includeEmpty << ", ";
+std::ostream &operator<<(std::ostream &s, const ComposeCommon &c) {
+	return s << c.first << std::boolalpha << " *rcCommon(maximum=" << c.maximum
+			<< ", connected=" << c.connected
+			<< ", includeEmpty=" << c.includeEmpty << ")* " << c.second;
 }
 
 // ComposeParallel
 //------------------------------------------------------------------------------
 
-ComposeParallel::ComposeParallel(Expression first, Expression second, bool discardNonchemical)
-		: ComposeBase(first, second, discardNonchemical) {}
+ComposeParallel::ComposeParallel(Expression first, Expression second) : first(first), second(second) {}
 
-std::ostream &ComposeParallel::print(std::ostream &s) const {
-	return s << "rcParallel(";
+std::ostream &operator<<(std::ostream &s, const ComposeParallel &c) {
+	return s << c.first << " *rcParallel* " << c.second;
 }
 
 // ComposeSub
 //------------------------------------------------------------------------------
 
-ComposeSub::ComposeSub(Expression first, Expression second, bool discardNonchemical, bool allowPartial)
-		: ComposeBase(first, second, discardNonchemical), allowPartial(allowPartial) {}
+ComposeSub::ComposeSub(Expression first, Expression second, bool allowPartial)
+	: first(first), second(second), allowPartial(allowPartial) {}
 
-bool ComposeSub::getAllowPartial() const {
-	return allowPartial;
-}
-
-std::ostream &ComposeSub::print(std::ostream &s) const {
-	return s << "rcSub(allowPartial=" << std::boolalpha << allowPartial << ", ";
+std::ostream &operator<<(std::ostream &s, const ComposeSub &c) {
+	return s << c.first << " *rcSub(allowPartial=" << std::boolalpha << c.allowPartial << ")* " << c.second;
 }
 
 // ComposeSuper
 //------------------------------------------------------------------------------
 
-ComposeSuper::ComposeSuper(Expression first, Expression second, bool discardNonchemical, bool allowPartial,
-                           bool enforceConstraints)
-		: ComposeBase(first, second, discardNonchemical), allowPartial(allowPartial),
-		  enforceConstraints(enforceConstraints) {}
+ComposeSuper::ComposeSuper(Expression first, Expression second, bool allowPartial, bool enforceConstraints)
+	: first(first), second(second), allowPartial(allowPartial),
+	  enforceConstraints(enforceConstraints) {}
 
-bool ComposeSuper::getAllowPartial() const {
-	return allowPartial;
-}
-
-bool ComposeSuper::getEnforceConstraints() const {
-	return enforceConstraints;
-}
-
-std::ostream &ComposeSuper::print(std::ostream &s) const {
-	return s << "rcSuper(allowPartial=" << std::boolalpha << allowPartial << ", enforceConstraints="
-	         << enforceConstraints << ", ";
+std::ostream &operator<<(std::ostream &s, const ComposeSuper &c) {
+	return s << c.first << " *rcSuper(allowPartial=" << std::boolalpha << c.allowPartial << ", enforceConstraints="
+			<< c.enforceConstraints << ")* " << c.second;
 }
 
 } // namespace mod::rule::RCExp

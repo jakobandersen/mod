@@ -75,6 +75,8 @@ MOD_DECL std::ostream &operator<<(std::ostream &s, LabelRelation lt);
 // rst:
 // rst:		A class simply for grouping label settings.
 // rst:
+// rst:		.. note:: The implementation of the stereo-information handling is a protoype based on [AFMS-Stereo]_.
+// rst:
 struct LabelSettings {
 	// rst:		.. function:: LabelSettings(LabelType type, LabelRelation relation)
 	// rst:
@@ -309,6 +311,7 @@ struct Config {
         ((bool, checkIsoInPermutation, false))                                      \
         ((unsigned long, numIsomorphismCalls, 0))                                   \
         ((bool, vf2UseOrigVertexOrder, true))                                       \
+        ((bool, printVariablesAsMath, false))                                       \
     ))                                                                              \
     ((Rule, rule,                                                                   \
         ((bool, ignoreConstraintsDuringInversion, false))                           \

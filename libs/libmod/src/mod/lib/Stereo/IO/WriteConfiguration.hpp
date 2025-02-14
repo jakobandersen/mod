@@ -106,7 +106,7 @@ tikz(const GraphPrint &g, typename boost::graph_traits<GraphPrint>::vertex_descr
 			else return depict.getIsotope(vOuter);
 		}
 
-		char getCharge(SVertex vInner) const {
+		signed char getCharge(SVertex vInner) const {
 			GVertex vOuter = getOuterVertexFromInnerVertex(vInner);
 			if(vOuter == nullVertexOuter) return 0;
 			else return depict.getCharge(vOuter);

@@ -43,8 +43,8 @@ bool isInSmilesOrganicSubset(AtomId atomId) {
 	}
 }
 
-void addImplicitHydrogens(lib::Graph::GraphType &g, lib::Graph::PropString &pString, lib::Graph::Vertex v, AtomId atomId,
-		std::function<void(lib::Graph::GraphType&, lib::Graph::PropString&, lib::Graph::Vertex)> hydrogenAdder) {
+void addImplicitHydrogens(lib::graph::GraphType &g, lib::graph::PropString &pString, lib::graph::Vertex v, AtomId atomId,
+		std::function<void(lib::graph::GraphType&, lib::graph::PropString&, lib::graph::Vertex)> hydrogenAdder) {
 	//==========================================================================
 	// WARNING: keep in sync with the smiles writer
 	//==========================================================================
@@ -58,7 +58,7 @@ void addImplicitHydrogens(lib::Graph::GraphType &g, lib::Graph::PropString &pStr
 	// S			2, 4, 6, {{:, :}}
 	// halogens		1
 	int numSingle = 0, numDouble = 0, numTriple = 0, numAromatic = 0, valenceNoAromatic = 0;
-	for(lib::Graph::Edge eOut : asRange(out_edges(v, g))) {
+	for(lib::graph::Edge eOut : asRange(out_edges(v, g))) {
 		BondType bt = decodeEdgeLabel(pString[eOut]);
 		switch(bt) {
 		case BondType::Invalid: MOD_ABORT;

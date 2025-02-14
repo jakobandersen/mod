@@ -1,4 +1,5 @@
 -r requirements_nodoc.txt
-sphinx>=7.3
-sphinx_design
+sphinx>=8.0.2
+sphinx-design
 sphinxcontrib-jquery  # for the bootstrap theme
+sphinxcontrib-tikz

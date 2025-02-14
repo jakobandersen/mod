@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 template<typename GraphType>
 struct Multiset {
@@ -47,11 +47,11 @@ private:
 	std::vector<GraphType *> graphs;
 };
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 template<typename GraphType>
-struct std::hash<mod::lib::Graph::Multiset<GraphType>> {
-	std::size_t operator()(const mod::lib::Graph::Multiset<GraphType> &gs) const {
+struct std::hash<mod::lib::graph::Multiset<GraphType>> {
+	std::size_t operator()(const mod::lib::graph::Multiset<GraphType> &gs) const {
 		return boost::hash_range(gs.begin(), gs.end());
 	}
 };

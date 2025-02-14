@@ -15,12 +15,12 @@ DerivationPredicate::DerivationPredicate(std::shared_ptr<mod::Function<bool(cons
 
 DerivationPredicate::~DerivationPredicate() = default;
 
-void DerivationPredicate::preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>,
+void DerivationPredicate::preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>,
                                                           IsomorphismPolicy)> add) const {
 	strat->preAddGraphs(add);
 }
 
-void DerivationPredicate::forEachRule(std::function<void(const lib::Rules::Real &)> f) const {
+void DerivationPredicate::forEachRule(std::function<void(const lib::rule::Rule &)> f) const {
 	strat->forEachRule(f);
 }
 
@@ -41,7 +41,7 @@ const GraphState &DerivationPredicate::getOutput() const {
 	return strat->getOutput();
 }
 
-bool DerivationPredicate::isConsumed(const lib::Graph::Single *g) const {
+bool DerivationPredicate::isConsumed(const lib::graph::Graph *g) const {
 	return strat->isConsumed(g);
 }
 

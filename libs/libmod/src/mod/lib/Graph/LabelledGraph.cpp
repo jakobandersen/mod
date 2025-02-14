@@ -11,7 +11,7 @@
 #include <cassert>
 #include <iostream>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 LabelledGraph::LabelledGraph(std::unique_ptr<GraphType> g, std::unique_ptr<PropStringType> pString,
                              std::unique_ptr<PropStereoType> pStereo)
@@ -97,4 +97,4 @@ get_vertex_order(const LabelledGraph &g) {
 	return g.vertex_order;
 }
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph

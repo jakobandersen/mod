@@ -1,5 +1,5 @@
 include("../000_basics/050_formoseGrammar.py")
-rc = rcEvaluator(inputRules)
+rc = RCEvaluator(inputRules)
 # The special global object 'rcParallel' is used to make a pseudo-operator:
 exp = rcId(formaldehyde) *rcParallel*  rcUnbind(glycolaldehyde)
 rules = rc.eval(exp)

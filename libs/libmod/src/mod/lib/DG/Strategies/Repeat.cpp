@@ -18,11 +18,11 @@ std::unique_ptr<Strategy> Repeat::clone() const {
 	return std::make_unique<Repeat>(strat->clone(), limit);
 }
 
-void Repeat::preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const {
+void Repeat::preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const {
 	strat->preAddGraphs(add);
 }
 
-void Repeat::forEachRule(std::function<void(const lib::Rules::Real &)> f) const {
+void Repeat::forEachRule(std::function<void(const lib::rule::Rule &)> f) const {
 	strat->forEachRule(f);
 }
 
@@ -46,7 +46,7 @@ const GraphState &Repeat::getOutput() const {
 	} else return subStrats.back()->getOutput();
 }
 
-bool Repeat::isConsumed(const Graph::Single *g) const {
+bool Repeat::isConsumed(const lib::graph::Graph *g) const {
 	for(const auto &s : subStrats)
 		if(s->isConsumed(g)) return true;
 	return false;

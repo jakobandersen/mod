@@ -8,7 +8,7 @@
 
 #include <jla_boost/graph/PairToRangeAdaptor.hpp>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 PropTerm::PropTerm(const GraphType &g, const PropString &pString, const StringStore &stringStore) : Base(g) {
 	// take every unique string and parse it
@@ -70,4 +70,4 @@ const lib::Term::Wam &getMachine(const PropTerm &p) {
 	return p.machine;
 }
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph

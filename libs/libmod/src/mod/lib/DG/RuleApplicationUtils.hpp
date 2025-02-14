@@ -2,20 +2,20 @@
 #define MOD_LIB_DG_RULEAPPLICATIONUTILS_HPP
 
 #include <mod/graph/Graph.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
 #include <mod/lib/Graph/Properties/String.hpp>
-#include <mod/lib/RC/ComposeRuleReal.hpp>
+#include <mod/lib/RC/ComposeFromMatchMaker.hpp>
 #include <mod/lib/RC/MatchMaker/Super.hpp>
-#include <mod/lib/Rules/GraphAsRuleCache.hpp>
-#include <mod/lib/Rules/Real.hpp>
+#include <mod/lib/Rule/GraphAsRuleCache.hpp>
+#include <mod/lib/Rule/Rule.hpp>
 #include <mod/lib/Stereo/CloneUtil.hpp>
 
 namespace mod::lib::DG {
 
 struct BoundRule {
-	const lib::Rules::Real *rule;
-	std::vector<const lib::Graph::Single *> boundGraphs;
+	const lib::rule::Rule *rule;
+	std::vector<const lib::graph::Graph *> boundGraphs;
 	int nextGraphOffset;
 public:
 	void makeCanonical() {
@@ -29,7 +29,7 @@ public:
 		if(boundGraphs != other.boundGraphs) return false;
 		if(nextGraphOffset != other.nextGraphOffset) return false;
 		ls.relation = ls.stereoRelation = LabelRelation::Isomorphism;
-		return 1 == lib::Rules::Real::isomorphism(*rule, *other.rule, 1, ls);
+		return 1 == lib::rule::Rule::isomorphism(*rule, *other.rule, 1, ls);
 	}
 
 	friend std::ostream &operator<<(std::ostream &s, const BoundRule &br) {
@@ -65,7 +65,7 @@ template<typename Iter, typename OnOutput>
 		const int bindRound,
 		const Iter firstGraph, const Iter lastGraph,
 		const std::vector<BoundRule> &inputRules,
-		Rules::GraphAsRuleCache &graphAsRuleCache,
+		rule::GraphAsRuleCache &graphAsRuleCache,
 		const LabelSettings labelSettings,
 		const bool doRuleIsomorphism,
 		OnOutput onOutput) {
@@ -94,7 +94,7 @@ template<typename Iter, typename OnOutput>
 			}
 			const auto reporter =
 					[labelSettings, doRuleIsomorphism, &logger, &brInput, &outputRules, firstGraph, iterGraph, onOutput, &numUnique, &numDup]
-							(std::unique_ptr<lib::Rules::Real> r) -> bool {
+							(std::unique_ptr<lib::rule::Rule> r, const lib::RC::ResultMaps&) -> bool {
 						BoundRule brOutput{r.release(), brInput.boundGraphs,
 						                   static_cast<int>(iterGraph - firstGraph)};
 						brOutput.boundGraphs.push_back(*iterGraph);
@@ -116,10 +116,10 @@ template<typename Iter, typename OnOutput>
 						++numUnique;
 						return onOutput(logger, std::move(brOutput));
 					};
-			const lib::Rules::Real &rFirst = graphAsRuleCache.getBindRule(g)->getRule();
-			const lib::Rules::Real &rSecond = *brInput.rule;
+			const lib::rule::Rule &rFirst = graphAsRuleCache.getBindRule(g)->getRule();
+			const lib::rule::Rule &rSecond = *brInput.rule;
 			lib::RC::Super mm(toRCVerbosity(verbosity), logger, true, true);
-			lib::RC::composeRuleRealByMatchMaker(rFirst, rSecond, mm, reporter, labelSettings);
+			lib::RC::composeFromMatchMaker(rFirst, rSecond, mm, reporter, labelSettings);
 			if(verbosity >= V_RuleApplication_Binding)
 				--logger.indentLevel;
 		}
@@ -141,28 +141,28 @@ struct BoundRuleStorage {
 	                 bool withStereo,
 	                 std::vector<BoundRule> &ruleStore,
 	                 const BoundRule &rule,
-	                 const lib::Graph::Single *graph)
+	                 const lib::graph::Graph *graph)
 			: verbose(verbose), logger(logger), labelType(labelType), withStereo(withStereo),
 			  ruleStore(ruleStore), rule(rule), graph(graph) {}
 
-	void add(lib::Rules::Real *r) {
+	void add(lib::rule::Rule *r) {
 		BoundRule p{r, rule.boundGraphs, -1};
 		p.boundGraphs.push_back(graph);
 		bool found = false;
 		const bool doBoundRulesDuplicateCheck = true;
 		// if it's only right side, we will rather split it instead
 		if(doBoundRulesDuplicateCheck && !r->isOnlyRightSide()) {
-			std::vector<const lib::Graph::Single *> &rThis = p.boundGraphs;
+			std::vector<const lib::graph::Graph *> &rThis = p.boundGraphs;
 
-			std::sort(begin(rThis), end(rThis), [](const lib::Graph::Single *g1, const lib::Graph::Single *g2) {
+			std::sort(begin(rThis), end(rThis), [](const lib::graph::Graph *g1, const lib::graph::Graph *g2) {
 				return g1->getId() < g2->getId();
 			});
 
 			for(BoundRule &rp: ruleStore) {
 				if(rThis.size() != rp.boundGraphs.size()) continue;
-				std::vector<const lib::Graph::Single *> &rOther = rp.boundGraphs;
+				std::vector<const lib::graph::Graph *> &rOther = rp.boundGraphs;
 
-				std::sort(rOther.begin(), rOther.end(), [](const lib::Graph::Single *g1, const lib::Graph::Single *g2) {
+				std::sort(rOther.begin(), rOther.end(), [](const lib::graph::Graph *g1, const lib::graph::Graph *g2) {
 					return g1->getId() < g2->getId();
 				});
 				bool doContinue = false;
@@ -173,7 +173,7 @@ struct BoundRuleStorage {
 					}
 				}
 				if(doContinue) continue;
-				found = 1 == lib::Rules::Real::isomorphism(*r, *rp.rule, 1,
+				found = 1 == lib::rule::Rule::isomorphism(*r, *rp.rule, 1,
 				                                           {labelType, LabelRelation::Isomorphism, withStereo,
 				                                            LabelRelation::Isomorphism});
 				if(found) break;
@@ -188,7 +188,7 @@ struct BoundRuleStorage {
 				logger.indent() << "BoundRules: added <" << r->getName() << ", {";
 				for(const auto *g: p.boundGraphs)
 					logger.s << " " << g->getName();
-				logger.s << " }> onlyRight: " << std::boolalpha << r->isOnlySide(lib::Rules::Membership::R)
+				logger.s << " }> onlyRight: " << std::boolalpha << r->isOnlySide(lib::rule::Membership::R)
 				         << std::endl;
 			}
 		}
@@ -201,7 +201,7 @@ private:
 	const bool withStereo;
 	std::vector<BoundRule> &ruleStore;
 	const BoundRule &rule;
-	const lib::Graph::Single *graph;
+	const lib::graph::Graph *graph;
 };
 
 
@@ -212,23 +212,23 @@ private:
 struct GraphData {
 	using SideVertex = boost::graph_traits<lib::DPO::CombinedRule::SideProjectedGraphType>::vertex_descriptor;
 public:
-	GraphData() : gPtr(new lib::Graph::GraphType()), pStringPtr(new lib::Graph::PropString(*gPtr)) {}
+	GraphData() : gPtr(new lib::graph::GraphType()), pStringPtr(new lib::graph::PropString(*gPtr)) {}
 public:
-	std::unique_ptr<lib::Graph::GraphType> gPtr;
-	std::unique_ptr<lib::Graph::PropString> pStringPtr;
-	std::unique_ptr<lib::Graph::PropStereo> pStereoPtr;
+	std::unique_ptr<lib::graph::GraphType> gPtr;
+	std::unique_ptr<lib::graph::PropString> pStringPtr;
+	std::unique_ptr<lib::graph::PropStereo> pStereoPtr;
 	std::vector<SideVertex> vertexMap;
 };
 
 template<typename CheckIfNew, typename OnDup>
-std::vector<std::shared_ptr<graph::Graph>> splitRule(const lib::Rules::LabelledRule &rDPO,
+std::vector<std::shared_ptr<mod::graph::Graph>> splitRule(const lib::rule::LabelledRule &rDPO,
                                                      const LabelType labelType,
                                                      const bool withStereo,
                                                      CheckIfNew checkIfNew,
                                                      OnDup onDup) {
 	if(get_num_connected_components(get_labelled_right(rDPO)) == 0) return {};
-	using Vertex = lib::Graph::Vertex;
-	using Edge = lib::Graph::Edge;
+	using Vertex = lib::graph::Vertex;
+	using Edge = lib::graph::Edge;
 	using SideVertex = boost::graph_traits<lib::DPO::CombinedRule::SideProjectedGraphType>::vertex_descriptor;
 	using SideEdge = boost::graph_traits<lib::DPO::CombinedRule::SideProjectedGraphType>::edge_descriptor;
 
@@ -286,21 +286,21 @@ std::vector<std::shared_ptr<graph::Graph>> splitRule(const lib::Rules::LabelledR
 				return epSide.first;
 			};
 			const auto inf = Stereo::makeCloner(lgRight, *p.gPtr, vertexMap, edgeMap);
-			p.pStereoPtr = std::make_unique<lib::Graph::PropStereo>(*p.gPtr, inf);
+			p.pStereoPtr = std::make_unique<lib::graph::PropStereo>(*p.gPtr, inf);
 		} // end foreach product
 	} // end of stereo prop
 	// wrap them
-	std::vector<std::shared_ptr<graph::Graph>> right;
+	std::vector<std::shared_ptr<mod::graph::Graph>> right;
 	for(auto &g: products) {
 		// check against the database
-		auto gCand = std::make_unique<lib::Graph::Single>(std::move(g.gPtr), std::move(g.pStringPtr),
-		                                                  std::move(g.pStereoPtr));
-		std::shared_ptr<graph::Graph> gWrapped = checkIfNew(std::move(gCand));
+		auto gCand = std::make_unique<lib::graph::Graph>(std::move(g.gPtr), std::move(g.pStringPtr),
+		                                                 std::move(g.pStereoPtr));
+		std::shared_ptr<mod::graph::Graph> gWrapped = checkIfNew(std::move(gCand));
 		// checkIfNew does not add the graph, so we must check against the previous products as well
 		for(auto gPrev: right) {
 			const auto ls = mod::LabelSettings(labelType, LabelRelation::Isomorphism, withStereo,
 			                                   LabelRelation::Isomorphism);
-			const bool iso = lib::Graph::Single::isomorphic(gPrev->getGraph(), gWrapped->getGraph(), ls);
+			const bool iso = lib::graph::Graph::isomorphic(gPrev->getGraph(), gWrapped->getGraph(), ls);
 			if(iso) {
 				onDup(gWrapped, gPrev);
 				gWrapped = gPrev;

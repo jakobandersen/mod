@@ -3,7 +3,7 @@
 #include <mod/Function.hpp>
 #include <mod/Post.hpp>
 #include <mod/lib/Chem/MoleculeUtil.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/IO/DepictionData.hpp>
 #include <mod/lib/Graph/Properties/String.hpp>
 #include <mod/lib/Graph/Properties/Term.hpp>
@@ -22,7 +22,7 @@
 #include <iostream>
 #include <map>
 
-namespace mod::lib::Graph::Write {
+namespace mod::lib::graph::Write {
 namespace {
 
 // returns the filename _without_ extension
@@ -61,7 +61,7 @@ void gml(const LabelledGraph &gLabelled, const DepictionData &depict, const std:
 	s << "]\n";
 }
 
-std::string gml(const Single &g, bool withCoords) {
+std::string gml(const Graph &g, bool withCoords) {
 	static std::map<std::pair<std::size_t, bool>, std::string> cache;
 	const auto iter = cache.find({g.getId(), withCoords});
 	if(iter != end(cache)) return iter->second;
@@ -80,8 +80,8 @@ using namespace IO::DFS;
 using Vertex = IO::DFS::Vertex;
 using Edge = IO::DFS::Edge;
 
-using GVertex = lib::Graph::Vertex;
-using GEdge = lib::Graph::Edge;
+using GVertex = lib::graph::Vertex;
+using GEdge = lib::graph::Edge;
 
 enum class Colour {
 	White, Grey, Black
@@ -561,7 +561,7 @@ std::string svg(const LabelledGraph &gLabelled, const DepictionData &depict, con
 	return file;
 }
 
-std::pair<std::string, std::string> summary(const Single &g, const Options &first, const Options &second) {
+std::pair<std::string, std::string> summary(const Graph &g, const Options &first, const Options &second) {
 	std::string graphLike = pdf(g, first);
 	std::string molLike = first == second ? "" : pdf(g, second);
 	lib::IO::post() << "summaryGraph \"" << g.getName() << "\" \""
@@ -618,15 +618,15 @@ void termStateImpl(const std::string &name, const LGraph &g) {
 
 } // namespace
 
-void termState(const Single &g) {
+void termState(const Graph &g) {
 	termStateImpl(g.getName(), g.getLabelledGraph());
 }
 
-void termState(const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g, std::string name) {
+void termState(const lib::LabelledUnionGraph<lib::graph::LabelledGraph> &g, std::string name) {
 	termStateImpl(name, g);
 }
 
-std::string stereoSummary(const Single &gLib, Vertex v, const lib::Stereo::Configuration &conf,
+std::string stereoSummary(const Graph &gLib, Vertex v, const lib::Stereo::Configuration &conf,
                           const IO::Graph::Write::Options &options, int shownIdOffset, const std::string &nameSuffix) {
 	const auto &g = gLib.getGraph();
 	const auto vId = get(boost::vertex_index_t(), g, v);
@@ -651,21 +651,21 @@ std::string stereoSummary(const Single &gLib, Vertex v, const lib::Stereo::Confi
 // Simplified interface for Single
 //------------------------------------------------------------------------------
 
-void gml(const Single &g, bool withCoords, std::ostream &s) {
+void gml(const Graph &g, bool withCoords, std::ostream &s) {
 	gml(g.getLabelledGraph(), g.getDepictionData(), g.getId(), withCoords, s);
 }
 
-std::string tikz(const Single &g, const Options &options, bool asInline, const std::string &idPrefix) {
+std::string tikz(const Graph &g, const Options &options, bool asInline, const std::string &idPrefix) {
 	auto res = tikz(g.getLabelledGraph(), g.getDepictionData(), g.getId(), options, asInline, idPrefix);
 	return res.first;
 }
 
-std::string pdf(const Single &g, const Options &options) {
+std::string pdf(const Graph &g, const Options &options) {
 	return pdf(g.getLabelledGraph(), g.getDepictionData(), g.getId(), options);
 }
 
-std::string svg(const Single &g, const Options &options) {
+std::string svg(const Graph &g, const Options &options) {
 	return svg(g.getLabelledGraph(), g.getDepictionData(), g.getId(), options);
 }
 
-} // namespace mod::lib::Graph::Write
+} // namespace mod::lib::graph::Write

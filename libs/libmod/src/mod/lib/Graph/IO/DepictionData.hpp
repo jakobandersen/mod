@@ -17,11 +17,11 @@ class Function;
 namespace mod::lib::IO::Graph::Write {
 enum struct EdgeFake3DType;
 } // namespace mod::lib::IO::Graph::Write
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 struct PropMolecule;
 struct PropString;
 } // namespace mod::lib::Grpah
-namespace mod::lib::Graph::Write {
+namespace mod::lib::graph::Write {
 
 struct DepictionData {
 	DepictionData(const DepictionData &) = delete;
@@ -73,6 +73,6 @@ private:
 	std::string imageCmd;
 };
 
-} // namespace mod::lib::Graph::Write
+} // namespace mod::lib::graph::Write
 
 #endif // MOD_LIB_GRAPH_IO_DEPICTIONDATA_HPP

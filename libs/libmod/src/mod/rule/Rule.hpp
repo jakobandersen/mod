@@ -44,7 +44,7 @@ private:
 	Rule(Rule &&) = delete;
 	Rule &operator=(Rule &&) = delete;
 private:
-	Rule(std::unique_ptr<lib::Rules::Real> r);
+	Rule(std::unique_ptr<lib::rule::Rule> r);
 public:
 	~Rule();
 	// rst: .. function:: unsigned int getId() const
@@ -52,7 +52,7 @@ public:
 	// rst:		:returns: the unique instance id among all :class:`Rule` instances.
 	unsigned int getId() const;
 	MOD_DECL friend std::ostream &operator<<(std::ostream &s, const Rule &r);
-	const lib::Rules::Real &getRule() const;
+	const lib::rule::Rule &getRule() const;
 public: // graph interface
 	// rst: .. function:: std::size_t numVertices() const
 	// rst:
@@ -202,13 +202,13 @@ public:
 	// rst:		:returns: the loaded (possibly inverted) rule.
 	// rst:		:throws: :class:`InputError` on bad data and when inversion fails due to constraints.
 	static std::shared_ptr<Rule> fromDFS(const std::string &data, bool invert);
-	// rst: .. function:: static std::shared_ptr<Rule> makeRule(std::unique_ptr<lib::Rules::Real> r)
-	// rst:               static std::shared_ptr<Rule> makeRule(std::unique_ptr<lib::Rules::Real> r, std::map<int, std::size_t> externalToInternalIds)
+	// rst: .. function:: static std::shared_ptr<Rule> makeRule(std::unique_ptr<lib::rule::Real> r)
+	// rst:               static std::shared_ptr<Rule> makeRule(std::unique_ptr<lib::rule::Real> r, std::map<int, std::size_t> externalToInternalIds)
 	// rst:
 	// rst:		:returns: a rule wrapping the given internal rule object. If an id mapping is given, it will be used for the :cpp:func:`getVertexFromExternalId` function.
-	static std::shared_ptr<Rule> makeRule(std::unique_ptr<lib::Rules::Real> r);
+	static std::shared_ptr<Rule> makeRule(std::unique_ptr<lib::rule::Rule> r);
 	static std::shared_ptr<Rule>
-	makeRule(std::unique_ptr<lib::Rules::Real> r, std::map<int, std::size_t> externalToInternalIds);
+	makeRule(std::unique_ptr<lib::rule::Rule> r, std::map<int, std::size_t> externalToInternalIds);
 private:
 	struct Pimpl;
 	std::unique_ptr<Pimpl> p;

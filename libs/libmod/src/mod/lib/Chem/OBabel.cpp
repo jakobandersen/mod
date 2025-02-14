@@ -347,11 +347,11 @@ OBMolHandle copyOBMol(const OBMolHandle &mol) {
 	return OBMolHandle(std::move(pimpl));
 }
 
-OBMolHandle makeOBMol(const lib::Graph::GraphType &g,
-                      std::function<const AtomData &(lib::Graph::Vertex)> atomData,
-                      std::function<BondType(lib::Graph::Edge)> bondData,
-                      std::function<bool(lib::Graph::Vertex)> hasImportantStereo,
-                      const bool withHydrogen, const lib::Graph::PropStereo *pStereo) {
+OBMolHandle makeOBMol(const lib::graph::GraphType &g,
+                      std::function<const AtomData &(lib::graph::Vertex)> atomData,
+                      std::function<BondType(lib::graph::Edge)> bondData,
+                      std::function<bool(lib::graph::Vertex)> hasImportantStereo,
+                      const bool withHydrogen, const lib::graph::PropStereo *pStereo) {
 	const auto mayCollapse = [&](const auto v) {
 		if(withHydrogen) return false;
 		return isCollapsibleHydrogen(v, g, atomData, bondData, hasImportantStereo);
@@ -363,7 +363,7 @@ OBMolHandle makeOBMol(const lib::Graph::GraphType &g,
 }
 
 std::tuple<OBMolHandle, OBMolHandle, OBMolHandle> makeOBMol(
-		const lib::Rules::LabelledRule &lr,
+		const lib::rule::LabelledRule &lr,
 		std::function<const AtomData &(lib::DPO::CombinedRule::CombinedVertex)> cgAtom,
 		std::function<BondType(lib::DPO::CombinedRule::CombinedEdge)> cgBond,
 		std::function<const AtomData &(lib::DPO::CombinedRule::SideVertex)> leftAtom,

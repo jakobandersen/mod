@@ -37,13 +37,6 @@ option(BUILD_POST_MOD "Enable building of the post processor." ON)
 option(BUILD_POST_MOD_FMT "Enable building of the post processor Latex format files." ON)
 option(BUILD_PY_MOD "Enable building of the Python bindings." ON)
 option(BUILD_PY_MOD_PIP "If BUILD_PY_MOD, then install the bindings also with pip in the default location." ON)
-option(BUILD_EPIM "Enable building of the EpiM extension (requires PyMØD)." ON)
-
-if(BUILD_EPIM AND NOT BUILD_PY_MOD)
-    message(FATAL_ERROR
-            "Epim requested but PyMØD is disabled.\n"
-            "Either set BUILD_EPIM=off or set BUILD_PY_MOD=on")
-endif()
 
 option(BUILD_TESTING "Enable test building." OFF)
 option(BUILD_WITH_SANITIZERS "Compile libraries and tests with sanitizers." OFF)
@@ -223,6 +216,7 @@ if(WITH_OPENBABEL)
     if(OpenBabel3_FOUND)
         string(APPEND libmod_config_dependencies "find_dependency(OpenBabel3 3)\n")
         list(APPEND libmod_config_find_files "FindOpenBabel3.cmake")
+        message(STATUS "  Include location is ${OPENBABEL3_INCLUDE_DIR}")
     else()
         find_package(OpenBabel2 2.3.2)
         if(OpenBabel2_FOUND)
@@ -237,12 +231,12 @@ if(WITH_OPENBABEL)
 endif()
 
 
-if(BUILD_POST_MOD)
+if(BUILD_POST_MOD OR BUILD_DOC)
     # pdf2svg
     # ---------------------------------------------------------------------
     find_program(PDF2SVG pdf2svg)
     if(NOT PDF2SVG)
-        message(FATAL_ERROR "Could not find pdf2svg program, required for post_mod.")
+        message(FATAL_ERROR "Could not find pdf2svg program, required for post_mod and documentation.")
     else()
         message(STATUS "Found pdf2svg: ${PDF2SVG}")
     endif()
@@ -279,14 +273,6 @@ find_package(Threads REQUIRED)
 string(APPEND libmod_config_dependencies "find_dependency(Threads)\n")
 
 
-# Various Python modules
-# -------------------------------------------------------------------------
-if(BUILD_EPIM)
-
-endif()
-
-
-
 ###########################################################################
 # Targets and Artefacts
 ###########################################################################
@@ -305,7 +291,6 @@ if(NOT hasParent)
     # on each target that needs it
 endif()
 
-add_subdirectory(libs/epim)
 add_subdirectory(libs/gml)
 add_subdirectory(libs/jla_boost)
 add_subdirectory(libs/libmod)

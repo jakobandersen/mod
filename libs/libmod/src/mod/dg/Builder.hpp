@@ -13,6 +13,7 @@ template<typename T> struct Function;
 } // namespace mod
 namespace mod::lib::DG {
 struct ExecuteResult;
+struct AddAbstractResult;
 } // namespace mod::lib::DG
 namespace mod::dg {
 
@@ -156,7 +157,7 @@ public:
 	std::vector<DG::HyperEdge> apply(const std::vector<std::shared_ptr<graph::Graph> > &graphs,
 	                                 std::shared_ptr<rule::Rule> r, bool onlyProper,
 	                                 int verbosity, IsomorphismPolicy graphPolicy);
-	// rst: .. function:: void addAbstract(const std::string &description)
+	// rst: .. function:: AddAbstractResult addAbstract(const std::string &description)
 	// rst:
 	// rst:		Add vertices and hyperedges based on the given abstract description.
 	// rst:		The description must adhere to the grammar described at :ref:`dg_abstract-desc`.
@@ -165,7 +166,7 @@ public:
 	// rst:		The label of that vertex and the name of the graph is set to the given identifier.
 	// rst:
 	// rst:		:throws: :class:`InputError` if the description could not be parsed.
-	void addAbstract(const std::string &description);
+	AddAbstractResult addAbstract(const std::string &description);
 	// rst: .. function:: void load(const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase, \
 	// rst:                         const std::string &file, int verbosity)
 	// rst:
@@ -219,6 +220,37 @@ private:
 	std::unique_ptr<Pimpl> p;
 };
 // rst-class-end:
+
+// rst-class: dg::AddAbstractResult
+// rst:
+// rst:		The result from calling :func:`Builder::addAbstract`.
+// rst:
+// rst-class-start:
+class MOD_DECL AddAbstractResult {
+	friend class Builder;
+	explicit AddAbstractResult(std::shared_ptr<DG> dg_, lib::DG::AddAbstractResult innerRes);
+public:
+	AddAbstractResult(AddAbstractResult &&other);
+	AddAbstractResult &operator=(AddAbstractResult &&other);
+	~AddAbstractResult();
+	// rst: .. function:: std::shared_ptr<graph::Graph> getGraph(const std::string &name)
+	// rst:
+	// rst:		:returns: the graph associated with the given name from the initial description,
+	// rst:			or a null pointer if no such graph exists.
+	std::shared_ptr<graph::Graph> getGraph(const std::string &name);
+	// rst: .. function:: DG::HyperEdge getEdge(const std::string &name)
+	// rst:
+	// rst:		:returns: the hyperedge associated with the given name from the initial description,
+	// rst:			or a null edge if such a hyperedge doesn't exist.
+	// rst:			If the name refers to a bidirectional derivation, then the returned hyperedge is
+	// rst:			for the left-to-right derivation. The other can be accessed as the inverse on that returned edge.
+	DG::HyperEdge getEdge(const std::string &name);
+private:
+	struct Pimpl;
+	std::unique_ptr<Pimpl> p;
+};
+// rst-class-end:
+
 
 } // namespace mod::dg
 

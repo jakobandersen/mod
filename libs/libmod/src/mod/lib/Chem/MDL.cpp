@@ -89,7 +89,7 @@ struct MOL {
 	std::vector<Bond> bonds;
 	int lineFirst, lineLast;
 public:
-	Result<std::vector<lib::Graph::Read::Data>> convert(lib::IO::Warnings &warnings, const MDLOptions &options) &&{
+	Result<std::vector<lib::graph::Read::Data>> convert(lib::IO::Warnings &warnings, const MDLOptions &options) &&{
 		auto res = convertImpl(warnings, options);
 		if(!res)
 			return Result<>::Error(res.extractError() + "\nCould not convert MOL at line "
@@ -97,22 +97,22 @@ public:
 		return res;
 	}
 private:
-	Result<std::vector<lib::Graph::Read::Data>> convertImpl(lib::IO::Warnings &warnings, const MDLOptions &options) {
+	Result<std::vector<lib::graph::Read::Data>> convertImpl(lib::IO::Warnings &warnings, const MDLOptions &options) {
 		lib::ConnectedComponents components(atoms.size());
 		for(const Bond &b : bonds)
 			components.join(b.src - 1, b.tar - 1);
 		const auto numComponents = components.finalize();
 		if(numComponents == 0) return Result<>::Error("Molecule has no atoms.");
 
-		std::vector<lib::Graph::Read::Data> datas;
+		std::vector<lib::graph::Read::Data> datas;
 		datas.resize(numComponents);
 		const auto onError = [&datas](std::string msg) -> Result<> {
 			for(auto &d : datas) d.reset();
 			return Result<>::Error(std::move(msg));
 		};
 		for(int i = 0; i != numComponents; ++i) {
-			datas[i].g = std::make_unique<lib::Graph::GraphType>();
-			datas[i].pString = std::make_unique<lib::Graph::PropString>(*datas[i].g);
+			datas[i].g = std::make_unique<lib::graph::GraphType>();
+			datas[i].pString = std::make_unique<lib::graph::PropString>(*datas[i].g);
 		}
 
 		for(int i = 0; i != atoms.size(); ++i) {
@@ -1136,7 +1136,7 @@ parseSD(lib::IO::Warnings &warnings, std::string_view &src, const MDLOptions &op
 
 } // namespace
 
-lib::IO::Result<std::vector<lib::Graph::Read::Data>>
+lib::IO::Result<std::vector<lib::graph::Read::Data>>
 readMDLMOL(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &options) {
 	int lineCount = 1;
 	auto res = parseMOL(warnings, src, options, lineCount);
@@ -1151,9 +1151,9 @@ readMDLMOL(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &
 	return std::move(*res).convert(warnings, options);
 }
 
-Result<std::vector<std::vector<lib::Graph::Read::Data>>>
+Result<std::vector<std::vector<lib::graph::Read::Data>>>
 readMDLSD(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &options) {
-	std::vector<std::vector<lib::Graph::Read::Data>> data;
+	std::vector<std::vector<lib::graph::Read::Data>> data;
 	int lineCount = 1;
 	auto res = parseSD(warnings, src, options, lineCount);
 	if(!res) return Result<>::Error(res.extractError() + "\nError at line " + std::to_string(lineCount) + ".");

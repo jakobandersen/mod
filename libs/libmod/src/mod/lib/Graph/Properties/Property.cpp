@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace mod::lib::Graph::detail {
+namespace mod::lib::graph::detail {
 
 void PropVerify(const GraphType *g, const GraphType *gOther,
                 std::size_t nGraph, std::size_t nOther,
@@ -23,4 +23,4 @@ void PropVerify(const GraphType *g, const GraphType *gOther,
 	}
 }
 
-} // namespace mod::lib::Graph::detail
+} // namespace mod::lib::graph::detail

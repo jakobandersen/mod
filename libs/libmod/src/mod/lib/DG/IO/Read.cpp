@@ -1,13 +1,23 @@
 #include "Read.hpp"
 
 #include <iomanip>
+
 //#define BOOST_SPIRIT_X3_DEBUG
+//
+//namespace std {
+//
+//std::ostream &operator<<(std::ostream &s, const std::optional<std::string> &os) {
+//	if(!os) return s << "nullopt";
+//	else return s << *os;
+//}
+//
+//} // namespace std
 
 #include <mod/graph/Graph.hpp>
 #include <mod/rule/Rule.hpp>
 #include <mod/lib/DG/Dump.hpp>
 #include <mod/lib/DG/NonHyperBuilder.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
 #include <mod/lib/Graph/Properties/String.hpp>
 #include <mod/lib/IO/Config.hpp>
@@ -27,13 +37,15 @@
 #include <boost/spirit/home/x3/operator/and_predicate.hpp>
 #include <boost/spirit/home/x3/operator/difference.hpp>
 #include <boost/spirit/home/x3/operator/list.hpp>
+#include <boost/spirit/home/x3/operator/optional.hpp>
 #include <boost/spirit/home/x3/operator/plus.hpp>
 #include <boost/spirit/home/x3/string/literal_string.hpp>
 
 #include <string>
 
 BOOST_FUSION_ADAPT_STRUCT(mod::lib::DG::Read::AbstractDerivation,
-                          (mod::lib::DG::Read::AbstractDerivation::List, left)
+                          (std::optional<std::string>, id)
+		                          (mod::lib::DG::Read::AbstractDerivation::List, left)
 		                          (bool, reversible)
 		                          (mod::lib::DG::Read::AbstractDerivation::List, right)
 )
@@ -44,6 +56,8 @@ namespace parser {
 
 const auto identifier = x3::rule<struct identifier, std::string>("identifier")
 		                        = x3::lexeme[+(x3::ascii::char_ - x3::ascii::space)];
+const auto derivationId = x3::rule<struct derivationId, std::string>("derivation ID")
+		                          = x3::lexeme["#" > identifier];
 const auto coef = x3::rule<struct coef, unsigned int>("coefficient")
 		                  = x3::lexeme[x3::uint_ >> &x3::ascii::space] | (x3::eps >> x3::attr(1u));
 const auto element = x3::rule<struct element, std::pair<unsigned int, std::string> >("element")
@@ -53,7 +67,7 @@ const auto side = x3::rule<struct side, std::vector<std::pair<unsigned int, std:
 const auto arrow = x3::rule<struct arrow, bool>("-> or <=>")
 		                   = ("->" >> x3::attr(false)) | ("<=>" >> x3::attr(true));
 const auto derivation = x3::rule<struct arrow, AbstractDerivation>("derivation")
-		                        = side > arrow > side;
+		                        = (-derivationId >> side) > arrow > side; // parens due to Clang warning
 const auto derivations = +derivation;
 
 } // namespace parser
@@ -104,8 +118,8 @@ std::optional<nlohmann::json> loadDump(const std::string &file, std::ostream &er
 	return jOpt;
 }
 
-std::unique_ptr<NonHyper> dump(const std::vector<std::shared_ptr<graph::Graph>> &graphDatabase,
-                               const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase,
+std::unique_ptr<NonHyper> dump(const std::vector<std::shared_ptr<mod::graph::Graph>> &graphDatabase,
+                               const std::vector<std::shared_ptr<mod::rule::Rule>> &ruleDatabase,
                                const std::string &file,
                                IsomorphismPolicy graphPolicy,
                                std::ostream &err, int verbosity) {
@@ -201,7 +215,8 @@ bool dumpDigest(const HyperGraphType &dg, const nlohmann::json &j, std::ostream 
 std::optional<HyperVertex>
 vertexOrEdge(const HyperGraphType &dg, std::size_t id, std::ostream &err, const std::string &errPrefix) {
 	if(id >= num_vertices(dg)) {
-		err << errPrefix << " ID for vertex or edge is out of range (id=" << id << ", last=" << num_vertices(dg) << ").";
+		err << errPrefix << " ID for vertex or edge is out of range (id="
+		    << id << ", last=" << num_vertices(dg) << ").";
 		return {};
 	}
 	const auto vs = vertices(dg);

@@ -14,7 +14,7 @@
 #include <mod/lib/Chem/MoleculeUtil.hpp>
 #include <mod/lib/DG/Hyper.hpp>
 #include <mod/lib/DG/IO/Write.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/Properties/Molecule.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
 #include <mod/lib/Graph/Properties/String.hpp>
@@ -35,13 +35,13 @@ std::size_t nextDGNum = 0;
 } // namespace
 
 NonHyper::NonHyper(LabelSettings labelSettings,
-                   const std::vector<std::shared_ptr<graph::Graph> > &graphDatabase, IsomorphismPolicy graphPolicy)
+                   const std::vector<std::shared_ptr<mod::graph::Graph> > &graphDatabase, IsomorphismPolicy graphPolicy)
 		: id(nextDGNum++),
 		  labelSettings(labelSettings),
 		  graphDatabase(labelSettings, getConfig().graph.isomorphismAlg) {
 	switch(graphPolicy) {
 	case IsomorphismPolicy::TrustMe:
-		for(const auto &gCand : graphDatabase) {
+		for(const auto &gCand: graphDatabase) {
 			assert(gCand);
 			this->graphDatabase.trustInsert(gCand);
 		}
@@ -49,7 +49,7 @@ NonHyper::NonHyper(LabelSettings labelSettings,
 	case IsomorphismPolicy::Check: {
 		const auto ls = LabelSettings{this->labelSettings.type, LabelRelation::Isomorphism,
 		                              this->labelSettings.withStereo, LabelRelation::Isomorphism};
-		for(const auto &gCand : graphDatabase) {
+		for(const auto &gCand: graphDatabase) {
 			if(ls.type == LabelType::Term) {
 				const auto &term = get_term(gCand->getGraph().getLabelledGraph());
 				if(!isValid(term)) {
@@ -113,13 +113,11 @@ void NonHyper::calculatePrologue(
 
 void NonHyper::calculateEpilogue() {
 	assert(getHasStartedCalculation());
-	// annotate the graph with reversible pairs
-	findReversiblePairs();
 	hyperCreator.reset();
 	hasCalculated = true;
 }
 
-void NonHyper::tryAddGraph(std::shared_ptr<graph::Graph> gCand) {
+void NonHyper::tryAddGraph(std::shared_ptr<mod::graph::Graph> gCand) {
 	if(getHasCalculated()) std::abort();
 	const auto ls = LabelSettings{
 			getLabelSettings().type,
@@ -138,51 +136,50 @@ void NonHyper::tryAddGraph(std::shared_ptr<graph::Graph> gCand) {
 	// (we don't care if the user gives the same graph multiple times)
 	if(gp.first != gCand) {
 		std::string msg =
-				"Isomorphic graphs. Candidate graph '" + gCand->getName() + "' is isomorphic to '" + gp.first->getName() +
+				"Isomorphic graphs. Candidate graph '" + gCand->getName() + "' is isomorphic to '" +
+				gp.first->getName() +
 				"' in the graph database.";
 		throw LogicError(std::move(msg));
 	}
 }
 
-bool NonHyper::trustAddGraph(std::shared_ptr<graph::Graph> g) {
+bool NonHyper::trustAddGraph(std::shared_ptr<mod::graph::Graph> g) {
 	if(getHasCalculated()) std::abort();
 	return graphDatabase.trustInsert(g);
 }
 
-bool NonHyper::trustAddGraphAsVertex(std::shared_ptr<graph::Graph> g) {
+bool NonHyper::trustAddGraphAsVertex(std::shared_ptr<mod::graph::Graph> g) {
 	if(getHasCalculated()) std::abort();
 	bool inserted = trustAddGraph(g);
 	getVertex(GraphMultiset(&g->getGraph()));
 	return inserted;
 }
 
-std::pair<std::shared_ptr<graph::Graph>, std::unique_ptr<lib::Graph::Single>>
-NonHyper::checkIfNew(std::unique_ptr<lib::Graph::Single> gCand) const {
+std::pair<std::shared_ptr<mod::graph::Graph>, std::unique_ptr<lib::graph::Graph>>
+NonHyper::checkIfNew(std::unique_ptr<lib::graph::Graph> gCand) const {
 	assert(gCand);
 	{
 		const auto g = graphDatabase.findIsomorphic(gCand.get());
 		if(g) return {g, std::move(gCand)};
 	}
-	auto g = graph::Graph::create(std::move(gCand));
+	auto g = mod::graph::Graph::create(std::move(gCand));
 	return {g, nullptr};
 }
 
-bool NonHyper::addProduct(std::shared_ptr<graph::Graph> g) {
+bool NonHyper::addCreatedGraph(std::shared_ptr<mod::graph::Graph> g) {
 	assert(g);
 	const bool isNewGraph = trustAddGraph(g);
 	if(isNewGraph) {
-		g->setName("p_{" + boost::lexical_cast<std::string>(getId())
-		           + "," + boost::lexical_cast<std::string>(productNum++)
-		           + "}");
-		assert(std::find(begin(products), end(products), g) == end(products));
-		products.push_back(g);
+		g->setName("p_{" + std::to_string(getId()) + "," + std::to_string(createdGraphs.size()) + "}");
+		assert(std::find(begin(createdGraphs), end(createdGraphs), g) == end(createdGraphs));
+		createdGraphs.push_back(g);
 	}
 	return isNewGraph;
 }
 
 std::pair<NonHyper::Edge, bool> NonHyper::isDerivation(const GraphMultiset &gmsSrc,
                                                        const GraphMultiset &gmsTar,
-                                                       const lib::Rules::Real *r) const {
+                                                       const lib::rule::Rule *r) const {
 	const auto iterLeft = multisetToVertex.find(gmsSrc);
 	if(iterLeft == end(multisetToVertex)) return std::make_pair(Edge(), false);
 	const auto iterRight = multisetToVertex.find(gmsTar);
@@ -191,7 +188,7 @@ std::pair<NonHyper::Edge, bool> NonHyper::isDerivation(const GraphMultiset &gmsS
 }
 
 std::pair<NonHyper::Edge, bool> NonHyper::suggestDerivation(
-		const GraphMultiset &gmsSrc, const GraphMultiset &gmsTar, const lib::Rules::Real *r) {
+		const GraphMultiset &gmsSrc, const GraphMultiset &gmsTar, const lib::rule::Rule *r) {
 	assert(!gmsSrc.empty());
 	assert(!gmsTar.empty());
 	// make vertices for to and from
@@ -201,6 +198,15 @@ std::pair<NonHyper::Edge, bool> NonHyper::suggestDerivation(
 		e = add_edge(vSrc, vTar, dg);
 		if(r) dg[e.first].rules.push_back(r);
 		dg[e.first].hyper = hyperCreator->addEdge(e.first);
+		// find inverse, if it exists
+		const auto oes = out_edges(vTar, dg);
+		const auto eIter = std::find_if(oes.first, oes.second, [vSrc, this](const auto eCand) {
+			return target(eCand, dg) == vSrc;
+		});
+		if(eIter != oes.second) {
+			dg[e.first].reverse = *eIter;
+			dg[*eIter].reverse = e.first;
+		}
 	} else {
 		e.second = false;
 		if(r) {
@@ -224,19 +230,8 @@ NonHyper::Vertex NonHyper::getVertex(const GraphMultiset &gms) {
 	Vertex v = add_vertex(dg);
 	dg[v].graphs = gms;
 	multisetToVertex[gms] = v;
-	for(auto *gSub : gms) hyperCreator->addVertex(gSub);
+	for(auto *gSub: gms) hyperCreator->addVertex(gSub);
 	return v;
-}
-
-void NonHyper::findReversiblePairs() {
-	for(Edge e : asRange(edges(dg))) {
-		Vertex vSource = source(e, dg);
-		Vertex vTarget = target(e, dg);
-		for(Edge eBack : asRange(out_edges(vTarget, dg))) {
-			if(target(eBack, dg) == vSource)
-				dg[e].reverse = eBack;
-		}
-	}
 }
 
 const NonHyper::GraphType &NonHyper::getGraph() const {
@@ -249,12 +244,12 @@ const Hyper &NonHyper::getHyper() const {
 	return *hyper;
 }
 
-const Graph::Collection &NonHyper::getGraphDatabase() const {
+const lib::graph::Collection &NonHyper::getGraphDatabase() const {
 	return graphDatabase;
 }
 
-const std::vector<std::shared_ptr<graph::Graph> > &NonHyper::getProducts() const {
-	return products;
+const std::vector<std::shared_ptr<mod::graph::Graph>> &NonHyper::getCreatedGraphs() const {
+	return createdGraphs;
 }
 
 void NonHyper::print() const {
@@ -271,15 +266,15 @@ HyperVertex NonHyper::findHyperEdge(const std::vector<Hyper::Vertex> &sources,
                                     const std::vector<Hyper::Vertex> &targets) const {
 	const auto &dgHyper = getHyper().getGraph();
 #ifndef NDEBUG
-	for(auto v : sources) assert(dgHyper[v].kind == HyperVertexKind::Vertex);
-	for(auto v : targets) assert(dgHyper[v].kind == HyperVertexKind::Vertex);
+	for(auto v: sources) assert(dgHyper[v].kind == HyperVertexKind::Vertex);
+	for(auto v: targets) assert(dgHyper[v].kind == HyperVertexKind::Vertex);
 #endif
 
-	std::vector<const lib::Graph::Single *> srcGraphs, tarGraphs;
+	std::vector<const lib::graph::Graph *> srcGraphs, tarGraphs;
 	srcGraphs.reserve(sources.size());
 	tarGraphs.reserve(targets.size());
-	for(const auto v : sources) srcGraphs.push_back(dgHyper[v].graph);
-	for(const auto v : targets) tarGraphs.push_back(dgHyper[v].graph);
+	for(const auto v: sources) srcGraphs.push_back(dgHyper[v].graph);
+	for(const auto v: targets) tarGraphs.push_back(dgHyper[v].graph);
 	GraphMultiset gmsSrc(std::move(srcGraphs)), gmsTar(std::move(tarGraphs));
 	const auto iterSrc = multisetToVertex.find(gmsSrc);
 	if(iterSrc == end(multisetToVertex))
@@ -306,15 +301,15 @@ void NonHyper::diff(const NonHyper &dg1, const NonHyper &dg2) {
 	};
 	std::ostream &s = std::cout;
 	// diff vertices
-	std::unordered_set<std::shared_ptr<graph::Graph> > vertexGraphsUnique;
-	for(const auto v : dg1.getAPIReference()->vertices()) vertexGraphsUnique.insert(v.getGraph());
-	for(const auto v : dg2.getAPIReference()->vertices()) vertexGraphsUnique.insert(v.getGraph());
-	std::vector<std::shared_ptr<graph::Graph> > vertexGraphs(begin(vertexGraphsUnique), end(vertexGraphsUnique));
+	std::unordered_set<std::shared_ptr<mod::graph::Graph> > vertexGraphsUnique;
+	for(const auto v: dg1.getAPIReference()->vertices()) vertexGraphsUnique.insert(v.getGraph());
+	for(const auto v: dg2.getAPIReference()->vertices()) vertexGraphsUnique.insert(v.getGraph());
+	std::vector<std::shared_ptr<mod::graph::Graph> > vertexGraphs(begin(vertexGraphsUnique), end(vertexGraphsUnique));
 	std::sort(begin(vertexGraphs), end(vertexGraphs),
-	          [](std::shared_ptr<graph::Graph> g1, std::shared_ptr<graph::Graph> g2) {
+	          [](std::shared_ptr<mod::graph::Graph> g1, std::shared_ptr<mod::graph::Graph> g2) {
 		          return g1->getName() < g2->getName();
 	          });
-	for(const auto &g : vertexGraphs) {
+	for(const auto &g: vertexGraphs) {
 		const bool in1 = dg1.getHyper().isVertexGraph(&g->getGraph());
 		const bool in2 = dg2.getHyper().isVertexGraph(&g->getGraph());
 		assert(in1 || in2);
@@ -325,18 +320,18 @@ void NonHyper::diff(const NonHyper &dg1, const NonHyper &dg2) {
 	// diff edges
 	const auto makeDers = [](const auto &dg) {
 		const auto order = [](Derivation d) -> Derivation {
-			std::sort(begin(d.left), end(d.left), graph::GraphLess());
-			std::sort(begin(d.right), end(d.right), graph::GraphLess());
+			std::sort(begin(d.left), end(d.left), mod::graph::GraphLess());
+			std::sort(begin(d.right), end(d.right), mod::graph::GraphLess());
 			return d;
 		};
 		std::vector<Derivation> ders;
-		for(const auto &e : dg.edges()) {
-			for(const auto &r : e.rules()) {
+		for(const auto &e: dg.edges()) {
+			for(const auto &r: e.rules()) {
 				Derivation d;
-				for(const auto &v : e.sources())
+				for(const auto &v: e.sources())
 					d.left.push_back(v.getGraph());
 				d.r = r;
-				for(const auto &v : e.targets())
+				for(const auto &v: e.targets())
 					d.right.push_back(v.getGraph());
 				ders.push_back(order(std::move(d)));
 			}
@@ -349,19 +344,19 @@ void NonHyper::diff(const NonHyper &dg1, const NonHyper &dg2) {
 	const auto derLess = [](const Derivation &d1, const Derivation &d2) {
 		if(std::lexicographical_compare(begin(d1.left), end(d1.left),
 		                                begin(d2.left), end(d2.left),
-		                                graph::GraphLess()))
+		                                mod::graph::GraphLess()))
 			return true;
 		else if(std::lexicographical_compare(begin(d2.left), end(d2.left),
 		                                     begin(d1.left), end(d1.left),
-		                                     graph::GraphLess()))
+		                                     mod::graph::GraphLess()))
 			return false;
 		if(std::lexicographical_compare(begin(d1.right), end(d1.right),
 		                                begin(d2.right), end(d2.right),
-		                                graph::GraphLess()))
+		                                mod::graph::GraphLess()))
 			return true;
 		else if(std::lexicographical_compare(begin(d2.right), end(d2.right),
 		                                     begin(d1.right), end(d1.right),
-		                                     graph::GraphLess()))
+		                                     mod::graph::GraphLess()))
 			return false;
 		return d1.r->getId() < d2.r->getId();
 	};

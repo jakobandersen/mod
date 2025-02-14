@@ -1,6 +1,7 @@
 #ifndef MOD_LIB_IO_GRAPHWRITEGENERIC_HPP
 #define MOD_LIB_IO_GRAPHWRITEGENERIC_HPP
 
+#include <mod/Config.hpp>
 #include <mod/Error.hpp>
 #include <mod/lib/Algorithm/Point.hpp>
 #include <mod/lib/Chem/MoleculeUtil.hpp>
@@ -304,6 +305,12 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 					hasBondBlockingAtChargeRight[vId] && !hasBondBlockingAtChargeLeft[vId]; // && isotope == Isotope();
 
 			std::string labelNoAux = lib::IO::escapeForLatex(depict.getVertexLabelNoIsotopeChargeRadical(v));
+			if(getConfig().graph.printVariablesAsMath && labelNoAux.size() > 2
+			   && labelNoAux[0] == '\\' && labelNoAux[1] == '_') {
+				labelNoAux.erase(labelNoAux.begin());
+				labelNoAux[0] = '$';
+				labelNoAux += '$';
+			}
 			std::string isotopeString;
 			if(isotope != Isotope()) {
 				if(options.raiseIsotopes) isotopeString += "$^{";
@@ -440,7 +447,8 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 			}
 
 			if(auxHPosition != -1) {
-				s << "\\node[modStyleGraphVertex" << colourString << ", at=(\\modIdPrefix v-" << advOptions.getOutputId(v)
+				s << "\\node[modStyleGraphVertex" << colourString << ", at=(\\modIdPrefix v-"
+				  << advOptions.getOutputId(v)
 				  << ".";
 				/**/ if(auxHPosition == Loc::R_narrow) s << "east), anchor=west";
 				else if(auxHPosition == Loc::L_narrow) s << "west), anchor=east";

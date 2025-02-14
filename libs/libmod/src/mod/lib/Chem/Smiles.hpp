@@ -11,22 +11,29 @@ namespace mod {
 struct AtomId;
 enum class SmilesClassPolicy;
 } // namespace mod
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 struct PropMolecule;
 struct PropString;
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 namespace mod::lib::Chem {
 
-std::string getSmiles(const lib::Graph::GraphType &g, const lib::Graph::PropMolecule &molState,
-                      const std::vector<int> *ranks, bool withIds);
-lib::IO::Result<std::vector<lib::Graph::Read::Data>>
+struct SmilesWriteResult {
+	std::string str;
+	bool isAbstract;
+};
+
+lib::IO::Result<SmilesWriteResult> getSmiles(const lib::graph::GraphType &g,
+                                             const lib::graph::PropString &pString,
+                                             const lib::graph::PropMolecule &pMol,
+                                             const std::vector<int> *ranks, bool withIds);
+lib::IO::Result<std::vector<lib::graph::Read::Data>>
 readSmiles(lib::IO::Warnings &warnings, bool printStereoWarnings,
            std::string_view smiles, bool allowAbstract, SmilesClassPolicy classPolicy);
 const std::vector<AtomId> &getSmilesOrganicSubset();
 bool isInSmilesOrganicSubset(AtomId atomId);
-void addImplicitHydrogens(lib::Graph::GraphType &g, lib::Graph::PropString &pString, lib::Graph::Vertex v,
-                          AtomId atomId, std::function<void(lib::Graph::GraphType &, lib::Graph::PropString &,
-                                                            lib::Graph::Vertex)> hydrogenAdder);
+void addImplicitHydrogens(lib::graph::GraphType &g, lib::graph::PropString &pString, lib::graph::Vertex v,
+                          AtomId atomId, std::function<void(lib::graph::GraphType &, lib::graph::PropString &,
+                                                            lib::graph::Vertex)> hydrogenAdder);
 
 } // namespace mod::lib::Chem
 

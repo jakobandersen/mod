@@ -3,14 +3,14 @@
 
 #include <mod/lib/Graph/GraphDecl.hpp>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 struct PropMolecule;
 struct PropStereo;
 struct PropString;
 struct PropTerm;
 
 struct LabelledGraph { // models a mod::lib::LabelledGraphConcept
-	using GraphType = lib::Graph::GraphType;
+	using GraphType = lib::graph::GraphType;
 	using PropStringType = PropString;
 	using PropTermType = PropTerm;
 	using PropStereoType = PropStereo;
@@ -45,6 +45,6 @@ private: // optimisation
 	mutable std::vector<typename boost::graph_traits<GraphType>::vertex_descriptor> vertex_order;
 };
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 #endif // MOD_LIB_GRAPH_LABELLED_GRAPH_HPP

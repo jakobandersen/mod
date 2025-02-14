@@ -149,7 +149,6 @@ public:
 	// rst:		:returns: a descriptor for the inverse hyperedge of this one, if it exists.
 	// rst:			Otherwise a null descriptor is returned.
 	// rst:		:throws: :class:`LogicError` if it is a null descriptor.
-	// rst:		:throws: :class:`LogicError` if not `getDG()->isLocked()`.
 	HyperEdge getInverse() const;
 public:
 	// rst: .. function:: std::vector<std::pair<std::string, std::string>> \

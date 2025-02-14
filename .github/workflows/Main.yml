@@ -21,11 +21,11 @@ jobs:
       run: sudo apt install -y $(bindep -b testing | tr '\n' ' ')
     - name: Install Boost
       run: |
-        wget https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
+        wget https://archives.boost.io/release/1.80.0/source/boost_1_80_0.tar.gz
         tar -xf boost_1_80_0.tar.gz
         cd boost_1_80_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 2 --with-python --with-graph --with-iostreams --with-test install
+        ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Install Graphviz
       run: |
         sudo apt install librsvg2-dev libpango1.0-dev libperl-dev
@@ -33,7 +33,7 @@ jobs:
         tar -xf graphviz.tar.gz --one-top-level=graphviz --strip-components=1
         cd graphviz
         ./configure
-        make -j 2
+        make -j 4
         sudo make install
     - name: Bootstrap
       run: ./bootstrap.sh
@@ -45,46 +45,13 @@ jobs:
         cd build
         cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DBOOST_ROOT=/opt/boost
     - name: Build
-      run: cd build && make -j 2
+      run: cd build && make -j 4
     - name: Install
       run: cd build && sudo make install
     - name: Build tests
-      run: cd build && make tests -j 2
+      run: cd build && make tests -j 4
     - name: Run tests
-      run: cd build && ctest --output-on-failure -j 2
-    - name: Run simple test
-      run: mod -e "smiles('O').print()"
-  macOS-12:
-    runs-on: macos-12
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        submodules: 'recursive'
-    - name: Install Brew dependencies
-      run: brew bundle
-    - name: Install pip dependencies
-      run: pip3 install -r requirements.txt
-    - name: Set PATH
-      run: |
-        /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
-        python3 -c 'import os,sysconfig;print(sysconfig.get_path("scripts",f"{os.name}_prefix"))' >> $GITHUB_PATH
-    - name: Bootstrap
-      run: ./bootstrap.sh
-    - name: Configure
-      run: |
-        mkdir build
-        cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
-    - name: Build
-      run: cd build && make -j 3
-    - name: Install
-      run: cd build && sudo make install
-    - name: Build tests
-      run: cd build && make tests -j 3
-    - name: Run tests
-      run: cd build && ctest --output-on-failure -j 3
+      run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
       run: mod -e "smiles('O').print()"
   macOS-13:
@@ -120,6 +87,37 @@ jobs:
       run: mod -e "smiles('O').print()"
   macOS-14:
     runs-on: macos-14
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+    - name: Install Brew dependencies
+      run: |
+        brew bundle
+        /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
+    - name: Install pip dependencies
+      run: pip3 install -r requirements.txt
+    - name: Bootstrap
+      run: ./bootstrap.sh
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
+    - name: Build
+      run: cd build && make -j 4
+    - name: Install
+      run: cd build && sudo make install
+    - name: Build tests
+      run: cd build && make tests -j 4
+    - name: Run tests
+      run: cd build && ctest --output-on-failure -j 4
+    - name: Run simple test
+      run: mod -e "smiles('O').print()"
+  macOS-15:
+    runs-on: macos-15
     steps:
     - name: Checkout
       uses: actions/checkout@v3

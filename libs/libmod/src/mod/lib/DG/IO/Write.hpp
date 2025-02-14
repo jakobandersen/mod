@@ -164,8 +164,8 @@ public:
 	std::function<std::string(Vertex, Vertex, const Hyper &)> tailColour, headColour;
 	std::function<void(const Hyper &, const Options &, SyntaxPrinter &)> auxPrinter;
 	// GraphPrinter overrides
-	std::function<int(std::shared_ptr<graph::Graph>)> rotationOverwrite;
-	std::function<bool(std::shared_ptr<graph::Graph>)> mirrorOverwrite;
+	std::function<int(std::shared_ptr<mod::graph::Graph>)> rotationOverwrite;
+	std::function<bool(std::shared_ptr<mod::graph::Graph>)> mirrorOverwrite;
 	// Graph overrides
 	std::function<std::pair<std::string, std::string>(Vertex v, int dupNum, const Hyper &)> imageOverwrite;
 	// rendering engine things
@@ -322,8 +322,8 @@ struct Printer {
 	void popEdgeColour();
 	bool hasEdgeColour() const;
 public: // GraphPrinter overrides
-	void setRotationOverwrite(std::function<int(std::shared_ptr<graph::Graph>)> f);
-	void setMirrorOverwrite(std::function<bool(std::shared_ptr<graph::Graph>)> f);
+	void setRotationOverwrite(std::function<int(std::shared_ptr<mod::graph::Graph>)> f);
+	void setMirrorOverwrite(std::function<bool(std::shared_ptr<mod::graph::Graph>)> f);
 public: // Graph overrides
 	void setImageOverwrite(std::function<std::pair<std::string, std::string>(
 			Vertex v, int dupNum, const Hyper &)> f);

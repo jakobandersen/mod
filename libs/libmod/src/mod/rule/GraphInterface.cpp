@@ -3,10 +3,10 @@
 #include <mod/Chem.hpp>
 #include <mod/graph/Printer.hpp>
 #include <mod/lib/GraphPimpl.hpp>
-#include <mod/lib/Rules/IO/DepictionData.hpp>
-#include <mod/lib/Rules/Real.hpp>
-#include <mod/lib/Rules/IO/Write.hpp>
-#include <mod/lib/Rules/Properties/Molecule.hpp>
+#include <mod/lib/Rule/IO/DepictionData.hpp>
+#include <mod/lib/Rule/Rule.hpp>
+#include <mod/lib/Rule/IO/Write.hpp>
+#include <mod/lib/Rule/Properties/Molecule.hpp>
 
 namespace mod::rule {
 
@@ -49,46 +49,41 @@ MOD_GRAPHPIMPL_Define_Vertex_Undirected(Rule::LeftGraph,
 
 const std::string &Rule::LeftGraph::Vertex::getStringLabel() const {
 	if(!*this) throw LogicError("Can not get string label on a null vertex.");
-	const auto &lr = g->getRule()->getRule().getDPORule();
-	const auto &rDPO = lr.getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getL(rDPO)).first, vId);
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getLeftInternalVertex(*this);
 	return get_string(lr).getLeft()[v];
 }
 
 AtomId Rule::LeftGraph::Vertex::getAtomId() const {
 	if(!*this) throw LogicError("Can not get atom id on a null vertex.");
-	const auto &lr = g->getRule()->getRule().getDPORule();
-	const auto &rDPO = lr.getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getL(rDPO)).first, vId);
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getLeftInternalVertex(*this);
 	return get_molecule(lr).getLeft()[v].getAtomId();
 }
 
 Isotope Rule::LeftGraph::Vertex::getIsotope() const {
 	if(!*this) throw LogicError("Can not get isotope on a null vertex.");
-	const auto &lr = g->getRule()->getRule().getDPORule();
-	const auto &rDPO = lr.getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getL(rDPO)).first, vId);
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getLeftInternalVertex(*this);
 	return get_molecule(lr).getLeft()[v].getIsotope();
 }
 
 Charge Rule::LeftGraph::Vertex::getCharge() const {
 	if(!*this) throw LogicError("Can not get charge on a null vertex.");
-	const auto &lr = g->getRule()->getRule().getDPORule();
-	const auto &rDPO = lr.getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getL(rDPO)).first, vId);
-	return get_molecule(g->getRule()->getRule().getDPORule()).getLeft()[v].getCharge();
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getLeftInternalVertex(*this);
+	return get_molecule(lr).getLeft()[v].getCharge();
 }
 
 bool Rule::LeftGraph::Vertex::getRadical() const {
 	if(!*this) throw LogicError("Can not get radical status on a null vertex.");
-	const auto &lr = g->getRule()->getRule().getDPORule();
-	const auto &rDPO = lr.getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getL(rDPO)).first, vId);
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getLeftInternalVertex(*this);
 	return get_molecule(lr).getLeft()[v].getRadical();
 }
 
@@ -103,18 +98,20 @@ std::string Rule::LeftGraph::Vertex::printStereo() const {
 
 std::string Rule::LeftGraph::Vertex::printStereo(const graph::Printer &p) const {
 	if(!*this) throw LogicError("Can not print stereo on a null vertex.");
-	const auto &rDPO = g->getRule()->getRule().getDPORule().getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getL(rDPO)).first, vId);
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto &rDPO = lr.getRule();
+	const auto v = libRule.getLeftInternalVertex(*this);
 	const auto vCG = get(rDPO.getLtoCG(), getL(rDPO), rDPO.getCombinedGraph(), v);
-	return lib::Rules::Write::stereoSummary(g->getRule()->getRule(), vCG, lib::Rules::Membership::L, p.getOptions());
+	return lib::rule::Write::stereoSummary(libRule, vCG, lib::rule::Membership::L, p.getOptions());
 }
 
 Rule::Vertex Rule::LeftGraph::Vertex::getCore() const {
 	if(isNull()) return Rule::Vertex();
-	const auto &rDPO = g->getRule()->getRule().getDPORule().getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getL(rDPO)).first, vId);
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto &rDPO = lr.getRule();
+	const auto v = libRule.getLeftInternalVertex(*this);
 	const auto vCG = get(rDPO.getLtoCG(), getL(rDPO), rDPO.getCombinedGraph(), v);
 	const auto vCGId = get(boost::vertex_index_t(), rDPO.getCombinedGraph(), vCG);
 	return Rule::Vertex(g->getRule(), vCGId);
@@ -295,49 +292,50 @@ MOD_GRAPHPIMPL_Define_Vertex_Undirected(Rule::RightGraph,
 
 const std::string &Rule::RightGraph::Vertex::getStringLabel() const {
 	if(!g) throw LogicError("Can not get string label on a null vertex.");
-	const auto &graph = getR(getRule()->getRule().getDPORule().getRule());
-	using boost::vertices;
-	const auto v = *std::next(vertices(graph).first, vId);
-	return get_string(getRule()->getRule().getDPORule()).getRight()[v];
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getRightInternalVertex(*this);
+	return get_string(lr).getRight()[v];
 }
 
 AtomId Rule::RightGraph::Vertex::getAtomId() const {
 	if(!g) throw LogicError("Can not get atom id on a null vertex.");
-	const auto &graph = getR(getRule()->getRule().getDPORule().getRule());
-	using boost::vertices;
-	const auto v = *std::next(vertices(graph).first, vId);
-	return get_molecule(getRule()->getRule().getDPORule()).getRight()[v].getAtomId();
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getRightInternalVertex(*this);
+	return get_molecule(lr).getRight()[v].getAtomId();
 }
 
 Isotope Rule::RightGraph::Vertex::getIsotope() const {
 	if(!g) throw LogicError("Can not get isotope on a null vertex.");
-	const auto &graph = getR(getRule()->getRule().getDPORule().getRule());
-	using boost::vertices;
-	const auto v = *std::next(vertices(graph).first, vId);
-	return get_molecule(getRule()->getRule().getDPORule()).getRight()[v].getIsotope();
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getRightInternalVertex(*this);
+	return get_molecule(lr).getRight()[v].getIsotope();
 }
 
 Charge Rule::RightGraph::Vertex::getCharge() const {
 	if(!g) throw LogicError("Can not get charge on a null vertex.");
-	const auto &graph = getR(getRule()->getRule().getDPORule().getRule());
-	using boost::vertices;
-	const auto v = *std::next(vertices(graph).first, vId);
-	return get_molecule(getRule()->getRule().getDPORule()).getRight()[v].getCharge();
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getRightInternalVertex(*this);
+	return get_molecule(lr).getRight()[v].getCharge();
 }
 
 bool Rule::RightGraph::Vertex::getRadical() const {
 	if(!g) throw LogicError("Can not get radical status on a null vertex.");
-	const auto &graph = getR(getRule()->getRule().getDPORule().getRule());
-	using boost::vertices;
-	const auto v = *std::next(vertices(graph).first, vId);
-	return get_molecule(getRule()->getRule().getDPORule()).getRight()[v].getRadical();
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto v = libRule.getRightInternalVertex(*this);
+	return get_molecule(lr).getRight()[v].getRadical();
 }
 
 Rule::Vertex Rule::RightGraph::Vertex::getCore() const {
 	if(isNull()) return Rule::Vertex();
-	const auto &rDPO = g->getRule()->getRule().getDPORule().getRule();
-	using boost::vertices;
-	const auto v = *std::next(vertices(getR(rDPO)).first, vId);
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto &rDPO = lr.getRule();
+	const auto v = libRule.getRightInternalVertex(*this);
 	const auto vCG = get(rDPO.getRtoCG(), getR(rDPO), rDPO.getCombinedGraph(), v);
 	const auto vCGId = get(boost::vertex_index_t(), rDPO.getCombinedGraph(), vCG);
 	return Rule::Vertex(getRule(), vCGId);
@@ -361,12 +359,12 @@ std::string Rule::RightGraph::Vertex::printStereo() const {
 
 std::string Rule::RightGraph::Vertex::printStereo(const graph::Printer &p) const {
 	if(!g) throw LogicError("Can not print stereo on a null vertex.");
-	const auto &graph = getR(getRule()->getRule().getDPORule().getRule());
-	using boost::vertices;
-	const auto v = *std::next(vertices(graph).first, vId);
-	const auto &dpo = g->getRule()->getRule().getDPORule().getRule();
-	const auto vCG = get(dpo.getRtoCG(), getR(dpo), dpo.getCombinedGraph(), v);
-	return lib::Rules::Write::stereoSummary(getRule()->getRule(), vCG, lib::Rules::Membership::R, p.getOptions());
+	const auto &libRule = g->getRule()->getRule();
+	const auto &lr = libRule.getDPORule();
+	const auto &rDPO = lr.getRule();
+	const auto v = libRule.getRightInternalVertex(*this);
+	const auto vCG = get(rDPO.getRtoCG(), getR(rDPO), rDPO.getCombinedGraph(), v);
+	return lib::rule::Write::stereoSummary(getRule()->getRule(), vCG, lib::rule::Membership::R, p.getOptions());
 }
 
 //------------------------------------------------------------------------------
@@ -436,14 +434,9 @@ Rule::LeftGraph::Vertex Rule::Vertex::getLeft() const {
 	const auto &rDPO = r->getRule().getDPORule().getRule();
 	const auto &gCombined = rDPO.getCombinedGraph();
 	const auto vCG = vertex(vId, gCombined);
-	if(gCombined[vCG].membership != lib::Rules::Membership::R) {
+	if(gCombined[vCG].membership != lib::rule::Membership::R) {
 		const auto vL = get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG);
-		using boost::vertices;
-		const auto &vs = vertices(getL(rDPO));
-		const auto vIter = std::find(vs.first, vs.second, vL);
-		assert(vIter != vs.second);
-		const auto vLOffset = std::distance(vs.first, vIter);
-		return LeftGraph::Vertex(r, vLOffset);
+		return r->getRule().getLeftInterfaceVertex(vL);
 	} else return LeftGraph::Vertex();
 }
 
@@ -452,14 +445,9 @@ Rule::ContextGraph::Vertex Rule::Vertex::getContext() const {
 	const auto &rDPO = r->getRule().getDPORule().getRule();
 	const auto &gCombined = rDPO.getCombinedGraph();
 	const auto vCG = vertex(vId, gCombined);
-	if(gCombined[vCG].membership == lib::Rules::Membership::K) {
+	if(gCombined[vCG].membership == lib::rule::Membership::K) {
 		const auto vK = get_inverse(rDPO.getKtoCG(), getK(rDPO), gCombined, vCG);
-		using boost::vertices;
-		const auto &vs = vertices(getK(rDPO));
-		const auto vIter = std::find(vs.first, vs.second, vK);
-		assert(vIter != vs.second);
-		const auto vKOffset = std::distance(vs.first, vIter);
-		return ContextGraph::Vertex(r, vKOffset);
+		return r->getRule().getContextInterfaceVertex(vK);
 	} else return ContextGraph::Vertex();
 }
 
@@ -468,15 +456,9 @@ Rule::RightGraph::Vertex Rule::Vertex::getRight() const {
 	const auto &rDPO = r->getRule().getDPORule().getRule();
 	const auto &gCombined = rDPO.getCombinedGraph();
 	const auto vCG = vertex(vId, gCombined);
-	if(gCombined[vCG].membership != lib::Rules::Membership::L) {
+	if(gCombined[vCG].membership != lib::rule::Membership::L) {
 		const auto vR = get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG);
-		using boost::vertices;
-		const auto &vs = vertices(getR(rDPO));
-		const auto vIter = std::find(vs.first, vs.second, vR);
-
-		assert(vIter != vs.second);
-		const auto vROffset = std::distance(vs.first, vIter);
-		return RightGraph::Vertex(r, vROffset);
+		return r->getRule().getRightInterfaceVertex(vR);
 	} else return RightGraph::Vertex();
 }
 
@@ -518,19 +500,10 @@ Rule::LeftGraph::Edge Rule::Edge::getLeft() const {
 	const auto &gCombined = rDPO.getCombinedGraph();
 	const auto vCG = vertex(vId, gCombined);
 	const auto eCG = *std::next(out_edges(vCG, gCombined).first, eId);
-	if(gCombined[eCG].membership != lib::Rules::Membership::R) {
+	if(gCombined[eCG].membership != lib::rule::Membership::R) {
 		const auto vL = get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG);
 		const auto eL = get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, eCG);
-		using boost::vertices;
-		const auto &vs = vertices(getL(rDPO));
-		const auto vIter = std::find(vs.first, vs.second, vL);
-		assert(vIter != vs.second);
-		const auto vLId = std::distance(vs.first, vIter);
-		const auto &es = out_edges(vL, getL(rDPO));
-		const auto eIter = std::find(es.first, es.second, eL);
-		assert(eIter != es.second);
-		const auto eLOffset = std::distance(es.first, eIter);
-		return LeftGraph::Edge(r, vLId, eLOffset);
+		return r->getRule().getLeftInterfaceEdge(vL, eL);
 	} else return LeftGraph::Edge();
 }
 
@@ -540,19 +513,10 @@ Rule::ContextGraph::Edge Rule::Edge::getContext() const {
 	const auto &gCombined = rDPO.getCombinedGraph();
 	const auto vCG = vertex(vId, gCombined);
 	const auto eCG = *std::next(out_edges(vCG, gCombined).first, eId);
-	if(gCombined[eCG].membership == lib::Rules::Membership::K) {
+	if(gCombined[eCG].membership == lib::rule::Membership::K) {
 		const auto vK = get_inverse(rDPO.getKtoCG(), getK(rDPO), gCombined, vCG);
 		const auto eK = get_inverse(rDPO.getKtoCG(), getK(rDPO), gCombined, eCG);
-		using boost::vertices;
-		const auto &vs = vertices(getK(rDPO));
-		const auto vIter = std::find(vs.first, vs.second, vK);
-		assert(vIter != vs.second);
-		const auto vKOffset = std::distance(vs.first, vIter);
-		const auto &es = out_edges(vK, getK(rDPO));
-		const auto eIter = std::find(es.first, es.second, eK);
-		assert(eIter != es.second);
-		const auto eKOffset = std::distance(es.first, eIter);
-		return ContextGraph::Edge(r, vKOffset, eKOffset);
+		return r->getRule().getContextInterfaceEdge(vK, eK);
 	} else return ContextGraph::Edge();
 }
 
@@ -562,19 +526,10 @@ Rule::RightGraph::Edge Rule::Edge::getRight() const {
 	const auto &gCombined = rDPO.getCombinedGraph();
 	const auto vCG = vertex(vId, gCombined);
 	const auto eCG = *std::next(out_edges(vCG, gCombined).first, eId);
-	if(gCombined[eCG].membership != lib::Rules::Membership::L) {
+	if(gCombined[eCG].membership != lib::rule::Membership::L) {
 		const auto vR = get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG);
 		const auto eR = get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG);
-		using boost::vertices;
-		const auto &vs = vertices(getR(rDPO));
-		const auto vIter = std::find(vs.first, vs.second, vR);
-		assert(vIter != vs.second);
-		const auto vRId = std::distance(vs.first, vIter);
-		const auto &es = out_edges(vR, getR(rDPO));
-		const auto eIter = std::find(es.first, es.second, eR);
-		assert(eIter != es.second);
-		const auto eROffset = std::distance(es.first, eIter);
-		return RightGraph::Edge(r, vRId, eROffset);
+		return r->getRule().getRightInterfaceEdge(vR, eR);
 	} else return RightGraph::Edge();
 }
 

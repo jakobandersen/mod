@@ -138,10 +138,10 @@ public:
 	// rst:		:returns: a list of all graphs created by the derivation graph,
 	// rst:			and all graphs given when constructed.
 	const std::vector<std::shared_ptr<graph::Graph>> &getGraphDatabase() const;
-	// rst: .. function:: const std::vector<std::shared_ptr<graph::Graph> > &getProducts() const
+	// rst: .. function:: const std::vector<std::shared_ptr<graph::Graph>> &getCreatedGraphs() const
 	// rst:
-	// rst:		:returns: the list of new graphs discovered by the derivation graph.
-	const std::vector<std::shared_ptr<graph::Graph> > &getProducts() const;
+	// rst:		:returns: the graphs that have been constructed by builder functions.
+	const std::vector<std::shared_ptr<graph::Graph>> &getCreatedGraphs() const;
 	// rst: .. function:: std::pair<std::string, std::string> print(const Printer &printer, const PrintData &data) const
 	// rst:
 	// rst:		Print the derivation graph in style of a hypergraph.

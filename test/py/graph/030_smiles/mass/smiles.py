@@ -22,7 +22,7 @@ for a in gCopy:
 			continue
 		else:
 			raise
-	b = smiles(a.smiles)
+	b = Graph.fromSMILES(a.smiles, allowAbstract=True)
 	inputGraphs[:] = [] # let's not keep the copies around, just for good measure
 	if a.isomorphism(b) != 1:
 		print("ERROR: smiles does not represent same molecule")

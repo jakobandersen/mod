@@ -9,13 +9,13 @@
 #include <vector>
 
 namespace mod::lib {
-namespace Graph {
-class Single;
-} // namespace Graph
+namespace graph {
+class Graph;
+} // namespace graph
 namespace DG::Strategies {
 
 struct GraphState {
-	using GraphList = std::vector<const lib::Graph::Single *>;
+	using GraphList = std::vector<const lib::graph::Graph *>;
 
 	struct Subset {
 		struct Transformer {
@@ -27,7 +27,7 @@ struct GraphState {
 		private:
 			const GraphList &graphs;
 		};
-		using const_iterator = boost::transform_iterator<Transformer, std::vector<int>::const_iterator, const lib::Graph::Single *>;
+		using const_iterator = boost::transform_iterator<Transformer, std::vector<int>::const_iterator, const lib::graph::Graph *>;
 		using size_type = std::vector<int>::size_type;
 	public:
 		explicit Subset(const GraphState &rs) : rs(rs) {}
@@ -62,11 +62,11 @@ private:
 public:
 	explicit GraphState();
 	explicit GraphState(const GraphState &other);
-	explicit GraphState(const std::vector<const Graph::Single *> &universe);
+	explicit GraphState(const std::vector<const lib::graph::Graph *> &universe);
 	explicit GraphState(const std::vector<const GraphState *> &resultSets);
 	~GraphState();
-	void addToSubset(const lib::Graph::Single *g);
-	void addToUniverse(const lib::Graph::Single *g);
+	void addToSubset(const lib::graph::Graph *g);
+	void addToUniverse(const lib::graph::Graph *g);
 	template<typename T>
 	struct Compare;
 	template<typename T>
@@ -75,10 +75,10 @@ public:
 	void sortSubset(const T compare);
 	const Subset &getSubset() const;
 	const GraphList &getUniverse() const;
-	bool isInUniverse(const lib::Graph::Single *g) const;
+	bool isInUniverse(const lib::graph::Graph *g) const;
 	friend bool operator==(const GraphState &a, const GraphState &b);
 private:
-	int addUniverseGetIndex(const lib::Graph::Single *g);
+	int addUniverseGetIndex(const lib::graph::Graph *g);
 private:
 	GraphList universe;
 	Subset subset;

@@ -3,7 +3,7 @@
 
 #include <mod/lib/GraphMorphism/TermVertexMap.hpp>
 #include <mod/lib/RC/Visitor/Compound.hpp>
-#include <mod/lib/Rules/Properties/Term.hpp>
+#include <mod/lib/Rule/Properties/Term.hpp>
 #include <mod/lib/Term/WAM.hpp>
 #include <mod/lib/Term/IO/Write.hpp>
 
@@ -17,7 +17,7 @@ struct Term {
 	using Cell = lib::Term::Cell;
 	using CellTag = lib::Term::Cell::Tag;
 public:
-	Term(const lib::Rules::LabelledRule &rFirst, const lib::Rules::LabelledRule &rSecond)
+	Term(const lib::rule::LabelledRule &rFirst, const lib::rule::LabelledRule &rSecond)
 			: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
@@ -288,8 +288,8 @@ private:
 		return addr.addr;
 	}
 private:
-	const lib::Rules::LabelledRule &rFirst;
-	const lib::Rules::LabelledRule &rSecond;
+	const lib::rule::LabelledRule &rFirst;
+	const lib::rule::LabelledRule &rSecond;
 };
 
 } // namespace mod::lib::RC::Visitor

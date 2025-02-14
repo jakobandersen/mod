@@ -10,48 +10,48 @@
 namespace mod::graph::internal {
 
 // Graph
-MOD_DECL const lib::Graph::GraphType &getGraph(const lib::Graph::Single &g);
-MOD_DECL const lib::Graph::LabelledGraph &getLabelledGraph(const lib::Graph::Single &g);
-MOD_DECL std::unique_ptr<lib::Graph::PropString> makePropString(const lib::Graph::GraphType &g);
-MOD_DECL void add(lib::Graph::PropString &pString, boost::graph_traits<lib::Graph::GraphType>::vertex_descriptor v,
+MOD_DECL const lib::graph::GraphType &getGraph(const lib::graph::Graph &g);
+MOD_DECL const lib::graph::LabelledGraph &getLabelledGraph(const lib::graph::Graph &g);
+MOD_DECL std::unique_ptr<lib::graph::PropString> makePropString(const lib::graph::GraphType &g);
+MOD_DECL void add(lib::graph::PropString &pString, boost::graph_traits<lib::graph::GraphType>::vertex_descriptor v,
                   const std::string &value);
-MOD_DECL void add(lib::Graph::PropString &pString, boost::graph_traits<lib::Graph::GraphType>::edge_descriptor e,
+MOD_DECL void add(lib::graph::PropString &pString, boost::graph_traits<lib::graph::GraphType>::edge_descriptor e,
                   const std::string &value);
 MOD_DECL std::shared_ptr<graph::Graph> makeGraph(
-		std::unique_ptr<lib::Graph::GraphType> g,
-		std::unique_ptr<lib::Graph::PropString> pString,
-		std::unique_ptr<lib::Graph::PropStereo> pStereo);
+		std::unique_ptr<lib::graph::GraphType> g,
+		std::unique_ptr<lib::graph::PropString> pString,
+		std::unique_ptr<lib::graph::PropStereo> pStereo);
 
-MOD_DECL std::string writePDF(const lib::Graph::Single &g, const mod::lib::IO::Graph::Write::Options &options);
+MOD_DECL std::string writePDF(const lib::graph::Graph &g, const mod::lib::IO::Graph::Write::Options &options);
 
 // LabelledGraph
-MOD_DECL const lib::Graph::GraphType &getGraph(const lib::Graph::LabelledGraph &g);
+MOD_DECL const lib::graph::GraphType &getGraph(const lib::graph::LabelledGraph &g);
 MOD_DECL const std::string &getString(
-		boost::graph_traits<lib::Graph::LabelledGraph::GraphType>::vertex_descriptor v,
-		const lib::Graph::LabelledGraph &g);
+		boost::graph_traits<lib::graph::LabelledGraph::GraphType>::vertex_descriptor v,
+		const lib::graph::LabelledGraph &g);
 MOD_DECL const std::string &getString(
-		boost::graph_traits<lib::Graph::LabelledGraph::GraphType>::edge_descriptor e,
-		const lib::Graph::LabelledGraph &g);
+		boost::graph_traits<lib::graph::LabelledGraph::GraphType>::edge_descriptor e,
+		const lib::graph::LabelledGraph &g);
 
 // LabelledUnionGraph<LabelledGraph>
-MOD_DECL void push_back(lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &ug, const lib::Graph::LabelledGraph *g);
+MOD_DECL void push_back(lib::LabelledUnionGraph<lib::graph::LabelledGraph> &ug, const lib::graph::LabelledGraph *g);
 
-MOD_DECL const lib::LabelledUnionGraph<lib::Graph::LabelledGraph>::GraphType &
-getGraph(const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g);
+MOD_DECL const lib::LabelledUnionGraph<lib::graph::LabelledGraph>::GraphType &
+getGraph(const lib::LabelledUnionGraph<lib::graph::LabelledGraph> &g);
 
 MOD_DECL const std::string &getString(
-		boost::graph_traits<lib::LabelledUnionGraph<lib::Graph::LabelledGraph>::GraphType>::vertex_descriptor v,
-		const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g);
+		boost::graph_traits<lib::LabelledUnionGraph<lib::graph::LabelledGraph>::GraphType>::vertex_descriptor v,
+		const lib::LabelledUnionGraph<lib::graph::LabelledGraph> &g);
 MOD_DECL const std::string &getString(
-		boost::graph_traits<lib::LabelledUnionGraph<lib::Graph::LabelledGraph>::GraphType>::edge_descriptor e,
-		const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g);
+		boost::graph_traits<lib::LabelledUnionGraph<lib::graph::LabelledGraph>::GraphType>::edge_descriptor e,
+		const lib::LabelledUnionGraph<lib::graph::LabelledGraph> &g);
 
 MOD_DECL const AtomData &getMolecule(
-		boost::graph_traits<lib::LabelledUnionGraph<lib::Graph::LabelledGraph>::GraphType>::vertex_descriptor v,
-		const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g);
+		boost::graph_traits<lib::LabelledUnionGraph<lib::graph::LabelledGraph>::GraphType>::vertex_descriptor v,
+		const lib::LabelledUnionGraph<lib::graph::LabelledGraph> &g);
 MOD_DECL BondType getMolecule(
-		boost::graph_traits<lib::LabelledUnionGraph<lib::Graph::LabelledGraph>::GraphType>::edge_descriptor e,
-		const lib::LabelledUnionGraph<lib::Graph::LabelledGraph> &g);
+		boost::graph_traits<lib::LabelledUnionGraph<lib::graph::LabelledGraph>::GraphType>::edge_descriptor e,
+		const lib::LabelledUnionGraph<lib::graph::LabelledGraph> &g);
 
 } // namespace mod::graph::internal
 

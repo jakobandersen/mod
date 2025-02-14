@@ -6,9 +6,9 @@
 namespace mod::graph {
 struct Graph;
 } // namespace mod::graph
-namespace mod::lib::Graph {
-struct Single;
-} // namespace mod::lib::Graph
+namespace mod::lib::graph {
+struct Graph;
+} // namespace mod::lib::graph
 namespace mod::lib::IO::Graph::Write {
 struct Options;
 } // namespace mod::lib::IO::Graph::Write

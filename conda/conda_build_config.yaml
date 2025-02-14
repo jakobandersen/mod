@@ -2,7 +2,6 @@
 #       variations for those verions.
 # https://github.com/conda-forge/conda-forge-pinning-feedstock/tree/main/recipe
 python:
-  - 3.8
   - 3.9
   - 3.10
   - 3.11

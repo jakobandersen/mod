@@ -12,7 +12,7 @@
 #include <mod/lib/DG/Strategies/Strategy.hpp>
 #include <mod/lib/DG/IO/Read.hpp>
 #include <mod/lib/DG/IO/Write.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/IO/IO.hpp>
 
 #include <boost/lexical_cast.hpp>
@@ -172,8 +172,8 @@ const std::vector<std::shared_ptr<graph::Graph>> &DG::getGraphDatabase() const {
 	return getNonHyper().getGraphDatabase().asList();
 }
 
-const std::vector<std::shared_ptr<graph::Graph> > &DG::getProducts() const {
-	return getNonHyper().getProducts();
+const std::vector<std::shared_ptr<graph::Graph>> &DG::getCreatedGraphs() const {
+	return getNonHyper().getCreatedGraphs();
 }
 
 std::pair<std::string, std::string> DG::print(const Printer &printer, const PrintData &data) const {

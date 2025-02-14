@@ -9,6 +9,7 @@ labelled graphs according to a specific :ref:`molecule encoding <mol-enc>`.
 For graphs that are sufficiently molecule-like, a SMILES string can be
 generated. The generated strings are canonical in the sense that the same
 version of MØD will print the same SMILES string for isomorphic molecules.
+See [AM-Canon]_ for information on how the canonicalisation algorithm works.
 
 The reading of SMILES strings is based on the `OpenSMILES
 <http://www.opensmiles.org/>`_ specification, but with the following

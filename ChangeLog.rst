@@ -4,6 +4,85 @@
 Changes
 #######
 
+v0.17.0 (2025-02-16)
+====================
+
+Incompatible Changes
+--------------------
+
+- :ref:`mod_post` will now skip summary generation if there are no post-processing
+  commands, avoiding running the Latex compiler. However, scripts can no longer rely
+  on the summary PDF to always be generated (even if it would be empty).
+- The rule loading functions in PyMØD, :py:func:`Rule.fromGMLString`,
+  :py:func:`Rule.fromGMLFile`, and :py:func:`Rule.fromDFS`,
+  now only accepts the first argument and the new name argument as positional,
+  while the remaning arguments must be specified by keyword.
+- On macOS, require the HEAD version of Open Babel in the Brewfile, because the newest
+  release of Open Babel does not support C++17.
+- The EpiM Python submodule has been removed due to maintenance issues.
+- ``dg::DG::getProducts()``/``DG.products`` has been renamed to
+  :cpp:func:`dg::DG::getCreatedGraphs`/:py:attr:`DG.createdGraphs` to avoid potential
+  confusion with the chemical term "product".
+- ``rule::Composer::getProducts()``/``RCEvaluator.products`` has been renamed to
+  :cpp:func:`rule::Composer::getCreatedRules`/:py:attr:`RCEvaluator.createdRules` to
+  avoid potential confusion with the chemical term "product".
+- The parameters for the constructor of
+  :cpp:class:`dg::VertexMapper`/:py:class:`DGVertexMapper` has changed:
+  the ``leftLimit`` parameter has been removed and ``isomorphismG`` has been renamed to
+  ``isomorphismGDH``.
+- Remove ``rule::Composer::create()`` but make the constructor public.
+- Deprecate ``rcEvaluator``, use the constructor of :py:class:`RCEvaluator`
+  directly instead.
+
+
+New Features
+------------
+
+- The function :cpp:func:`dg::Builder::addAbstract`/:py:meth:`DG.Builder.addAbstract`
+  now returns an object which contains a mapping such that you can retrieve the graphs
+  mentioned in the description by the name used in the description.
+  See :cpp:func:`dg::AddAbstractResult::getGraph`/:py:meth:`DG.Builder.AddAbstractResult.getGraph`.
+- Extend the :ref:`abstract derivation graph description format <dg_abstract-desc>`
+  to allow specifying an ID for a derivation. The ID can then be given to
+  :cpp:func:`dg::AddAbstractResult::getEdge`/:py:meth:`DG.Builder.AddAbstractResult.getEdge`
+  to get the corresponding :cpp:class:`dg::DG::HyperEdge`/:py:class:`DG.HyperEdge`.
+- Make it possible to access the inverse hyperedge
+  (:cpp:func:`dg::DG::HyperEdge::getInverse`/:py:attr:`DG.HyperEdge.inverse`)
+  during creation of a :cpp:class:`dg::DG`/:py:class:`DG`, instead of only
+  after creation.
+- Make is possible to generate SMILES strings of graph loaded as abstract SMILES strings,
+  e.g., where vertices has almost-arbitrary labels like "``*``" and "``Pi [inorganic]``".
+- The rule loading functions in PyMØD, :py:func:`Rule.fromGMLString`,
+  :py:func:`Rule.fromGMLFile`, and :py:func:`Rule.fromDFS`, now optionally accepts
+  a name for the rule as a second positional argument.
+- The class :cpp:class:`dg::VertexMapper`/:py:class:`DGVertexMapper` has been updated:
+
+  - Each result now includes vertex maps for how the rule was matched to create that
+    particular result. Thus, the full DPO diagram is now effectively available for a
+    direct derivation.
+  - The documentation has been significantly improved.
+  - The performance has been improved by inferring part of the result,
+    making the ``leftLimit`` parameter not needed.
+
+
+Bugs Fixed
+----------
+
+- In the documentation for :py:meth:`RCMatch.push`, remove stray ``void``.
+- Change the default argument ``leftLimit`` from :math:`2^{30}` to 1
+  for the constructor for :py:class:`DGVertexMapper`, as intended and as
+  written in the documentation.
+- Fix SMILES string generation for graph with hydrogens with either more than 1
+  incident edge or with edge(s) with a non-single bond label.
+- Fix :py:meth:`Rule.isomorphicLeftRight`/:cpp:func:`rule::Rule::isomorphicLeftRight`,
+  it was completely broken.
+- Fix SMILES string generation for molecules with negative charges on systems
+  where ``char`` is unsigned.
+- General update/improve/fix of documentation on rule composition expressions
+  (:ref:`py-rule/Composition`).
+- In the documentation for :py:class:`SmilesClassPolicy`, correct ``AllOrNone``
+  to ``NoneOnDuplicate``.
+
 
 v0.16.0 (2024-06-18)
 ====================
@@ -58,7 +137,7 @@ Bugs Fixed
 - Actually throw an exception when using
   :cpp:func:`dg::DG::Vertex::getGraph`/:py:attr:`DG.Vertex.graph` on a null vertex,
   instead of having undefined behaviour.
-- Doc, show default arguments for :py:func:`rcEvaluator`.
+- Doc, show default arguments for ``rcEvaluator()``.
 
 
 v0.15.0 (2024-01-26)
@@ -555,7 +634,7 @@ New Features
   - Generalize the parser to accept non-standard charges:
     ``+++``, ``++``, ``---``, ``--``, and magnitudes larger than +/-9.
 
-- Added the PyMØD submodule :ref:`epim`.
+- Added the PyMØD submodule for EpiM.
 - Added :cpp:enum:`SmilesClassPolicy`/:py:class:`SmilesClassPolicy`
   argument to :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`smiles`.
 - Support using either Open Babel 2 or 3 as dependency.

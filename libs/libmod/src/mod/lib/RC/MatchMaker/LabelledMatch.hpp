@@ -7,7 +7,7 @@
 #include <mod/lib/GraphMorphism/LabelledMorphism.hpp>
 #include <mod/lib/GraphMorphism/StereoVertexMap.hpp>
 #include <mod/lib/GraphMorphism/TermVertexMap.hpp>
-#include <mod/lib/Rules/IO/Write.hpp>
+#include <mod/lib/Rule/IO/Write.hpp>
 
 #include <jla_boost/graph/morphism/models/PropertyVertexMap.hpp>
 
@@ -16,32 +16,32 @@ constexpr int V_MorphismGen = 2;
 constexpr int V_Composition = 12;
 namespace detail {
 
-inline void initTermLabel(const lib::Rules::Real &rFirst, // TODO: make rules generic, when needed
-                          const lib::Rules::Real &rSecond) {
+inline void initTermLabel(const lib::rule::Rule &rFirst, // TODO: make rules generic, when needed
+                          const lib::rule::Rule &rSecond) {
 	const auto &termFirst = get_term(rFirst.getDPORule());
 	const auto &termSecond = get_term(rSecond.getDPORule());
 	if(!isValid(termFirst)) {
 		std::string msg = "Term state of rFirst is invalid:\n" + termFirst.getParsingError();
-		lib::Rules::Write::summary(rFirst, true);
+		lib::rule::Write::summary(rFirst, true);
 		throw mod::FatalError(std::move(msg));
 	}
 	if(!isValid(termSecond)) {
 		std::string msg = "Term state of rSecond is invalid:\n" + termSecond.getParsingError();
-		lib::Rules::Write::summary(rSecond, true);
+		lib::rule::Write::summary(rSecond, true);
 		throw mod::FatalError(std::move(msg));
 	}
 }
 
-inline void initStereoLabel(const lib::Rules::Real &rFirst, // TODO: make rules generic, when needed
-                            const lib::Rules::Real &rSecond) {
+inline void initStereoLabel(const lib::rule::Rule &rFirst, // TODO: make rules generic, when needed
+                            const lib::rule::Rule &rSecond) {
 	get_stereo(rFirst.getDPORule());
 	get_stereo(rSecond.getDPORule());
 }
 
 } // namespace detail
 
-inline void initByLabelSettings(const lib::Rules::Real &rFirst, // TODO: make rules generic, when needed
-                                const lib::Rules::Real &rSecond,
+inline void initByLabelSettings(const lib::rule::Rule &rFirst, // TODO: make rules generic, when needed
+                                const lib::rule::Rule &rSecond,
                                 LabelSettings labelSettings) {
 	switch(labelSettings.type) {
 	case LabelType::String:
@@ -61,8 +61,8 @@ namespace detail {
 //}
 
 template<typename MR, typename VertexMap>
-bool handleMapToStereo(const lib::Rules::Real &rFirst, // TODO: make rules generic, when needed
-                       const lib::Rules::Real &rSecond,
+bool handleMapToStereo(const lib::rule::Rule &rFirst, // TODO: make rules generic, when needed
+                       const lib::rule::Rule &rSecond,
                        VertexMap &&m, MR &&mr,
                        LabelSettings labelSettings,
                        const int verbosity, IO::Logger logger) {
@@ -90,8 +90,8 @@ bool handleMapToStereo(const lib::Rules::Real &rFirst, // TODO: make rules gener
 }
 
 template<typename MR, typename VertexMap>
-bool handleMapToTerm(const lib::Rules::Real &rFirst, // TODO: make rules generic, when needed
-                     const lib::Rules::Real &rSecond,
+bool handleMapToTerm(const lib::rule::Rule &rFirst, // TODO: make rules generic, when needed
+                     const lib::rule::Rule &rSecond,
                      VertexMap &&m, MR &&mr,
                      LabelSettings labelSettings,
                      const int verbosity, IO::Logger logger) {
@@ -142,8 +142,8 @@ bool handleMapToTerm(const lib::Rules::Real &rFirst, // TODO: make rules generic
 	// we copy the unmatched in the visitor, so we are done now
 
 	machine.verify();
-	//		lib::IO::Rules::Write::termState(rFirst);
-	//		lib::IO::Rules::Write::termState(rSecond);
+	//		lib::IO::rule::Write::termState(rFirst);
+	//		lib::IO::rule::Write::termState(rSecond);
 	//		lib::IO::Term::Write::wam(termFirst.getMachine(), lib::Term::getStrings(), std::cout << "MachineFirst:\n");
 	//		lib::IO::Term::Write::wam(termSecond.getMachine(), lib::Term::getStrings(), std::cout << "MachineSecond:\n");
 	lib::GraphMorphism::TermData data{std::move(machine), std::move(mgu)};
@@ -152,8 +152,8 @@ bool handleMapToTerm(const lib::Rules::Real &rFirst, // TODO: make rules generic
 }
 
 template<typename MR, typename VertexMap>
-bool handleMapToStringOrTerm(const lib::Rules::Real &rFirst, // TODO: make rules generic, when needed
-                             const lib::Rules::Real &rSecond,
+bool handleMapToStringOrTerm(const lib::rule::Rule &rFirst, // TODO: make rules generic, when needed
+                             const lib::rule::Rule &rSecond,
                              VertexMap &&m, MR &&mr,
                              LabelSettings labelSettings,
                              const int verbosity, IO::Logger logger) {
@@ -169,8 +169,8 @@ bool handleMapToStringOrTerm(const lib::Rules::Real &rFirst, // TODO: make rules
 } // namesapce detail
 
 template<typename VertexMap, typename MR>
-bool handleMapByLabelSettings(const lib::Rules::Real &rFirst, // TODO: make rules generic, when needed
-                              const lib::Rules::Real &rSecond,
+bool handleMapByLabelSettings(const lib::rule::Rule &rFirst, // TODO: make rules generic, when needed
+                              const lib::rule::Rule &rSecond,
                               VertexMap &&m, MR &&mr,
                               LabelSettings labelSettings,
                               const int verbosity, IO::Logger logger) {

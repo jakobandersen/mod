@@ -4,13 +4,13 @@
 #include <mod/graph/Graph.hpp>
 #include <mod/rule/Rule.hpp>
 #include <mod/lib/DG/Hyper.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
 #include <mod/lib/Graph/Properties/String.hpp>
 #include <mod/lib/Graph/IO/Read.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/IO/Parsing.hpp>
-#include <mod/lib/Rules/Real.hpp>
+#include <mod/lib/Rule/Rule.hpp>
 
 #include <jla_boost/graph/PairToRangeAdaptor.hpp>
 
@@ -30,41 +30,41 @@ namespace mod::lib::DG::Dump {
 namespace {
 
 struct ConstructionData {
-	const std::vector<std::shared_ptr<rule::Rule> > &rules;
+	const std::vector<std::shared_ptr<mod::rule::Rule> > &rules;
 	std::vector<std::tuple<
 			unsigned int,
 			std::string,
-			std::unique_ptr<lib::Graph::GraphType>,
-			std::unique_ptr<lib::Graph::PropString>
+			std::unique_ptr<lib::graph::GraphType>,
+			std::unique_ptr<lib::graph::PropString>
 	>> vertices;
 	const std::vector<std::tuple<unsigned int, std::string> > rulesParsed;
 	const std::vector<std::tuple<unsigned int, std::vector<unsigned int>, std::vector<int> > > edges;
 };
 
 struct NonHyperDump : public NonHyper {
-	NonHyperDump(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
+	NonHyperDump(const std::vector<std::shared_ptr<mod::graph::Graph>> &graphs,
 	             ConstructionData &&constructionData)
 			: NonHyper({LabelType::String, LabelRelation::Isomorphism}, graphs, IsomorphismPolicy::Check) {
 		calculatePrologue(nullptr, nullptr);
 		constexpr bool printInfo = true;
-		const std::vector<std::shared_ptr<rule::Rule> > &rules = constructionData.rules;
+		const std::vector<std::shared_ptr<mod::rule::Rule> > &rules = constructionData.rules;
 		auto &vertices = constructionData.vertices;
 		const auto &rulesParsed = constructionData.rulesParsed;
 		const auto &edges = constructionData.edges;
-		std::unordered_map<unsigned int, std::shared_ptr<rule::Rule> > ruleMap;
-		std::unordered_map<unsigned int, std::shared_ptr<graph::Graph> > graphMap;
+		std::unordered_map<unsigned int, std::shared_ptr<mod::rule::Rule> > ruleMap;
+		std::unordered_map<unsigned int, std::shared_ptr<mod::graph::Graph> > graphMap;
 		this->rules.reserve(rulesParsed.size());
 		ruleMap.reserve(rulesParsed.size());
 		graphMap.reserve(vertices.size());
 		for(const auto &t : rulesParsed) {
-			const auto iter = std::find_if(begin(rules), end(rules), [&t](std::shared_ptr<rule::Rule> r) -> bool {
+			const auto iter = std::find_if(begin(rules), end(rules), [&t](std::shared_ptr<mod::rule::Rule> r) -> bool {
 				return r->getName() == get<1>(t);
 			});
 			if(iter == end(rules)) {
 				std::string msg = "Can not load DG dump. Rule not found: '" + get<1>(t) + "'";
 				throw InputError(std::move(msg));
 			}
-			std::shared_ptr<rule::Rule> r = *iter;
+			std::shared_ptr<mod::rule::Rule> r = *iter;
 			if(printInfo)
 				std::cout << "Rule linked: " << r->getName() << std::endl;
 			this->rules.push_back(r);
@@ -77,7 +77,7 @@ struct NonHyperDump : public NonHyper {
 		for(unsigned int id = 0; id < vertices.size() + edges.size(); id++) {
 			if(iVertices < vertices.size() && get<0>(vertices[iVertices]) == id) {
 				auto &v = vertices[iVertices];
-				auto gCand = std::make_unique<lib::Graph::Single>(std::move(get<2>(v)), std::move(get<3>(v)), nullptr);
+				auto gCand = std::make_unique<lib::graph::Graph>(std::move(get<2>(v)), std::move(get<3>(v)), nullptr);
 				auto p = checkIfNew(std::move(gCand));
 				const bool wasNew = trustAddGraphAsVertex(p.first);
 				graphMap[id] = p.first;
@@ -88,7 +88,7 @@ struct NonHyperDump : public NonHyper {
 				iVertices++;
 			} else if(iEdges < edges.size() && get<0>(edges[iEdges]) == id) {
 				const auto &e = edges[iEdges];
-				std::vector<const lib::Graph::Single *> srcGraphs, tarGraphs;
+				std::vector<const lib::graph::Graph *> srcGraphs, tarGraphs;
 				int srcSize = 0, tarSize = 0;
 				for(int adj : get<2>(e)) {
 					assert(adj != 0);
@@ -129,7 +129,7 @@ private:
 		return "DGDump";
 	}
 private:
-	std::vector<std::shared_ptr<rule::Rule> > rules;
+	std::vector<std::shared_ptr<mod::rule::Rule>> rules;
 };
 
 template<typename Iter>
@@ -163,8 +163,8 @@ bool parse(Iter &textFirst,
 
 } // namespace
 
-std::unique_ptr<NonHyper> load(const std::vector<std::shared_ptr<graph::Graph> > &graphs,
-                               const std::vector<std::shared_ptr<rule::Rule> > &rules,
+std::unique_ptr<NonHyper> load(const std::vector<std::shared_ptr<mod::graph::Graph> > &graphs,
+                               const std::vector<std::shared_ptr<mod::rule::Rule> > &rules,
                                const std::string &file,
                                std::ostream &err) {
 	boost::iostreams::mapped_file_source ifs;
@@ -184,8 +184,8 @@ std::unique_ptr<NonHyper> load(const std::vector<std::shared_ptr<graph::Graph> >
 	std::vector<std::tuple<
 			unsigned int,
 			std::string,
-			std::unique_ptr<lib::Graph::GraphType>,
-			std::unique_ptr<lib::Graph::PropString>
+			std::unique_ptr<lib::graph::GraphType>,
+			std::unique_ptr<lib::graph::PropString>
 	>> vertices;
 	std::vector<std::tuple<unsigned int, std::string> > rulesParsed;
 	std::vector<std::tuple<unsigned int, std::vector<unsigned int>, std::vector<int> > > edges;
@@ -207,7 +207,7 @@ std::unique_ptr<NonHyper> load(const std::vector<std::shared_ptr<graph::Graph> >
 		PARSE('"' >> x3::lexeme[*(x3::char_ - '"') >> '"'], name);
 		PARSE('"' >> x3::lexeme[*(x3::char_ - '"') >> '"'], dfs);
 		IO::Warnings warnings;
-		auto gDataRes = Graph::Read::dfs(warnings, dfs);
+		auto gDataRes = lib::graph::Read::dfs(warnings, dfs);
 		assert(warnings.empty());
 		if(!gDataRes) {
 			err << gDataRes.extractError() << '\n';

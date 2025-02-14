@@ -111,7 +111,7 @@ struct MOD_DECL AtomData {
 	// rst:		Construct atom data with default values:
 	// rst:
 	// rst:		- :cpp:var:`AtomIds::Invalid` atom id,
-	// rst:		- :cpp:expr:`Isotope()` as isotope,
+	// rst:		- :cpp:texpr:`Isotope()` as isotope,
 	// rst:		- neutral charge, and
 	// rst:		- no radical.
 	constexpr AtomData() = default;

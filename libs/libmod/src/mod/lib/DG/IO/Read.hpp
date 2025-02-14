@@ -8,6 +8,7 @@
 #include <mod/lib/IO/Json.hpp>
 
 #include <iosfwd>
+#include <optional>
 #include <string>
 #include <unordered_map>
 
@@ -20,19 +21,16 @@ namespace mod::lib::DG::Read {
 struct AbstractDerivation {
 	using List = std::vector<std::pair<unsigned int, std::string>>;
 public:
+	std::optional<std::string> id;
 	List left;
 	bool reversible;
 	List right;
-public:
-	friend bool operator==(const AbstractDerivation &l, const AbstractDerivation &r) {
-		return std::tie(l.left, l.reversible, l.right) == std::tie(r.left, r.reversible, r.right);
-	}
 };
 
 std::optional<nlohmann::json> loadDump(const std::string &file, std::ostream &err);
 
-std::unique_ptr<NonHyper> dump(const std::vector<std::shared_ptr<graph::Graph> > &graphDatabase,
-                               const std::vector<std::shared_ptr<rule::Rule> > &ruleDatabase,
+std::unique_ptr<NonHyper> dump(const std::vector<std::shared_ptr<mod::graph::Graph> > &graphDatabase,
+                               const std::vector<std::shared_ptr<mod::rule::Rule> > &ruleDatabase,
                                const std::string &file,
                                IsomorphismPolicy graphPolicy,
                                std::ostream &err, int verbosity);

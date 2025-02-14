@@ -7,7 +7,7 @@
 #include <optional>
 #include <string>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 struct PropString;
 
 struct PropTerm : Prop<PropTerm, std::size_t, std::size_t> {
@@ -24,6 +24,6 @@ private:
 	bool hasVariables = false;
 };
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 #endif // MOD_LIB_GRAPH_PROP_TERM_HPP

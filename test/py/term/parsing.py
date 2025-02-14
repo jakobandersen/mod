@@ -30,8 +30,8 @@ fail(lambda: r.isomorphism(r, 1, ls),
 	"Parsing failed", err=TermParsingError, isSubstring=True)
 fail(lambda: r.monomorphism(r, 1, ls),
 	"Parsing failed", err=TermParsingError, isSubstring=True)
-fail(lambda: rcEvaluator(inputRules, ls),
+fail(lambda: RCEvaluator(inputRules, ls),
 	"Parsing failed", err=TermParsingError, isSubstring=True)
-rc = rcEvaluator([], ls)
+rc = RCEvaluator([], ls)
 fail(lambda: rc.eval(inputRules *rcSuper* inputRules),
 	"Parsing failed", err=TermParsingError, isSubstring=True)

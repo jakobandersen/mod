@@ -51,14 +51,7 @@
 		"0500_basicFlow.py": "050_flow/500_basicFlow.py",
 		"0501_extraConstraints.py": "050_flow/501_extraConstraints.py",
 		"0502_multipleSolutions.py": "050_flow/502_multipleSolutions.py",
-		"0510_autocatalysis.py": "050_flow/510_autocatalysis.py",
-		"5000_encoding_simple.py": "900_epim/0_encoding_simple.py",
-		"5001_encoding_restriction.py": "900_epim/1_encoding_restriction.py",
-		"5002_encoding_recursive.py": "900_epim/2_encoding_recursive.py",
-		"5003_encoding_config.py": "900_epim/3_encoding_config.py",
-		"5004_exec_space_simple.py": "900_epim/4_exec_space_simple.py",
-		"5005_exec_space_recursive.py": "900_epim/5_exec_space_recursive.py",
-		"5006_hospital.py": "900_epim/6_hospital.py"
+		"0510_autocatalysis.py": "050_flow/510_autocatalysis.py"
 	},
 	{
 		"050_flow/500_basicFlow.py": "050_hyperflow/500_basicFlow.py",

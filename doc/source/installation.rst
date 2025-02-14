@@ -17,7 +17,8 @@ package:
 Conda
 -----
 
-This is currently only available for Linux.
+The Anaconda page for the MØD package can be found at https://anaconda.org/jakobandersen/mod.
+Currently there are only Linux builds available.
 
 1. Install Latex on your system.
    E.g., see the provided ``bindep.txt`` file for which

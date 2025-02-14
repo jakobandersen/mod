@@ -17,11 +17,11 @@ std::unique_ptr<Strategy> Sequence::clone() const {
 	return std::make_unique<Sequence>(std::move(subStrats));
 }
 
-void Sequence::preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const {
+void Sequence::preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const {
 	for(const auto &s : strats) s->preAddGraphs(add);
 }
 
-void Sequence::forEachRule(std::function<void(const lib::Rules::Real &)> f) const {
+void Sequence::forEachRule(std::function<void(const lib::rule::Rule &)> f) const {
 	for(const auto &s : strats) s->forEachRule(f);
 }
 
@@ -41,7 +41,7 @@ const GraphState &Sequence::getOutput() const {
 	return strats.back()->getOutput();
 }
 
-bool Sequence::isConsumed(const Graph::Single *g) const {
+bool Sequence::isConsumed(const lib::graph::Graph *g) const {
 	for(const auto &s : strats)
 		if(s->isConsumed(g)) return true;
 	return false;

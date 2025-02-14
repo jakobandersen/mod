@@ -12,11 +12,11 @@ protected:
 	                    std::unique_ptr<Strategy> strat);
 public:
 	virtual ~DerivationPredicate() override;
-	virtual void preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const override;
-	virtual void forEachRule(std::function<void(const lib::Rules::Real &)> f) const override;
+	virtual void preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const override;
+	virtual void forEachRule(std::function<void(const lib::rule::Rule &)> f) const override;
 	virtual void printInfo(PrintSettings settings) const override;
 	virtual const GraphState &getOutput() const override;
-	virtual bool isConsumed(const lib::Graph::Single *g) const override;
+	virtual bool isConsumed(const lib::graph::Graph *g) const override;
 protected:
 	virtual void printName(std::ostream &s) const = 0;
 	virtual void pushPredicate(std::shared_ptr<mod::Function<bool(const mod::Derivation &)> > pred) = 0;

@@ -58,19 +58,19 @@ fail(lambda: DG(graphDatabase=[g1, g2]), "Isomorphic graphs '{}' and '{}' in ini
 dg = DG(graphDatabase=[g1, g2], graphPolicy=IsomorphismPolicy.TrustMe)
 
 dg = DG(graphDatabase=[g])
-assert dg.products == []
+assert dg.createdGraphs == []
 dg.build().execute(addSubset(g) >> ruleGMLString("""rule [
 	left [ node [ id 0 label "O" ] ]
 	right [ node [ id 0 label "S" ] ]
 ]"""))
-assert len(dg.products) == 1
-assert dg.products[0].isomorphism(smiles("S")) == 1
+assert len(dg.createdGraphs) == 1
+assert dg.createdGraphs[0].isomorphism(smiles("S")) == 1
 
 dg = DG(graphDatabase=[g])
-assert dg.products == []
+assert dg.createdGraphs == []
 dg.build().apply([g], ruleGMLString("""rule [
 	left [ node [ id 0 label "O" ] ]
 	right [ node [ id 0 label "S" ] ]
 ]"""))
-assert len(dg.products) == 1
-assert dg.products[0].isomorphism(smiles("S")) == 1
+assert len(dg.createdGraphs) == 1
+assert dg.createdGraphs[0].isomorphism(smiles("S")) == 1

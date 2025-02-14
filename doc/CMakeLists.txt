@@ -17,3 +17,12 @@ set_property(DIRECTORY PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${output} ${doctrees
 install(DIRECTORY ${output}
         DESTINATION ${CMAKE_INSTALL_DOCDIR}
         COMPONENT MOD_doc)
+
+# doc examples
+# =============================================================================
+if(BUILD_PY_MOD)
+    foreach(fileName ${mod_DOC_PY_FILES})
+        string(REPLACE "/" "__" testName "doc__${fileName}")
+        make_py_test(source/${fileName} ${testName} "")
+    endforeach()
+endif()

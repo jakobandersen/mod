@@ -23,6 +23,8 @@ Here we describe the semantics of the strategy language,
 while the API is described seperately for the
 :ref:`C++ <cpp-dg/Strategies>` and :ref:`Python <py-dg/Strategies>` interface.
 
+If you use the strategy framework in your research you may want to cite [AFMS-Strat]_.
+
 
 ---------------------
 Virtual Machine

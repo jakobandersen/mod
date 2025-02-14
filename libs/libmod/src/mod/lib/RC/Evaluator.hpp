@@ -3,7 +3,7 @@
 
 #include <mod/Config.hpp>
 #include <mod/rule/ForwardDecl.hpp>
-#include <mod/lib/Rules/GraphAsRuleCache.hpp>
+#include <mod/lib/Rule/GraphAsRuleCache.hpp>
 
 #include <boost/graph/adjacency_list.hpp>
 
@@ -24,7 +24,7 @@ struct Evaluator {
 
 	struct VProp {
 		VertexKind kind;
-		const lib::Rules::Real *rule;
+		const lib::rule::Rule *rule;
 	};
 
 	struct EProp {
@@ -35,38 +35,38 @@ struct Evaluator {
 	using Vertex = boost::graph_traits<GraphType>::vertex_descriptor;
 	using Edge = boost::graph_traits<GraphType>::edge_descriptor;
 public:
-	Evaluator(std::unordered_set<std::shared_ptr<rule::Rule>> database, LabelSettings labelSettings);
-	const std::unordered_set<std::shared_ptr<rule::Rule>> &getRuleDatabase() const;
-	const std::unordered_set<std::shared_ptr<rule::Rule>> &getProducts() const;
-	std::vector<std::shared_ptr<rule::Rule>> eval(const rule::RCExp::Expression &exp, bool onlyUnique, int verbosity);
+	Evaluator(std::unordered_set<std::shared_ptr<mod::rule::Rule>> database, LabelSettings labelSettings);
+	const std::unordered_set<std::shared_ptr<mod::rule::Rule>> &getRuleDatabase() const;
+	const std::unordered_set<std::shared_ptr<mod::rule::Rule>> &getCreatedRules() const;
+	std::vector<std::shared_ptr<mod::rule::Rule>> eval(const mod::rule::RCExp::Expression &exp, bool onlyUnique, int verbosity);
 	void print() const;
 	const GraphType &getGraph() const;
 public: // evaluation interface
 	// adds a rule to the database, returns true iff it was a new rule
-	bool addRule(std::shared_ptr<rule::Rule> r);
+	bool addRule(std::shared_ptr<mod::rule::Rule> r);
 	// adds a rule to the product graph list
-	void giveProductStatus(std::shared_ptr<rule::Rule> r);
+	void giveProductStatus(std::shared_ptr<mod::rule::Rule> r);
 	// searches the database for an isomorphic rule
 	// if found, the rule is deleted and the database rule is returned
 	// otherwise, the rule is wrapped and returned
 	// does NOT add to the database
-	std::shared_ptr<rule::Rule> checkIfNew(lib::Rules::Real *rCand) const;
+	std::shared_ptr<mod::rule::Rule> checkIfNew(lib::rule::Rule *rCand) const;
 	// records a composition
-	void suggestComposition(const lib::Rules::Real *rFirst,
-	                        const lib::Rules::Real *rSecond,
-	                        const lib::Rules::Real *rResult);
+	void suggestComposition(const lib::rule::Rule *rFirst,
+	                        const lib::rule::Rule *rSecond,
+	                        const lib::rule::Rule *rResult);
 private: // graph interface
-	Vertex getVertexFromRule(const lib::Rules::Real *r);
-	Vertex getVertexFromArgs(const lib::Rules::Real *rFirst, const lib::Rules::Real *rSecond);
+	Vertex getVertexFromRule(const lib::rule::Rule *r);
+	Vertex getVertexFromArgs(const lib::rule::Rule *rFirst, const lib::rule::Rule *rSecond);
 public:
 	const LabelSettings labelSettings;
-	Rules::GraphAsRuleCache graphAsRuleCache;
+	rule::GraphAsRuleCache graphAsRuleCache;
 private:
-	std::unordered_set<std::shared_ptr<rule::Rule>> database, products;
+	std::unordered_set<std::shared_ptr<mod::rule::Rule>> database, createdRules;
 private:
 	GraphType rcg;
-	std::unordered_map<const lib::Rules::Real *, Vertex> ruleToVertex;
-	std::map<std::pair<const lib::Rules::Real *, const lib::Rules::Real *>, Vertex> argsToVertex;
+	std::unordered_map<const lib::rule::Rule *, Vertex> ruleToVertex;
+	std::map<std::pair<const lib::rule::Rule *, const lib::rule::Rule *>, Vertex> argsToVertex;
 };
 
 } // namespace mod::lib::RC

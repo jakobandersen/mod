@@ -13,22 +13,22 @@ namespace mod {
 enum class SmilesClassPolicy;
 struct MDLOptions;
 } // namespace mod
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 struct PropStereo;
 struct PropString;
-} // namespace mod::lib::Graph
-namespace mod::lib::Graph::Read {
+} // namespace mod::lib::graph
+namespace mod::lib::graph::Read {
 
 struct Data {
 	Data();
-	Data(std::unique_ptr<lib::Graph::GraphType> graph, std::unique_ptr<lib::Graph::PropString> label);
+	Data(std::unique_ptr<lib::graph::GraphType> graph, std::unique_ptr<lib::graph::PropString> label);
 	Data(Data &&other);
 	~Data();
 	void reset();
 public:
-	std::unique_ptr<lib::Graph::GraphType> g;
-	std::unique_ptr<lib::Graph::PropString> pString;
-	std::unique_ptr<lib::Graph::PropStereo> pStereo;
+	std::unique_ptr<lib::graph::GraphType> g;
+	std::unique_ptr<lib::graph::PropString> pString;
+	std::unique_ptr<lib::graph::PropStereo> pStereo;
 	std::map<int, std::size_t> externalToInternalIds;
 };
 
@@ -48,6 +48,6 @@ lib::IO::Result<std::vector<Data>> MDLMOL(lib::IO::Warnings &warnings, std::stri
 lib::IO::Result<std::vector<std::vector<Data>>>
 MDLSD(lib::IO::Warnings &warnings, std::string_view src, const MDLOptions &options);
 
-} // namespace mod::lib::Graph::Read
+} // namespace mod::lib::graph::Read
 
 #endif // MOD_LIB_GRAPH_IO_READ_HPP

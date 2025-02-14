@@ -13,7 +13,7 @@
 #include <mod/lib/IO/Config.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/IO/Json.hpp>
-#include <mod/lib/RC/ComposeRuleReal.hpp>
+#include <mod/lib/RC/ComposeFromMatchMaker.hpp>
 #include <mod/lib/RC/MatchMaker/Super.hpp>
 
 #include <boost/iostreams/device/mapped_file.hpp>
@@ -32,6 +32,27 @@ void ExecuteResult::list(bool withUniverse) const {
 	owner->executions[execution].strategy->printInfo(
 			Strategies::PrintSettings(std::cout, withUniverse));
 	std::cout << std::flush;
+}
+
+// -----------------------------------------------------------------------------
+
+AddAbstractResult::AddAbstractResult(
+		std::map<std::string, std::shared_ptr<mod::graph::Graph>> graphs,
+		std::map<std::string, Hyper::Vertex> edges)
+		: graphs(std::move(graphs)), edges(std::move(edges)) {}
+
+std::shared_ptr<mod::graph::Graph> AddAbstractResult::getGraph(const std::string &name) const {
+	if(const auto iter = graphs.find(name); iter != graphs.end())
+		return iter->second;
+	else
+		return nullptr;
+}
+
+Hyper::Vertex AddAbstractResult::getEdge(const std::string &name) const {
+	if(const auto iter = edges.find(name); iter != edges.end())
+		return iter->second;
+	else
+		return boost::graph_traits<Hyper::GraphType>::null_vertex();
 }
 
 // -----------------------------------------------------------------------------
@@ -82,7 +103,7 @@ std::pair<NonHyper::Edge, bool> Builder::addDerivation(const Derivations &d, Iso
 	}
 	// add hyperedges
 	const auto makeSide = [](const mod::Derivation::GraphList &graphs) -> GraphMultiset {
-		std::vector<const lib::Graph::Single *> gPtrs;
+		std::vector<const lib::graph::Graph *> gPtrs;
 		gPtrs.reserve(graphs.size());
 		for(const auto &g: graphs) gPtrs.push_back(&g->getGraph());
 		return GraphMultiset(std::move(gPtrs));
@@ -91,7 +112,7 @@ std::pair<NonHyper::Edge, bool> Builder::addDerivation(const Derivations &d, Iso
 	auto gmsRight = makeSide(d.right);
 	dg->rules.insert(d.rules.begin(), d.rules.end());
 	if(d.rules.size() <= 1) {
-		const lib::Rules::Real *rule = nullptr;
+		const lib::rule::Rule *rule = nullptr;
 		if(!d.rules.empty()) rule = &d.rules.front()->getRule();
 		return dg->suggestDerivation(std::move(gmsLeft), std::move(gmsRight), rule);
 	} else {
@@ -104,18 +125,18 @@ std::pair<NonHyper::Edge, bool> Builder::addDerivation(const Derivations &d, Iso
 
 struct NonHyperBuilder::ExecutionEnv final : public Strategies::ExecutionEnv {
 	ExecutionEnv(NonHyperBuilder &owner, LabelSettings labelSettings, bool doRuleIsomorphism,
-	             Rules::GraphAsRuleCache &graphAsRuleCache)
+	             rule::GraphAsRuleCache &graphAsRuleCache)
 			: Strategies::ExecutionEnv(labelSettings, doRuleIsomorphism, graphAsRuleCache), owner(owner) {}
 
-	void tryAddGraph(std::shared_ptr<graph::Graph> gCand) override {
+	void tryAddGraph(std::shared_ptr<mod::graph::Graph> gCand) override {
 		owner.tryAddGraph(gCand);
 	}
 
-	bool trustAddGraph(std::shared_ptr<graph::Graph> g) override {
+	bool trustAddGraph(std::shared_ptr<mod::graph::Graph> g) override {
 		return owner.trustAddGraph(g);
 	}
 
-	bool trustAddGraphAsVertex(std::shared_ptr<graph::Graph> g) override {
+	bool trustAddGraphAsVertex(std::shared_ptr<mod::graph::Graph> g) override {
 		return owner.trustAddGraphAsVertex(g);
 	}
 
@@ -139,23 +160,23 @@ struct NonHyperBuilder::ExecutionEnv final : public Strategies::ExecutionEnv {
 		return true;
 	}
 
-	virtual std::shared_ptr<graph::Graph> checkIfNew(std::unique_ptr<lib::Graph::Single> g) const override {
+	virtual std::shared_ptr<mod::graph::Graph> checkIfNew(std::unique_ptr<lib::graph::Graph> g) const override {
 		return owner.checkIfNew(std::move(g)).first;
 	}
 
-	bool addProduct(std::shared_ptr<graph::Graph> g) override {
-		return owner.addProduct(g);
+	bool addCreatedGraph(std::shared_ptr<mod::graph::Graph> g) override {
+		return owner.addCreatedGraph(g);
 	}
 
 	bool isDerivation(const GraphMultiset &gmsSrc,
 	                  const GraphMultiset &gmsTar,
-	                  const lib::Rules::Real *r) const override {
+	                  const lib::rule::Rule *r) const override {
 		return owner.isDerivation(gmsSrc, gmsTar, r).second;
 	}
 
 	bool suggestDerivation(const GraphMultiset &gmsSrc,
 	                       const GraphMultiset &gmsTar,
-	                       const lib::Rules::Real *r) override {
+	                       const lib::rule::Rule *r) override {
 		return owner.suggestDerivation(gmsSrc, gmsTar, r).second;
 	}
 
@@ -195,7 +216,7 @@ Builder::execute(std::unique_ptr<Strategies::Strategy> strategy_, int verbosity,
 	exec.strategy->setExecutionEnv(*exec.env);
 
 	exec.strategy->preAddGraphs(
-			[this](std::shared_ptr<graph::Graph> gCand, IsomorphismPolicy graphPolicy) {
+			[this](std::shared_ptr<mod::graph::Graph> gCand, IsomorphismPolicy graphPolicy) {
 				if(dg->getLabelSettings().type == LabelType::Term) {
 					const auto &term = get_term(gCand->getGraph().getLabelledGraph());
 					if(!isValid(term)) {
@@ -216,7 +237,7 @@ Builder::execute(std::unique_ptr<Strategies::Strategy> strategy_, int verbosity,
 			}
 	);
 	if(!ignoreRuleLabelTypes) {
-		exec.strategy->forEachRule([&](const lib::Rules::Real &r) {
+		exec.strategy->forEachRule([&](const lib::rule::Rule &r) {
 			if(!r.getLabelType()) return;
 			if(*r.getLabelType() != dg->getLabelSettings().type) {
 				std::string msg = "Rule '" + r.getName() + "' has intended label type '" +
@@ -233,8 +254,8 @@ Builder::execute(std::unique_ptr<Strategies::Strategy> strategy_, int verbosity,
 }
 
 std::vector<std::pair<NonHyper::Edge, bool>>
-Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
-               std::shared_ptr<rule::Rule> rOrig,
+Builder::apply(const std::vector<std::shared_ptr<mod::graph::Graph>> &graphs,
+               std::shared_ptr<mod::rule::Rule> rOrig,
                int verbosity, IsomorphismPolicy graphPolicy) {
 	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding;
 	IO::Logger logger(std::cout);
@@ -257,7 +278,7 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 	}
 
 	if(graphs.empty()) return {};
-	std::vector<const lib::Graph::Single *> libGraphs;
+	std::vector<const lib::graph::Graph *> libGraphs;
 	libGraphs.reserve(graphs.size());
 	for(const auto &g: graphs)
 		libGraphs.push_back(&g->getGraph());
@@ -322,10 +343,11 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 		assert(r.isOnlyRightSide());
 		auto products = splitRule(
 				r.getDPORule(), ls.type, ls.withStereo,
-				[this](std::unique_ptr<lib::Graph::Single> gCand) {
+				[this](std::unique_ptr<lib::graph::Graph> gCand) {
 					return dg->checkIfNew(std::move(gCand)).first;
 				},
-				[verbosity, &logger](std::shared_ptr<graph::Graph> gWrapped, std::shared_ptr<graph::Graph> gPrev) {
+				[verbosity, &logger](std::shared_ptr<mod::graph::Graph> gWrapped,
+				                     std::shared_ptr<mod::graph::Graph> gPrev) {
 					if(verbosity >= V_RuleApplication_Binding)
 						logger.indent(1) << "Discarding product " << gWrapped->getName()
 						                 << ", isomorphic to other product " << gPrev->getName()
@@ -338,8 +360,8 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 			continue;
 		}
 		for(const auto &p: products)
-			dg->addProduct(p);
-		std::vector<const lib::Graph::Single *> rightGraphs;
+			dg->addCreatedGraph(p);
+		std::vector<const lib::graph::Graph *> rightGraphs;
 		rightGraphs.reserve(products.size());
 		for(const auto &p: products)
 			rightGraphs.push_back(&p->getGraph());
@@ -355,8 +377,8 @@ Builder::apply(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 }
 
 std::vector<std::pair<NonHyper::Edge, bool>>
-Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
-                      std::shared_ptr<rule::Rule> rOrig,
+Builder::applyRelaxed(const std::vector<std::shared_ptr<mod::graph::Graph>> &graphs,
+                      std::shared_ptr<mod::rule::Rule> rOrig,
                       int verbosity, IsomorphismPolicy graphPolicy) {
 	const bool doRuleIsomorphism = getConfig().dg.doRuleIsomorphismDuringBinding;
 	IO::Logger logger(std::cout);
@@ -379,7 +401,7 @@ Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 	}
 
 	if(graphs.empty()) return {};
-	std::vector<const lib::Graph::Single *> libGraphs;
+	std::vector<const lib::graph::Graph *> libGraphs;
 	libGraphs.reserve(graphs.size());
 	for(const auto &g: graphs)
 		libGraphs.push_back(&g->getGraph());
@@ -409,10 +431,11 @@ Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 			assert(r.isOnlyRightSide());
 			auto products = splitRule(
 					r.getDPORule(), ls.type, ls.withStereo,
-					[this](std::unique_ptr<lib::Graph::Single> gCand) {
+					[this](std::unique_ptr<lib::graph::Graph> gCand) {
 						return dg->checkIfNew(std::move(gCand)).first;
 					},
-					[verbosity, &logger](std::shared_ptr<graph::Graph> gWrapped, std::shared_ptr<graph::Graph> gPrev) {
+					[verbosity, &logger](std::shared_ptr<mod::graph::Graph> gWrapped,
+					                     std::shared_ptr<mod::graph::Graph> gPrev) {
 						if(verbosity >= V_RuleApplication_Binding)
 							logger.indent(1) << "Discarding product " << gWrapped->getName()
 							                 << ", isomorphic to other product " << gPrev->getName()
@@ -426,8 +449,8 @@ Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 				return true;
 			}
 			for(const auto &p: products)
-				dg->addProduct(p);
-			std::vector<const lib::Graph::Single *> rightGraphs;
+				dg->addCreatedGraph(p);
+			std::vector<const lib::graph::Graph *> rightGraphs;
 			rightGraphs.reserve(products.size());
 			for(const auto &p: products)
 				rightGraphs.push_back(&p->getGraph());
@@ -465,12 +488,24 @@ Builder::applyRelaxed(const std::vector<std::shared_ptr<graph::Graph>> &graphs,
 	return res;
 }
 
-void Builder::addAbstract(const std::string &description) {
+AddAbstractResult Builder::addAbstract(const std::string &description) {
 	std::ostringstream err;
 	const auto res = lib::DG::Read::abstract(description, err);
 	if(!res) throw InputError("Could not parse description of abstract derivations.\n" + err.str());
 	const auto &derivations = *res;
-	std::unordered_map<std::string, std::shared_ptr<graph::Graph>> graphFromStr;
+
+	std::map<std::string, std::shared_ptr<mod::graph::Graph>> resGraphs;
+	std::map<std::string, Hyper::Vertex> resEdges;
+	// check for derivation ID duplicates before modifying the DG
+	for(const auto &der: derivations) {
+		if(!der.id) continue;
+		const auto iter = resEdges.find(*der.id);
+		if(iter != resEdges.end())
+			throw InputError("Duplicate derivation ID '" + *der.id + "' in description of abstract derivations.");
+		resEdges[*der.id] = {}; // an arbitrary vertex value
+	}
+
+	std::unordered_map<std::string, std::shared_ptr<mod::graph::Graph>> graphFromStr;
 	for(const auto &gOuter: dg->getGraphDatabase().asList()) {
 		const auto &gInner = gOuter->getGraph().getGraph();
 		if(num_vertices(gInner) != 1) continue;
@@ -480,19 +515,23 @@ void Builder::addAbstract(const std::string &description) {
 		graphFromStr[s] = gOuter;
 	}
 
-	const auto handleSide = [this, &graphFromStr](const lib::DG::Read::AbstractDerivation::List &side) {
+	const auto handleSide = [this, &graphFromStr, &resGraphs](const lib::DG::Read::AbstractDerivation::List &side) {
 		for(const auto &[coef, name]: side) {
-			const auto iter = graphFromStr.find(name);
-			if(iter != graphFromStr.end()) continue;
-			auto gBoost = std::make_unique<lib::Graph::GraphType>();
-			auto pString = std::make_unique<lib::Graph::PropString>(*gBoost);
-			const auto v = add_vertex(*gBoost);
-			pString->addVertex(v, name);
-			auto gLib = std::make_unique<lib::Graph::Single>(std::move(gBoost), std::move(pString), nullptr);
-			auto g = graph::Graph::create(std::move(gLib));
-			dg->addProduct(g); // this renames it
-			g->setName(name);
-			graphFromStr[name] = g;
+			std::shared_ptr<mod::graph::Graph> g;
+			if(const auto iter = graphFromStr.find(name); iter != graphFromStr.end()) {
+				g = iter->second;
+			} else {
+				auto gBoost = std::make_unique<lib::graph::GraphType>();
+				auto pString = std::make_unique<lib::graph::PropString>(*gBoost);
+				const auto v = add_vertex(*gBoost);
+				pString->addVertex(v, name);
+				auto gLib = std::make_unique<lib::graph::Graph>(std::move(gBoost), std::move(pString), nullptr);
+				g = mod::graph::Graph::create(std::move(gLib));
+				dg->addCreatedGraph(g); // this renames it
+				g->setName(name);
+				graphFromStr[name] = g;
+			}
+			resGraphs[name] = g;
 		}
 	};
 	for(const auto &der: derivations) {
@@ -500,22 +539,24 @@ void Builder::addAbstract(const std::string &description) {
 		handleSide(der.right);
 	}
 
-	using Side = std::unordered_map<std::shared_ptr<graph::Graph>, unsigned int>;
+	using Side = std::unordered_map<std::shared_ptr<mod::graph::Graph>, unsigned int>;
 	const auto makeSide = [&graphFromStr](const lib::DG::Read::AbstractDerivation::List &side) {
 		Side result;
 		for(const auto &e: side) {
 			const auto g = graphFromStr[e.second];
 			assert(g);
 			auto iter = result.find(g);
-			if(iter == end(result)) iter = result.insert(std::make_pair(g, 0)).first;
+			if(iter == end(result))
+				iter = result.insert(std::make_pair(g, 0)).first;
 			iter->second += e.first;
 		}
 		return result;
 	};
+
 	for(const auto &der: derivations) {
 		const Side left = makeSide(der.left);
 		const Side right = makeSide(der.right);
-		std::vector<const lib::Graph::Single *> leftGraphs, rightGraphs;
+		std::vector<const lib::graph::Graph *> leftGraphs, rightGraphs;
 		for(const auto &e: left) {
 			for(unsigned int i = 0; i < e.second; i++)
 				leftGraphs.push_back(&e.first->getGraph());
@@ -525,13 +566,19 @@ void Builder::addAbstract(const std::string &description) {
 				rightGraphs.push_back(&e.first->getGraph());
 		}
 		lib::DG::GraphMultiset gmsLeft(std::move(leftGraphs)), gmsRight(std::move(rightGraphs));
-		dg->suggestDerivation(gmsLeft, gmsRight, nullptr);
+		[[maybe_unused]] const auto [eNonHyper, wasNew] = dg->suggestDerivation(gmsLeft, gmsRight, nullptr);
+		if(der.id) {
+			const auto eHyper = dg->getGraphDuringCalculation()[eNonHyper].hyper;
+			resEdges[*der.id] = eHyper;
+		}
 		if(der.reversible)
 			dg->suggestDerivation(gmsRight, gmsLeft, nullptr);
 	}
+
+	return AddAbstractResult(std::move(resGraphs), std::move(resEdges));
 }
 
-bool Builder::load(const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase,
+bool Builder::load(const std::vector<std::shared_ptr<mod::rule::Rule>> &ruleDatabase,
                    const std::string &file, std::ostream &err, int verbosity) {
 	boost::iostreams::mapped_file_source ifs;
 	try {
@@ -564,7 +611,7 @@ bool Builder::load(const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase,
 }
 
 bool Builder::trustLoadDump(nlohmann::json &&j,
-                            const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase,
+                            const std::vector<std::shared_ptr<mod::rule::Rule>> &ruleDatabase,
                             std::ostream &err,
                             int verbosity) {
 	constexpr int V_Link = 2;
@@ -576,7 +623,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 	// we assume that the incomming graphs are all pairwise non-isomorphic
 	struct Vertex {
 		int id;
-		std::shared_ptr<graph::Graph> graph;
+		std::shared_ptr<mod::graph::Graph> graph;
 		bool wasNew;
 	};
 	auto &jVertices = j["vertices"];
@@ -587,7 +634,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 		v.id = jv[0].get<int>();
 		const std::string &gml = jv[2].get<std::string>();
 		lib::IO::Warnings warnings;
-		auto gDatasRes = lib::Graph::Read::gml(warnings, gml, printStereoWarnings);
+		auto gDatasRes = lib::graph::Read::gml(warnings, gml, printStereoWarnings);
 		err << warnings;
 		if(!gDatasRes) {
 			err << gDatasRes.extractError() << '\n';
@@ -602,7 +649,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 			err << jv[1].get<std::string>() << "', in vertex " << v.id << ".";
 			return false;
 		}
-		auto gCand = std::make_unique<lib::Graph::Single>(
+		auto gCand = std::make_unique<lib::graph::Graph>(
 				std::move(gDatas.front().g), std::move(gDatas.front().pString), std::move(gDatas.front().pStereo));
 		gCand->setName(jv[1].get<std::string>());
 		auto p = dg->checkIfNew(std::move(gCand));
@@ -614,12 +661,12 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 
 	// prepare the rules, we assume those in the dump are unique
 	const auto &jRules = j["rules"];
-	std::vector<std::shared_ptr<rule::Rule>> rules;
+	std::vector<std::shared_ptr<mod::rule::Rule>> rules;
 	rules.reserve(jRules.size());
 	const auto ls = dg->getLabelSettings();
 	for(const auto &j: jRules) {
 		const std::string &jr = j.get<std::string>();
-		auto rCand = rule::Rule::fromGMLString(jr, false);
+		auto rCand = mod::rule::Rule::fromGMLString(jr, false);
 		const auto iter = std::find_if(ruleDatabase.begin(), ruleDatabase.end(), [rCand, ls](const auto &r) {
 			return r->isomorphism(rCand, 1, ls) == 1;
 		});
@@ -636,7 +683,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 	}
 
 	// do merge of vertices and edges in order of increasing id
-	std::unordered_map<int, const lib::Graph::Single *> graphFromId;
+	std::unordered_map<int, const lib::graph::Graph *> graphFromId;
 	const auto &jEdges = j["edges"];
 	const int numVertices = vertices.size();
 	const int numEdges = jEdges.size();
@@ -656,7 +703,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 			++iVertices;
 		} else if(iEdges < numEdges && jEdges[iEdges][0].get<int>() == id) {
 			const auto &e = jEdges[iEdges];
-			std::vector<const lib::Graph::Single *> srcGraphs, tarGraphs;
+			std::vector<const lib::graph::Graph *> srcGraphs, tarGraphs;
 			srcGraphs.reserve(e[1].size());
 			tarGraphs.reserve(e[2].size());
 			for(int src: e[1]) {
@@ -711,7 +758,7 @@ bool Builder::trustLoadDump(nlohmann::json &&j,
 
 NonHyperBuilder::NonHyperBuilder(LabelSettings
                                  labelSettings,
-                                 const std::vector<std::shared_ptr<graph::Graph> > &graphDatabase,
+                                 const std::vector<std::shared_ptr<mod::graph::Graph> > &graphDatabase,
                                  IsomorphismPolicy graphPolicy)
 		: NonHyper(labelSettings, graphDatabase, graphPolicy) {}
 

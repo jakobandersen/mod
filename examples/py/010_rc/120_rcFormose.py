@@ -1,5 +1,5 @@
 include("../000_basics/050_formoseGrammar.py")
-rc = rcEvaluator(inputRules)
+rc = RCEvaluator(inputRules)
 exp = (
 	rcId(glycolaldehyde)
 	*rcSuper* ketoEnol_F

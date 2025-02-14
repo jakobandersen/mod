@@ -57,11 +57,14 @@ gs = inputGraphs[:]
 count = 0
 for g in gs:
 	count += 1
+	s = g.smiles
 	try:
-		s = g.smiles
-	except LogicError:
-		# an abstract SMILES string, so skip
-		continue
+		Graph.fromSMILES(s, allowAbstract=False)
+	except InputError as e:
+		if "SMILES string has abstract vertex label" in str(e):
+			continue
+		else:
+			raise
 	# Open Babel may mangle the molecule as it gets loaded,
 	# so the base for comparison is the loaded OBMol.
 	obInput = loadSmiles(g.smiles)

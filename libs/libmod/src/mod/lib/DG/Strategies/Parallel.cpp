@@ -2,7 +2,7 @@
 
 #include <mod/Config.hpp>
 #include <mod/lib/DG/Strategies/GraphState.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/IO/IO.hpp>
 
 namespace mod::lib::DG::Strategies {
@@ -20,11 +20,11 @@ std::unique_ptr<Strategy> Parallel::clone() const {
 	return std::make_unique<Parallel>(std::move(subStrats));
 }
 
-void Parallel::preAddGraphs(std::function<void(std::shared_ptr<graph::Graph>, IsomorphismPolicy)> add) const {
+void Parallel::preAddGraphs(std::function<void(std::shared_ptr<mod::graph::Graph>, IsomorphismPolicy)> add) const {
 	for(const auto &s : strats) s->preAddGraphs(add);
 }
 
-void Parallel::forEachRule(std::function<void(const lib::Rules::Real &)> f) const {
+void Parallel::forEachRule(std::function<void(const lib::rule::Rule &)> f) const {
 	for(const auto &s : strats) s->forEachRule(f);
 }
 
@@ -40,7 +40,7 @@ void Parallel::printInfo(PrintSettings settings) const {
 	printBaseInfo(settings);
 }
 
-bool Parallel::isConsumed(const Graph::Single *g) const {
+bool Parallel::isConsumed(const lib::graph::Graph *g) const {
 	for(const auto &s : strats)
 		if(s->isConsumed(g)) return true;
 	return false;
@@ -68,8 +68,8 @@ void Parallel::executeImpl(PrintSettings settings, const GraphState &input) {
 	std::vector<const GraphState *> outputs;
 	for(const auto &s : strats) outputs.push_back(&s->getOutput());
 	output = new GraphState(outputs);
-	output->sortUniverse(Graph::Single::nameLess);
-	output->sortSubset(Graph::Single::nameLess);
+	output->sortUniverse(lib::graph::Graph::nameLess);
+	output->sortSubset(lib::graph::Graph::nameLess);
 }
 
 } // namespace mob::lib::DG::Strategies

@@ -2,7 +2,7 @@
 
 #include <mod/graph/Printer.hpp>
 #include <mod/lib/GraphPimpl.hpp>
-#include <mod/lib/Graph/Single.hpp>
+#include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/IO/Write.hpp>
 #include <mod/lib/Graph/Properties/Molecule.hpp>
 #include <mod/lib/Graph/Properties/Stereo.hpp>
@@ -76,7 +76,7 @@ std::string Graph::Vertex::printStereo(const Printer &p) const {
 	using boost::vertices;
 	auto v = *(vertices(graph).first + vId);
 	const auto &conf = get_stereo(gLabelled)[v];
-	return lib::Graph::Write::stereoSummary(g->getGraph(), v, *conf, p.getOptions(), 0, "");
+	return lib::graph::Write::stereoSummary(g->getGraph(), v, *conf, p.getOptions(), 0, "");
 }
 
 //------------------------------------------------------------------------------

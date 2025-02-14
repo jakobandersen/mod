@@ -8,7 +8,7 @@ unbindExp = rcUnbind(glycolaldehyde)
 # (G <- G -> G)
 idExp = rcId(glycolaldehyde)
 # These are really rule composition expressions that have to be evaluated:
-rc = rcEvaluator(inputRules)
+rc = RCEvaluator(inputRules)
 # Each expression results in a lists of rules:
 bindRules = rc.eval(bindExp)
 unbindRules = rc.eval(unbindExp)

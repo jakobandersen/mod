@@ -4,12 +4,12 @@
 #include <mod/graph/Printer.hpp>
 #include <mod/rule/GraphInterface.hpp>
 #include <mod/lib/IO/IO.hpp>
-#include <mod/lib/Rules/Real.hpp>
-#include <mod/lib/Rules/IO/DepictionData.hpp>
-#include <mod/lib/Rules/IO/Read.hpp>
-#include <mod/lib/Rules/IO/Write.hpp>
-#include <mod/lib/Rules/Properties/Molecule.hpp>
-#include <mod/lib/Rules/Properties/Stereo.hpp>
+#include <mod/lib/Rule/Rule.hpp>
+#include <mod/lib/Rule/IO/DepictionData.hpp>
+#include <mod/lib/Rule/IO/Read.hpp>
+#include <mod/lib/Rule/IO/Write.hpp>
+#include <mod/lib/Rule/Properties/Molecule.hpp>
+#include <mod/lib/Rule/Properties/Stereo.hpp>
 
 #include <boost/iostreams/device/mapped_file.hpp>
 
@@ -20,15 +20,15 @@
 namespace mod::rule {
 
 struct Rule::Pimpl {
-	Pimpl(std::unique_ptr<lib::Rules::Real> r) : r(std::move(r)) {
+	Pimpl(std::unique_ptr<lib::rule::Rule> r) : r(std::move(r)) {
 		assert(this->r);
 	}
 public:
-	const std::unique_ptr<lib::Rules::Real> r;
+	const std::unique_ptr<lib::rule::Rule> r;
 	std::unique_ptr<const std::map<int, std::size_t> > externalToInternalIds;
 };
 
-Rule::Rule(std::unique_ptr<lib::Rules::Real> r) : p(new Pimpl(std::move(r))) {}
+Rule::Rule(std::unique_ptr<lib::rule::Rule> r) : p(new Pimpl(std::move(r))) {}
 
 Rule::~Rule() = default;
 
@@ -40,7 +40,7 @@ std::ostream &operator<<(std::ostream &s, const Rule &r) {
 	return s << "'" << r.getName() << "'";
 }
 
-const lib::Rules::Real &Rule::getRule() const {
+const lib::rule::Rule &Rule::getRule() const {
 	return *p->r.get();
 }
 
@@ -77,7 +77,7 @@ Rule::RightGraph Rule::getRight() const {
 //------------------------------------------------------------------------------
 
 std::shared_ptr<Rule> Rule::makeInverse() const {
-	lib::Rules::LabelledRule dpoRule(getRule().getDPORule(), true);
+	lib::rule::LabelledRule dpoRule(getRule().getDPORule(), true);
 	if(getConfig().rule.ignoreConstraintsDuringInversion) {
 		if(get_match_constraints(get_labelled_left(dpoRule)).size() > 0
 		   || get_match_constraints(get_labelled_right(dpoRule)).size() > 0) {
@@ -94,7 +94,7 @@ std::shared_ptr<Rule> Rule::makeInverse() const {
 	dpoRule.invert();
 	const bool ignore = getConfig().rule.ignoreConstraintsDuringInversion;
 	if(ignore) dpoRule.rightData.matchConstraints.clear();
-	auto rInner = std::make_unique<lib::Rules::Real>(std::move(dpoRule), getLabelType());
+	auto rInner = std::make_unique<lib::rule::Rule>(std::move(dpoRule), getLabelType());
 	rInner->setName(this->getName() + ", inverse");
 	if(p->externalToInternalIds)
 		return makeRule(std::move(rInner), *p->externalToInternalIds);
@@ -120,25 +120,25 @@ Rule::print(const graph::Printer &first, const graph::Printer &second) const {
 
 std::pair<std::string, std::string>
 Rule::print(const graph::Printer &first, const graph::Printer &second, bool printCombined) const {
-	return lib::Rules::Write::summary(getRule(), first.getOptions(), second.getOptions(), printCombined);
+	return lib::rule::Write::summary(getRule(), first.getOptions(), second.getOptions(), printCombined);
 }
 
 void Rule::printTermState() const {
-	lib::Rules::Write::termState(getRule());
+	lib::rule::Write::termState(getRule());
 }
 
 std::string Rule::getGMLString(bool withCoords) const {
 	if(withCoords && !getRule().getDepictionData().getHasCoordinates())
 		throw LogicError("Coordinates are not available for this rule (" + getName() + ").");
 	std::stringstream ss;
-	lib::Rules::Write::gml(getRule(), withCoords, ss);
+	lib::rule::Write::gml(getRule(), withCoords, ss);
 	return ss.str();
 }
 
 std::string Rule::printGML(bool withCoords) const {
 	if(withCoords && !getRule().getDepictionData().getHasCoordinates())
 		throw LogicError("Coordinates are not available for this rule (" + getName() + ").");
-	return lib::Rules::Write::gml(*p->r, withCoords);
+	return lib::rule::Write::gml(*p->r, withCoords);
 }
 
 const std::string &Rule::getName() const {
@@ -163,7 +163,7 @@ std::size_t Rule::getNumRightComponents() const {
 
 namespace {
 
-void checkTermParsing(const lib::Rules::Real &r, LabelSettings ls) {
+void checkTermParsing(const lib::rule::Rule &r, LabelSettings ls) {
 	if(ls.type == LabelType::Term) {
 		const auto &term = get_term(r.getDPORule());
 		if(!isValid(term)) {
@@ -178,19 +178,19 @@ void checkTermParsing(const lib::Rules::Real &r, LabelSettings ls) {
 std::size_t Rule::isomorphism(std::shared_ptr<Rule> r, std::size_t maxNumMatches, LabelSettings labelSettings) const {
 	checkTermParsing(this->getRule(), labelSettings);
 	checkTermParsing(r->getRule(), labelSettings);
-	return lib::Rules::Real::isomorphism(this->getRule(), r->getRule(), maxNumMatches, labelSettings);
+	return lib::rule::Rule::isomorphism(this->getRule(), r->getRule(), maxNumMatches, labelSettings);
 }
 
 std::size_t Rule::monomorphism(std::shared_ptr<Rule> r, std::size_t maxNumMatches, LabelSettings labelSettings) const {
 	checkTermParsing(this->getRule(), labelSettings);
 	checkTermParsing(r->getRule(), labelSettings);
-	return lib::Rules::Real::monomorphism(this->getRule(), r->getRule(), maxNumMatches, labelSettings);
+	return lib::rule::Rule::monomorphism(this->getRule(), r->getRule(), maxNumMatches, labelSettings);
 }
 
 bool Rule::isomorphicLeftRight(std::shared_ptr<Rule> r, LabelSettings labelSettings) const {
 	checkTermParsing(this->getRule(), labelSettings);
 	checkTermParsing(r->getRule(), labelSettings);
-	return lib::Rules::Real::isomorphicLeftRight(this->getRule(), r->getRule(), labelSettings);
+	return lib::rule::Rule::isomorphicLeftRight(this->getRule(), r->getRule(), labelSettings);
 }
 
 Rule::Vertex Rule::getVertexFromExternalId(int id) const {
@@ -216,7 +216,7 @@ int Rule::getMaxExternalId() const {
 
 namespace {
 
-std::shared_ptr<Rule> handleLoadedRule(lib::IO::Result<lib::Rules::Read::Data> dataRes,
+std::shared_ptr<Rule> handleLoadedRule(lib::IO::Result<lib::rule::Read::Data> dataRes,
                                        lib::IO::Warnings warnings,
                                        bool invert,
                                        const std::string &dataSource) {
@@ -247,7 +247,7 @@ std::shared_ptr<Rule> handleLoadedRule(lib::IO::Result<lib::Rules::Read::Data> d
 		data.rule->invert();
 		if(data.name) *data.name += ", inverse";
 	}
-	auto libRes = std::make_unique<lib::Rules::Real>(std::move(*data.rule), data.labelType);
+	auto libRes = std::make_unique<lib::rule::Rule>(std::move(*data.rule), data.labelType);
 	if(data.name) libRes->setName(std::move(*data.name));
 	return Rule::makeRule(std::move(libRes), std::move(data.externalToInternalIds));
 }
@@ -256,7 +256,7 @@ std::shared_ptr<Rule> handleLoadedRule(lib::IO::Result<lib::Rules::Read::Data> d
 
 std::shared_ptr<Rule> Rule::fromGMLString(const std::string &data, bool invert, bool printStereoWarnings) {
 	lib::IO::Warnings warnings;
-	auto res = lib::Rules::Read::gml(warnings, data, printStereoWarnings);
+	auto res = lib::rule::Read::gml(warnings, data, printStereoWarnings);
 	return handleLoadedRule(std::move(res), std::move(warnings), invert, "<inline GML string>");
 }
 
@@ -269,21 +269,21 @@ std::shared_ptr<Rule> Rule::fromGMLFile(const std::string &file, bool invert, bo
 	}
 	if(!ifs) throw InputError("Could not open rule GML file '" + file + "'.\n");
 	lib::IO::Warnings warnings;
-	auto res = lib::Rules::Read::gml(warnings, {ifs.begin(), ifs.size()}, printStereoWarnings);
+	auto res = lib::rule::Read::gml(warnings, {ifs.begin(), ifs.size()}, printStereoWarnings);
 	return handleLoadedRule(std::move(res), std::move(warnings), invert, "file '" + file + "'");
 }
 
 std::shared_ptr<Rule> Rule::fromDFS(const std::string &data, bool invert) {
 	lib::IO::Warnings warnings;
-	auto res = lib::Rules::Read::dfs(warnings, data);
+	auto res = lib::rule::Read::dfs(warnings, data);
 	return handleLoadedRule(std::move(res), std::move(warnings), invert, "<inline DFS string>");
 }
 
-std::shared_ptr<Rule> Rule::makeRule(std::unique_ptr<lib::Rules::Real> r) {
+std::shared_ptr<Rule> Rule::makeRule(std::unique_ptr<lib::rule::Rule> r) {
 	return makeRule(std::move(r), {});
 }
 
-std::shared_ptr<Rule> Rule::makeRule(std::unique_ptr<lib::Rules::Real> r,
+std::shared_ptr<Rule> Rule::makeRule(std::unique_ptr<lib::rule::Rule> r,
                                      std::map<int, std::size_t> externalToInternalIds) {
 	std::shared_ptr<Rule> rWrapped(new Rule(std::move(r)));
 	rWrapped->p->r->setAPIReference(rWrapped);

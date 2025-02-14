@@ -7,7 +7,7 @@
 
 #include <jla_boost/graph/PairToRangeAdaptor.hpp>
 
-namespace mod::lib::Graph {
+namespace mod::lib::graph {
 
 struct PropStereo : Prop<PropStereo, std::unique_ptr<const lib::Stereo::Configuration>, Stereo::EdgeCategory> {
 	using Base = Prop<PropStereo, std::unique_ptr<const lib::Stereo::Configuration>, Stereo::EdgeCategory>;
@@ -28,6 +28,6 @@ public:
 	}
 };
 
-} // namespace mod::lib::Graph
+} // namespace mod::lib::graph
 
 #endif // MOD_LIB_GRAPH_STATE_STEREO_HPP

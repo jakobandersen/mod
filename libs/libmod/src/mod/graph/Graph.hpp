@@ -45,7 +45,7 @@ public:
 	struct Aut;
 	struct AutGroup;
 private: // The actual class interface
-	Graph(std::unique_ptr<lib::Graph::Single> g);
+	Graph(std::unique_ptr<lib::graph::Graph> g);
 	Graph(const Graph &) = delete;
 	Graph &operator=(const Graph &) = delete;
 public:
@@ -55,7 +55,7 @@ public:
 	// rst:		:returns: the unique instance id among :class:`Graph` objects.
 	std::size_t getId() const;
 	MOD_DECL friend std::ostream &operator<<(std::ostream &s, const Graph &g);
-	lib::Graph::Single &getGraph() const;
+	lib::graph::Graph &getGraph() const;
 public: // graph interface
 	// rst: .. function:: std::size_t numVertices() const
 	// rst:
@@ -264,7 +264,7 @@ public: // external data
 	// rst:		:throws: :class:`LogicError` if the graph does not have data from external loading
 	std::vector<std::pair<std::string, bool>> getLoadingWarnings() const;
 private:
-	const std::unique_ptr<lib::Graph::Single> g;
+	const std::unique_ptr<lib::graph::Graph> g;
 	struct ExternalData;
 	// this is only instantiated when the graph is loaded from an external format
 	std::unique_ptr<ExternalData> externalData;
@@ -363,8 +363,8 @@ public:
 	static std::vector<std::vector<std::shared_ptr<Graph>>>
 	fromSDFileMulti(const std::string &file, const MDLOptions &options);
 	// ===========================================================================
-	// rst: .. function:: static std::shared_ptr<Graph> create(std::unique_ptr<lib::Graph::Single> g)
-	// rst:               static std::shared_ptr<Graph> create(std::unique_ptr<lib::Graph::Single> g, \
+	// rst: .. function:: static std::shared_ptr<Graph> create(std::unique_ptr<lib::graph::Graph> g)
+	// rst:               static std::shared_ptr<Graph> create(std::unique_ptr<lib::graph::Graph> g, \
 	// rst:                                                    std::map<int, std::size_t> externalToInternalIds, \
 	// rst:                                                    std::vector<std::pair<std::string, bool>> warnings)
 	// rst:
@@ -375,8 +375,8 @@ public:
 	// rst:			See also :cpp:func:`getLoadingWarnings`.
 	// rst:		:returns: a graph wrapping the given internal graph object.
 	// rst:			The second version instantiates a structure holding the given data created from an external data source.
-	static std::shared_ptr<Graph> create(std::unique_ptr<lib::Graph::Single> g);
-	static std::shared_ptr<Graph> create(std::unique_ptr<lib::Graph::Single> g,
+	static std::shared_ptr<Graph> create(std::unique_ptr<lib::graph::Graph> g);
+	static std::shared_ptr<Graph> create(std::unique_ptr<lib::graph::Graph> g,
 	                                     std::map<int, std::size_t> externalToInternalIds,
 	                                     std::vector<std::pair<std::string, bool>> warnings);
 };

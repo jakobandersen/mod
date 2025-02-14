@@ -4,8 +4,8 @@
 #include <mod/lib/DG/Hyper.hpp>
 #include <mod/lib/DG/IO/Write.hpp>
 #include <mod/lib/GraphPimpl.hpp>
-#include <mod/lib/Graph/Single.hpp>
-#include <mod/lib/Rules/Real.hpp>
+#include <mod/lib/Graph/Graph.hpp>
+#include <mod/lib/Rule/Rule.hpp>
 
 namespace mod::dg {
 
@@ -144,7 +144,6 @@ DG::RuleRange DG::HyperEdge::rules() const {
 
 DG::HyperEdge DG::HyperEdge::getInverse() const {
 	if(isNull()) throw LogicError("Can not get inverse on a null hyperedge.");
-	if(!getDG()->isLocked()) throw LogicError("Can not get inverse before the DG is locked.");
 	const auto &dg = g->getHyper();
 	const auto v = dg.getInternalVertex(*this);
 	return dg.getInterfaceEdge(dg.getReverseEdge(v));

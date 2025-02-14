@@ -28,14 +28,14 @@ a.printTermState()
 #b = a.makeInverse()
 
 post.summaryChapter("Compose first")
-rc = rcEvaluator([], ls)
+rc = RCEvaluator([], ls)
 res = rc.eval(a *rcSuper* rId)
 for b in res:
     b.print()
     b.printTermState()
 
 post.summaryChapter("Compose second")
-rc = rcEvaluator([], ls)
+rc = RCEvaluator([], ls)
 res = rc.eval(rIdInv *rcSub* a)
 for b in res:
     b.print()

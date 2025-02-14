@@ -1,7 +1,10 @@
 #ifndef MOD_DG_FORWARDDECL_HPP
 #define MOD_DG_FORWARDDECL_HPP
 
+// rst: This header contains declarations for all classes in the ``mod::dg`` namespace.
+
 namespace mod::dg {
+struct AddAbstractResult;
 struct Builder;
 struct DG;
 struct ExecuteResult;

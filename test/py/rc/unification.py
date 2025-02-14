@@ -14,7 +14,7 @@ a = graphGMLString("""graph [
 	node [ id 0 label "NUM(0)" ]
 ]""")
 
-rcEval = rcEvaluator(inputRules, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation))
+rcEval = RCEvaluator(inputRules, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation))
 res = rcEval.eval(rcId(a) *rcSuper* inc, verbosity=20)
 for a in res:
 	a.printTermState()
