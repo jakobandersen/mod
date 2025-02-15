@@ -38,7 +38,7 @@ jobs:
     - name: Build
       run: ./scripts/makeConda.sh
     - name: Archive result
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: conda-linux
         path: |
