@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>7. Graph, Rule, and Molecule Model &#8212; MØD 0.17.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=0c3dd48d"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Data Formats" href="../formats/index.html" />
+    <link rel="prev" title="6. The Wrapper Script" href="../exe/index.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.17.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">13. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">7. Graph, Rule, and Molecule Model</a><ul>
+<li><a class="reference internal" href="#simple-graphs-with-string-labels">7.1. Simple Graphs with String Labels</a></li>
+<li><a class="reference internal" href="#switching-category-first-order-terms-as-labels">7.2. Switching Category — First-Order Terms as Labels</a><ul>
+<li><a class="reference internal" href="#morphisms">7.2.1. Morphisms</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rule-model">7.3. Rule Model</a><ul>
+<li><a class="reference internal" href="#application-constraints">7.3.1. Application Constraints</a><ul>
+<li><a class="reference internal" href="#adjacency-constraint">7.3.1.1. Adjacency Constraint</a><ul>
+<li><a class="reference internal" href="#string-mode">7.3.1.1.1. String Mode</a></li>
+<li><a class="reference internal" href="#term-mode">7.3.1.1.2. Term Mode</a></li>
+<li><a class="reference internal" href="#specification-in-gml">7.3.1.1.3. Specification in GML</a></li>
+<li><a class="reference internal" href="#examples">7.3.1.1.4. Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#label-unification-constraint">7.3.1.2. Label Unification Constraint</a><ul>
+<li><a class="reference internal" href="#id2">7.3.1.2.1. String Mode</a></li>
+<li><a class="reference internal" href="#id3">7.3.1.2.2. Term Mode</a></li>
+<li><a class="reference internal" href="#id4">7.3.1.2.3. Specification in GML</a></li>
+<li><a class="reference internal" href="#id5">7.3.1.2.4. Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#resolution-of-formal-issues">7.3.2. Resolution of Formal Issues</a><ul>
+<li><a class="reference internal" href="#label-change">7.3.2.1. Label Change</a></li>
+<li><a class="reference internal" href="#avoiding-parallel-edges">7.3.2.2. Avoiding Parallel Edges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#molecule-encoding">7.4. Molecule Encoding</a><ul>
+<li><a class="reference internal" href="#edges-bonds">7.4.1. Edges / Bonds</a></li>
+<li><a class="reference internal" href="#vertices-atoms">7.4.2. Vertices / Atoms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="../exe/index.html" title="Previous Chapter: 6. The Wrapper Script">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 6. The Wrapper Script
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../formats/index.html" title="Next Chapter: 8. Data Formats">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">8. Data Formats &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="graph-rule-and-molecule-model">
+<span id="graph-model"></span><h1><span class="section-number">7. </span>Graph, Rule, and Molecule Model<a class="headerlink" href="#graph-rule-and-molecule-model" title="Link to this heading">¶</a></h1>
+<p>A central component of MØD is the <a class="reference internal" href="../libmod/graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Graph</span></code></a>/<a class="reference internal" href="../pymod/graph/Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>
+which simplified represents simple graphs with labels on vertices and edges.
+However, how the labels are interepreted and how graph morphisms are defined
+depends which <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelSettings" title="mod.LabelSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a> object you
+pass to various algorithms.
+Another complication is that in the formal mathematics for describing
+graph transformation through a <a class="reference internal" href="../libmod/rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">rule::Rule</span></code></a>/<a class="reference internal" href="../pymod/rule/Rule.html#mod.Rule" title="mod.Rule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rule</span></code></a> classes,
+we need need a slightly more complicated description of the graphs in order
+to make the mathematics work.</p>
+<p>We therefore start with the <a class="reference internal" href="#graph-model-basic"><span class="std std-ref">simplified graph model</span></a>
+with the labels being opaque types.
+<a class="reference internal" href="#graph-model-terms"><span class="std std-ref">Then</span></a> we explore the different label settings
+which switches the mathematical category of the graphs.
+Afterwards the <a class="reference internal" href="#graph-model-rules"><span class="std std-ref">rule model</span></a> is explained where we
+get into the mathematical details for label-encoding which is necessary to
+formally make the graph transformation composable.
+Lastly we see how MØD interprets graphs as molecule (fragments) in order to
+create depictions that resembles ordinary molecule depictions.</p>
+<section id="simple-graphs-with-string-labels">
+<span id="graph-model-basic"></span><h2><span class="section-number">7.1. </span>Simple Graphs with String Labels<a class="headerlink" href="#simple-graphs-with-string-labels" title="Link to this heading">¶</a></h2>
+<p>In the simplified model, a graph
+<span class="math notranslate nohighlight">\(G = (V, E, l\colon V\cup E\rightarrow \Omega)\)</span>
+is undirected, and neither has loop edges nor parallel edges.
+The function <span class="math notranslate nohighlight">\(l\)</span> assigns a label to each vertex and edge.
+A morphism between two graphs <span class="math notranslate nohighlight">\(m\colon G\rightarrow H\)</span> is a graph morphism
+which commutes with the labelling functions.
+That is,</p>
+<ul class="simple">
+<li><p>graph morphism: for every edge <span class="math notranslate nohighlight">\((u, v) \in E_G\)</span> we must have an
+corresponding edge
+<span class="math notranslate nohighlight">\((m(u), m(v)) \in E_H\)</span> (<span class="math notranslate nohighlight">\(m\)</span> is a graph morphism), and</p></li>
+<li><p>vertex labels: each vertex <span class="math notranslate nohighlight">\(v \in V_G\)</span> is mapped to a vertex with the
+same label, <span class="math notranslate nohighlight">\(l_G(v) = l_H(m(v))\)</span>.</p></li>
+<li><p>edge labels: each edge <span class="math notranslate nohighlight">\(e \in E_G\)</span> is mapped to a vertex with the
+same label, <span class="math notranslate nohighlight">\(l_G(e) = l_H(m(e))\)</span>.</p></li>
+</ul>
+<p>The only requirement of <span class="math notranslate nohighlight">\(\Omega\)</span> is thus that the elements can be
+compared for equality.
+In MØD this correspons to using
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType6StringE" title="mod::LabelType::String"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::String</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.String" title="mod.LabelType.String"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.String</span></code></a>
+in the a <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelSettings" title="mod.LabelSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a> object,
+and in the API of PyMØD, this is the default.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType6StringE" title="mod::LabelType::String"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::String</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.String" title="mod.LabelType.String"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.String</span></code></a>
+the <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation" title="mod.LabelRelation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation</span></code></a> in
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelSettings" title="mod.LabelSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a> doesn’t matter,</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Technically, in this basic model the stereo setting in
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelSettings" title="mod.LabelSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a> should be disabled as
+well. Though, the stereo model is in an experimental stage and we will
+therefore not explore it further.</p>
+</div>
+<p>A <a class="reference internal" href="../libmod/graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Graph</span></code></a>/<a class="reference internal" href="../pymod/graph/Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> is further required to be
+connected.</p>
+</section>
+<section id="switching-category-first-order-terms-as-labels">
+<span id="graph-model-terms"></span><h2><span class="section-number">7.2. </span>Switching Category — First-Order Terms as Labels<a class="headerlink" href="#switching-category-first-order-terms-as-labels" title="Link to this heading">¶</a></h2>
+<p>We can imbue the label set <span class="math notranslate nohighlight">\(Omega\)</span> with extra structure by using
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType4TermE" title="mod::LabelType::Term"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::Term</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.Term" title="mod.LabelType.Term"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.Term</span></code></a> instead of
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType6StringE" title="mod::LabelType::String"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::String</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.String" title="mod.LabelType.String"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.String</span></code></a>.
+The labels are now interpreted as <a class="reference external" href="https://en.wikipedia.org/wiki/Unification_(computer_science)#First-order_term">firt-order terms</a>,
+and formally the graph/objects are now in a different
+<a class="reference external" href="https://en.wikipedia.org/wiki/Category_(mathematics)">category</a>.</p>
+<p>In the graph/rule objects it is the same text strings being used either verbatim
+when in string mode or being parsed when in term mode.</p>
+<p>The following describes how the strings are parsed in term mode.</p>
+<ul>
+<li><p>A constant or function symbol is a word that can be matched by the regex
+<code class="docutils literal notranslate"><span class="pre">[A-Za-z0-9=#:.+-][A-Za-z0-9=#:.+-_]*</span></code>.
+This means that all strings that are <a class="reference internal" href="#mol-enc"><span class="std std-ref">considered “molecular”</span></a>
+can be reinterpreted as constant symbols.</p></li>
+<li><p>A variable symbol is a word that can be matched by the regex
+<code class="docutils literal notranslate"><span class="pre">_[A-Za-z0-9=#:.+-][A-Za-z0-9=#:.+-_]*</span></code>.
+That is, variable is like a constant/function symbol, but with a <code class="docutils literal notranslate"><span class="pre">_</span></code>
+prepended.
+An unnamed variable can be specified by the special wildcard symbol <code class="docutils literal notranslate"><span class="pre">*</span></code>.</p>
+<p>The variable symbols matched by the regex <code class="docutils literal notranslate"><span class="pre">_[HT][0-9][0-9]*</span></code> are
+discouraged, as they are reserved for converting terms back into strings.</p>
+</li>
+<li><p>Function terms start with a function symbol followed by a parenthesis with a
+comma-separated list of terms. They may contain white-space which is ignored.</p></li>
+</ul>
+<p>If parsing of terms fails an exception of type
+<a class="reference internal" href="../libmod/Error.html#_CPPv4N3mod16TermParsingErrorE" title="mod::TermParsingError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">TermParsingError</span></code></a>/<a class="reference internal" href="../pymod/Error.html#mod.TermParsingError" title="mod.TermParsingError"><code class="xref py py-class docutils literal notranslate"><span class="pre">TermParsingError</span></code></a>
+is thrown. Thus, essentially any function that takes a
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelSettings" title="mod.LabelSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSettings</span></code></a>
+object may throw such an exception.</p>
+<p>If a graph/rule was created in term mode and then is used in string mode,
+the first-order terms are serialized back into strings:</p>
+<ul class="simple">
+<li><p>Constant/function symbols are serialized verbatim.</p></li>
+<li><p>Variable names are generated and will be matchable by the regex
+<code class="docutils literal notranslate"><span class="pre">_[HT][0-9][0-9]*</span></code>. Any original variable names are not saved.</p></li>
+<li><p>Function terms will be serialized with a single space character after each
+comma.</p></li>
+</ul>
+<section id="morphisms">
+<h3><span class="section-number">7.2.1. </span>Morphisms<a class="headerlink" href="#morphisms" title="Link to this heading">¶</a></h3>
+<p>First-order terms are partially ordered, and we thus have additional choice in
+how to define morphisms.
+This choice is in the API selected through the
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation" title="mod.LabelRelation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation</span></code></a> objects which offers the three
+choices “unification”, “specialisation”, and “isomorphism”.
+Given a graph morphism <span class="math notranslate nohighlight">\(m\colon G\rightarrow H\)</span>
+let <span class="math notranslate nohighlight">\(V_G = \{v_1, v_2, \dots, v_n\}\)</span> be the vertices of <span class="math notranslate nohighlight">\(G\)</span>
+and <span class="math notranslate nohighlight">\(E_G = \{e_1, e_2, \dots, e_p\}\)</span> be the edges of <span class="math notranslate nohighlight">\(G\)</span>.
+Consider the following two terms:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}t_G &amp;= \texttt{assoc}(l_G(v_1), l_G(v_2), \dots, l_G(v_n),
+                      l_G(e_1), l_G(e_2), \dots, l_G(e_p))      \\
+t_H &amp;= \texttt{assoc}(l_H(m(v_1)), l_H(m(v_2)), \dots, l_H(m(v_n)),
+                      l_H(m(e_1)), l_H(m(e_2)), \dots, l_H(m(e_p)))\end{split}\]</div>
+<p>They lay out all the labels of <span class="math notranslate nohighlight">\(G\)</span> in <span class="math notranslate nohighlight">\(t_G\)</span> and then the labels
+of the corresponding vertices and edges in <span class="math notranslate nohighlight">\(H\)</span> in <span class="math notranslate nohighlight">\(t_H\)</span>.</p>
+<p>The graph morphism <span class="math notranslate nohighlight">\(m\)</span> is in term mode a valid morphism if</p>
+<ul class="simple">
+<li><p>with
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelation11UnificationE" title="mod::LabelRelation::Unification"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation::Unification</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation.Unification" title="mod.LabelRelation.Unification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation.Unification</span></code></a>
+there exists a most-general unifier between <span class="math notranslate nohighlight">\(t_G\)</span> and <span class="math notranslate nohighlight">\(t_H\)</span>.</p></li>
+<li><p>with
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelation14SpecialisationE" title="mod::LabelRelation::Specialisation"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation::Specialisation</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation.Specialisation" title="mod.LabelRelation.Specialisation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation.Specialisation</span></code></a>
+there exists a most-general unifier between <span class="math notranslate nohighlight">\(t_G\)</span> and <span class="math notranslate nohighlight">\(t_H\)</span>,
+and it only binds variables in <span class="math notranslate nohighlight">\(t_G\)</span> but not <span class="math notranslate nohighlight">\(t_H\)</span>.
+That is, <span class="math notranslate nohighlight">\(t_H\)</span> is a specialisation of <span class="math notranslate nohighlight">\(t_G\)</span>.</p></li>
+<li><p>with
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelation11IsomorphismE" title="mod::LabelRelation::Isomorphism"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation::Isomorphism</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation.Isomorphism" title="mod.LabelRelation.Isomorphism"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation.Isomorphism</span></code></a>
+there exists a most-general unifier between <span class="math notranslate nohighlight">\(t_G\)</span> and <span class="math notranslate nohighlight">\(t_H\)</span>,
+and it only binds variables to variables, and that variable mapping is
+a bijection.
+That is, the only difference between <span class="math notranslate nohighlight">\(t_G\)</span> and <span class="math notranslate nohighlight">\(t_H\)</span> is the naming
+of the variables they use.</p></li>
+</ul>
+<p>In most cases you should use
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelation14SpecialisationE" title="mod::LabelRelation::Specialisation"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation::Specialisation</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation.Specialisation" title="mod.LabelRelation.Specialisation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation.Specialisation</span></code></a>
+though, when for example using
+<a class="reference internal" href="../libmod/graph/Graph.html#_CPPv4NK3mod5graph5Graph11isomorphismENSt10shared_ptrI5GraphEENSt6size_tE13LabelSettings" title="mod::graph::Graph::isomorphism"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">graph::Graph::isomorphism()</span></code></a>/<a class="reference internal" href="../pymod/graph/Graph.html#mod.Graph.isomorphism" title="mod.Graph.isomorphism"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.isomorphism()</span></code></a>
+to check if two graphs encode the same mathematical object, you should use
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelation11IsomorphismE" title="mod::LabelRelation::Isomorphism"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation::Isomorphism</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation.Isomorphism" title="mod.LabelRelation.Isomorphism"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation.Isomorphism</span></code></a>.
+The funtion name thus refers to the type of the <em>graph morphism</em> being found,
+while the label settings describes the additional requirements for the labels.</p>
+<p>The third option,
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelation11UnificationE" title="mod::LabelRelation::Unification"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation::Unification</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation.Unification" title="mod.LabelRelation.Unification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation.Unification</span></code></a>,
+should be used very carefully.
+For example, when performing graph transofrmation, e.g., through a
+<a class="reference internal" href="../libmod/dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">dg::DG</span></code></a>/<a class="reference internal" href="../pymod/dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>, it may give results that are unexpected.
+One use-case is when calling
+<a class="reference internal" href="../libmod/graph/Graph.html#_CPPv4NK3mod5graph5Graph11isomorphismENSt10shared_ptrI5GraphEENSt6size_tE13LabelSettings" title="mod::graph::Graph::isomorphism"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">graph::Graph::isomorphism()</span></code></a>/<a class="reference internal" href="../pymod/graph/Graph.html#mod.Graph.isomorphism" title="mod.Graph.isomorphism"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.isomorphism()</span></code></a>,
+where using
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelation11UnificationE" title="mod::LabelRelation::Unification"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelRelation::Unification</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelRelation.Unification" title="mod.LabelRelation.Unification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRelation.Unification</span></code></a>
+means that you will find graph isomorphisms for which the labels on both graphs
+can be specialized such that the graph objects becomes isomorphic.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the graph transformation is it necessary to define a distinguished
+set of morphisms <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> for the term mode.
+These morphisms are those that are graph monomorphisms, but are label
+isomorphisms on the label part.</p>
+</div>
+</section>
+</section>
+<section id="rule-model">
+<span id="graph-model-rules"></span><h2><span class="section-number">7.3. </span>Rule Model<a class="headerlink" href="#rule-model" title="Link to this heading">¶</a></h2>
+<p>A <a class="reference internal" href="../libmod/rule/Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">rule::Rule</span></code></a>/<a class="reference internal" href="../pymod/rule/Rule.html#mod.Rule" title="mod.Rule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rule</span></code></a> represents a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Double_pushout_graph_rewriting">Double Pushout</a>
+(DPO) graph transformation rule <span class="math notranslate nohighlight">\(p = (L\xleftarrow{l}K\xrightarrow{r}R)\)</span>.
+Specifically, they are in the DPO variant with all morphisms being graph
+monomorphisms.</p>
+<section id="application-constraints">
+<span id="rule-constraints"></span><h3><span class="section-number">7.3.1. </span>Application Constraints<a class="headerlink" href="#application-constraints" title="Link to this heading">¶</a></h3>
+<p>A rule can have additional constriants that must be fulfilled before
+transformation can proceed. Specifically, a constraint <span class="math notranslate nohighlight">\(c\)</span> for a rule
+<span class="math notranslate nohighlight">\(L\leftarrow K\rightarrow R\)</span> is evaluated once a match morphism
+<span class="math notranslate nohighlight">\(m\colon L\rightarrow G\)</span> has been found.
+In the literature such application constraints are also called “application conditions”.</p>
+<section id="adjacency-constraint">
+<h4><span class="section-number">7.3.1.1. </span>Adjacency Constraint<a class="headerlink" href="#adjacency-constraint" title="Link to this heading">¶</a></h4>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p>a vertex <span class="math notranslate nohighlight">\(v\in V(L)\)</span>,</p></li>
+<li><p>a count <span class="math notranslate nohighlight">\(n\in \mathbb{N}_0\)</span>,</p></li>
+<li><p>an operator <span class="math notranslate nohighlight">\(op\in \{&lt;, \leq, =, \geq, &gt;\}\)</span>,</p></li>
+<li><p>a set of vertex labels <span class="math notranslate nohighlight">\(Q_V\in 2^\Omega\)</span>, and</p></li>
+<li><p>a set of edge labels <span class="math notranslate nohighlight">\(Q_E\in 2^\Omega\)</span>.</p></li>
+</ul>
+<section id="string-mode">
+<h5><span class="section-number">7.3.1.1.1. </span>String Mode<a class="headerlink" href="#string-mode" title="Link to this heading">¶</a></h5>
+<p>Given a match morphism <span class="math notranslate nohighlight">\(m\colon L\rightarrow G\)</span> the constraint is satisfied if</p>
+<div class="math notranslate nohighlight">
+\[|\{ e = (m(v), u)\in outEdges(m(v))\ |\
+        l_G(u)\in Q_V \wedge l_G(e)\in Q_E\}|
+\ op\ n\]</div>
+<p>That is, the vertex <span class="math notranslate nohighlight">\(v\)</span> is mapped to <span class="math notranslate nohighlight">\(G\)</span> and its incident edges are counted.
+Only those edges with a label in <span class="math notranslate nohighlight">\(Q_E\)</span> and the other endpoint with a
+label in <span class="math notranslate nohighlight">\(Q_V\)</span> are counted.
+The resulting count is then compared to the given number <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</section>
+<section id="term-mode">
+<h5><span class="section-number">7.3.1.1.2. </span>Term Mode<a class="headerlink" href="#term-mode" title="Link to this heading">¶</a></h5>
+<p>When using <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType4TermE" title="mod::LabelType::Term"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::Term</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.Term" title="mod.LabelType.Term"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.Term</span></code></a> the label
+comparison is changed to be a most general unifier computation:</p>
+<div class="math notranslate nohighlight">
+\[|\{ e = (m(v), u)\in outEdges(m(v))\ |\
+        \exists q_V\in Q_V \exists q_E\in Q_E :
+                hasMGU(l_G(u) \overset{?}{=} q_V, l_G(e) \overset{?}{=} q_E\}|
+\ op\ n\]</div>
+<p>That is, each edge has an independent most general unifier computation where
+there must exist vertex and edge labels from the given sets such that they
+unify with the labels of the candidate edge and its other endpoint.</p>
+</section>
+<section id="specification-in-gml">
+<h5><span class="section-number">7.3.1.1.3. </span>Specification in GML<a class="headerlink" href="#specification-in-gml" title="Link to this heading">¶</a></h5>
+<p>The constraint is specified in GML as described in <a class="reference internal" href="../formats/index.html#grammar-token-gml-adjacency"><code class="xref std std-token docutils literal notranslate"><span class="pre">adjacency</span></code></a>,
+but where omitting the <code class="docutils literal notranslate"><span class="pre">nodeLabels</span></code> (resp. <code class="docutils literal notranslate"><span class="pre">edgeLabels</span></code>) list represents setting
+<span class="math notranslate nohighlight">\(Q_V = \Omega`\)</span> (resp. <span class="math notranslate nohighlight">\(Q_E = \Omega\)</span>), effectively letting the
+counting be unrestricted with respect to those labels.</p>
+</section>
+<section id="examples">
+<h5><span class="section-number">7.3.1.1.4. </span>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h5>
+<ul class="simple">
+<li><p>A vertex must have at most 3 neighbours:
+<span class="math notranslate nohighlight">\(n = 3, Q_V = Q_E = \Omega\)</span> and use <span class="math notranslate nohighlight">\(\leq\)</span> as <span class="math notranslate nohighlight">\(op\)</span>.
+Assuming the vertex has ID 42 in the rule, this becomes the following in GML:
+<code class="docutils literal notranslate"><span class="pre">constraintAdj</span> <span class="pre">[</span> <span class="pre">id</span> <span class="pre">42</span> <span class="pre">op</span> <span class="pre">&quot;&lt;=&quot;</span> <span class="pre">count</span> <span class="pre">3</span> <span class="pre">]</span></code>.</p></li>
+<li><p>A vertex must have at least two neighbours with label <code class="docutils literal notranslate"><span class="pre">H</span></code>:
+<span class="math notranslate nohighlight">\(n = 2, Q_V = \{\texttt{H}\}, Q_E = \Omega\)</span> and use <span class="math notranslate nohighlight">\(\geq\)</span> as <span class="math notranslate nohighlight">\(op\)</span>.
+Assuming the vertex has ID 42 in the rule, this becomes the following in GML:
+<code class="docutils literal notranslate"><span class="pre">constraintAdj</span> <span class="pre">[</span> <span class="pre">id</span> <span class="pre">42</span> <span class="pre">nodeLabels</span> <span class="pre">[</span> <span class="pre">label</span> <span class="pre">&quot;H&quot;</span> <span class="pre">]</span> <span class="pre">op</span> <span class="pre">&quot;&gt;=&quot;</span> <span class="pre">count</span> <span class="pre">2</span> <span class="pre">]</span></code>.</p></li>
+<li><p>A vertex must have exactly 1 neighbour with label either <code class="docutils literal notranslate"><span class="pre">O</span></code> or <code class="docutils literal notranslate"><span class="pre">S</span></code> where
+the connecting edge has label <code class="docutils literal notranslate"><span class="pre">=</span></code>:
+<span class="math notranslate nohighlight">\(n = 1, Q_V = \{\texttt{O}, \texttt{S}\}, Q_E = \{\texttt{=}\}\)</span> and use
+<span class="math notranslate nohighlight">\(=\)</span> as <span class="math notranslate nohighlight">\(op\)</span>.
+Assuming the vertex has ID 42 in the rule, this becomes the following in GML:
+<code class="docutils literal notranslate"><span class="pre">constraintAdj</span> <span class="pre">[</span> <span class="pre">id</span> <span class="pre">42</span> <span class="pre">nodeLabels</span> <span class="pre">[</span> <span class="pre">label</span> <span class="pre">&quot;O&quot;</span> <span class="pre">label</span> <span class="pre">&quot;S&quot;</span> <span class="pre">]</span> <span class="pre">op</span> <span class="pre">&quot;=&quot;</span> <span class="pre">count</span> <span class="pre">1</span> <span class="pre">]</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="label-unification-constraint">
+<span id="id1"></span><h4><span class="section-number">7.3.1.2. </span>Label Unification Constraint<a class="headerlink" href="#label-unification-constraint" title="Link to this heading">¶</a></h4>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p>a query label <span class="math notranslate nohighlight">\(q\in \Omega\)</span> and</p></li>
+<li><p>a list of constraining labels <span class="math notranslate nohighlight">\(Q\in 2^\Omega\)</span>.</p></li>
+</ul>
+<section id="id2">
+<h5><span class="section-number">7.3.1.2.1. </span>String Mode<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h5>
+<p>While this constraint technically works when using
+<a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType6StringE" title="mod::LabelType::String"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::String</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.String" title="mod.LabelType.String"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.String</span></code></a>, it is not really
+interesting: it is statisfied if <span class="math notranslate nohighlight">\(q\in Q\)</span>, and can thus be evaluated statically,
+independent of any match.</p>
+</section>
+<section id="id3">
+<h5><span class="section-number">7.3.1.2.2. </span>Term Mode<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h5>
+<p>When using <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod9LabelType4TermE" title="mod::LabelType::Term"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">LabelType::Term</span></code></a>/<a class="reference internal" href="../pymod/Config.html#mod.LabelType.Term" title="mod.LabelType.Term"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelType.Term</span></code></a> the membership
+is a most general unifier computation: the constraint is statisfied if there
+exists a label <span class="math notranslate nohighlight">\(q'\in Q\)</span> that unifies with <span class="math notranslate nohighlight">\(q\)</span>.</p>
+</section>
+<section id="id4">
+<h5><span class="section-number">7.3.1.2.3. </span>Specification in GML<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h5>
+<p>The constraint is specified in GML as described in <a class="reference internal" href="../formats/index.html#grammar-token-gml-labelAny"><code class="xref std std-token docutils literal notranslate"><span class="pre">labelAny</span></code></a>,</p>
+</section>
+<section id="id5">
+<h5><span class="section-number">7.3.1.2.4. </span>Examples<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h5>
+<p>All these examples assume we are in term mode.</p>
+<ul class="simple">
+<li><p>Assume some vertex is supposed to act as wildcard, but constrained to only match,
+<code class="docutils literal notranslate"><span class="pre">O</span></code> or <code class="docutils literal notranslate"><span class="pre">S</span></code>.
+We can then give the vertex a label <code class="docutils literal notranslate"><span class="pre">_X</span></code>, i.e., a variable, and add the constraint
+<span class="math notranslate nohighlight">\(q = \texttt{_X}, Q = \{\texttt{O}, \texttt{S}\}\)</span>.
+In GML this becomes
+<code class="docutils literal notranslate"><span class="pre">constrainLabelAny</span> <span class="pre">[</span> <span class="pre">label</span> <span class="pre">&quot;_X&quot;</span> <span class="pre">labels</span> <span class="pre">[</span> <span class="pre">label</span> <span class="pre">&quot;O&quot;</span> <span class="pre">label</span> <span class="pre">&quot;S&quot;</span> <span class="pre">]</span> <span class="pre">]</span></code>.</p></li>
+<li><p>Assume we have two such vertices, but we need them to be different, i.e., if
+one is matched to a <code class="docutils literal notranslate"><span class="pre">O</span></code> then the other must be <code class="docutils literal notranslate"><span class="pre">S</span></code>.
+The two vertices can be given different variables as labels, <code class="docutils literal notranslate"><span class="pre">_X</span></code> and <code class="docutils literal notranslate"><span class="pre">_Y</span></code>,
+and we then add the constraint
+<span class="math notranslate nohighlight">\(q = \texttt{foo(_X, _Y)}, Q = \{\texttt{foo(O, S)}, \texttt{foo(S, O)}\}`\)</span>.
+In GML this becomes
+<code class="docutils literal notranslate"><span class="pre">constrainLabelAny</span> <span class="pre">[</span> <span class="pre">label</span> <span class="pre">&quot;foo(_X,</span> <span class="pre">_Y)&quot;</span> <span class="pre">labels</span> <span class="pre">[</span> <span class="pre">label</span> <span class="pre">&quot;foo(O,</span> <span class="pre">S)&quot;</span> <span class="pre">label</span> <span class="pre">&quot;foo(S,</span> <span class="pre">O)&quot;</span> <span class="pre">]</span> <span class="pre">]</span></code>.
+We here use an arbitrary function symbol, <code class="docutils literal notranslate"><span class="pre">foo</span></code>, just for the formulation
+of the constraint.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="resolution-of-formal-issues">
+<h3><span class="section-number">7.3.2. </span>Resolution of Formal Issues<a class="headerlink" href="#resolution-of-formal-issues" title="Link to this heading">¶</a></h3>
+<p>When relating the model to the formal description of DPO transformation in the
+literature there are two issues that require elaboration.</p>
+<section id="label-change">
+<h4><span class="section-number">7.3.2.1. </span>Label Change<a class="headerlink" href="#label-change" title="Link to this heading">¶</a></h4>
+<p>The rules allow both for vertices and edges to change labels, but only the
+latter is well-defined in traditional DPO transformation.
+Thus, mathematically it is not immediately possible to define the graphs as
+above. Consider a vertex changing label in a rule, which label should it
+have in <span class="math notranslate nohighlight">\(K\)</span>?
+However, as our graphs are not allowed to have loop edges we can as a trick
+simply pretend that whenever a vertex would have a label, we attach a loop edge
+to the vertex, and put the “vertex” label on that edge.
+Note that all morphisms are required to be at least graph monomorphisms, so a
+loop edge can not be created inadvertently.</p>
+</section>
+<section id="avoiding-parallel-edges">
+<h4><span class="section-number">7.3.2.2. </span>Avoiding Parallel Edges<a class="headerlink" href="#avoiding-parallel-edges" title="Link to this heading">¶</a></h4>
+<p>Our graphs are defined to be without parallel edges, which presents a
+mathematical problem in that certain pushouts are not allowed.
+In a DPO direct derivation we can avoid parallel edges by simply introducing
+algorithmic ad-hoc constraint, that if the second pushout would result in
+parallel edges in the result graph, then the direct derviation is not defined.</p>
+<p>However, in the big picture we can avoid this ad-hoc solution and think of the
+rules as having implicit negative application conditions (NACs):</p>
+<ul class="simple">
+<li><p>For each pair of vertices <span class="math notranslate nohighlight">\(u, v\in V_K\)</span>
+which are not connected in <span class="math notranslate nohighlight">\(L\)</span>, <span class="math notranslate nohighlight">\((l(u), l(v))\not\in E_L\)</span>,
+but are connected in <span class="math notranslate nohighlight">\(R\)</span>, <span class="math notranslate nohighlight">\((r(u), r(v))\in E_R\)</span>,
+there is a NAC on <span class="math notranslate nohighlight">\(L\)</span> preventing edges <span class="math notranslate nohighlight">\((l(u), l(v))\)</span>.</p></li>
+<li><p>And symmetrically, for each pair of vertices <span class="math notranslate nohighlight">\(u, v\in V_K\)</span>
+which are connected in <span class="math notranslate nohighlight">\(L\)</span>, <span class="math notranslate nohighlight">\((l(u), l(v))\not\in E_L\)</span>,
+but are not connected in <span class="math notranslate nohighlight">\(R\)</span>, <span class="math notranslate nohighlight">\((r(u), r(v))\in E_R\)</span>,
+there is a NAC on <span class="math notranslate nohighlight">\(R\)</span> preventing edges <span class="math notranslate nohighlight">\((l(u), l(v))\)</span>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="molecule-encoding">
+<span id="mol-enc"></span><h2><span class="section-number">7.4. </span>Molecule Encoding<a class="headerlink" href="#molecule-encoding" title="Link to this heading">¶</a></h2>
+<p>There is no strict requirement that graphs/rules encode molecule (fragments),
+however several optimizations are in place when they do, and depictions are
+prettified based on “moleculeness”.
+The following describes the encoding of molecules in the
+<a class="reference internal" href="#graph-model-basic"><span class="std std-ref">basic graph model</span></a>, that MØD recognizes.</p>
+<section id="edges-bonds">
+<h3><span class="section-number">7.4.1. </span>Edges / Bonds<a class="headerlink" href="#edges-bonds" title="Link to this heading">¶</a></h3>
+<p>An edge encodes a chemical bond if and only if its label is listed in the table below.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Label</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p>Single bond</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:</span></code></p></td>
+<td><p>“Aromatic” bond</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">=</span></code></p></td>
+<td><p>Double bond</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#</span></code></p></td>
+<td><p>Triple bond</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vertices-atoms">
+<h3><span class="section-number">7.4.2. </span>Vertices / Atoms<a class="headerlink" href="#vertices-atoms" title="Link to this heading">¶</a></h3>
+<p>A vertex encodes an atom if and only if its label conforms to the following grammar.</p>
+<pre>
+<strong id="grammar-token-molecularVertexLabel-vertexLabel">vertexLabel</strong> ::=  [ <a class="reference internal" href="#grammar-token-molecularVertexLabel-isotope"><code class="xref docutils literal notranslate"><span class="pre">isotope</span></code></a> ] <a class="reference internal" href="#grammar-token-molecularVertexLabel-atomSymbol"><code class="xref docutils literal notranslate"><span class="pre">atomSymbol</span></code></a> [ <a class="reference internal" href="#grammar-token-molecularVertexLabel-charge"><code class="xref docutils literal notranslate"><span class="pre">charge</span></code></a> ] [ <a class="reference internal" href="#grammar-token-molecularVertexLabel-radical"><code class="xref docutils literal notranslate"><span class="pre">radical</span></code></a> ]
+<strong id="grammar-token-molecularVertexLabel-isotope">isotope    </strong> ::=  unsignedInt
+<strong id="grammar-token-molecularVertexLabel-charge">charge     </strong> ::=  [ singleDigit ] ('-' | '+')
+<strong id="grammar-token-molecularVertexLabel-radical">radical    </strong> ::=  '.'
+<strong id="grammar-token-molecularVertexLabel-atomSymbol">atomSymbol </strong> ::=  an atom symbol with the first letter capitalised
+</pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the basic model there are no valence requirements for a graph being recognised as a molecule.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/graphModel/index.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

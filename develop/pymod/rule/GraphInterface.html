@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.10.3. rule/GraphInterface &#8212; MØD 0.17.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=0c3dd48d"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.10.4. rule/Rule" href="Rule.html" />
+    <link rel="prev" title="4.1.10.2. rule/CompositionMatch" href="CompositionMatch.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.17.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">13. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.10.3. rule/GraphInterface</a><ul>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.rule"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.rule</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.Vertex"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.Vertex</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.Vertex.core"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.Vertex.core</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.Vertex.rule"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.Vertex.rule</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.Edge"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.Edge</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.Edge.core"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.Edge.core</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.Edge.rule"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.Edge.rule</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.VertexRange"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.VertexRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.EdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.EdgeRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.LeftGraph.IncidentEdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.LeftGraph.IncidentEdgeRange</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.VertexMapRuleLeftGraphUnionGraph"><code class="docutils literal notranslate"><span class="pre">VertexMapRuleLeftGraphUnionGraph</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.rule"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.rule</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.Vertex"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.Vertex</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.Vertex.core"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.Vertex.core</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.Vertex.rule"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.Vertex.rule</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.Edge"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.Edge</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.Edge.core"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.Edge.core</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.Edge.graph"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.Edge.graph</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.VertexRange"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.VertexRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.EdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.EdgeRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.ContextGraph.IncidentEdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.ContextGraph.IncidentEdgeRange</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.rule"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.rule</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.Vertex"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.Vertex</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.Vertex.core"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.Vertex.core</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.Vertex.rule"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.Vertex.rule</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.Edge"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.Edge</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.Edge.core"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.Edge.core</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.Edge.rule"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.Edge.rule</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.VertexRange"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.VertexRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.EdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.EdgeRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.RightGraph.IncidentEdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.RightGraph.IncidentEdgeRange</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.VertexMapRuleRightGraphUnionGraph"><code class="docutils literal notranslate"><span class="pre">VertexMapRuleRightGraphUnionGraph</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Vertex"><code class="docutils literal notranslate"><span class="pre">Rule.Vertex</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.Vertex.rule"><code class="docutils literal notranslate"><span class="pre">Rule.Vertex.rule</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Vertex.left"><code class="docutils literal notranslate"><span class="pre">Rule.Vertex.left</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Vertex.context"><code class="docutils literal notranslate"><span class="pre">Rule.Vertex.context</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Vertex.right"><code class="docutils literal notranslate"><span class="pre">Rule.Vertex.right</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Vertex.get2DX"><code class="docutils literal notranslate"><span class="pre">Rule.Vertex.get2DX()</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Vertex.get2DY"><code class="docutils literal notranslate"><span class="pre">Rule.Vertex.get2DY()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.Edge"><code class="docutils literal notranslate"><span class="pre">Rule.Edge</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.Edge.rule"><code class="docutils literal notranslate"><span class="pre">Rule.Edge.rule</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Edge.left"><code class="docutils literal notranslate"><span class="pre">Rule.Edge.left</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Edge.context"><code class="docutils literal notranslate"><span class="pre">Rule.Edge.context</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.Edge.right"><code class="docutils literal notranslate"><span class="pre">Rule.Edge.right</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.VertexRange"><code class="docutils literal notranslate"><span class="pre">Rule.VertexRange</span></code></a><ul>
+<li><a class="reference internal" href="#mod.Rule.VertexRange.__getitem__"><code class="docutils literal notranslate"><span class="pre">Rule.VertexRange.__getitem__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.Rule.EdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.EdgeRange</span></code></a></li>
+<li><a class="reference internal" href="#mod.Rule.IncidentEdgeRange"><code class="docutils literal notranslate"><span class="pre">Rule.IncidentEdgeRange</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="CompositionMatch.html" title="Previous Chapter: 4.1.10.2. rule/CompositionMatch">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.10.2. rul...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Rule.html" title="Next Chapter: 4.1.10.4. rule/Rule">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.10.4. rule/Rule &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="rule-graphinterface">
+<span id="py-rule-graphinterface"></span><h1><span class="section-number">4.1.10.3. </span>rule/GraphInterface<a class="headerlink" href="#rule-graphinterface" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">LeftGraph</span></span><a class="headerlink" href="#mod.Rule.LeftGraph" title="Link to this definition">¶</a></dt>
+<dd><p>A proxy object representing the left graph of the rule.
+The class implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph" title="mod.protocols.LabelledGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph</span></code></a> protocol,</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the graph belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.Vertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex" title="Link to this definition">¶</a></dt>
+<dd><p>A descriptor of either a vertex in a left side, or a null vertex.
+Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.
+Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numCoreVertices[\)</span>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.Vertex.core">
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex.core" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The descriptor for this vertex in the core graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.Vertex" title="mod.Rule.Vertex">Rule.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.Vertex.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Vertex.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the vertex belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.Edge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge" title="Link to this definition">¶</a></dt>
+<dd><p>A descriptor of either an edge in a left side, or a null edge.
+Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.Edge.core">
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge.core" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The descriptor for this edge in the core graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.Edge" title="mod.Rule.Edge">Rule.Edge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.Edge.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.Edge.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the edge belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.VertexRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.VertexRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.EdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.EdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.LeftGraph.IncidentEdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.LeftGraph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.VertexMapRuleLeftGraphUnionGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">VertexMapRuleLeftGraphUnionGraph</span></span><a class="headerlink" href="#mod.VertexMapRuleLeftGraphUnionGraph" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.VertexMap" title="mod.protocols.VertexMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.VertexMap</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">ContextGraph</span></span><a class="headerlink" href="#mod.Rule.ContextGraph" title="Link to this definition">¶</a></dt>
+<dd><p>A proxy object representing the context graph of the rule.
+The class implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph" title="mod.protocols.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph</span></code></a> protocol,</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the graph belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.Vertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex" title="Link to this definition">¶</a></dt>
+<dd><p>A descriptor of either a vertex in a context, or a null vertex.
+Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex" title="mod.protocols.Graph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.Vertex</span></code></a> protocol.
+Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numCoreVertices[\)</span>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.Vertex.core">
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex.core" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The descriptor for this vertex in the core graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.Vertex" title="mod.Rule.Vertex">Rule.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.Vertex.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Vertex.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the vertex belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.Edge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge" title="Link to this definition">¶</a></dt>
+<dd><p>A descriptor of either an edge in a context, or a null edge.
+Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.Edge.core">
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge.core" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The descriptor for this edge in the core graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.Edge" title="mod.Rule.Edge">Rule.Edge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.Edge.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.Edge.graph" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the edge belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.VertexRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.VertexRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.EdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.EdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.ContextGraph.IncidentEdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.ContextGraph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">RightGraph</span></span><a class="headerlink" href="#mod.Rule.RightGraph" title="Link to this definition">¶</a></dt>
+<dd><p>A proxy object representing the right graph of the rule.
+The class implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph" title="mod.protocols.LabelledGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph</span></code></a> protocol,</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the graph belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.Vertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex" title="Link to this definition">¶</a></dt>
+<dd><p>A descriptor of either a vertex in a right side, or a null vertex.
+Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.
+Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numCoreVertices[\)</span>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.Vertex.core">
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex.core" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The descriptor for this vertex in the core graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.Vertex" title="mod.Rule.Vertex">Rule.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.Vertex.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Vertex.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the vertex belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.Edge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge" title="Link to this definition">¶</a></dt>
+<dd><p>A descriptor of either an edge in a right side, or a null edge.
+Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.Edge.core">
+<span class="sig-name descname"><span class="pre">core</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge.core" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The descriptor for this edge in the core graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.Edge" title="mod.Rule.Edge">Rule.Edge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.Edge.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.RightGraph.Edge.rule" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The rule the edge belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.VertexRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.VertexRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.EdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.EdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.RightGraph.IncidentEdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.RightGraph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.VertexMapRuleRightGraphUnionGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">VertexMapRuleRightGraphUnionGraph</span></span><a class="headerlink" href="#mod.VertexMapRuleRightGraphUnionGraph" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.VertexMap" title="mod.protocols.VertexMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.VertexMap</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.Vertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Rule.Vertex" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex" title="mod.protocols.Graph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.Vertex</span></code></a> protocol.
+Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numVertices[\)</span>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Vertex.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.Vertex.rule" title="Link to this definition">¶</a></dt>
+<dd><p>An alias for <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.graph" title="mod.protocols.Graph.Vertex.graph"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocols.Graph.Vertex.graph</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Vertex.left">
+<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.Vertex.left" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) A null descriptor if this vertex is not in the left graph,
+otherwise the descriptor of this vertex in the left graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.LeftGraph.Vertex" title="mod.Rule.LeftGraph.Vertex">LeftGraph.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Vertex.context">
+<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.Vertex.context" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) A null descriptor if this vertex is not in the context graph,
+otherwise the descriptor of this vertex in the context graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.ContextGraph.Vertex" title="mod.Rule.ContextGraph.Vertex">ContextGraph.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Vertex.right">
+<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.Vertex.right" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) A null descriptor if this vertex is not in the right graph,
+otherwise the descriptor of this vertex in the right graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.RightGraph.Vertex" title="mod.Rule.RightGraph.Vertex">RightGraph.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Rule.Vertex.get2DX">
+<span class="sig-name descname"><span class="pre">get2DX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withHydrogens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.Vertex.get2DX" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the x-coordinate in a 2D depiction of the rule.
+Different sets of coordinates exists for rendering with and without certain hydrogens.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor, or
+if <code class="docutils literal notranslate"><span class="pre">withHydrogens</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and the vertex is a “clean” hydrogen.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Rule.Vertex.get2DY">
+<span class="sig-name descname"><span class="pre">get2DY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">withHydrogens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.Vertex.get2DY" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the y-coordinate in a 2D depiction of the rule.
+Different sets of coordinates exists for rendering with and without certain hydrogens.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if it is a null descriptor, or
+if <code class="docutils literal notranslate"><span class="pre">withHydrogens</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and the vertex is a “clean” hydrogen.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.Edge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Rule.Edge" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Edge" title="mod.protocols.Graph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.Edge</span></code></a> protocol.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Edge.rule">
+<span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#mod.Rule.Edge.rule" title="Link to this definition">¶</a></dt>
+<dd><p>An alias for <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Edge.graph" title="mod.protocols.Graph.Edge.graph"><code class="xref py py-attr docutils literal notranslate"><span class="pre">protocols.Graph.Edge.graph</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Edge.left">
+<span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#mod.Rule.Edge.left" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) A null descriptor if this edge is not in the left graph,
+otherwise the descriptor of this edge in the left graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.LeftGraph.Edge" title="mod.Rule.LeftGraph.Edge">LeftGraph.Edge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Edge.context">
+<span class="sig-name descname"><span class="pre">context</span></span><a class="headerlink" href="#mod.Rule.Edge.context" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) A null descriptor if this edge is not in the context graph,
+otherwise the descriptor of this edge in the context graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.ContextGraph.Edge" title="mod.Rule.ContextGraph.Edge">ContextGraph.Edge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.Rule.Edge.right">
+<span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#mod.Rule.Edge.right" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) A null descriptor if this edge is not in the right graph,
+otherwise the descriptor of this edge in the right graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.Rule.RightGraph.Edge" title="mod.Rule.RightGraph.Edge">RightGraph.Edge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.VertexRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Rule.VertexRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol,
+in addition to the following functionality.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.Rule.VertexRange.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.Rule.VertexRange.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the <code class="docutils literal notranslate"><span class="pre">i</span></code>th vertex of the graph.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mod.Rule.Vertex" title="mod.Rule.Vertex">Rule.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.EdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Rule.EdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.Rule.IncidentEdgeRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Rule.</span></span><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Rule.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/rule/GraphInterface.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

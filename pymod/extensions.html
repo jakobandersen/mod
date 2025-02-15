@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.2. Creating a Python Extension &#8212; MØD 0.17.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=0c3dd48d"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. PostMØD" href="../postmod/index.html" />
+    <link rel="prev" title="4.1.10.4. rule/Rule" href="rule/Rule.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.17.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">13. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.2. Creating a Python Extension</a><ul>
+<li><a class="reference internal" href="#library-source-and-headers">4.2.1. Library Source and Headers</a></li>
+<li><a class="reference internal" href="#exposing-the-interface">4.2.2. Exposing the Interface</a></li>
+<li><a class="reference internal" href="#building-with-cmake">4.2.3. Building With CMake</a></li>
+<li><a class="reference internal" href="#testing-the-extension">4.2.4. Testing the Extension</a></li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="rule/Rule.html" title="Previous Chapter: 4.1.10.4. rule/Rule">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.10.4. rule/Rule
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../postmod/index.html" title="Next Chapter: 5. PostMØD">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">5. PostMØD &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="creating-a-python-extension">
+<span id="creatingpymodext"></span><h1><span class="section-number">4.2. </span>Creating a Python Extension<a class="headerlink" href="#creating-a-python-extension" title="Link to this heading">¶</a></h1>
+<p>PyMØD is primarily Python bindings for libMØD made using
+<a class="reference external" href="http://www.boost.org/libs/python/">Boost.Python</a>.
+The following shows a template for creating a Python extension with C++
+functions (e.g., to extend libMØD).
+The complete source code for the example can be found <a class="reference external" href="../_static/examples/pymod_extension/">here</a>.</p>
+<section id="library-source-and-headers">
+<h2><span class="section-number">4.2.1. </span>Library Source and Headers<a class="headerlink" href="#library-source-and-headers" title="Link to this heading">¶</a></h2>
+<p>For this examples the following C++ source with header should be exposed
+in the Python module. Header:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef AWESOMELIB_HPP</span>
+<span class="cp">#define AWESOMELIB_HPP</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mod/graph/Graph.hpp&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">awesome</span><span class="w"> </span><span class="p">{</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">mod</span><span class="o">::</span><span class="n">graph</span><span class="o">::</span><span class="n">Graph</span><span class="o">&gt;</span><span class="w"> </span><span class="n">doStuff</span><span class="p">();</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace awesome</span>
+
+<span class="cp">#endif </span><span class="c1">// AWESOMELIB_HPP</span>
+</pre></div>
+</div>
+<p>Source:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stuff.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">awesome</span><span class="w"> </span><span class="p">{</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">mod</span><span class="o">::</span><span class="n">graph</span><span class="o">::</span><span class="n">Graph</span><span class="o">&gt;</span><span class="w"> </span><span class="n">doStuff</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">auto</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mod</span><span class="o">::</span><span class="n">graph</span><span class="o">::</span><span class="n">Graph</span><span class="o">::</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s">&quot;CCO&quot;</span><span class="p">);</span>
+<span class="w">	</span><span class="n">g</span><span class="o">-&gt;</span><span class="n">setName</span><span class="p">(</span><span class="s">&quot;Ethanol&quot;</span><span class="p">);</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="n">g</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace awesome</span>
+</pre></div>
+</div>
+</section>
+<section id="exposing-the-interface">
+<h2><span class="section-number">4.2.2. </span>Exposing the Interface<a class="headerlink" href="#exposing-the-interface" title="Link to this heading">¶</a></h2>
+<p>See the Boost.Python documentation for instructions how to expose C++ code.
+Below is the code for creating our simple Python extension.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/python.hpp&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stuff.hpp&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mod/Config.hpp&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">py</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">boost</span><span class="o">::</span><span class="nn">python</span><span class="p">;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="c1">// this can be used to make sure the extension and mod is using the same shared library</span>
+<span class="w">	</span><span class="kt">uintptr_t</span><span class="w"> </span><span class="nf">magicLibraryValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="o">&amp;</span><span class="n">mod</span><span class="o">::</span><span class="n">getConfig</span><span class="p">();</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">BOOST_PYTHON_MODULE</span><span class="p">(</span><span class="n">awesome</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="n">py</span><span class="o">::</span><span class="n">def</span><span class="p">(</span><span class="s">&quot;magicLibraryValue&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">magicLibraryValue</span><span class="p">);</span>
+
+<span class="w">	</span><span class="n">py</span><span class="o">::</span><span class="n">def</span><span class="p">(</span><span class="s">&quot;doStuff&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">awesome</span><span class="o">::</span><span class="n">doStuff</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The example exposes a bit of extra functionality for a sanity check.
+Python will <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> libMØD twice As both the PyMØD module and our extension
+requires it. The library uses static variables and strange things might happen
+if multiple instances of these exist. The MØD wrapper script changes the dlopen
+flags (setting <code class="docutils literal notranslate"><span class="pre">RTLD_GLOBAL</span></code> and <code class="docutils literal notranslate"><span class="pre">RTLD_NOW</span></code>) which should prevent multiple
+instances of the library. The function <code class="docutils literal notranslate"><span class="pre">magicLibraryValue</span></code> can be used to check
+that this is true (see the test script below).</p>
+</section>
+<section id="building-with-cmake">
+<h2><span class="section-number">4.2.3. </span>Building With CMake<a class="headerlink" href="#building-with-cmake" title="Link to this heading">¶</a></h2>
+<p>We can use CMake to build the example:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.15</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span><span class="w"> </span><span class="s">CMAKE_MODULE_PATH</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_LIST_DIR</span><span class="o">}</span><span class="s">/cmake</span><span class="p">)</span>
+
+<span class="nb">project</span><span class="p">(</span><span class="s">PyModTestProject</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+
+<span class="c"># MØD</span>
+<span class="c"># -------------------------------------------------------------------------</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">mod</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="c"># Artefacts</span>
+<span class="c"># -------------------------------------------------------------------------</span>
+<span class="nb">add_library</span><span class="p">(</span><span class="s">awesome</span><span class="w"> </span><span class="s">MODULE</span>
+<span class="w">        </span><span class="s">pyModule.cpp</span>
+<span class="w">        </span><span class="s">stuff.cpp</span><span class="p">)</span>
+<span class="nb">set_target_properties</span><span class="p">(</span><span class="s">awesome</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">PREFIX</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="c"># so it doesn&#39;t get the &quot;lib&quot; prefix</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">awesome</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">mod::pymodutils</span><span class="p">)</span>
+<span class="nb">target_compile_options</span><span class="p">(</span><span class="s">awesome</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">-Wall</span><span class="w"> </span><span class="s">-Wextra</span><span class="w"> </span><span class="s">-pedantic</span>
+<span class="w">        </span><span class="s">-Wno-unused-parameter</span>
+<span class="w">        </span><span class="s">-Wno-comment</span>
+<span class="w">        </span><span class="s">-Wno-unused-local-typedefs</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-the-extension">
+<h2><span class="section-number">4.2.4. </span>Testing the Extension<a class="headerlink" href="#testing-the-extension" title="Link to this heading">¶</a></h2>
+<p>After configuring and building there should be a shared library <code class="docutils literal notranslate"><span class="pre">awesome.so</span></code> which contains
+the extension. Executing the following script using the wrapper script in the same folder
+as the shared libray should now work:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">awesome</span>
+
+<span class="c1"># sanity check for multiple copies of libMØD</span>
+<span class="n">modValue</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">magicLibraryValue</span><span class="p">()</span>
+<span class="n">ourValue</span> <span class="o">=</span> <span class="n">awesome</span><span class="o">.</span><span class="n">magicLibraryValue</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">modValue</span> <span class="o">!=</span> <span class="n">ourValue</span><span class="p">:</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mod =&quot;</span><span class="p">,</span> <span class="n">modValue</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;our =&quot;</span><span class="p">,</span> <span class="n">ourValue</span><span class="p">)</span>
+	<span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Magic values differ! I.e., more than one instance of libMØD has been loaded.&quot;</span><span class="p">)</span>
+<span class="c1"># end if check</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">awesome</span><span class="o">.</span><span class="n">doStuff</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got a graph:&quot;</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Command to execute:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mod<span class="w"> </span>-f<span class="w"> </span>test.py
+</pre></div>
+</div>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/pymod/extensions.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+.. _cpp-Function:
+
+**********************************************************
+Function.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+The class template `Function` is used throughout the library to represent
+function objects.
+
+.. class:: template<typename Sig> Function
+
+Class ``template<typename R, typename ...Args> Function<R(Args...)>``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: template<typename R, typename ...Args> Function<R(Args...)>
+    
+
+    Abstract base class template for function objects used in the library.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: template<typename R, typename ...Args> Function<R(Args...)>
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: template<typename R, typename ...Args> Function<R(Args...)>
+
+.. function:: virtual std::shared_ptr<Function<R(Args...)> > clone() const = 0
+
+    Cloning function used when a copy of a given functor is needed.
+
+.. function:: virtual void print(std::ostream &s) const = 0
+
+    Printing function used for describing the function in output from algorithms.
+
+.. function:: virtual R operator()(Args ...args) const = 0
+
+    The actual function implementation of the function.
+
+
+.. cpp:namespace-pop::
+

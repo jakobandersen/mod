@@ -1,0 +1,140 @@
+.. _cpp-rule/CompositionExpr:
+
+**********************************************************
+rule/CompositionExpr.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+In the ``rule::RCExp`` namespace the data structures and operators for representing rule composition expressions are defined.
+An expression can be evaluated through the method :func:`rule::Composer::eval`. The result of an expression
+is a list of rules.
+
+See also [AFMS-RC]_, [AFMS-RC-AtomMap]_, and [AFMS-RC-Matrix]_ for details on how these expressions are computed internally,
+and further examples of how they can be used to solve particular problems.
+
+.. class:: rule::RCExp::Union
+
+    When evaluated, the subexpressions are evaluated and the results are combined.
+    The combination is either simple concatenation of lists, or taking the union of the subresults.
+
+    .. function:: Union(std::vector<Expression> exps)
+
+        :throws: :class:`LogicError` if `exps.empty()`.
+    .. function::  friend std::ostream &operator<<(std::ostream &s, const Union &par)
+    .. function::  const std::vector<Expression> &getExpressions() const
+.. class:: rule::RCExp::Bind
+
+    When evaluated, returns a list with a single rule, :math:`\emptyset \leftarrow \emptyset \rightarrow G`,
+    for the given graph :math:`G`.
+
+    .. function:: Bind(std::shared_ptr<graph::Graph> g)
+
+        :throws: :class:`LogicError` if `!g`.
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const Bind &b)
+    .. function:: std::shared_ptr<graph::Graph> getGraph() const
+.. class:: rule::RCExp::Id
+
+    When evaluated, returns a list with a single rule, :math:`G \leftarrow G \rightarrow G`,
+    for the given graph :math:`G`.
+
+    .. function:: Id(std::shared_ptr<graph::Graph> g)
+
+        :throws: :class:`LogicError` if `!g`.
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const Id &i)
+    .. function:: std::shared_ptr<graph::Graph> getGraph() const
+.. class:: rule::RCExp::Unbind
+
+    When evaluated, returns a list with a single rule, :math:`G \leftarrow \emptyset \rightarrow \emptyset`,
+    for the given graph :math:`G`.
+
+    .. function:: Unbind(std::shared_ptr<graph::Graph> g)
+
+        :throws: :class:`LogicError` if `!g`.
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const Unbind &u)
+    .. function:: std::shared_ptr<graph::Graph> getGraph() const
+.. class:: rule::RCExp::Expression
+
+    A class containing any type of the rule composition expression.
+    That is, it acts as a variant.
+
+    .. function:: Expression(std::shared_ptr<Rule> r)
+                  Expression(Union u)
+                  Expression(Bind bind)
+                  Expression(Id id)
+                  Expression(Unbind unbind)
+                  Expression(ComposeCommon compose)
+                  Expression(ComposeParallel compose)
+                  Expression(ComposeSub compose)
+                  Expression(ComposeSuper compose)
+
+        :throws: :class:`LogicError` if `!r`.
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const Expression &exp)
+.. class:: rule::RCExp::ComposeCommon
+
+    When evaluated, evaluate the `first` and `second` expressions to obtain list of rules :math:`P_1` and :math:`P_2`.
+    For each pair of rules
+    :math:`p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1` and
+    :math:`p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2`,
+    compose them by common subgraphs of :math:`R_1` and :math:`L_2`,
+    possibly limited to connected subgraphs or to the subgraphs of maximum size.
+    By default the empty subgraph is not considered, but can be enabled to be.
+
+    .. function:: ComposeCommon(Expression first, Expression second, bool maximum, bool connected, bool includeEmpty)
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const ComposeCommon &c)
+    .. var:: Expression first
+             Expression second
+    .. var:: bool maximum
+             bool connected
+             bool includeEmpty
+.. class:: rule::RCExp::ComposeParallel
+
+    When evaluated, evaluate the `first` and `second` expressions to obtain list of rules :math:`P_1` and :math:`P_2`.
+    For each pair of rules
+    :math:`p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1` and
+    :math:`p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2`,
+    compose them by the empty overlap of :math:`R_1` and :math:`L_2`.
+
+    .. function:: ComposeParallel(Expression first, Expression second)
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const ComposeParallel &c)
+    .. var:: Expression first
+             Expression second
+.. class:: rule::RCExp::ComposeSub
+
+    When evaluated, evaluate the `first` and `second` expressions to obtain list of rules :math:`P_1` and :math:`P_2`.
+    For each pair of rules
+    :math:`p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1` and
+    :math:`p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2`,
+    compose them by common subgraphs of :math:`R_1` and :math:`L_2` such that :math:`R_1` is the common subgraph,
+    i.e., that :math:`R_1` is matched as a subgraph of :math:`L_2`.
+
+    If ``allowPartial`` is set `true`, then each non-empty subset of connected components of :math:`R_1` are matched
+    as a subgraph of :math:`L_2`.
+
+    .. function:: ComposeSub(Expression first, Expression second, bool allowPartial)
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const ComposeSub &c)
+    .. var:: Expression first
+             Expression second
+    .. var:: bool allowPartial
+.. class:: rule::RCExp::ComposeSuper
+
+    When evaluated, evaluate the `first` and `second` expressions to obtain list of rules :math:`P_1` and :math:`P_2`.
+    For each pair of rules
+    :math:`p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1` and
+    :math:`p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2`,
+    compose them by common subgraphs of :math:`R_1` and :math:`L_2` such that :math:`L_2` is the common subgraph,
+    i.e., that :math:`L_2` is matched as a subgraph of :math:`R_1`.
+
+    If ``allowPartial`` is set `true`, then each non-empty subset of connected components of :math:`L_2` are matched
+    as a subgraph of :math:`R_1`.
+
+    .. function:: ComposeSuper(Expression first, Expression second, bool allowPartial, bool enforceConstraints)
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const ComposeSuper &c)
+    .. var:: Expression first
+             Expression second
+    .. var:: bool allowPartial
+             bool enforceConstraints

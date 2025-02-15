@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.13.2. rule/CompositionExpr.hpp &#8212; MØD 0.17.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=0c3dd48d"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.13.3. rule/CompositionMatch.hpp" href="CompositionMatch.html" />
+    <link rel="prev" title="3.2.13.1. rule/Composer.hpp" href="Composer.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.17.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">13. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.13.2. rule/CompositionExpr.hpp</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp5UnionE"><code class="docutils literal notranslate"><span class="pre">Union</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp5Union5UnionENSt6vectorI10ExpressionEE"><code class="docutils literal notranslate"><span class="pre">Union::Union()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp5UnionlsERNSt7ostreamERK5Union"><code class="docutils literal notranslate"><span class="pre">Union::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule5RCExp5Union14getExpressionsEv"><code class="docutils literal notranslate"><span class="pre">Union::getExpressions()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp4BindE"><code class="docutils literal notranslate"><span class="pre">Bind</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp4Bind4BindENSt10shared_ptrIN5graph5GraphEEE"><code class="docutils literal notranslate"><span class="pre">Bind::Bind()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp4BindlsERNSt7ostreamERK4Bind"><code class="docutils literal notranslate"><span class="pre">Bind::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule5RCExp4Bind8getGraphEv"><code class="docutils literal notranslate"><span class="pre">Bind::getGraph()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp2IdE"><code class="docutils literal notranslate"><span class="pre">Id</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp2Id2IdENSt10shared_ptrIN5graph5GraphEEE"><code class="docutils literal notranslate"><span class="pre">Id::Id()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp2IdlsERNSt7ostreamERK2Id"><code class="docutils literal notranslate"><span class="pre">Id::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule5RCExp2Id8getGraphEv"><code class="docutils literal notranslate"><span class="pre">Id::getGraph()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp6UnbindE"><code class="docutils literal notranslate"><span class="pre">Unbind</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp6Unbind6UnbindENSt10shared_ptrIN5graph5GraphEEE"><code class="docutils literal notranslate"><span class="pre">Unbind::Unbind()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp6UnbindlsERNSt7ostreamERK6Unbind"><code class="docutils literal notranslate"><span class="pre">Unbind::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule5RCExp6Unbind8getGraphEv"><code class="docutils literal notranslate"><span class="pre">Unbind::getGraph()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE"><code class="docutils literal notranslate"><span class="pre">Expression</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionENSt10shared_ptrI4RuleEE"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE5Union"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE4Bind"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE2Id"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE6Unbind"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE13ComposeCommon"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE15ComposeParallel"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE10ComposeSub"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE12ComposeSuper"><code class="docutils literal notranslate"><span class="pre">Expression::Expression()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionlsERNSt7ostreamERK10Expression"><code class="docutils literal notranslate"><span class="pre">Expression::operator&lt;&lt;()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonE"><code class="docutils literal notranslate"><span class="pre">ComposeCommon</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon13ComposeCommonE10Expression10Expressionbbb"><code class="docutils literal notranslate"><span class="pre">ComposeCommon::ComposeCommon()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonlsERNSt7ostreamERK13ComposeCommon"><code class="docutils literal notranslate"><span class="pre">ComposeCommon::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon5firstE"><code class="docutils literal notranslate"><span class="pre">ComposeCommon::first</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon6secondE"><code class="docutils literal notranslate"><span class="pre">ComposeCommon::second</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon7maximumE"><code class="docutils literal notranslate"><span class="pre">ComposeCommon::maximum</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon9connectedE"><code class="docutils literal notranslate"><span class="pre">ComposeCommon::connected</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon12includeEmptyE"><code class="docutils literal notranslate"><span class="pre">ComposeCommon::includeEmpty</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallelE"><code class="docutils literal notranslate"><span class="pre">ComposeParallel</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel15ComposeParallelE10Expression10Expression"><code class="docutils literal notranslate"><span class="pre">ComposeParallel::ComposeParallel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallellsERNSt7ostreamERK15ComposeParallel"><code class="docutils literal notranslate"><span class="pre">ComposeParallel::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel5firstE"><code class="docutils literal notranslate"><span class="pre">ComposeParallel::first</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel6secondE"><code class="docutils literal notranslate"><span class="pre">ComposeParallel::second</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSubE"><code class="docutils literal notranslate"><span class="pre">ComposeSub</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSub10ComposeSubE10Expression10Expressionb"><code class="docutils literal notranslate"><span class="pre">ComposeSub::ComposeSub()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSublsERNSt7ostreamERK10ComposeSub"><code class="docutils literal notranslate"><span class="pre">ComposeSub::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSub5firstE"><code class="docutils literal notranslate"><span class="pre">ComposeSub::first</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSub6secondE"><code class="docutils literal notranslate"><span class="pre">ComposeSub::second</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSub12allowPartialE"><code class="docutils literal notranslate"><span class="pre">ComposeSub::allowPartial</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperE"><code class="docutils literal notranslate"><span class="pre">ComposeSuper</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper12ComposeSuperE10Expression10Expressionbb"><code class="docutils literal notranslate"><span class="pre">ComposeSuper::ComposeSuper()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperlsERNSt7ostreamERK12ComposeSuper"><code class="docutils literal notranslate"><span class="pre">ComposeSuper::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper5firstE"><code class="docutils literal notranslate"><span class="pre">ComposeSuper::first</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper6secondE"><code class="docutils literal notranslate"><span class="pre">ComposeSuper::second</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper12allowPartialE"><code class="docutils literal notranslate"><span class="pre">ComposeSuper::allowPartial</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper18enforceConstraintsE"><code class="docutils literal notranslate"><span class="pre">ComposeSuper::enforceConstraints</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Composer.html" title="Previous Chapter: 3.2.13.1. rule/Composer.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.13.1. rul...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="CompositionMatch.html" title="Next Chapter: 3.2.13.3. rule/CompositionMatch.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.13.3. rul... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="rule-compositionexpr-hpp">
+<span id="cpp-rule-compositionexpr"></span><h1><span class="section-number">3.2.13.2. </span>rule/CompositionExpr.hpp<a class="headerlink" href="#rule-compositionexpr-hpp" title="Link to this heading">¶</a></h1>
+<p>In the <code class="docutils literal notranslate"><span class="pre">rule::RCExp</span></code> namespace the data structures and operators for representing rule composition expressions are defined.
+An expression can be evaluated through the method <a class="reference internal" href="Composer.html#_CPPv4N3mod4rule8Composer4evalERKN5RCExp10ExpressionEbi" title="mod::rule::Composer::eval"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rule::Composer::eval()</span></code></a>. The result of an expression
+is a list of rules.</p>
+<p>See also <a class="reference internal" href="../../references.html#afms-rc" id="id1"><span>[AFMS-RC]</span></a>, <a class="reference internal" href="../../references.html#afms-rc-atommap" id="id2"><span>[AFMS-RC-AtomMap]</span></a>, and <a class="reference internal" href="../../references.html#afms-rc-matrix" id="id3"><span>[AFMS-RC-Matrix]</span></a> for details on how these expressions are computed internally,
+and further examples of how they can be used to solve particular problems.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp5UnionE">
+<span id="_CPPv3N3mod4rule5RCExp5UnionE"></span><span id="_CPPv2N3mod4rule5RCExp5UnionE"></span><span id="mod::rule::RCExp::Union"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp5UnionE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, the subexpressions are evaluated and the results are combined.
+The combination is either simple concatenation of lists, or taking the union of the subresults.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp5Union5UnionENSt6vectorI10ExpressionEE">
+<span id="_CPPv3N3mod4rule5RCExp5Union5UnionENSt6vectorI10ExpressionEE"></span><span id="_CPPv2N3mod4rule5RCExp5Union5UnionENSt6vectorI10ExpressionEE"></span><span id="mod::rule::RCExp::Union::Union__std::vector:Expression:"></span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">exps</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp5Union5UnionENSt6vectorI10ExpressionEE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp5Union5UnionENSt6vectorI10ExpressionEE" title="mod::rule::RCExp::Union::Union::exps"><span class="n">exps</span></a><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp5UnionlsERNSt7ostreamERK5Union">
+<span id="_CPPv3N3mod4rule5RCExp5UnionlsERNSt7ostreamERK5Union"></span><span id="_CPPv2N3mod4rule5RCExp5UnionlsERNSt7ostreamERK5Union"></span><span id="mod::rule::RCExp::Union::lshift-operator__osR.UnionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp5UnionE" title="mod::rule::RCExp::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">par</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp5UnionlsERNSt7ostreamERK5Union" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule5RCExp5Union14getExpressionsEv">
+<span id="_CPPv3NK3mod4rule5RCExp5Union14getExpressionsEv"></span><span id="_CPPv2NK3mod4rule5RCExp5Union14getExpressionsEv"></span><span id="mod::rule::RCExp::Union::getExpressionsC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getExpressions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule5RCExp5Union14getExpressionsEv" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp4BindE">
+<span id="_CPPv3N3mod4rule5RCExp4BindE"></span><span id="_CPPv2N3mod4rule5RCExp4BindE"></span><span id="mod::rule::RCExp::Bind"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Bind</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp4BindE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, returns a list with a single rule, <span class="math notranslate nohighlight">\(\emptyset \leftarrow \emptyset \rightarrow G\)</span>,
+for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp4Bind4BindENSt10shared_ptrIN5graph5GraphEEE">
+<span id="_CPPv3N3mod4rule5RCExp4Bind4BindENSt10shared_ptrIN5graph5GraphEEE"></span><span id="_CPPv2N3mod4rule5RCExp4Bind4BindENSt10shared_ptrIN5graph5GraphEEE"></span><span id="mod::rule::RCExp::Bind::Bind__std::shared_ptr:graph::Graph:"></span><span class="sig-name descname"><span class="n"><span class="pre">Bind</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp4Bind4BindENSt10shared_ptrIN5graph5GraphEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp4Bind4BindENSt10shared_ptrIN5graph5GraphEEE" title="mod::rule::RCExp::Bind::Bind::g"><span class="n">g</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp4BindlsERNSt7ostreamERK4Bind">
+<span id="_CPPv3N3mod4rule5RCExp4BindlsERNSt7ostreamERK4Bind"></span><span id="_CPPv2N3mod4rule5RCExp4BindlsERNSt7ostreamERK4Bind"></span><span id="mod::rule::RCExp::Bind::lshift-operator__osR.BindCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp4BindE" title="mod::rule::RCExp::Bind"><span class="n"><span class="pre">Bind</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp4BindlsERNSt7ostreamERK4Bind" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule5RCExp4Bind8getGraphEv">
+<span id="_CPPv3NK3mod4rule5RCExp4Bind8getGraphEv"></span><span id="_CPPv2NK3mod4rule5RCExp4Bind8getGraphEv"></span><span id="mod::rule::RCExp::Bind::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule5RCExp4Bind8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp2IdE">
+<span id="_CPPv3N3mod4rule5RCExp2IdE"></span><span id="_CPPv2N3mod4rule5RCExp2IdE"></span><span id="mod::rule::RCExp::Id"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Id</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp2IdE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, returns a list with a single rule, <span class="math notranslate nohighlight">\(G \leftarrow G \rightarrow G\)</span>,
+for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp2Id2IdENSt10shared_ptrIN5graph5GraphEEE">
+<span id="_CPPv3N3mod4rule5RCExp2Id2IdENSt10shared_ptrIN5graph5GraphEEE"></span><span id="_CPPv2N3mod4rule5RCExp2Id2IdENSt10shared_ptrIN5graph5GraphEEE"></span><span id="mod::rule::RCExp::Id::Id__std::shared_ptr:graph::Graph:"></span><span class="sig-name descname"><span class="n"><span class="pre">Id</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp2Id2IdENSt10shared_ptrIN5graph5GraphEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp2Id2IdENSt10shared_ptrIN5graph5GraphEEE" title="mod::rule::RCExp::Id::Id::g"><span class="n">g</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp2IdlsERNSt7ostreamERK2Id">
+<span id="_CPPv3N3mod4rule5RCExp2IdlsERNSt7ostreamERK2Id"></span><span id="_CPPv2N3mod4rule5RCExp2IdlsERNSt7ostreamERK2Id"></span><span id="mod::rule::RCExp::Id::lshift-operator__osR.IdCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp2IdE" title="mod::rule::RCExp::Id"><span class="n"><span class="pre">Id</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp2IdlsERNSt7ostreamERK2Id" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule5RCExp2Id8getGraphEv">
+<span id="_CPPv3NK3mod4rule5RCExp2Id8getGraphEv"></span><span id="_CPPv2NK3mod4rule5RCExp2Id8getGraphEv"></span><span id="mod::rule::RCExp::Id::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule5RCExp2Id8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp6UnbindE">
+<span id="_CPPv3N3mod4rule5RCExp6UnbindE"></span><span id="_CPPv2N3mod4rule5RCExp6UnbindE"></span><span id="mod::rule::RCExp::Unbind"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Unbind</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp6UnbindE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, returns a list with a single rule, <span class="math notranslate nohighlight">\(G \leftarrow \emptyset \rightarrow \emptyset\)</span>,
+for the given graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp6Unbind6UnbindENSt10shared_ptrIN5graph5GraphEEE">
+<span id="_CPPv3N3mod4rule5RCExp6Unbind6UnbindENSt10shared_ptrIN5graph5GraphEEE"></span><span id="_CPPv2N3mod4rule5RCExp6Unbind6UnbindENSt10shared_ptrIN5graph5GraphEEE"></span><span id="mod::rule::RCExp::Unbind::Unbind__std::shared_ptr:graph::Graph:"></span><span class="sig-name descname"><span class="n"><span class="pre">Unbind</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp6Unbind6UnbindENSt10shared_ptrIN5graph5GraphEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp6Unbind6UnbindENSt10shared_ptrIN5graph5GraphEEE" title="mod::rule::RCExp::Unbind::Unbind::g"><span class="n">g</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp6UnbindlsERNSt7ostreamERK6Unbind">
+<span id="_CPPv3N3mod4rule5RCExp6UnbindlsERNSt7ostreamERK6Unbind"></span><span id="_CPPv2N3mod4rule5RCExp6UnbindlsERNSt7ostreamERK6Unbind"></span><span id="mod::rule::RCExp::Unbind::lshift-operator__osR.UnbindCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp6UnbindE" title="mod::rule::RCExp::Unbind"><span class="n"><span class="pre">Unbind</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">u</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp6UnbindlsERNSt7ostreamERK6Unbind" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule5RCExp6Unbind8getGraphEv">
+<span id="_CPPv3NK3mod4rule5RCExp6Unbind8getGraphEv"></span><span id="_CPPv2NK3mod4rule5RCExp6Unbind8getGraphEv"></span><span id="mod::rule::RCExp::Unbind::getGraphC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule5RCExp6Unbind8getGraphEv" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ExpressionE">
+<span id="_CPPv3N3mod4rule5RCExp10ExpressionE"></span><span id="_CPPv2N3mod4rule5RCExp10ExpressionE"></span><span id="mod::rule::RCExp::Expression"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A class containing any type of the rule composition expression.
+That is, it acts as a variant.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionENSt10shared_ptrI4RuleEE">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionENSt10shared_ptrI4RuleEE"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionENSt10shared_ptrI4RuleEE"></span><span id="mod::rule::RCExp::Expression::Expression__std::shared_ptr:Rule:"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionENSt10shared_ptrI4RuleEE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE5Union">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE5Union"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE5Union"></span><span id="mod::rule::RCExp::Expression::Expression__Union"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp5UnionE" title="mod::rule::RCExp::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE5Union" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE4Bind">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE4Bind"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE4Bind"></span><span id="mod::rule::RCExp::Expression::Expression__Bind"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp4BindE" title="mod::rule::RCExp::Bind"><span class="n"><span class="pre">Bind</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">bind</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE4Bind" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE2Id">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE2Id"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE2Id"></span><span id="mod::rule::RCExp::Expression::Expression__Id"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp2IdE" title="mod::rule::RCExp::Id"><span class="n"><span class="pre">Id</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE2Id" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE6Unbind">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE6Unbind"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE6Unbind"></span><span id="mod::rule::RCExp::Expression::Expression__Unbind"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp6UnbindE" title="mod::rule::RCExp::Unbind"><span class="n"><span class="pre">Unbind</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">unbind</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE6Unbind" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE13ComposeCommon">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE13ComposeCommon"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE13ComposeCommon"></span><span id="mod::rule::RCExp::Expression::Expression__ComposeCommon"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonE" title="mod::rule::RCExp::ComposeCommon"><span class="n"><span class="pre">ComposeCommon</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">compose</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE13ComposeCommon" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE15ComposeParallel">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE15ComposeParallel"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE15ComposeParallel"></span><span id="mod::rule::RCExp::Expression::Expression__ComposeParallel"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallelE" title="mod::rule::RCExp::ComposeParallel"><span class="n"><span class="pre">ComposeParallel</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">compose</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE15ComposeParallel" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE10ComposeSub">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE10ComposeSub"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE10ComposeSub"></span><span id="mod::rule::RCExp::Expression::Expression__ComposeSub"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSubE" title="mod::rule::RCExp::ComposeSub"><span class="n"><span class="pre">ComposeSub</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">compose</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE10ComposeSub" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10Expression10ExpressionE12ComposeSuper">
+<span id="_CPPv3N3mod4rule5RCExp10Expression10ExpressionE12ComposeSuper"></span><span id="_CPPv2N3mod4rule5RCExp10Expression10ExpressionE12ComposeSuper"></span><span id="mod::rule::RCExp::Expression::Expression__ComposeSuper"></span><span class="sig-name descname"><span class="n"><span class="pre">Expression</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperE" title="mod::rule::RCExp::ComposeSuper"><span class="n"><span class="pre">ComposeSuper</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">compose</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionE12ComposeSuper" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10Expression10ExpressionENSt10shared_ptrI4RuleEE" title="mod::rule::RCExp::Expression::Expression::r"><span class="n">r</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ExpressionlsERNSt7ostreamERK10Expression">
+<span id="_CPPv3N3mod4rule5RCExp10ExpressionlsERNSt7ostreamERK10Expression"></span><span id="_CPPv2N3mod4rule5RCExp10ExpressionlsERNSt7ostreamERK10Expression"></span><span id="mod::rule::RCExp::Expression::lshift-operator__osR.ExpressionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">exp</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ExpressionlsERNSt7ostreamERK10Expression" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommonE">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommonE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommonE"></span><span id="mod::rule::RCExp::ComposeCommon"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeCommon</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, evaluate the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon5firstE" title="mod::rule::RCExp::ComposeCommon::first"><span class="n">first</span></a></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon6secondE" title="mod::rule::RCExp::ComposeCommon::second"><span class="n">second</span></a></span> expressions to obtain list of rules <span class="math notranslate nohighlight">\(P_1\)</span> and <span class="math notranslate nohighlight">\(P_2\)</span>.
+For each pair of rules
+<span class="math notranslate nohighlight">\(p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1\)</span> and
+<span class="math notranslate nohighlight">\(p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2\)</span>,
+compose them by common subgraphs of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>,
+possibly limited to connected subgraphs or to the subgraphs of maximum size.
+By default the empty subgraph is not considered, but can be enabled to be.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommon13ComposeCommonE10Expression10Expressionbbb">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommon13ComposeCommonE10Expression10Expressionbbb"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommon13ComposeCommonE10Expression10Expressionbbb"></span><span id="mod::rule::RCExp::ComposeCommon::ComposeCommon__Expression.Expression.b.b.b"></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeCommon</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">second</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">maximum</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">connected</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">includeEmpty</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon13ComposeCommonE10Expression10Expressionbbb" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommonlsERNSt7ostreamERK13ComposeCommon">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommonlsERNSt7ostreamERK13ComposeCommon"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommonlsERNSt7ostreamERK13ComposeCommon"></span><span id="mod::rule::RCExp::ComposeCommon::lshift-operator__osR.ComposeCommonCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonE" title="mod::rule::RCExp::ComposeCommon"><span class="n"><span class="pre">ComposeCommon</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommonlsERNSt7ostreamERK13ComposeCommon" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommon5firstE">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommon5firstE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommon5firstE"></span><span id="mod::rule::RCExp::ComposeCommon::first__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">first</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon5firstE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommon6secondE">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommon6secondE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommon6secondE"></span><span id="mod::rule::RCExp::ComposeCommon::second__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">second</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon6secondE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommon7maximumE">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommon7maximumE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommon7maximumE"></span><span id="mod::rule::RCExp::ComposeCommon::maximum__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">maximum</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon7maximumE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommon9connectedE">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommon9connectedE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommon9connectedE"></span><span id="mod::rule::RCExp::ComposeCommon::connected__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connected</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon9connectedE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp13ComposeCommon12includeEmptyE">
+<span id="_CPPv3N3mod4rule5RCExp13ComposeCommon12includeEmptyE"></span><span id="_CPPv2N3mod4rule5RCExp13ComposeCommon12includeEmptyE"></span><span id="mod::rule::RCExp::ComposeCommon::includeEmpty__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">includeEmpty</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp13ComposeCommon12includeEmptyE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp15ComposeParallelE">
+<span id="_CPPv3N3mod4rule5RCExp15ComposeParallelE"></span><span id="_CPPv2N3mod4rule5RCExp15ComposeParallelE"></span><span id="mod::rule::RCExp::ComposeParallel"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeParallel</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp15ComposeParallelE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, evaluate the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel5firstE" title="mod::rule::RCExp::ComposeParallel::first"><span class="n">first</span></a></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel6secondE" title="mod::rule::RCExp::ComposeParallel::second"><span class="n">second</span></a></span> expressions to obtain list of rules <span class="math notranslate nohighlight">\(P_1\)</span> and <span class="math notranslate nohighlight">\(P_2\)</span>.
+For each pair of rules
+<span class="math notranslate nohighlight">\(p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1\)</span> and
+<span class="math notranslate nohighlight">\(p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2\)</span>,
+compose them by the empty overlap of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp15ComposeParallel15ComposeParallelE10Expression10Expression">
+<span id="_CPPv3N3mod4rule5RCExp15ComposeParallel15ComposeParallelE10Expression10Expression"></span><span id="_CPPv2N3mod4rule5RCExp15ComposeParallel15ComposeParallelE10Expression10Expression"></span><span id="mod::rule::RCExp::ComposeParallel::ComposeParallel__Expression.Expression"></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeParallel</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">second</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel15ComposeParallelE10Expression10Expression" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp15ComposeParallellsERNSt7ostreamERK15ComposeParallel">
+<span id="_CPPv3N3mod4rule5RCExp15ComposeParallellsERNSt7ostreamERK15ComposeParallel"></span><span id="_CPPv2N3mod4rule5RCExp15ComposeParallellsERNSt7ostreamERK15ComposeParallel"></span><span id="mod::rule::RCExp::ComposeParallel::lshift-operator__osR.ComposeParallelCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp15ComposeParallelE" title="mod::rule::RCExp::ComposeParallel"><span class="n"><span class="pre">ComposeParallel</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp15ComposeParallellsERNSt7ostreamERK15ComposeParallel" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp15ComposeParallel5firstE">
+<span id="_CPPv3N3mod4rule5RCExp15ComposeParallel5firstE"></span><span id="_CPPv2N3mod4rule5RCExp15ComposeParallel5firstE"></span><span id="mod::rule::RCExp::ComposeParallel::first__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">first</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel5firstE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp15ComposeParallel6secondE">
+<span id="_CPPv3N3mod4rule5RCExp15ComposeParallel6secondE"></span><span id="_CPPv2N3mod4rule5RCExp15ComposeParallel6secondE"></span><span id="mod::rule::RCExp::ComposeParallel::second__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">second</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp15ComposeParallel6secondE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ComposeSubE">
+<span id="_CPPv3N3mod4rule5RCExp10ComposeSubE"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSubE"></span><span id="mod::rule::RCExp::ComposeSub"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSub</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSubE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, evaluate the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSub5firstE" title="mod::rule::RCExp::ComposeSub::first"><span class="n">first</span></a></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSub6secondE" title="mod::rule::RCExp::ComposeSub::second"><span class="n">second</span></a></span> expressions to obtain list of rules <span class="math notranslate nohighlight">\(P_1\)</span> and <span class="math notranslate nohighlight">\(P_2\)</span>.
+For each pair of rules
+<span class="math notranslate nohighlight">\(p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1\)</span> and
+<span class="math notranslate nohighlight">\(p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2\)</span>,
+compose them by common subgraphs of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span> such that <span class="math notranslate nohighlight">\(R_1\)</span> is the common subgraph,
+i.e., that <span class="math notranslate nohighlight">\(R_1\)</span> is matched as a subgraph of <span class="math notranslate nohighlight">\(L_2\)</span>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">allowPartial</span></code> is set <span class="cpp-texpr sig sig-inline cpp"><span class="k">true</span></span>, then each non-empty subset of connected components of <span class="math notranslate nohighlight">\(R_1\)</span> are matched
+as a subgraph of <span class="math notranslate nohighlight">\(L_2\)</span>.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ComposeSub10ComposeSubE10Expression10Expressionb">
+<span id="_CPPv3N3mod4rule5RCExp10ComposeSub10ComposeSubE10Expression10Expressionb"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSub10ComposeSubE10Expression10Expressionb"></span><span id="mod::rule::RCExp::ComposeSub::ComposeSub__Expression.Expression.b"></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSub</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">second</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">allowPartial</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSub10ComposeSubE10Expression10Expressionb" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ComposeSublsERNSt7ostreamERK10ComposeSub">
+<span id="_CPPv3N3mod4rule5RCExp10ComposeSublsERNSt7ostreamERK10ComposeSub"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSublsERNSt7ostreamERK10ComposeSub"></span><span id="mod::rule::RCExp::ComposeSub::lshift-operator__osR.ComposeSubCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ComposeSubE" title="mod::rule::RCExp::ComposeSub"><span class="n"><span class="pre">ComposeSub</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSublsERNSt7ostreamERK10ComposeSub" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ComposeSub5firstE">
+<span id="_CPPv3N3mod4rule5RCExp10ComposeSub5firstE"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSub5firstE"></span><span id="mod::rule::RCExp::ComposeSub::first__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">first</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSub5firstE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ComposeSub6secondE">
+<span id="_CPPv3N3mod4rule5RCExp10ComposeSub6secondE"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSub6secondE"></span><span id="mod::rule::RCExp::ComposeSub::second__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">second</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSub6secondE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp10ComposeSub12allowPartialE">
+<span id="_CPPv3N3mod4rule5RCExp10ComposeSub12allowPartialE"></span><span id="_CPPv2N3mod4rule5RCExp10ComposeSub12allowPartialE"></span><span id="mod::rule::RCExp::ComposeSub::allowPartial__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowPartial</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp10ComposeSub12allowPartialE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuperE">
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuperE"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuperE"></span><span id="mod::rule::RCExp::ComposeSuper"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RCExp</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSuper</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When evaluated, evaluate the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper5firstE" title="mod::rule::RCExp::ComposeSuper::first"><span class="n">first</span></a></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper6secondE" title="mod::rule::RCExp::ComposeSuper::second"><span class="n">second</span></a></span> expressions to obtain list of rules <span class="math notranslate nohighlight">\(P_1\)</span> and <span class="math notranslate nohighlight">\(P_2\)</span>.
+For each pair of rules
+<span class="math notranslate nohighlight">\(p_1 = (L_1\leftarrow K_1\rightarrow R_1) \in P_1\)</span> and
+<span class="math notranslate nohighlight">\(p_2 = (L_2\leftarrow K_2\rightarrow R_2) \in P_2\)</span>,
+compose them by common subgraphs of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span> such that <span class="math notranslate nohighlight">\(L_2\)</span> is the common subgraph,
+i.e., that <span class="math notranslate nohighlight">\(L_2\)</span> is matched as a subgraph of <span class="math notranslate nohighlight">\(R_1\)</span>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">allowPartial</span></code> is set <span class="cpp-texpr sig sig-inline cpp"><span class="k">true</span></span>, then each non-empty subset of connected components of <span class="math notranslate nohighlight">\(L_2\)</span> are matched
+as a subgraph of <span class="math notranslate nohighlight">\(R_1\)</span>.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuper12ComposeSuperE10Expression10Expressionbb">
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuper12ComposeSuperE10Expression10Expressionbb"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuper12ComposeSuperE10Expression10Expressionbb"></span><span id="mod::rule::RCExp::ComposeSuper::ComposeSuper__Expression.Expression.b.b"></span><span class="sig-name descname"><span class="n"><span class="pre">ComposeSuper</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">second</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">allowPartial</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">enforceConstraints</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper12ComposeSuperE10Expression10Expressionbb" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuperlsERNSt7ostreamERK12ComposeSuper">
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuperlsERNSt7ostreamERK12ComposeSuper"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuperlsERNSt7ostreamERK12ComposeSuper"></span><span id="mod::rule::RCExp::ComposeSuper::lshift-operator__osR.ComposeSuperCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperE" title="mod::rule::RCExp::ComposeSuper"><span class="n"><span class="pre">ComposeSuper</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuperlsERNSt7ostreamERK12ComposeSuper" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuper5firstE">
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuper5firstE"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuper5firstE"></span><span id="mod::rule::RCExp::ComposeSuper::first__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">first</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper5firstE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuper6secondE">
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuper6secondE"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuper6secondE"></span><span id="mod::rule::RCExp::ComposeSuper::second__Expression"></span><a class="reference internal" href="#_CPPv4N3mod4rule5RCExp10ExpressionE" title="mod::rule::RCExp::Expression"><span class="n"><span class="pre">Expression</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">second</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper6secondE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuper12allowPartialE">
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuper12allowPartialE"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuper12allowPartialE"></span><span id="mod::rule::RCExp::ComposeSuper::allowPartial__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowPartial</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper12allowPartialE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule5RCExp12ComposeSuper18enforceConstraintsE">
+<span id="_CPPv3N3mod4rule5RCExp12ComposeSuper18enforceConstraintsE"></span><span id="_CPPv2N3mod4rule5RCExp12ComposeSuper18enforceConstraintsE"></span><span id="mod::rule::RCExp::ComposeSuper::enforceConstraints__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enforceConstraints</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule5RCExp12ComposeSuper18enforceConstraintsE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/rule/CompositionExpr.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

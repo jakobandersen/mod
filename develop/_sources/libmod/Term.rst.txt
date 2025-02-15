@@ -1,0 +1,11 @@
+.. _cpp-Term:
+
+**********************************************************
+Term.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+

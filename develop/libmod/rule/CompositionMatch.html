@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.13.3. rule/CompositionMatch.hpp &#8212; MØD 0.17.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=0c3dd48d"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.13.4. rule/ForwardDecl.hpp" href="ForwardDecl.html" />
+    <link rel="prev" title="3.2.13.2. rule/CompositionExpr.hpp" href="CompositionExpr.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.17.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">12. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">13. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.13.3. rule/CompositionMatch.hpp</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatchE"><code class="docutils literal notranslate"><span class="pre">CompositionMatch</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatch16CompositionMatchENSt10shared_ptrI4RuleEENSt10shared_ptrI4RuleEE13LabelSettings"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::CompositionMatch()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::CompositionMatch()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatchaSERK16CompositionMatch"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::operator=()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatchlsERNSt7ostreamERK16CompositionMatch"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatch8getFirstEv"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::getFirst()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatch9getSecondEv"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::getSecond()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatch16getLabelSettingsEv"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::getLabelSettings()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatch4sizeEv"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::size()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatchixEN4Rule10RightGraph6VertexE"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::operator[]()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatchixEN4Rule9LeftGraph6VertexE"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::operator[]()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatch4pushEN4Rule10RightGraph6VertexEN4Rule9LeftGraph6VertexE"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::push()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatch3popEv"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::pop()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatch7composeEb"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::compose()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatch10composeAllEbb"><code class="docutils literal notranslate"><span class="pre">CompositionMatch::composeAll()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="CompositionExpr.html" title="Previous Chapter: 3.2.13.2. rule/CompositionExpr.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.13.2. rul...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="ForwardDecl.html" title="Next Chapter: 3.2.13.4. rule/ForwardDecl.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.13.4. rul... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="rule-compositionmatch-hpp">
+<span id="cpp-rule-compositionmatch"></span><h1><span class="section-number">3.2.13.3. </span>rule/CompositionMatch.hpp<a class="headerlink" href="#rule-compositionmatch-hpp" title="Link to this heading">¶</a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule16CompositionMatchE">
+<span id="_CPPv3N3mod4rule16CompositionMatchE"></span><span id="_CPPv2N3mod4rule16CompositionMatchE"></span><span id="mod::rule::CompositionMatch"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CompositionMatch</span></span></span><a class="headerlink" href="#_CPPv4N3mod4rule16CompositionMatchE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A class for interactively constructing match between two rules used for composition.
+That is, for two rules
+<span class="math notranslate nohighlight">\(p_1 = (L_1 \leftarrow K_1 \rightarrow R_1)\)</span> and
+<span class="math notranslate nohighlight">\(p_2 = (L_2 \leftarrow K_2 \rightarrow R_2)\)</span>,
+an object represents match between <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span> which indicates
+a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M \rightarrow L_2\)</span>.</p>
+<p>See also <a class="reference internal" href="../../references.html#afms-rc" id="id1"><span>[AFMS-RC]</span></a> for details of how composition of rules can be computed.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule16CompositionMatch16CompositionMatchENSt10shared_ptrI4RuleEENSt10shared_ptrI4RuleEE13LabelSettings">
+<span id="_CPPv3N3mod4rule16CompositionMatch16CompositionMatchENSt10shared_ptrI4RuleEENSt10shared_ptrI4RuleEE13LabelSettings"></span><span id="_CPPv2N3mod4rule16CompositionMatch16CompositionMatchENSt10shared_ptrI4RuleEENSt10shared_ptrI4RuleEE13LabelSettings"></span><span id="mod::rule::CompositionMatch::CompositionMatch__std::shared_ptr:Rule:.std::shared_ptr:Rule:.LabelSettings"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompositionMatch</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rFirst</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rSecond</span></span>, <a class="reference internal" href="../Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">labelSettings</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule16CompositionMatch16CompositionMatchENSt10shared_ptrI4RuleEENSt10shared_ptrI4RuleEE13LabelSettings" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct an empty overlap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if either rule is null.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch">
+<span id="_CPPv3N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch"></span><span id="_CPPv2N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch"></span><span id="mod::rule::CompositionMatch::CompositionMatch__CompositionMatchCR"></span><span class="sig-name descname"><span class="n"><span class="pre">CompositionMatch</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch" title="mod::rule::CompositionMatch::CompositionMatch"><span class="n"><span class="pre">CompositionMatch</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule16CompositionMatchaSERK16CompositionMatch">
+<span id="_CPPv3N3mod4rule16CompositionMatchaSERK16CompositionMatch"></span><span id="_CPPv2N3mod4rule16CompositionMatchaSERK16CompositionMatch"></span><span id="mod::rule::CompositionMatch::assign-operator__CompositionMatchCR"></span><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch" title="mod::rule::CompositionMatch::CompositionMatch"><span class="n"><span class="pre">CompositionMatch</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatch16CompositionMatchERK16CompositionMatch" title="mod::rule::CompositionMatch::CompositionMatch"><span class="n"><span class="pre">CompositionMatch</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule16CompositionMatchaSERK16CompositionMatch" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule16CompositionMatchlsERNSt7ostreamERK16CompositionMatch">
+<span id="_CPPv3N3mod4rule16CompositionMatchlsERNSt7ostreamERK16CompositionMatch"></span><span id="_CPPv2N3mod4rule16CompositionMatchlsERNSt7ostreamERK16CompositionMatch"></span><span id="mod::rule::CompositionMatch::lshift-operator__osR.CompositionMatchCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod4rule16CompositionMatchE" title="mod::rule::CompositionMatch"><span class="n"><span class="pre">CompositionMatch</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mb</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule16CompositionMatchlsERNSt7ostreamERK16CompositionMatch" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatch8getFirstEv">
+<span id="_CPPv3NK3mod4rule16CompositionMatch8getFirstEv"></span><span id="_CPPv2NK3mod4rule16CompositionMatch8getFirstEv"></span><span id="mod::rule::CompositionMatch::getFirstC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getFirst</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatch8getFirstEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatch9getSecondEv">
+<span id="_CPPv3NK3mod4rule16CompositionMatch9getSecondEv"></span><span id="_CPPv2NK3mod4rule16CompositionMatch9getSecondEv"></span><span id="mod::rule::CompositionMatch::getSecondC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getSecond</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatch9getSecondEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the rules <span class="math notranslate nohighlight">\(p_1\)</span> and <span class="math notranslate nohighlight">\(p_2\)</span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatch16getLabelSettingsEv">
+<span id="_CPPv3NK3mod4rule16CompositionMatch16getLabelSettingsEv"></span><span id="_CPPv2NK3mod4rule16CompositionMatch16getLabelSettingsEv"></span><span id="mod::rule::CompositionMatch::getLabelSettingsC"></span><a class="reference internal" href="../Config.html#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLabelSettings</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatch16getLabelSettingsEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the settings for the morphisms in the match.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatch4sizeEv">
+<span id="_CPPv3NK3mod4rule16CompositionMatch4sizeEv"></span><span id="_CPPv2NK3mod4rule16CompositionMatch4sizeEv"></span><span id="mod::rule::CompositionMatch::sizeC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatch4sizeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of currently mapped pairs of vertices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatchixEN4Rule10RightGraph6VertexE">
+<span id="_CPPv3NK3mod4rule16CompositionMatchixEN4Rule10RightGraph6VertexE"></span><span id="_CPPv2NK3mod4rule16CompositionMatchixEN4Rule10RightGraph6VertexE"></span><span id="mod::rule::CompositionMatch::subscript-operator__Rule::RightGraph::VertexC"></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule9LeftGraphE" title="mod::rule::Rule::LeftGraph"><span class="n"><span class="pre">LeftGraph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule9LeftGraph6VertexE" title="mod::rule::Rule::LeftGraph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule10RightGraphE" title="mod::rule::Rule::RightGraph"><span class="n"><span class="pre">RightGraph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule10RightGraph6VertexE" title="mod::rule::Rule::RightGraph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">vFirst</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatchixEN4Rule10RightGraph6VertexE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatchixEN4Rule9LeftGraph6VertexE">
+<span id="_CPPv3NK3mod4rule16CompositionMatchixEN4Rule9LeftGraph6VertexE"></span><span id="_CPPv2NK3mod4rule16CompositionMatchixEN4Rule9LeftGraph6VertexE"></span><span id="mod::rule::CompositionMatch::subscript-operator__Rule::LeftGraph::VertexC"></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule10RightGraphE" title="mod::rule::Rule::RightGraph"><span class="n"><span class="pre">RightGraph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule10RightGraph6VertexE" title="mod::rule::Rule::RightGraph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule9LeftGraphE" title="mod::rule::Rule::LeftGraph"><span class="n"><span class="pre">LeftGraph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule9LeftGraph6VertexE" title="mod::rule::Rule::LeftGraph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">vSecond</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatchixEN4Rule9LeftGraph6VertexE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the vertex the given vertex is mapped to, or a null vertex if it is not mapped.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if either vertex is a null vertex.</p></li>
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if either vertex does not belong to their respective rules.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule16CompositionMatch4pushEN4Rule10RightGraph6VertexEN4Rule9LeftGraph6VertexE">
+<span id="_CPPv3N3mod4rule16CompositionMatch4pushEN4Rule10RightGraph6VertexEN4Rule9LeftGraph6VertexE"></span><span id="_CPPv2N3mod4rule16CompositionMatch4pushEN4Rule10RightGraph6VertexEN4Rule9LeftGraph6VertexE"></span><span id="mod::rule::CompositionMatch::push__Rule::RightGraph::Vertex.Rule::LeftGraph::Vertex"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">push</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule10RightGraphE" title="mod::rule::Rule::RightGraph"><span class="n"><span class="pre">RightGraph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule10RightGraph6VertexE" title="mod::rule::Rule::RightGraph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">vFirst</span></span>, <a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule9LeftGraphE" title="mod::rule::Rule::LeftGraph"><span class="n"><span class="pre">LeftGraph</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="GraphInterface.html#_CPPv4N3mod4rule4Rule9LeftGraph6VertexE" title="mod::rule::Rule::LeftGraph::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">vSecond</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule16CompositionMatch4pushEN4Rule10RightGraph6VertexEN4Rule9LeftGraph6VertexE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Extend the common subgraph (match) of <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>
+by identifying the given vertices from each of the graphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if either vertex is a null vertex.</p></li>
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if either vertex does not belong to their respective rules.</p></li>
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if either vertex is already mapped.</p></li>
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if the extension of the match is infeasible.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod4rule16CompositionMatch3popEv">
+<span id="_CPPv3N3mod4rule16CompositionMatch3popEv"></span><span id="_CPPv2N3mod4rule16CompositionMatch3popEv"></span><span id="mod::rule::CompositionMatch::pop"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod4rule16CompositionMatch3popEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Pop the latest pushed vertex pair.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span></span> – if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod4rule16CompositionMatch4sizeEv" title="mod::rule::CompositionMatch::size"><span class="n">size</span></a><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatch7composeEb">
+<span id="_CPPv3NK3mod4rule16CompositionMatch7composeEb"></span><span id="_CPPv2NK3mod4rule16CompositionMatch7composeEb"></span><span id="mod::rule::CompositionMatch::compose__bC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">compose</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">verbose</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatch7composeEb" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>verbose</strong> – whether to output debug messages from the composition algorithm.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the composition of the two rules along the match.
+If the composition is not defined, a null pointer is returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod4rule16CompositionMatch10composeAllEbb">
+<span id="_CPPv3NK3mod4rule16CompositionMatch10composeAllEbb"></span><span id="_CPPv2NK3mod4rule16CompositionMatch10composeAllEbb"></span><span id="mod::rule::CompositionMatch::composeAll__b.bC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Rule.html#_CPPv4N3mod4rule4RuleE" title="mod::rule::Rule"><span class="n"><span class="pre">Rule</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">composeAll</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">maximum</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">verbose</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod4rule16CompositionMatch10composeAllEbb" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maximum</strong> – whether to only compose using the matches of maximum cardinality.</p></li>
+<li><p><strong>verbose</strong> – whether to output debug messages from the composition algorithm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the composition of the two rules along enumerated matches.
+The enumerated matches are all those that are extensions of the current match,
+and the match itself.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/rule/CompositionMatch.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

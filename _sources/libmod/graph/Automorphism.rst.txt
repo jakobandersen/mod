@@ -1,0 +1,83 @@
+.. _cpp-graph/Automorphism:
+
+**********************************************************
+graph/Automorphism.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``graph::Graph::Aut``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: graph::Graph::Aut
+    
+
+    A class representing an automorphism of a :class:`Graph`.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: graph::Graph::Aut
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: graph::Graph::Aut
+
+.. cpp:function:: Vertex operator[](Vertex v) const
+
+    :returns: the image of the given vertex under the permutation.
+
+.. cpp:namespace-pop::
+
+
+Class ``graph::Graph::AutGroup``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: graph::Graph::AutGroup
+    
+
+    A class representing the automorphism group of a :class:`Graph`.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: graph::Graph::AutGroup
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: graph::Graph::AutGroup
+
+.. function:: AutGroup(std::shared_ptr<const Graph> g, LabelSettings labelSettings)
+
+.. function:: Gens gens() const
+
+    :returns: a range of the generators for the group.
+
+.. cpp:namespace-pop::
+
+
+Class ``graph::Graph::AutGroup::Gens``
+---------------------------------------------------------------
+
+.. class:: graph::Graph::AutGroup::Gens
+
+
+    A random-access range of the generators for the automorphism group.
+
+
+
+

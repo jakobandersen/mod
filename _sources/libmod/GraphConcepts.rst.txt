@@ -1,0 +1,15 @@
+.. _cpp-GraphConcepts:
+
+**********************************************************
+GraphConcepts.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. type:: template<typename GraphT> GraphHandle
+
+    Alias for `GraphT::Handle` if it exists, otherwise for `GraphT`.
+

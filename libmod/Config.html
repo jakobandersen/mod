@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.2. Config.hpp &#8212; MØD 0.17.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=0c3dd48d"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2.3. Derivation.hpp" href="Derivation.html" />
+    <link rel="prev" title="3.2.1. Chem.hpp" href="Chem.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>0.17.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">10. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knownIssues.html">11. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">12. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">13. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.2. Config.hpp</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9LabelTypeE"><code class="docutils literal notranslate"><span class="pre">LabelType</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9LabelType6StringE"><code class="docutils literal notranslate"><span class="pre">LabelType::String</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9LabelType4TermE"><code class="docutils literal notranslate"><span class="pre">LabelType::Term</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelRelationE"><code class="docutils literal notranslate"><span class="pre">LabelRelation</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelRelation11IsomorphismE"><code class="docutils literal notranslate"><span class="pre">LabelRelation::Isomorphism</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelRelation14SpecialisationE"><code class="docutils literal notranslate"><span class="pre">LabelRelation::Specialisation</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelRelation11UnificationE"><code class="docutils literal notranslate"><span class="pre">LabelRelation::Unification</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettingsE"><code class="docutils literal notranslate"><span class="pre">LabelSettings</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation"><code class="docutils literal notranslate"><span class="pre">LabelSettings::LabelSettings()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation13LabelRelation"><code class="docutils literal notranslate"><span class="pre">LabelSettings::LabelSettings()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelationb13LabelRelation"><code class="docutils literal notranslate"><span class="pre">LabelSettings::LabelSettings()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettingseqE13LabelSettings13LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings::operator==()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettingsneE13LabelSettings13LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings::operator!=()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings4typeE"><code class="docutils literal notranslate"><span class="pre">LabelSettings::type</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings8relationE"><code class="docutils literal notranslate"><span class="pre">LabelSettings::relation</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings10withStereoE"><code class="docutils literal notranslate"><span class="pre">LabelSettings::withStereo</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings14stereoRelationE"><code class="docutils literal notranslate"><span class="pre">LabelSettings::stereoRelation</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod17IsomorphismPolicyE"><code class="docutils literal notranslate"><span class="pre">IsomorphismPolicy</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod17IsomorphismPolicy5CheckE"><code class="docutils literal notranslate"><span class="pre">IsomorphismPolicy::Check</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod17IsomorphismPolicy7TrustMeE"><code class="docutils literal notranslate"><span class="pre">IsomorphismPolicy::TrustMe</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod17SmilesClassPolicyE"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod17SmilesClassPolicy15NoneOnDuplicateE"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy::NoneOnDuplicate</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod17SmilesClassPolicy16ThrowOnDuplicateE"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy::ThrowOnDuplicate</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod17SmilesClassPolicy9MapUniqueE"><code class="docutils literal notranslate"><span class="pre">SmilesClassPolicy::MapUnique</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod6ActionE"><code class="docutils literal notranslate"><span class="pre">Action</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE"><code class="docutils literal notranslate"><span class="pre">Action::Error</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod6Action4WarnE"><code class="docutils literal notranslate"><span class="pre">Action::Warn</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE"><code class="docutils literal notranslate"><span class="pre">Action::Ignore</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptionsE"><code class="docutils literal notranslate"><span class="pre">MDLOptions</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions12addHydrogensE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::addHydrogens</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions13allowAbstractE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::allowAbstract</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions21applyV2000AtomAliasesE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::applyV2000AtomAliases</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions16onPatternIsotopeE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onPatternIsotope</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions15onPatternChargeE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onPatternCharge</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions16onPatternRadicalE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onPatternRadical</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions27onImplicitValenceOnAbstractE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onImplicitValenceOnAbstract</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions24onV2000UnhandledPropertyE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onV2000UnhandledProperty</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions38fullyIgnoreV2000UnhandledKnownPropertyE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::fullyIgnoreV2000UnhandledKnownProperty</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions28onV3000UnhandledAtomPropertyE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onV3000UnhandledAtomProperty</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions14onV2000Charge4E"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onV2000Charge4</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions18onV2000AbstractISOE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onV2000AbstractISO</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions6onRAD1E"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onRAD1</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions6onRAD3E"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onRAD3</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions6onRAD4E"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onRAD4</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions6onRAD5E"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onRAD5</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions6onRAD6E"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onRAD6</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod10MDLOptions26onUnsupportedQueryBondTypeE"><code class="docutils literal notranslate"><span class="pre">MDLOptions::onUnsupportedQueryBondType</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mod9getConfigEv"><code class="docutils literal notranslate"><span class="pre">getConfig()</span></code></a></li>
+<li><a class="reference internal" href="#class-config">3.2.2.1. Class <code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod6ConfigE"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Chem.html" title="Previous Chapter: 3.2.1. Chem.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.1. Chem.hpp
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Derivation.html" title="Next Chapter: 3.2.3. Derivation.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.3. Derivation.hpp &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="config-hpp">
+<span id="cpp-config"></span><h1><span class="section-number">3.2.2. </span>Config.hpp<a class="headerlink" href="#config-hpp" title="Link to this heading">¶</a></h1>
+<p id="libmod-config">This file defines configuration options for the library.
+Many of the options control verbosity of algorithms or which data to
+output when printing figures.</p>
+<dl class="cpp enum-struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9LabelTypeE">
+<span id="_CPPv3N3mod9LabelTypeE"></span><span id="_CPPv2N3mod9LabelTypeE"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LabelType</span></span></span><a class="headerlink" href="#_CPPv4N3mod9LabelTypeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Selector for which type of label to use in algorithms.</p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9LabelType6StringE">
+<span id="_CPPv3N3mod9LabelType6StringE"></span><span id="_CPPv2N3mod9LabelType6StringE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><a class="headerlink" href="#_CPPv4N3mod9LabelType6StringE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Vertices and edges are considered to be labelled with
+character strings. If only first-order terms are present,
+then strings are generated as a serialisation of the term.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9LabelType4TermE">
+<span id="_CPPv3N3mod9LabelType4TermE"></span><span id="_CPPv2N3mod9LabelType4TermE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Term</span></span></span><a class="headerlink" href="#_CPPv4N3mod9LabelType4TermE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Vertices and edges are considered to be labelled with
+first-order terms. If only strings are present, then first-order
+terms are generated by parsing the strings. This may result
+in an <a class="reference internal" href="Error.html#_CPPv4N3mod16TermParsingErrorE" title="mod::TermParsingError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">TermParsingError</span></code></a> if a string can not be parsed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelRelationE">
+<span id="_CPPv3N3mod13LabelRelationE"></span><span id="_CPPv2N3mod13LabelRelationE"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LabelRelation</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelRelationE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Selector for which type of labelled morphism to use in an algorithm.</p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelRelation11IsomorphismE">
+<span id="_CPPv3N3mod13LabelRelation11IsomorphismE"></span><span id="_CPPv2N3mod13LabelRelation11IsomorphismE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Isomorphism</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelRelation11IsomorphismE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Strings are considered isomorphic when they are equal.
+Terms are considered isomorphic when their most general unifier
+is a renaming.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelRelation14SpecialisationE">
+<span id="_CPPv3N3mod13LabelRelation14SpecialisationE"></span><span id="_CPPv2N3mod13LabelRelation14SpecialisationE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Specialisation</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelRelation14SpecialisationE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A term <span class="math notranslate nohighlight">\(t_2\)</span> is more special than, or isomorphic to, a term <span class="math notranslate nohighlight">\(t_1\)</span> if there is a substitution
+which can be applied to <span class="math notranslate nohighlight">\(t_1\)</span> to make the terms equal.
+This relation means that the right-hand side of a comparison is the more specialised term.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelRelation11UnificationE">
+<span id="_CPPv3N3mod13LabelRelation11UnificationE"></span><span id="_CPPv2N3mod13LabelRelation11UnificationE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unification</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelRelation11UnificationE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Strings unify if they are equal, i.e., the same as with <a class="reference internal" href="#_CPPv4N3mod13LabelRelation11IsomorphismE" title="mod::LabelRelation::Isomorphism"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Isomorphism</span></code></a>.
+Terms unify if a most general unifier (MGU) exists. The found MGU
+is used for substitution in some algorithms.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettingsE">
+<span id="_CPPv3N3mod13LabelSettingsE"></span><span id="_CPPv2N3mod13LabelSettingsE"></span><span id="mod::LabelSettings"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LabelSettings</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelSettingsE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A class simply for grouping label settings.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The implementation of the stereo-information handling is a protoype based on <a class="reference internal" href="../references.html#afms-stereo" id="id1"><span>[AFMS-Stereo]</span></a>.</p>
+</div>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation">
+<span id="_CPPv3N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation"></span><span id="_CPPv2N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation"></span><span id="mod::LabelSettings::LabelSettings__LabelType.LabelRelation"></span><span class="sig-name descname"><span class="n"><span class="pre">LabelSettings</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod9LabelTypeE" title="mod::LabelType"><span class="n"><span class="pre">LabelType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n"><span class="pre">LabelRelation</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">relation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct label settings that only uses the vertex and edge labels.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation13LabelRelation">
+<span id="_CPPv3N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation13LabelRelation"></span><span id="_CPPv2N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation13LabelRelation"></span><span id="mod::LabelSettings::LabelSettings__LabelType.LabelRelation.LabelRelation"></span><span class="sig-name descname"><span class="n"><span class="pre">LabelSettings</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod9LabelTypeE" title="mod::LabelType"><span class="n"><span class="pre">LabelType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n"><span class="pre">LabelRelation</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">relation</span></span>, <a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n"><span class="pre">LabelRelation</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">stereoRelation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelation13LabelRelation" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct label settings that include both vertex and edge labels, and stereo information.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelationb13LabelRelation">
+<span id="_CPPv3N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelationb13LabelRelation"></span><span id="_CPPv2N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelationb13LabelRelation"></span><span id="mod::LabelSettings::LabelSettings__LabelType.LabelRelation.b.LabelRelation"></span><span class="sig-name descname"><span class="n"><span class="pre">LabelSettings</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod9LabelTypeE" title="mod::LabelType"><span class="n"><span class="pre">LabelType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n"><span class="pre">LabelRelation</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">relation</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">withStereo</span></span>, <a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n"><span class="pre">LabelRelation</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">stereoRelation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod13LabelSettings13LabelSettingsE9LabelType13LabelRelationb13LabelRelation" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettingseqE13LabelSettings13LabelSettings">
+<span id="_CPPv3N3mod13LabelSettingseqE13LabelSettings13LabelSettings"></span><span id="_CPPv2N3mod13LabelSettingseqE13LabelSettings13LabelSettings"></span><span id="mod::LabelSettings::eq-operator__LabelSettings.LabelSettings"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <a class="reference internal" href="#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod13LabelSettingseqE13LabelSettings13LabelSettings" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettingsneE13LabelSettings13LabelSettings">
+<span id="_CPPv3N3mod13LabelSettingsneE13LabelSettings13LabelSettings"></span><span id="_CPPv2N3mod13LabelSettingsneE13LabelSettings13LabelSettings"></span><span id="mod::LabelSettings::neq-operator__LabelSettings.LabelSettings"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <a class="reference internal" href="#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod13LabelSettingsneE13LabelSettings13LabelSettings" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings">
+<span id="_CPPv3N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings"></span><span id="_CPPv2N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings"></span><span id="mod::LabelSettings::lshift-operator__osR.LabelSettingsCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ls</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings4typeE">
+<span id="_CPPv3N3mod13LabelSettings4typeE"></span><span id="_CPPv2N3mod13LabelSettings4typeE"></span><span id="mod::LabelSettings::type__LabelType"></span><a class="reference internal" href="#_CPPv4N3mod9LabelTypeE" title="mod::LabelType"><span class="n"><span class="pre">LabelType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelSettings4typeE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings8relationE">
+<span id="_CPPv3N3mod13LabelSettings8relationE"></span><span id="_CPPv2N3mod13LabelSettings8relationE"></span><span id="mod::LabelSettings::relation__LabelRelation"></span><a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n"><span class="pre">LabelRelation</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">relation</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelSettings8relationE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings10withStereoE">
+<span id="_CPPv3N3mod13LabelSettings10withStereoE"></span><span id="_CPPv2N3mod13LabelSettings10withStereoE"></span><span id="mod::LabelSettings::withStereo__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">withStereo</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelSettings10withStereoE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings14stereoRelationE">
+<span id="_CPPv3N3mod13LabelSettings14stereoRelationE"></span><span id="_CPPv2N3mod13LabelSettings14stereoRelationE"></span><span id="mod::LabelSettings::stereoRelation__LabelRelation"></span><a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n"><span class="pre">LabelRelation</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stereoRelation</span></span></span><a class="headerlink" href="#_CPPv4N3mod13LabelSettings14stereoRelationE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod17IsomorphismPolicyE">
+<span id="_CPPv3N3mod17IsomorphismPolicyE"></span><span id="_CPPv2N3mod17IsomorphismPolicyE"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsomorphismPolicy</span></span></span><a class="headerlink" href="#_CPPv4N3mod17IsomorphismPolicyE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>For some functions there is a choice of how to handle given arguments
+where two different objects may be isomorphic. Most notably the case is with graphs (<a class="reference internal" href="graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">graph::Graph</span></code></a>).</p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod17IsomorphismPolicy5CheckE">
+<span id="_CPPv3N3mod17IsomorphismPolicy5CheckE"></span><span id="_CPPv2N3mod17IsomorphismPolicy5CheckE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Check</span></span></span><a class="headerlink" href="#_CPPv4N3mod17IsomorphismPolicy5CheckE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Objects are checked for isomorphism as needed and exceptions are thrown when different objects are isomorphic.
+If in doubt, use this.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod17IsomorphismPolicy7TrustMeE">
+<span id="_CPPv3N3mod17IsomorphismPolicy7TrustMeE"></span><span id="_CPPv2N3mod17IsomorphismPolicy7TrustMeE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrustMe</span></span></span><a class="headerlink" href="#_CPPv4N3mod17IsomorphismPolicy7TrustMeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>No checks are performed and the function trusts the caller to have performed the equivalent isomorphism checks.
+Only use this when you are completely sure that no exceptions would have been thrown if using <a class="reference internal" href="#_CPPv4N3mod17IsomorphismPolicy5CheckE" title="mod::IsomorphismPolicy::Check"><code class="xref cpp cpp-enumerator docutils literal notranslate"><span class="pre">Check</span></code></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Generally the library has undefined behaviour if you use this option
+but an exception would have been thrown with <a class="reference internal" href="#_CPPv4N3mod17IsomorphismPolicy5CheckE" title="mod::IsomorphismPolicy::Check"><code class="xref cpp cpp-enumerator docutils literal notranslate"><span class="pre">Check</span></code></a>.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod17SmilesClassPolicyE">
+<span id="_CPPv3N3mod17SmilesClassPolicyE"></span><span id="_CPPv2N3mod17SmilesClassPolicyE"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SmilesClassPolicy</span></span></span><a class="headerlink" href="#_CPPv4N3mod17SmilesClassPolicyE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>When loading SMILES strings, the class labels can be recorded and mapped into the corresponding
+vertices of the loaded graph. This policy dictates what should happen when the same class label
+is written on multiple atoms.</p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod17SmilesClassPolicy15NoneOnDuplicateE">
+<span id="_CPPv3N3mod17SmilesClassPolicy15NoneOnDuplicateE"></span><span id="_CPPv2N3mod17SmilesClassPolicy15NoneOnDuplicateE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoneOnDuplicate</span></span></span><a class="headerlink" href="#_CPPv4N3mod17SmilesClassPolicy15NoneOnDuplicateE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>If a class label is duplicated, then no labels are mapped to vertices.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod17SmilesClassPolicy16ThrowOnDuplicateE">
+<span id="_CPPv3N3mod17SmilesClassPolicy16ThrowOnDuplicateE"></span><span id="_CPPv2N3mod17SmilesClassPolicy16ThrowOnDuplicateE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ThrowOnDuplicate</span></span></span><a class="headerlink" href="#_CPPv4N3mod17SmilesClassPolicy16ThrowOnDuplicateE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>If a class label is duplicated, throw a <a class="reference internal" href="Error.html#_CPPv4N3mod10InputErrorE" title="mod::InputError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">InputError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod17SmilesClassPolicy9MapUniqueE">
+<span id="_CPPv3N3mod17SmilesClassPolicy9MapUniqueE"></span><span id="_CPPv2N3mod17SmilesClassPolicy9MapUniqueE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MapUnique</span></span></span><a class="headerlink" href="#_CPPv4N3mod17SmilesClassPolicy9MapUniqueE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Map all class labels that are unique to vertices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6ActionE">
+<span id="_CPPv3N3mod6ActionE"></span><span id="_CPPv2N3mod6ActionE"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Action</span></span></span><a class="headerlink" href="#_CPPv4N3mod6ActionE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Utility enum for deciding what to do in certain cases.</p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6Action5ErrorE">
+<span id="_CPPv3N3mod6Action5ErrorE"></span><span id="_CPPv2N3mod6Action5ErrorE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Error</span></span></span><a class="headerlink" href="#_CPPv4N3mod6Action5ErrorE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Abort the function and produce an error message, e.g., through and exception.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6Action4WarnE">
+<span id="_CPPv3N3mod6Action4WarnE"></span><span id="_CPPv2N3mod6Action4WarnE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Warn</span></span></span><a class="headerlink" href="#_CPPv4N3mod6Action4WarnE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Write a warning, but otherwise do as if it was <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span>.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6Action6IgnoreE">
+<span id="_CPPv3N3mod6Action6IgnoreE"></span><span id="_CPPv2N3mod6Action6IgnoreE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Ignore</span></span></span><a class="headerlink" href="#_CPPv4N3mod6Action6IgnoreE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Ignore the case. The function taking the action as argument should describe what this means.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptionsE">
+<span id="_CPPv3N3mod10MDLOptionsE"></span><span id="_CPPv2N3mod10MDLOptionsE"></span><span id="mod::MDLOptions"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MDLOptions</span></span></span><a class="headerlink" href="#_CPPv4N3mod10MDLOptionsE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>An aggregation of options for the various loading functions for MDL formats.
+Generally each option is defaulted to follow the specification of the formats,
+unless it is harmless to deviate (e.g., relaxed white-space parsing).</p>
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions12addHydrogensE">
+<span id="_CPPv3N3mod10MDLOptions12addHydrogensE"></span><span id="_CPPv2N3mod10MDLOptions12addHydrogensE"></span><span id="mod::MDLOptions::addHydrogens__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addHydrogens</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mod10MDLOptions12addHydrogensE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Use the MDL valence model to add hydrogens to atoms with default valence, or disable all hydrogen addition.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions13allowAbstractE">
+<span id="_CPPv3N3mod10MDLOptions13allowAbstractE"></span><span id="_CPPv2N3mod10MDLOptions13allowAbstractE"></span><span id="mod::MDLOptions::allowAbstract__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowAbstract</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3mod10MDLOptions13allowAbstractE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Allow non-standard atom symbols. The standard symbols are the element symbols and those specifying wildcard atoms.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions21applyV2000AtomAliasesE">
+<span id="_CPPv3N3mod10MDLOptions21applyV2000AtomAliasesE"></span><span id="_CPPv2N3mod10MDLOptions21applyV2000AtomAliasesE"></span><span id="mod::MDLOptions::applyV2000AtomAliases__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">applyV2000AtomAliases</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mod10MDLOptions21applyV2000AtomAliasesE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>In MOL V2000 CTAB blocks, replace atom labels by their aliases.
+After application, the atom is considered abstract without errors, and hydrogen addition is suppressed.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions16onPatternIsotopeE">
+<span id="_CPPv3N3mod10MDLOptions16onPatternIsotopeE"></span><span id="_CPPv2N3mod10MDLOptions16onPatternIsotopeE"></span><span id="mod::MDLOptions::onPatternIsotope__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onPatternIsotope</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions16onPatternIsotopeE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions15onPatternChargeE">
+<span id="_CPPv3N3mod10MDLOptions15onPatternChargeE"></span><span id="_CPPv2N3mod10MDLOptions15onPatternChargeE"></span><span id="mod::MDLOptions::onPatternCharge__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onPatternCharge</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N3mod10MDLOptions15onPatternChargeE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions16onPatternRadicalE">
+<span id="_CPPv3N3mod10MDLOptions16onPatternRadicalE"></span><span id="_CPPv2N3mod10MDLOptions16onPatternRadicalE"></span><span id="mod::MDLOptions::onPatternRadical__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onPatternRadical</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N3mod10MDLOptions16onPatternRadicalE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when an atom with symbol <code class="docutils literal notranslate"><span class="pre">*</span></code> has an isotope, charge, or radical.
+<span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> means assuming the isotope, charge, or radical was not there.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions27onImplicitValenceOnAbstractE">
+<span id="_CPPv3N3mod10MDLOptions27onImplicitValenceOnAbstractE"></span><span id="_CPPv2N3mod10MDLOptions27onImplicitValenceOnAbstractE"></span><span id="mod::MDLOptions::onImplicitValenceOnAbstract__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onImplicitValenceOnAbstract</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions27onImplicitValenceOnAbstractE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod10MDLOptions12addHydrogensE" title="mod::MDLOptions::addHydrogens"><span class="n">addHydrogens</span></a><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod10MDLOptions13allowAbstractE" title="mod::MDLOptions::allowAbstract"><span class="n">allowAbstract</span></a></span> and an abstract atom is encountered with implicit valence.
+<span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> means adding no hydrogens.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions24onV2000UnhandledPropertyE">
+<span id="_CPPv3N3mod10MDLOptions24onV2000UnhandledPropertyE"></span><span id="_CPPv2N3mod10MDLOptions24onV2000UnhandledPropertyE"></span><span id="mod::MDLOptions::onV2000UnhandledProperty__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onV2000UnhandledProperty</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action4WarnE" title="mod::Action::Warn"><span class="n"><span class="pre">Warn</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions24onV2000UnhandledPropertyE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when a property line in a V2000 MOL file is not recognized.
+<span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> means simply ignoring that particular line.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions38fullyIgnoreV2000UnhandledKnownPropertyE">
+<span id="_CPPv3N3mod10MDLOptions38fullyIgnoreV2000UnhandledKnownPropertyE"></span><span id="_CPPv2N3mod10MDLOptions38fullyIgnoreV2000UnhandledKnownPropertyE"></span><span id="mod::MDLOptions::fullyIgnoreV2000UnhandledKnownProperty__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fullyIgnoreV2000UnhandledKnownProperty</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3mod10MDLOptions38fullyIgnoreV2000UnhandledKnownPropertyE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Warnings are usually stored as “loading warnings”, even when they are ignored during parsing.
+Setting this to <span class="cpp-texpr sig sig-inline cpp"><span class="k">true</span></span> will act as if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod10MDLOptions24onV2000UnhandledPropertyE" title="mod::MDLOptions::onV2000UnhandledProperty"><span class="n">onV2000UnhandledProperty</span></a><span class="w"> </span><span class="o">=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> and
+skip the storage, but only for a pre-defined known subset of properties.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions28onV3000UnhandledAtomPropertyE">
+<span id="_CPPv3N3mod10MDLOptions28onV3000UnhandledAtomPropertyE"></span><span id="_CPPv2N3mod10MDLOptions28onV3000UnhandledAtomPropertyE"></span><span id="mod::MDLOptions::onV3000UnhandledAtomProperty__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onV3000UnhandledAtomProperty</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action4WarnE" title="mod::Action::Warn"><span class="n"><span class="pre">Warn</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions28onV3000UnhandledAtomPropertyE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when a property in atom line in a V3000 MOL file is not recognized.
+<span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> means simply ignoring that particular property.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions14onV2000Charge4E">
+<span id="_CPPv3N3mod10MDLOptions14onV2000Charge4E"></span><span id="_CPPv2N3mod10MDLOptions14onV2000Charge4E"></span><span id="mod::MDLOptions::onV2000Charge4__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onV2000Charge4</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions14onV2000Charge4E" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when an atom in a V2000 MOL file has the charge 4 (doublet radical).
+<span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> means assuming it was charge 0.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions18onV2000AbstractISOE">
+<span id="_CPPv3N3mod10MDLOptions18onV2000AbstractISOE"></span><span id="_CPPv2N3mod10MDLOptions18onV2000AbstractISOE"></span><span id="mod::MDLOptions::onV2000AbstractISO__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onV2000AbstractISO</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions18onV2000AbstractISOE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when an abstract atom in a V2000 MOL file has a non-default ISO or mass difference value.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions6onRAD1E">
+<span id="_CPPv3N3mod10MDLOptions6onRAD1E"></span><span id="_CPPv2N3mod10MDLOptions6onRAD1E"></span><span id="mod::MDLOptions::onRAD1__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onRAD1</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions6onRAD1E" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions6onRAD3E">
+<span id="_CPPv3N3mod10MDLOptions6onRAD3E"></span><span id="_CPPv2N3mod10MDLOptions6onRAD3E"></span><span id="mod::MDLOptions::onRAD3__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onRAD3</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions6onRAD3E" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions6onRAD4E">
+<span id="_CPPv3N3mod10MDLOptions6onRAD4E"></span><span id="_CPPv2N3mod10MDLOptions6onRAD4E"></span><span id="mod::MDLOptions::onRAD4__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onRAD4</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions6onRAD4E" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions6onRAD5E">
+<span id="_CPPv3N3mod10MDLOptions6onRAD5E"></span><span id="_CPPv2N3mod10MDLOptions6onRAD5E"></span><span id="mod::MDLOptions::onRAD5__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onRAD5</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions6onRAD5E" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions6onRAD6E">
+<span id="_CPPv3N3mod10MDLOptions6onRAD6E"></span><span id="_CPPv2N3mod10MDLOptions6onRAD6E"></span><span id="mod::MDLOptions::onRAD6__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onRAD6</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions6onRAD6E" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when an atom has assigned the indicated radical state.
+<span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> means pretending the atom has no radical state assigned.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod10MDLOptions26onUnsupportedQueryBondTypeE">
+<span id="_CPPv3N3mod10MDLOptions26onUnsupportedQueryBondTypeE"></span><span id="_CPPv2N3mod10MDLOptions26onUnsupportedQueryBondTypeE"></span><span id="mod::MDLOptions::onUnsupportedQueryBondType__Action"></span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">onUnsupportedQueryBondType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod6Action5ErrorE" title="mod::Action::Error"><span class="n"><span class="pre">Error</span></span></a><a class="headerlink" href="#_CPPv4N3mod10MDLOptions26onUnsupportedQueryBondTypeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>What to do when a bond type 5, 6, or 7 are encountered (constrained query bond types).
+<span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod6ActionE" title="mod::Action"><span class="n">Action</span></a><span class="p">::</span><a class="reference internal" href="#_CPPv4N3mod6Action6IgnoreE" title="mod::Action::Ignore"><span class="n">Ignore</span></a></span> means assigning a term variable, as if the type was 8.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9getConfigEv">
+<span id="_CPPv3N3mod9getConfigEv"></span><span id="_CPPv2N3mod9getConfigEv"></span><span id="mod::getConfig"></span><a class="reference internal" href="#_CPPv4N3mod6ConfigE" title="mod::Config"><span class="n"><span class="pre">Config</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getConfig</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9getConfigEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the singleton <a class="reference internal" href="#_CPPv4N3mod6ConfigE" title="mod::Config"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Config</span></code></a> instance used by the library.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="class-config">
+<h2><span class="section-number">3.2.2.1. </span>Class <code class="docutils literal notranslate"><span class="pre">Config</span></code><a class="headerlink" href="#class-config" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod6ConfigE">
+<span id="_CPPv3N3mod6ConfigE"></span><span id="_CPPv2N3mod6ConfigE"></span><span id="mod::Config"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Config</span></span></span><a class="headerlink" href="#_CPPv4N3mod6ConfigE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Holds all configuration settings.</p>
+</dd></dl>
+
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>write documentation for all settings                        </p>
+</div>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../_sources/libmod/Config.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

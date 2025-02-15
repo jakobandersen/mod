@@ -1,0 +1,99 @@
+.. _cpp-Derivation:
+
+**********************************************************
+Derivation.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``Derivation``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: Derivation
+    
+
+    This class is a simple wrapper for passing data around.
+    It contains two multisets of graphs :math:`G` and :math:`H`,
+    and optionally a rule :math:`p`.
+    An object may thus implicitly store a set of direct derivations
+    :math:`G\Rightarrow^p H`, though the validity of the data is not checked.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: Derivation
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: Derivation
+
+.. type:: GraphList = std::vector<std::shared_ptr<graph::Graph>>
+
+    Representation of a multiset of graphs.
+.. member:: GraphList left
+
+    Represents the multi-set of left graphs :math:`G`.
+.. member:: std::shared_ptr<rule::Rule> r
+
+    Represents the transformation rule :math:`p`, or no rule at all.
+.. member:: GraphList right
+
+    Represents the multi-set of right graphs :math:`H`.
+.. function:: operator Derivations() const
+
+    :returns: the :cpp:class:`Derivations` object equivalent to this object.
+
+.. cpp:namespace-pop::
+
+
+Class ``Derivations``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: Derivations
+    
+
+    This class is a simple wrapper for passing data around.
+    It contains two multisets of graphs :math:`G` and :math:`H`,
+    and (possibly empty) set of rules.
+    An object may thus implicitly store a set of direct derivations
+    :math:`G\Rightarrow^p H` for each rule :math:`p`,
+    though the validity of the data is not checked.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: Derivations
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: Derivations
+
+.. type:: GraphList = std::vector<std::shared_ptr<graph::Graph>>
+
+    Representation of a multiset of graphs.
+.. member:: GraphList left
+
+    Represents the multi-set of left graphs :math:`G`.
+.. member:: std::vector<std::shared_ptr<rule::Rule>> rules
+
+    Represents a (possibly empty) set of transformation rules.
+.. member:: GraphList right
+
+    Represents the multi-set of right graphs :math:`H`.
+
+.. cpp:namespace-pop::
+

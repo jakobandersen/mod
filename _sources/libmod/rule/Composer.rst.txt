@@ -1,0 +1,52 @@
+.. _cpp-rule/Composer:
+
+**********************************************************
+rule/Composer.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: rule::Composer
+
+    This class can evaluate rule composition expressions. During evaluation an expression graph is recorded.
+
+    The expression graph is a directed hypergraph :math:`(V, E)`, with each vertex representing a rule.
+    Each edge represent all compositions calculated for a unique input. That is every edge :math:`e\in E` is on the form
+    :math:`((u, v), R_e)` with :math:`(u, v)\in V\times V` as an *ordered* pair of rules and :math:`R_e\subseteq V` is the set
+    of all resulting rules found.
+
+    The graph is visualized as a bipartite graph with point-shaped vertices representing the hyperedges. The in-edges to these
+    hyperedge vertices are labelled with 1 and 2.
+
+    .. function:: Composer(const std::unordered_set<std::shared_ptr<Rule>> &database, LabelSettings labelSettings)
+
+        .. note:: The caller is responsible for ensuring the given rules are unique.
+    .. function:: Composer(Composer &&) = delete
+    .. function:: Composer &operator=(Composer &&) = delete
+    .. function:: const std::unordered_set<std::shared_ptr<Rule>> &getRuleDatabase() const
+
+        :returns: the set of unique rules known by the evaluator.
+    .. function:: const std::unordered_set<std::shared_ptr<Rule>> &getCreatedRules() const
+
+        :returns: the set of unique rules this evaluator has constructed.
+    .. function:: std::vector<std::shared_ptr<Rule>> eval(const RCExp::Expression &exp, bool onlyUnique, int verbosity)
+
+        Evaluates a rule composition expression.
+        Any created rule is replaced by a rule in the database if they are isomorphic.
+
+        The `onlyUnique` parameter controls whether each composition (sub-)result may contain duplicates or not.
+        Unless you need to count possibilities, prefer passing `true` to avoid accidental combinatorial explosion.
+
+        The :var:`verbosity` has the following meaning:
+
+        - 0 (or less): no information is printed.
+        - 10: print information about morphism generation for rule composition.
+        - 20: print rule composition information.
+
+        :returns: the result of the expression.
+    .. function:: void print() const
+
+        Print the graph representing all expressions evaluated so far.
