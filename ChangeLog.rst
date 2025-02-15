@@ -7,6 +7,10 @@ Changes
 develop
 =======
 
+Bugs Fixed
+----------
+
+- Fix references in the description of :py:class:`DGVertexMapper`.
 
 
 

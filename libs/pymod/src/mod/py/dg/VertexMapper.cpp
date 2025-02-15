@@ -39,13 +39,13 @@ void VertexMapper_doExport() {
 	// rst:
 	// rst:		Each result is available in the form of three vertex maps:
 	// rst:
-	// rst:		- `Result::map` (:math:`V(G) \rightarrow V(H)`): the vertex map of the derivation,
+	// rst:		- :py:attr:`~DGVertexMapper.Result.map` (:math:`V(G) \rightarrow V(H)`): the vertex map of the derivation,
 	// rst:		  which maps vertices of the input graph :math:`G` to the product graph :math:`H`.
 	// rst:		  The map is defined as the composition :math:`b\circ h\circ g^{-1}`.
 	// rst:		  Note that if the rule :math:`p` either creates or removes vertices, then the map is partial.
 	// rst:		  As all morphisms are injective, the vertex map is as well.
-	// rst:		- `Result::match` (:math:`m\colon L\rightarrow G`): the match morphism.
-	// rst:		- `Result::comatch` (:math:`m'\colon L\rightarrow H`): the comatch morphism.
+	// rst:		- :py:attr:`~DGVertexMapper.Result.match` (:math:`m\colon L\rightarrow G`): the match morphism.
+	// rst:		- :py:attr:`~DGVertexMapper.Result.comatch` (:math:`m'\colon L\rightarrow H`): the comatch morphism.
 	// rst:		  It is defined as the composition :math:`b\circ a`.
 	// rst:
 	// rst:		The vertex mapper can be configured in two ways via the constructor:
