@@ -353,6 +353,7 @@ if(NOT hasParent)
             "/\.gitmodules$"
             "/\.idea/"
             "/\.mypy_cache/"
+            "/\.ruff_cache/"
             "/build/"
             "/stage/"
             "/conda/conda-bld/"
