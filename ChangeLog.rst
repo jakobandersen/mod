@@ -60,7 +60,7 @@ New Features
   (:cpp:func:`dg::DG::HyperEdge::getInverse`/:py:attr:`DG.HyperEdge.inverse`)
   during creation of a :cpp:class:`dg::DG`/:py:class:`DG`, instead of only
   after creation.
-- Make is possible to generate SMILES strings of graph loaded as abstract SMILES strings,
+- Make it possible to generate SMILES strings of graph loaded as abstract SMILES strings,
   e.g., where vertices has almost-arbitrary labels like "``*``" and "``Pi [inorganic]``".
 - The rule loading functions in PyMØD, :py:func:`Rule.fromGMLString`,
   :py:func:`Rule.fromGMLFile`, and :py:func:`Rule.fromDFS`, now optionally accepts
