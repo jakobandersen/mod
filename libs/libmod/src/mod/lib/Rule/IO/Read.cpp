@@ -14,12 +14,12 @@
 #include <gml/converter.hpp>
 #include <gml/converter_edsl.hpp>
 
-#include <unordered_map>
 #include <unordered_set>
 
 namespace mod::lib::rule::Read {
 using lib::IO::Result;
 namespace GML = lib::IO::GML;
+
 namespace {
 
 template<typename T>
@@ -164,13 +164,13 @@ auto extractDataFromGML(const GML::Rule &rule) {
 
 struct MatchConstraintConverter {
 	MatchConstraintConverter(LabelledRule &dpoResult, const std::map<int, VertexLabels> &vLabelsFromId)
-			: dpoResult(dpoResult), vLabelsFromId(vLabelsFromId) {}
+		: dpoResult(dpoResult), vLabelsFromId(vLabelsFromId) {}
 
 	Result<> operator()(const GML::AdjacencyConstraint &cGML) {
 		const auto iter = vLabelsFromId.find(cGML.id);
 		if(iter == end(vLabelsFromId))
 			return Result<>::Error("Error in rule GML. Vertex " + std::to_string(cGML.id) +
-			                       " in adjacency constraint does not exist.");
+					" in adjacency constraint does not exist.");
 		const auto vConstrained = iter->second.cgVertex;
 		lib::GraphMorphism::Constraints::Operator op;
 		{
@@ -184,7 +184,7 @@ struct MatchConstraintConverter {
 			else return Result<>::Error("Error in rule GML. Unknown operator '" + s + "' in adjacency constraint.");
 		}
 		auto c = std::make_unique<
-				lib::GraphMorphism::Constraints::VertexAdjacency<LabelledRule::SideGraphType>
+			lib::GraphMorphism::Constraints::VertexAdjacency<LabelledRule::SideGraphType>
 		>(vConstrained, op, cGML.count);
 		c->vertexLabels.insert(cGML.nodeLabels.begin(), cGML.nodeLabels.end());
 		c->edgeLabels.insert(cGML.edgeLabels.begin(), cGML.edgeLabels.end());
@@ -194,7 +194,7 @@ struct MatchConstraintConverter {
 
 	Result<> operator()(const GML::LabelAnyConstraint &cGML) {
 		auto c = std::make_unique<
-				lib::GraphMorphism::Constraints::LabelAny<LabelledRule::SideGraphType>
+			lib::GraphMorphism::Constraints::LabelAny<LabelledRule::SideGraphType>
 		>(cGML.label, cGML.labels);
 		dpoResult.leftData.matchConstraints.push_back(std::move(c));
 		return Result<>();
@@ -205,10 +205,10 @@ struct MatchConstraintConverter {
 		const auto iterTar = vLabelsFromId.find(cGML.target);
 		if(iterSrc == end(vLabelsFromId))
 			return Result<>::Error("Error in rule GML. Vertex " + std::to_string(cGML.source) +
-			                       " in shortest path constraint does not exist.");
+					" in shortest path constraint does not exist.");
 		if(iterTar == end(vLabelsFromId))
 			return Result<>::Error("Error in rule GML. Vertex " + std::to_string(cGML.target) +
-			                       " in shortest path constraint does not exist.");
+					" in shortest path constraint does not exist.");
 		const auto vSrc = iterSrc->second.cgVertex;
 		const auto vTar = iterTar->second.cgVertex;
 		lib::GraphMorphism::Constraints::Operator op;
@@ -225,16 +225,16 @@ struct MatchConstraintConverter {
 						"Error in rule GML. Unknown operator '" + s + "' in shortest path constraint.");
 		}
 		const auto compSrc = get_component(get_labelled_left(dpoResult))[
-				get(boost::vertex_index_t(), get_graph(dpoResult), vSrc)];
+			get(boost::vertex_index_t(), get_graph(dpoResult), vSrc)];
 		const auto compTar = get_component(get_labelled_left(dpoResult))[
-				get(boost::vertex_index_t(), get_graph(dpoResult), vTar)];
+			get(boost::vertex_index_t(), get_graph(dpoResult), vTar)];
 		if(compSrc != compTar)
 			return Result<>::Error(
 					"Error in rule GML. Vertex " + std::to_string(cGML.source) + " and " + std::to_string(cGML.target)
 					+ " are in different connected components of the left graph. "
 					+ "This is currently not supported for the shortest path constraint.");
 		auto c = std::make_unique<
-				lib::GraphMorphism::Constraints::ShortestPath<LabelledRule::SideGraphType>
+			lib::GraphMorphism::Constraints::ShortestPath<LabelledRule::SideGraphType>
 		>(vSrc, vTar, op, cGML.length);
 		dpoResult.leftData.matchConstraints.push_back(std::move(c));
 		return Result<>();
@@ -282,14 +282,32 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 
 		// Check labels and make (left, right) the correct labels
 		if(vData.string.context) {
-			if(vData.string.left)
+			if(!vData.string.left && !vData.string.right) {
+				// Note: terms follow the same semantics as string, i.e., the same string in L and R becomes the exact same terms.
+				vData.string.left = vData.string.right = vData.string.context;
+			} else if(vData.string.left && vData.string.right) {
+				if(vData.string.left != vData.string.context)
+					return Result<>::Error(
+							"Error in rule GML. Vertex " + std::to_string(id) +
+							" has label in 'left', 'context', and 'right', "
+							"but the labels in 'left' and 'context' differ ('" + *vData.string.left + "' and '"
+							+ *vData.string.context + "').");
+				if(vData.string.right != vData.string.context)
+					return Result<>::Error(
+							"Error in rule GML. Vertex " + std::to_string(id) +
+							" has label in 'left', 'context', and 'right', "
+							"but the labels in 'right' and 'context' differ ('" + *vData.string.right + "' and '"
+							+ *vData.string.context + "').");
+			} else if(vData.string.left) {
 				return Result<>::Error(
-						"Error in rule GML. Vertex " + std::to_string(id) + " has a label both in 'context' and 'left'.");
-			if(vData.string.right)
+						"Error in rule GML. Vertex " + std::to_string(id) +
+						" has a label both in 'context' and 'left'.");
+			} else {
+				assert(vData.string.right);
 				return Result<>::Error(
-						"Error in rule GML. Vertex " + std::to_string(id) + " has a label both in 'context' and 'right'.");
-			// Note: terms follow the same semantics as string, i.e., the same string in L and R becomes the exact same terms.
-			vData.string.left = vData.string.right = vData.string.context;
+						"Error in rule GML. Vertex " + std::to_string(id) +
+						" has a label both in 'context' and 'right'.");
+			}
 		}
 
 		// Check that there is a string in left/right when inLeft/inRight
@@ -338,44 +356,60 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 			const auto &g = rDPO.getCombinedGraph();
 			if(g[vcSrc].membership == Membership::R)
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") dangling: edge is present in L but endpoint " + std::to_string(src) +
-				                       " only present in R.");
+						") dangling: edge is present in L but endpoint " + std::to_string(src) +
+						" only present in R.");
 			if(g[vcTar].membership == Membership::R)
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") dangling: edge is present in L but endpoint " + std::to_string(tar) +
-				                       " only present in R.");
+						") dangling: edge is present in L but endpoint " + std::to_string(tar) +
+						" only present in R.");
 		}
 		if(eData.inRight) {
 			const auto &g = rDPO.getCombinedGraph();
 			if(g[vcSrc].membership == Membership::L)
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") dangling: edge is present in R but endpoint " + std::to_string(src) +
-				                       " only present in L.");
+						") dangling: edge is present in R but endpoint " + std::to_string(src) +
+						" only present in L.");
 			if(g[vcTar].membership == Membership::L)
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") dangling: edge is present in R but endpoint " + std::to_string(tar) +
-				                       " only present in L.");
+						") dangling: edge is present in R but endpoint " + std::to_string(tar) +
+						" only present in L.");
 		}
 
 		// Check labels and make (left, right) the correct labels
 		if(eData.string.context) {
-			if(eData.string.left)
+			if(!eData.string.left && !eData.string.right) {
+				// TODO: for term it matters if it's L+R or it's K
+				eData.string.left = eData.string.right = eData.string.context;
+			} else if(eData.string.left && eData.string.right) {
+				if(eData.string.left != eData.string.context)
+					return Result<>::Error(
+							"Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar)
+							+ ") has label in 'left', 'context', and 'right', "
+							"but the labels in 'left' and 'context' differ ('" + *eData.string.left + "' and '"
+							+ *eData.string.context + "').");
+				if(eData.string.right != eData.string.context)
+					return Result<>::Error(
+							"Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar)
+							+ ") has label in 'left', 'context', and 'right', "
+							"but the labels in 'right' and 'context' differ ('" + *eData.string.right + "' and '"
+							+ *eData.string.context + "').");
+			} else if(eData.string.left) {
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") has a label both in 'context' and 'left'.");
-			if(eData.string.right)
+						") has a label both in 'context' and 'left'.");
+			} else {
+				assert(eData.string.right);
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") has a label both in 'context' and 'right'.");
-			// TODO: for term it matters if it's L+R or it's K
-			eData.string.left = eData.string.right = eData.string.context;
+						") has a label both in 'context' and 'right'.");
+			}
 		}
 
 		// Check that there is a string in left/right when inLeft/inRight
 		if(eData.inLeft && !eData.string.left)
 			return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-			                       ") is in L, but has no label.");
+					") is in L, but has no label.");
 		if(eData.inRight && !eData.string.right)
 			return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-			                       ") is in R, but has no label.");
+					") is in R, but has no label.");
 
 		if(eData.inContext) {
 			const auto eK = addEdgeK(rDPO, vcSrc, vcTar);
@@ -426,10 +460,12 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 		if(vData.stereo.context) {
 			if(vData.stereo.left)
 				return Result<>::Error(
-						"Error in rule GML. Vertex " + std::to_string(id) + " has stereo both in 'context' and 'left'.");
+						"Error in rule GML. Vertex " + std::to_string(id) +
+						" has stereo both in 'context' and 'left'.");
 			if(vData.stereo.right)
 				return Result<>::Error(
-						"Error in rule GML. Vertex " + std::to_string(id) + " has stereo both in 'context' and 'right'.");
+						"Error in rule GML. Vertex " + std::to_string(id) +
+						" has stereo both in 'context' and 'right'.");
 			vData.stereo.left = vData.stereo.right = vData.stereo.context;
 		}
 	}
@@ -439,10 +475,10 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 		if(eData.stereo.context) {
 			if(eData.stereo.left)
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") has stereo both in 'context' and 'left'.");
+						") has stereo both in 'context' and 'left'.");
 			if(eData.stereo.right)
 				return Result<>::Error("Error in rule GML. Edge (" + std::to_string(src) + ", " + std::to_string(tar) +
-				                       ") has stereo both in 'context' and 'right'.");
+						") has stereo both in 'context' and 'right'.");
 			eData.stereo.left = eData.stereo.right = eData.stereo.context;
 		}
 	}
@@ -465,8 +501,8 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 			const std::string &s = *os;
 			if(s.size() != 1)
 				return Result<>::Error("Error in stereo data for edge (" + std::to_string(eIds.first)
-				                       + ", " + std::to_string(eIds.second) + ") in " + side
-				                       + ". Parsing error in stereo data '" + s + "'.");
+						+ ", " + std::to_string(eIds.second) + ") in " + side
+						+ ". Parsing error in stereo data '" + s + "'.");
 			lib::Stereo::EdgeCategory cat;
 			switch(s.front()) {
 			case '*':
@@ -474,20 +510,22 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 				break;
 			default:
 				return Result<>::Error("Error in stereo data for edge (" + std::to_string(eIds.first) + ", "
-				                       + std::to_string(eIds.second) + ") in " + side
-				                       + ". Parsing error in stereo data '" + s + "'.");
+						+ std::to_string(eIds.second) + ") in " + side
+						+ ". Parsing error in stereo data '" + s + "'.");
 			}
 			const auto eSide = get_inverse(mSideToCG, gSide, rDPO.getCombinedGraph(), labels.cgEdge);
 			auto res = inference.assignEdgeCategory(eSide, cat);
 			if(!res) {
 				res.setError("Error in stereo data for edge (" + std::to_string(eIds.first) + ", "
-				             + std::to_string(eIds.second) + ") in " + side + ". " + res.extractError());
+						+ std::to_string(eIds.second) + ") in " + side + ". " + res.extractError());
 				return res;
 			}
 			return res;
 		};
-		if(auto res = handleSide(labels.stereo.left, "L", leftInference, rDPO.getLtoCG(), getL(rDPO)); !res) return res;
-		if(auto res = handleSide(labels.stereo.right, "R", rightInference, rDPO.getRtoCG(), getR(rDPO)); !res) return res;
+		if(auto res = handleSide(labels.stereo.left, "L", leftInference, rDPO.getLtoCG(), getL(rDPO)); !res)
+			return res;
+		if(auto res = handleSide(labels.stereo.right, "R", rightInference, rDPO.getRtoCG(), getR(rDPO)); !res)
+			return res;
 	} // for each edge
 	// Set the explicitly defined vertex stereo data.
 	//----------------------------------------------------------------------------
@@ -497,7 +535,8 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 		// TODO: (C++20) use structured binding in loop
 		const auto handleSide = [&](const std::optional<std::string> &os, const std::string &side, auto &inference,
 		                            auto &parsedEmbedding, const auto &mSideToCG, const auto &gSide) {
-			auto &[vLabelsFromId, eLabelsFromIds] = labelsFromIdPair; // TODO: (C++20) remove, structured binding capture
+			auto &[vLabelsFromId, eLabelsFromIds] = labelsFromIdPair;
+			// TODO: (C++20) remove, structured binding capture
 			const auto &[vId, vLabels] = eVIdLabelsPair;
 			if(!os) return Result<>();
 			if(auto parsedEmbeddingRes = lib::Stereo::Read::parseEmbedding(*os)) {
@@ -516,7 +555,7 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 				const auto vGeo = gGeometry.findGeometry(*embGML.geometry);
 				if(vGeo == gGeometry.nullGeometry())
 					return Result<>::Error("Error in stereo data for vertex " + std::to_string(vId) + " in " + side +
-					                       ". Invalid geometry '" + *embGML.geometry + "'.");
+							". Invalid geometry '" + *embGML.geometry + "'.");
 				if(auto res = inference.assignGeometry(vSide, vGeo); !res) {
 					return Result<>::Error(
 							"Error in stereo data for vertex " + std::to_string(vId) + " in " + side + ". " +
@@ -531,11 +570,13 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 					if(const int *idPtr = std::get_if<int>(&e)) {
 						const int idNeighbour = *idPtr;
 						if(vLabelsFromId.find(idNeighbour) == end(vLabelsFromId))
-							return Result<>::Error("Error in graph GML. Neighbour vertex " + std::to_string(idNeighbour) +
-							                       " in stereo embedding for vertex "
-							                       + std::to_string(vId) + " in " + side + " does not exist.");
+							return Result<>::Error(
+									"Error in graph GML. Neighbour vertex " + std::to_string(idNeighbour) +
+									" in stereo embedding for vertex "
+									+ std::to_string(vId) + " in " + side + " does not exist.");
 						const auto vFromVertexId = [&labelsFromIdPair](int id) {
-							auto &[vLabelsFromId, eLabelsFromIds] = labelsFromIdPair; // TODO: (C++20) remove, structured binding capture
+							auto &[vLabelsFromId, eLabelsFromIds] = labelsFromIdPair;
+							// TODO: (C++20) remove, structured binding capture
 							const auto iter = vLabelsFromId.find(id);
 							assert(iter != end(vLabelsFromId));
 							return iter->second.cgVertex;
@@ -543,8 +584,8 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 						auto epCG = edge(vcg, vFromVertexId(idNeighbour), rDPO.getCombinedGraph());
 						if(!epCG.second)
 							return Result<>::Error("Error in graph GML. Vertex " + std::to_string(idNeighbour) +
-							                       " in stereo embedding for vertex "
-							                       + std::to_string(vId) + " in " + side + " is not a neighbour.");
+									" in stereo embedding for vertex "
+									+ std::to_string(vId) + " in " + side + " is not a neighbour.");
 						const auto eSide = get_inverse(mSideToCG, gSide, rDPO.getCombinedGraph(), epCG.first);
 						inference.addEdge(vSide, eSide);
 					} else if(const char *virtPtr = std::get_if<char>(&e)) {
@@ -585,7 +626,8 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 	const auto finalize = [&warnings, printStereoWarnings, &rDPO, &vIdFromCG](
 			auto &inference, const std::string &side, const auto &gSide, const auto &mSideToCG) {
 		return inference.finalize(warnings, printStereoWarnings,
-		                          [&rDPO, &vIdFromCG, &side, &gSide, &mSideToCG](lib::DPO::CombinedRule::SideVertex vS) {
+		                          [&rDPO, &vIdFromCG, &side, &gSide, &mSideToCG
+		                          ](lib::DPO::CombinedRule::SideVertex vS) {
 			                          const auto v = get(mSideToCG, gSide, rDPO.getCombinedGraph(), vS);
 			                          const auto iter = vIdFromCG.find(v);
 			                          assert(iter != vIdFromCG.end());
@@ -656,9 +698,9 @@ struct ConvertLeft {
 	};
 
 	ConvertLeft(const IO::DFS::Read::RuleResult &res, DPO::CombinedRule &rDPO, PropString &pString)
-			: res(res), rDPO(rDPO), pString(pString) {}
+		: res(res), rDPO(rDPO), pString(pString) {}
 
-	LeftEdgeMapType operator()(Chain &chain) &&{
+	LeftEdgeMapType operator()(Chain &chain) && {
 		const auto sub = (*this)(chain.head, lib::graph::GraphType::null_vertex());
 		CombinedVertex vPrev = sub.next;
 		assert(!sub.isRingClosure);
@@ -751,9 +793,9 @@ struct ConvertRight {
 
 	ConvertRight(const IO::DFS::Read::RuleResult &res, DPO::CombinedRule &rDPO, PropString &pString,
 	             LeftEdgeMapType &leftEdges)
-			: res(res), rDPO(rDPO), pString(pString), leftEdges(leftEdges) {}
+		: res(res), rDPO(rDPO), pString(pString), leftEdges(leftEdges) {}
 
-	void operator()(Chain &chain) &&{
+	void operator()(Chain &chain) && {
 		const auto sub = (*this)(chain.head, lib::graph::GraphType::null_vertex());
 		CombinedVertex vPrev = sub.next;
 		assert(!sub.isRingClosure);
@@ -860,7 +902,7 @@ public:
 struct ImplicitLeft {
 	ImplicitLeft(const IO::DFS::Read::RuleResult &res) : res(res) {}
 
-	Result<> operator()(const Chain &chain) &&{
+	Result<> operator()(const Chain &chain) && {
 		auto sub = (*this)(chain.head);
 		if(!sub) return sub;
 		for(const EVPair &ev: chain.tail) {
@@ -897,7 +939,7 @@ public:
 struct ImplicitRight {
 	ImplicitRight(const IO::DFS::Read::RuleResult &res) : res(res) {}
 
-	Result<> operator()(const Chain &chain) &&{
+	Result<> operator()(const Chain &chain) && {
 		auto sub = (*this)(chain.head);
 		if(!sub) return sub;
 		for(const EVPair &ev: chain.tail) {
@@ -990,7 +1032,7 @@ Result<Data> dfs(lib::IO::Warnings &warnings, std::string_view input) {
 	}
 
 	data.rule.emplace(std::move(rDPO), std::move(pString), nullptr);
-	return std::move(data);  // TODO: remove std::move when C++20/P1825R0 is available
+	return std::move(data); // TODO: remove std::move when C++20/P1825R0 is available
 }
 
 } // namespace mod::lib::rule::Read

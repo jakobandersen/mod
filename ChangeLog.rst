@@ -7,6 +7,13 @@ Changes
 develop
 =======
 
+New Features
+------------
+
+- When loading rules in GML format, a vertex or an edge can now be present
+  with a label in all three sections, ``left``, ``context``, and ``right``,
+  as long as the label is the same.
+
 Bugs Fixed
 ----------
 
