@@ -73,51 +73,72 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 
 	const auto localIdx = get(boost::vertex_index_t(), g);
 
-	{ // visibility from adv
-		for(const auto v: asRange(vertices(g)))
-			isVisible[get(localIdx, v)] = advOptions.isVisible(v);
-	}
-	{ // stuff not depending on coordinates being available now
-		if(options.simpleCarbons) {
-			for(const auto v: asRange(vertices(g))) {
-				if(depict.getAtomId(v) != AtomIds::Carbon) continue;
-				int adjCount = 0;
-				for(const auto vAdj: asRange(adjacent_vertices(v, g))) {
-					// for now, we allow it even though the edges are not bonds
-					const auto adjAtomId = depict.getAtomId(vAdj);
-					switch(adjAtomId) {
-					case AtomIds::Carbon:
-					case AtomIds::Oxygen:
-					case AtomIds::Nitrogen:
-					case AtomIds::Sulfur:
-						++adjCount;
-					}
-				}
-				if(adjCount < 2) continue;
-				if(depict.getIsotope(v) != Isotope()) continue;
-				if(depict.getCharge(v) != 0) continue;
-				if(depict.getRadical(v)) continue;
-				isSimpleCarbon[get(boost::vertex_index_t(), g, v)] = true;
-			}
-		}
+	// visibility from adv
+	for(const auto v: asRange(vertices(g)))
+		isVisible[get(localIdx, v)] = advOptions.isVisible(v);
 
-		if(options.collapseHydrogens) { // collapse most hydrogen atoms to it's neighbour
-			for(const auto v: asRange(vertices(g))) {
-				const auto vId = get(localIdx, v);
-				if(!isVisible[vId]) continue;
-				const auto hasImportantStereo = [&depict](const auto v) {
-					return depict.hasImportantStereo(v);
-				};
-				if(!Chem::isCollapsibleHydrogen(v, g, depict, depict, hasImportantStereo)) continue;
-				assert(out_degree(v, g) == 1);
-				const auto e = *out_edges(v, g).first;
-				const auto vAdj = target(e, g); // TODO: just use adjacent_vertices, we don't need the edge
-				const auto vAdjId = get(boost::vertex_index_t(), g, vAdj);
-				if(!isVisible[vAdjId]) continue;
-				if(advOptions.disallowHydrogenCollapse(v)) continue;
-				++implicitHydrogenCount[vAdjId];
-				isVisible[vId] = false;
+	// collapse most hydrogen atoms to it's neighbour
+	if(options.collapseHydrogens) {
+		for(const auto v: asRange(vertices(g))) {
+			const auto vId = get(localIdx, v);
+			if(!isVisible[vId]) continue;
+			const auto hasImportantStereo = [&depict](const auto v) {
+				return depict.hasImportantStereo(v);
+			};
+			if(!Chem::isCollapsibleHydrogen(v, g, depict, depict, hasImportantStereo)) continue;
+			assert(out_degree(v, g) == 1);
+			const auto e = *out_edges(v, g).first;
+			const auto vAdj = target(e, g); // TODO: just use adjacent_vertices, we don't need the edge
+			const auto vAdjId = get(boost::vertex_index_t(), g, vAdj);
+			if(!isVisible[vAdjId]) continue;
+			if(advOptions.disallowHydrogenCollapse(v)) continue;
+			++implicitHydrogenCount[vAdjId];
+			isVisible[vId] = false;
+		}
+	}
+
+	if(options.simpleCarbons) {
+		for(const auto v: asRange(vertices(g))) {
+			if(depict.getAtomId(v) != AtomIds::Carbon) continue;
+			if(depict.getIsotope(v) != Isotope()) continue;
+			if(depict.getCharge(v) != 0) continue;
+			if(depict.getRadical(v)) continue;
+
+			int adjCount = 0;
+			for(const auto vAdj: asRange(adjacent_vertices(v, g))) {
+				if(!isVisible[get(boost::vertex_index_t(), g, vAdj)]) continue;
+				++adjCount;
 			}
+			if(adjCount < 2) continue;
+			if(adjCount == 2 && !options.withGraphvizCoords && depict.getHasCoordinates()) {
+				// check for colinearity
+				using Edge = typename boost::graph_traits<Graph>::edge_descriptor;
+				std::array<Edge, 2> edges;
+				int i = 0;
+				for(const auto e: asRange(out_edges(v, g))) {
+					if(!isVisible[get(boost::vertex_index_t(), g, target(e, g))]) continue;
+					assert(i != 2);
+					edges[i] = e;
+					++i;
+				}
+				if(depict.getBondData(edges[0]) != BondType::Invalid && depict.getBondData(edges[0]) == depict.getBondData(edges[1])) {
+					const auto
+							x = depict.getX(v, !options.collapseHydrogens),
+							y = depict.getY(v, !options.collapseHydrogens),
+							x1 = depict.getX(target(edges[0], g), !options.collapseHydrogens),
+							y1 = depict.getY(target(edges[0], g), !options.collapseHydrogens),
+							x2 = depict.getX(target(edges[1], g), !options.collapseHydrogens),
+							y2 = depict.getY(target(edges[1], g), !options.collapseHydrogens)
+					;
+					// collinear if same slope: xy1 --- xy --- xy2
+					//      (y1 - y) / (x1 - x) == (y - y2) / (x - x2)
+					// <=>  (y1 - y) * (x - x2) == (y - y2) * (x1 - x)
+					if((y1 - y) * (x - x2) == (y - y2) * (x1 - x))
+						continue;
+				}
+			}
+
+			isSimpleCarbon[get(boost::vertex_index_t(), g, v)] = true;
 		}
 	}
 

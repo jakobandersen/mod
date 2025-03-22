@@ -18,7 +18,12 @@ Bugs Fixed
 ----------
 
 - Fix references in the description of :py:class:`DGVertexMapper`.
+- Fix and clarify the documentation of :py:func:`rngUniformReal`.
+- Fix molecule depiction with 'simple carbons' enabled:
 
+  - Generally let carbon atoms be simple if they have just two visible neighbours.
+  - If those two neighbours are collinear with the carbon atom, and the bonds are the
+    same type, then don't make the carbon atom simple (e.g., in ``C=C=C``).
 
 
 v0.17.0 (2025-02-16)
