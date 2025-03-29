@@ -198,8 +198,16 @@ void generateCoordinates(OpenBabel::OBMol &mol) {
 		                  "before importing any modules. If this does not work, please open an issue.";
 		throw FatalError(std::move(msg));
 	}
-	bool res = op->Do(&mol);
-	if(!res) MOD_ABORT;
+	try {
+		bool res = op->Do(&mol);
+		if(res) return;
+	} catch(const std::exception &e) {
+		std::string msg = "Something inside Open Babel coordinate generation failed with an exception:\n";
+		msg += e.what();
+		throw FatalError(std::move(msg));
+	}
+	std::string msg = "Open Babel coordinate generation failed.";
+	throw FatalError(std::move(msg));
 }
 
 template<typename Graph, typename MayCollapse, typename Callback>

@@ -25,6 +25,9 @@ Bugs Fixed
   - If those two neighbours are collinear with the carbon atom, and the bonds are the
     same type, then don't make the carbon atom simple (e.g., in ``C=C=C``).
 
+- Provide better fatal error messages when something inside Open Babel fails
+  during coordinate generation.
+
 
 v0.17.0 (2025-02-16)
 ====================
