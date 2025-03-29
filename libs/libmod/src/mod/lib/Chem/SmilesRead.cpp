@@ -413,8 +413,8 @@ Vertex addHydrogen(lib::graph::GraphType &g, lib::graph::PropString &pString, Ve
 
 lib::IO::Result<> addBond(lib::IO::Warnings &warnings,
                           lib::graph::GraphType &g, lib::graph::PropString &pString,
-                          Atom &p, Atom &v,
-                          char bond, Edge &e,
+                          const Atom &p, const Atom &v,
+                          const char bond, Edge &e,
                           const bool printStereoWarnings) {
 	std::string edgeLabel;
 	switch(bond) {
@@ -531,7 +531,7 @@ struct Converter {
 			  allowAbstract(allowAbstract) {}
 
 	lib::IO::Result<> operator()(SmilesChain &c) {
-		if(auto res = (*this)(c.branchedAtom); !res) return res;
+		if(auto res = (*this)(c.branchedAtom, nullptr); !res) return res;
 		return (*this)(c.tail, c.branchedAtom.atom);
 	}
 
@@ -544,8 +544,9 @@ struct Converter {
 		return {};
 	}
 
-	lib::IO::Result<> operator()(BondBranchedAtomPair &bba, Atom &parent) {
-		if(auto res = (*this)(bba.atom.get()); !res) return res;
+	lib::IO::Result<> operator()(BondBranchedAtomPair &bba, const Atom &parent) {
+		if(auto res = (*this)(bba.atom.get(), bba.bond != '.' ? &parent : nullptr); !res)
+			return res;
 		if(bba.bond == '.') return {};
 		assert(components[bba.atom.get().atom.connectedComponentID]
 		       == components[parent.connectedComponentID]);
@@ -556,7 +557,7 @@ struct Converter {
 		return res;
 	}
 
-	lib::IO::Result<> operator()(BranchedAtom &bAtom) {
+	lib::IO::Result<> operator()(BranchedAtom &bAtom, const Atom *parent) {
 		if(auto res = (*this)(bAtom.atom); !res) return res;
 		// process ring bonds
 		for(auto &rb: bAtom.ringBonds) {
@@ -565,6 +566,9 @@ struct Converter {
 			assert(rb.bond != '.');
 			assert(components[rb.otherAtom->connectedComponentID]
 			       == components[bAtom.atom.connectedComponentID]);
+			if(rb.otherAtom == parent)
+				return lib::IO::Result<>::Error(
+						"SMILES string has parallel bonds at ring closure " + std::to_string(rb.ringId) + ".");
 			const auto comp = components[rb.otherAtom->connectedComponentID];
 			if(auto res = addBond(warnings, *gPtrs[comp], *pStringPtrs[comp],
 			                      *rb.otherAtom, bAtom.atom, rb.bond, rb.edge,

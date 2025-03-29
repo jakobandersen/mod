@@ -27,6 +27,8 @@ Bugs Fixed
 
 - Provide better fatal error messages when something inside Open Babel fails
   during coordinate generation.
+- In SMILES string loading, detect parallel bonds due to ring closures,
+  e.g., "``C1C1``" and "``C1(C1)``".
 
 
 v0.17.0 (2025-02-16)
