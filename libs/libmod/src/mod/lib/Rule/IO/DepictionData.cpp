@@ -535,7 +535,7 @@ bool DepictionData::getHasCoordinates() const {
 }
 
 double DepictionData::getX(CombinedVertex v, bool withHydrogen) const {
-	if(!getHasCoordinates()) MOD_ABORT;
+	if(!getHasCoordinates()) return std::numeric_limits<double>::quiet_NaN();
 	const auto &g = get_graph(lr);
 	const auto vId = get(boost::vertex_index_t(), g, v);
 	const CoordData &cData = withHydrogen ? cDataAll : cDataNoHydrogen;
@@ -544,7 +544,7 @@ double DepictionData::getX(CombinedVertex v, bool withHydrogen) const {
 }
 
 double DepictionData::getY(CombinedVertex v, bool withHydrogen) const {
-	if(!getHasCoordinates()) MOD_ABORT;
+	if(!getHasCoordinates()) return std::numeric_limits<double>::quiet_NaN();
 	const auto &g = get_graph(lr);
 	const auto vId = get(boost::vertex_index_t(), g, v);
 	const CoordData &cData = withHydrogen ? cDataAll : cDataNoHydrogen;
