@@ -410,11 +410,12 @@ else # $1 == --mode
 				return
 			}
 
-			# graphType fileNoExt [noOverlay]
+			# graphType fileNoExt [noOverlay [idOffset]]
 			function coordsFromGV {
 				local graphType=$1
 				local fileNoExt=$2
 				local noOverlay=$3
+				local idOffset=$4
 				echo -n " $fileNoExt.plain ${fileNoExt}_coord.tex" >> $makefileClean
 				function common {
 					reGrep='\[.* image="\([^\"]*\)".*\]'
@@ -423,7 +424,7 @@ else # $1 == --mode
 						echo -n " $f" >> $makefileImpl
 					done
 					echo "" >> $makefileImpl
-					echo "	$this --mode coordsFromGV $graphType \"$fileNoExt\" $noOverlay" >> $makefileImpl
+					echo "	$this --mode coordsFromGV $graphType \"$fileNoExt\" $noOverlay $idOffset" >> $makefileImpl
 				}
 				# extra dependency to avoid race conditions, see http://www.gnu.org/software/automake/manual/html_node/Multiple-Outputs.html
 				echo -n "${fileNoExt}_coord.tex:" >> $makefileImpl
@@ -578,13 +579,20 @@ else # $1 == --mode
 		dot $gvArgs -o $fileNoExt.$outType $fileNoExt.dot
 	}
 
-	# graphType fileNoExt [noOverlay]
+	# graphType fileNoExt [noOverlay [idOffset]]
 	function coordsFromGV {
 		printStatus "$FUNCNAME($1)"
 		local graphType=$1
 		local fileNoExt=$2
 		local noOverlay=$3
-		local coordFile=${fileNoExt}_coord.tex
+		local idOffset=$4
+		local coordFile=${fileNoExt}_coord
+		if [ "x$idOffset" != "x" ]; then
+			coordFile=${coordFile}_id$idOffset
+		else
+			idOffset=0
+		fi
+		coordFile=${coordFile}.tex
 		local gvArgsVar="gvArgs_$graphType"
 		local gvArgs="-Tplain ${!gvArgsVar} -o $fileNoExt.plain"
 		# this now assumes that dot will create the coordinates
@@ -604,7 +612,7 @@ else # $1 == --mode
 			local gvArgs="-Tpdf ${!gvArgsVar} -o ${fileNoExt}_coord.pdf"
 			dot $gvArgs $fileNoExt.dot
 		fi
-		cat $fileNoExt.plain | awk -v noOverlay="x$noOverlay" '
+		cat $fileNoExt.plain | awk -v noOverlay="x$noOverlay" -v idOffset=$idOffset '
 function abs(a) {
 	return a < 0 ? -a : a
 }
@@ -617,6 +625,8 @@ BEGIN {
 	} else if($0 ~ /^node/) {
 		name=$2
 		gsub(/"/, "", name)
+		if(idOffset != 0)
+			name = name + idOffset
 		x=$3
 		y=$4
 		# avoid underflow in Latex

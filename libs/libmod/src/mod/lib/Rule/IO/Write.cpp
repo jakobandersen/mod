@@ -31,7 +31,8 @@ std::string getFilePrefix(const Rule &r) {
 void gmlSide(const Rule &r, std::ostream &s, Membership printMembership, bool withCoords) {
 	if(withCoords) {
 		const auto &depict = r.getDepictionData();
-		if(!depict.getHasCoordinates()) MOD_ABORT;
+		if(!depict.getHasCoordinates())
+			MOD_ABORT;
 	}
 	const auto &lr = r.getDPORule();
 	const auto &rDPO = lr.getRule();
@@ -178,7 +179,7 @@ std::string dotCombined(const Rule &r) {
 			break;
 		case Membership::K:
 			s << pString.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG)] << " | "
-			  << pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG)];
+					<< pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG)];
 			break;
 		case Membership::R:
 			s << pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG)];
@@ -213,21 +214,21 @@ std::string dotCombined(const Rule &r) {
 				break;
 			case Membership::K:
 				label = pString.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, eCG)] + " | " +
-				        pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)];
+						pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)];
 				break;
 			case Membership::R:
 				label = pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)];
 				break;
 			}
 			switch(label[0]) {
-				//		case '=': // fall through to make two edges
-				//			//						assert(false);
-				//			printEdgeStyle(s, membership, vSrcId, vTarId);
-				//			s << "]\n";
-				//		case '-': // print the rest of the label
-				//			printEdgeStyle(s, membership, vSrcId, vTarId);
-				//			s << "label=\"" << (label.c_str() + 1) << "\" ]\n";
-				//			break;
+			//		case '=': // fall through to make two edges
+			//			//						assert(false);
+			//			printEdgeStyle(s, membership, vSrcId, vTarId);
+			//			s << "]\n";
+			//		case '-': // print the rest of the label
+			//			printEdgeStyle(s, membership, vSrcId, vTarId);
+			//			s << "label=\"" << (label.c_str() + 1) << "\" ]\n";
+			//			break;
 			default:
 				printEdgeStyle(s, membership, vSrcId, vTarId);
 				s << "label=\"" << label << "\" ]\n";
@@ -290,7 +291,7 @@ std::string dot(const Rule &r, const Options &options) {
 			break;
 		case Membership::K:
 			s << pString.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG)] << " | "
-			  << pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG)];
+					<< pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG)];
 			break;
 		case Membership::R:
 			s << pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG)];
@@ -314,7 +315,7 @@ std::string dot(const Rule &r, const Options &options) {
 				break;
 			case Membership::K:
 				s << pString.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, eCG)] << " | "
-				  << pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)];
+						<< pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)];
 				break;
 			case Membership::R:
 				s << pString.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)];
@@ -331,6 +332,15 @@ std::string dot(const Rule &r, const Options &options) {
 
 namespace {
 
+struct GraphvizCoordsCacheEntry {
+	std::string dotFileNoExt;
+	int idOffset;
+public:
+	friend bool operator<(const GraphvizCoordsCacheEntry &a, const GraphvizCoordsCacheEntry &b) {
+		return std::tie(a.dotFileNoExt, a.idOffset) < std::tie(b.dotFileNoExt, b.idOffset);
+	}
+};
+
 struct OpenBabelCoordsCacheEntry {
 	std::size_t id;
 	bool collapseHydrogens;
@@ -340,7 +350,7 @@ struct OpenBabelCoordsCacheEntry {
 public:
 	friend bool operator<(const OpenBabelCoordsCacheEntry &a, const OpenBabelCoordsCacheEntry &b) {
 		return std::tie(a.id, a.collapseHydrogens, a.rotation, a.mirror, a.idOffset)
-		       < std::tie(b.id, b.collapseHydrogens, b.rotation, b.mirror, b.idOffset);
+				< std::tie(b.id, b.collapseHydrogens, b.rotation, b.mirror, b.idOffset);
 	}
 };
 
@@ -367,23 +377,24 @@ std::string coords(const Rule &r, int idOffset, const Options &options,
 	assert(idOffset >= 0);
 	const auto &depict = r.getDepictionData();
 	if(options.withGraphvizCoords || !depict.getHasCoordinates()) {
-		if(idOffset != 0)
-			throw FatalError("Blame the lazy programmer. Offset other than 0 not yet supported in dot coords.");
-
-		// we map 1-to-1 a dot file to a coord file, so cache by the dot filename
-		static std::map<std::string, std::string> cache;
+		static std::map<GraphvizCoordsCacheEntry, std::string> cache;
 		const auto fileNoExt = dot(r, options);
-		const auto iter = cache.find(fileNoExt);
+		const auto iter = cache.find({fileNoExt, idOffset});
 		if(iter != end(cache)) return iter->second;
 
-		IO::post() << "coordsFromGV rule \"" << fileNoExt << "\" noOverlay\n";
+		IO::post() << "coordsFromGV rule \"" << fileNoExt << "\" noOverlay";
+		if(idOffset != 0) IO::post() << " " << idOffset;
+		IO::post() << "\n";
 		// the coord file is still for the tex coord file which is just then created in post
 		std::string file = fileNoExt + "_coord";
-		cache[fileNoExt] = file;
+		if(idOffset != 0) file += "_id" + std::to_string(idOffset);
+		cache[{fileNoExt, idOffset}] = file;
 		return file;
 	} else {
 		static std::map<OpenBabelCoordsCacheEntry, std::string> cache;
-		const auto iter = cache.find({r.getId(), options.collapseHydrogens, options.rotation, options.mirror, idOffset});
+		const auto iter = cache.find({
+			r.getId(), options.collapseHydrogens, options.rotation, options.mirror, idOffset
+		});
 		if(iter != end(cache)) return iter->second;
 
 		const auto &gCombined = r.getDPORule().getRule().getCombinedGraph();
@@ -417,7 +428,7 @@ std::string coords(const Rule &r, int idOffset, const Options &options,
 					depict.getY(vCG, !useCollapsedCoords),
 					options.rotation, options.mirror);
 			s << "\\coordinate[overlay] (\\modIdPrefix v-coord-" << (vId + idOffset) << ") at ("
-			  << std::fixed << x << ", " << y << ") {};\n";
+					<< std::fixed << x << ", " << y << ") {};\n";
 		}
 		if(options.collapseHydrogens && !useCollapsedCoords) {
 			// don't cache these as the user predicate influences it
@@ -446,14 +457,14 @@ struct AdvOptionsSide {
 	               std::string changeColour,
 	               const SideGraph &g, const MorphismType &mToSide, const ToCombinedMorphismSide &mToCG,
 	               DepictSide depict, LabelledSide lg)
-			: idOffset(idOffset), changeColour(std::move(changeColour)), r(r), rDPO(r.getDPORule().getRule()),
-			  args(args), disallowHydrogenCollapse_(disallowHydrogenCollapse),
-			  g(g), mToCG(mToCG), depict(depict), lg(lg) {}
+		: idOffset(idOffset), changeColour(std::move(changeColour)), r(r), rDPO(r.getDPORule().getRule()),
+		  args(args), disallowHydrogenCollapse_(disallowHydrogenCollapse),
+		  g(g), mToCG(mToCG), depict(depict), lg(lg) {}
 public:
 	std::string getColour(SideVertex vS) const {
 		const auto vCG = get(mToCG, g, rDPO.getCombinedGraph(), vS);
 		const bool isChanged = r.getDPORule().getRule().getCombinedGraph()[vCG].membership != Membership::K
-		                       || get_string(r.getDPORule()).isChanged(vCG);
+				|| get_string(r.getDPORule()).isChanged(vCG);
 		if(isChanged) return changeColour;
 		else return args.vColour(vCG);
 	}
@@ -461,7 +472,7 @@ public:
 	std::string getColour(SideEdge eS) const {
 		const auto eCG = get(mToCG, g, rDPO.getCombinedGraph(), eS);
 		const bool isChanged = r.getDPORule().getRule().getCombinedGraph()[eCG].membership != Membership::K
-		                       || get_string(r.getDPORule()).isChanged(eCG);
+				|| get_string(r.getDPORule()).isChanged(eCG);
 		if(isChanged) return changeColour;
 		else return args.eColour(eCG);
 	}
@@ -490,7 +501,7 @@ public:
 private:
 	template<typename F>
 	std::string getStereoStringVertex(SideVertex vS, const F f) const {
-//		assert(false); // TODO: map vS
+		//		assert(false); // TODO: map vS
 		const auto &conf = *get_stereo(lg)[vS];
 		const auto getNeighbourId = [&](const lib::Stereo::EmbeddingEdge &emb) {
 			return get(boost::vertex_index_t(), g, target(emb.getEdge(vS, g), g));
@@ -504,21 +515,21 @@ private:
 	}
 public:
 	std::string getRawStereoString(SideVertex vS) const {
-//		assert(false); // TODO: anything to map?
+		//		assert(false); // TODO: anything to map?
 		return getStereoStringVertex(vS, [&](const auto &conf, auto getNId) {
 			return conf.asRawString(getNId);
 		});
 	}
 
 	std::string getPrettyStereoString(SideVertex vS) const {
-//		assert(false); // TODO: anything to map?
+		//		assert(false); // TODO: anything to map?
 		return getStereoStringVertex(vS, [&](const auto &conf, auto getNId) {
 			return conf.asPrettyString(getNId);
 		});
 	}
 
 	std::string getStereoString(SideEdge eS) const {
-//		assert(false); // TODO: map eS
+		//		assert(false); // TODO: map eS
 		const auto cat = get_stereo(lg)[eS];
 		std::string res = boost::lexical_cast<std::string>(cat);
 		const auto e = get(mToCG, g, rDPO.getCombinedGraph(), eS);
@@ -558,8 +569,8 @@ struct AdvOptionsK {
 	AdvOptionsK(const Rule &r, int idOffset, const BaseArgs &args,
 	            std::function<bool(CombinedVertex)> disallowHydrogenCollapse,
 	            std::string changeColour)
-			: idOffset(idOffset), changeColour(std::move(changeColour)), r(r), rDPO(r.getDPORule().getRule()),
-			  args(args), disallowHydrogenCollapse_(disallowHydrogenCollapse) {}
+		: idOffset(idOffset), changeColour(std::move(changeColour)), r(r), rDPO(r.getDPORule().getRule()),
+		  args(args), disallowHydrogenCollapse_(disallowHydrogenCollapse) {}
 public:
 	std::string getColour(KVertex vK) const {
 		const auto v = get(rDPO.getKtoCG(), getK(rDPO), rDPO.getCombinedGraph(), vK);
@@ -784,8 +795,8 @@ summary(const Rule &r, const Options &first, const Options &second, bool printCo
 	std::string graphLike = pdf(r, first, "L", "K", "R", args);
 	std::string molLike = first == second ? "" : pdf(r, second, "L", "K", "R", args);
 	std::string combined = printCombined
-	                       ? pdfCombined(r /*, Options().EdgesAsBonds().RaiseCharges()*/)
-	                       : "";
+		                       ? pdfCombined(r /*, Options().EdgesAsBonds().RaiseCharges()*/)
+		                       : "";
 	std::string constraints =
 			IO::makeUniqueFilePrefix() + "r_" + boost::lexical_cast<std::string>(r.getId()) + "_constraints.tex";
 	{
@@ -796,7 +807,7 @@ summary(const Rule &r, const Options &first, const Options &second, bool printCo
 		}
 	}
 	IO::post() << "summaryRule \"" << r.getName() << "\" \"" << graphLike << "\" \"" << molLike << "\" \"" << combined
-	           << "\" \"" << constraints << "\"\n";
+			<< "\" \"" << constraints << "\"\n";
 	if(molLike.empty())
 		return std::pair(graphLike, graphLike);
 	else
@@ -830,10 +841,12 @@ void termState(const Rule &r) {
 		for(const auto vCG: asRange(vertices(gCombined))) {
 			switch(gCombined[vCG].membership) {
 			case Membership::L:
-				insertVertex(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG)], vCG, Membership::L);
+				insertVertex(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG)], vCG,
+				             Membership::L);
 				break;
 			case Membership::K:
-				insertVertex(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG)], vCG, Membership::L);
+				insertVertex(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, vCG)], vCG,
+				             Membership::L);
 				insertVertex(pTerm.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, vCG)], vCG,
 				             Membership::R);
 				break;
@@ -846,14 +859,18 @@ void termState(const Rule &r) {
 		for(const auto eCG: asRange(edges(r.getDPORule().getRule().getCombinedGraph()))) {
 			switch(gCombined[eCG].membership) {
 			case Membership::L:
-				insertEdge(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, eCG)], eCG, Membership::L);
+				insertEdge(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, eCG)], eCG,
+				           Membership::L);
 				break;
 			case Membership::K:
-				insertEdge(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, eCG)], eCG, Membership::L);
-				insertEdge(pTerm.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)], eCG, Membership::R);
+				insertEdge(pTerm.getLeft()[get_inverse(rDPO.getLtoCG(), getL(rDPO), gCombined, eCG)], eCG,
+				           Membership::L);
+				insertEdge(pTerm.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)], eCG,
+				           Membership::R);
 				break;
 			case Membership::R:
-				insertEdge(pTerm.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)], eCG, Membership::R);
+				insertEdge(pTerm.getRight()[get_inverse(rDPO.getRtoCG(), getR(rDPO), gCombined, eCG)], eCG,
+				           Membership::R);
 				break;
 			}
 		}
@@ -863,10 +880,11 @@ void termState(const Rule &r) {
 		struct Visitor : lib::GraphMorphism::Constraints::AllVisitor<SideGraphType> {
 			Visitor(std::unordered_map<Address, std::set<std::string>> &addrMap,
 			        const lib::DPO::CombinedRule::CombinedGraphType &gCombined)
-					: addrMap(addrMap), gCombined(gCombined) {}
+				: addrMap(addrMap), gCombined(gCombined) {}
 
 			virtual void operator()(const lib::GraphMorphism::Constraints::VertexAdjacency<SideGraphType> &c) override {
-				const auto vStr = boost::lexical_cast<std::string>(get(boost::vertex_index_t(), gCombined, c.vConstrained));
+				const auto vStr = boost::lexical_cast<std::string>(
+						get(boost::vertex_index_t(), gCombined, c.vConstrained));
 				for(const auto a: c.vertexTerms) {
 					Address addr{AddressType::Heap, a};
 					std::string msg = "VertexAdj(" + vStr + ", " + side + ", V)";
@@ -910,52 +928,52 @@ void termState(const Rule &r) {
 
 		Term::Write::wam(getMachine(pTerm), lib::Term::getStrings(),
 		                 IO::Logger(s), [&](Address addr, std::ostream &s) {
-					s << "        ";
-					bool first = true;
-					for(auto vm: addrToVertex[addr]) {
-						if(!first) s << ", ";
-						first = false;
-						s << "v(" << get(boost::vertex_index_t(), gCombined, vm.first) << ", ";
-						switch(vm.second) {
-						case Membership::L:
-							s << "L";
-							break;
-						case Membership::R:
-							s << "R";
-							break;
-						case Membership::K:
-							s << "K";
-							break;
-						}
-						s << ")";
-					}
-					for(auto em: addrToEdge[addr]) {
-						if(!first) s << ", ";
-						first = false;
-						s << "e("
-						  << get(boost::vertex_index_t(), gCombined, source(em.first, gCombined))
-						  << ", "
-						  << get(boost::vertex_index_t(), gCombined, target(em.first, gCombined))
-						  << ", ";
-						switch(em.second) {
-						case Membership::L:
-							s << "L";
-							break;
-						case Membership::R:
-							s << "R";
-							break;
-						case Membership::K:
-							s << "K";
-							break;
-						}
-						s << ")";
-					}
-					for(auto &msg: addrToConstraintInfo[addr]) {
-						if(!first) s << ", ";
-						first = false;
-						s << msg;
-					}
-				});
+			                 s << "        ";
+			                 bool first = true;
+			                 for(auto vm: addrToVertex[addr]) {
+				                 if(!first) s << ", ";
+				                 first = false;
+				                 s << "v(" << get(boost::vertex_index_t(), gCombined, vm.first) << ", ";
+				                 switch(vm.second) {
+				                 case Membership::L:
+					                 s << "L";
+					                 break;
+				                 case Membership::R:
+					                 s << "R";
+					                 break;
+				                 case Membership::K:
+					                 s << "K";
+					                 break;
+				                 }
+				                 s << ")";
+			                 }
+			                 for(auto em: addrToEdge[addr]) {
+				                 if(!first) s << ", ";
+				                 first = false;
+				                 s << "e("
+						                 << get(boost::vertex_index_t(), gCombined, source(em.first, gCombined))
+						                 << ", "
+						                 << get(boost::vertex_index_t(), gCombined, target(em.first, gCombined))
+						                 << ", ";
+				                 switch(em.second) {
+				                 case Membership::L:
+					                 s << "L";
+					                 break;
+				                 case Membership::R:
+					                 s << "R";
+					                 break;
+				                 case Membership::K:
+					                 s << "K";
+					                 break;
+				                 }
+				                 s << ")";
+			                 }
+			                 for(auto &msg: addrToConstraintInfo[addr]) {
+				                 if(!first) s << ", ";
+				                 first = false;
+				                 s << msg;
+			                 }
+		                 });
 	} else {
 		std::string msg = "Parsing failed for rule '" + r.getName() + "'. " + pTerm.getParsingError();
 		throw TermParsingError(std::move(msg));
@@ -970,13 +988,16 @@ std::string stereoSummary(const Rule &r, lib::DPO::CombinedRule::CombinedVertex 
 	const auto &lr = r.getDPORule();
 	const auto &rDPO = lr.getRule();
 	const auto &gCombined = rDPO.getCombinedGraph();
-	if(m == Membership::L) assert(gCombined[vcg].membership != Membership::R);
-	if(m == Membership::R) assert(gCombined[vcg].membership != Membership::L);
+	if(m == Membership::L)
+		assert(gCombined[vcg].membership != Membership::R);
+	if(m == Membership::R)
+		assert(gCombined[vcg].membership != Membership::L);
 	const std::string side = m == Membership::L ? "L" : "R";
 	std::string name = "r_" + std::to_string(r.getId()) + "_" + side + "_stereo_" +
-	                   std::to_string(get(boost::vertex_index_t(), gCombined, vcg));
-	IO::post() << "summarySubsection \"Stereo, r " << r.getId() << ", v " << get(boost::vertex_index_t(), gCombined, vcg)
-	           << " " << side << "\"\n";
+			std::to_string(get(boost::vertex_index_t(), gCombined, vcg));
+	IO::post() << "summarySubsection \"Stereo, r " << r.getId() << ", v " << get(
+					boost::vertex_index_t(), gCombined, vcg)
+			<< " " << side << "\"\n";
 	const auto handler = [&](const auto &lgSide, const auto &mSideToCG, const auto &depict) {
 		const auto &gSide = get_graph(lgSide);
 		const auto vSide = get_inverse(mSideToCG, gSide, gCombined, vcg);
@@ -986,8 +1007,8 @@ std::string stereoSummary(const Rule &r, lib::DPO::CombinedRule::CombinedVertex 
 		                               });
 	};
 	std::string f = m == Membership::L
-	                ? handler(get_labelled_left(lr), rDPO.getLtoCG(), r.getDepictionData().getLeft())
-	                : handler(get_labelled_right(lr), rDPO.getRtoCG(), r.getDepictionData().getRight());
+		                ? handler(get_labelled_left(lr), rDPO.getLtoCG(), r.getDepictionData().getLeft())
+		                : handler(get_labelled_right(lr), rDPO.getRtoCG(), r.getDepictionData().getRight());
 	post::FileHandle s(IO::makeUniqueFilePrefix() + "stereo.tex");
 	s << "\\begin{center}\n";
 	s << "\\includegraphics{" << f << "}\\\\\n";
