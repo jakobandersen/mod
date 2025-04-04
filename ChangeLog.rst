@@ -7,6 +7,13 @@ Changes
 develop
 =======
 
+Incompatible Changes
+--------------------
+
+- When Open Babel is disabled as a dependency, return NaN from
+  :py:attr:`Graph.energy`/:cpp:func:`graph::Graph::getEnergy`,
+  instead of throwing an exception.
+
 New Features
 ------------
 
