@@ -36,6 +36,8 @@ Bugs Fixed
   during coordinate generation.
 - In SMILES string loading, detect parallel bonds due to ring closures,
   e.g., "``C1C1``" and "``C1(C1)``".
+- Don't compute coordinates for rule depiction with Open Babel before they are needed.
+  This avoids computing them at all when :py:attr:`GraphPrinter.withGraphvizCoords` is ``True``.
 
 
 v0.17.0 (2025-02-16)

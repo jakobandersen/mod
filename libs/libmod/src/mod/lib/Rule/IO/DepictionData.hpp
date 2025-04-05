@@ -130,7 +130,10 @@ private:
 		// each side, for stereo, with coords copied from the pushout
 		lib::Chem::OBMolHandle obMolLeft, obMolRight;
 #endif
-	} cDataAll, cDataNoHydrogen;
+	};
+	mutable CoordData cDataAll, cDataNoHydrogen;
+private:
+	const CoordData &getCoordData(bool withHydrogen) const;
 };
 
 } // namespace mod::lib::rule
