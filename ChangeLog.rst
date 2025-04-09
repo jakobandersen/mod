@@ -38,6 +38,12 @@ Bugs Fixed
   e.g., "``C1C1``" and "``C1(C1)``".
 - Don't compute coordinates for rule depiction with Open Babel before they are needed.
   This avoids computing them at all when :py:attr:`GraphPrinter.withGraphvizCoords` is ``True``.
+- In the post-processor fix check for too large coordinate values that Latex can not
+  handle, such that the summary actually falls back to the Graphviz depiction instead
+  of the compilation erroring out with "``Undefined control sequence``" on
+  "``\dontUseTooLargeCoords``". This was in particular observed on macOS.
+  Also, be less conservative in which coordinate values are too large so the Graphviz
+  fallback is used less often.
 
 
 v0.17.0 (2025-02-16)

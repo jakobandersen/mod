@@ -603,7 +603,12 @@ else # $1 == --mode
 		fi
 		echo "% dummy" > $coordFile.$$
 		# check size of graph
-		grep "^graph" $fileNoExt.plain | awk '{if($3 > 50 || $4 > 50) {exit 1} else {exit 0}}'
+		maxDimen=570
+		if test "x$graphType" = "xdgHyper"; then
+			# we use scale=\modDGHyperScale=3, so divide the max
+			maxDimen=190
+		fi
+		grep "^graph" $fileNoExt.plain | awk -v maxDimen=$maxDimen '{if($3 > maxDimen || $4 > maxDimen) {exit 1} else {exit 0}}'
 		if test $? -ne 0; then
 			width=$(grep "^graph" $fileNoExt.plain | awk '{print $3}')
 			height=$(grep "^graph" $fileNoExt.plain | awk '{print $4}')
