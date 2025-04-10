@@ -535,7 +535,7 @@ else # $1 == --mode
 		local repeats=${3:-1}
 		# check if we need to fall back on Graphviz
 		if test "x$fileCoordsNoExt" != "x"; then
-			cat $fileCoordsNoExt.tex | grep "$dimensionTooLargeString" &> /dev/null
+			cat $fileCoordsNoExt.tex | grep -F "$dimensionTooLargeString" &> /dev/null
 			if test $? -eq 0; then
 				echo "graph { 0 [ shape=plaintext label=\"Figure too large, see $fileCoordsNoExt.pdf\" ]; }" | \
 					dot -Tpdf -o $fileNoExt.pdf
