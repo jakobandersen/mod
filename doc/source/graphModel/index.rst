@@ -41,12 +41,12 @@ A morphism between two graphs :math:`m\colon G\rightarrow H` is a graph morphism
 which commutes with the labelling functions.
 That is,
 
-- graph morphism: for every edge :math:`(u, v) \in E_G` we must have an
+- graph morphism: for every edge :math:`(u, v) \in E_G` we must have a
   corresponding edge
   :math:`(m(u), m(v)) \in E_H` (:math:`m` is a graph morphism), and
 - vertex labels: each vertex :math:`v \in V_G` is mapped to a vertex with the
   same label, :math:`l_G(v) = l_H(m(v))`.
-- edge labels: each edge :math:`e \in E_G` is mapped to a vertex with the
+- edge labels: each edge :math:`e \in E_G` is mapped to an edge with the
   same label, :math:`l_G(e) = l_H(m(e))`.
 
 The only requirement of :math:`\Omega` is thus that the elements can be
