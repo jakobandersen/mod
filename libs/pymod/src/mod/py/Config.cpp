@@ -281,6 +281,14 @@ void Config_doExport() {
 					// rst:			:type: Action
 			.def_readwrite("onUnsupportedQueryBondType", &MDLOptions::onUnsupportedQueryBondType);
 
+	// rst: .. function:: getAvailableILPSolvers()
+	// rst:
+	// rst:		:returns: a list of solver names for which bindings are available in the current installation.
+	// rst:			See :cpp:func:`getAvailableILPSolvers` for details.
+	// rst:		:rtype: list[str]
+	// rst:
+	py::def("_getAvailableILPSolvers", &getAvailableILPSolvers);
+
 
 #define NSIter(rNS, dataNS, tNS)                                                \
          BOOST_PP_SEQ_FOR_EACH_I(SettingIter, ~,                                \

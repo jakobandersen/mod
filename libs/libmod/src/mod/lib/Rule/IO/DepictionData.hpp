@@ -35,7 +35,9 @@ private:
 public:
 	struct Side {
 		Side(const DepictionData &depict, const SideData &data,
+#ifdef MOD_HAVE_OPENBABEL
 		     const Chem::OBMolHandle CoordData::*obSide,
+#endif
 		     const lib::DPO::CombinedRule::SideGraphType &g,
 		     SideToCG mToCG,
 		     PropMolecule::Side pMol, // we need definitely need mol data
@@ -61,7 +63,9 @@ public:
 	private:
 		const DepictionData &depict;
 		const SideData &data;
+#ifdef MOD_HAVE_OPENBABEL
 		const Chem::OBMolHandle CoordData::*obSide;
+#endif
 		const lib::DPO::CombinedRule::SideGraphType &g;
 		const SideToCG mToCG;
 		PropMolecule::Side pMol;

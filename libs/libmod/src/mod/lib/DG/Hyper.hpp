@@ -61,6 +61,7 @@ public:
 	~Hyper();
 	const NonHyper &getNonHyper() const;
 	const GraphType &getGraph() const;
+	const Expanded &getExpandedFully() const;
 	void printStats(std::ostream &s) const;
 	bool isVertexGraph(const lib::graph::Graph *g) const;
 	Vertex getVertexOrNullFromGraph(const lib::graph::Graph *g) const;
@@ -82,6 +83,7 @@ private:
 	bool hasCalculated;
 	const NonHyper &nonHyper;
 	GraphType hyper;
+	mutable std::unique_ptr<Expanded> expandedFull;
 private:
 	std::map<const lib::graph::Graph *, Vertex> graphToHyperVertex;
 };

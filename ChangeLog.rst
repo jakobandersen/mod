@@ -4,8 +4,8 @@
 Changes
 #######
 
-develop
-=======
+v1.0.0 (2025-05-14)
+===================
 
 Incompatible Changes
 --------------------
@@ -20,6 +20,18 @@ New Features
 - When loading rules in GML format, a vertex or an edge can now be present
   with a label in all three sections, ``left``, ``context``, and ``right``,
   as long as the label is the same.
+- The implementation of the pathway/hyperflow modelling framework described in
+  [AFMS-Hyperflows]_ has been added.
+  See :ref:`flowCommon` for both a mathematical description of the model
+  and how the model is available in both Python and C++.
+  The framework allows for enumerating pathways with custom constraints,
+  including a built-in module for constraining to overall autocatalytic pathways.
+  The pathway finding is done with an ILP solver, which can be either CPLEX, Gurobi, or
+  COIN-OR Cbc. The first two are currently free for academic use, while the latter is
+  freely available.
+  You can query which solvers were compiled into your MØD installation with the function
+  :cpp:func:`getAvailableILPSolvers`/:py:func:`getAvailableILPSolvers`.
+
 
 Bugs Fixed
 ----------
@@ -44,6 +56,8 @@ Bugs Fixed
   "``\dontUseTooLargeCoords``". This was in particular observed on macOS.
   Also, be less conservative in which coordinate values are too large so the Graphviz
   fallback is used less often.
+- When Open Babel produces NaN as coordinates, fall back to Graphviz for visualization.
+  A warning about this happening is printed. It has been observed on macOS.
 
 
 v0.17.0 (2025-02-16)

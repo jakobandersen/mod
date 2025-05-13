@@ -4,6 +4,7 @@
 #include <mod/BuildConfig.hpp>
 #include <mod/dg/ForwardDecl.hpp>
 #include <mod/graph/ForwardDecl.hpp>
+#include <mod/hyperflow/ForwardDecl.hpp>
 
 #include <memory>
 #include <string>
@@ -21,7 +22,7 @@ MOD_DECL std::string version();
 MOD_DECL void rngReseed(unsigned int seed);
 // rst: .. function:: double rngUniformReal()
 // rst:
-// rst:		:returns: a uniformly random real number between 0 and 1.
+// rst:		:returns: a uniformly random real number in the half-open interval :math:`[0, 1)`.
 MOD_DECL double rngUniformReal();
 
 MOD_DECL std::string strFromDump(const std::string &file);
@@ -29,6 +30,9 @@ MOD_DECL void showDump(const std::string &file);
 
 MOD_DECL void printGeometryGraph();
 
+
+// internal function for testing purposes
+MOD_DECL void compareModels_only_for_testing(std::shared_ptr<hyperflow::Model> a, std::shared_ptr<hyperflow::Model> b);
 
 } // namespace mod
 

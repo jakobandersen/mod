@@ -17,6 +17,7 @@ r = ruleGMLString("""rule [
 DG().build().apply([], r)
 fail(lambda: DG().build().apply([None], r), "One of the graphs is a null pointer.")
 fail(lambda: DG().build().apply([], None), "The rule is a null pointer.")
+DG().build().apply([], Rule.fromGMLString("rule []"))
 fail(lambda: DG(graphDatabase=[a]).build().apply([aa], r), "Isomorphic graphs. Candidate graph 'gaa' is isomorphic to 'ga' in the graph database.")
 fail(lambda: DG(graphDatabase=[]).build().apply([a, aa], r), "Isomorphic graphs. Candidate graph 'gaa' is isomorphic to 'ga' in the graph database.")
 

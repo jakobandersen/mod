@@ -1,4 +1,4 @@
-FROM fedora:36
+FROM fedora:42
 ARG j=7
 
 WORKDIR /opt/mod
@@ -18,6 +18,7 @@ WORKDIR /opt/mod/build
 ENV BABEL_LIBDIR=/usr/lib64/openbabel3
 ENV CXXFLAGS=-Werror
 RUN cmake ../ -DBUILD_DOC=no                  \
+ -DWITH_GUROBI=no -DWITH_CPLEX=no             \
  -DCMAKE_BUILD_TYPE=Release                   \
  -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j"       \
  -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j"       \

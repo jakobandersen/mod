@@ -384,6 +384,30 @@ else # $1 == --mode
 				echo -n " $fileNoExt.pdf" >> $makefileDep
 			}
 
+			# name fileNoExt
+			function summaryFlowUnfiltered {
+				local name=$1
+				local file=$2
+				echo "	echo '\summaryFlowUnfiltered{\\texttt{$(latexEsc $name)}}{$file}{\\texttt{$(latexEsc $file)}}' >> $texFile" >> $makefile
+
+				echo -n " $file.pdf" >> $makefileDep
+			}
+			function summaryDGFlowUnfiltered {
+				summaryFlowUnfiltered "$@"
+			}
+
+			# name fileNoExt
+			function summaryFlowFiltered {
+				local name=$1
+				local file=$2
+				echo "	echo '\summaryFlowFiltered{\\texttt{$(latexEsc $name)}}{$file}{\\texttt{$(latexEsc $file)}}' >> $texFile" >> $makefile
+
+				echo -n " $file.pdf" >> $makefileDep
+			}
+			function summaryDGFlowFiltered {
+				summaryFlowFiltered "$@"
+			}
+
 			# fileNoExt
 			function summaryRC {
 				local file=$1

@@ -65,6 +65,54 @@ struct HyperVProp {
 	NonHyperEdge edge; // only defined for kind == Edge
 };
 
+// Expanded
+
+enum class ExpandedVertexKind {
+	Edge, // same as in Hyper
+	IOEdge, // a half-edge implementing IO (Extended DG)
+	TransitEdge, // a one-to-one edge from an InVertex to an OutVertex (Expanded DG)
+	InVertex, // in-edges are from Edge, out-edge are to TransitEdge
+	OutVertex // in-edge are from TransitEdge, out-edges are to Edge
+	// That is:
+	// nothing -> IOEdge -> InVertex
+	// OutVertex -> IOEdge -> nothing
+	// InVertex -> Transit -> OutVertex
+	// OutVertex -> Edge -> InVertex
+};
+
+inline bool isKindVertex(ExpandedVertexKind k) {
+	switch(k) {
+	case ExpandedVertexKind::Edge:
+	case ExpandedVertexKind::IOEdge:
+	case ExpandedVertexKind::TransitEdge: return false;
+	case ExpandedVertexKind::InVertex:
+	case ExpandedVertexKind::OutVertex: return true;
+	}
+	__builtin_unreachable();
+}
+
+struct ExpandedVProp;
+using ExpandedGraphType = boost::adjacency_list<boost::vecS, boost::vecS, boost::bidirectionalS, ExpandedVProp>;
+using ExpandedVertex = boost::graph_traits<ExpandedGraphType>::vertex_descriptor;
+using ExpandedEdge = boost::graph_traits<ExpandedGraphType>::edge_descriptor;
+
+struct ExpandedVProp {
+	ExpandedVProp() = default; // because Boost.Graph requires default constructability when resizing vectors
+
+	ExpandedVProp(ExpandedVertexKind kind, HyperVertex vHyper, HyperVertex eRepr)
+			: kind(kind), vHyper(vHyper), eRepr(eRepr) {}
+
+	ExpandedVertexKind kind;
+	// for all vertices with kind == Edge, the set of vHyper is an injection on the hyper edges in Hyper
+	// kind != Edge => vHyper is the vertex in Hyper that it belongs to
+	HyperVertex vHyper;
+	// if kind is either InVertex or OutVertex, this is the in/out edge it represents
+	// for the input/output edges, this means null_vertex
+	// for the catch-all, it's also null_vertex (use the vertexData to detect which it is)
+	// if kind is anything else, it's also null_vertex
+	HyperVertex eRepr;
+};
+
 } // namespace mod::lib::DG
 
 #endif // MOD_LIB_DG_GRAPHDECL_HPP

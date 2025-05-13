@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ARG j=7
 
 WORKDIR /opt/mod
@@ -63,6 +63,7 @@ RUN \
 WORKDIR /opt/mod/build
 ENV CXXFLAGS=-Werror
 RUN cmake ../ -DBUILD_DOC=no                  \
+ -DWITH_GUROBI=no -DWITH_CPLEX=no             \
  -DCMAKE_BUILD_TYPE=Release                   \
  -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j"       \
  -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j"       \

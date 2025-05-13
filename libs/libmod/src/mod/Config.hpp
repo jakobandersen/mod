@@ -3,7 +3,9 @@
 
 // rst: .. _libmod-config:
 // rst:
-// rst: This file defines configuration options for the library.
+// rst: This file defines configuration options for the library, e.g., for
+// rst: changing the number of threads available for the ILP solver, or for
+// rst: completely switching to another ILP solver.
 // rst: Many of the options control verbosity of algorithms or which data to
 // rst: output when printing figures.
 // rst: 
@@ -256,6 +258,17 @@ struct MOD_DECL MDLOptions {
 };
 
 
+// rst: .. function:: std::vector<std::string> getAvailableILPSolvers()
+// rst:
+// rst:		:returns: a list of solver names for which bindings are available in the current installation.
+// rst:			It will be a subsequnce of
+// rst:			``Gurobi``, ``CPLEX``, ``CBC-CLP``,
+// rst:			depending on how the library was installed.
+// rst:			The default solver is the first entry returned.
+// rst:
+MOD_DECL std::vector<std::string> getAvailableILPSolvers();
+
+
 // rst: .. function:: Config &getConfig()
 // rst: 
 // rst:		:returns: the singleton :cpp:class:`Config` instance used by the library.
@@ -312,6 +325,14 @@ struct Config {
         ((unsigned long, numIsomorphismCalls, 0))                                   \
         ((bool, vf2UseOrigVertexOrder, true))                                       \
         ((bool, printVariablesAsMath, false))                                       \
+    ))                                                                              \
+    ((ILP, ilp,                                                                     \
+        /* TODO: document */                                                        \
+        ((bool, debugOutput, false))                                                \
+        /* TODO: document */                                                        \
+        ((std::string, solver, "default"))                                          \
+        ((unsigned int, timeLimit, 1 << 30))                                        \
+        ((bool, useDFS, false))                                                     \
     ))                                                                              \
     ((Rule, rule,                                                                   \
         ((bool, ignoreConstraintsDuringInversion, false))                           \

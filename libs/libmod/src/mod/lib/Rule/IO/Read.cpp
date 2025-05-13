@@ -378,7 +378,7 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 		// Check labels and make (left, right) the correct labels
 		if(eData.string.context) {
 			if(!eData.string.left && !eData.string.right) {
-				// TODO: for term it matters if it's L+R or it's K
+				// Note: terms follow the same semantics as string, i.e., the same string in L and R becomes the exact same terms.
 				eData.string.left = eData.string.right = eData.string.context;
 			} else if(eData.string.left && eData.string.right) {
 				if(eData.string.left != eData.string.context)
@@ -440,7 +440,7 @@ Result<Data> gml(lib::IO::Warnings &warnings, std::string_view input, bool print
 		if(auto res = std::visit(visitor, cGML); !res) return res;
 	} // for each constraint
 
-	{ // perhaps we can stop now, if there is not stereo annotation
+	{ // perhaps we can stop now, if there is no stereo annotation
 		bool doStereo = false;
 		for(const auto &v: rule.left.vertices) doStereo = doStereo || v.stereo;
 		for(const auto &v: rule.context.vertices) doStereo = doStereo || v.stereo;
@@ -687,7 +687,6 @@ using CombinedVertex = DPO::CombinedRule::CombinedVertex;
 namespace dfsDetail {
 using namespace IO::DFS;
 using Vertex = IO::DFS::Vertex;
-using Edge = IO::DFS::Edge;
 
 using LeftEdgeMapType = std::map<std::pair<CombinedVertex, CombinedVertex>, std::string>;
 

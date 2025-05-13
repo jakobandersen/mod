@@ -44,6 +44,7 @@ Contents
 	graphModel/index
 	formats/index
 	dgStrat/index
+	hyperflowModel/index
 	examples/index
 
 	knownIssues

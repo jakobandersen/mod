@@ -251,6 +251,7 @@
 \tikzset{modStyleGraphWedge/.style={modStyleGraphWedgeNoDraw, fill, draw}}
 \tikzset{modStyleGraphHashNoDraw/.style={line width=3*\modBondSep, dash pattern=on \modHashLength off \modHashSep}}
 \tikzset{modStyleGraphHash/.style={modStyleGraphHashNoDraw, draw}}
+\tikzset{modStyleGraphUnknownStereo/.style={decorate,decoration=snake, draw}}
 
 % node1 node2
 \newcommand{\modGetAngle}[2]{
@@ -378,6 +379,13 @@
     \end{scope}
 }
 \newcommand{\modDrawSingleBondHashLS}{\modDrawGraphEdgeHashLS}
+
+% Unknown Stereo
+%------------------------------------------------------------------------------
+
+\newcommand{\modDrawSingleBondUnknownStereo}[6]{\modDrawSingleBond{#1}{#2}{#3}{#4}{modStyleGraphUnknownStereo, #5}{#6}}
+\newcommand{\modDrawDoubleBondUnknownStereo}[6]{\modDrawDoubleBond{#1}{#2}{#3}{#4}{modStyleGraphUnknownStereo, #5}{#6}}
+\newcommand{\modDrawTripleBondUnknownStereo}[6]{\modDrawTripleBond{#1}{#2}{#3}{#4}{modStyleGraphUnknownStereo, #5}{#6}}
 
 % RC Match
 %------------------------------------------------------------------------------

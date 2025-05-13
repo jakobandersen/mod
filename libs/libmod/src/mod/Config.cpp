@@ -1,5 +1,7 @@
 #include "Config.hpp"
 
+#include <mod/lib/ILP/ILP.hpp>
+
 #include <ostream>
 #include <tuple>
 
@@ -82,6 +84,10 @@ std::ostream &operator<<(std::ostream &s, Action a) {
 		return s << "ignore";
 	}
 	__builtin_unreachable();
+}
+
+std::vector<std::string> getAvailableILPSolvers() {
+	return lib::ILP::Model::getAvailableSolvers();
 }
 
 Config &getConfig() {

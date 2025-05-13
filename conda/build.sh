@@ -15,6 +15,7 @@ else
 fi
 cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX      \
  -DBUILD_DOC=no                               \
+ -DWITH_GUROBI=no -DWITH_CPLEX=no             \
  -DBUILD_POST_MOD_FMT=off                     \
  -DCMAKE_BUILD_TYPE=Release                   \
  -DENABLE_IPO=$ipo $ipoFlags                  \

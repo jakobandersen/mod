@@ -53,6 +53,9 @@ option(USE_NESTED_JSON_SCHEMA "Use the pboettch/json-schema-validator version in
 
 option(WITH_OPENBABEL "Whether features depending on Open Babel are enabled or not." ON)
 
+option(WITH_GUROBI "Whether Gurobi is available or not." ON)
+option(WITH_CPLEX "Whether CPLEX is available or not." ON)
+option(WITH_CBC "Whether CBC is available or not." ON)
 
 get_directory_property(hasParent PARENT_DIRECTORY)
 if(hasParent)
@@ -68,7 +71,7 @@ else()
         if(result)
             set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
         else()
-            message(FATAL_ERROR "Interprocedural optimization was requested ('ENABLE_IPO=on'), but it is not supported: ${output}")
+            message(FATAL_ERROR "Interprocedural optimization was requested ('-DENABLE_IPO=on'), but it is not supported: ${output}")
         endif()
     else()
         set(CMAKE_INTERPROCEDURAL_OPTIMIZATION FALSE)
@@ -94,7 +97,12 @@ set(libmod_config_find_files "")
 
 # Boost
 # -------------------------------------------------------------------------
+if(POLICY CMP0167)
+    cmake_policy(SET CMP0167 NEW)
+endif()
 set(v 1.76.0)
+string(APPEND libmod_config_dependencies "set(Boost_FOUND 0)\n") # TODO: remove when CMake 3.15 is required https://gitlab.kitware.com/cmake/cmake/issues/18590
+string(APPEND libmod_config_dependencies "cmake_policy(PUSH)\nif(POLICY CMP0167)\n\tcmake_policy(SET CMP0167 NEW)\nendif()\n")
 if(BUILD_PY_MOD)
     foreach(PY 3 37 38 39 310 311 312 313 314 315 316 317 318 319)
         set(lib "python${PY}")
@@ -116,8 +124,9 @@ if(BUILD_TESTING)
 else()
     find_package(Boost ${v} REQUIRED COMPONENTS graph iostreams)
 endif()
-string(APPEND libmod_config_dependencies "find_dependency(Boost ${v} COMPONENTS graph iostreams)\n")
 message(STATUS "(Boost include dir is ${Boost_INCLUDE_DIRS})")
+string(APPEND libmod_config_dependencies "find_dependency(Boost ${v} COMPONENTS graph iostreams)\n")
+string(APPEND libmod_config_dependencies "cmake_policy(POP)\n")
 
 
 # GraphCanon
@@ -169,7 +178,8 @@ if(BUILD_POST_MOD)
     find_program(DOT dot)
     if(NOT DOT)
         message(FATAL_ERROR "Could not find the dot executable (from Graphviz) required for PostMØD.\n"
-                "Disable with -DBUILD_POST_MOD=no, or add the folder of the executable to PATH.")# or give with -DCMAKE_PROGRAM_PATH=paths (currently '${CMAKE_PROGRAM_PATH}').")
+                "Disable with -DBUILD_POST_MOD=no, or add the folder of the executable to PATH environment variable.")
+        # or give with -DCMAKE_PROGRAM_PATH=paths (currently '${CMAKE_PROGRAM_PATH}').")
     endif()
     message(STATUS "Found dot: ${DOT}")
 
@@ -224,7 +234,7 @@ if(WITH_OPENBABEL)
             list(APPEND libmod_config_find_files "FindOpenBabel2.cmake")
         else()
             message(FATAL_ERROR "Could not find Open Babel, neither version 2 nor 3.\n"
-                    "Either disable Open Babel with WITH_OPENBABEL=off (not recommended), or add appropriate paths to CMAKE_PREFIX_PATH.")
+                    "Either disable Open Babel with -DWITH_OPENBABEL=off (not recommended), or add appropriate paths with -DCMAKE_PREFIX_PATH.")
         endif()
     endif()
     set(MOD_HAVE_OPENBABEL TRUE)
@@ -236,7 +246,7 @@ if(BUILD_POST_MOD OR BUILD_DOC)
     # ---------------------------------------------------------------------
     find_program(PDF2SVG pdf2svg)
     if(NOT PDF2SVG)
-        message(FATAL_ERROR "Could not find pdf2svg program, required for post_mod and documentation.")
+        message(FATAL_ERROR "Could not find pdf2svg program, required for PostMØD and documentation.")
     else()
         message(STATUS "Found pdf2svg: ${PDF2SVG}")
     endif()
@@ -271,6 +281,50 @@ endif()
 # -------------------------------------------------------------------------
 find_package(Threads REQUIRED)
 string(APPEND libmod_config_dependencies "find_dependency(Threads)\n")
+
+
+# ILP Solvers
+# -------------------------------------------------------------------------
+
+if(WITH_GUROBI)
+    find_package(GUROBI QUIET)
+    if(GUROBI_FOUND)
+        set(MOD_HAVE_GUROBI TRUE)
+        message(STATUS "Gurobi: ${GUROBI_LIBRARY}, ${GUROBI_CXX_LIBRARY}, ${GUROBI_INCLUDE_DIRS}")
+    else()
+        message(FATAL_ERROR "Could NOT find Gurobi.\n"
+                "Disable Gurobi with -DWITH_GUROBI=no or use either -DGUROBI_DIR=path (currently '${GUROBI_DIR}')"
+                " or set the environment variable GUROBI_HOME (currently '$ENV{GUROBI_HOME}') to an appropriate path (the path with the 'lib/' and 'include/' folders).")
+    endif()
+endif()
+if(WITH_CPLEX)
+    find_package(CPLEX)
+    if(CPLEX_FOUND)
+        set(MOD_HAVE_CPLEX TRUE)
+    else()
+        message(FATAL_ERROR "Could NOT find CPLEX.\n"
+                "Disable CPLEX with -DWITH_CPLEX=no or set -DCPLEX_DIR=path (currently '${CPLEX_DIR}') to an appropriate path.")
+    endif()
+endif()
+if(WITH_CBC)
+    find_package(PkgConfig REQUIRED)
+    # In Conda builds CMake somehow does not get the required libraries listed in the .pc file,
+    # so we list the dependencies of cbc explicitly.
+    pkg_check_modules(CBC cbc osi-clp coinutils IMPORTED_TARGET GLOBAL)
+    if(CBC_FOUND)
+        set(MOD_HAVE_CBC TRUE)
+    else()
+        message(FATAL_ERROR "Could not find CBC, OsiClp, and CoinUtils from COIN-OR.\n"
+                "Disable CBC with -DWTIH_CBC=no or add appropriate paths to CMAKE_PREFIX_PATH.")
+    endif()
+    # TODO: alias for imported targets only supported from CMake 3.15
+    #add_library(COIN::CBC ALIAS PkgConfig::CBC)
+endif()
+if(WITH_GUROBI OR WITH_CPLEX OR WITH_CBC)
+    set(WITH_ANY_ILP on)
+else()
+    set(WITH_ANY_ILP off)
+endif()
 
 
 ###########################################################################

@@ -2,9 +2,13 @@
 
 #include <mod/BuildConfig.hpp>
 #include <mod/graph/Graph.hpp>
+#include <mod/hyperflow/Model.hpp>
+#include <mod/lib/CombiOpt/Model.hpp>
+#include <mod/lib/CombiOpt/Solver.hpp>
 #include <mod/lib/DG/Hyper.hpp>
 #include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/Properties/Molecule.hpp>
+#include <mod/lib/HyperFlow/Flow.hpp>
 #include <mod/lib/IO/IO.hpp>
 #include <mod/lib/IO/Json.hpp>
 #include <mod/lib/Random.hpp>
@@ -50,6 +54,16 @@ void showDump(const std::string &file) {
 
 void printGeometryGraph() {
 	lib::Stereo::Write::summary(lib::Stereo::getGeometryGraph());
+}
+
+void compareModels_only_for_testing(std::shared_ptr<hyperflow::Model> a, std::shared_ptr<hyperflow::Model> b) {
+	if(!a->isSpecificationLocked())
+		throw LogicError("The first flow model has not been created yet.");
+	if(!b->isSpecificationLocked())
+		throw LogicError("The second flow model has not been created yet.");
+	const auto &ma = a->getFlow().getModel().getSolver().getModel();
+	const auto &mb = b->getFlow().getModel().getSolver().getModel();
+	lib::CombiOpt::Model::compare(ma, mb);
 }
 
 } // namespace mod

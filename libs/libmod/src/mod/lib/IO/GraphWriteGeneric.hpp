@@ -648,6 +648,9 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 		case EdgeFake3DType::HashLS:
 			drawCommand += "HashLS";
 			break;
+		case EdgeFake3DType::Unkown:
+			drawCommand += "UnknownStereo";
+			break;
 		}
 		int fromOffset = 1, toOffset = 1;
 		if(!options.withIndex) {

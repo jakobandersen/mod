@@ -10,6 +10,9 @@
 #endif
 
 #cmakedefine MOD_HAVE_OPENBABEL
+#cmakedefine MOD_HAVE_GUROBI
+#cmakedefine MOD_HAVE_CPLEX
+#cmakedefine MOD_HAVE_CBC
 #define MOD_VERSION "@PROJECT_VERSION@"
 //#define MOD_HAVE_CONCURRENCY 1
 

@@ -85,6 +85,8 @@ Then install the rest of the dependencies:
 			brew tap Homebrew/bundle  # may not be needed
 			brew bundle # perhaps restart the terminal afterwards to pick up the new commands
 
+Optionally, install Gurobi and CPLEX. Remember the installation paths.
+
 Then we can begin the compilation and installation:
 
 .. tab-set::
@@ -98,6 +100,11 @@ Then we can begin the compilation and installation:
 			cd build
 			# install to the virtual env folder
 			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV -DCMAKE_PREFIX_PATH=path/to/boost
+			# or if you installed Gurobi, then something like
+			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV -DCMAKE_PREFIX_PATH=path/to/boost -DGUROBI_DIR=path/to/gurobi
+			# or if you installed CPLEX, then something like
+			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV -DCMAKE_PREFIX_PATH=path/to/boost -DCPLEX_DIR=path/to/cplex
+			# (or use both Gurobi and CPLEX)
 			# Build and install:
 			make -j <n>  # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
 			make install
@@ -110,6 +117,11 @@ Then we can begin the compilation and installation:
 			cd build
 			# install to the virtual env folder
 			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV
+			# or if you installed Gurobi, then something like
+			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV -DGUROBI_DIR=path/to/gurobi
+			# or if you installed CPLEX, then something like
+			cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV -DCPLEX_DIR=path/to/cplex
+			# (or use both Gurobi and CPLEX)
 			# Build and install:
 			make -j <n>  # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
 			make install
@@ -128,18 +140,18 @@ Retrive the MØD sources and create auto-generated files:
 	cd mod
 	./bootstrap.sh
 
-In ``conda/environment.yaml`` is a specification of the environment needed to compile.
+In ``conda/environment.yml`` is a specification of the environment needed to compile.
 You can either create a new enviroment, called ``mod-env`` by defualt:
 
 .. code-block:: bash
 
-	conda env create -f conda/environment.yaml 
+	conda env create -f conda/environment.yml
 
 Or update an existing enviroment, say ``my-env``, with the dependencies:
 
 .. code-block:: bash
 
-	conda env update --name my-env -f conda/environment.yaml
+	conda env update --name my-env -f conda/environment.yml
 
 Install enought of Latex in your system, outside Conda:
 
@@ -173,6 +185,8 @@ Install enought of Latex in your system, outside Conda:
 
 			brew install --cask mactex
 
+Optionally, install Gurobi and CPLEX. Remember the installation path.
+
 Activate the environment and then proceed with compilation:
 
 .. code-block:: bash
@@ -181,6 +195,11 @@ Activate the environment and then proceed with compilation:
 	cd build
 	# install to Conda environment folder
 	cmake ../ -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
+	# or if you installed Gurobi, then something like
+	cmake ../ -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX -DGUROBI_DIR=path/to/gurobi
+	# or if you installed CPLEX, then something like
+	cmake ../ -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX -DCPLEX_DIR=path/to/cplex
+	# (or use both Gurobi and CPLEX)
 	# Build and install:
 	make -j <n>  # where <n> is the number of CPU cores you have, e.g., 'make -j 8'
 	make install
@@ -305,6 +324,9 @@ See also :ref:`dependencies` for elaboration on some of them.
   `nlohmann/json <https://github.com/nlohmann/json>`__ from the Git submodule
   or not.
 - ``-DWITH_OPENBABEL=on``, whether to enable/disable features depending on Open Babel.
+- ``-DWITH_GUROBI=on``, whether to enable/disable features depending on Gurobi.
+- ``-DWITH_CPLEX=on``, whether to enable/disable features depending on CPLEX.
+- ``-DWITH_CBC=on``, whether to enable/disable features depending on CBC.
 
 
 .. _dependencies:
@@ -343,6 +365,18 @@ related to them.
     but if another source is needed, set ``-DUSE_NESTED_NLOHMANN_JSON=off``.
   - (optional) `Open Babel <http://openbabel.org>`__ dev, >= 2.3.2
     (``-DWITH_OPENBABEL=on``).
+  - (optional) An ILP solver from the following list.
+    At run-time, use the function
+    :cpp:func:`getAvailableILPSolvers`/:py:func:`getAvailableILPSolvers`
+    to see which have been enabled.
+
+    - Gurobi dev (``-DWITH_GUROBI=on``, use ``-DGUROBI_DIR=<path>`` or set the environment variable ``GUROBI_HOME=<path>`` to specify the installation path).
+    - CPLEX dev (``-DWITH_CPLEX=on``, use ``-DCPLEX_DIR=<path>`` to specify the
+      installation path).
+    - CBC dev (``-DWITH_CBC=on``) from the COIN-OR package, along with
+      a compatible LP solver:
+
+      - CLP from the COIN-OR package, and included in CBC.
 
 - PyMØD (``-DBUILD_PY_MOD=on``):
 

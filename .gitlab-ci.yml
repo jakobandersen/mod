@@ -1,0 +1,131 @@
+default:
+  image: jla/mod
+
+
+a:mypy:
+  script:
+  - python3 -m venv /opt/venv
+  - source /opt/venv/bin/activate
+  - python3 -m pip install mypy
+  - ./scripts/mypy.sh
+
+a:ruff:
+  script:
+  - python3 -m venv /opt/venv
+  - source /opt/venv/bin/activate
+  - python3 -m pip install ruff
+  - ./scripts/ruff.sh
+
+a:json-symbol-visibility:
+  script: ./scripts/checkJsonVisibility.sh
+
+
+.bootstrap-and-configure:
+  variables:
+    CXX: "CXX-is-unspecified"
+    CXXFLAGS: "-Werror"
+    ILP_ARG: "-DCPLEX_DIR=/opt/ILOG_CPLEX -DWITH_GUROBI=no"
+    BOOST_VERSION: "BOOST_VERSION-is-unspecified"
+    CMAKE_ARG: ""
+  before_script:
+  - git fetch --tags
+  - git submodule update --init --recursive
+  - ./bootstrap.sh
+  - python3 -m venv --system-site-packages /opt/venv  # we use openbabel for testing, installed via apt as python3-openbabel
+  - source /opt/venv/bin/activate
+  - python3 -m pip install -r requirements_dev.txt
+  - bindep testing
+  - mkdir build
+  - cd build
+  - echo "CXX=$CXX\nCXXFLAGS=$CXXFLAGS\nILP_ARG=$ILP_ARG\nBOOST_VERSION=$BOOST_VERSION\nVIRTUAL_ENV=$VIRTUAL_ENV"
+  - cmake ../ -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV -DENABLE_IPO=off -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH=/opt/boost/$BOOST_VERSION $ILP_ARG $CMAKE_ARG
+
+
+b:dist-archive:
+  extends: .bootstrap-and-configure
+  variables:
+    CXX: "g++"
+    BOOST_VERSION: "1_81_0"
+  script:
+  - make dist
+  artifacts:
+    name: "dist-$CI_COMMIT_REF_NAME"
+    paths:
+    - VERSION
+    - build/mod-*.tar.gz
+
+c:docker-build:
+  needs: ["b:dist-archive"]
+  image: docker:28
+  parallel:
+    matrix:
+    - DOCKERFILE:
+      - "Arch"
+      - "Conda"
+      - "Fedora"
+      - "Ubuntu"
+  script:
+  - docker info
+  - docker build -f docker/$DOCKERFILE.Dockerfile --build-arg j=1 .
+
+d:conda-build:
+  needs: ["b:dist-archive"]
+  image: docker:28
+  script:
+  - docker info
+  - sh ./scripts/makeConda.sh  # Bash doesn't exist in the docker image
+  artifacts:
+    name: "conda-$CI_COMMIT_REF_NAME"
+    paths:
+    - conda/conda-bld
+
+
+q:build:
+  extends: .bootstrap-and-configure
+  parallel:
+    matrix:
+    - CXX:
+      - "g++-11"
+      - "g++-12"
+      - "g++-13"
+      - "g++-14"
+      - "clang++-14"
+      - "clang++-15"
+      - "clang++-16"
+      - "clang++-17"
+      - "clang++-18"
+      - "clang++-19"
+      - "clang++-20"
+      BOOST_VERSION:
+      - "1_81_0"
+      - "1_82_0"
+      - "1_83_0"
+      - "1_84_0"
+      - "1_85_0"
+      - "1_86_0"
+      - "1_87_0"
+      - "1_88_0"
+  script:
+  - make
+  - make install
+  - make tests
+  - ctest --output-on-failure -E cmake_add_subdirectory_build
+  - mod -e "Graph.fromSMILES('O').print()"
+
+
+z:coverage:
+  extends: .bootstrap-and-configure
+  variables:
+    CXX: "g++"
+    BOOST_VERSION: "1_81_0"
+    CMAKE_ARG: "-DBUILD_COVERAGE=on"
+  script:
+  - make
+  - make install
+  - make tests
+  - make coverage_collect
+  - make coverage_build
+  artifacts:
+    name: "dist-$CI_COMMIT_REF_NAME"
+    paths:
+    - cov

@@ -16,14 +16,12 @@ Rule::Rule(std::shared_ptr<mod::rule::Rule> r)
 		: Strategy(std::max(get_num_connected_components(get_labelled_left(r->getRule().getDPORule())),
 		                    get_num_connected_components(get_labelled_right(r->getRule().getDPORule())))),
 		  r(r), rRaw(&r->getRule()) {
-	assert(get_num_connected_components(get_labelled_left(rRaw->getDPORule())) > 0);
 }
 
 Rule::Rule(const lib::rule::Rule *r)
 		: Strategy(std::max(get_num_connected_components(get_labelled_left(r->getDPORule())),
 		                    get_num_connected_components(get_labelled_right(r->getDPORule())))),
 		  rRaw(r) {
-	assert(get_num_connected_components(get_labelled_left(rRaw->getDPORule())) > 0);
 }
 
 std::unique_ptr<Strategy> Rule::clone() const {
@@ -245,7 +243,8 @@ void Rule::executeImpl(PrintSettings settings, const GraphState &input) {
 
 	Context context{r, getExecutionEnv(), output, consumedGraphs};
 	std::vector<BoundRule> inputRules{{rRaw, {}, 0}};
-	for(int round = 0; round != get_num_connected_components(get_labelled_left(rRaw->getDPORule())); ++round) {
+	const auto numRounds = get_num_connected_components(get_labelled_left(rRaw->getDPORule()));
+	for(int round = 0; round != numRounds; ++round) {
 		const auto firstGraph = graphs.begin();
 		const auto lastGraph = round == 0 ? subsetEnd : graphs.end();
 
@@ -272,7 +271,7 @@ void Rule::executeImpl(PrintSettings settings, const GraphState &input) {
 		}
 		std::swap(inputRules, outputRules);
 	} // for each round based on numComponents
-	assert(inputRules.empty());
+	assert(inputRules.empty() || numRounds == 0);
 }
 
 } // namespace mod::lib::DG::Strategies

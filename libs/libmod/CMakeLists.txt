@@ -36,6 +36,10 @@ target_link_libraries(libmod
             nlohmann_json::nlohmann_json
             nlohmann_json_schema_validator
             $<$<BOOL:${WITH_OPENBABEL}>:OpenBabel::OpenBabel>
+            $<$<BOOL:${WITH_GUROBI}>:Gurobi::CXX>
+            $<$<BOOL:${WITH_CPLEX}>:CPLEX::Concert>
+            #$<$<BOOL:${WITH_CBC}>:COIN::CBC>
+            $<$<BOOL:${WITH_CBC}>:PkgConfig::CBC>
         )
 # Boost::graph needs Boost::regex which needs the RPATH of libmod to have Boost in it.
 # But because all Boost libs are linked privately the path is not exposed.
@@ -58,6 +62,8 @@ target_compile_options(libmod PRIVATE -Wall -Wextra -pedantic
         -Wno-comment
         -Wno-sign-compare
         -Wno-unused-local-typedefs
+        # gives false positive in the ILP wrapper
+        -Wno-unused-const-variable
         # gives false positive for boost::optional
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=maybe-uninitialized>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-unknown-pragmas> # for PetriNet.cpp
