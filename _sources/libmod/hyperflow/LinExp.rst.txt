@@ -1,0 +1,484 @@
+.. _cpp-hyperflow/LinExp:
+
+**********************************************************
+hyperflow/LinExp.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+This header implements variable specifiers, linear expressions, and linear constraints.
+See :ref:`flowCommon-varSpecLinExp` for a higher-level description of these entities.
+
+Linear expressions and constraints can be implicitly created from variable specifiers and operators,
+meaning one rarely need to instantiate them explicitly.
+However creating the zero-expression might sometimes be useful (e.g., in a sum expression)
+and can be done simply with the expression :cpp:texpr:`hyperflow::LinExp()`.
+
+A variable specifier is a representation of either a single variable or a sum of variables.
+The addition, multiplication and division operators are overloaded for variable specifiers and
+linear expressions such that expressions can be written in the natural manner.
+
+The operators ``<=``, ``==`` and ``>=`` are overloaded on linear expressions to make the creation of
+linear constraints easier. However, one argument to the operator must be a linear expression while
+the other argument must be a number.
+
+Variable Specifier Classes
+--------------------------
+
+The main variables in a flow model are associated with either vertices or hyperedges in the underlying
+derivation graph.
+A variable specifier represents either a set of variables or a single variable,
+Each specifier has an associated ID that must be registered by a flow model module
+at the time when the specifier is added to the model.
+See also :ref:`flowCommon` for an overview of the specifiers.
+
+
+
+Class ``hyperflow::VarSumVertex``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::VarSumVertex
+    
+
+    Represents the sum of all variables indicated by the given :cpp:texpr:`id`.
+    Can be indexed to retrieve a specifier for a single variable in the set.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::VarSumVertex
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::VarSumVertex
+
+.. function:: explicit VarSumVertex(std::string id)
+
+    Construct a variable specifier for a sum of variables associated with
+    vertices in the underlying derivation graph.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const VarSumVertex &v)
+.. function:: friend bool operator==(const VarSumVertex &a, const VarSumVertex &b)
+.. function:: VarVertex operator[](dg::DG::Vertex v) const
+
+    Select the variable associated with the given derivation graph vertex.
+    When the resulting specifier is given to a flow model the vertex must be from the
+    underlying derivation graph.
+
+    :returns: a variable specifier for a single variable in the set represented by this object.
+    :throws: `LogicError` if `!v`.
+.. function:: VarVertexGraph operator[](std::shared_ptr<graph::Graph> g) const
+
+    Select the variable associated with the derivation graph vertex which represents the given graph.
+    When the resulting specifier is given to a flow model such a vertex must then exist in the
+    underlying derivation graph.
+
+    :returns: a variable specifier for a single variable in the set represented by this object.
+.. var:: std::string id
+
+    The ID for this specifier.
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::VarVertex``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::VarVertex
+    
+
+    Represents a variable associated with a single vertex in a derivation graph.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::VarVertex
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::VarVertex
+
+.. function:: explicit VarVertex(std::string id, dg::DG::Vertex v)
+
+    :throws: `LogicError` if `!v`.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const VarVertex &v)
+.. function:: friend bool operator==(const VarVertex &a, const VarVertex &b)
+.. var:: std::string id
+.. var:: dg::DG::Vertex v
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::VarVertexGraph``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::VarVertexGraph
+    
+
+    Represents a variable associated with a single vertex in a derivation graph.
+    This is done implicitly by a graph, and when this specifier is later given to a flow model
+    a vertex with the graph associated must exist in the underlying derivation graph.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::VarVertexGraph
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::VarVertexGraph
+
+.. function:: explicit VarVertexGraph(std::string id, std::shared_ptr<graph::Graph> g)
+.. function:: friend std::ostream &operator<<(std::ostream &s, const VarVertexGraph &v)
+.. function:: friend bool operator==(const VarVertexGraph &a, const VarVertexGraph &b)
+.. var:: std::string id
+.. var:: std::shared_ptr<graph::Graph> g
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::VarSumEdge``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::VarSumEdge
+    
+
+    Represents the sum of all variables indicated by the given :cpp:texpr:`id`.
+    Can be indexed to retrieve a specifier for a single variable in the set.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::VarSumEdge
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::VarSumEdge
+
+.. function:: explicit VarSumEdge(std::string id)
+
+    Construct a variable specifier for a sum of variables associated with
+    hyperedges in the underlying derivation graph.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const VarSumEdge &v)
+.. function:: friend bool operator==(const VarSumEdge &a, const VarSumEdge &b)
+.. function:: VarEdge operator[](dg::DG::HyperEdge e) const
+
+    Select the variable associated with the given derivation graph hyperedge.
+    When the resulting specifier is given to a flow model its underlying derivation graph
+    must be the same as the derivation graph the given hyperedge belongs to.
+
+    :returns: a variable specifier for a single variable in the set represented by this object.
+    :throws: :cpp:type:`LogicError` if :cpp:texpr:`!e`.
+.. var:: std::string id
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::VarEdge``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::VarEdge
+    
+
+    Represents a variable associated with a single hyperedge in a derivation graph.
+    When this specifier is later given to a flow model its underlying derivation graph
+    must be the same as the derivation graph the hyperedge in this object belongs to.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::VarEdge
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::VarEdge
+
+.. function:: explicit VarEdge(std::string id, dg::DG::HyperEdge e)
+
+    :throws: :cpp:type:`LogicError` if :cpp:texpr:`!e`.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const VarEdge &v)
+.. function:: friend bool operator==(const VarEdge &a, const VarEdge &b)
+.. var:: std::string id
+.. var:: dg::DG::HyperEdge edge
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::VarSumCustom``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::VarSumCustom
+    
+
+    Represents the sum of all variables indicated by the given :cpp:texpr:`id`.
+    Can be indexed to retrieve a specifier for a single variable in the set.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::VarSumCustom
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::VarSumCustom
+
+.. function:: explicit VarSumCustom(std::string id)
+.. function:: friend std::ostream &operator<<(std::ostream &s, const VarSumCustom &v)
+.. function:: friend bool operator==(const VarSumCustom &a, const VarSumCustom &b)
+.. function:: VarCustom operator[](std::string name) const
+
+    Select the variable associated with the given name.
+    When the resulting specifier is given to a flow model that variable must have been created
+    in the specification in some way.
+
+    :returns: a variable specifier for a single variable in the set represented by this object.
+.. var:: std::string id
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::VarCustom``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::VarCustom
+    
+
+    Represents a custom variable.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::VarCustom
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::VarCustom
+
+.. function:: explicit VarCustom(std::string id, std::string name)
+
+.. function:: friend std::ostream &operator<<(std::ostream &s, const VarCustom &v)
+.. function:: friend bool operator==(const VarCustom &a, const VarCustom &b)
+.. var:: std::string id
+.. var:: std::string name
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::Var``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::Var
+    
+
+    Represents any of the variable specifier types, and can be implicitly converted to from any of them.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::Var
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::Var
+
+.. type:: VarImpl = std::variant<VarSumVertex, VarVertex, VarVertexGraph, VarSumEdge, VarEdge, VarSumCustom, VarCustom>
+.. function:: template<typename T> \
+              Var(T v)
+
+    Requires `T` being a variable specifier type.
+.. function:: template<typename Visitor> \
+              decltype(auto) applyVisitor(Visitor &&visitor)
+              template<typename Visitor> \
+              decltype(auto) applyVisitor(Visitor &&visitor) const
+
+    :returns: `boost::apply_visitor(visitor, v)`
+.. function:: template<typename T> \
+              const T *get() const
+
+    :returns: `get<T>(&v)`
+.. function:: friend std::ostream &operator<<(std::ostream &s, const Var &v)
+.. function:: friend bool operator==(const Var &a, const Var &b)
+.. var:: private VarImpl v
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::LinExp``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::LinExp
+    
+
+    Represents a linear expression over variable specifiers.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::LinExp
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::LinExp
+
+.. type:: IntElement = std::pair<int, Var>
+.. type:: FloatElement = std::pair<double, Var>
+.. function:: LinExp() = default
+.. function:: LinExp(Var v)
+.. function:: template<typename T> LinExp(T v)
+
+    Requires `T` convertible to `Var`.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const LinExp &exp)
+.. function:: const std::vector<IntElement> &getIntElements() const
+
+    :returns: all elements of the linear expression that have integer coefficients.
+.. function:: const std::vector<FloatElement> &getFloatElements() const
+
+    :returns: all elements of the linear expression that have floating point coefficients.
+.. function:: LinExp &operator+=(const LinExp &e)
+              LinExp &operator-=(const LinExp &e)
+              LinExp &operator*=(int c)
+              LinExp &operator*=(double c)
+
+.. cpp:namespace-pop::
+
+
+.. namespace-push:: hyperflow
+
+.. function:: LinExp operator+(const LinExp &e)
+.. function:: LinExp operator-(const LinExp &e)
+.. function:: LinExp operator*(LinExp lhs, int t)
+              LinExp operator*(int t, LinExp rhs)
+.. function:: LinExp operator*(LinExp lhs, double t)
+              LinExp operator*(double t, LinExp rhs)
+
+.. namespace-pop::
+
+
+Class ``hyperflow::LinConstraint``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::LinConstraint
+    
+
+    Represents a linear constraint on the form :cpp:texpr:`exp` :cpp:texpr:`relation` :cpp:texpr:`bound`,
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::LinConstraint
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::LinConstraint
+
+.. enum-class:: Relation
+
+    .. enumerator: Leq
+                   Eq
+                   Geq
+.. function:: explicit LinConstraint(LinExp exp, Relation relation, double bound)
+.. function:: friend std::ostream &operator<<(std::ostream &s, const LinConstraint &c)
+.. var:: LinExp exp
+.. var:: Relation relation
+.. var:: double bound
+
+.. cpp:namespace-pop::
+
+
+.. namespace-push:: hyperflow
+
+.. function:: LinConstraint operator<=(const LinExp &e, double c)
+              LinConstraint operator==(const LinExp &e, double c)
+              LinConstraint operator>=(const LinExp &e, double c)
+              LinConstraint operator<=(double c, const LinExp &e)
+              LinConstraint operator==(double c, const LinExp &e)
+              LinConstraint operator>=(double c, const LinExp &e)
+
+.. namespace-pop::
+
+Pre-defined Variable Specifiers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each of the variable specifiers are defined in a separate namespace,
+so you can use ``using namespace mod::hyperflow::vars;`` in the scopes where you need them,
+without having to fully qualify their names each time.
+
+Base Model
+""""""""""
+
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::inFlow
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::outFlow
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isInUsed
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isOutUsed
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isInLessOut
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isInGreaterOut
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isInOutZero
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::vertexFlow
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isVertexUsed
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::transitInternalFlow
+.. var:: const hyperflow::VarSumEdge hyperflow::vars::edgeFlow
+.. var:: const hyperflow::VarSumEdge hyperflow::vars::isEdgeUsed
+.. var:: const hyperflow::VarSumEdge hyperflow::vars::isBothReverseUsed
+
+OverallCatalysis
+""""""""""""""""
+
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isOverallCata
+
+OverallAutocatalysis
+""""""""""""""""""""
+
+.. var:: const hyperflow::VarSumVertex hyperflow::vars::isOverallAutocata

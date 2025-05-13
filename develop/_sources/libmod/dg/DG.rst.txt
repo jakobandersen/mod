@@ -1,0 +1,198 @@
+.. _cpp-dg/DG:
+
+**********************************************************
+dg/DG.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``dg::DG``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::DG
+    
+
+    The derivation graph class. A derivation graph is a directed multi-hypergraph
+    :math:`\mathcal{H} = (V, E)`. Each hyperedge :math:`e\in E` is thus an ordered pair
+    :math:`(e^+, e^-)` of multisets of vertices, the sources and the targets.
+    Each vertex is annotated with a graph, and each hyperedge is annotated with list of transformation rules.
+    A derivation graph is constructed incrementally using a :cpp:class:`Builder` obtained from the :cpp:func:`build()`
+    function. When the obtained builder is destructed the derivation graph becomes locked and can no longer be modified.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::DG
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::DG
+
+.. function:: std::size_t getId() const
+
+    :returns: the instance identifier for the object.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const DG &dg)
+.. function:: const lib::DG::NonHyper &getNonHyper() const
+              const lib::DG::Hyper &getHyper() const
+
+    :returns: the internal data structures of the derivation graph.
+.. function:: LabelSettings getLabelSettings() const
+
+    :returns: the label settings for the derivation graph.
+.. function:: bool hasActiveBuilder() const
+
+    :returns: whether :cpp:func:`build` has been called and the returned :cpp:class:`Builder` is still active.
+.. function:: bool isLocked() const
+
+    :returns: whether the derivation graph is locked or not.
+.. function:: std::size_t numVertices() const
+
+    :returns: the number of vertices in the derivation graph.
+    :throws: :class:`LogicError` if neither `hasActiveBuilder()` nor `isLocked()`.
+.. function:: VertexRange vertices() const
+
+    :returns: a range of all vertices in the derivation graph.
+    :throws: :class:`LogicError` if neither `hasActiveBuilder()` nor `isLocked()`.
+.. function:: std::size_t numEdges() const
+
+    :returns: the number of edges in the derivation graph.
+    :throws: :class:`LogicError` if neither `hasActiveBuilder()` nor `isLocked()`.
+.. function:: EdgeRange edges() const
+
+    :returns: a range of all edges in the derivation graph.
+    :throws: :class:`LogicError` if neither `hasActiveBuilder()` nor `isLocked()`.
+.. function:: Vertex findVertex(std::shared_ptr<graph::Graph> g) const
+
+    :returns: a vertex descriptor for which the given graph is associated,
+        or a null descriptor if no such vertex exists.
+    :throws: :class:`LogicError` if neither `hasActiveBuilder()` nor `isLocked()`.
+    :throws: :class:`LogicError` if `g` is a `nullptr`.
+.. function:: HyperEdge findEdge(const std::vector<Vertex> &sources, const std::vector<Vertex> &targets) const
+              HyperEdge findEdge(const std::vector<std::shared_ptr<graph::Graph> > &sources, const std::vector<std::shared_ptr<graph::Graph> > &targets) const
+
+    :returns: a hyperedge with the given sources and targets.
+        If no such hyperedge exists in the derivation graph then a null edge is returned.
+        In the second version, the graphs are put through :func:`findVertex` first.
+    :throws: :class:`LogicError` if a vertex descriptor is null, or does not belong to the derivation graph.
+    :throws: :class:`LogicError` if neither `hasActiveBuilder()` nor `isLocked()`.
+.. function:: Builder build()
+              Builder build(std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex, \
+                            std::shared_ptr<Function<void(dg::DG::HyperEdge)>> onNewHyperEdge)
+
+    :param onNewVertex: a callback invoked when a new vertex is added to the underlying derivation graph.
+        Defaults to `nullptr`.
+    :param onNewHyperEdge: a callback invoked when a new hyperedge is added to the underlying derivation graph.
+        Defaults to `nullptr`.
+    :returns: an RAII-style move-only object which can be used to construct the derivation graph.
+        Only one of these objects can be active at the same time, and on destruction an active builder object
+        will lock the associated DG object for further modification.
+    :throws: :cpp:class:`LogicError` if `hasActiveBuilder()`.
+    :throws: :cpp:class:`LogicError` if `isLocked()`.
+.. function:: const std::vector<std::shared_ptr<graph::Graph>> &getGraphDatabase() const
+
+    :returns: a list of all graphs created by the derivation graph,
+        and all graphs given when constructed.
+.. function:: const std::vector<std::shared_ptr<graph::Graph>> &getCreatedGraphs() const
+
+    :returns: the graphs that have been constructed by builder functions.
+.. function:: std::pair<std::string, std::string> print(const Printer &printer, const PrintData &data) const
+
+    Print the derivation graph in style of a hypergraph.
+
+    :returns: the name of the PDF-file that will be compiled in post-processing and the name of the coordinate tex-file used.
+    :throws: :class:`LogicError` if the print data is not for this DG.
+.. function:: std::string printNonHyper() const
+
+    Print the derivation graph in style of a digraph, where each edge represents a hyperedge.
+    Each vertex in the depiction then represents a multiset of vertices in the hypergraph.
+
+    :returns: the name of the PDF-file that will be compiled in post-processing.
+.. function:: std::string dump() const
+              std::string dump(const std::string &filename) const
+
+    Exports the derivation graph to a file, including associated graphs and rules.
+    Use :func:`load` or :func:`Builder::load` to import the derivation graph again.
+
+    :param filename: the name of the file to save the dump to.
+        If non is given an auto-generated name in the ``out/`` folder is used.
+        If an empty string is given, it is treated as if non is given.
+    :returns: the name of the file with the exported data.
+    :throws: :class:`LogicError` if `!isLocked()`.
+    :throws: :class:`LogicError` if the target file can not be opened.
+.. function:: void listStats() const
+
+    Output various stats of the derivation graph.
+
+    :throws: :class:`LogicError` if the DG has not been calculated.
+.. function:: static std::shared_ptr<DG> make(LabelSettings labelSettings, \
+                                             const std::vector<std::shared_ptr<graph::Graph> > &graphDatabase, \
+                                             IsomorphismPolicy graphPolicy)
+
+    Create an empty unlocked derivation graph object.
+
+    The given :cpp:class:`LabelSettings` defines which category the derivation graph object works in.
+    All morphism calculations (monomorphism and isomorphism) are thus defined by the :cpp:enum:`LabelType`,
+    while the :cpp:enum:`LabelRelation` is used for monomorphism enumeration.
+
+    The graphs is the given :cpp:var:`graphDatabase` are used as the initial graph database.
+    Any subsequently added or constructed graph for this object
+    will be checked for isomorphism against the graph database.
+
+    The given :cpp:var:`graphPolicy` refers to how the graphs of :cpp:var:`graphDatabase` are checked for
+    isomorphism against each other initially. Only use :cpp:enumerator:`IsomorphismPolicy::TrustMe` if you are
+    absolutely sure that the graphs are unique up to isomorphism.
+
+    :throws: :class:`LogicError` if `graphPolicy == IsomorphismPolicy::Check` and two graph objects
+        in :cpp:any:`graphDatabase` are different objects but represents isomorphic graphs.
+    :throws: :class:`LogicError` if there is a `nullptr` in `graphDatabase`.
+.. function:: static std::shared_ptr<DG> load(const std::vector<std::shared_ptr<graph::Graph>> &graphDatabase, \
+                                             const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase, \
+                                             const std::string &file, \
+                                             IsomorphismPolicy graphPolicy)
+              static std::shared_ptr<DG> load(const std::vector<std::shared_ptr<graph::Graph>> &graphDatabase, \
+                                             const std::vector<std::shared_ptr<rule::Rule>> &ruleDatabase, \
+                                             const std::string &file, \
+                                             IsomorphismPolicy graphPolicy, int verbosity)
+
+    Load a derivation graph dump as a locked object.
+    Use :cpp:func:`Builder::load` to load a dump into a derivation graph under construction.
+
+    This is done roughly by calling :cpp:func:`make` with the given `graphDatabase` and `graphPolicy`.
+    The label settings are retrieved from the dump file.
+    Vertices with graphs and hyperedges with rules are then added from the dump.
+    Any graph in the dump which is isomorphic to a given graph is replaced by the given graph.
+    The same procedure is done for the rules.
+    If a graph/rule is not found in the given lists, a new object is instantiated and used.
+    In the end the derivation graph is locked.
+
+    .. note:: If the dump to be loaded was made by version 0.10 or earlier, it does not contain the full rules
+        but only the rule name. It is then crucial that the names of the given rules match with those used to
+        create the dump in the first place.
+
+    The :cpp:var:`verbosity` defaults to level 2.
+    The levels have the following meaning:
+
+    - 0: print nothing.
+    - 2: print a message whenever a loaded graph or rule is isomorphic to an existing graph or rule.
+
+    :throws: the same exceptions :func:`make` throws related to `graphDatabase` and `graphPolicy`.
+    :throws: :class:`LogicError` if there is a `nullptr` in `ruleDatabase`.
+        :throws: :class:`InputError` if the file can not be opened or its content is bad.
+.. function:: static void diff(std::shared_ptr<DG> dg1, std::shared_ptr<DG> dg2)
+
+        Compare two derivation graphs and lists the difference.
+        This is not a general isomorphism check; two vertices are equal if they have
+        the same graph attached. Edges are equal if the head and tail sets are equal
+        and if the attached rule is the same.
+
+.. cpp:namespace-pop::
+

@@ -1,0 +1,113 @@
+.. _cpp-dg/Strategies:
+
+**********************************************************
+dg/Strategies.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``dg::Strategy``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: dg::Strategy
+    
+
+    Derivation graph strategies are used in :cpp:func:`Builder::execute`.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: dg::Strategy
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: dg::Strategy
+
+.. function:: static std::shared_ptr<Strategy> \
+              makeAdd(bool onlyUniverse, const std::vector<std::shared_ptr<graph::Graph>> &graphs, IsomorphismPolicy graphPolicy)
+
+    :returns: an :ref:`strat-addUniverse` strategy if `onlyUniverse` is `true`, otherwise an :ref:`strat-addSubset` strategy.
+        The `graphPolicy` refers to the checking of each added graph against the internal graph database.
+    :throws: :class:`LogicError` if there is a `nullptr` in `graphs`.
+.. function:: static std::shared_ptr<Strategy> \
+              makeAdd(bool onlyUniverse, const std::shared_ptr<Function<std::vector<std::shared_ptr<graph::Graph>>()>> generator, IsomorphismPolicy graphPolicy)
+
+    :returns: an :ref:`strat-addUniverse` strategy if `onlyUniverse` is `true`, otherwise an :ref:`strat-addSubset` strategy.
+        The `graphPolicy` refers to the checking of each added graph against the internal graph database.
+.. function:: static std::shared_ptr<Strategy> makeSequence(const std::vector<std::shared_ptr<Strategy>> &strategies)
+
+    :returns: a :ref:`strat-sequence` strategy.
+    :throws: :class:`LogicError` if `strategies.empty()`.
+    :throws: :class:`LogicError` if there is a `nullptr` in `strategies`.
+.. function:: static std::shared_ptr<Strategy> makeParallel(const std::vector<std::shared_ptr<Strategy>> &strategies)
+
+    :returns: a :ref:`strat-parallel` strategy.
+    :throws: :class:`LogicError` if `strategies` is empty.
+    :throws: :class:`LogicError` if there is a `nullptr` in `strategies`.
+.. function:: static std::shared_ptr<Strategy> makeFilter(bool alsoUniverse, std::shared_ptr<Function<bool(std::shared_ptr<graph::Graph>, const Strategy::GraphState&, bool)>> filterFunc)
+
+    The filtering predicate will be called for each graph in either the subset or the universe.
+    The predicate is called with the graph and the graph state as arguments, and a bool stating whether
+    the call is the first in the filtering process.
+
+    :returns: a :ref:`strat-filterUniverse` strategy if `alsoUniverse` is `true`, otherwise a :ref:`strat-filterSubset` strategy.
+    :throws: :class:`LogicError` if `filterFunc` is a null pointer.
+.. function:: static std::shared_ptr<Strategy> makeExecute(std::shared_ptr<Function<void(const Strategy::GraphState&)>> func)
+
+    :returns: an :ref:`strat-execute` strategy.
+    :throws: :class:`LogicError` if `func` is a null pointer.
+.. function:: static std::shared_ptr<Strategy> makeRule(std::shared_ptr<rule::Rule> r)
+
+    :returns: a :ref:`strat-rule` strategy.
+    :throws: :class:`LogicError` if `r` is a `nullptr`.
+.. function:: static std::shared_ptr<Strategy> makeLeftPredicate(std::shared_ptr<Function<bool(const Derivation&)>> predicate, std::shared_ptr<Strategy> strategy)
+
+    Even though the predicate is called with a :class:`Derivation` object, only the left side and the rule of the object is valid.
+
+    :returns: a :ref:`strat-leftPredicate` strategy.
+    :throws: :class:`LogicError` if `predicate` or `strategy` is a `nullptr`.
+.. function:: static std::shared_ptr<Strategy> makeRightPredicate(std::shared_ptr<Function<bool(const Derivation&) >> predicate, std::shared_ptr<Strategy> strategy)
+
+    :returns: a :ref:`strat-rightPredicate` strategy.
+    :throws: :class:`LogicError` if `predicate` or `strategy` is a `nullptr`.
+.. function:: static std::shared_ptr<Strategy> makeRevive(std::shared_ptr<Strategy> strategy)
+
+    :returns: a :ref:`strat-revive` strategy.
+    :throws: :class:`LogicError` if `strategy` is a `nullptr`.
+.. function:: static std::shared_ptr<Strategy> makeRepeat(int limit, std::shared_ptr<Strategy> strategy)
+
+    :returns: a :ref:`strat-repeat` strategy.
+    :throws: :class:`LogicError` if `limit < 0`
+    :throws: :class:`LogicError` if `strategy` is a `nullptr`.
+
+.. cpp:namespace-pop::
+
+
+Class ``dg::Strategy::GraphState``
+---------------------------------------------------------------
+
+.. class:: dg::Strategy::GraphState
+
+
+    This class represents a graph state with a subset :math:`S` and a universe :math:`U` fulfilling :math:`S\subseteq U`.
+
+
+    .. function:: const std::vector<std::shared_ptr<graph::Graph>> &getSubset() const
+
+        :returns: the subset :math:`\mathcal{S}`.
+
+    .. function:: const std::vector<std::shared_ptr<graph::Graph>> &getUniverse() const
+
+        :returns: the universe :math:`\mathcal{U}`
+
+
+

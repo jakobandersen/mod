@@ -1,0 +1,39 @@
+.. _py-graph/GraphInterface:
+
+**********************************************************
+graph/GraphInterface
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+The :class:`Graph` class implements the :class:`protocols.LabelledGraph` protocol,
+and thus have the following nested types.
+
+.. class:: Graph.Vertex
+
+    Implements the :class:`protocols.LabelledGraph.Vertex` protocol.
+    Additionally, the :attr:`id <protocols.Graph.Vertex.id>` is in the range :math:`[0, numVertices[`.
+
+.. class:: Graph.Edge
+
+    Implements the :class:`protocols.LabelledGraph.Edge` protocol.
+
+.. class:: Graph.VertexRange
+
+    Implements the :class:`protocols.Graph.VertexRange` protocol,
+    in addition to the following functionality.
+
+    .. method:: __getitem__(i)
+
+        :returns: the ``i``\ th vertex of the graph.
+        :rtype: Graph.Vertex
+.. class:: Graph.EdgeRange
+
+    Implements the :class:`protocols.Graph.EdgeRange` protocol.
+
+.. class:: Graph.IncidentEdgeRange
+
+    Implements the :class:`protocols.Graph.IncidentEdgeRange` protocol.
+

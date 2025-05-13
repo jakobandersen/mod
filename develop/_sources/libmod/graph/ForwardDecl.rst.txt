@@ -1,0 +1,12 @@
+.. _cpp-graph/ForwardDecl:
+
+**********************************************************
+graph/ForwardDecl.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+This header contains declarations for all classes in the ``mod::graph`` namespace.

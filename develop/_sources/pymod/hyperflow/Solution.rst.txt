@@ -1,0 +1,84 @@
+.. _py-hyperflow/Solution:
+
+**********************************************************
+hyperflow/Solution
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: hyperflow.SolutionRange
+
+    A range of solutions for a flow model.
+
+    .. attribute:: model
+
+        (Read-only) The hyperflow model that produced these solutions.
+
+        :type: Model
+    .. attribute:: size
+
+        The number of solutions in the flow model.
+
+        :type: int
+    .. method:: __len__()
+
+        :returns: the number of solutions in the flow model.
+
+        :rtype: int
+    .. method:: __iter__()
+
+        :returns: an iterator for the contained solutions.
+    .. method:: __getitem__(i)
+
+        :param int i: the index into the range.
+        :returns: the ``i`` th solution in the range.
+        :rtype: Solution
+    .. method:: list()
+
+        List overall information about each solution.
+    .. method:: print(printer=Printer(), data=None)
+
+        Print solutions using the settings in the given printer and the structure information in the data object.
+
+        :param Printer printer: the printer to use governing the appearance.
+        :param DGPrintData data: the extra data to use encoding the structure of the graph.
+.. class:: hyperflow.Solution
+
+    A solution for a flow model.
+
+    .. attribute:: model
+
+        (Read-only) The hyperflow model that produced the solution.
+
+        :type: Model
+    .. attribute:: id
+
+        (Read-only) An ID for the solution which is unique among
+        all solutions from the parent :class:`~hyperflow.Model` object.
+
+        :type: int
+    .. attribute:: objectiveValue
+
+        (Read-only) The objective value of this solution.
+
+        :type: int or float
+    .. method:: eval(exp)
+
+        :param LinExp exp: the linear expression to be evaluated on the solution.
+        :returns: the value of the given linear expression evaluated on the solution.
+        :rtype: int or float
+    .. method:: list()
+
+        List overall information about the solution.
+    .. method:: print(printer=Printer(), data=None)
+
+        Print the solution using the settings in the given printer and the structure information in the data object.
+
+        :param Printer printer: the printer to use governing the appearance.
+        :param DGPrintData data: the extra data to use encoding the structure of the graph.
+        :returns: the name of the PDF-files that will be compiled in post-processing
+            for respectively the filtered and unfiltered depictions.
+            If either is not requested by the given ``printer`` the corresponding entry is ``None``.
+        :rtype: tuple[str, str]

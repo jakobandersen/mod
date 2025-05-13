@@ -1,0 +1,72 @@
+.. _cpp-rule/CompositionMatch:
+
+**********************************************************
+rule/CompositionMatch.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: rule::CompositionMatch
+
+    A class for interactively constructing match between two rules used for composition.
+    That is, for two rules
+    :math:`p_1 = (L_1 \leftarrow K_1 \rightarrow R_1)` and
+    :math:`p_2 = (L_2 \leftarrow K_2 \rightarrow R_2)`,
+    an object represents match between :math:`R_1` and :math:`L_2` which indicates
+    a common subgraph :math:`R_1 \leftarrow M \rightarrow L_2`.
+
+    See also [AFMS-RC]_ for details of how composition of rules can be computed.
+
+    .. function:: explicit CompositionMatch(std::shared_ptr<Rule> rFirst, std::shared_ptr<Rule> rSecond, LabelSettings labelSettings)
+
+        Construct an empty overlap.
+
+        :throws LogicError: if either rule is null.
+    .. function:: CompositionMatch(const CompositionMatch &other)
+                  CompositionMatch &operator=(const CompositionMatch &other)
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const CompositionMatch &mb)
+    .. function:: std::shared_ptr<Rule> getFirst() const
+                  std::shared_ptr<Rule> getSecond() const
+
+        :returns: the rules :math:`p_1` and :math:`p_2`.
+    .. function:: LabelSettings getLabelSettings() const
+
+        :returns: the settings for the morphisms in the match.
+    .. function:: int size() const
+
+        :returns: the number of currently mapped pairs of vertices.
+    .. function:: Rule::LeftGraph::Vertex operator[](Rule::RightGraph::Vertex vFirst) const
+                  Rule::RightGraph::Vertex operator[](Rule::LeftGraph::Vertex vSecond) const
+
+        :returns: the vertex the given vertex is mapped to, or a null vertex if it is not mapped.
+        :throws LogicError: if either vertex is a null vertex.
+        :throws LogicError: if either vertex does not belong to their respective rules.
+    .. function:: void push(Rule::RightGraph::Vertex vFirst, Rule::LeftGraph::Vertex vSecond)
+
+        Extend the common subgraph (match) of :math:`R_1` and :math:`L_2`
+        by identifying the given vertices from each of the graphs.
+
+        :throws LogicError: if either vertex is a null vertex.
+        :throws LogicError: if either vertex does not belong to their respective rules.
+        :throws LogicError: if either vertex is already mapped.
+        :throws LogicError: if the extension of the match is infeasible.
+    .. function:: void pop()
+
+        Pop the latest pushed vertex pair.
+
+        :throws LogicError: if `size() == 0`.
+    .. function:: std::shared_ptr<Rule> compose(bool verbose) const
+
+        :param verbose: whether to output debug messages from the composition algorithm.
+        :returns: the composition of the two rules along the match.
+            If the composition is not defined, a null pointer is returned.
+    .. function:: std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const
+
+        :param maximum: whether to only compose using the matches of maximum cardinality.
+        :param verbose: whether to output debug messages from the composition algorithm.
+        :returns: the composition of the two rules along enumerated matches.
+            The enumerated matches are all those that are extensions of the current match,
+            and the match itself.

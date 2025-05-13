@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.13.6. hyperflow/Solution.hpp &#8212; MØD 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.14. rule" href="../rule/index.html" />
+    <link rel="prev" title="3.2.13.5. hyperflow/Printer.hpp" href="Printer.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.13.6. hyperflow/Solution.hpp</a><ul>
+<li><a class="reference internal" href="#class-hyperflow-solutionrange">3.2.13.6.1. Class <code class="docutils literal notranslate"><span class="pre">hyperflow::SolutionRange</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRangeE"><code class="docutils literal notranslate"><span class="pre">SolutionRange</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.13.6.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.13.6.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE"><code class="docutils literal notranslate"><span class="pre">const_iterator</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange8iteratorE"><code class="docutils literal notranslate"><span class="pre">iterator</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange8getModelEv"><code class="docutils literal notranslate"><span class="pre">getModel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRangelsERNSt7ostreamERK13SolutionRange"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange4sizeEv"><code class="docutils literal notranslate"><span class="pre">size()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5beginEv"><code class="docutils literal notranslate"><span class="pre">begin()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange3endEv"><code class="docutils literal notranslate"><span class="pre">end()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRangeixEi"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange4listEv"><code class="docutils literal notranslate"><span class="pre">list()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printEv"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-hyperflow-solution">3.2.13.6.2. Class <code class="docutils literal notranslate"><span class="pre">hyperflow::Solution</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE"><code class="docutils literal notranslate"><span class="pre">Solution</span></code></a></li>
+<li><a class="reference internal" href="#id1">3.2.13.6.2.1. Synopsis</a></li>
+<li><a class="reference internal" href="#id2">3.2.13.6.2.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow8Solution8getModelEv"><code class="docutils literal notranslate"><span class="pre">getModel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5getIdEv"><code class="docutils literal notranslate"><span class="pre">getId()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionlsERNSt7ostreamERK8Solution"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutioneqERK8SolutionRK8Solution"><code class="docutils literal notranslate"><span class="pre">operator==()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionneERK8SolutionRK8Solution"><code class="docutils literal notranslate"><span class="pre">operator!=()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionltERK8SolutionRK8Solution"><code class="docutils literal notranslate"><span class="pre">operator&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution17getObjectiveValueEv"><code class="docutils literal notranslate"><span class="pre">getObjectiveValue()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution4evalERK6LinExp"><code class="docutils literal notranslate"><span class="pre">eval()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution4listEv"><code class="docutils literal notranslate"><span class="pre">list()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5printEv"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Printer.html" title="Previous Chapter: 3.2.13.5. hyperflow/Printer.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.13.5. hyp...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../rule/index.html" title="Next Chapter: 3.2.14. rule">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.14. rule &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="hyperflow-solution-hpp">
+<span id="cpp-hyperflow-solution"></span><h1><span class="section-number">3.2.13.6. </span>hyperflow/Solution.hpp<a class="headerlink" href="#hyperflow-solution-hpp" title="Link to this heading">¶</a></h1>
+<section id="class-hyperflow-solutionrange">
+<h2><span class="section-number">3.2.13.6.1. </span>Class <code class="docutils literal notranslate"><span class="pre">hyperflow::SolutionRange</span></code><a class="headerlink" href="#class-hyperflow-solutionrange" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow13SolutionRangeE">
+<span id="_CPPv3N3mod9hyperflow13SolutionRangeE"></span><span id="_CPPv2N3mod9hyperflow13SolutionRangeE"></span><span id="mod::hyperflow::SolutionRange"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">hyperflow</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SolutionRange</span></span></span><a class="headerlink" href="#_CPPv4N3mod9hyperflow13SolutionRangeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A range of solutions for a flow model.</p>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.13.6.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE" title="mod::hyperflow::SolutionRange::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange8iteratorE" title="mod::hyperflow::SolutionRange::iterator"><span class="n"><span class="pre">iterator</span></span></a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Model.html#_CPPv4N3mod9hyperflow5ModelE" title="mod::hyperflow::Model"><span class="n"><span class="pre">Model</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange8getModelEv" title="mod::hyperflow::SolutionRange::getModel"><span class="n"><span class="pre">getModel</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRangelsERNSt7ostreamERK13SolutionRange" title="mod::hyperflow::SolutionRange::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRangeE" title="mod::hyperflow::SolutionRange"><span class="n"><span class="pre">SolutionRange</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange4sizeEv" title="mod::hyperflow::SolutionRange::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE" title="mod::hyperflow::SolutionRange::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5beginEv" title="mod::hyperflow::SolutionRange::begin"><span class="n"><span class="pre">begin</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE" title="mod::hyperflow::SolutionRange::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange3endEv" title="mod::hyperflow::SolutionRange::end"><span class="n"><span class="pre">end</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRangeixEi" title="mod::hyperflow::SolutionRange::operator[]"><span class="sig-name descname"><span class="pre">[]</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange4listEv" title="mod::hyperflow::SolutionRange::list"><span class="n"><span class="pre">list</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printEv" title="mod::hyperflow::SolutionRange::print"><span class="n"><span class="pre">print</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE" title="mod::hyperflow::SolutionRange::print"><span class="n"><span class="pre">print</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod9hyperflow7PrinterE" title="mod::hyperflow::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">printer</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/Printer.html#_CPPv4N3mod2dg9PrintDataE" title="mod::dg::PrintData"><span class="n"><span class="pre">PrintData</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.13.6.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE">
+<span id="_CPPv3N3mod9hyperflow13SolutionRange14const_iteratorE"></span><span id="_CPPv2N3mod9hyperflow13SolutionRange14const_iteratorE"></span><span id="mod::hyperflow::SolutionRange::const_iterator"></span><span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow13SolutionRange8iteratorE">
+<span id="_CPPv3N3mod9hyperflow13SolutionRange8iteratorE"></span><span id="_CPPv2N3mod9hyperflow13SolutionRange8iteratorE"></span><span id="mod::hyperflow::SolutionRange::iterator"></span><span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod9hyperflow13SolutionRange8iteratorE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Random-access iterator types for solutions in a range.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow13SolutionRange8getModelEv">
+<span id="_CPPv3N3mod9hyperflow13SolutionRange8getModelEv"></span><span id="_CPPv2N3mod9hyperflow13SolutionRange8getModelEv"></span><span id="mod::hyperflow::SolutionRange::getModel"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Model.html#_CPPv4N3mod9hyperflow5ModelE" title="mod::hyperflow::Model"><span class="n"><span class="pre">Model</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow13SolutionRange8getModelEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the hyperflow model that produced these solutions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow13SolutionRangelsERNSt7ostreamERK13SolutionRange">
+<span id="_CPPv3N3mod9hyperflow13SolutionRangelsERNSt7ostreamERK13SolutionRange"></span><span id="_CPPv2N3mod9hyperflow13SolutionRangelsERNSt7ostreamERK13SolutionRange"></span><span id="mod::hyperflow::SolutionRange::lshift-operator__osR.SolutionRangeCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRangeE" title="mod::hyperflow::SolutionRange"><span class="n"><span class="pre">SolutionRange</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow13SolutionRangelsERNSt7ostreamERK13SolutionRange" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow13SolutionRange4sizeEv">
+<span id="_CPPv3NK3mod9hyperflow13SolutionRange4sizeEv"></span><span id="_CPPv2NK3mod9hyperflow13SolutionRange4sizeEv"></span><span id="mod::hyperflow::SolutionRange::sizeC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow13SolutionRange4sizeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of solutions in the range.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow13SolutionRange5beginEv">
+<span id="_CPPv3NK3mod9hyperflow13SolutionRange5beginEv"></span><span id="_CPPv2NK3mod9hyperflow13SolutionRange5beginEv"></span><span id="mod::hyperflow::SolutionRange::beginC"></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE" title="mod::hyperflow::SolutionRange::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow13SolutionRange5beginEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow13SolutionRange3endEv">
+<span id="_CPPv3NK3mod9hyperflow13SolutionRange3endEv"></span><span id="_CPPv2NK3mod9hyperflow13SolutionRange3endEv"></span><span id="mod::hyperflow::SolutionRange::endC"></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange14const_iteratorE" title="mod::hyperflow::SolutionRange::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow13SolutionRange3endEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the begin and end iterators for the range.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow13SolutionRangeixEi">
+<span id="_CPPv3NK3mod9hyperflow13SolutionRangeixEi"></span><span id="_CPPv2NK3mod9hyperflow13SolutionRangeixEi"></span><span id="mod::hyperflow::SolutionRange::subscript-operator__iC"></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow13SolutionRangeixEi" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRangeixEi" title="mod::hyperflow::SolutionRange::operator[]::i"><span class="n">i</span></a></span> th solution in the range.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the index is out of bounds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow13SolutionRange4listEv">
+<span id="_CPPv3NK3mod9hyperflow13SolutionRange4listEv"></span><span id="_CPPv2NK3mod9hyperflow13SolutionRange4listEv"></span><span id="mod::hyperflow::SolutionRange::listC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">list</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow13SolutionRange4listEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>List overall information about each solution.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow13SolutionRange5printEv">
+<span id="_CPPv3NK3mod9hyperflow13SolutionRange5printEv"></span><span id="_CPPv2NK3mod9hyperflow13SolutionRange5printEv"></span><span id="mod::hyperflow::SolutionRange::printC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE">
+<span id="_CPPv3NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE"></span><span id="_CPPv2NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE"></span><span id="mod::hyperflow::SolutionRange::print__PrinterCR.dg::PrintDataCRC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod9hyperflow7PrinterE" title="mod::hyperflow::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">printer</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/Printer.html#_CPPv4N3mod2dg9PrintDataE" title="mod::dg::PrintData"><span class="n"><span class="pre">PrintData</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Print solutions using the settings in the given printer and the structure information in the data object.</p>
+<p>The <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE" title="mod::hyperflow::SolutionRange::print::data"><span class="n">data</span></a></span> defaults to <span class="cpp-texpr sig sig-inline cpp"><span class="n">dg</span><span class="p">::</span><a class="reference internal" href="../dg/Printer.html#_CPPv4N3mod2dg9PrintDataE" title="mod::dg::PrintData"><span class="n">PrintData</span></a><span class="p">(</span><a class="reference internal" href="#_CPPv4N3mod9hyperflow13SolutionRange8getModelEv" title="mod::hyperflow::SolutionRange::getModel"><span class="n">getModel</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="p">)</span></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9hyperflow13SolutionRange5printERK7PrinterRKN2dg9PrintDataE" title="mod::hyperflow::SolutionRange::print::printer"><span class="n">printer</span></a></span> defaults to <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="Printer.html#_CPPv4N3mod9hyperflow7PrinterE" title="mod::hyperflow::Printer"><span class="n">Printer</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the given print data does not belong to the underlying derivation graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="class-hyperflow-solution">
+<h2><span class="section-number">3.2.13.6.2. </span>Class <code class="docutils literal notranslate"><span class="pre">hyperflow::Solution</span></code><a class="headerlink" href="#class-hyperflow-solution" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow8SolutionE">
+<span id="_CPPv3N3mod9hyperflow8SolutionE"></span><span id="_CPPv2N3mod9hyperflow8SolutionE"></span><span id="mod::hyperflow::Solution"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">hyperflow</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Solution</span></span></span><a class="headerlink" href="#_CPPv4N3mod9hyperflow8SolutionE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A solution for a flow model.</p>
+</dd></dl>
+
+<section id="id1">
+<h3><span class="section-number">3.2.13.6.2.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Model.html#_CPPv4N3mod9hyperflow5ModelE" title="mod::hyperflow::Model"><span class="n"><span class="pre">Model</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8Solution8getModelEv" title="mod::hyperflow::Solution::getModel"><span class="n"><span class="pre">getModel</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5getIdEv" title="mod::hyperflow::Solution::getId"><span class="n"><span class="pre">getId</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionlsERNSt7ostreamERK8Solution" title="mod::hyperflow::Solution::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">sol</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutioneqERK8SolutionRK8Solution" title="mod::hyperflow::Solution::operator=="><span class="sig-name descname"><span class="pre">==</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionneERK8SolutionRK8Solution" title="mod::hyperflow::Solution::operator!="><span class="sig-name descname"><span class="pre">!=</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionltERK8SolutionRK8Solution" title="mod::hyperflow::Solution::operator&lt;"><span class="sig-name descname"><span class="pre">&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution17getObjectiveValueEv" title="mod::hyperflow::Solution::getObjectiveValue"><span class="n"><span class="pre">getObjectiveValue</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution4evalERK6LinExp" title="mod::hyperflow::Solution::eval"><span class="n"><span class="pre">eval</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="LinExp.html#_CPPv4N3mod9hyperflow6LinExpE" title="mod::hyperflow::LinExp"><span class="n"><span class="pre">LinExp</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution4listEv" title="mod::hyperflow::Solution::list"><span class="n"><span class="pre">list</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5printEv" title="mod::hyperflow::Solution::print"><span class="n"><span class="pre">print</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE" title="mod::hyperflow::Solution::print"><span class="n"><span class="pre">print</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod9hyperflow7PrinterE" title="mod::hyperflow::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">printer</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/Printer.html#_CPPv4N3mod2dg9PrintDataE" title="mod::dg::PrintData"><span class="n"><span class="pre">PrintData</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id2">
+<h3><span class="section-number">3.2.13.6.2.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow8Solution8getModelEv">
+<span id="_CPPv3N3mod9hyperflow8Solution8getModelEv"></span><span id="_CPPv2N3mod9hyperflow8Solution8getModelEv"></span><span id="mod::hyperflow::Solution::getModel"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="Model.html#_CPPv4N3mod9hyperflow5ModelE" title="mod::hyperflow::Model"><span class="n"><span class="pre">Model</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getModel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow8Solution8getModelEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the hyperflow model that produced the solution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow8Solution5getIdEv">
+<span id="_CPPv3NK3mod9hyperflow8Solution5getIdEv"></span><span id="_CPPv2NK3mod9hyperflow8Solution5getIdEv"></span><span id="mod::hyperflow::Solution::getIdC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow8Solution5getIdEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>an ID for the solution which is unique among all solutions from the parent <a class="reference internal" href="Model.html#_CPPv4N3mod9hyperflow5ModelE" title="mod::hyperflow::Model"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Model</span></code></a> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow8SolutionlsERNSt7ostreamERK8Solution">
+<span id="_CPPv3N3mod9hyperflow8SolutionlsERNSt7ostreamERK8Solution"></span><span id="_CPPv2N3mod9hyperflow8SolutionlsERNSt7ostreamERK8Solution"></span><span id="mod::hyperflow::Solution::lshift-operator__osR.SolutionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">sol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow8SolutionlsERNSt7ostreamERK8Solution" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow8SolutioneqERK8SolutionRK8Solution">
+<span id="_CPPv3N3mod9hyperflow8SolutioneqERK8SolutionRK8Solution"></span><span id="_CPPv2N3mod9hyperflow8SolutioneqERK8SolutionRK8Solution"></span><span id="mod::hyperflow::Solution::eq-operator__SolutionCR.SolutionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow8SolutioneqERK8SolutionRK8Solution" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow8SolutionneERK8SolutionRK8Solution">
+<span id="_CPPv3N3mod9hyperflow8SolutionneERK8SolutionRK8Solution"></span><span id="_CPPv2N3mod9hyperflow8SolutionneERK8SolutionRK8Solution"></span><span id="mod::hyperflow::Solution::neq-operator__SolutionCR.SolutionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow8SolutionneERK8SolutionRK8Solution" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow8SolutionltERK8SolutionRK8Solution">
+<span id="_CPPv3N3mod9hyperflow8SolutionltERK8SolutionRK8Solution"></span><span id="_CPPv2N3mod9hyperflow8SolutionltERK8SolutionRK8Solution"></span><span id="mod::hyperflow::Solution::lt-operator__SolutionCR.SolutionCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8SolutionE" title="mod::hyperflow::Solution"><span class="n"><span class="pre">Solution</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow8SolutionltERK8SolutionRK8Solution" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Compares the solution objects, i.e., the values of <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9hyperflow8Solution8getModelEv" title="mod::hyperflow::Solution::getModel"><span class="n">getModel</span></a><span class="p">(</span><span class="p">)</span></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5getIdEv" title="mod::hyperflow::Solution::getId"><span class="n">getId</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow8Solution17getObjectiveValueEv">
+<span id="_CPPv3NK3mod9hyperflow8Solution17getObjectiveValueEv"></span><span id="_CPPv2NK3mod9hyperflow8Solution17getObjectiveValueEv"></span><span id="mod::hyperflow::Solution::getObjectiveValueC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getObjectiveValue</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow8Solution17getObjectiveValueEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the objective value of the solution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow8Solution4evalERK6LinExp">
+<span id="_CPPv3NK3mod9hyperflow8Solution4evalERK6LinExp"></span><span id="_CPPv2NK3mod9hyperflow8Solution4evalERK6LinExp"></span><span id="mod::hyperflow::Solution::eval__LinExpCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eval</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="LinExp.html#_CPPv4N3mod9hyperflow6LinExpE" title="mod::hyperflow::LinExp"><span class="n"><span class="pre">LinExp</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">exp</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow8Solution4evalERK6LinExp" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the value of the given linear expression evaluated on the solution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow8Solution4listEv">
+<span id="_CPPv3NK3mod9hyperflow8Solution4listEv"></span><span id="_CPPv2NK3mod9hyperflow8Solution4listEv"></span><span id="mod::hyperflow::Solution::listC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">list</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow8Solution4listEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>List overall information about the solution.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow8Solution5printEv">
+<span id="_CPPv3NK3mod9hyperflow8Solution5printEv"></span><span id="_CPPv2NK3mod9hyperflow8Solution5printEv"></span><span id="mod::hyperflow::Solution::printC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow8Solution5printEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE">
+<span id="_CPPv3NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE"></span><span id="_CPPv2NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE"></span><span id="mod::hyperflow::Solution::print__PrinterCR.dg::PrintDataCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Printer.html#_CPPv4N3mod9hyperflow7PrinterE" title="mod::hyperflow::Printer"><span class="n"><span class="pre">Printer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">printer</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/Printer.html#_CPPv4N3mod2dg9PrintDataE" title="mod::dg::PrintData"><span class="n"><span class="pre">PrintData</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Print the solution using the settings in the given printer and the structure information in the data object.</p>
+<p>The <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE" title="mod::hyperflow::Solution::print::data"><span class="n">data</span></a></span> defaults to <span class="cpp-texpr sig sig-inline cpp"><span class="n">dg</span><span class="p">::</span><a class="reference internal" href="../dg/Printer.html#_CPPv4N3mod2dg9PrintDataE" title="mod::dg::PrintData"><span class="n">PrintData</span></a><span class="p">(</span><a class="reference internal" href="#_CPPv4N3mod9hyperflow8Solution8getModelEv" title="mod::hyperflow::Solution::getModel"><span class="n">getModel</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="p">)</span></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE" title="mod::hyperflow::Solution::print::printer"><span class="n">printer</span></a></span> defaults to <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="Printer.html#_CPPv4N3mod9hyperflow7PrinterE" title="mod::hyperflow::Printer"><span class="n">Printer</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the name of the PDF-files that will be compiled in post-processing for respectively the filtered and unfiltered depictions.
+If either is not requested by the given <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9hyperflow8Solution5printERK7PrinterRKN2dg9PrintDataE" title="mod::hyperflow::Solution::print::printer"><span class="n">printer</span></a></span> the corresponding entry has no string.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the given print data does not belong to the underlying derivation graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/hyperflow/Solution.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.10.1. hyperflow/LinExp &#8212; MØD 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.10.2. hyperflow/Model" href="Model.html" />
+    <link rel="prev" title="4.1.10. hyperflow" href="index.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.10.1. hyperflow/LinExp</a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumVertex"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumVertex</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumVertex.__init__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumVertex.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumVertex.__getitem__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumVertex.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumVertex.id"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumVertex.id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertex"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertex</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertex.__init__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertex.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertex.id"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertex.id</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertex.vertex"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertex.vertex</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertexGraph"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertexGraph</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertexGraph.__init__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertexGraph.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertexGraph.id"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertexGraph.id</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarVertexGraph.graph"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarVertexGraph.graph</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumEdge"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumEdge</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumEdge.__init__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumEdge.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumEdge.__getitem__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumEdge.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumEdge.id"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumEdge.id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.hyperflow.VarEdge"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarEdge</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarEdge.__init__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarEdge.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarEdge.id"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarEdge.id</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarEdge.edge"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarEdge.edge</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumCustom"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumCustom</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumCustom.__init__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumCustom.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumCustom.__getitem__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumCustom.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarSumCustom.id"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarSumCustom.id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.hyperflow.VarCustom"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarCustom</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.VarCustom.__init__"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarCustom.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarCustom.id"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarCustom.id</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.VarCustom.name"><code class="docutils literal notranslate"><span class="pre">hyperflow.VarCustom.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.hyperflow.Var"><code class="docutils literal notranslate"><span class="pre">hyperflow.Var</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.LinExp"><code class="docutils literal notranslate"><span class="pre">hyperflow.LinExp</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.LinConstraint"><code class="docutils literal notranslate"><span class="pre">hyperflow.LinConstraint</span></code></a></li>
+<li><a class="reference internal" href="#pre-defined-variable-specifiers">4.1.10.1.1. Pre-defined Variable Specifiers</a><ul>
+<li><a class="reference internal" href="#base-model">4.1.10.1.1.1. Base Model</a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.vars.inFlow"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.inFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.inFlow"><code class="docutils literal notranslate"><span class="pre">inFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.outFlow"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.outFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.outFlow"><code class="docutils literal notranslate"><span class="pre">outFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isInUsed"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isInUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.isInUsed"><code class="docutils literal notranslate"><span class="pre">isInUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isOutUsed"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isOutUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.isOutUsed"><code class="docutils literal notranslate"><span class="pre">isOutUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isInLessOut"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isInLessOut</span></code></a></li>
+<li><a class="reference internal" href="#mod.isInLessOut"><code class="docutils literal notranslate"><span class="pre">isInLessOut</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isInGreaterOut"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isInGreaterOut</span></code></a></li>
+<li><a class="reference internal" href="#mod.isInGreaterOut"><code class="docutils literal notranslate"><span class="pre">isInGreaterOut</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isInOutZero"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isInOutZero</span></code></a></li>
+<li><a class="reference internal" href="#mod.isInOutZero"><code class="docutils literal notranslate"><span class="pre">isInOutZero</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.vertexFlow"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.vertexFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.vertexFlow"><code class="docutils literal notranslate"><span class="pre">vertexFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isVertexUsed"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isVertexUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.isVertexUsed"><code class="docutils literal notranslate"><span class="pre">isVertexUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.transitInternalFlow"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.transitInternalFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.transitInternalFlow"><code class="docutils literal notranslate"><span class="pre">transitInternalFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.edgeFlow"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.edgeFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.edgeFlow"><code class="docutils literal notranslate"><span class="pre">edgeFlow</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isEdgeUsed"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isEdgeUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.isEdgeUsed"><code class="docutils literal notranslate"><span class="pre">isEdgeUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isBothReverseUsed"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isBothReverseUsed</span></code></a></li>
+<li><a class="reference internal" href="#mod.isBothReverseUsed"><code class="docutils literal notranslate"><span class="pre">isBothReverseUsed</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#overallcatalysis">4.1.10.1.1.2. OverallCatalysis</a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isOverallCata"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isOverallCata</span></code></a></li>
+<li><a class="reference internal" href="#mod.isOverallCata"><code class="docutils literal notranslate"><span class="pre">isOverallCata</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#overallautocatalysis">4.1.10.1.1.3. OverallAutocatalysis</a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.vars.isOverallAutocata"><code class="docutils literal notranslate"><span class="pre">hyperflow.vars.isOverallAutocata</span></code></a></li>
+<li><a class="reference internal" href="#mod.isOverallAutocata"><code class="docutils literal notranslate"><span class="pre">isOverallAutocata</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="index.html" title="Previous Chapter: 4.1.10. hyperflow">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.10. hyperflow
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Model.html" title="Next Chapter: 4.1.10.2. hyperflow/Model">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.10.2. hyp... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="hyperflow-linexp">
+<span id="py-hyperflow-linexp"></span><h1><span class="section-number">4.1.10.1. </span>hyperflow/LinExp<a class="headerlink" href="#hyperflow-linexp" title="Link to this heading">¶</a></h1>
+<p id="flowlinexpandconstraints-label">This part describes variable specifiers, linear expressions, and linear constraints.
+See <a class="reference internal" href="../../hyperflowModel/index.html#flowcommon-varspeclinexp"><span class="std std-ref">Variable Specifiers, Linear Expressions, and Constraints</span></a> for a higher-level description of these entities.</p>
+<p>Linear expressions (<a class="reference internal" href="#mod.hyperflow.LinExp" title="mod.hyperflow.LinExp"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperflow.LinExp</span></code></a>) and constraints (<a class="reference internal" href="#mod.hyperflow.LinConstraint" title="mod.hyperflow.LinConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperflow.LinConstraint</span></code></a>)
+can be implicitly created from variable specifiers and operators, meaning one rarely
+need to instantiate them explicitly.
+However creating the zero-expression might sometimes be useful (e.g., in a sum expression)
+and can be done simply with the expression <code class="docutils literal notranslate"><span class="pre">hyperflow.LinExp()</span></code>.</p>
+<p>A variable specifier is a representation of either a single variable or a sum of variables.
+The addition, multiplication and division operators are overloaded for variable specifiers and
+linear expressions such that expressions can be written in the natural manner.</p>
+<p>The operators <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> are overloaded on linear expressions to make the creation of
+linear constraints easier. However, one argument to the operator must be a linear expression while
+the other argument must be a number.</p>
+<p>All variable specifiers are defined in module scope. See <a class="reference internal" href="../../hyperflowModel/index.html#flowcommon"><span class="std std-ref">Hyperflow Model</span></a> for an overview of the specifiers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumVertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumVertex</span></span><a class="headerlink" href="#mod.hyperflow.VarSumVertex" title="Link to this definition">¶</a></dt>
+<dd><p>Represents the sum of all variables indicated by the given <a class="reference internal" href="#mod.hyperflow.VarSumVertex.id" title="mod.hyperflow.VarSumVertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a>.
+Can be indexed to retrieve a specifier for a single variable in the set.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumVertex.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarSumVertex.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Construct a variable specifier for a sum of variables associated with
+vertices in the underlying derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ID for the variable set to represent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumVertex.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarSumVertex.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Select the variable associated with the derivation graph vertex which represents the given object.
+When the resulting specifier is given to a flow model,
+if the given object is a vertex, then it must belong to the same derivation graph as the one
+underlying the model.
+If the given object is a graph, a vertex in the underlying derivation graph must exist
+which has the graph associated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em> or </em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – a graph or vertex used to select a vertex in the underlying derivation graph.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a variable specifier for a single variable in the set represented by this object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarVertex" title="mod.hyperflow.VarVertex">VarVertex</a> or <a class="reference internal" href="#mod.hyperflow.VarVertexGraph" title="mod.hyperflow.VarVertexGraph">VarVertexGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumVertex.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.hyperflow.VarSumVertex.id" title="Link to this definition">¶</a></dt>
+<dd><p>The ID for this specifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarVertex</span></span><a class="headerlink" href="#mod.hyperflow.VarVertex" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a variable associated with a single vertex in a derivation graph.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertex.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarVertex.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ID for the variable set to select variables from.</p></li>
+<li><p><strong>v</strong> (<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a>) – The vertex used to select a variable from the variable set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertex.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.hyperflow.VarVertex.id" title="Link to this definition">¶</a></dt>
+<dd><p>The ID for the underlying set specifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertex.vertex">
+<span class="sig-name descname"><span class="pre">vertex</span></span><a class="headerlink" href="#mod.hyperflow.VarVertex.vertex" title="Link to this definition">¶</a></dt>
+<dd><p>The graph used to index into the variable set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertexGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarVertexGraph</span></span><a class="headerlink" href="#mod.hyperflow.VarVertexGraph" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a variable associated with a single vertex in a derivation graph.
+This is done implicitly by a graph, and when this specifier is later given to a flow model
+a vertex with the graph associated must exist in the underlying derivation graph.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertexGraph.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarVertexGraph.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ID for the variable set to select variables from.</p></li>
+<li><p><strong>g</strong> (<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – The graph used to select a variable from the variable set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertexGraph.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.hyperflow.VarVertexGraph.id" title="Link to this definition">¶</a></dt>
+<dd><p>The ID for the underlying set specifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarVertexGraph.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#mod.hyperflow.VarVertexGraph.graph" title="Link to this definition">¶</a></dt>
+<dd><p>The graph used to index into the variable set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph">Graph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumEdge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumEdge</span></span><a class="headerlink" href="#mod.hyperflow.VarSumEdge" title="Link to this definition">¶</a></dt>
+<dd><p>Represents the sum of all variables indicated by the given <a class="reference internal" href="#mod.hyperflow.VarSumEdge.id" title="mod.hyperflow.VarSumEdge.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a>.
+Can be indexed to retrieve a specifier for a single variable in the set.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumEdge.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarSumEdge.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Construct a variable specifier for a sum of variables associated with
+edges in the underlying derivation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ID for the variable set to represent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumEdge.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarSumEdge.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Select the variable associated with the derivation graph edge which represents the given object.
+When the resulting specifier is given to a flow model, the given edge must be long to the same
+derivation graph as the one underlying the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>e</strong> (<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a>) – an edge used to select a variable.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a variable specifier for a single variable in the set represented by this object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarEdge" title="mod.hyperflow.VarEdge">VarEdge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumEdge.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.hyperflow.VarSumEdge.id" title="Link to this definition">¶</a></dt>
+<dd><p>The ID for this specifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.VarEdge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarEdge</span></span><a class="headerlink" href="#mod.hyperflow.VarEdge" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a variable associated with an edge in a derivation graph.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarEdge.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarEdge.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ID for the variable set to select variables from.</p></li>
+<li><p><strong>e</strong> (<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a>) – The edge used to select a variable from the variable set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarEdge.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.hyperflow.VarEdge.id" title="Link to this definition">¶</a></dt>
+<dd><p>The ID for the underlying set specifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarEdge.edge">
+<span class="sig-name descname"><span class="pre">edge</span></span><a class="headerlink" href="#mod.hyperflow.VarEdge.edge" title="Link to this definition">¶</a></dt>
+<dd><p>The edge used to index into the variable set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge">DG.HyperEdge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumCustom">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumCustom</span></span><a class="headerlink" href="#mod.hyperflow.VarSumCustom" title="Link to this definition">¶</a></dt>
+<dd><p>Represents the sum of all variables indicated by the given <a class="reference internal" href="#mod.hyperflow.VarSumCustom.id" title="mod.hyperflow.VarSumCustom.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a>.
+Can be indexed to retrieve a specifier for a single variable in the set.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumCustom.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarSumCustom.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Construct a variable specifier for a sum of custom variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ID for the variable set to represent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumCustom.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarSumCustom.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Select the variable associated with the given name.
+When the resulting specifier is given to a flow model that variable must have been created
+in the specification in some way.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – a name used to select a variable.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a variable specifier for a single variable in the set represented by this object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarCustom" title="mod.hyperflow.VarCustom">VarCustom</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarSumCustom.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.hyperflow.VarSumCustom.id" title="Link to this definition">¶</a></dt>
+<dd><p>The ID for this specifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.VarCustom">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarCustom</span></span><a class="headerlink" href="#mod.hyperflow.VarCustom" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a custom variable.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.VarCustom.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.VarCustom.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The ID for the variable set to select variables from.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name used to select a variable from the variable set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarCustom.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#mod.hyperflow.VarCustom.id" title="Link to this definition">¶</a></dt>
+<dd><p>The ID for the underlying set specifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.VarCustom.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#mod.hyperflow.VarCustom.name" title="Link to this definition">¶</a></dt>
+<dd><p>The name used to index into the variable set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.Var">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">Var</span></span><a class="headerlink" href="#mod.hyperflow.Var" title="Link to this definition">¶</a></dt>
+<dd><p>Represents any variable specifier. They are all implicitly convertible to this type.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.LinExp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">LinExp</span></span><a class="headerlink" href="#mod.hyperflow.LinExp" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a linear expression over variable specifiers.</p>
+<p>The usual arithmetic operators are overloaded on variable specifiers and this class
+to automatically create expressions.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.LinConstraint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">LinConstraint</span></span><a class="headerlink" href="#mod.hyperflow.LinConstraint" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a linear constraint with a <a class="reference internal" href="#mod.hyperflow.LinExp" title="mod.hyperflow.LinExp"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperflow.LinExp</span></code></a> on one side,
+and a constant on the other side.
+The operators <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code>, and <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> are overloaded on linear expressions
+to automatically create constraints.</p>
+</dd></dl>
+
+<section id="pre-defined-variable-specifiers">
+<h2><span class="section-number">4.1.10.1.1. </span>Pre-defined Variable Specifiers<a class="headerlink" href="#pre-defined-variable-specifiers" title="Link to this heading">¶</a></h2>
+<p>Each of the variable specifiers are defined in the submodule <code class="docutils literal notranslate"><span class="pre">hyperflow.vars</span></code>,
+and then import in the root module, so they are directly accessible.</p>
+<section id="base-model">
+<h3><span class="section-number">4.1.10.1.1.1. </span>Base Model<a class="headerlink" href="#base-model" title="Link to this heading">¶</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.inFlow">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">inFlow</span></span><a class="headerlink" href="#mod.hyperflow.vars.inFlow" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.inFlow">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">inFlow</span></span><a class="headerlink" href="#mod.inFlow" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.outFlow">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">outFlow</span></span><a class="headerlink" href="#mod.hyperflow.vars.outFlow" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.outFlow">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">outFlow</span></span><a class="headerlink" href="#mod.outFlow" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isInUsed">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isInUsed</span></span><a class="headerlink" href="#mod.hyperflow.vars.isInUsed" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isInUsed">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isInUsed</span></span><a class="headerlink" href="#mod.isInUsed" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isOutUsed">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isOutUsed</span></span><a class="headerlink" href="#mod.hyperflow.vars.isOutUsed" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isOutUsed">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isOutUsed</span></span><a class="headerlink" href="#mod.isOutUsed" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isInLessOut">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isInLessOut</span></span><a class="headerlink" href="#mod.hyperflow.vars.isInLessOut" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isInLessOut">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isInLessOut</span></span><a class="headerlink" href="#mod.isInLessOut" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isInGreaterOut">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isInGreaterOut</span></span><a class="headerlink" href="#mod.hyperflow.vars.isInGreaterOut" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isInGreaterOut">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isInGreaterOut</span></span><a class="headerlink" href="#mod.isInGreaterOut" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isInOutZero">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isInOutZero</span></span><a class="headerlink" href="#mod.hyperflow.vars.isInOutZero" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isInOutZero">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isInOutZero</span></span><a class="headerlink" href="#mod.isInOutZero" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.vertexFlow">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">vertexFlow</span></span><a class="headerlink" href="#mod.hyperflow.vars.vertexFlow" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.vertexFlow">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">vertexFlow</span></span><a class="headerlink" href="#mod.vertexFlow" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isVertexUsed">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isVertexUsed</span></span><a class="headerlink" href="#mod.hyperflow.vars.isVertexUsed" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isVertexUsed">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isVertexUsed</span></span><a class="headerlink" href="#mod.isVertexUsed" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.transitInternalFlow">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">transitInternalFlow</span></span><a class="headerlink" href="#mod.hyperflow.vars.transitInternalFlow" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.transitInternalFlow">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">transitInternalFlow</span></span><a class="headerlink" href="#mod.transitInternalFlow" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.edgeFlow">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">edgeFlow</span></span><a class="headerlink" href="#mod.hyperflow.vars.edgeFlow" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.edgeFlow">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">edgeFlow</span></span><a class="headerlink" href="#mod.edgeFlow" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumEdge" title="mod.hyperflow.VarSumEdge">hyperflow.VarSumEdge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isEdgeUsed">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isEdgeUsed</span></span><a class="headerlink" href="#mod.hyperflow.vars.isEdgeUsed" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isEdgeUsed">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isEdgeUsed</span></span><a class="headerlink" href="#mod.isEdgeUsed" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumEdge" title="mod.hyperflow.VarSumEdge">hyperflow.VarSumEdge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isBothReverseUsed">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isBothReverseUsed</span></span><a class="headerlink" href="#mod.hyperflow.vars.isBothReverseUsed" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isBothReverseUsed">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isBothReverseUsed</span></span><a class="headerlink" href="#mod.isBothReverseUsed" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumEdge" title="mod.hyperflow.VarSumEdge">hyperflow.VarSumEdge</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="overallcatalysis">
+<h3><span class="section-number">4.1.10.1.1.2. </span>OverallCatalysis<a class="headerlink" href="#overallcatalysis" title="Link to this heading">¶</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isOverallCata">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isOverallCata</span></span><a class="headerlink" href="#mod.hyperflow.vars.isOverallCata" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isOverallCata">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isOverallCata</span></span><a class="headerlink" href="#mod.isOverallCata" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="overallautocatalysis">
+<h3><span class="section-number">4.1.10.1.1.3. </span>OverallAutocatalysis<a class="headerlink" href="#overallautocatalysis" title="Link to this heading">¶</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="mod.hyperflow.vars.isOverallAutocata">
+<span class="sig-prename descclassname"><span class="pre">hyperflow.vars.</span></span><span class="sig-name descname"><span class="pre">isOverallAutocata</span></span><a class="headerlink" href="#mod.hyperflow.vars.isOverallAutocata" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.isOverallAutocata">
+<span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">isOverallAutocata</span></span><a class="headerlink" href="#mod.isOverallAutocata" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarSumVertex" title="mod.hyperflow.VarSumVertex">hyperflow.VarSumVertex</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/hyperflow/LinExp.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

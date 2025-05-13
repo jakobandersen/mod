@@ -1,0 +1,59 @@
+.. _py-Derivation:
+
+**********************************************************
+Derivation
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: Derivation
+
+    This class is a simple wrapper for passing data around.
+    It contains two multisets of graphs :math:`G` and :math:`H`,
+    and optionally a rule :math:`p`.
+    An object may thus implicitly store a set of direct derivations
+    :math:`G\Rightarrow^p H`, though the validity of the data is not checked.
+
+    An object of this class is implicitly convertible to a :class:`Derivations` object.
+
+    .. attribute:: left
+
+        Represents the multi-set of left graphs :math:`G`.
+
+        :type: list[Graph]
+    .. attribute:: rule
+
+        Represents the transformation rule :math:`p`, or no rule at all.
+
+        :type: Rule
+    .. attribute:: right
+
+        Represents the multi-set of right graphs :math:`H`.
+
+        :type: list[Graph]
+.. class:: Derivations
+
+    This class is a simple wrapper for passing data around.
+    It contains two multisets of graphs :math:`G` and :math:`H`,
+    and (possibly empty) set of rules.
+    An object may thus implicitly store a set of direct derivations
+    :math:`G\Rightarrow^p H` for each rule :math:`p`,
+    though the validity of the data is not checked.
+
+    .. attribute:: left
+
+        Represents the multi-set of left graphs :math:`G`.
+
+        :type: list[Graph]
+    .. attribute:: rules
+
+        Represents a (possibly empty) set of transformation rules.
+
+        :type: list[Rule]
+    .. attribute:: right
+
+        Represents the multi-set of right graphs :math:`H`.
+
+        :type: list[Graph]
