@@ -7,6 +7,7 @@ exacts = {
 		"graph",
 		"rule", "rule::RCExp", "RCExp",
 		"dg",
+		"hyperflow", "hyperflow::vars",
 		"post",
 		"lib", "boost",
 	],

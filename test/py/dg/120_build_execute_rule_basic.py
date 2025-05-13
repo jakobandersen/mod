@@ -16,6 +16,7 @@ r1term = ruleGMLString("""rule [
 
 exeStrat(DGStrat.makeRule(r1string), [], [], ls=lsString)
 exeStrat(DGStrat.makeRule(r1term), [], [], ls=lsTerm)
+exeStrat(DGStrat.makeRule(Rule.fromGMLString("rule []")), [], [])
 fail(lambda: DGStrat.makeRule(None), "The rule is a null pointer.")
 fail(lambda: exeStrat(DGStrat.makeRule(r1string), [], [], ls=lsTerm),
 	"Rule 'r1string' has intended label type 'string', but the DG is using 'term'.")

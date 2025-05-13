@@ -19,12 +19,18 @@ constexpr bool VERBOSE = false;
 } // namespace
 
 DepictionData::Side::Side(const DepictionData &depict, const SideData &data,
+#ifdef MOD_HAVE_OPENBABEL
                           const Chem::OBMolHandle CoordData::*obSide,
+#endif
                           const lib::DPO::CombinedRule::SideGraphType &g,
                           SideToCG mToCG,
                           PropMolecule::Side pMol,
                           std::function<PropStereo::Side()> fStereo)
-		: depict(depict), data(data), obSide(obSide), g(g), mToCG(mToCG), pMol(pMol), fStereo(fStereo) {}
+		: depict(depict), data(data),
+#ifdef MOD_HAVE_OPENBABEL
+			obSide(obSide),
+#endif
+			g(g), mToCG(mToCG), pMol(pMol), fStereo(fStereo) {}
 
 AtomData DepictionData::Side::getAtomData(SideVertex vS) const {
 	return pMol[vS];
@@ -84,12 +90,12 @@ DepictionData::Side::getEdgeFake3DType(SideEdge eS, bool withHydrogen) const {
 	if(!hasImportantStereo(vSrc) && !hasImportantStereo(vTar))
 		return lib::IO::Graph::Write::EdgeFake3DType::None;
 #ifndef MOD_HAVE_OPENBABEL
-		throw FatalError(MOD_NO_OPENBABEL_ERROR_STR);
+	return lib::IO::Graph::Write::EdgeFake3DType::Unkown;
 #else
 	assert(depict.hasMoleculeEncoding);
 	const auto idSrc = get(boost::vertex_index_t(), g, vSrc);
 	const auto idTar = get(boost::vertex_index_t(), g, vTar);
-	const CoordData &cData = withHydrogen ? depict.cDataAll : depict.cDataNoHydrogen;
+	const CoordData &cData = depict.getCoordData(withHydrogen);
 	return (cData.*obSide).getBondFake3D(idSrc, idTar);
 #endif
 }
@@ -264,12 +270,12 @@ lib::IO::Graph::Write::EdgeFake3DType DepictionData::K::getEdgeFake3DType(KEdge 
 	if(!hasImportantStereo(vSrc) && !hasImportantStereo(vTar))
 		return lib::IO::Graph::Write::EdgeFake3DType::None;
 #ifndef MOD_HAVE_OPENBABEL
-		throw FatalError(MOD_NO_OPENBABEL_ERROR_STR);
+	return lib::IO::Graph::Write::EdgeFake3DType::Unkown;
 #else
 	assert(depict.hasMoleculeEncoding);
 	const auto idSrc = get(boost::vertex_index_t(), g, vSrc);
 	const auto idTar = get(boost::vertex_index_t(), g, vTar);
-	const CoordData &cData = withHydrogen ? depict.cDataAll : depict.cDataNoHydrogen;
+	const CoordData &cData = depict.getCoordData(withHydrogen);
 	if(has_stereo(depict.lr) && get_stereo(depict.lr).inContext(vSrc) && get_stereo(depict.lr).inContext(vTar))
 		return cData.obMolLeft.getBondFake3D(idSrc, idTar);
 	else
@@ -369,7 +375,6 @@ DepictionData::DepictionData(const LabelledRule &lr)
 	if(VERBOSE) std::cout << "DepictionData(" << this << "):" << std::endl;
 
 	const auto &rDPO = lr.getRule();
-	const auto &g = get_graph(lr);
 	const auto &pString = get_string(lr);
 	const auto &pMol = get_molecule(lr);
 	{ // vertexData
@@ -453,35 +458,6 @@ DepictionData::DepictionData(const LabelledRule &lr)
 		if(VERBOSE) std::cout << "  handleEdges(R):" << std::endl;
 		handleEdges(getR(rDPO), pString.getRight(), pMol.getRight(), rightData);
 	}
-
-	if(hasMoleculeEncoding) {
-#ifdef MOD_HAVE_OPENBABEL
-		const auto doIt = [&](CoordData &cData, const bool withHydrogen) {
-			std::tie(cData.obMol, cData.obMolLeft, cData.obMolRight)
-					= Chem::makeOBMol(lr, getCombined(), getCombined(),
-					                  getLeft(), getLeft(),
-					                  getRight(), getRight(),
-					                  [this](const lib::DPO::CombinedRule::CombinedVertex v) {
-						                  return mayCollapse(v);
-					                  }, withHydrogen);
-			cData.x.resize(num_vertices(g));
-			cData.y.resize(num_vertices(g));
-			for(const auto v: asRange(vertices(g))) {
-				const auto vId = get(boost::vertex_index_t(), g, v);
-				if(cData.obMol.hasAtom(vId)) {
-					cData.x[vId] = cData.obMol.getAtomX(vId);
-					cData.y[vId] = cData.obMol.getAtomY(vId);
-				} else {
-					assert(!withHydrogen);
-					cData.x[vId] = std::numeric_limits<double>::quiet_NaN();
-					cData.y[vId] = std::numeric_limits<double>::quiet_NaN();
-				}
-			}
-		};
-		doIt(cDataAll, true);
-		doIt(cDataNoHydrogen, false);
-#endif
-	}
 }
 
 bool DepictionData::hasImportantStereo(CombinedVertex v) const {
@@ -535,19 +511,19 @@ bool DepictionData::getHasCoordinates() const {
 }
 
 double DepictionData::getX(CombinedVertex v, bool withHydrogen) const {
-	if(!getHasCoordinates()) MOD_ABORT;
+	if(!getHasCoordinates()) return std::numeric_limits<double>::quiet_NaN();
 	const auto &g = get_graph(lr);
 	const auto vId = get(boost::vertex_index_t(), g, v);
-	const CoordData &cData = withHydrogen ? cDataAll : cDataNoHydrogen;
+	const CoordData &cData = getCoordData(withHydrogen);
 	assert(vId < cData.x.size());
 	return cData.x[vId];
 }
 
 double DepictionData::getY(CombinedVertex v, bool withHydrogen) const {
-	if(!getHasCoordinates()) MOD_ABORT;
+	if(!getHasCoordinates()) return std::numeric_limits<double>::quiet_NaN();
 	const auto &g = get_graph(lr);
 	const auto vId = get(boost::vertex_index_t(), g, v);
-	const CoordData &cData = withHydrogen ? cDataAll : cDataNoHydrogen;
+	const CoordData &cData = getCoordData(withHydrogen);
 	assert(vId < cData.y.size());
 	return cData.y[vId];
 }
@@ -582,13 +558,19 @@ void DepictionData::copyCoords(const DepictionData &other, const std::map<Combin
 #endif
 		}
 	};
+	getCoordData(true);
+	getCoordData(false);
 	doIt(cDataAll, true);
 	doIt(cDataNoHydrogen, false);
 }
 
 DepictionData::Side DepictionData::getLeft() const {
 	if(!hasMoleculeEncoding) MOD_ABORT;
-	return {*this, leftData, &CoordData::obMolLeft, getL(lr.getRule()),
+	return {*this, leftData,
+#ifdef MOD_HAVE_OPENBABEL
+		&CoordData::obMolLeft,
+#endif
+		getL(lr.getRule()),
 	        lr.getRule().getLtoCG(),
 	        get_molecule(lr).getLeft(),
 	        [this]() { return get_stereo(lr).getLeft(); }};
@@ -601,7 +583,11 @@ DepictionData::K DepictionData::getContext() const {
 
 DepictionData::Side DepictionData::getRight() const {
 	if(!hasMoleculeEncoding) MOD_ABORT;
-	return {*this, rightData, &CoordData::obMolRight, getR(lr.getRule()),
+	return {*this, rightData,
+#ifdef MOD_HAVE_OPENBABEL
+		&CoordData::obMolRight,
+#endif
+		getR(lr.getRule()),
 	        lr.getRule().getRtoCG(),
 	        get_molecule(lr).getRight(),
 	        [this]() { return get_stereo(lr).getRight(); }};
@@ -609,6 +595,35 @@ DepictionData::Side DepictionData::getRight() const {
 
 DepictionData::Combined DepictionData::getCombined() const {
 	return {*this};
+}
+
+const DepictionData::CoordData &DepictionData::getCoordData(bool withHydrogen) const {
+	if(!hasMoleculeEncoding) MOD_ABORT;
+	auto &cData = withHydrogen ? cDataAll : cDataNoHydrogen;
+#ifdef MOD_HAVE_OPENBABEL
+	const auto &g = get_graph(lr);
+	std::tie(cData.obMol, cData.obMolLeft, cData.obMolRight)
+			= Chem::makeOBMol(lr, getCombined(), getCombined(),
+							  getLeft(), getLeft(),
+							  getRight(), getRight(),
+							  [this](const lib::DPO::CombinedRule::CombinedVertex v) {
+								  return mayCollapse(v);
+							  }, withHydrogen);
+	cData.x.resize(num_vertices(g));
+	cData.y.resize(num_vertices(g));
+	for(const auto v: asRange(vertices(g))) {
+		const auto vId = get(boost::vertex_index_t(), g, v);
+		if(cData.obMol.hasAtom(vId)) {
+			cData.x[vId] = cData.obMol.getAtomX(vId);
+			cData.y[vId] = cData.obMol.getAtomY(vId);
+		} else {
+			assert(!withHydrogen);
+			cData.x[vId] = std::numeric_limits<double>::quiet_NaN();
+			cData.y[vId] = std::numeric_limits<double>::quiet_NaN();
+		}
+	}
+#endif
+	return cData;
 }
 
 } // namespace mod::lib::rule::Write

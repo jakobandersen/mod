@@ -14,6 +14,8 @@ _oldFlags = sys.getdlopenflags()
 sys.setdlopenflags(_oldFlags | ctypes.RTLD_GLOBAL)
 from . import libpymod  # noqa
 from .libpymod import *  # noqa
+from . import hyperflow  # noqa
+from .hyperflow.vars import *  # type: ignore # noqa
 from . import post  # noqa
 sys.setdlopenflags(_oldFlags)
 
@@ -46,7 +48,7 @@ def _fixClass(name: str, c: Any, indent: int) -> None:
 	if not name.startswith("_Func_"):
 		c.__setattr__ = _NoNew__setattr__
 
-	if name.startswith("_Func_") or name.startswith("_Vec"):
+	if name.startswith("_Func_") or name.startswith("_Vec") or name.startswith("Var"):
 		c.__hash__ = None
 	elif name.endswith("Vertex"):
 		assert c.__hash__ is not None and c.__hash__ != object.__hash__
@@ -56,7 +58,7 @@ def _fixClass(name: str, c: Any, indent: int) -> None:
 	elif c.__hash__ == object.__hash__:
 		c.__hash__ = None
 
-	if not (name.startswith("_Func_") or name.startswith("_Vec")):
+	if not (name.startswith("_Func_") or name.startswith("_Vec") or name.startswith("Var")):
 		if name.endswith("Vertex") or name.endswith("Edge"):
 			assert c.__bool__ is not None
 
@@ -71,6 +73,7 @@ def _fixModule(modObj):
 		_fixClass(c[0], c[1], 0)
 
 _fixModule(libpymod)
+_fixModule(hyperflow)
 _fixModule(post)
 
 #----------------------------------------------------------
@@ -195,6 +198,9 @@ LabelRelation.__str__ = libpymod._LabelRelation__str__  # type: ignore
 IsomorphismPolicy.__str__ = libpymod._IsomorphismPolicy__str__  # type: ignore
 SmilesClassPolicy.__str__ = libpymod._SmilesClassPolicy__str__  # type: ignore
 Action.__str__ = libpymod._Action__str__  # type: ignore
+
+def getAvailableILPSolvers() -> List[str]:
+	return _unwrap(libpymod._getAvailableILPSolvers())
 
 config = getConfig()
 
@@ -1112,3 +1118,192 @@ rcSuper = _RCSuperOp()
 
 def showDump(f: str) -> None:
 	return libpymod.showDump(prefixFilename(f))  # type: ignore
+
+
+###########################################################
+# Hyperflow
+###########################################################
+
+hyperflow.Model.__repr__ = hyperflow.Model.__str__  # type: ignore
+hyperflow.Model.__eq__ = lambda self, other: self.id == other.id  # type: ignore
+hyperflow.Model.__hash__ = lambda self: self.id  # type: ignore
+
+class Flow:
+	def __new__(cls, dg: DG, ilpSolver="default") -> hyperflow.Model:  # type: ignore
+		_deprecation("Flow is deprecated, construct a hyperflow.Model object directly.")
+		return hyperflow.Model(dg, ilpSolver=ilpSolver)
+
+	@staticmethod
+	def load(*args, **kwargs) -> hyperflow.Model:
+		_deprecation("Flow.load() is deprecated, use hyperflow.Model.load().")
+		return hyperflow.Model.load(*args, **kwargs)
+
+def dgFlow(dg: DG) -> hyperflow.Model:
+	_deprecation("dgFlow is deprecated, construct a hyperflow.Model object directly.")
+	return hyperflow.Model(dg)
+
+def dgFlowDump(dg: DG, s: str) -> hyperflow.Model:
+	_deprecation("dgFlowDump() is deprecated, use hyperflow.Model.load().")
+	return hyperflow.Model.load(dg, s)
+
+
+def dgFlowDumpString(dg: DG, s: str) -> hyperflow.Model:
+	_deprecation("dgFlowDumpString() is deprecated, use hyperflow.Model.loadString().")
+	return hyperflow.Model.loadString(dg, s)
+
+def _Flow__getattribute__(self: hyperflow.Model, name: str) -> Any:
+	if name in ("sources", "sinks", "excludedVertices",
+				"customBoolVariables", "customIntVariables", "customFloatVariables",
+				"enumerationVars", "transitEnumeration"):
+		return _unwrap(object.__getattribute__(self, name))
+	else:
+		return object.__getattribute__(self, name)
+hyperflow.Model.__getattribute__ = _Flow__getattribute__  # type: ignore
+
+def _Flow__setattr__(self: hyperflow.Model, name: str, value: Any) -> None:
+	if name == 'objectiveFunction':
+		object.__setattr__(self, name, value)
+	elif name.startswith("_solverHax"):
+		object.__setattr__(self, name, value)
+	else:
+		_NoNew__setattr__(self, name, value)
+hyperflow.Model.__setattr__ = _Flow__setattr__  # type: ignore
+
+
+_Flow_findSolutions_orig = hyperflow.Model.findSolutions
+def _Flow_findSolutions(self: hyperflow.Model, *, maxNumSolutions: int=1,
+						verbosity: int=1, ilpVerbosity: int=1) -> hyperflow.SolutionRange:
+	return _Flow_findSolutions_orig(self, maxNumSolutions,  # type: ignore
+	                                verbosity, ilpVerbosity)
+hyperflow.Model.findSolutions = _Flow_findSolutions  # type: ignore
+
+def _Flow_setSolverEnumerateBy(self: hyperflow.Model, absGap: Optional[int]=None, maxNumSolutions: int=2**30,
+	                           enumerationVarSpecifier: Optional[hyperflow.LinExp]=None,
+	                           transitEnumeration: List[Union[Graph, DG.Vertex]]=[]) -> None:
+	_deprecation("setSolverEnumerateBy() on a flow model is partially deprecated and removed. Use addEnumerationVar(), addTransitEnumeration(), and arguments to findSolutions() instead.")
+	if enumerationVarSpecifier is not None:
+		raise Exception("setSolverEnumerateBy no longer accepts enumerationVarSpecifier, use addEnumerationVar() on the flow model instead.")
+	self._solverHax = True  # type: ignore
+	self._solverHax_maxNumSolutions = maxNumSolutions  # type: ignore
+	self._solverHax_transitEnumeration = transitEnumeration  # type: ignore
+	self.absGap = absGap
+hyperflow.Model.setSolverEnumerateBy = _Flow_setSolverEnumerateBy  # type: ignore
+
+def _Flow_calc(self: hyperflow.Model, *, maxNumSolutions: int=1) -> None:
+	_deprecation("calc() on a flow model is deprecated. Use findSolutions() instead.")
+	if hasattr(self, "_solverHax"):
+		if maxNumSolutions != 1:
+			assert False
+		print("Calc: using settings from deprecated setSolverEnumerateBy")
+		maxNumSolutions = self._solverHax_maxNumSolutions  # type: ignore
+		print("\tmaxNumSolutions = %d" % maxNumSolutions)
+		print("\tadded transitEnumeration =", end="")
+		for g in self._solverHax_transitEnumeration:  # type: ignore
+			print("", g, end="")
+			self.addTransitEnumeration(g)  # type: ignore
+		print()
+		del self._solverHax
+	self.findSolutions(maxNumSolutions=maxNumSolutions)
+hyperflow.Model.calc = _Flow_calc  # type: ignore
+
+_Flow_load_orig = hyperflow.Model.load
+def _Flow_load(dg: DG, f: str, ilpSolver: str="default", verbosity: int=1) -> hyperflow.Model:
+	return _Flow_load_orig(dg, prefixFilename(f), ilpSolver, verbosity)
+hyperflow.Model.load = _Flow_load  # type: ignore
+
+
+# Variable Specifiers
+#----------------------------------------------------------
+
+def FlowLinExp(*args, **kwargs) -> hyperflow.LinExp:
+	_deprecation("FlowLinExp is deprecated, construct a hyperflow.LinExp object directly.")
+	return hyperflow.LinExp(*args, **kwargs)
+
+_FlowVarSum__repr__ = lambda self: "%s(%s)" % (self.__class__.__name__, self.id)  # noqa
+hyperflow.VarSumVertex.__repr__ = _FlowVarSum__repr__  # type: ignore
+hyperflow.VarVertex.__repr__ = lambda self: "VarVertex(%s, %s)" % (self.id, self.vertex)  # type: ignore
+hyperflow.VarVertexGraph.__repr__ = lambda self: "VarVertexGraph(%s, %s)" % (self.id, self.graph)  # type: ignore
+hyperflow.VarSumEdge.__repr__ = _FlowVarSum__repr__  # type: ignore
+hyperflow.VarEdge.__repr__ = lambda self: "VarEdge(%s, %s)" % (self.id, self.edge)  # type: ignore
+hyperflow.VarSumCustom.__repr__ = lambda self: "VarSumCustom(%s)" % self.id  # type: ignore
+hyperflow.VarCustom.__repr__ = lambda self: "VarCustom(%s, %s)" % (self.id, self.name)  # type: ignore
+
+
+# Operators
+#----------------------------------------------------------
+
+_Flow__pos__ = lambda self: +hyperflow.LinExp(self)  # noqa
+_Flow__neg__ = lambda self: -hyperflow.LinExp(self)  # noqa
+_Flow__add__ = lambda self, other: hyperflow.LinExp(self) + hyperflow.LinExp(other)  # noqa
+_Flow__sub__ = lambda self, other: hyperflow.LinExp(self) - hyperflow.LinExp(other)  # noqa
+_Flow__mul__ = lambda self, other: hyperflow.LinExp(self) * other  # noqa
+_Flow__le__ = lambda self, other: hyperflow.LinExp(self) <= other  # noqa
+_Flow__eq__ = lambda self, other: hyperflow.LinExp(self) == other  # noqa
+_Flow__ge__ = lambda self, other: hyperflow.LinExp(self) >= other  # noqa
+		
+for t in [hyperflow.VarSumVertex, hyperflow.VarVertex, hyperflow.VarVertexGraph,
+		hyperflow.VarSumEdge, hyperflow.VarEdge,
+		hyperflow.VarSumCustom, hyperflow.VarCustom
+	]:
+	if t is not hyperflow.LinExp:
+		t.__pos__ = _Flow__pos__  # type: ignore
+		t.__neg__ = _Flow__neg__  # type: ignore
+		t.__le__ = _Flow__le__  # type: ignore
+		t.__eq__ = _Flow__eq__  # type: ignore
+		t.__ge__ = _Flow__ge__  # type: ignore
+	t.__add__ = _Flow__add__  # type: ignore
+	t.__sub__ = _Flow__sub__  # type: ignore
+	t.__mul__ = _Flow__mul__  # type: ignore
+	t.__rmul__ = _Flow__mul__  # type: ignore
+
+def _FlowVar_indexing(self, x):
+	_deprecation("Operator (.) on flow variable specifiers is deprecated. Use operator [.] instead.")
+	return self[x]
+hyperflow.VarSumVertex.__call__ = _FlowVar_indexing  # type: ignore
+hyperflow.VarSumEdge.__call__ = _FlowVar_indexing  # type: ignore
+
+#----------------------------------------------------------
+# SolutionRange
+#----------------------------------------------------------
+
+_FlowSolutionRange_print_orig = hyperflow.SolutionRange.print
+def _FlowSolutionRange_print(self: hyperflow.SolutionRange, printer: Optional[hyperflow.Printer]=None, data: Optional[DGPrintData]=None) -> None:
+	if printer is None:
+		printer = hyperflow.Printer()
+	if data is None:
+		data = DGPrintData(self.model.dg)
+	_FlowSolutionRange_print_orig(self, printer, data)
+hyperflow.SolutionRange.print = _FlowSolutionRange_print  # type: ignore
+
+#----------------------------------------------------------
+# Solution
+#----------------------------------------------------------
+
+hyperflow.Solution.__hash__ = lambda self: hash((self.flow, self.id))  # type: ignore
+
+_FlowSolution_print_orig = hyperflow.Solution.print
+def _FlowSolution_print(self: hyperflow.Solution, printer: Optional[hyperflow.Printer]=None, data: Optional[DGPrintData]=None) -> Tuple[str, str]:
+	if printer is None:
+		printer = hyperflow.Printer()
+	if data is None:
+		data = DGPrintData(self.model.dg)
+	return _FlowSolution_print_orig(self, printer, data)
+hyperflow.Solution.print = _FlowSolution_print  # type: ignore
+
+#----------------------------------------------------------
+# Printer
+#----------------------------------------------------------
+
+def FlowPrinter(*args, **kwargs) -> hyperflow.Printer:
+	_deprecation("FlowPrinter is deprecated, use hyperflow.Printer instead.")
+	return hyperflow.Printer(*args, **kwargs)
+
+_FlowPrinter_pushInEdgeLabel_orig = hyperflow.Printer.pushInEdgeLabel
+def _FlowPrinter_pushInEdgeLabel(self: hyperflow.Printer, f: Union[str, Callable[[DG.Vertex], str]]) -> None:
+	_FlowPrinter_pushInEdgeLabel_orig(self, _funcWrap(libpymod._Func_StringDGVertex, f))
+hyperflow.Printer.pushInEdgeLabel = _FlowPrinter_pushInEdgeLabel  # type: ignore
+
+_FlowPrinter_pushOutEdgeLabel_orig = hyperflow.Printer.pushOutEdgeLabel
+def _FlowPrinter_pushOutEdgeLabel(self: hyperflow.Printer, f: Union[str, Callable[[DG.Vertex], str]]) -> None:
+	_FlowPrinter_pushOutEdgeLabel_orig(self, _funcWrap(libpymod._Func_StringDGVertex, f))
+hyperflow.Printer.pushOutEdgeLabel = _FlowPrinter_pushOutEdgeLabel  # type: ignore

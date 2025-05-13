@@ -80,6 +80,7 @@ install(PROGRAMS ${exportDir}/mod
 # Valgrind suppression files
 # -------------------------------------------------------------------------
 install(FILES
+            share/mod/cplex.supp
             share/mod/obabel.supp
             share/mod/python.supp
             share/mod/extra.supp

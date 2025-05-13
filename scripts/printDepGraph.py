@@ -66,6 +66,8 @@ def ignoreEdge(mod, depMod):
 		return 'util'
 	if depMod in utilMods:
 		return 'util'
+	if mod == ('lib', 'Flow') or depMod == ('lib', 'Flow'):
+		return 'deprecated'
 	return 'dep'
 def printEdge(mod, depMod, count, indent=False):
 	if depMod == mod:

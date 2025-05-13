@@ -189,7 +189,7 @@ private:
 						logger.indent() << "match to:\t" << get(boost::vertex_index_t(), gResult, vResult)
 						                << "(" << gResult[vResult].membership << ")"
 						                << "(";
-						visitor.template printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
+						visitor.printVertexResult(rFirst, rSecond, match, result, logger.s, vResult);
 						logger.s << ")" << std::endl;
 					}
 					// now we calculate the new membership for the node
@@ -249,7 +249,7 @@ private:
 				                << vSrcResult << ", " << vTarResult << ")"
 				                << "(" << meFirst << ")"
 				                << "(";
-				visitor.template printEdgeFirst(rFirst, rSecond, match, result, logger.s, eFirst);
+				visitor.printEdgeFirst(rFirst, rSecond, match, result, logger.s, eFirst);
 				logger.s << ")" << std::endl;
 				++logger.indentLevel;
 			}
@@ -402,7 +402,7 @@ private:
 				                << ", " << vResultTar << ")"
 				                << ", (" << gSecond[eSecond].membership << ")"
 				                << "(";
-				visitor.template printEdgeSecond(rFirst, rSecond, match, result, logger.s, eSecond);
+				visitor.printEdgeSecond(rFirst, rSecond, match, result, logger.s, eSecond);
 				logger.s << ")" << std::endl;
 				++logger.indentLevel;
 			}

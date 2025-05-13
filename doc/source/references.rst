@@ -55,6 +55,29 @@ Rule Composition
 	    `http <http://www.jsystchem.com/content/4/1/4>`__ ]
 
 
+Hyperflows
+----------
+
+.. [AFMS-NPFlow] | **Maximizing output and recognizing autocatalysis in chemical reaction networks is NP-complete.**
+	| Jakob L. Andersen, Christoph Flamm, Daniel Merkle, and Peter F. Stadler
+	| *Journal of Systems Chemistry*, 3(1):1, 2012.
+	  [ `DOI <http://doi.org/10.1186/1759-2208-3-1>`__ |
+	    `http <http://www.jsystchem.com/content/3/1/1>`__ ]
+
+.. [AFMS-Hyperflows] | **Chemical Transformation Motifs --- Modelling Pathways as Integer Hyperflows**
+	| Jakob L. Andersen, Christoph Flamm, Daniel Merkle, Peter F. Stadler
+	| *IEEE/ACM Transactions on Computational Biology and Bioinformatics*, 16(2), 510-523, 2019
+	  [ `DOI <http://doi.org/10.1109/TCBB.2017.2781724>`__ |
+	    `TR <https://arxiv.org/abs/1712.02594>`__ ]
+	     (date of preprint publication: December 2017)
+
+.. [AFMS-Autocata] | **Defining Autocatalysis in Chemical Reaction Networks**
+	| Jakob L. Andersen, Christoph Flamm, Daniel Merkle, Peter F. Stadler
+	| *Journal of Systems Chemistry*, 8, 2020
+	  [ `HTTP <http://www.nls-publishers.com/shop/journal/journal+of+systems+chemistry+2020%2c+volume+8>`__ |
+	    `TR <https://arxiv.org/abs/2107.03086>`__ ]
+
+
 Other
 -----
 

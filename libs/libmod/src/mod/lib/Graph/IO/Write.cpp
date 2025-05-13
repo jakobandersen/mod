@@ -446,6 +446,7 @@ std::string coords(const LabelledGraph &gLabelled, const DepictionData &depict,
 		if(options.mirror) f += "_m" + std::to_string(options.mirror);
 		post::FileHandle s(f + "_coord.tex");
 		s << "% dummy\n";
+		bool hasNan = false;
 		for(const auto v: asRange(vertices(g))) {
 			const auto vId = get(boost::vertex_index_t(), g, v);
 			if(options.collapseHydrogens && Chem::isCollapsibleHydrogen(v, g, depict, depict, [&depict](const auto v) {
@@ -459,6 +460,16 @@ std::string coords(const LabelledGraph &gLabelled, const DepictionData &depict,
 					options.rotation, options.mirror);
 			s << "\\coordinate[overlay] (\\modIdPrefix v-coord-" << vId << ") at ("
 			  << std::fixed << x << ", " << y << ") {};\n";
+			if(std::isnan(x) || std::isnan(y))
+				hasNan = true;
+		}
+		if(hasNan) {
+			// On macOS Open Babel seem to sometimes give nan, which we can't use.
+			// Fall back to Graphviz coords.
+			auto opts = options;
+			opts.withGraphvizCoords = true;
+			std::cout << "Warning: nan coordinates in graph with id " << gId << " produced by Open Babel. Falling back to Graphviz coords." << std::endl;
+			return coords(gLabelled, depict, gId, opts);
 		}
 		std::string file = s;
 		cache[{gId, options.collapseHydrogens, options.rotation, options.mirror}] = file;

@@ -21,9 +21,9 @@ jobs:
       run: sudo apt install -y $(bindep -b | tr '\n' ' ')
     - name: Install Boost
       run: |
-        wget https://archives.boost.io/release/1.80.0/source/boost_1_80_0.tar.gz
-        tar -xf boost_1_80_0.tar.gz
-        cd boost_1_80_0
+        wget https://archives.boost.io/release/1.83.0/source/boost_1_83_0.tar.gz
+        tar -xf boost_1_83_0.tar.gz
+        cd boost_1_83_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
         ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
@@ -32,7 +32,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBOOST_ROOT=/opt/boost -DBUILD_POST_MOD=off
+        cmake ../ -DCMAKE_PREFIX_PATH=/opt/boost -DBUILD_POST_MOD=off
     - name: Make archive
       run: cd build && make dist
     - name: Build
@@ -57,9 +57,9 @@ jobs:
       run: sudo apt install -y $(bindep -b | tr '\n' ' ')
     - name: Install Boost
       run: |
-        wget https://archives.boost.io/release/1.80.0/source/boost_1_80_0.tar.gz
-        tar -xf boost_1_80_0.tar.gz
-        cd boost_1_80_0
+        wget https://archives.boost.io/release/1.83.0/source/boost_1_83_0.tar.gz
+        tar -xf boost_1_83_0.tar.gz
+        cd boost_1_83_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
         ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
@@ -68,7 +68,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBOOST_ROOT=/opt/boost -DBUILD_POST_MOD=off
+        cmake ../ -DCMAKE_PREFIX_PATH=/opt/boost -DBUILD_POST_MOD=off
     - name: Make archive
       run: cd build && make dist
     - name: Build
@@ -93,9 +93,9 @@ jobs:
       run: sudo apt install -y $(bindep -b | tr '\n' ' ')
     - name: Install Boost
       run: |
-        wget https://archives.boost.io/release/1.80.0/source/boost_1_80_0.tar.gz
-        tar -xf boost_1_80_0.tar.gz
-        cd boost_1_80_0
+        wget https://archives.boost.io/release/1.83.0/source/boost_1_83_0.tar.gz
+        tar -xf boost_1_83_0.tar.gz
+        cd boost_1_83_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
         ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
@@ -104,7 +104,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBOOST_ROOT=/opt/boost -DBUILD_POST_MOD=off
+        cmake ../ -DCMAKE_PREFIX_PATH=/opt/boost -DBUILD_POST_MOD=off
     - name: Make archive
       run: cd build && make dist
     - name: Build
@@ -129,9 +129,9 @@ jobs:
       run: sudo apt install -y $(bindep -b | tr '\n' ' ')
     - name: Install Boost
       run: |
-        wget https://archives.boost.io/release/1.80.0/source/boost_1_80_0.tar.gz
-        tar -xf boost_1_80_0.tar.gz
-        cd boost_1_80_0
+        wget https://archives.boost.io/release/1.83.0/source/boost_1_83_0.tar.gz
+        tar -xf boost_1_83_0.tar.gz
+        cd boost_1_83_0
         ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
         ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
@@ -140,7 +140,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBOOST_ROOT=/opt/boost -DBUILD_POST_MOD=off
+        cmake ../ -DCMAKE_PREFIX_PATH=/opt/boost -DBUILD_POST_MOD=off
     - name: Make archive
       run: cd build && make dist
     - name: Build

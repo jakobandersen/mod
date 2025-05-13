@@ -5,6 +5,7 @@
 #include <mod/Function.hpp>
 #include <mod/dg/DG.hpp>
 #include <mod/graph/Graph.hpp>
+#include <mod/lib/DG/Expanded.hpp>
 #include <mod/lib/DG/NonHyper.hpp>
 #include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/IO/IO.hpp>
@@ -178,6 +179,15 @@ const NonHyper &Hyper::getNonHyper() const {
 
 const Hyper::GraphType &Hyper::getGraph() const {
 	return hyper;
+}
+
+const Expanded &Hyper::getExpandedFully() const {
+	if(!expandedFull) {
+		std::unordered_set<Transit> expressed, deleted;
+		Expanded::addAllTransits(*this, expressed);
+		expandedFull.reset(new Expanded(*this, std::move(expressed), std::move(deleted)));
+	}
+	return *expandedFull;
 }
 
 void Hyper::printStats(std::ostream &s) const {

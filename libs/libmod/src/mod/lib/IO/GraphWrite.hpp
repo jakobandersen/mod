@@ -145,7 +145,7 @@ public: // not participating in string encoding
 };
 
 enum class EdgeFake3DType {
-	None, WedgeSL, WedgeLS, HashSL, HashLS
+	None, WedgeSL, WedgeLS, HashSL, HashLS, Unkown
 };
 
 EdgeFake3DType invertEdgeFake3DType(EdgeFake3DType t);

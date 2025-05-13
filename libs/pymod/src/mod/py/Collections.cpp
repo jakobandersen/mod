@@ -4,6 +4,7 @@
 #include <mod/dg/DG.hpp>
 #include <mod/dg/GraphInterface.hpp>
 #include <mod/dg/Strategies.hpp>
+#include <mod/hyperflow/LinExp.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/rule/CompositionExpr.hpp>
 #include <mod/rule/Rule.hpp>
@@ -71,6 +72,9 @@ void Collections_doExport() {
 	using PairStringBool = std::pair<std::string, bool>;
 	makeVector(VecPairStringBool, PairStringBool);
 	makeVector(VecRCExpExp, rule::RCExp::Expression);
+	using VecFlowVar = std::vector<hyperflow::Var>;
+	py::class_<VecFlowVar>("_VecFlowVar").def(py::vector_indexing_suite<VecFlowVar, true>());
+	makeVector(VecFlowVarCustom, hyperflow::VarCustom);
 	makeVector(VecString, std::string);
 
 	// Pair

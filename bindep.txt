@@ -12,6 +12,7 @@ boost-devel                    [platform:rpm]
 
 graphviz                       [platform:arch platform:rpm]
 pdf2svg
+gawk
 
 python                         [platform:arch]
 python3-dev                    [platform:dpkg]
@@ -23,6 +24,10 @@ openbabel-devel                [platform:rpm]
 python-openbabel               [platform:arch testing]
 python3-openbabel              [platform:dpkg testing]
 python3-openbabel              [platform:rpm testing]
+
+coin-or-cbc                    [platform:arch]
+coinor-libcbc-dev              [platform:dpkg]
+coin-or-Cbc-devel              [platform:rpm]
 
 texlive-science                [platform:arch]
 texlive-pictures               [platform:arch]

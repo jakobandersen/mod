@@ -4,6 +4,62 @@
 Changes
 #######
 
+v1.0.0 (2025-05-14)
+===================
+
+Incompatible Changes
+--------------------
+
+- When Open Babel is disabled as a dependency, return NaN from
+  :py:attr:`Graph.energy`/:cpp:func:`graph::Graph::getEnergy`,
+  instead of throwing an exception.
+
+New Features
+------------
+
+- When loading rules in GML format, a vertex or an edge can now be present
+  with a label in all three sections, ``left``, ``context``, and ``right``,
+  as long as the label is the same.
+- The implementation of the pathway/hyperflow modelling framework described in
+  [AFMS-Hyperflows]_ has been added.
+  See :ref:`flowCommon` for both a mathematical description of the model
+  and how the model is available in both Python and C++.
+  The framework allows for enumerating pathways with custom constraints,
+  including a built-in module for constraining to overall autocatalytic pathways.
+  The pathway finding is done with an ILP solver, which can be either CPLEX, Gurobi, or
+  COIN-OR Cbc. The first two are currently free for academic use, while the latter is
+  freely available.
+  You can query which solvers were compiled into your MØD installation with the function
+  :cpp:func:`getAvailableILPSolvers`/:py:func:`getAvailableILPSolvers`.
+
+
+Bugs Fixed
+----------
+
+- Fix references in the description of :py:class:`DGVertexMapper`.
+- Fix and clarify the documentation of :py:func:`rngUniformReal`.
+- Fix molecule depiction with 'simple carbons' enabled:
+
+  - Generally let carbon atoms be simple if they have just two visible neighbours.
+  - If those two neighbours are collinear with the carbon atom, and the bonds are the
+    same type, then don't make the carbon atom simple (e.g., in ``C=C=C``).
+
+- Provide better fatal error messages when something inside Open Babel fails
+  during coordinate generation.
+- In SMILES string loading, detect parallel bonds due to ring closures,
+  e.g., "``C1C1``" and "``C1(C1)``".
+- Don't compute coordinates for rule depiction with Open Babel before they are needed.
+  This avoids computing them at all when :py:attr:`GraphPrinter.withGraphvizCoords` is ``True``.
+- In the post-processor fix check for too large coordinate values that Latex can not
+  handle, such that the summary actually falls back to the Graphviz depiction instead
+  of the compilation erroring out with "``Undefined control sequence``" on
+  "``\dontUseTooLargeCoords``". This was in particular observed on macOS.
+  Also, be less conservative in which coordinate values are too large so the Graphviz
+  fallback is used less often.
+- When Open Babel produces NaN as coordinates, fall back to Graphviz for visualization.
+  A warning about this happening is printed. It has been observed on macOS.
+
+
 v0.17.0 (2025-02-16)
 ====================
 
@@ -50,7 +106,7 @@ New Features
   (:cpp:func:`dg::DG::HyperEdge::getInverse`/:py:attr:`DG.HyperEdge.inverse`)
   during creation of a :cpp:class:`dg::DG`/:py:class:`DG`, instead of only
   after creation.
-- Make is possible to generate SMILES strings of graph loaded as abstract SMILES strings,
+- Make it possible to generate SMILES strings of graph loaded as abstract SMILES strings,
   e.g., where vertices has almost-arbitrary labels like "``*``" and "``Pi [inorganic]``".
 - The rule loading functions in PyMØD, :py:func:`Rule.fromGMLString`,
   :py:func:`Rule.fromGMLFile`, and :py:func:`Rule.fromDFS`, now optionally accepts
@@ -118,7 +174,7 @@ New Features
   when there are no variables in the attached terms,
   thereby speeding up the check.
 - Make :cpp:class:`dg::Printer`/:py:class:`DGPrinter` copyable.
-- Add optinal callbacks to :cpp:func:`dg::DG::build`/:py:meth:`DG.build`,
+- Add optional callbacks to :cpp:func:`dg::DG::build`/:py:meth:`DG.build`,
   to enable real-time status of what is being added.
 
 

@@ -81,18 +81,20 @@ void Misc_doExport() {
 
 	// rst: .. function:: rngReseed(seed)
 	// rst:
-	// rst: 		Reseed the random bit generator used in the library.
+	// rst:		Reseed the random bit generator used in the library.
 	py::def("rngReseed", &mod::rngReseed);
 	// rst: .. function:: rngUniformReal()
 	// rst:
-	// rst: 		:returns: a uniformly random real number between 0 and 1.
-	// rst: 	 	:rtype: float
+	// rst:		:returns: a uniformly random real number in the half-open interval :math:`[0, 1)`.
+	// rst:		:rtype: float
 	py::def("rngUniformReal", &mod::rngUniformReal);
 
 	py::def("strFromDump", &mod::strFromDump);
 	py::def("showDump", &mod::showDump);
 
 	py::def("printGeometryGraph", &mod::printGeometryGraph);
+
+	py::def("_compareModels_only_for_testing", &mod::compareModels_only_for_testing);
 }
 
 } // namespace mod::Py

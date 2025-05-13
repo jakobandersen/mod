@@ -69,6 +69,14 @@ Input Options
   ``config.common.ignoreDeprecation = False`` is executed first.
   This can be used to force errors when scripts use deprecated functionality.
 
+.. envvar:: MOD_ILP_SOLVER
+
+  When this environment varaible is set to a non-empty string,
+  then the string ``config.ilp.solver = "ilpSolver"`` where ``ilpSolver`` is
+  the value of the this environment variable, is executed first.
+  Whenever the ``default`` solver is requested, this one will be selected.
+  See also
+  :cpp:func:`getAvailableILPSolvers`/:py:func:`getAvailableILPSolvers`.
 
 Execution Customization
 =======================

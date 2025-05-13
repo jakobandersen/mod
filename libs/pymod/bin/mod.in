@@ -46,6 +46,7 @@ summaryArgs=""
 
 # File names
 summaryMaker="mod_post"
+cplexSupp="cplex.supp"
 obabelSupp="obabel.supp"
 pythonSupp="python.supp"
 extraSupp="extra.supp"
@@ -243,6 +244,7 @@ elif [ $memcheck = "true" ]; then
 			exit 1
 		fi
 	}
+	checkSuppFile $cplexSupp
 	checkSuppFile $obabelSupp
 	checkSuppFile $pythonSupp
 	checkSuppFile $extraSupp
@@ -250,7 +252,7 @@ elif [ $memcheck = "true" ]; then
 		precommand="$precommand --vgdb=yes --vgdb-error=0"
 	fi
 	precommand="$precommand --leak-check=full --track-origins=yes --num-callers=50 --gen-suppressions=all $vgArgs"
-	precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$obabelSupp"
+	precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$cplexSupp --suppressions=$MOD_PREFIX/share/mod/$obabelSupp"
 	precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$pythonSupp"
 	precommand="$precommand --suppressions=$MOD_PREFIX/share/mod/$extraSupp"
 elif [ $debug = "true" ]; then
@@ -370,6 +372,9 @@ if "LD_PRELOAD" in os.environ and "valgrind" in os.environ["LD_PRELOAD"]:
 EOF
 		if [ -n "$MOD_NO_DEPRECATED" ]; then
 			echo "config.common.ignoreDeprecation = False"
+		fi
+		if [ -n "$MOD_ILP_SOLVER" ]; then
+			echo "config.ilp.solver = '$MOD_ILP_SOLVER'"
 		fi
 	}
 	echo '# Preamble' >> $pyFile

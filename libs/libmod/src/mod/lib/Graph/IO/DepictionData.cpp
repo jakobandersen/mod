@@ -109,7 +109,7 @@ lib::IO::Graph::Write::EdgeFake3DType DepictionData::getEdgeFake3DType(Edge e, b
 	if(!has_stereo(lg))
 		return lib::IO::Graph::Write::EdgeFake3DType::None;
 #ifndef MOD_HAVE_OPENBABEL
-	throw FatalError(MOD_NO_OPENBABEL_ERROR_STR);
+	return lib::IO::Graph::Write::EdgeFake3DType::Unkown;
 #else
 	const auto idSrc = get(boost::vertex_index_t(), get_graph(lg), source(e, get_graph(lg)));
 	const auto idTar = get(boost::vertex_index_t(), get_graph(lg), target(e, get_graph(lg)));

@@ -35,7 +35,9 @@ private:
 public:
 	struct Side {
 		Side(const DepictionData &depict, const SideData &data,
+#ifdef MOD_HAVE_OPENBABEL
 		     const Chem::OBMolHandle CoordData::*obSide,
+#endif
 		     const lib::DPO::CombinedRule::SideGraphType &g,
 		     SideToCG mToCG,
 		     PropMolecule::Side pMol, // we need definitely need mol data
@@ -61,7 +63,9 @@ public:
 	private:
 		const DepictionData &depict;
 		const SideData &data;
+#ifdef MOD_HAVE_OPENBABEL
 		const Chem::OBMolHandle CoordData::*obSide;
+#endif
 		const lib::DPO::CombinedRule::SideGraphType &g;
 		const SideToCG mToCG;
 		PropMolecule::Side pMol;
@@ -130,7 +134,10 @@ private:
 		// each side, for stereo, with coords copied from the pushout
 		lib::Chem::OBMolHandle obMolLeft, obMolRight;
 #endif
-	} cDataAll, cDataNoHydrogen;
+	};
+	mutable CoordData cDataAll, cDataNoHydrogen;
+private:
+	const CoordData &getCoordData(bool withHydrogen) const;
 };
 
 } // namespace mod::lib::rule

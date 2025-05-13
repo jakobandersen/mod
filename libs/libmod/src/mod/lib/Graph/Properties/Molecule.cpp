@@ -84,9 +84,8 @@ double PropMolecule::getExactMass() const {
 double PropMolecule::getEnergy() const {
 	if(!energy) {
 #ifndef MOD_HAVE_OPENBABEL
-		throw FatalError(MOD_NO_OPENBABEL_ERROR_STR
-						 + "\nEnergy calculation is not possible without Open Babel.\n"
-						 + "Energy values can be manually cached on graphs if calculation is not desired.");
+		std::cout << "WARNING: energy of graph not available, returning NaN" << std::endl;
+		return std::numeric_limits<double>::quiet_NaN();
 #else
 		energy = getOBMol().getEnergy(false);
 #endif

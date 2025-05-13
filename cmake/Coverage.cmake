@@ -99,8 +99,14 @@ add_custom_target(coverage_build
 
 # Shorthand for adding compile and link flags to a target.
 function(target_add_coverage target)
-    target_compile_options(${target} PRIVATE ${COVERAGE_COMPILE_FLAGS})
-    target_link_libraries(${target} PRIVATE ${COVERAGE_LINK_FLAGS})
+    get_target_property(type ${target} TYPE)
+    if(${type} STREQUAL "INTERFACE_LIBRARY")
+        set(type INTERFACE)
+    else()
+        set(type PRIVATE)
+    endif()
+    target_compile_options(${target} ${type} ${COVERAGE_COMPILE_FLAGS})
+    target_link_libraries(${target} ${type} ${COVERAGE_LINK_FLAGS})
 endfunction()
 
 # Set up a target for coverage recording.

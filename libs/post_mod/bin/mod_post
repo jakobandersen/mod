@@ -384,6 +384,30 @@ else # $1 == --mode
 				echo -n " $fileNoExt.pdf" >> $makefileDep
 			}
 
+			# name fileNoExt
+			function summaryFlowUnfiltered {
+				local name=$1
+				local file=$2
+				echo "	echo '\summaryFlowUnfiltered{\\texttt{$(latexEsc $name)}}{$file}{\\texttt{$(latexEsc $file)}}' >> $texFile" >> $makefile
+
+				echo -n " $file.pdf" >> $makefileDep
+			}
+			function summaryDGFlowUnfiltered {
+				summaryFlowUnfiltered "$@"
+			}
+
+			# name fileNoExt
+			function summaryFlowFiltered {
+				local name=$1
+				local file=$2
+				echo "	echo '\summaryFlowFiltered{\\texttt{$(latexEsc $name)}}{$file}{\\texttt{$(latexEsc $file)}}' >> $texFile" >> $makefile
+
+				echo -n " $file.pdf" >> $makefileDep
+			}
+			function summaryDGFlowFiltered {
+				summaryFlowFiltered "$@"
+			}
+
 			# fileNoExt
 			function summaryRC {
 				local file=$1
@@ -410,11 +434,12 @@ else # $1 == --mode
 				return
 			}
 
-			# graphType fileNoExt [noOverlay]
+			# graphType fileNoExt [noOverlay [idOffset]]
 			function coordsFromGV {
 				local graphType=$1
 				local fileNoExt=$2
 				local noOverlay=$3
+				local idOffset=$4
 				echo -n " $fileNoExt.plain ${fileNoExt}_coord.tex" >> $makefileClean
 				function common {
 					reGrep='\[.* image="\([^\"]*\)".*\]'
@@ -423,7 +448,7 @@ else # $1 == --mode
 						echo -n " $f" >> $makefileImpl
 					done
 					echo "" >> $makefileImpl
-					echo "	$this --mode coordsFromGV $graphType \"$fileNoExt\" $noOverlay" >> $makefileImpl
+					echo "	$this --mode coordsFromGV $graphType \"$fileNoExt\" $noOverlay $idOffset" >> $makefileImpl
 				}
 				# extra dependency to avoid race conditions, see http://www.gnu.org/software/automake/manual/html_node/Multiple-Outputs.html
 				echo -n "${fileNoExt}_coord.tex:" >> $makefileImpl
@@ -534,7 +559,7 @@ else # $1 == --mode
 		local repeats=${3:-1}
 		# check if we need to fall back on Graphviz
 		if test "x$fileCoordsNoExt" != "x"; then
-			cat $fileCoordsNoExt.tex | grep "$dimensionTooLargeString" &> /dev/null
+			cat $fileCoordsNoExt.tex | grep -F "$dimensionTooLargeString" &> /dev/null
 			if test $? -eq 0; then
 				echo "graph { 0 [ shape=plaintext label=\"Figure too large, see $fileCoordsNoExt.pdf\" ]; }" | \
 					dot -Tpdf -o $fileNoExt.pdf
@@ -578,13 +603,20 @@ else # $1 == --mode
 		dot $gvArgs -o $fileNoExt.$outType $fileNoExt.dot
 	}
 
-	# graphType fileNoExt [noOverlay]
+	# graphType fileNoExt [noOverlay [idOffset]]
 	function coordsFromGV {
 		printStatus "$FUNCNAME($1)"
 		local graphType=$1
 		local fileNoExt=$2
 		local noOverlay=$3
-		local coordFile=${fileNoExt}_coord.tex
+		local idOffset=$4
+		local coordFile=${fileNoExt}_coord
+		if [ "x$idOffset" != "x" ]; then
+			coordFile=${coordFile}_id$idOffset
+		else
+			idOffset=0
+		fi
+		coordFile=${coordFile}.tex
 		local gvArgsVar="gvArgs_$graphType"
 		local gvArgs="-Tplain ${!gvArgsVar} -o $fileNoExt.plain"
 		# this now assumes that dot will create the coordinates
@@ -595,7 +627,12 @@ else # $1 == --mode
 		fi
 		echo "% dummy" > $coordFile.$$
 		# check size of graph
-		grep "^graph" $fileNoExt.plain | awk '{if($3 > 50 || $4 > 50) {exit 1} else {exit 0}}'
+		maxDimen=570
+		if test "x$graphType" = "xdgHyper"; then
+			# we use scale=\modDGHyperScale=3, so divide the max
+			maxDimen=190
+		fi
+		grep "^graph" $fileNoExt.plain | awk -v maxDimen=$maxDimen '{if($3 > maxDimen || $4 > maxDimen) {exit 1} else {exit 0}}'
 		if test $? -ne 0; then
 			width=$(grep "^graph" $fileNoExt.plain | awk '{print $3}')
 			height=$(grep "^graph" $fileNoExt.plain | awk '{print $4}')
@@ -604,7 +641,7 @@ else # $1 == --mode
 			local gvArgs="-Tpdf ${!gvArgsVar} -o ${fileNoExt}_coord.pdf"
 			dot $gvArgs $fileNoExt.dot
 		fi
-		cat $fileNoExt.plain | awk -v noOverlay="x$noOverlay" '
+		cat $fileNoExt.plain | awk -v noOverlay="x$noOverlay" -v idOffset=$idOffset '
 function abs(a) {
 	return a < 0 ? -a : a
 }
@@ -617,6 +654,8 @@ BEGIN {
 	} else if($0 ~ /^node/) {
 		name=$2
 		gsub(/"/, "", name)
+		if(idOffset != 0)
+			name = name + idOffset
 		x=$3
 		y=$4
 		# avoid underflow in Latex

@@ -17,3 +17,4 @@ dependencies:
   - networkx
   - parse
   - typing_extensions
+  - coincbc

@@ -29,7 +29,7 @@ requirements:
     #               as in the host environment
     - boost {{ boost }}
     - boost-cpp {{ boost }}  # to make conda build stop complaining
-    - openbabel
+    - openbabel>=3.1.1  # to cut down on versions to solve for
     - python {{ python }}
     # Add both exe and py packages to the build environemnt
     # so configuration checks succeed and tests can be run.
@@ -47,12 +47,14 @@ requirements:
     - boost {{ boost }}
     - boost-cpp {{ boost }}  # to make conda build stop complaining
     - openbabel
+    - coincbc
     - python {{ python }}
   run:
     # lib packages
     - boost
     - boost-cpp {{ boost }}  # to make conda build stop complaining
     - openbabel
+    - coincbc
     - python {{ python }}
     # exe packages
     - graphviz>=2.46.1  # to get the rsvg plugin

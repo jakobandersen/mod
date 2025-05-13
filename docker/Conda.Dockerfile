@@ -8,7 +8,7 @@ ENV PATH /opt/conda/bin:$PATH
 RUN apt-get update --fix-missing                               \
  && apt-get install -y wget bzip2 ca-certificates curl git
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py38_23.11.0-2-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -afy && \
@@ -25,7 +25,7 @@ RUN apt-get update                                                 \
 WORKDIR /opt/mod
 COPY ./build/mod-*.tar.gz ./
 RUN tar xzf mod-*.tar.gz --strip-components=1
-RUN conda env create -f conda/environment.yaml
+RUN conda env create -f conda/environment.yml
 
 RUN conda init bash
 SHELL ["/bin/bash", "--login", "-c"]
@@ -35,6 +35,7 @@ WORKDIR /opt/mod/build
 ENV CXXFLAGS=-Werror
 RUN conda activate mod-env && conda env list && \
  cmake ../ -DBUILD_DOC=no                     \
+ -DWITH_GUROBI=no -DWITH_CPLEX=no             \
  -DCMAKE_BUILD_TYPE=Release                   \
  -DCMAKE_MODULE_LINKER_FLAGS="-flto=$j"       \
  -DCMAKE_SHARED_LINKER_FLAGS="-flto=$j"       \
