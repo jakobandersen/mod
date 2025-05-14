@@ -1,18 +1,18 @@
+ARG minicondaVersion=py312_25.3.1-1
 # Use the oldest Ubuntu possible, to make sure the system Python is the oldest
 # we are trying to build against. Otherwise CMake seems to find the system Python
 # instead of the Conda Python.
 FROM ubuntu:22.04 AS build
 # Based on continuumio/miniconda3
+ARG minicondaVersion
 
 #ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
-ARG minicondaVersion=latest
-ARG minicondaVersion=py312_25.3.1-1
 
 RUN apt-get update --fix-missing                               \
  && apt-get install -y wget bzip2 ca-certificates curl git
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${minicondaVersion}-Linux-$(uname -m).sh -O ~/miniconda.sh && \
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-${minicondaVersion}-Linux-$(uname -m).sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -afy && \
@@ -49,6 +49,7 @@ RUN echo "START INSTALLATION TEST"
 
 FROM ubuntu:22.04 AS test
 # Based on continuumio/miniconda3
+ARG minicondaVersion
 
 #ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
@@ -56,7 +57,7 @@ ENV PATH /opt/conda/bin:$PATH
 RUN apt-get update --fix-missing                               \
  && apt-get install -y wget bzip2 ca-certificates curl git
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${minicondaVersion}-Linux-$(uname -m).sh -O ~/miniconda.sh && \
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-${minicondaVersion}-Linux-$(uname -m).sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -afy && \
