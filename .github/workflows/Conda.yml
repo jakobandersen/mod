@@ -32,7 +32,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DCMAKE_PREFIX_PATH=/opt/boost -DBUILD_POST_MOD=off
+        cmake ../ -DCMAKE_PREFIX_PATH=/opt/boost -DBUILD_POST_MOD=off -DWITH_GUROBI=no -DWITH_CPLEX=no
     - name: Make archive
       run: cd build && make dist
     - name: Build

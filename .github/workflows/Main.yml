@@ -43,7 +43,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH==/opt/boost
+        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DCMAKE_PREFIX_PATH==/opt/boost -DWITH_GUROBI=no -DWITH_CPLEX=no
     - name: Build
       run: cd build && make -j 4
     - name: Install
@@ -74,7 +74,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
+        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DWITH_GUROBI=no -DWITH_CPLEX=no
     - name: Build
       run: cd build && make -j 4
     - name: Install
@@ -105,7 +105,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
+        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DWITH_GUROBI=no -DWITH_CPLEX=no
     - name: Build
       run: cd build && make -j 4
     - name: Install
@@ -136,7 +136,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on
+        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DWITH_GUROBI=no -DWITH_CPLEX=no
     - name: Build
       run: cd build && make -j 3
     - name: Install
