@@ -55,10 +55,18 @@ struct Cell {
 	};
 	struct Ref {
 		Address addr;
+	public:
+		friend bool operator==(Ref r1, Ref r2) {
+			return r1.addr == r2.addr;
+		}
 	};
 	struct Struct {
 		int arity;
 		std::size_t name;
+	public:
+		friend bool operator==(Struct r1, Struct r2) {
+			return r1.arity == r2.arity && r1.name == r2.name;
+		}
 	};
 public:
 	Tag tag;
@@ -67,6 +75,19 @@ public:
 		Ref REF;
 		Struct Structure;
 	};
+public:
+	friend bool operator==(Cell c1, Cell c2) {
+		if(c1.tag != c2.tag) return false;
+		switch(c1.tag) {
+		case Tag::STR:
+			return c1.STR == c2.STR;
+		case Tag::REF:
+			return c1.REF == c2.REF;
+		case Tag::Structure:
+			return c1.Structure == c2.Structure;
+		}
+		__builtin_unreachable();
+	}
 public:
 	static Cell makeSTR(Address addr) {
 		Cell cell;
@@ -232,8 +253,10 @@ struct Wam {
 	const Cell &getCell(Address addr) const {
 		switch(addr.type) {
 		case AddressType::Heap:
+			assert(addr.addr < heap.size());
 			return heap[addr.addr];
 		case AddressType::Temp:
+			assert(addr.addr < temp.size());
 			return temp[addr.addr];
 		}
 		MOD_ABORT;
@@ -342,8 +365,10 @@ inline bool MGU::isSpecialisation(const Wam &machine) const {
 //------------------------------------------------------------------------------
 
 inline void Wam::unifyHeapHeap(std::size_t lhs, std::size_t rhs, MGU &mgu) {
+	assert(lhs < heap.size());
+	assert(rhs < heap.size());
 	using P = std::pair<std::size_t, std::size_t>;
-	std::stack<P, std::vector<P> > stack;
+	std::stack<P, std::vector<P>> stack;
 	stack.emplace(lhs, rhs);
 	while(!stack.empty()) {
 		Address lhsAddr = deref(Address{AddressType::Heap, stack.top().first});
@@ -408,6 +433,8 @@ inline void Wam::verify() const {
 
 inline void Wam::unifyHeapTemp(std::size_t lhsIndex, std::size_t rhsIndex, MGU &mgu) {
 	verify();
+	assert(lhsIndex < heap.size());
+	assert(rhsIndex < temp.size());
 	// deref(rhsIndex) will point to heap
 	// This destroys temp.
 	// This method acts as the outer-most loop that creates get_structure, unify_variable and unify_value instructions
