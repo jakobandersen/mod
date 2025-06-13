@@ -7,6 +7,11 @@ Changes
 develop
 =======
 
+Bugs Fixed
+----------
+
+- Fix the :ref:`label-unification-constraint` (``constrainLabelAny``) to not trigger
+  undefined behaviour.
 
 
 v1.0.0 (2025-05-14)

@@ -1,6 +1,5 @@
-#include <mod/lib/StringStore.hpp>
+#include <mod/internal/Term.hpp>
 #include <mod/lib/Term/WAM.hpp>
-#include <mod/lib/Test.hpp>
 
 #include <array>
 #include <iomanip>
@@ -17,11 +16,11 @@ Address makeRef(Wam &m) {
 }
 
 Address makeStr(Wam &m) {
-	const auto aid = mod::lib::StringStore_getIndex("aRef0");
-	const auto bid = mod::lib::StringStore_getIndex("bRef1");
-	const auto cid = mod::lib::StringStore_getIndex("c");
-	const auto iid = mod::lib::StringStore_getIndex("iInline");
-	const auto fid = mod::lib::StringStore_getIndex("f");
+	const auto aid = mod::internal::StringStore_getIndex("aRef0");
+	const auto bid = mod::internal::StringStore_getIndex("bRef1");
+	const auto cid = mod::internal::StringStore_getIndex("c");
+	const auto iid = mod::internal::StringStore_getIndex("iInline");
+	const auto fid = mod::internal::StringStore_getIndex("f");
 	const auto aa = m.putStructure(aid, 0);
 	const auto ab = m.putStructure(bid, 1);
 	m.putStructure(cid, 0);
@@ -46,11 +45,11 @@ int main() {
 
 	const auto print = [](const Wam &m, const Wam &expected, const Wam &beforeRevert) {
 		std::cout << "  Before revert:" << std::endl;
-		mod::lib::Wam_write(beforeRevert, 2);
+		mod::internal::Wam_write(beforeRevert, 2);
 		std::cout << "  After revert:" << std::endl;
-		mod::lib::Wam_write(m, 2);
+		mod::internal::Wam_write(m, 2);
 		std::cout << "  Expected:" << std::endl;
-		mod::lib::Wam_write(expected, 2);
+		mod::internal::Wam_write(expected, 2);
 	};
 
 	for(const auto &[f1, n1]: data) {

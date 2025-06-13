@@ -113,6 +113,7 @@ std::ostream &term(const Wam &machine, Address addr, const StringStore &strings,
 				(*this)(cell.STR.addr);
 				break;
 			case Cell::Tag::Structure:
+				assert(addr.addr < occurred[static_cast<int>(addr.type)].size());
 				if(occurred[static_cast<int>(addr.type)][addr.addr] != 0) {
 					wam(machine, strings, IO::Logger(s));
 					s << "addr.addr = " << addr.addr << std::endl;

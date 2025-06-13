@@ -270,7 +270,8 @@ private:
 			lib::Term::Write::wam(m, lib::Term::getStrings(), logger);
 			--logger.indentLevel;
 		}
-		m.copyFromTemp(addr);
+		lib::Term::MGU mgu(m.getHeap().size());
+		m.copyFromTemp(addr, mgu);
 		if(Verbose) {
 			logger.indent() << "After copy " << addr << '\n';
 			++logger.indentLevel;

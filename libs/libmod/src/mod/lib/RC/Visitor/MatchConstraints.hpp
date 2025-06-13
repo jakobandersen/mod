@@ -1,9 +1,15 @@
 #ifndef MOD_LIB_RC_VISITOR_MATCH_CONSTRAINTS_HPP
 #define MOD_LIB_RC_VISITOR_MATCH_CONSTRAINTS_HPP
 
+// #define MOD_RC_MATCH_CONSTRAINT_DEBUG
+
 #include <mod/lib/GraphMorphism/Constraints/AllVisitor.hpp>
 #include <mod/lib/RC/Visitor/Compound.hpp>
 #include <mod/lib/Rule/LabelledRule.hpp>
+
+#ifdef MOD_RC_MATCH_CONSTRAINT_DEBUG
+#include <mod/lib/Term/IO/Write.hpp>
+#endif
 
 namespace mod::lib::RC::Visitor {
 namespace detail {
@@ -19,9 +25,9 @@ template<typename G>
 using ConstraintSP = lib::GraphMorphism::Constraints::ShortestPath<G>;
 
 template<LabelType labelType, typename RuleFirst, typename RuleSecond, typename Result>
-struct ConvertFirst : public ConstraintVisitor<// GraphFirstLeft
-/*   */ typename RuleFirst::SideGraphType
-/*   */ > {
+struct ConvertFirst : public ConstraintVisitor< // GraphFirstLeft
+			/*   */ typename RuleFirst::SideGraphType
+			/*   */> {
 	using GraphResultLeft = typename Result::Rule::SideGraphType;
 	using GraphFirstLeft = typename RuleFirst::SideGraphType;
 	using GraphSecondLeft = typename RuleSecond::SideGraphType;
@@ -29,7 +35,7 @@ struct ConvertFirst : public ConstraintVisitor<// GraphFirstLeft
 	ConvertFirst(const RuleFirst &rFirst, Result &result) : rFirst(rFirst), result(result) {}
 
 	virtual void operator()(const ConstraintAdj<GraphFirstLeft> &c) override {
-		auto cResult = std::make_unique<ConstraintAdj<GraphResultLeft> >(c);
+		auto cResult = std::make_unique<ConstraintAdj<GraphResultLeft>>(c);
 		switch(labelType) {
 		case LabelType::String:
 			cResult->vertexTerms.clear();
@@ -50,7 +56,7 @@ struct ConvertFirst : public ConstraintVisitor<// GraphFirstLeft
 private:
 	template<template<typename> class LabelAN>
 	void convertLabelAN(const LabelAN<GraphFirstLeft> &c) {
-		auto cResult = std::make_unique<LabelAN<GraphResultLeft> >(c);
+		auto cResult = std::make_unique<LabelAN<GraphResultLeft>>(c);
 		switch(labelType) {
 		case LabelType::String:
 			cResult->terms.clear();
@@ -68,29 +74,30 @@ public:
 	}
 
 	virtual void operator()(const ConstraintSP<GraphFirstLeft> &c) override {
-		auto cResult = std::make_unique<ConstraintSP<GraphResultLeft> >(c);
+		auto cResult = std::make_unique<ConstraintSP<GraphResultLeft>>(c);
 		MOD_ABORT;
 	}
 public:
 	const RuleFirst &rFirst;
 	Result &result;
-	std::unique_ptr<Constraint<GraphResultLeft> > cResult;
+	std::unique_ptr<Constraint<GraphResultLeft>> cResult;
 };
 
 template<LabelType labelType, typename RuleFirst, typename RuleSecond, typename InvertibleVertexMap, typename Result>
-struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
-/*   */ typename RuleSecond::SideGraphType
-/*   */ > {
+struct ConvertSecond : public ConstraintVisitor< // GraphSecondLeft
+			/*   */ typename RuleSecond::SideGraphType
+			/*   */> {
 	using GraphResultLeft = typename Result::Rule::SideGraphType;
 	using GraphFirstLeft = typename RuleFirst::SideGraphType;
 	using GraphSecondLeft = typename RuleSecond::SideGraphType;
 
 	ConvertSecond(const RuleFirst &rFirst, const RuleSecond &rSecond, InvertibleVertexMap &match, Result &result)
-			: rFirst(rFirst), rSecond(rSecond), match(match), result(result) {}
+		: rFirst(rFirst), rSecond(rSecond), match(match), result(result) {}
 
 	virtual void operator()(const ConstraintAdj<GraphSecondLeft> &c) override {
 		const auto vSecond = c.vConstrained;
-		const auto vResult = get(result.mappings.mSecondToResult, get_graph(rSecond), result.rDPO->getCombinedGraph(), vSecond);
+		const auto vResult = get(result.mappings.mSecondToResult, get_graph(rSecond), result.rDPO->getCombinedGraph(),
+		                         vSecond);
 		// vResult may be null_vertex
 		if(vResult == boost::graph_traits<GraphResultLeft>::null_vertex()) {
 			// std::cout << "WARNING: constrained vertex " << vSecondId << " deleted in " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
@@ -109,7 +116,7 @@ struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
 			return;
 		}
 
-		auto cResult = std::make_unique<ConstraintAdj<GraphResultLeft> >(c);
+		auto cResult = std::make_unique<ConstraintAdj<GraphResultLeft>>(c);
 		cResult->vConstrained = vResult;
 		switch(labelType) {
 		case LabelType::String:
@@ -129,7 +136,8 @@ struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
 			const auto handleTerm = [&m](const auto tSecond) {
 				m.verify();
 				//			lib::IO::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "Copy " << addr << "\n");
-				auto res = m.copyFromTemp(tSecond);
+				lib::Term::MGU mgu(m.getHeap().size());
+				auto res = m.copyFromTemp(tSecond, mgu);
 				//			lib::IO::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "After copy " << addr << "\n");
 				m.verify();
 				return res.addr;
@@ -145,7 +153,7 @@ struct ConvertSecond : public ConstraintVisitor<// GraphSecondLeft
 private:
 	template<template<typename> class LabelAN>
 	void convertLabelAN(const LabelAN<GraphFirstLeft> &c) {
-		auto cResult = std::make_unique<LabelAN<GraphResultLeft> >(c);
+		auto cResult = std::make_unique<LabelAN<GraphResultLeft>>(c);
 		switch(labelType) {
 		case LabelType::String:
 			cResult->terms.clear();
@@ -155,25 +163,42 @@ private:
 			cResult->labels.clear();
 			// we need to make sure the terms referred to are actually in the result machine,
 			// and they need to be correct
-			auto terms = std::move(cResult->terms);
-			cResult->terms.clear();
 			auto &m = getMachine(*result.pTerm);
-			const auto handleTerm = [&m](const auto tSecond) {
+#ifdef MOD_RC_MATCH_CONSTRAINT_DEBUG
+			IO::Logger logger(std::cout);
+			logger.indent() << "LabelAny, convertSecond:" << std::endl;
+			++logger.indentLevel;
+#endif
+			const auto handleTerm = [&m
+#ifdef MOD_RC_MATCH_CONSTRAINT_DEBUG
+						, &logger
+#endif
+					](const auto tSecond) {
 				m.verify();
-				//			lib::IO::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "Copy " << addr << "\n");
-				auto res = m.copyFromTemp(tSecond);
-				//			lib::IO::Term::Write::wam(m, lib::Term::getStrings(), std::cout << "After copy " << addr << "\n");
+#ifdef MOD_RC_MATCH_CONSTRAINT_DEBUG
+				++logger.indentLevel;
+				logger.indent(-1) << "Copy " << tSecond << "\n";
+				lib::Term::Write::wam(m, lib::Term::getStrings(), logger);
+#endif
+				lib::Term::MGU mgu(m.getHeap().size());
+				auto res = m.copyFromTemp(tSecond, mgu);
 				m.verify();
+#ifdef MOD_RC_MATCH_CONSTRAINT_DEBUG
+				logger.indent(-1) << "After copy " << res.addr << "\n";
+				lib::Term::Write::wam(m, lib::Term::getStrings(), logger);
+				--logger.indentLevel;
+#endif
 				return res.addr;
 			};
 			cResult->term = handleTerm(cResult->term);
+			auto terms = std::move(cResult->terms);
+			cResult->terms.clear();
 			for(const auto tSecond: terms)
 				cResult->terms.push_back(handleTerm(tSecond));
 			break;
 		}
 		}
 		this->cResult = std::move(cResult);
-		// std::cout << "WARNING: check converted constraint on vertex " << vNew << " for " << rFirst.getName() << " -> " << rSecond.getName() << std::endl;
 	}
 public:
 	virtual void operator()(const ConstraintLA<GraphSecondLeft> &c) override {
@@ -197,7 +222,7 @@ public:
 		auto isInRightTar = gResult[vResultTar].membership == lib::DPO::Membership::R;
 		if(isInRightSrc || isInRightTar) return; // must have been checked
 
-		auto cResult = std::make_unique<ConstraintSP<GraphResultLeft> >(c);
+		auto cResult = std::make_unique<ConstraintSP<GraphResultLeft>>(c);
 		cResult->vSrc = vResultSrc;
 		cResult->vTar = vResultTar;
 		this->cResult = std::move(cResult);
@@ -207,7 +232,7 @@ public:
 	const RuleSecond &rSecond;
 	InvertibleVertexMap &match;
 	Result &result;
-	mutable std::unique_ptr<Constraint<GraphResultLeft> > cResult;
+	mutable std::unique_ptr<Constraint<GraphResultLeft>> cResult;
 };
 
 } // namespace detail
@@ -215,7 +240,7 @@ public:
 template<LabelType labelType>
 struct MatchConstraints : Null {
 	MatchConstraints(const lib::rule::LabelledRule &rFirst, const lib::rule::LabelledRule &rSecond)
-			: rFirst(rFirst), rSecond(rSecond) {}
+		: rFirst(rFirst), rSecond(rSecond) {}
 
 	template<bool Verbose, typename InvertibleVertexMap, typename Result>
 	bool finalize(IO::Logger logger, const lib::DPO::CombinedRule &dpoFirst, const lib::DPO::CombinedRule &dpoSecond,

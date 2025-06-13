@@ -177,6 +177,10 @@ struct ToTermVertexMap {
 
 		Term::Wam machine(getMachine(pCodomain));
 		machine.setTemp(getMachine(pDomain));
+		// IO::Logger logger(std::cout);
+		// logger.indent() << "ToTermVertexMap:\n";
+		// ++logger.indentLevel;
+		// Term::Write::wam(machine, Term::getStrings(), logger);
 		Term::MGU mgu(machine.getHeap().size());
 		using Handler = typename LabGraphDom::PropTermType::Handler;
 		for(const auto vDom: asRange(vertices(gDom))) {
@@ -207,6 +211,8 @@ struct ToTermVertexMap {
 					));
 			if(!ok) return true;
 		}
+		// logger.indent() << "After unification:\n";
+		// Term::Write::wam(machine, Term::getStrings(), logger);
 		TermData data{std::move(machine), std::move(mgu)};
 		return next(GM::addProp(std::move(m), TermDataT(), std::move(data)), gDom, gCodom);
 	}

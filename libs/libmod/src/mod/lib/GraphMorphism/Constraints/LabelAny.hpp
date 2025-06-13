@@ -1,10 +1,15 @@
 #ifndef MOD_LIB_GRAPHMORPHISM_LABEL_ANY_HPP
 #define MOD_LIB_GRAPHMORPHISM_LABEL_ANY_HPP
 
+// #define MOD_LABEL_ANY_DEBUG
+
 #include <mod/lib/GraphMorphism/LabelledMorphism.hpp>
 #include <mod/lib/GraphMorphism/TermVertexMap.hpp>
 #include <mod/lib/GraphMorphism/Constraints/Constraint.hpp>
 #include <mod/lib/Term/WAM.hpp>
+#ifdef MOD_LABEL_ANY_DEBUG
+#include <mod/lib/Term/IO/Write.hpp>
+#endif
 
 #include <jla_boost/graph/morphism/Concepts.hpp>
 #include <jla_boost/graph/morphism/models/PropertyVertexMap.hpp>
@@ -29,7 +34,11 @@ public:
 private:
 	template<typename Visitor, typename LabelledGraphCodom, typename VertexMap>
 	bool matchesImpl(Visitor &vis, const Graph &gDom, const LabelledGraphCodom &lgCodom, VertexMap &m,
-	                 const LabelSettings ls, std::false_type) const {
+	                 const LabelSettings ls, std::false_type
+#ifdef MOD_LABEL_ANY_DEBUG
+					, IO::Logger logger
+#endif
+	                 ) const {
 		// this is kind of stupid, as it doesn't depend on the graphs or the match
 		assert(ls.type == LabelType::String); // otherwise someone forgot to add the TermData prop
 		return labels.end() != std::find(labels.begin(), labels.end(), label);
@@ -37,14 +46,46 @@ private:
 
 	template<typename Visitor, typename LabelledGraphCodom, typename VertexMap>
 	int matchesImpl(Visitor &vis, const Graph &gDom, const LabelledGraphCodom &lgCodom, VertexMap &m,
-	                const LabelSettings ls, std::true_type) const {
+	                const LabelSettings ls, std::true_type
+#ifdef MOD_LABEL_ANY_DEBUG
+					, IO::Logger logger
+#endif
+	                ) const {
 		assert(ls.type == LabelType::Term); // otherwise someone did something very strange
 		lib::Term::Wam &machine = get_prop(TermDataT(), m).machine;
 		lib::Term::MGU mgu(machine.getHeap().size());
-		const auto aTerm = machine.copyFromTemp(term);
-		const bool res = std::any_of(terms.begin(), terms.end(), [aTerm, &machine](std::size_t t) {
+#ifdef MOD_LABEL_ANY_DEBUG
+		logger.indent() << "Before copy from temp:" << std::endl;
+		lib::Term::Write::wam(machine, lib::Term::getStrings(), logger);
+#endif
+		const auto aTerm = machine.copyFromTemp(term, mgu);
+#ifdef MOD_LABEL_ANY_DEBUG
+		logger.indent() << "After copy from temp:" << std::endl;
+		lib::Term::Write::wam(machine, lib::Term::getStrings(), logger);
+		++logger.indentLevel;
+#endif
+		const bool res = std::any_of(terms.begin(), terms.end(), [aTerm, &machine
+#ifdef MOD_LABEL_ANY_DEBUG
+		, &logger
+#endif
+		](std::size_t t) {
+#ifdef MOD_LABEL_ANY_DEBUG
+			logger.indent() << "Trying unify(" << aTerm.addr << " = ";
+			lib::Term::Write::term(machine, aTerm, lib::Term::getStrings(), logger.s);
+			logger.s << ", " << t << " = ";
+			lib::Term::Write::term(machine, lib::Term::Address{lib::Term::AddressType::Temp, t}, lib::Term::getStrings(), logger.s);
+			logger.s << "): " << std::flush;
+#endif
 			lib::Term::MGU mgu = machine.unifyHeapTemp(aTerm.addr, t);
+#ifdef MOD_LABEL_ANY_DEBUG
+			logger.s << std::boolalpha << (mgu.status == lib::Term::MGU::Status::Exists) << std::endl;
+			lib::Term::Write::wam(machine, lib::Term::getStrings(), logger);
+#endif
 			machine.revert(mgu);
+#ifdef MOD_LABEL_ANY_DEBUG
+			logger.indent() << "After revert:" << std::endl;
+			lib::Term::Write::wam(machine, lib::Term::getStrings(), logger);
+#endif
 			return mgu.status == lib::Term::MGU::Status::Exists;
 		});
 		machine.revert(mgu);
@@ -61,7 +102,16 @@ public:
 				std::is_same<GraphCodom, typename jla_boost::GraphMorphism::VertexMapTraits<VertexMap>::GraphCodom>::value,
 				"");
 		using HasTerm = GraphMorphism::HasTermData<VertexMap>;
-		return matchesImpl(vis, gDom, lgCodom, m, ls, HasTerm());
+#ifdef MOD_LABEL_ANY_DEBUG
+		IO::Logger logger(std::cout);
+		logger.indent() << "LabelAny: matches(hasTerm=" << std::boolalpha << HasTerm::value << ")" << std::endl;
+		++logger.indentLevel;
+#endif
+		return matchesImpl(vis, gDom, lgCodom, m, ls, HasTerm()
+#ifdef MOD_LABEL_ANY_DEBUG
+		, logger
+#endif
+		);
 	}
 public:
 	std::string label;
