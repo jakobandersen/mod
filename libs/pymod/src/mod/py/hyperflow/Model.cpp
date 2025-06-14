@@ -379,13 +379,12 @@ void Model_doExport() {
 					// rst:			:raises: :class:`InputError` on bad data or if the given derivation graph does not match the data.
 			.def("load", static_cast<Model_load>(&Model::load)) // overwritten in __init__.py, so keywords defined there
 			.staticmethod("load")
-					// rst:		.. staticmethod:: loadString(dg, s, ilpSolver="default", verbosity=1, listModel=True)
+					// rst:		.. staticmethod:: loadString(dg, s, ilpSolver="default", verbosity=1)
 					// rst:
 					// rst:			:param DG dg: the derivation graph which the dumped flow model is build upon.
 					// rst:			:param str s: the string with the dump data to be loaded.
 					// rst:			:param str ilpSolver: the ILP solver to use. See :func:`getAvailableILPSolvers`.
 					// rst:			:param int verbosity: see :cpp:func:`hyperflow::Model::findSolutions`.
-					// rst:			:param bool listModel: list the model after loading the specification, but before loading solutions.
 					// rst:			:returns: a flow model (possibly with solutions) corresponding to the model stored in the given string.
 					//	rst:				The given derivation graph must match the derivation graph originally used to create the dump.
 					// rst:			:rtype: Model

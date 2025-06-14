@@ -12,6 +12,8 @@ Bugs Fixed
 
 - Fix the :ref:`label-unification-constraint` (``constrainLabelAny``) to not trigger
   undefined behaviour.
+- For :py:func:`hyperflow.Model.loadString`, the ``listModel`` parameter
+  doesn't exist, and has now been removed from the documentation.
 
 
 v1.0.0 (2025-05-14)
