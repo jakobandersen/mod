@@ -27,7 +27,7 @@ RUN apt-get update                                                 \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y              \
     texlive-science texlive-pictures texlive-latex-extra lmodern
 
-RUN conda install conda-build conda-verify
+RUN conda install "conda-build>=25.1" conda-verify
 
 ARG version
 ENV MOD_CONDA_BUILD_VERSION=$version
@@ -72,7 +72,7 @@ RUN apt-get update                                                 \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y              \
     texlive-science texlive-pictures texlive-latex-extra lmodern
 
-RUN conda install conda-build conda-verify
+RUN conda install "conda-build>=25.1" conda-verify
 
 
 COPY --from=build /opt/conda/conda-bld/linux-64/mod-*.conda        \
