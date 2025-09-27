@@ -61,38 +61,6 @@ const std::set<lib::DG::HyperVertex> &BaseSpecification::getSeparatedIOInternalT
 	return verticesWithForcedTransitSeparation;
 }
 
-void BaseSpecification::setAllowHyperLoops(bool v) {
-	allowHyperLoops = v;
-}
-
-bool BaseSpecification::getAllowHyperLoops() const {
-	return allowHyperLoops;
-}
-
-void BaseSpecification::setAllowReversal(bool value) {
-	allowReversal = value;
-}
-
-bool BaseSpecification::getAllowReversal() const {
-	return allowReversal;
-}
-
-void BaseSpecification::setAllowIOReversal(bool value) {
-	allowIOReversal = value;
-}
-
-bool BaseSpecification::getAllowIOReversal() const {
-	return allowIOReversal;
-}
-
-void BaseSpecification::setRelaxed(bool value) {
-	relaxed = value;
-}
-
-bool BaseSpecification::getRelaxed() const {
-	return relaxed;
-}
-
 void BaseSpecification::listImpl(std::ostream &s) const {
 	s << "Sources:  ";
 	for(HyperVertex v : getSources()) {
@@ -221,8 +189,8 @@ Transits BaseSpecification::getTransits() const {
 	Transits rs;
 	for(const auto vHyper : verticesWithForcedTransitSeparation)
 		lib::DG::Expanded::addIOInverseTransits(owner.dgHyper, vHyper, rs.expressed);
-	if(!getAllowReversal()) lib::DG::Expanded::addInternalInverseTransits(owner.dgHyper, rs.deleted);
-	if(!getAllowIOReversal()) lib::DG::Expanded::addIOInverseTransits(owner.dgHyper, rs.deleted);
+	if(!allowReversal) lib::DG::Expanded::addInternalInverseTransits(owner.dgHyper, rs.deleted);
+	if(!allowIOReversal) lib::DG::Expanded::addIOInverseTransits(owner.dgHyper, rs.deleted);
 	return rs;
 }
 

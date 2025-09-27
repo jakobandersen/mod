@@ -126,23 +126,23 @@ loadVersion_2_3_4_5_6_7(std::shared_ptr<dg::DG> dg, const std::string &ilpSolver
 		if(version == 3) { // disallowNullDerivations / allowHyperLoops
 			bool disallowNullDerivations;
 			PARSE("disallowNullDerivations:" >> x3::bool_, disallowNullDerivations);
-			mod.setAllowHyperLoops(!disallowNullDerivations);
+			mod.allowHyperLoops = !disallowNullDerivations;
 		} else if(version >= 4) {
 			bool allowHyperLoops = false;
 			PARSE("allowHyperLoops:" >> x3::bool_, allowHyperLoops);
-			mod.setAllowHyperLoops(allowHyperLoops);
+			mod.allowHyperLoops = allowHyperLoops;
 		}
 		if(version >= 4) {
 			bool allowReversal = true, allowIOReverse = true; // initialisation to make GCC shut up
 			PARSE("allowReverse:" >> x3::bool_, allowReversal);
 			PARSE("allowIOReverse:" >> x3::bool_, allowIOReverse);
-			mod.setAllowReversal(allowReversal);
-			mod.setAllowIOReversal(allowIOReverse);
+			mod.allowReversal = allowReversal;
+			mod.allowIOReversal = allowIOReverse;
 		}
 		if(version >= 6) {
 			bool relaxed = false; // initialisation to make GCC shut up
 			PARSE("relaxed:" >> x3::bool_, relaxed);
-			mod.setRelaxed(relaxed);
+			mod.relaxed = relaxed;
 			if(relaxed) {
 				throw InputError("Relaxed models can not be loaded.");
 			}
@@ -156,8 +156,8 @@ loadVersion_2_3_4_5_6_7(std::shared_ptr<dg::DG> dg, const std::string &ilpSolver
 			bool forceExistence, strictTransit;
 			PARSE("forceExistence:" >> ("true" >> x3::attr(true) | "false" >> x3::attr(false)), forceExistence);
 			PARSE("strictTransit:" >> ("true" >> x3::attr(true) | "false" >> x3::attr(false)), strictTransit);
-			mod.setForceExistence(forceExistence);
-			mod.setStrictTransit(strictTransit);
+			mod.forceExistence = forceExistence;
+			mod.strictTransit = strictTransit;
 		}
 	}
 
@@ -168,9 +168,9 @@ loadVersion_2_3_4_5_6_7(std::shared_ptr<dg::DG> dg, const std::string &ilpSolver
 		PARSE("forceExistence:" >> ("true" >> x3::attr(true) | "false" >> x3::attr(false)), forceExistence);
 		PARSE("strictTransit:" >> ("true" >> x3::attr(true) | "false" >> x3::attr(false)), strictTransit);
 		PARSE("bfsExclusive:" >> ("true" >> x3::attr(true) | "false" >> x3::attr(false)), bfsExclusive);
-		mod.setForceExistence(forceExistence);
-		mod.setStrictTransit(strictTransit);
-		mod.setBFSExclusive(bfsExclusive);
+		mod.forceExistence = forceExistence;
+		mod.strictTransit = strictTransit;
+		mod.bfsExclusive = bfsExclusive;
 	}
 
 	if(version < 4) {
@@ -185,8 +185,8 @@ loadVersion_2_3_4_5_6_7(std::shared_ptr<dg::DG> dg, const std::string &ilpSolver
 			bool allowReversal, allowIOReverse;
 			PARSE("allowReverse:" >> x3::bool_, allowReversal);
 			PARSE("allowInOutReverse:" >> x3::bool_, allowIOReverse);
-			mod.setAllowReversal(allowReversal);
-			mod.setAllowIOReversal(allowIOReverse);
+			mod.allowReversal = allowReversal;
+			mod.allowIOReversal = allowIOReverse;
 		}
 	}
 

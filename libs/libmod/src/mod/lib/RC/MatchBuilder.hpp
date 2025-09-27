@@ -2,19 +2,27 @@
 #define MOD_LIB_RC_MATCHBUILDER_HPP
 
 #include <mod/lib/Rule/Rule.hpp>
+#include <mod/lib/RC/LabelledResult.hpp>
+
 #include <jla_boost/graph/morphism/finders/CommonSubgraph.hpp>
+
+#include <optional>
 
 namespace mod::lib::RC {
 
 struct MatchBuilder {
+	using CompositionRes = std::pair<std::unique_ptr<lib::rule::Rule>,
+	        std::optional<lib::RC::ResultMaps>>;
+public:
 	explicit MatchBuilder(const lib::rule::Rule &rFirst, const lib::rule::Rule &rSecond, LabelSettings labelSettings);
 	lib::rule::Vertex getSecondFromFirst(lib::rule::Vertex v) const;
 	lib::rule::Vertex getFirstFromSecond(lib::rule::Vertex v) const;
+	decltype(auto) getMatch() const { return match.getVertexMap(); }
 	std::size_t size() const;
 	bool push(lib::rule::Vertex vFirst, lib::rule::Vertex vSecond);
 	void pop();
-	std::unique_ptr<lib::rule::Rule> compose(bool verbose) const;
-	std::vector<std::unique_ptr<lib::rule::Rule>> composeAll(bool maximum, bool verbose) const;
+	CompositionRes compose(bool verbose) const;
+	std::vector<CompositionRes> composeAll(bool maximum, bool verbose) const;
 private:
 	struct VertexPred {
 		bool operator()(lib::rule::Vertex vSecond, lib::rule::Vertex vFirst);

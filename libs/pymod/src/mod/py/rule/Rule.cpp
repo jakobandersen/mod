@@ -4,6 +4,8 @@
 #include <mod/rule/GraphInterface.hpp>
 #include <mod/rule/Rule.hpp>
 
+#include <mod/py/VertexMap.hpp>
+
 namespace mod::rule::Py {
 namespace {
 
@@ -244,6 +246,11 @@ void Rule_doExport() {
 	// rst:
 	// rst:		:type: list[Rule]
 	// rst:
+
+	// rst: .. class:: VertexMapRuleRule
+	// rst:
+	// rst:		Implements the :class:`protocols.VertexMap` protocol.
+	mod::Py::exportVertexMap<VertexMap<rule::Rule, rule::Rule>>("VertexMapRuleRule");
 }
 
 } // namespace mod::rule::Py

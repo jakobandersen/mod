@@ -55,6 +55,8 @@ Contents
 Contributors
 ============
 
-* `Jakob Lykke Andersen <https://imada.sdu.dk/~jlandersen>`__: main author.
-* `Nikolai Nøjgaard <https://imada.sdu.dk/~nojgaard>`__:
+* `Jakob Lykke Andersen <https://imada.sdu.dk/u/jlandersen>`__: main author.
+* `Christoph Flamm <https://www.tbi.univie.ac.at/~xtof>`__:
+  author of the Lotka-Volterra and SIR systems used as test cases for the stochastic simulation module.
+* `Nikolai Nøjgaard <https://imada.sdu.dk/u/nojgaard>`__:
   author of EpiM which was a Python module of MØD (see [AHMNP-EpiM]_).

@@ -30,7 +30,7 @@ struct BaseModel::StaticInit {
 		});
 #define SUM_CALLBACK_INT(name, member)                                         \
         [](const Model &m) {                                                   \
-            if(m.specification->getModule<BaseSpecification>().getRelaxed())   \
+            if(m.specification->getModule<BaseSpecification>().relaxed)        \
                 throw LogicError("Can not compile variable set '" name         \
                                  "'. It does not exist in relaxed mode.");     \
             const auto &mm = m.getModule<BaseModel>();                         \
@@ -41,7 +41,7 @@ struct BaseModel::StaticInit {
         }
 #define IDX_CALLBACK_INT(name, member)                                         \
         [](const Model &m, const lib::DG::HyperVertex &x) {                    \
-            if(m.specification->getModule<BaseSpecification>().getRelaxed())   \
+            if(m.specification->getModule<BaseSpecification>().relaxed)        \
                 throw LogicError("Can not compile indexed variable set '" name \
                                  "'. It does not exist in relaxed mode.");     \
             const auto &mm = m.getModule<BaseModel>();                         \
@@ -55,7 +55,7 @@ struct BaseModel::StaticInit {
         [](const Model &m) {                                                   \
             const auto &mm = m.getModule<BaseModel>();                         \
             CombiOpt::LinExpAny res;                                           \
-            if(m.specification->getModule<BaseSpecification>().getRelaxed())   \
+            if(m.specification->getModule<BaseSpecification>().relaxed)        \
                 for(const auto &p : mm.relaxedMode.member)                     \
                     res += p.second;                                           \
             else                                                               \
@@ -66,7 +66,7 @@ struct BaseModel::StaticInit {
 #define IDX_CALLBACK_BOTH(name, member)                                        \
         [](const Model &m, const lib::DG::HyperVertex &x) {                    \
             const auto &mm = m.getModule<BaseModel>();                         \
-            if(m.specification->getModule<BaseSpecification>().getRelaxed()) { \
+            if(m.specification->getModule<BaseSpecification>().relaxed) {      \
                 const auto iter = mm.relaxedMode.member.find(x);               \
                 assert(iter != end(mm.relaxedMode.member));                    \
                 CombiOpt::LinExpAny res;                                       \
@@ -113,7 +113,7 @@ struct BaseModel::StaticInit {
 							                 " before using the sum-version of this specifier.");
 						}
 						CombiOpt::LinExpAny res;
-						if(m.specification->getModule<BaseSpecification>().getRelaxed())
+						if(m.specification->getModule<BaseSpecification>().relaxed)
 							for(const auto &p : mm.relaxedMode.transitInternalFlow)
 								res += p.second;
 						else
@@ -138,7 +138,7 @@ struct BaseModel::StaticInit {
 							res += iter->second;
 							return res;
 						};
-						if(m.specification->getModule<BaseSpecification>().getRelaxed())
+						if(m.specification->getModule<BaseSpecification>().relaxed)
 							return doIt(mm.relaxedMode.transitInternalFlow);
 						else
 							return doIt(mm.transitInternalFlow);
@@ -165,7 +165,7 @@ struct BaseModel::StaticInit {
 					id,
 					SUM_CALLBACK_INT("isBothReverseUsed", isEdgeBothReverseUsed),
 					[](const Model &m, const lib::DG::HyperVertex &e) {
-						if(m.specification->getModule<BaseSpecification>().getRelaxed())
+						if(m.specification->getModule<BaseSpecification>().relaxed)
 							throw LogicError("Can not compile indexed variable set '"
 							                 "isBothReverseUsed'. It does not exist in relaxed mode.");
 						const auto &mm = m.getModule<BaseModel>();
@@ -231,7 +231,7 @@ void BaseModel::createVariablesImpl(CombiOpt::Model &model) {
 		const std::string nameSuffix =
 				"(" + boost::lexical_cast<std::string>(get(boost::vertex_index_t(), dgHyper, vHyper)) + ")";
 		// edge
-		if(!specification.getRelaxed()) {
+		if(!specification.relaxed) {
 			const auto var = model.addIntVariable("edge" + nameSuffix);
 			edgeFlow.emplace(vHyper, var);
 			allFlowVars.emplace(dgExpandedWrapper.getExpandedFromHyperEdge(vHyper), var);
@@ -285,7 +285,7 @@ void BaseModel::createVariablesImpl(CombiOpt::Model &model) {
 		}
 		name += ')';
 		//std::cout << "TransitEdge: " << name << std::endl;
-		if(!specification.getRelaxed()) {
+		if(!specification.relaxed) {
 			const auto var = model.addIntVariable(std::move(name));
 			allFlowVars.emplace(vExpanded, var);
 		} else {
@@ -298,7 +298,7 @@ void BaseModel::createVariablesImpl(CombiOpt::Model &model) {
 		if(dgHyper[vHyper].kind != lib::DG::HyperVertexKind::Vertex) continue;
 		const std::string nameSuffix = "(" + dgHyper[vHyper].graph->getName() + ")";
 		// inFlow
-		if(!specification.getRelaxed()) {
+		if(!specification.relaxed) {
 			const auto flowVar = model.addIntVariable("in" + nameSuffix);
 			inFlow.emplace(vHyper, flowVar);
 			allFlowVars.emplace(dgExpandedWrapper.getVertexData(vHyper).inputEdge, flowVar);
@@ -316,7 +316,7 @@ void BaseModel::createVariablesImpl(CombiOpt::Model &model) {
 			isOutUsed.emplace(vHyper, indVar);
 		}
 		// outFlow
-		if(!specification.getRelaxed()) {
+		if(!specification.relaxed) {
 			const auto flowVar = model.addIntVariable("out" + nameSuffix);
 			outFlow.emplace(vHyper, flowVar);
 			allFlowVars.emplace(dgExpandedWrapper.getVertexData(vHyper).outputEdge, flowVar);
@@ -334,7 +334,7 @@ void BaseModel::createVariablesImpl(CombiOpt::Model &model) {
 			isInOutZero.emplace(vHyper, inOutZero);
 		}
 		// vertex
-		if(!specification.getRelaxed()) {
+		if(!specification.relaxed) {
 			const auto vertex = model.addIntVariable("vertex" + nameSuffix);
 			vertexFlow.emplace(vHyper, vertex);
 		} else {
@@ -347,7 +347,7 @@ void BaseModel::createVariablesImpl(CombiOpt::Model &model) {
 		}
 		// transitInternalFlow
 		if(dgExpandedWrapper.hasIOInternalTransitSeparated(vHyper)) {
-			if(!specification.getRelaxed()) {
+			if(!specification.relaxed) {
 				const auto vertex = model.addIntVariable("transitInternal" + nameSuffix);
 				transitInternalFlow.emplace(vHyper, vertex);
 			} else {
@@ -414,7 +414,7 @@ void BaseModel::createConstraintsImpl(CombiOpt::Model &model) {
 		}
 	};
 	// actually call those functions above
-	if(!specification.getRelaxed()) {
+	if(!specification.relaxed) {
 		makeConservationConstraints(CombiOpt::LinExpInt(), *this);
 		handleVertexFlow(CombiOpt::LinExpInt(), *this);
 	} else {
@@ -486,7 +486,7 @@ void BaseModel::createConstraintsImpl(CombiOpt::Model &model) {
 		}
 		model.addConstraint(expr == 0);
 	};
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		for(const auto vHyper : asRange(vertices(dgHyper))) {
 			if(dgHyper[vHyper].kind != lib::DG::HyperVertexKind::Vertex) continue;
 			handleSourceSinks(this->relaxedMode, vHyper);
@@ -560,7 +560,7 @@ void BaseModel::createConstraintsImpl(CombiOpt::Model &model) {
 		}
 	} // end if relaxed
 	// per-edge variables
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		// isEdgeUsed
 		for(const auto &p : isEdgeUsed)
 			model.addConstraint(!p.second);
@@ -591,7 +591,7 @@ void BaseModel::createConstraintsImpl(CombiOpt::Model &model) {
 				}
 			}
 			// hyper-loops
-			if(!specification.getAllowHyperLoops() && vHyperReverse == vHyper)
+			if(!specification.allowHyperLoops && vHyperReverse == vHyper)
 				model.setUB(edge, 0);
 		}
 	} // end if relaxed
@@ -708,7 +708,7 @@ void BaseModel::loadSolution_v2to7(CombiOpt::LoadedSolution &s,
 	const auto &dgHyper = dg.getGraph();
 	const auto &dgExpandedWrapper = owner.getExpanded();
 	const auto &dgExpanded = dgExpandedWrapper.getGraph();
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		MOD_ABORT;
 	} else {
 		for(const auto &p : edgeFlow) {
@@ -936,7 +936,7 @@ nlohmann::json BaseModel::dumpImpl(const CombiOpt::Result &sol) const {
 			}
 		}
 	};
-	if(getSpec().getRelaxed())
+	if(getSpec().relaxed)
 		assign(relaxedMode.allFlowVars);
 	else
 		assign(allFlowVars);
@@ -990,7 +990,7 @@ bool BaseModel::loadImpl(const nlohmann::json &j, CombiOpt::LoadedSolution &s, s
 		return false;
 
 	const auto &dg = owner.specification->dgHyper.getGraph();
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		const auto handleElements = [&j, &dg, &err, &s](
 				const std::string &name, const std::string &nameUpper,
 				const auto &loader, const auto &vars) {
@@ -1128,7 +1128,7 @@ bool BaseModel::loadImpl(const nlohmann::json &j, CombiOpt::LoadedSolution &s, s
 		}
 		return true;
 	};
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		return handleTransit(
 				relaxedMode.allFlowVars,
 				[&s, &err, this](const lib::DG::ExpandedVertex e, const nlohmann::json &value) {
@@ -1207,7 +1207,7 @@ void BaseModel::loadSolutionSetDependentVarsImpl(CombiOpt::LoadedSolution &s) co
 		if(acc != AccType())
 			targetVals.emplace(tif, acc);
 	};
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		for(const auto v : asRange(vertices(dg))) {
 			if(dg[v].kind != lib::DG::HyperVertexKind::Vertex) continue;
 			const auto inFlow = s.getVal(getInRelaxed(v));
@@ -1255,7 +1255,7 @@ void BaseModel::loadSolutionSetDependentVarsImpl(CombiOpt::LoadedSolution &s) co
 }
 
 bool BaseModel::hasListEntry(lib::DG::HyperVertex vHyper, const CombiOpt::Result &sol) const {
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		if(sol.getValue(getInRelaxed(vHyper)) != 0.0) return true;
 		if(sol.getValue(getOutRelaxed(vHyper)) != 0.0) return true;
 	} else {
@@ -1270,7 +1270,7 @@ std::vector<std::string> BaseModel::listHeaderEntries() const {
 }
 
 std::vector<std::string> BaseModel::listEntries(lib::DG::HyperVertex vHyper, const CombiOpt::Result &sol) const {
-	if(specification.getRelaxed()) {
+	if(specification.relaxed) {
 		return {
 				boost::lexical_cast<std::string>(sol.getValue(getInRelaxed(vHyper))),
 				boost::lexical_cast<std::string>(sol.getValue(getOutRelaxed(vHyper)))

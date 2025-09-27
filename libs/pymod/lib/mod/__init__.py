@@ -2,9 +2,10 @@
 import collections.abc
 import ctypes
 import inspect
+import math
 import sys
 from typing import (
-	Any, Callable, cast, Iterable, List, Optional, Sequence,
+	Any, Callable, cast, Dict, Iterable, List, Optional, Sequence,
 	TextIO, Tuple, Type, Union
 )
 
@@ -14,6 +15,7 @@ _oldFlags = sys.getdlopenflags()
 sys.setdlopenflags(_oldFlags | ctypes.RTLD_GLOBAL)
 from . import libpymod  # noqa
 from .libpymod import *  # noqa
+from . import causality  # noqa
 from . import hyperflow  # noqa
 from .hyperflow.vars import *  # type: ignore # noqa
 from . import post  # noqa
@@ -73,6 +75,7 @@ def _fixModule(modObj):
 		_fixClass(c[0], c[1], 0)
 
 _fixModule(libpymod)
+_fixModule(causality)
 _fixModule(hyperflow)
 _fixModule(post)
 
@@ -868,6 +871,8 @@ def postSection(heading: str) -> None:
 
 
 ###########################################################
+# Rule
+###########################################################
 
 inputRules = []
 
@@ -957,11 +962,22 @@ def _RCMatch_compose(self, *, verbose=False):
 	return _RCMatch_compose_orig(self, verbose)
 RCMatch.compose = _RCMatch_compose  # type: ignore
 
+_RCMatch_composeWithMaps_orig = RCMatch.composeWithMaps
+def _RCMatch_composeWithMaps(self, *, verbose=False):
+	return _RCMatch_composeWithMaps_orig(self, verbose)
+RCMatch.composeWithMaps = _RCMatch_composeWithMaps  # type: ignore
+
 
 _RCMatch_composeAll_orig = RCMatch.composeAll
 def _RCMatch_composeAll(self, *, maximum=False, verbose=False):
 	return _unwrap(_RCMatch_composeAll_orig(self, maximum, verbose))
 RCMatch.composeAll = _RCMatch_composeAll  # type: ignore
+
+
+_RCMatch_composeAllWithMaps_orig = RCMatch.composeAllWithMaps
+def _RCMatch_composeAllWithMaps(self, *, maximum=False, verbose=False):
+	return _unwrap(_RCMatch_composeAllWithMaps_orig(self, maximum, verbose))
+RCMatch.composeAllWithMaps = _RCMatch_composeAllWithMaps  # type: ignore
 
 
 #----------------------------------------------------------
@@ -1118,6 +1134,263 @@ rcSuper = _RCSuperOp()
 
 def showDump(f: str) -> None:
 	return libpymod.showDump(prefixFilename(f))  # type: ignore
+
+
+###########################################################
+# Causality
+###########################################################
+
+# EventTrace
+# ----------------------------------------------------------
+
+_EventTrace_load_orig = causality.EventTrace.load
+def _EventTrace_load(dgOrNet, f):
+	return _EventTrace_load_orig(dgOrNet, prefixFilename(f))
+causality.EventTrace.load = _EventTrace_load  # type: ignore
+
+_EventTrace_print_orig = causality.EventTrace.print
+def _EventTrace_print(self: causality.EventTrace, printer: Optional[causality.EventTracePrinter] = None) -> str:
+	if printer is None:
+		printer = causality.EventTracePrinter()
+	return _EventTrace_print_orig(self, printer)
+causality.EventTrace.print = _EventTrace_print  # type: ignore
+
+_EventTracePrinter_pushOptions_orig = causality.EventTracePrinter.pushOptions
+causality.EventTracePrinter.pushOptions = (  # type: ignore
+	lambda self, f: _EventTracePrinter_pushOptions_orig(self, _funcWrap(libpymod._Func_StringDG, f)))
+
+_EventTracePrinter_pushVertexVisible_orig = causality.EventTracePrinter.pushVertexVisible
+causality.EventTracePrinter.pushVertexVisible = (  # type: ignore
+	lambda self, f: _EventTracePrinter_pushVertexVisible_orig(self, _funcWrap(libpymod._Func_BoolDGVertex, f)))
+
+_EventTracePrinter_pushVertexOptions_orig = causality.EventTracePrinter.pushVertexOptions
+causality.EventTracePrinter.pushVertexOptions = (  # type: ignore
+	lambda self, f: _EventTracePrinter_pushVertexOptions_orig(self, _funcWrap(libpymod._Func_StringDGVertex, f)))
+
+_EventTracePrinter_setPreContent_orig = causality.EventTracePrinter.setPreContent
+causality.EventTracePrinter.setPreContent = (  # type: ignore
+	lambda self, f: _EventTracePrinter_setPreContent_orig(self, _funcWrap(libpymod._Func_StringDG, f)))
+
+_EventTracePrinter_setPostContent_orig = causality.EventTracePrinter.setPostContent
+causality.EventTracePrinter.setPostContent = (  # type: ignore
+	lambda self, f: _EventTracePrinter_setPostContent_orig(self, _funcWrap(libpymod._Func_StringDG, f)))
+
+
+# Stochsim
+# ----------------------------------------------------------
+
+class _Simulator:
+	class DrawTimeExponential:
+		def __call__(self, activitySum: float) -> float:
+			return -math.log(rngUniformReal()) / activitySum
+
+
+	class ExpandByStrategy:
+		def __init__(self, strat: DGStrat):
+			self.strat = dgStrat(strat)
+
+		def __call__(self, b: DG.Builder,
+				s: List[Graph], u: List[Graph]) -> bool:
+			b.execute(addSubset(s) >> addUniverse(u) >> self.strat, verbosity=0)
+			return True
+
+
+	class DrawMassAction:
+		def __init__(self, *,
+				inputRate:    Union[None, Callable[[DG.Vertex],
+					Tuple[float, bool]], Tuple[float, bool]] = None,
+				reactionRate: Union[None, Callable[[DG.HyperEdge],
+					Tuple[float, bool]], Tuple[float, bool]] = None,
+				outputRate:   Union[None, Callable[[DG.Vertex],
+					Tuple[float, bool]], Tuple[float, bool]] = None) -> None:
+			self.inputRate = inputRate
+			self.reactionRate = reactionRate
+			self.outputRate = outputRate
+
+		def __call__(self, dg: DG) -> "causality.Simulator.DrawMassAction.Function":  # type: ignore
+			return causality.Simulator.DrawMassAction.Function(dg,  # type: ignore
+				self.inputRate, self.reactionRate, self.outputRate)
+
+
+	def __init__(self, *,
+			labelSettings: LabelSettings = LabelSettings(
+				LabelType.String, LabelRelation.Isomorphism),
+			graphDatabase: List[Graph],  # noqa
+			expandNetwork: Callable[
+				[DG.Builder, List[Graph], List[Graph]], bool],
+			initialState: Dict[Graph, int],
+			draw: Callable[[DG], "causality.DrawFunction"] = DrawMassAction(),  # type: ignore
+			drawTime: Callable[[float], float] = DrawTimeExponential(),
+			withSetCompare: bool = True) -> None:
+		self._impl = causality._SimulatorImpl()  # type: ignore
+		self._dg = DG(graphDatabase=graphDatabase,
+							labelSettings=labelSettings)
+		self._builder = self._dg.build()
+		self._doExpansion = True
+		self._expandNetwork = expandNetwork
+		# make sure the initial state is represented in the DG
+		self._builder.execute(addSubset(initialState), verbosity=0)
+
+		self._withSetCompare = withSetCompare
+		if withSetCompare:
+			self._markingSupportSet: Optional[causality.MarkingSet] \
+				= causality.MarkingSet()
+		else:
+			self._markingSupportSet = None
+		self._petriNet = causality.Net(self._dg)
+		self._marking = causality.Marking(self._petriNet)
+		for g, c in initialState.items():
+			v = self._dg.findVertex(g)
+			assert v
+			self._marking.add(v, c)
+		self._trace = causality.EventTrace(self._marking)
+
+		self._draw = draw(self._dg)
+		self._drawTime = drawTime
+
+		self.onIterationBegin = lambda self: None
+		self.onIterationEnd = lambda self, action, timeInc: True
+		self.onDeadlock = lambda self: None
+		self.onExpand = lambda self: None
+		self.onExpandAvoided = lambda self: None
+
+	@property
+	def dg(self) -> DG:
+		return self._dg
+
+	@property
+	def iteration(self) -> int:
+		return self._impl.iteration
+
+	@property
+	def time(self) -> float:
+		return self._impl.time
+
+	@property
+	def trace(self) -> causality.EventTrace:
+		return self._trace
+
+	def __setattr__(self, name, value) -> None:
+		if name == "onIterationBegin":
+			import inspect
+			spec = inspect.getfullargspec(value)
+			if len(spec.args) != 1:
+				_deprecation("causality.Simulator.onIterationBegin has been changed to take just the simulator object as argument. Use the .time and .iteration properties to get the old information.")
+				origValue = value
+				def fWrapped(sim, f=origValue) -> None:
+					return f(sim.time, sim.iteration)
+				value = fWrapped
+		elif name == "onNewState":
+			import inspect
+			spec = inspect.getfullargspec(value)
+			if len(spec.args) != 3:
+				_deprecation("causality.Simulator.onNewState has been renamed to causality.Simulator.onIterationEnd, and changed to take just the simulator object as argument. Use the .time, .iteration, and .trace properties to get the old information.")
+				origValue = value
+				def fWrapped(sim, action, timeInc, f=origValue) -> None:  # type: ignore
+					return f(sim.time, sim.iteration, self.trace, action, timeInc)
+				name = "onIterationEnd"
+				value = fWrapped
+		elif name == "onDeadlock":
+			import inspect
+			spec = inspect.getfullargspec(value)
+			if len(spec.args) != 1:
+				_deprecation("causality.Simulator.onDeadlock has been changed to take just the simulator object as argument. Use the .time, .iteration, and .trace properties to get the old information.")
+				origValue = value
+				def fWrapped(sim, f=origValue) -> None:
+					return f(sim.time, sim.iteration, self.trace)
+				value = fWrapped
+		elif name in ("onRecompute", "onRecomputeAvoided"):
+			newName = "onExpand" + name[11:]
+			_deprecation("causality.Simulator.{} has been renamed to causality.Simulator.{}, and changed to take just the simulator object as argument. Use the .iteration to get the old information.".format(name, newName))
+			name = newName
+		super().__setattr__(name, value)
+
+	def simulate(self, *,
+			time: Optional[float] = None,
+			advanceToEndTime: bool = False,
+			iterations: Optional[int] = None) -> causality.EventTrace:
+		stopTime = None if time is None else self._impl.time + time
+		stopIter = None if iterations is None else self._impl.iteration + iterations
+
+		subset = self._marking.getNonZeroPlaces()
+		# do an initial network expansion, e.g., to support a dynamically added
+		# network, where no further expansions are doing anything
+		self.onExpand(self)
+		self._expandNeighbourhood(subset)
+
+		marking = self._marking
+		while stopIter is None or self._impl.iteration < stopIter:
+			self._impl.doIteration()
+			self.onIterationBegin(self)
+
+			# do we need to expand the neighbourhood?
+			if len(subset) > 0 and self._doExpansion:
+				if (self._markingSupportSet is None
+						or self._markingSupportSet.addIfNotSubset(marking)):
+					self.onExpand(self)
+					self._expandNeighbourhood(subset)
+				else:
+					self.onExpandAvoided(self)
+
+			# Pick reaction and time
+			action, rateSum = self._draw.draw(marking)
+			if rateSum == 0:
+				self.onDeadlock(self)
+				break
+
+			timeInc = self._drawTime(rateSum)
+			if stopTime is not None and self._impl.time + timeInc > stopTime:
+				if advanceToEndTime:
+					self._impl.time = stopTime
+				break
+			self._impl.time += timeInc
+
+			# Update state
+			if isinstance(action, causality.EdgeAction):
+				subset = marking.getEmptyPostPlaces(action.edge)
+			elif isinstance(action, causality.OutputAction):
+				subset = []
+			elif isinstance(action, causality.InputAction):
+				subset = [action.vertex]
+			else:
+				assert False, "Unknown action for subset computation: {}".format(action)
+			action.applyTo(marking)
+			self._trace.add(self._impl.time, action)
+			continue_ = self.onIterationEnd(self, action, timeInc)
+			if not continue_:
+				break
+
+		return self._trace
+
+	def _expandNeighbourhood(self, subset: List[DG.Vertex]) -> None:
+		subsetGraphs = list(v.graph for v in subset)
+		universeGraphs = list(v.graph for v in self._marking.getNonZeroPlaces())
+		self._doExpansion = self._expandNetwork(self._builder, subsetGraphs, universeGraphs)
+		if self._doExpansion is None:
+			_deprecation("causality.Simulator: the expandNetwork callback should now return a boolean, indicating whether to call it again later. Assuming True.")
+			self._doExpansion = True
+		self._petriNet.syncSize()
+		self._marking.syncSize()
+		self._draw.syncSize()
+
+causality.Simulator = _Simulator  # type: ignore
+
+causality.Simulator.DrawMassAction.Function = causality._DrawMassActionFunction  # type: ignore
+
+_DrawMassActionFunction__init__orig = causality.Simulator.DrawMassAction.Function.__init__  # type: ignore
+def _DrawMassActionFunction__init__(self: causality.Simulator.DrawMassAction.Function,  # type: ignore
+			dg: DG,
+			inputRate:    Union[None, Callable[[DG.Vertex],
+				Tuple[float, bool]], Tuple[float, bool]],
+			reactionRate: Union[None, Callable[[DG.HyperEdge],
+				Tuple[float, bool]], Tuple[float, bool]],
+			outputRate:   Union[None, Callable[[DG.Vertex],
+				Tuple[float, bool]], Tuple[float, bool]]) -> None:
+	inputRate = None if inputRate is None else  _funcWrap(libpymod._Func_PairDoubleBoolDGVertex, inputRate)
+	reactionRate = None if reactionRate is None else _funcWrap(libpymod._Func_PairDoubleBoolDGHyperEdge, reactionRate)
+	outputRate = None if outputRate is None else _funcWrap(libpymod._Func_PairDoubleBoolDGVertex, outputRate)
+	return _DrawMassActionFunction__init__orig(self, dg, inputRate, reactionRate, outputRate)
+causality.Simulator.DrawMassAction.Function.__init__ = _DrawMassActionFunction__init__  # type: ignore
 
 
 ###########################################################

@@ -28,6 +28,7 @@ struct VertexMapper::Pimpl {
 			gs.push_back(dg[v].graph->getAPIReference());
 		return graph::Union(std::move(gs));
 	}
+
 public:
 	DG::HyperEdge e;
 	lib::DG::VertexMappingResult res;
@@ -40,7 +41,9 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 	// capture owner->p in the callbacks to keep the mapping data alive
 	auto m = VertexMap<graph::Union, graph::Union>(
 			owner->getLeft(), owner->getRight(),
-			[p = owner->p, i = this->i](graph::Union::Vertex vLeft) -> graph::Union::Vertex {
+			[p = owner->p, i = this->i](
+					const graph::Union &gLeft, const graph::Union &gRight,
+					graph::Union::Vertex vLeft) -> graph::Union::Vertex {
 				assert(vLeft.getId() < num_vertices(p->res.gLeft));
 				const auto v = vertices(p->res.gLeft).first[vLeft.getId()];
 				const auto vRes = get(p->res.maps[i].mGH, p->res.gLeft, p->res.gRight, v);
@@ -48,7 +51,9 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 					return {};
 				return p->getRight().vertices()[get(boost::vertex_index_t(), p->res.gRight, vRes)];
 			},
-			[p = owner->p, i = this->i](graph::Union::Vertex vRight) -> graph::Union::Vertex {
+			[p = owner->p, i = this->i](
+					const graph::Union &gLeft, const graph::Union &gRight,
+					graph::Union::Vertex vRight) -> graph::Union::Vertex {
 				assert(vRight.getId() < num_vertices(p->res.gRight));
 				const auto v = vertices(p->res.gRight).first[vRight.getId()];
 				const auto vRes = get_inverse(p->res.maps[i].mGH, p->res.gLeft, p->res.gRight, v);
@@ -56,10 +61,12 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 					return {};
 				return p->getLeft().vertices()[get(boost::vertex_index_t(), p->res.gLeft, vRes)];
 			}
-			);
+	);
 	auto match = VertexMap<rule::Rule::LeftGraph, graph::Union>(
 			r->getLeft(), owner->getLeft(),
-			[p = owner->p, i = this->i](rule::Rule::LeftGraph::Vertex vLOuter) -> graph::Union::Vertex {
+			[p = owner->p, i = this->i](
+					const rule::Rule::LeftGraph &gL, const graph::Union &gLeft,
+					rule::Rule::LeftGraph::Vertex vLOuter) -> graph::Union::Vertex {
 				const auto &data = p->res.maps[i];
 				const auto &lr = data.r->getDPORule();
 				const auto &rDPO = lr.getRule();
@@ -68,7 +75,9 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 				assert(vLeftInner != p->res.gLeft.null_vertex());
 				return p->getLeft().vertices()[get(boost::vertex_index_t(), p->res.gLeft, vLeftInner)];
 			},
-			[p = owner->p, i = this->i](graph::Union::Vertex vLeftOuter) -> rule::Rule::LeftGraph::Vertex {
+			[p = owner->p, i = this->i](
+					const rule::Rule::LeftGraph &gL, const graph::Union &gLeft,
+					graph::Union::Vertex vLeftOuter) -> rule::Rule::LeftGraph::Vertex {
 				assert(vLeftOuter.getId() < num_vertices(p->res.gLeft));
 				const auto &data = p->res.maps[i];
 				const auto &lr = data.r->getDPORule();
@@ -79,10 +88,12 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 					return {};
 				return data.r->getLeftInterfaceVertex(vLInner);
 			}
-			);
+	);
 	auto comatch = VertexMap<rule::Rule::RightGraph, graph::Union>(
 			r->getRight(), owner->getRight(),
-			[p = owner->p, i = this->i](rule::Rule::RightGraph::Vertex vROuter) -> graph::Union::Vertex {
+			[p = owner->p, i = this->i](
+					const rule::Rule::RightGraph &gR, const graph::Union &gRight,
+					rule::Rule::RightGraph::Vertex vROuter) -> graph::Union::Vertex {
 				const auto &data = p->res.maps[i];
 				const auto &lr = data.r->getDPORule();
 				const auto &rDPO = lr.getRule();
@@ -91,7 +102,9 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 				assert(vRightInner != p->res.gRight.null_vertex());
 				return p->getRight().vertices()[get(boost::vertex_index_t(), p->res.gRight, vRightInner)];
 			},
-			[p = owner->p, i = this->i](graph::Union::Vertex vRightOuter) -> rule::Rule::RightGraph::Vertex {
+			[p = owner->p, i = this->i](
+					const rule::Rule::RightGraph &gR, const graph::Union &gRight,
+					graph::Union::Vertex vRightOuter) -> rule::Rule::RightGraph::Vertex {
 				assert(vRightOuter.getId() < num_vertices(p->res.gRight));
 				const auto &data = p->res.maps[i];
 				const auto &lr = data.r->getDPORule();
@@ -102,7 +115,7 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 					return {};
 				return data.r->getRightInterfaceVertex(vRInner);
 			}
-			);
+	);
 	return {r, std::move(m), std::move(match), std::move(comatch)};
 }
 
@@ -111,7 +124,7 @@ VertexMapper::Result VertexMapper::iterator::dereference() const {
 VertexMapper::VertexMapper(DG::HyperEdge e) : VertexMapper(e, true, 1 << 30, 0) {}
 
 VertexMapper::VertexMapper(DG::HyperEdge e, bool upToIsomorphismGDH, int rightLimit, int verbosity)
-	: p(new Pimpl()) {
+		: p(new Pimpl()) {
 	if(!e) throw LogicError("Can not find vertex maps for null edge.");
 	const auto &dg = e.getDG()->getHyper();
 	p->e = e;

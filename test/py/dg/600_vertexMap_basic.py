@@ -1,4 +1,4 @@
-include("../xxx_helpers.py")
+include("../xxx_vertexMap.py")
 
 fail(lambda: DGVertexMapper(DG.HyperEdge()),
 	"Can not find vertex maps for null edge.")
@@ -23,14 +23,9 @@ assert maps.size == 1
 rule = maps[0].rule
 m = maps[0].map
 assert rule == r
-assert m.domain == UnionGraph([O])
-assert m.codomain == UnionGraph([S])
-fail(lambda: m[UnionGraph.Vertex()], "Can not map null vertex.")
-fail(lambda: m.inverse(UnionGraph.Vertex()), "Can not map null vertex.")
+checkVertexMap(UnionGraph([O]), UnionGraph([S]), m)
 
 vDom = next(iter(m.domain.vertices))
 vCodom = next(iter(m.codomain.vertices))
-fail(lambda: m[vCodom], "Vertex does not belong to the domain graph.")
-fail(lambda: m.inverse(vDom), "Vertex does not belong to the codomain graph.")
 assert m[vDom] == vCodom
 assert m.inverse(vCodom) == vDom

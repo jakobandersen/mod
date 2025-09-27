@@ -1,6 +1,5 @@
 #include <mod/py/Common.hpp>
 
-#include <mod/VertexMap.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/graph/Automorphism.hpp>
 #include <mod/graph/GraphInterface.hpp>

@@ -17,6 +17,7 @@ checkSolutions(flow, [[
 	(inFlow, C, 1),
 	(outFlow, C, 2),
 	(outFlow, B, 1),
+	(isOverallAutocata, C, 1),
 	(edgeFlow, dg.findEdge([A, C1], [C, C2]), 2),
 	(edgeFlow, dg.findEdge([C], [B]), 1),
 	(edgeFlow, dg.findEdge([C2], [C1]), 2),

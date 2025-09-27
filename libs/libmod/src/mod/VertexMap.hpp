@@ -4,6 +4,7 @@
 #include <mod/Error.hpp>
 #include <mod/GraphConcepts.hpp>
 
+#include <functional>
 #include <ostream>
 
 namespace mod {
@@ -15,8 +16,8 @@ namespace mod {
 // rst-class-start:
 template<typename Domain, typename Codomain>
 struct VertexMap {
-	BOOST_CONCEPT_ASSERT((mod::concepts::LabelledGraph<Domain>));
-	BOOST_CONCEPT_ASSERT((mod::concepts::LabelledGraph<Codomain>));
+	BOOST_CONCEPT_ASSERT((mod::concepts::Graph<Domain>));
+	BOOST_CONCEPT_ASSERT((mod::concepts::Graph<Codomain>));
 public:
 	// rst: .. type:: DomainHandle = GraphHandle<Domain>
 	// rst:           CodomainHandle = GraphHandle<Codomain>
@@ -28,8 +29,8 @@ public:
 	using CodomVertex = typename Codomain::Vertex;
 public:
 	VertexMap(DomainHandle dom, CodomainHandle codom,
-			  std::function<CodomVertex(DomVertex)> forward,
-			  std::function<DomVertex(CodomVertex)> backward)
+			  std::function<CodomVertex(const DomainHandle&, const CodomainHandle&, DomVertex)> forward,
+			  std::function<DomVertex(const DomainHandle&, const CodomainHandle&, CodomVertex)> backward)
 			: dom(dom), codom(codom), forward(forward), backward(backward) {}
 
 	// rst: .. function:: friend std::ostream &operator<<(std::ostream &s, const VertexMap &m)
@@ -52,8 +53,8 @@ public:
 	// rst:		:throws: :class:`LogicError` if `v.getGraph() != getDomain()`.
 	CodomVertex operator[](DomVertex v) const {
 		if(!v) throw LogicError("Can not map null vertex.");
-		if(v.getGraph() != getDomain()) throw LogicError("Vertex does not belong to the domain graph.");
-		return forward(v);
+		if(v.getGraph() != dom) throw LogicError("Vertex does not belong to the domain graph.");
+		return forward(dom, codom, v);
 	}
 
 	// rst: .. function:: DomVertex getInverse(CodomVertex v) const
@@ -64,14 +65,14 @@ public:
 	// rst:		:throws: :class:`LogicError` if `v.getGraph() != getCodomain()`.
 	DomVertex getInverse(CodomVertex v) const {
 		if(!v) throw LogicError("Can not map null vertex.");
-		if(v.getGraph() != getCodomain()) throw LogicError("Vertex does not belong to the codomain graph.");
-		return backward(v);
+		if(v.getGraph() != codom) throw LogicError("Vertex does not belong to the codomain graph.");
+		return backward(dom, codom, v);
 	}
 private:
 	DomainHandle dom;
 	CodomainHandle codom;
-	std::function<CodomVertex(DomVertex)> forward;
-	std::function<DomVertex(CodomVertex)> backward;
+	std::function<CodomVertex(const DomainHandle&, const CodomainHandle&, DomVertex)> forward;
+	std::function<DomVertex(const DomainHandle&, const CodomainHandle&, CodomVertex)> backward;
 };
 // rst-class-end:
 

@@ -2,6 +2,7 @@
 
 #include <mod/Error.hpp>
 
+#include <cassert>
 #include <ostream>
 
 namespace mod::lib::Stereo {

@@ -296,8 +296,10 @@ bool Graph::isomorphic(const Graph &gDom, const Graph &gCodom, LabelSettings lab
 	if(nDom != nCodom) return false; // early bail-out
 	if(&gDom == &gCodom) return true;
 	switch(getConfig().graph.isomorphismAlg) {
-	case Config::IsomorphismAlg::SmilesCanonVF2: return isomorphismSmilesOrCanonOrVF2(gDom, gCodom, labelSettings);
-	case Config::IsomorphismAlg::VF2: return isomorphismVF2(gDom, gCodom, 1, labelSettings);
+	case Config::IsomorphismAlg::SmilesCanonVF2:
+		return isomorphismSmilesOrCanonOrVF2(gDom, gCodom, labelSettings);
+	case Config::IsomorphismAlg::VF2:
+		return isomorphismVF2(gDom, gCodom, 1, labelSettings);
 	case Config::IsomorphismAlg::Canon:
 		if(labelSettings.relation != LabelRelation::Isomorphism)
 			throw LogicError("Can only do isomorphism via canonicalisation with the isomorphism relation.");
@@ -342,7 +344,9 @@ auto makeMorphismEnumerationCallback(const Graph &gDom, const Graph &gCodom,
 						auto gCodomAPI = gCodom.getAPIReference();
 						auto m = VertexMap<mod::graph::Graph, mod::graph::Graph>(
 								gDomAPI, gCodomAPI,
-								[gDomAPI, gCodomAPI, mPtr](
+								[mPtr](
+										const std::shared_ptr<mod::graph::Graph> &gDomAPI,
+										const std::shared_ptr<mod::graph::Graph> &gCodomAPI,
 										mod::graph::Graph::Vertex vDom) -> mod::graph::Graph::Vertex {
 									const auto &gDom = gDomAPI->getGraph().getGraph();
 									const auto &gCodom = gCodomAPI->getGraph().getGraph();
@@ -351,7 +355,9 @@ auto makeMorphismEnumerationCallback(const Graph &gDom, const Graph &gCodom,
 									const auto vRes = get(*mPtr, gDom, gCodom, v);
 									return gCodomAPI->vertices()[get(boost::vertex_index_t(), gCodom, vRes)];
 								},
-								[gDomAPI, gCodomAPI, mPtr](
+								[mPtr](
+										const std::shared_ptr<mod::graph::Graph> &gDomAPI,
+										const std::shared_ptr<mod::graph::Graph> &gCodomAPI,
 										mod::graph::Graph::Vertex vCodom) -> mod::graph::Graph::Vertex {
 									const auto &gDom = gDomAPI->getGraph().getGraph();
 									const auto &gCodom = gCodomAPI->getGraph().getGraph();

@@ -2,7 +2,6 @@
 #define MOD_MISC_HPP
 
 #include <mod/BuildConfig.hpp>
-#include <mod/dg/ForwardDecl.hpp>
 #include <mod/graph/ForwardDecl.hpp>
 #include <mod/hyperflow/ForwardDecl.hpp>
 

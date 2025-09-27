@@ -2,6 +2,7 @@
 #define MOD_RULE_COMPOSITIONMATCH_HPP
 
 #include <mod/BuildConfig.hpp>
+#include <mod/VertexMap.hpp>
 #include <mod/rule/GraphInterface.hpp>
 
 namespace mod::rule {
@@ -18,6 +19,29 @@ namespace mod::rule {
 // rst:		See also [AFMS-RC]_ for details of how composition of rules can be computed.
 // rst:
 struct MOD_DECL CompositionMatch {
+	// rst:		.. class:: Result
+	// rst:
+	// rst:			Representation of the full result of a composition.
+	// rst:
+	struct Result {
+		// rst: 		.. var:: std::shared_ptr<Rule> rule
+		// rst:
+		// rst: 			The composed rule.
+		std::shared_ptr<Rule> rule;
+		// rst: 		.. var:: VertexMap<Rule, Rule> mFirstToSecond
+		// rst:
+		// rst: 			A map of vertices in :math:`p_1` to the vertices of :math:`p_2`, i.e., the match used for composition.
+		VertexMap<Rule, Rule> mFirstToSecond;
+		// rst: 		.. var:: VertexMap<Rule, Rule> mFirstToRes
+		// rst:
+		// rst: 			A map of vertices in :math:`p_1` to the vertices of the composed rule.
+		VertexMap<Rule, Rule> mFirstToRes;
+		// rst: 		.. var:: VertexMap<Rule, Rule> mSecondToRes
+		// rst:
+		// rst: 			A map of vertices in :math:`p_2` to the vertices of the composed rule.
+		VertexMap<Rule, Rule> mSecondToRes;
+	};
+public:
 	// rst: 	.. function:: explicit CompositionMatch(std::shared_ptr<Rule> rFirst, std::shared_ptr<Rule> rSecond, LabelSettings labelSettings)
 	// rst:
 	// rst: 		Construct an empty overlap.
@@ -70,19 +94,26 @@ struct MOD_DECL CompositionMatch {
 	// rst: 		:throws LogicError: if `size() == 0`.
 	void pop();
 	// rst: 	.. function:: std::shared_ptr<Rule> compose(bool verbose) const
+	// rst: 	              std::optional<Result> composeWithMaps(bool verbose) const
 	// rst:
 	// rst: 		:param verbose: whether to output debug messages from the composition algorithm.
-	// rst: 		:returns: the composition of the two rules along the match.
-	// rst: 			If the composition is not defined, a null pointer is returned.
+	// rst: 		:returns: the composition of the two rules along the match, either just the composed rule
+	// rst: 			or the composed rule with maps relating its vertices and the vertices in the input.
+	// rst: 			If the composition is not defined, a null pointer or empty optional is returned.
 	std::shared_ptr<Rule> compose(bool verbose) const;
+	std::optional<Result> composeWithMaps(bool verbose) const;
 	// rst: 	.. function:: std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const
+	// rst: 	              std::vector<Result> composeAllWithMaps(bool maximum, bool verbose) const
 	// rst:
 	// rst: 		:param maximum: whether to only compose using the matches of maximum cardinality.
 	// rst: 		:param verbose: whether to output debug messages from the composition algorithm.
-	// rst: 		:returns: the composition of the two rules along enumerated matches.
+	// rst: 		:returns: the composition of the two rules along enumerated matches, either just the composed rules
+	// rst: 			or each of the composed rules with maps relating their vertices and the vertices in the input,
+	// rst: 			including the full match used for each particular composition.
 	// rst: 			The enumerated matches are all those that are extensions of the current match,
 	// rst: 			and the match itself.
 	std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const;
+	std::vector<Result> composeAllWithMaps(bool maximum, bool verbose) const;
 private:
 	struct Pimpl;
 	std::unique_ptr<Pimpl> p;

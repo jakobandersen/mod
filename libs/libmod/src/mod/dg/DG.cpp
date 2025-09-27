@@ -8,8 +8,6 @@
 #include <mod/lib/DG/Hyper.hpp>
 #include <mod/lib/DG/NonHyper.hpp>
 #include <mod/lib/DG/NonHyperBuilder.hpp>
-#include <mod/lib/DG/Strategies/GraphState.hpp>
-#include <mod/lib/DG/Strategies/Strategy.hpp>
 #include <mod/lib/DG/IO/Read.hpp>
 #include <mod/lib/DG/IO/Write.hpp>
 #include <mod/lib/Graph/Graph.hpp>

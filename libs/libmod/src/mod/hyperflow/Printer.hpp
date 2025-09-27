@@ -5,7 +5,6 @@
 #include <mod/dg/ForwardDecl.hpp>
 #include <mod/dg/GraphInterface.hpp>
 #include <mod/hyperflow/ForwardDecl.hpp>
-#include <mod/graph/ForwardDecl.hpp>
 
 #include <functional>
 #include <memory>

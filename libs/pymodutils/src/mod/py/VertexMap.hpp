@@ -1,6 +1,8 @@
 #ifndef MOD_PY_VERTEXMAP_HPP
 #define MOD_PY_VERTEXMAP_HPP
 
+#include <mod/VertexMap.hpp>
+
 #include <mod/py/Common.hpp>
 
 namespace mod::Py {

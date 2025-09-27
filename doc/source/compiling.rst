@@ -348,7 +348,6 @@ related to them.
 - This documentation requires (``-DBUILD_DOC=on``):
 
   - A supported version of `Sphinx <http://sphinx-doc.org>`__.
-  - The Python package ``sphinx-autoapi`` (module name: ``autoapi``).
 
 - libMØD:
 

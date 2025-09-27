@@ -179,41 +179,41 @@ std::vector<dg::DG::Vertex> Model::getSeparatedIOInternalTransit() const {
 void Model::setAllowHyperLoops(bool value) {
 	if(isSpecificationLocked())
 		throw LogicError("Specification locked.");
-	p->f->writeSpec().getModule<BaseSpec>().setAllowHyperLoops(value);
+	p->f->writeSpec().getModule<BaseSpec>().allowHyperLoops = value;
 }
 
 bool Model::getAllowHyperLoops() const {
-	return p->f->readSpec().getModule<BaseSpec>().getAllowHyperLoops();
+	return p->f->readSpec().getModule<BaseSpec>().allowHyperLoops;
 }
 
 void Model::setAllowReversal(bool value) {
 	if(isSpecificationLocked())
 		throw LogicError("Specification locked.");
-	p->f->writeSpec().getModule<BaseSpec>().setAllowReversal(value);
+	p->f->writeSpec().getModule<BaseSpec>().allowReversal = value;
 }
 
 bool Model::getAllowReversal() const {
-	return p->f->readSpec().getModule<BaseSpec>().getAllowReversal();
+	return p->f->readSpec().getModule<BaseSpec>().allowReversal;
 }
 
 void Model::setAllowIOReversal(bool value) {
 	if(isSpecificationLocked())
 		throw LogicError("Specification locked.");
-	p->f->writeSpec().getModule<BaseSpec>().setAllowIOReversal(value);
+	p->f->writeSpec().getModule<BaseSpec>().allowIOReversal = value;
 }
 
 bool Model::getAllowIOReversal() const {
-	return p->f->readSpec().getModule<BaseSpec>().getAllowIOReversal();
+	return p->f->readSpec().getModule<BaseSpec>().allowIOReversal;
 }
 
 void Model::setRelaxed(bool value) {
 	if(isSpecificationLocked())
 		throw LogicError("Specification locked.");
-	p->f->writeSpec().getModule<BaseSpec>().setRelaxed(value);
+	p->f->writeSpec().getModule<BaseSpec>().relaxed = value;
 }
 
 bool Model::getRelaxed() const {
-	return p->f->readSpec().getModule<BaseSpec>().getRelaxed();
+	return p->f->readSpec().getModule<BaseSpec>().relaxed;
 }
 
 void Model::setObjectiveFunction(LinExp func) {
@@ -306,13 +306,13 @@ void Model::OverallAutocatalysis::setForceExistence(bool value) {
 		throw LogicError("Specification locked.");
 	if(!dgFlow.p->f->readSpec().hasModule<OASpec>())
 		throw LogicError("Module not enabled.");
-	dgFlow.p->f->writeSpec().getModule<OASpec>().setForceExistence(value);
+	dgFlow.p->f->writeSpec().getModule<OASpec>().forceExistence = value;
 }
 
 bool Model::OverallAutocatalysis::getForceExistence() const {
 	if(!dgFlow.p->f->readSpec().hasModule<OASpec>())
 		throw LogicError("Module not enabled.");
-	return dgFlow.p->f->readSpec().getModule<OASpec>().getForceExistence();
+	return dgFlow.p->f->readSpec().getModule<OASpec>().forceExistence;
 }
 
 void Model::OverallAutocatalysis::setStrictTransit(bool value) {
@@ -320,13 +320,13 @@ void Model::OverallAutocatalysis::setStrictTransit(bool value) {
 		throw LogicError("Specification locked.");
 	if(!dgFlow.p->f->readSpec().hasModule<OASpec>())
 		throw LogicError("Module not enabled.");
-	dgFlow.p->f->writeSpec().getModule<OASpec>().setStrictTransit(value);
+	dgFlow.p->f->writeSpec().getModule<OASpec>().strictTransit = value;
 }
 
 bool Model::OverallAutocatalysis::getStrictTransit() const {
 	if(!dgFlow.p->f->readSpec().hasModule<OASpec>())
 		throw LogicError("Module not enabled.");
-	return dgFlow.p->f->readSpec().getModule<OASpec>().getStrictTransit();
+	return dgFlow.p->f->readSpec().getModule<OASpec>().strictTransit;
 }
 
 void Model::OverallAutocatalysis::setBFSExclusive(bool value) {
@@ -334,13 +334,13 @@ void Model::OverallAutocatalysis::setBFSExclusive(bool value) {
 		throw LogicError("Specification locked.");
 	if(!dgFlow.p->f->readSpec().hasModule<OASpec>())
 		throw LogicError("Module not enabled.");
-	dgFlow.p->f->writeSpec().getModule<OASpec>().setBFSExclusive(value);
+	dgFlow.p->f->writeSpec().getModule<OASpec>().bfsExclusive = value;
 }
 
 bool Model::OverallAutocatalysis::getBFSExclusive() const {
 	if(!dgFlow.p->f->readSpec().hasModule<OASpec>())
 		throw LogicError("Module not enabled.");
-	return dgFlow.p->f->readSpec().getModule<OASpec>().getBFSExclusive();
+	return dgFlow.p->f->readSpec().getModule<OASpec>().bfsExclusive;
 }
 
 //------------------------------------------------------------------------------
@@ -366,13 +366,13 @@ void Model::OverallCatalysis::setForceExistence(bool value) {
 		throw LogicError("Specification locked.");
 	if(!dgFlow.p->f->readSpec().hasModule<OCSpec>())
 		throw LogicError("Module not enabled.");
-	dgFlow.p->f->writeSpec().getModule<OCSpec>().setForceExistence(value);
+	dgFlow.p->f->writeSpec().getModule<OCSpec>().forceExistence = value;
 }
 
 bool Model::OverallCatalysis::getForceExistence() const {
 	if(!dgFlow.p->f->readSpec().hasModule<OCSpec>())
 		throw LogicError("Module not enabled.");
-	return dgFlow.p->f->readSpec().getModule<OCSpec>().getForceExistence();
+	return dgFlow.p->f->readSpec().getModule<OCSpec>().forceExistence;
 }
 
 void Model::OverallCatalysis::setStrictTransit(bool value) {
@@ -380,13 +380,13 @@ void Model::OverallCatalysis::setStrictTransit(bool value) {
 		throw LogicError("Specification locked.");
 	if(!dgFlow.p->f->readSpec().hasModule<OCSpec>())
 		throw LogicError("Module not enabled.");
-	dgFlow.p->f->writeSpec().getModule<OCSpec>().setStrictTransit(value);
+	dgFlow.p->f->writeSpec().getModule<OCSpec>().strictTransit = value;
 }
 
 bool Model::OverallCatalysis::getStrictTransit() const {
 	if(!dgFlow.p->f->readSpec().hasModule<OCSpec>())
 		throw LogicError("Module not enabled.");
-	return dgFlow.p->f->readSpec().getModule<OCSpec>().getStrictTransit();
+	return dgFlow.p->f->readSpec().getModule<OCSpec>().strictTransit;
 }
 
 //------------------------------------------------------------------------------

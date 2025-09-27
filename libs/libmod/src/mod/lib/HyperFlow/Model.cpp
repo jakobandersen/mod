@@ -55,7 +55,7 @@ Model::Model(std::unique_ptr<const Specification> specification_, const std::str
 		for(const auto vInExp: vData.inVertices) {
 			for(const auto vTransit: asRange(adjacent_vertices(vInExp, dgExp))) {
 				assert(dgExp[vTransit].kind == DG::ExpandedVertexKind::TransitEdge);
-				if(!specification->getModule<BaseSpecification>().getRelaxed()) {
+				if(!specification->getModule<BaseSpecification>().relaxed) {
 					const auto var = baseModel.getEdge(vTransit);
 					enumerationVars.insert(var);
 				} else {

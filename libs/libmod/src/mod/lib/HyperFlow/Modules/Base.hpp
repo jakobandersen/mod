@@ -31,27 +31,20 @@ struct BaseSpecification : SpecificationModule {
 	const std::set<lib::DG::HyperVertex> &getExcluded() const;
 	void separateIOInternalTransit(lib::DG::HyperVertex v);
 	const std::set<lib::DG::HyperVertex> &getSeparatedIOInternalTransit() const;
-	void setAllowHyperLoops(bool v);
-	bool getAllowHyperLoops() const;
-	void setAllowReversal(bool value);
-	bool getAllowReversal() const;
-	void setAllowIOReversal(bool value);
-	bool getAllowIOReversal() const;
-	void setRelaxed(bool value);
-	bool getRelaxed() const;
 private:
 	virtual void listImpl(std::ostream &s) const override;
 	virtual nlohmann::json dumpImpl() const override;
 	virtual bool loadImpl(const nlohmann::json &j, std::ostream &err) override;
 	virtual Transits getTransits() const override;
 	virtual std::unique_ptr<ModelModule> createModel(Model &owner) const override;
+public:
+	bool allowHyperLoops = false;
+	bool allowReversal = false, allowIOReversal = true;
+	bool relaxed = false;
 private:
 	std::set<lib::DG::HyperVertex>
 			sources, sinks, excluded,
 			verticesWithForcedTransitSeparation;
-	bool allowHyperLoops = false;
-	bool allowReversal = false, allowIOReversal = true;
-	bool relaxed = false;
 };
 
 struct BaseModel : ModelModule {

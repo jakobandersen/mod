@@ -1,3 +1,5 @@
+include("../xxx_vertexMap.py")
+
 def printMap(m, name, compact):
 	dom = [
 		"{}:{:2s}".format(v.id, v.stringLabel)
@@ -30,11 +32,6 @@ def printMap(m, name, compact):
 		print(f"{name}: {dom} -> {codom}, {domInv} -> {codomInv}", end=" | ")
 
 
-def checkMapInvertible(m):
-	for v in m.domain.vertices:
-		if m[v]:
-			assert m.inverse(m[v]) == v, (m, m[v], m.inverse(m[v]))
-
 def checkMaps(maps, silent: bool):
 	for res in maps:
 		if not silent:
@@ -44,9 +41,9 @@ def checkMaps(maps, silent: bool):
 			printMap(res.comatch, "comatch", compact)
 			if compact:
 				print()
-		checkMapInvertible(res.map)
-		checkMapInvertible(res.match)
-		checkMapInvertible(res.comatch)
+		checkVertexMap(maps.left, maps.right, res.map)
+		checkVertexMap(res.rule.left, maps.left, res.match)
+		checkVertexMap(res.rule.right, maps.right, res.comatch)
 
 		for vL in res.rule.left.vertices:
 			vR = vL.core.right

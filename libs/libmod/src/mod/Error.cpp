@@ -5,7 +5,6 @@
 #include <cxxabi.h>
 #include <execinfo.h>
 
-#include <cassert>
 #include <cstdlib>
 #include <ostream>
 #include <vector>

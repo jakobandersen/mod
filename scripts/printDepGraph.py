@@ -66,6 +66,8 @@ def ignoreEdge(mod, depMod):
 		return 'util'
 	if depMod in utilMods:
 		return 'util'
+	if (mod, depMod) == (('interface', 'flow'), ('interface', 'causality')):
+		return 'deprecated'
 	if mod == ('lib', 'Flow') or depMod == ('lib', 'Flow'):
 		return 'deprecated'
 	return 'dep'

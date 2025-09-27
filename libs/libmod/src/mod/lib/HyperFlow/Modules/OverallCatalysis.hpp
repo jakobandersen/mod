@@ -12,17 +12,13 @@ struct OverallCatalysisSpecification : SpecificationModule {
 	virtual ~OverallCatalysisSpecification() = default;
 	virtual std::string getName() const override;
 	virtual void addDefaultObjective(hyperflow::LinExp &exp) const override;
-	void setForceExistence(bool value);
-	bool getForceExistence() const;
-	void setStrictTransit(bool value);
-	bool getStrictTransit() const;
 private:
 	virtual void listImpl(std::ostream &s) const override;
 	virtual nlohmann::json dumpImpl() const override;
 	virtual bool loadImpl(const nlohmann::json &j, std::ostream &err) override;
 	virtual Transits getTransits() const override;
 	virtual std::unique_ptr<ModelModule> createModel(Model &owner) const override;
-private:
+public:
 	bool forceExistence = true, strictTransit = true;
 };
 

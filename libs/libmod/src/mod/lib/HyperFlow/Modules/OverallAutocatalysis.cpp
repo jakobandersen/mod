@@ -32,8 +32,8 @@ OverallAutocatalysisSpecification::OverallAutocatalysisSpecification(Specificati
 		: SpecificationModule(owner) {
 	if(setDefaults) {
 		auto &base = owner.getModule<BaseSpecification>();
-		base.setAllowReversal(false);
-		base.setAllowIOReversal(false);
+		base.allowReversal = false;
+		base.allowIOReversal = false;
 	}
 }
 
@@ -43,30 +43,6 @@ std::string OverallAutocatalysisSpecification::getName() const {
 
 void OverallAutocatalysisSpecification::addDefaultObjective(hyperflow::LinExp &exp) const {
 	exp += hyperflow::vars::isOverallAutocata;
-}
-
-void OverallAutocatalysisSpecification::setForceExistence(bool value) {
-	forceExistence = value;
-}
-
-bool OverallAutocatalysisSpecification::getForceExistence() const {
-	return forceExistence;
-}
-
-void OverallAutocatalysisSpecification::setStrictTransit(bool value) {
-	strictTransit = value;
-}
-
-bool OverallAutocatalysisSpecification::getStrictTransit() const {
-	return strictTransit;
-}
-
-void OverallAutocatalysisSpecification::setBFSExclusive(bool value) {
-	bfsExclusive = value;
-}
-
-bool OverallAutocatalysisSpecification::getBFSExclusive() const {
-	return bfsExclusive;
 }
 
 void OverallAutocatalysisSpecification::listImpl(std::ostream &s) const {
@@ -127,7 +103,7 @@ struct OverallAutocatalysisModel::StaticInit {
 		});
 		r.addVariableSet("isOverallAutocata", makeVertexVariableSet(
 				id, [](const Model &m) {
-					if(m.specification->getModule<BaseSpecification>().getRelaxed())
+					if(m.specification->getModule<BaseSpecification>().relaxed)
 						MOD_ABORT;
 					const auto &mm = m.getModule<OverallAutocatalysisModel>();
 					CombiOpt::LinExpAny res;
@@ -135,7 +111,7 @@ struct OverallAutocatalysisModel::StaticInit {
 						res += p.second;
 					return res;
 				}, [](const Model &m, const lib::DG::HyperVertex &v) {
-					if(m.specification->getModule<BaseSpecification>().getRelaxed())
+					if(m.specification->getModule<BaseSpecification>().relaxed)
 						MOD_ABORT;
 					const auto &mm = m.getModule<OverallAutocatalysisModel>();
 					const auto iter = mm.isOverallAutocatalytic.find(v);
@@ -152,7 +128,7 @@ OverallAutocatalysisModel::StaticInit staticInit;
 } // namespace
 
 OverallAutocatalysisModel::OverallAutocatalysisModel(Model &owner) : ModelModule(owner) {
-	const bool relaxed = owner.specification->getModule<BaseSpecification>().getRelaxed();
+	const bool relaxed = owner.specification->getModule<BaseSpecification>().relaxed;
 	if(relaxed)
 		throw LogicError("Can not create model. OverallAutocatalysis can not be enabled in relaxed mode.");
 }
@@ -226,7 +202,7 @@ bool isReachable(const std::set<lib::DG::HyperVertex> &sources,
 } // namespace
 
 void OverallAutocatalysisModel::createConstraintsImpl(CombiOpt::Model &model) {
-	assert(!owner.specification->getModule<BaseSpecification>().getRelaxed());
+	assert(!owner.specification->getModule<BaseSpecification>().relaxed);
 	const auto &dgHyper = owner.specification->dgHyper.getGraph();
 	const auto &baseModel = owner.getModule<BaseModel>();
 
@@ -238,7 +214,7 @@ void OverallAutocatalysisModel::createConstraintsImpl(CombiOpt::Model &model) {
 		const auto in = baseModel.getIn(vHyper);
 		const auto out = baseModel.getOut(vHyper);
 		const auto isInUsed = baseModel.getIsInUsed(vHyper);
-		if(getSpec().getStrictTransit())
+		if(getSpec().strictTransit)
 			addDisableInternalIfTrue(owner, model, isAutocata, vHyper);
 
 		// isAutocata => in > 0
@@ -251,14 +227,14 @@ void OverallAutocatalysisModel::createConstraintsImpl(CombiOpt::Model &model) {
 		model.addImplication(!isAutocata && isInUsed, in - out >= 0);
 	}
 
-	if(getSpec().getForceExistence()) {
+	if(getSpec().forceExistence) {
 		CombiOpt::Disjunction c;
 		for(const auto &p : isOverallAutocatalytic)
 			c = std::move(c) || p.second;
 		model.addConstraint(std::move(c));
 	}
 
-	if(getSpec().getBFSExclusive()) {
+	if(getSpec().bfsExclusive) {
 		std::cout << "Eliminating breadth-first reachable products" << std::endl;
 		const auto &baseSpec = owner.specification->getModule<BaseSpecification>();
 		const auto &sources = baseSpec.getSources();
@@ -299,7 +275,7 @@ void OverallAutocatalysisModel::loadSolutionSetDependentVarsImpl(CombiOpt::Loade
 	const auto &baseModel = owner.getModule<BaseModel>();
 	const auto &dg = owner.specification->dgHyper;
 	const auto &dgHyper = dg.getGraph();
-	if(baseSpec.getRelaxed()) return;
+	if(baseSpec.relaxed) return;
 	bool isSolutionAutocata = false;
 	for(const auto v : asRange(vertices(dgHyper))) {
 		if(dgHyper[v].kind != DG::HyperVertexKind::Vertex) continue;
@@ -311,7 +287,7 @@ void OverallAutocatalysisModel::loadSolutionSetDependentVarsImpl(CombiOpt::Loade
 			const auto var = varIter->second;
 			s.integralValues.emplace(var, 1);
 			isSolutionAutocata = true;
-			if(getSpec().getStrictTransit()) {
+			if(getSpec().strictTransit) {
 //				bool feasible = dumpCheckDisableInternalIfTrue(
 //						dgGraph, base.DumpLoading().Transit().getTransitVars(v), sol);
 //				if(!feasible) {
@@ -321,7 +297,7 @@ void OverallAutocatalysisModel::loadSolutionSetDependentVarsImpl(CombiOpt::Loade
 //					std::exit(1);
 //				}
 			}
-			if(getSpec().getBFSExclusive()) {
+			if(getSpec().bfsExclusive) {
 //				const auto &baseSpec = base.flowNew.readSpec().getModule<HyperFlow::BaseSpecification>();
 //				bool reachable = Flow::Ext::isReachable(
 //						baseSpec.getSources(), v,
@@ -335,7 +311,7 @@ void OverallAutocatalysisModel::loadSolutionSetDependentVarsImpl(CombiOpt::Loade
 			}
 		}
 	}
-	if(getSpec().getForceExistence()) {
+	if(getSpec().forceExistence) {
 		if(!isSolutionAutocata) {
 //			std::cout
 //					<< "Error while loading dumped Flow solution. Overall autocatalysis is enabled, but the solution is infeasible (conflict with 'forceExistence')."

@@ -12,7 +12,6 @@
 #include <mod/lib/DG/Strategies/Revive.hpp>
 #include <mod/lib/DG/Strategies/Rule.hpp>
 #include <mod/lib/DG/Strategies/Sequence.hpp>
-#include <mod/lib/IO/IO.hpp>
 
 #include <ostream>
 

@@ -1,4 +1,4 @@
-include("../xxx_helpers.py")
+include("../xxx_vertexMap.py")
 
 lsString = LabelSettings(LabelType.String, LabelRelation.Isomorphism)
 
@@ -6,6 +6,7 @@ def check(f, codom, maps, numMaps=2**30, ls=lsString):
 	exp = list(sorted(maps))
 	res = []
 	def c(m):
+		checkVertexMap(f.__self__, codom, m)
 		if len(res) >= numMaps:
 			return False
 		m_ = []

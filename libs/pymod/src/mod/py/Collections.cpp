@@ -1,12 +1,14 @@
 #include <mod/py/Common.hpp>
 
 #include <mod/Derivation.hpp>
+#include <mod/causality/EventTrace.hpp>
 #include <mod/dg/DG.hpp>
 #include <mod/dg/GraphInterface.hpp>
 #include <mod/dg/Strategies.hpp>
 #include <mod/hyperflow/LinExp.hpp>
 #include <mod/graph/Graph.hpp>
 #include <mod/rule/CompositionExpr.hpp>
+#include <mod/rule/CompositionMatch.hpp>
 #include <mod/rule/Rule.hpp>
 
 #include <boost/python/extract.hpp>
@@ -23,6 +25,14 @@ bool operator==(const Derivation &, const Derivation &) {
 	std::exit(1);
 }
 
+namespace rule {
+
+bool operator==(const CompositionMatch::Result &, const CompositionMatch::Result &) {
+	std::cerr << "RCMatch.Result does not support ==" << std::endl;
+	std::exit(1);
+}
+
+} // namespace rule
 namespace rule::RCExp {
 
 bool operator==(const Expression &, const Expression &) {
@@ -67,6 +77,7 @@ void Collections_doExport() {
 	makeVector(VecGraph, std::shared_ptr<mod::graph::Graph>);
 	makeVector(VecVecGraph, std::vector<std::shared_ptr<mod::graph::Graph>>);
 	makeVector(VecRule, std::shared_ptr<rule::Rule>);
+	makeVector(VecRCMatchResult, mod::rule::CompositionMatch::Result);
 	using PairString = std::pair<std::string, std::string>;
 	makeVector(VecPairString, PairString);
 	using PairStringBool = std::pair<std::string, bool>;
@@ -82,9 +93,12 @@ void Collections_doExport() {
 	makePair<std::string, bool>();
 	makePair<int, int>();
 	makePair<double, double>();
+	makePair<double, bool>();
+	makePair<std::optional<causality::Action>, double>();
 
 	// Optional
 	py::to_python_converter<std::optional<int>, ToPythonOptionalValue<int>>();
+	py::to_python_converter<std::optional<causality::Action>, ToPythonOptionalValue<causality::Action>>();
 }
 
 } // namespace Py

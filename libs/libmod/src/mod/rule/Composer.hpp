@@ -3,7 +3,6 @@
 
 #include <mod/BuildConfig.hpp>
 #include <mod/Config.hpp>
-#include <mod/graph/ForwardDecl.hpp>
 #include <mod/rule/ForwardDecl.hpp>
 
 #include <memory>

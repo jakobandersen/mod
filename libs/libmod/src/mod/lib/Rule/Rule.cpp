@@ -229,6 +229,12 @@ Rule::SideGraphVertex Rule::getRightInternalVertex(mod::rule::Rule::RightGraph::
 	return *std::next(vertices(getR(getDPORule().getRule())).first, vR.vId);
 }
 
+Rule::CombinedGraphVertex Rule::getCombinedInternalVertex(mod::rule::Rule::Vertex v) const {
+	const auto &rDPO = getDPORule().getRule();
+	const auto &gCombined = rDPO.getCombinedGraph();
+	return vertex(v.getId(), gCombined);
+}
+
 namespace {
 
 template<typename Finder>

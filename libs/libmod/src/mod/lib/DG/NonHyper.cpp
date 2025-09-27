@@ -1,10 +1,5 @@
 #include "NonHyper.hpp"
 
-// for debugging
-#include <mod/Misc.hpp>
-#include <mod/graph/GraphInterface.hpp>
-// end for debugging
-
 #include <mod/Config.hpp>
 #include <mod/Error.hpp>
 #include <mod/dg/DG.hpp>
@@ -16,15 +11,8 @@
 #include <mod/lib/DG/IO/Write.hpp>
 #include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/Graph/Properties/Molecule.hpp>
-#include <mod/lib/Graph/Properties/Stereo.hpp>
-#include <mod/lib/Graph/Properties/String.hpp>
 #include <mod/lib/Graph/Properties/Term.hpp>
 #include <mod/lib/IO/IO.hpp>
-
-#include <jla_boost/graph/PairToRangeAdaptor.hpp>
-
-#include <boost/lexical_cast.hpp>
-#include <boost/make_shared.hpp>
 
 #include <iostream>
 #include <unordered_set>

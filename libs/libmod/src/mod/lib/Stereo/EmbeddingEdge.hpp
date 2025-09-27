@@ -5,6 +5,8 @@
 
 #include <boost/graph/graph_traits.hpp>
 
+#include <cassert>
+
 namespace mod::lib::Stereo {
 
 struct EmbeddingEdge {

@@ -347,6 +347,7 @@ endif()
 
 add_subdirectory(libs/gml)
 add_subdirectory(libs/jla_boost)
+add_subdirectory(libs/petri)
 add_subdirectory(libs/libmod)
 add_subdirectory(libs/pymodutils)
 add_subdirectory(libs/pymod)

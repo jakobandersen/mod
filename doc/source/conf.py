@@ -17,11 +17,6 @@ extensions = [
 	'sphinx_design',
 ]
 
-autoapi_type = 'python'
-autoapi_dirs = ['../../libs/pymod/lib/mod']
-autoapi_generate_api_docs = False
-autoapi_keep_files = True
-
 intersphinx_mapping = {
 	'python': ('https://docs.python.org/3', None)
 }

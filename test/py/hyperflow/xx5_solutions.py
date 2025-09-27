@@ -71,6 +71,10 @@ def _checkSols(solutions, sols, *, objFunc, doTypeCheck=True):
 						[v.name for v in s.model.customIntVariables])
 					res = res and check(hyperflow.VarSumCustom("userDefined"),
 						[v.name for v in s.model.customFloatVariables])
+					if s.model.overallAutocatalysis.isEnabled:
+						res = res and check(isOverallAutocata, dg.vertices)
+					if s.model.overallCatalysis.isEnabled:
+						res = res and check(isOverallCata, dg.vertices)
 					return res
 				if type(sols[j]) is SolChoice:
 					matching = [sol for sol in sols[j] if solMatches(sol)]
@@ -86,17 +90,22 @@ def _checkSols(solutions, sols, *, objFunc, doTypeCheck=True):
 		def printCurrentSol():
 			msg = ""
 			hasNonZero = False
-			for var, idxs in [
-					(inFlow, dg.vertices),
-					(outFlow, dg.vertices),
-					(edge, dg.edges),
-					(hyperflow.VarSumCustom("userDefined"),
-						[v.name for v in s.model.customBoolVariables]),
-					(hyperflow.VarSumCustom("userDefined"),
-						[v.name for v in s.model.customIntVariables]),
-					(hyperflow.VarSumCustom("userDefined"),
-						[v.name for v in s.model.customFloatVariables]),
-					]:
+			toPrint = [
+				(inFlow, dg.vertices),
+				(outFlow, dg.vertices),
+				(edge, dg.edges),
+				(hyperflow.VarSumCustom("userDefined"),
+					[v.name for v in s.model.customBoolVariables]),
+				(hyperflow.VarSumCustom("userDefined"),
+					[v.name for v in s.model.customIntVariables]),
+				(hyperflow.VarSumCustom("userDefined"),
+					[v.name for v in s.model.customFloatVariables]),
+			]
+			if s.model.overallAutocatalysis.isEnabled:
+				toPrint.append((isOverallAutocata, dg.vertices))
+			if s.model.overallCatalysis.isEnabled:
+				toPrint.append((isOverallCata, dg.vertices))
+			for var, idxs in toPrint:
 				for idx in idxs:
 					v = s.eval(var[idx])
 					if v != 0:

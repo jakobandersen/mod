@@ -25,6 +25,7 @@ checkSolutions(flow, [[
 	(inFlow, F, 2),
 	(outFlow, A, 1),
 	(outFlow, D, 1),
+	(isOverallCata, A, 1),
 	(edgeFlow, dg.findEdge([A], [B]), 1),
 	(edgeFlow, dg.findEdge([F, F, B], [C]), 1),
 	(edgeFlow, dg.findEdge([C], [A, D]), 1),
@@ -45,6 +46,7 @@ checkSolutions(flow, [[
 	(inFlow, F, 1),
 	(outFlow, W, 1),
 	(outFlow, A, 1),
+	(isOverallCata, A, 1),
 	(edgeFlow, dg.findEdge([A, F], [B]), 1),
 	(edgeFlow, dg.findEdge([B], [A, W]), 1),
 ], [
@@ -52,6 +54,7 @@ checkSolutions(flow, [[
 	(inFlow, F, 2),
 	(outFlow, W, 2),
 	(outFlow, A, 1),
+	(isOverallCata, A, 1),
 	(edgeFlow, dg.findEdge([A, F], [B]), 2),
 	(edgeFlow, dg.findEdge([B], [A, W]), 2),
 ], [
@@ -59,6 +62,7 @@ checkSolutions(flow, [[
 	(inFlow, F, 2),
 	(outFlow, W, 2),
 	(outFlow, A, 2),
+	(isOverallCata, A, 1),
 	(edgeFlow, dg.findEdge([A, F], [B]), 2),
 	(edgeFlow, dg.findEdge([B], [A, W]), 2),
 ]], maxNumSolutions=4)
@@ -76,6 +80,7 @@ checkSolutions(flow, [[
 	(inFlow, F, 1),
 	(outFlow, W, 1),
 	(outFlow, A, 1),
+	(isOverallCata, A, 1),
 	(edgeFlow, dg.findEdge([A, F], [B]), 1),
 	(edgeFlow, dg.findEdge([B], [A, W]), 1),
 ], [
@@ -83,6 +88,7 @@ checkSolutions(flow, [[
 	(inFlow, F, 2),
 	(outFlow, W, 2),
 	(outFlow, A, 2),
+	(isOverallCata, A, 1),
 	(edgeFlow, dg.findEdge([A, F], [B]), 2),
 	(edgeFlow, dg.findEdge([B], [A, W]), 2),
 ]], maxNumSolutions=3)
@@ -102,6 +108,7 @@ checkSolutions(flow, [[
 	(inFlow, F, 2),
 	(outFlow, A, 1),
 	(outFlow, D, 1),
+	(isOverallCata, A, 1),
 	(edgeFlow, dg.findEdge([A], [B]), 1),
 	(edgeFlow, dg.findEdge([F, F, B], [C]), 1),
 	(edgeFlow, dg.findEdge([C], [A, D]), 1),

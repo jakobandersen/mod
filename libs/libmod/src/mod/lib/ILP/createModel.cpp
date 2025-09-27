@@ -69,7 +69,15 @@ std::unique_ptr<Model> Model::createModel(std::string solver) {
 		return std::make_unique<CBC>(std::make_unique<OsiClpSolverInterface>());
 #endif
 	} else {
-		throw LogicError("No bindings for ILP solver '" + solver + "'.");
+	    std::string msg = "No bindings for ILP solver '" + solver + "'. Available solvers are ";
+	    bool first = true;
+	    for(const auto &s: getAvailableSolvers()) {
+	        if(first) first = false;
+	        else msg += ", ";
+	        msg += "'" + s + "'";
+	    }
+	    msg += ".";
+		throw LogicError(std::move(msg));
 	}
 }
 

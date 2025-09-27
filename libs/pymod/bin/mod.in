@@ -263,7 +263,7 @@ elif [ $debug = "true" ]; then
 	elif command -v lldb &> /dev/null; then
 		precommand="lldb --"
 	else
-		echo "Debugging requested but neither gdb nor lldb exists, and $$MOD_DEBUGGER has not been set."
+		echo "Debugging requested but neither gdb nor lldb exists, and MOD_DEBUGGER has not been set."
 		exit 1
 	fi
 fi

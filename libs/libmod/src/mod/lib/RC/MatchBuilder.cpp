@@ -55,18 +55,19 @@ void MatchBuilder::pop() {
 	match.prePop();
 }
 
-std::unique_ptr<lib::rule::Rule> MatchBuilder::compose(bool verbose) const {
+MatchBuilder::CompositionRes MatchBuilder::compose(bool verbose) const {
 	auto ls = labelSettings;
 	// specialization for the morphisms R1 <- M -> L2 means the direct map L2 -> R1 should use unification,
 	// so it models doing the pushout of the span
 	if(ls.relation == LabelRelation::Specialisation)
 		ls.relation = LabelRelation::Unification;
-	std::unique_ptr<lib::rule::Rule> res;
+	CompositionRes res;
 	const auto mr = [this, verbose, &res](auto &&m, const auto &gSecond, const auto &gFirst) -> bool {
 		auto resultOpt = composeRules(IO::Logger(std::cout), verbose, rFirst, rSecond, m);
 		if(!resultOpt) return true;
 		auto &[rResult, mResult] = *resultOpt;
-		res = std::move(rResult);
+		res.first = std::move(rResult);
+		res.second = std::move(mResult);
 		return false;
 	};
 	[[maybe_unused]] const bool cont = lib::GraphMorphism::matchSelectByLabelSettings(
@@ -75,13 +76,13 @@ std::unique_ptr<lib::rule::Rule> MatchBuilder::compose(bool verbose) const {
 	return res;
 }
 
-std::vector<std::unique_ptr<lib::rule::Rule>> MatchBuilder::composeAll(bool maximum, bool verbose) const {
+std::vector<MatchBuilder::CompositionRes> MatchBuilder::composeAll(bool maximum, bool verbose) const {
 	auto ls = labelSettings;
 	// specialization for the morphisms R1 <- M -> L2 means the direct map L2 -> R1 should use unification,
 	// so it models doing the pushout of the span
 	if(ls.relation == LabelRelation::Specialisation)
 		ls.relation = LabelRelation::Unification;
-	std::vector<std::unique_ptr<lib::rule::Rule>> res;
+	std::vector<CompositionRes> res;
 	const auto mrCompose = [this, verbose, ls, &res](auto &&m, const auto &gSecond, const auto &gFirst) -> bool {
 		const auto &lgLeft = get_labelled_left(rSecond.getDPORule());
 		const auto &lgRight = get_labelled_right(rFirst.getDPORule());
@@ -91,7 +92,7 @@ std::vector<std::unique_ptr<lib::rule::Rule>> MatchBuilder::composeAll(bool maxi
 					auto resultOpt = composeRules(IO::Logger(std::cout), verbose, rFirst, rSecond, m);
 					if(!resultOpt) return true;
 					auto &[rResult, mResult] = *resultOpt;
-					res.push_back(std::move(rResult));
+					res.emplace_back(std::move(rResult), std::move(mResult));
 					return true;
 				});
 	};

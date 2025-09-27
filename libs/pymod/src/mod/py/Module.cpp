@@ -15,6 +15,7 @@
    /* DG first, as others makes nested classes */                                \
    ((dg, (DG) (Builder) (GraphInterface) (Printer) (Strategy) (VertexMapper)))   \
    ((hyperflow, (module)))                                                       \
+   ((causality, (module)))                                                       \
    ((graph, (Graph) (Union)))                                                    \
    ((graph, (Automorphism) (GraphInterface))) /* nested classes of Graph, so must be after */ \
    ((rule, (CompositionMatch) (Composition) (Rule) (GraphInterface)))            \

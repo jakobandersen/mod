@@ -10,6 +10,7 @@ exacts = {
 		"hyperflow", "hyperflow::vars",
 		"post",
 		"lib", "boost",
+		"causality",
 	],
 	'py': [
 		"DG.RuleRange", "DG.SourceRange", "DG.TargetRange", "DG.OutEdgeRange", "DG.InEdgeRange", "DG.EdgeRange", "DG.VertexRange",

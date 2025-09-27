@@ -25,8 +25,8 @@ OverallCatalysisSpecification::OverallCatalysisSpecification(Specification &owne
 		: SpecificationModule(owner) {
 	if(setDefaults) {
 		auto &base = owner.getModule<BaseSpecification>();
-		base.setAllowReversal(false);
-		base.setAllowIOReversal(false);
+		base.allowReversal = false;
+		base.allowIOReversal = false;
 	}
 }
 
@@ -36,22 +36,6 @@ std::string OverallCatalysisSpecification::getName() const {
 
 void OverallCatalysisSpecification::addDefaultObjective(hyperflow::LinExp &exp) const {
 	exp += hyperflow::vars::isOverallCata;
-}
-
-void OverallCatalysisSpecification::setForceExistence(bool value) {
-	forceExistence = value;
-}
-
-bool OverallCatalysisSpecification::getForceExistence() const {
-	return forceExistence;
-}
-
-void OverallCatalysisSpecification::setStrictTransit(bool value) {
-	strictTransit = value;
-}
-
-bool OverallCatalysisSpecification::getStrictTransit() const {
-	return strictTransit;
 }
 
 void OverallCatalysisSpecification::listImpl(std::ostream &s) const {
@@ -108,7 +92,7 @@ struct OverallCatalysisModel::StaticInit {
 		});
 		r.addVariableSet("isOverallCata", makeVertexVariableSet(
 				id, [](const Model &m) {
-					if(m.specification->getModule<BaseSpecification>().getRelaxed())
+					if(m.specification->getModule<BaseSpecification>().relaxed)
 						MOD_ABORT;
 					const auto &mm = m.getModule<OverallCatalysisModel>();
 					CombiOpt::LinExpAny res;
@@ -116,7 +100,7 @@ struct OverallCatalysisModel::StaticInit {
 						res += p.second;
 					return res;
 				}, [](const Model &m, const lib::DG::HyperVertex &v) {
-					if(m.specification->getModule<BaseSpecification>().getRelaxed())
+					if(m.specification->getModule<BaseSpecification>().relaxed)
 						MOD_ABORT;
 					const auto &mm = m.getModule<OverallCatalysisModel>();
 					const auto iter = mm.isOverallCatalytic.find(v);
@@ -133,7 +117,7 @@ OverallCatalysisModel::StaticInit staticInit;
 } // namespace
 
 OverallCatalysisModel::OverallCatalysisModel(Model &owner) : ModelModule(owner) {
-	const bool relaxed = owner.specification->getModule<BaseSpecification>().getRelaxed();
+	const bool relaxed = owner.specification->getModule<BaseSpecification>().relaxed;
 	if(relaxed)
 		throw LogicError("Can not create model. OverallCatalysis can not be enabled in relaxed mode.");
 }
@@ -143,7 +127,7 @@ const OverallCatalysisSpecification &OverallCatalysisModel::getSpec() const {
 }
 
 void OverallCatalysisModel::createVariablesImpl(CombiOpt::Model &model) {
-	assert(!owner.specification->getModule<BaseSpecification>().getRelaxed());
+	assert(!owner.specification->getModule<BaseSpecification>().relaxed);
 	const auto &dgHyper = owner.specification->dgHyper.getGraph();
 	// indicator vars
 	for(const lib::DG::HyperVertex vHyper : asRange(vertices(dgHyper))) {
@@ -159,7 +143,7 @@ void OverallCatalysisModel::createVariablesImpl(CombiOpt::Model &model) {
 }
 
 void OverallCatalysisModel::createConstraintsImpl(CombiOpt::Model &model) {
-	assert(!owner.specification->getModule<BaseSpecification>().getRelaxed());
+	assert(!owner.specification->getModule<BaseSpecification>().relaxed);
 	const auto &dgHyper = owner.specification->dgHyper.getGraph();
 	const auto &baseModel = owner.getModule<BaseModel>();
 
@@ -171,7 +155,7 @@ void OverallCatalysisModel::createConstraintsImpl(CombiOpt::Model &model) {
 		const auto isInLessOut = baseModel.getIsInLessOut(vHyper);
 		const auto isInGreaterOut = baseModel.getIsInGreaterOut(vHyper);
 		const auto isInOutZero = baseModel.getIsInOutZero(vHyper);
-		if(getSpec().getStrictTransit())
+		if(getSpec().strictTransit)
 			addDisableInternalIfTrue(owner, model, isCata, vHyper);
 
 		// NOT inLessOut AND NOT inGreaterOut AND NOT inOutZero => isCata
@@ -184,7 +168,7 @@ void OverallCatalysisModel::createConstraintsImpl(CombiOpt::Model &model) {
 		model.addImplication(isInGreaterOut, !isCata);
 	}
 
-	if(getSpec().getForceExistence()) {
+	if(getSpec().forceExistence) {
 		CombiOpt::Disjunction c;
 		for(const auto &p : isOverallCatalytic)
 			c = std::move(c) || p.second;
@@ -212,7 +196,7 @@ void OverallCatalysisModel::loadSolutionSetDependentVarsImpl(CombiOpt::LoadedSol
 	const auto &baseModel = owner.getModule<BaseModel>();
 	const auto &dg = owner.specification->dgHyper;
 	const auto &dgHyper = dg.getGraph();
-	if(baseSpec.getRelaxed()) return;
+	if(baseSpec.relaxed) return;
 	bool isSolutionCata = false;
 	for(const auto v : asRange(vertices(dgHyper))) {
 		if(dgHyper[v].kind != DG::HyperVertexKind::Vertex) continue;
@@ -224,7 +208,7 @@ void OverallCatalysisModel::loadSolutionSetDependentVarsImpl(CombiOpt::LoadedSol
 			const auto var = varIter->second;
 			s.integralValues.emplace(var, 1);
 			isSolutionCata = true;
-			if(getSpec().getStrictTransit()) {
+			if(getSpec().strictTransit) {
 //				bool feasible = dumpCheckDisableInternalIfTrue(
 //						dgGraph, base.DumpLoading().Transit().getTransitVars(v), sol);
 //				if(!feasible) {
@@ -236,7 +220,7 @@ void OverallCatalysisModel::loadSolutionSetDependentVarsImpl(CombiOpt::LoadedSol
 			}
 		}
 	}
-	if(getSpec().getForceExistence()) {
+	if(getSpec().forceExistence) {
 		if(!isSolutionCata) {
 //			std::cout
 //					<< "Error while loading dumped Flow solution. Overall catalysis is enabled, but the solution is infeasible (conflict with 'forceExistence')."

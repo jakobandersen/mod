@@ -8,8 +8,6 @@
 #include <mod/lib/DG/IO/Write.hpp>
 #include <mod/lib/Graph/Graph.hpp>
 
-#include <boost/lexical_cast.hpp>
-
 namespace mod::dg {
 
 //------------------------------------------------------------------------------

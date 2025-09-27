@@ -46,6 +46,7 @@ public:
 	bool isOnlySide(Membership membership) const;
 	bool isOnlyRightSide() const; // shortcut of above
 public:
+	using CombinedGraphVertex = lib::DPO::CombinedRule::CombinedVertex;
 	using ContextGraphVertex = lib::DPO::CombinedRule::KVertex;
 	using ContextGraphEdge = lib::DPO::CombinedRule::KEdge;
 	using SideGraphVertex = lib::DPO::CombinedRule::SideVertex;
@@ -58,6 +59,7 @@ public:
 	mod::rule::Rule::RightGraph::Edge getRightInterfaceEdge(SideGraphVertex vR, SideGraphEdge eR) const;
 	SideGraphVertex getLeftInternalVertex(mod::rule::Rule::LeftGraph::Vertex vL) const;
 	SideGraphVertex getRightInternalVertex(mod::rule::Rule::RightGraph::Vertex vR) const;
+	CombinedGraphVertex getCombinedInternalVertex(mod::rule::Rule::Vertex v) const;
 public:
 	static std::size_t isomorphism(const Rule &rDom,
 	                               const Rule &rCodom,

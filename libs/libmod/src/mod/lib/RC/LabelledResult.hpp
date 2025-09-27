@@ -14,10 +14,6 @@ public:
 	ResultMaps(const Rule &rFirst, const Rule &rSecond, const Rule &rDPO)
 		: mFirstToResult(rFirst.getCombinedGraph(), rDPO.getCombinedGraph()),
 		  mSecondToResult(rSecond.getCombinedGraph(), rDPO.getCombinedGraph()) {}
-	ResultMaps(const ResultMaps&) = delete;
-	ResultMaps &operator=(const ResultMaps&) = delete;
-	ResultMaps(ResultMaps&&) = default;
-	ResultMaps &operator=(ResultMaps&&) = default;
 public:
 	jla_boost::GraphMorphism::InvertibleVectorVertexMap<CombinedGraph, CombinedGraph> mFirstToResult;
 	jla_boost::GraphMorphism::InvertibleVectorVertexMap<CombinedGraph, CombinedGraph> mSecondToResult;

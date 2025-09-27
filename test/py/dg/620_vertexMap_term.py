@@ -1,4 +1,4 @@
-include("../xxx_helpers.py")
+include("6xx_vertexMap_helpers.py")
 
 W = Graph.fromDFS("[*]", name="W")
 r = Rule.fromDFS("[*]1>>[S]1")
@@ -16,3 +16,4 @@ assert dg.numEdges == 1
 e = next(iter(dg.edges))
 maps = DGVertexMapper(e, verbosity=10)
 assert maps.size == 1
+checkMaps(maps, False)

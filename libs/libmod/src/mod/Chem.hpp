@@ -3,7 +3,6 @@
 
 #include <mod/BuildConfig.hpp>
 
-#include <cassert>
 #include <iosfwd>
 #include <tuple>
 #include <string>

@@ -29,6 +29,7 @@ endif()
 target_link_libraries(libmod
         PUBLIC
             JLA::boost
+            Petri::petri
         PRIVATE
             GML::gml Threads::Threads
             Boost::graph Boost::iostreams

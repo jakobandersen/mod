@@ -3,12 +3,10 @@
 #include <mod/Misc.hpp>
 #include <mod/graph/Printer.hpp>
 #include <mod/rule/GraphInterface.hpp>
-#include <mod/lib/IO/IO.hpp>
 #include <mod/lib/Rule/Rule.hpp>
 #include <mod/lib/Rule/IO/DepictionData.hpp>
 #include <mod/lib/Rule/IO/Read.hpp>
 #include <mod/lib/Rule/IO/Write.hpp>
-#include <mod/lib/Rule/Properties/Molecule.hpp>
 #include <mod/lib/Rule/Properties/Stereo.hpp>
 
 #include <boost/iostreams/device/mapped_file.hpp>

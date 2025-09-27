@@ -7,6 +7,31 @@ Changes
 develop
 =======
 
+New Features
+------------
+
+- Added :py:meth:`RCMatch.composeWithMaps`/:cpp:func:`rule::CompositionMatch::composeWithMaps`
+  and :py:meth:`RCMatch.composeAllWithMaps`/:cpp:func:`rule::CompositionMatch::composeAllWithMaps`,
+  which not only returns the composed rule, but also vertex maps that relate it back to the input rules,
+  thus making it possible to track vertices through a composition.
+- When the ILP solver string is not recognized, error out with a list of the valid strings of available solvers.
+- Added a Python class for stochastic simulation :class:`causality.Simulator`.
+  It supports dynamic generation of the underlying reaction network (:py:class:`DG`), e.g.,
+  using a :py:class:`DGStrat` to be executed whenever new reactions are needed.
+  It also supports open systems.
+  The rate of each reaction, whether an internal reaction, input reaction, or output reaction, is given via callback functions.
+- Added classes for supporting the stochastic simulation:
+
+  - :py:class:`causality.EdgeAction`/:cpp:class:`causality::EdgeAction`
+  - :py:class:`causality.InputAction`/:cpp:class:`causality::InputAction`
+  - :py:class:`causality.OutputAction`/:cpp:class:`causality::OutputAction`
+  - :cpp:type:`causality::Action`
+  - :py:class:`causality.EventTrace`/:cpp:class:`causality::EventTrace`
+  - :py:class:`causality.EventTracePrinter`/:cpp:class:`causality::EventTracePrinter`
+  - :py:class:`causality.Net`/:cpp:class:`causality::Net`
+  - :py:class:`causality.Marking`/:cpp:class:`causality::Marking`
+
+
 Bugs Fixed
 ----------
 

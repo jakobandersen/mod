@@ -8,7 +8,6 @@
 #include <mod/rule/ForwardDecl.hpp>
 
 #include <memory>
-#include <unordered_set>
 #include <vector>
 
 namespace mod {

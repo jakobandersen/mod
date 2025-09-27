@@ -3,7 +3,6 @@
 
 #include <mod/BuildConfig.hpp>
 #include <mod/dg/DG.hpp>
-#include <mod/dg/GraphInterface.hpp>
 #include <mod/rule/ForwardDecl.hpp>
 
 #include <functional>

@@ -70,13 +70,24 @@ fail(lambda: m.push(v1_2, v2_2),
 r2 = m.compose()
 assert r2 is not None
 m.compose(verbose=True)
+r2m = m.composeWithMaps()
+assert r2m is not None
+assert r2.isomorphism(r2m.rule)
+m.composeWithMaps(verbose=True)
 
 res = m.composeAll()
 assert len(res) == 1
 assert res[0].isomorphism(r2) == 1
+resm = m.composeAllWithMaps()
+assert len(resm) == 1
+assert resm[0].rule.isomorphism(r2) == 1
+
 res = m.composeAll(maximum=True)
 assert len(res) == 1
 assert res[0].isomorphism(r2) == 1
+resm = m.composeAllWithMaps(maximum=True)
+assert len(resm) == 1
+assert resm[0].rule.isomorphism(r2) == 1
 
 m.pop()
 r1 = m.compose()
