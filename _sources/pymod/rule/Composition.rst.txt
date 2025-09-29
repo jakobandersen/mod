@@ -1,0 +1,155 @@
+.. _py-rule/Composition:
+
+**********************************************************
+rule/Composition
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+This page contains the core functionality for composing rules and creating rules from graphs.
+Note that there is both a low-level interface for constructing expressions,
+and an embedded mini-language for defining the expressions using normal Python operators.
+
+The Embedded Rule Composition Expression Language
+#################################################
+
+The embedded language is really a collection of proxy classes with a lot of operator overloading, thus
+the normal syntax and semantics of Python applies.
+
+A rule composition expression always returns a list of rules when evaluated.
+The following is the grammar for the expressions.
+
+.. productionlist:: rcExp
+   rcExp: `rcExp` `op` `rcExp`
+        : "rcBind(" graphs ")"
+        : "rcId(" graphs ")"
+        : "rcUnbind(" graphs ")"
+        : rules
+   op: "*" `opObject` "*"
+   opObject: "rcParallel"
+           : "rcSuper"
+           : "rcSuper(allowPartial=True)"
+           : "rcSub"
+           : "rcSub(allowPartial=True)"
+           : "rcCommon"
+           : "rcCommon(maximum=False, connected=True, includeEmpty=False)"
+
+Here a ``graphs`` is any Python expression that is either a single :class:`Graph` or an iterable of graphs.
+Similarly, ``rules`` must be either a :class:`Rule` or an iterable of rules.
+An :token:`~rcExp:rcExp` may additionally be an iterable of expressions.
+The following table links each type of expression to the objects being created.
+
+====================================================================================== =============================
+Expression                                                                             Object
+====================================================================================== =============================
+An iterable of :class:`Rule`                                                           :class:`RCExpUnion`
+``rcBind(graphs)``                                                                     :class:`RCExpBind`
+``rcId(graphs)``                                                                       :class:`RCExpId`
+``rcUnbind(graphs)``                                                                   :class:`RCExpUnbind`
+ :token:`~rcExp:rcExp` ``*rcParallel*`` :token:`~rcExp:rcExp`                          :class:`RCExpComposeParallel`
+ :token:`~rcExp:rcExp` ``*rcSuper*`` :token:`~rcExp:rcExp`                             :class:`RCExpComposeSuper`
+ :token:`~rcExp:rcExp` ``*rcSub*`` :token:`~rcExp:rcExp`                               :class:`RCExpComposeSub`
+ :token:`~rcExp:rcExp` ``*rcCommon*`` :token:`~rcExp:rcExp`                            :class:`RCExpComposeCommon`
+====================================================================================== =============================
+
+See also [AFMS-RC]_, [AFMS-RC-AtomMap]_, and [AFMS-RC-Matrix]_ for details on how these expressions are computed internally,
+and further examples of how they can be used to solve particular problems.
+
+
+Expression Evaluator
+#################################################
+
+.. class:: RCEvaluator
+
+    This class can evaluate rule composition expressions. During evaluation an expression graph is recorded.
+
+    The expression graph is a directed hypergraph :math:`(V, E)`, with each vertex representing a rule.
+    Each edge represent all compositions calculated for a unique input. That is every edge :math:`e\in E` is on the form
+    :math:`((u, v), R_e)` with :math:`(u, v)\in V\times V` as an *ordered* pair of rules and :math:`R_e\subseteq V` is the set
+    of all resulting rules found.
+
+    The graph is visualised as a bipartite graph with point-shaped vertices representing the hyperedges. The in-edges to these
+    hyperedge vertices are labelled with 1 and 2.
+
+    .. method:: __init__(self, ruleDatabase, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+
+        :param ruleDatabase: a list of isomorphic rules the evaluator will compare against.
+        :type database: list[Rule]
+        :param LabelSettings labelSettings: the settings to use for morphisms.
+
+        .. note:: The caller is responsible for ensuring the given rules are unique.
+
+    .. attribute:: ruleDatabase
+
+        (Read-only) The list of unique rules known by the evaluator.
+
+        :type: list[Rule]
+    .. attribute:: createdRules
+
+        (Read-only) The list of unique rules this evaluator has constructed.
+
+        :type: list[Rule]
+    .. method:: eval(exp, *, onlyUnique=True, verbosity=0)
+
+        Evaluates a rule composition expression.
+        Any created rule is replaced by a rule in the database if they are isomorphic.
+        A rule may appear multiple times in the result if multiple overlaps resulted in the same composed rule.
+
+        :param RCExpExp exp: the expression to evaluate.
+        :param bool onlyUnique: whether each composition (sub-)result may contain duplicates or not.
+        :param int verbosity: the level of information being printed about the evaluation.
+            See :cpp:func:`rule::Composer::eval` for details.
+        :returns: the resulting list of rules of the expression.
+        :rtype: list[Rule]
+    .. method:: print()
+
+        Print the graph representing all expressions evaluated so far.
+
+Rule Composition Expressions
+#################################################
+
+An expression can be evaluated through the method :meth:`RCEvaluator.eval`.
+The result of an expression is a list of rules.
+
+.. class:: RCExpUnion
+
+    When evaluated, return the union of the result of the sub-expressions.
+
+.. class:: RCExpBind
+
+    Return the singleton list with the rule :math:`(\emptyset, \emptyset, G)` for the given graph :math:`G`.
+
+.. class:: RCExpId
+
+    Return the singleton list with the rule :math:`(G, G, G)` for the given graph :math:`G`.
+
+.. class:: RCExpUnbind
+
+    Return the singleton list with the rule :math:`(G, \emptyset, \emptyset)` for the given graph :math:`G`.
+
+.. class:: RCExpExp
+
+    The base class for the composition of two rule :math:`(L_1, K_1, R_1)` and :math:`(L_2, K_2, R_2)`.
+
+.. class:: RCExpComposeCommon
+
+    Compose the rules by all common subgraphs of :math:`R_1` and :math:`L_2`,
+    possibly limited to connected subgraphs or to the subgraphs of maximum size.
+    By default the empty overlap is not considered, but can be enabled to be.
+
+.. class:: RCExpComposeParallel
+
+    Compose the rules by all common subgraphs of :math:`R_1` and :math:`L_2`,
+    possibly limited to connected subgraphs or to the subgraphs of maximum size.
+
+.. class:: RCExpComposeSub
+
+    Compose the rules by the empty graph, i.e., create a rule representing the parallel application of two input rules.
+
+.. class:: RCExpComposeSuper
+
+    Compose the rules such that overlapping connected components of :math:`R_1` and :math:`L_2` have the :math:`L_2` component as a subgraph of :math:`R_1`.
+    The overlap is `partial` if not every connected component of :math:`L_2` is participating in the common subgraph.
+

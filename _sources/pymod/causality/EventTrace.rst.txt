@@ -1,0 +1,148 @@
+.. _py-causality/EventTrace:
+
+**********************************************************
+causality/EventTrace
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: causality.EdgeAction
+
+    .. method:: __init__()
+                __init__(e)
+    .. attribute:: edge
+
+        (Read-only) the hyperedge for the action.
+        May not be null.
+
+        :type: DG.HyperEdge
+    .. function:: void applyTo(m) const
+
+        Perform ``m.fire(edge)``.
+
+        :param Marking m: the marking to apply the action to.
+.. class:: causality.InputAction
+
+    .. method:: __init__()
+                __init__(v)
+    .. attribute:: vertex
+
+        (Read-only) the vertex being injected.
+        May not be null.
+
+        :type: DG.Vertex
+    .. function:: void applyTo(m) const
+
+        Perform `m.add(vertex, 1)`.
+
+        :param Marking m: the marking to apply the action to.
+.. class:: causality.OutputAction
+
+    .. method:: __init__()
+                __init__(v)
+    .. attribute:: vertex
+
+        (Read-only) the vertex being extracted.
+        May not be null.
+
+        :type: DG.Vertex
+    .. function:: void applyTo(m) const
+
+        Perform `m.remove(vertex, 1)`.
+
+        :param Marking m: the marking to apply the action to.
+.. class:: causality.EventTrace
+
+    A representation of a trace of events starting from an initial marking.
+    An event is either a reaction/hyperedge being performed
+    or a transfer of tokens out or in to the system.
+
+    .. method:: __init__(initialState)
+
+        Construct an empty event trace with an initial state.
+        A copy of the given marking is being stored.
+
+        :param Marking initialState: the marking to used as the initial state.
+    .. attribute:: initialState
+
+        (Read-only) Read a copy of the initial state for this event trace.
+
+        :type: Marking
+    .. method:: __len__()
+
+        :returns: the number of events in the trace.
+        :rtype: int
+    .. attribute:: time
+
+        (Read-only) the time of the latest added event, or 0 if ``len(self) == 0``.
+
+        :type: float
+    .. method:: __getitem__()
+
+        :returns: the ``i``\ th event in the trace.
+        :rtype: Event
+        :raises: :class:`LogicError` if ``i`` is out of bounds.
+    .. method:: __eq__()
+
+        Calls ``syncSize()`` on the internal initial state and the underlying net.
+    .. method:: add(time, action)
+
+        Append an event to the trace.
+
+        :param float time: the time associated with the event.
+        :param action: the action of the event.
+        :type action: EdgeAction or InputAction or OutputAction
+        :raises: :class:`LogicError` if the time is less than the current time of the trace.
+        :raises: :class:`LogicError` if the action has null descriptors.
+        :raises: :class:`LogicError` if the descriptors in the action does not belong to the underlying derivation graph.
+    .. method:: print(printer=EventTracePrinter())
+
+        Create a plot of the counts throughout the event trace at each time point.
+
+        :returns: the filename for the PDF that will be compiled by the post processor.
+        :rtype: str
+    .. method:: dump()
+                dump(filename)
+
+        Dump the initial marking and list of events to a file. This file can be loaded in again.
+
+        :param str filename: the name of the file to save the dump to.
+            If non is given an auto-generated name in the ``out/`` folder is used.
+            If an empty string is given, it is treated as if non is given.
+
+            .. note:: The filename is being used literally, i.e., it is not being
+                prefixed according to the current script location as input filenames are.
+        :returns: the filename with the dumped model.
+        :rtype: str
+    .. staticmethod:: load(dg, f)
+                      load(net, f)
+
+        Load an event trace dump.
+
+        :param DG dg: a matching derivation graph for the loaded event trace.
+            A :class:`~causality.Net` is being constructed based on this DG,
+            i.e., it is equivalent to ``EventTrace(Net(dg), f)``.
+        :param Net net: a Petri net where the underlying derivation graph matches the loaded event trace.
+        :type f: str or CWDPath
+        :param f: an event trace dump file to load.
+        :type f: str or CWDPath
+        :returns: the loaded event trace.
+        :rtype: EventTrace
+        :raises: :class:`LogicError` if ``dg``/``net`` is ``None``.
+        :raises: :class:`InputError` on bad data or if the given derivation graph does not match the data.
+.. class:: causality.EventTrace.Event
+
+    A representation of an event in an event trace.
+
+    .. attribute:: time
+
+        (Read-only) the associated time for the event.
+
+        :type: float
+    .. attribute:: action
+
+        (Read-only) the action of the event.
+
+        :type: EdgeAction or InputAction or OutputAction

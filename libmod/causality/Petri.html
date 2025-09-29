@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.11.4. causality/Petri.hpp &#8212; MØD 1.0.0.9 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.11.5. causality/Stochsim.hpp" href="Stochsim.html" />
+    <link rel="prev" title="3.2.11.3. causality/ForwardDecl.hpp" href="ForwardDecl.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.11.4. causality/Petri.hpp</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality3NetE"><code class="docutils literal notranslate"><span class="pre">Net</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality3Net5getDGEv"><code class="docutils literal notranslate"><span class="pre">Net::getDG()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality3NetlsERNSt7ostreamERK3Net"><code class="docutils literal notranslate"><span class="pre">Net::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality3Net8syncSizeEv"><code class="docutils literal notranslate"><span class="pre">Net::syncSize()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality3Net13getPostPlacesEN2dg2DG9HyperEdgeE"><code class="docutils literal notranslate"><span class="pre">Net::getPostPlaces()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE"><code class="docutils literal notranslate"><span class="pre">Net::make()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-causality-marking">3.2.11.4.1. Class <code class="docutils literal notranslate"><span class="pre">causality::Marking</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE"><code class="docutils literal notranslate"><span class="pre">Marking</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.11.4.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.11.4.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7Marking7MarkingENSt10shared_ptrI3NetEE"><code class="docutils literal notranslate"><span class="pre">Marking()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv"><code class="docutils literal notranslate"><span class="pre">getNet()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv"><code class="docutils literal notranslate"><span class="pre">syncSize()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7MarkinglsERNSt7ostreamERK7Marking"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingeqERK7MarkingRK7Marking"><code class="docutils literal notranslate"><span class="pre">operator==()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingneERK7MarkingRK7Marking"><code class="docutils literal notranslate"><span class="pre">operator!=()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi"><code class="docutils literal notranslate"><span class="pre">add()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi"><code class="docutils literal notranslate"><span class="pre">add()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingixEN2dg2DG6VertexE"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking12getNumTokensEv"><code class="docutils literal notranslate"><span class="pre">getNumTokens()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking13getAllEnabledEv"><code class="docutils literal notranslate"><span class="pre">getAllEnabled()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking16getNonZeroPlacesEv"><code class="docutils literal notranslate"><span class="pre">getNonZeroPlaces()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE"><code class="docutils literal notranslate"><span class="pre">getEmptyPostPlaces()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE"><code class="docutils literal notranslate"><span class="pre">isEnabled()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE"><code class="docutils literal notranslate"><span class="pre">fire()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="ForwardDecl.html" title="Previous Chapter: 3.2.11.3. causality/ForwardDecl.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.11.3. cau...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Stochsim.html" title="Next Chapter: 3.2.11.5. causality/Stochsim.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.11.5. cau... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="causality-petri-hpp">
+<span id="cpp-causality-petri"></span><h1><span class="section-number">3.2.11.4. </span>causality/Petri.hpp<a class="headerlink" href="#causality-petri-hpp" title="Link to this heading">¶</a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality3NetE">
+<span id="_CPPv3N3mod9causality3NetE"></span><span id="_CPPv2N3mod9causality3NetE"></span><span id="mod::causality::Net"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">causality</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Net</span></span></span><a class="headerlink" href="#_CPPv4N3mod9causality3NetE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Adaptation of a derivation graph into a Petri net.
+Importantly, if the underlying derivation graph is enlarged then
+<a class="reference internal" href="#_CPPv4N3mod9causality3Net8syncSizeEv" title="mod::causality::Net::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> must be called before calling certain other
+methods on the object.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality3Net5getDGEv">
+<span id="_CPPv3NK3mod9causality3Net5getDGEv"></span><span id="_CPPv2NK3mod9causality3Net5getDGEv"></span><span id="mod::causality::Net::getDGC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDG</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality3Net5getDGEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the underlying derivation graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality3NetlsERNSt7ostreamERK3Net">
+<span id="_CPPv3N3mod9causality3NetlsERNSt7ostreamERK3Net"></span><span id="_CPPv2N3mod9causality3NetlsERNSt7ostreamERK3Net"></span><span id="mod::causality::Net::lshift-operator__osR.NetCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality3NetE" title="mod::causality::Net"><span class="n"><span class="pre">Net</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">net</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality3NetlsERNSt7ostreamERK3Net" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality3Net8syncSizeEv">
+<span id="_CPPv3N3mod9causality3Net8syncSizeEv"></span><span id="_CPPv2N3mod9causality3Net8syncSizeEv"></span><span id="mod::causality::Net::syncSize"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">syncSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality3Net8syncSizeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Enlarges the internal data structures to the current size of the underlying derivation graph.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality3Net13getPostPlacesEN2dg2DG9HyperEdgeE">
+<span id="_CPPv3NK3mod9causality3Net13getPostPlacesEN2dg2DG9HyperEdgeE"></span><span id="_CPPv2NK3mod9causality3Net13getPostPlacesEN2dg2DG9HyperEdgeE"></span><span id="mod::causality::Net::getPostPlaces__dg::DG::HyperEdgeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPostPlaces</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality3Net13getPostPlacesEN2dg2DG9HyperEdgeE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of unique targets for the given hyperedge.</p>
+</dd>
+</dl>
+<p>Requires <a class="reference internal" href="#_CPPv4N3mod9causality3Net8syncSizeEv" title="mod::causality::Net::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> to have been called since the last time the underlying derivation graph has changed size.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE">
+<span id="_CPPv3N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE"></span><span id="_CPPv2N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE"></span><span id="mod::causality::Net::make__std::shared_ptr:dg::DG:"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mod9causality3NetE" title="mod::causality::Net"><span class="n"><span class="pre">Net</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">make</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dg_</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Calls <a class="reference internal" href="#_CPPv4N3mod9causality3Net8syncSizeEv" title="mod::causality::Net::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a new Petri net, adapting the given derivation graph.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE" title="mod::causality::Net::make::dg_"><span class="n">dg_</span></a></span> is null.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE" title="mod::causality::Net::make::dg_"><span class="n">dg_</span></a><span class="o">-&gt;</span><span class="n">hasActiveBuilder</span><span class="p">(</span><span class="p">)</span></span> nor <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality3Net4makeENSt10shared_ptrIN2dg2DGEEE" title="mod::causality::Net::make::dg_"><span class="n">dg_</span></a><span class="o">-&gt;</span><span class="n">isLocked</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="class-causality-marking">
+<h2><span class="section-number">3.2.11.4.1. </span>Class <code class="docutils literal notranslate"><span class="pre">causality::Marking</span></code><a class="headerlink" href="#class-causality-marking" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7MarkingE">
+<span id="_CPPv3N3mod9causality7MarkingE"></span><span id="_CPPv2N3mod9causality7MarkingE"></span><span id="mod::causality::Marking"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">causality</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Marking</span></span></span><a class="headerlink" href="#_CPPv4N3mod9causality7MarkingE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Representation of a marking on a Petri net.
+Importantly, if the underlying derivation graph is enlarged then
+<a class="reference internal" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv" title="mod::causality::Marking::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> must be called before calling certain other
+methods on the object.</p>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.11.4.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">explicit</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking7MarkingENSt10shared_ptrI3NetEE" title="mod::causality::Marking::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mod9causality3NetE" title="mod::causality::Net"><span class="n"><span class="pre">Net</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">net</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mod9causality3NetE" title="mod::causality::Net"><span class="n"><span class="pre">Net</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n"><span class="pre">getNet</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv" title="mod::causality::Marking::syncSize"><span class="n"><span class="pre">syncSize</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkinglsERNSt7ostreamERK7Marking" title="mod::causality::Marking::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingeqERK7MarkingRK7Marking" title="mod::causality::Marking::operator=="><span class="sig-name descname"><span class="pre">==</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingneERK7MarkingRK7Marking" title="mod::causality::Marking::operator!="><span class="sig-name descname"><span class="pre">!=</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi" title="mod::causality::Marking::add"><span class="n"><span class="pre">add</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::add"><span class="n"><span class="pre">add</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi" title="mod::causality::Marking::remove"><span class="n"><span class="pre">remove</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::remove"><span class="n"><span class="pre">remove</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingixEN2dg2DG6VertexE" title="mod::causality::Marking::operator[]"><span class="sig-name descname"><span class="pre">[]</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE" title="mod::causality::Marking::operator[]"><span class="sig-name descname"><span class="pre">[]</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking12getNumTokensEv" title="mod::causality::Marking::getNumTokens"><span class="n"><span class="pre">getNumTokens</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking13getAllEnabledEv" title="mod::causality::Marking::getAllEnabled"><span class="n"><span class="pre">getAllEnabled</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking16getNonZeroPlacesEv" title="mod::causality::Marking::getNonZeroPlaces"><span class="n"><span class="pre">getNonZeroPlaces</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::getEmptyPostPlaces"><span class="n"><span class="pre">getEmptyPostPlaces</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::isEnabled"><span class="n"><span class="pre">isEnabled</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::fire"><span class="n"><span class="pre">fire</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.11.4.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7Marking7MarkingENSt10shared_ptrI3NetEE">
+<span id="_CPPv3N3mod9causality7Marking7MarkingENSt10shared_ptrI3NetEE"></span><span id="_CPPv2N3mod9causality7Marking7MarkingENSt10shared_ptrI3NetEE"></span><span id="mod::causality::Marking::Marking__std::shared_ptr:Net:"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Marking</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mod9causality3NetE" title="mod::causality::Net"><span class="n"><span class="pre">Net</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">net</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7Marking7MarkingENSt10shared_ptrI3NetEE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking7MarkingENSt10shared_ptrI3NetEE" title="mod::causality::Marking::Marking::net"><span class="n">net</span></a></span> is null.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7Marking6getNetEv">
+<span id="_CPPv3NK3mod9causality7Marking6getNetEv"></span><span id="_CPPv2NK3mod9causality7Marking6getNetEv"></span><span id="mod::causality::Marking::getNetC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mod9causality3NetE" title="mod::causality::Net"><span class="n"><span class="pre">Net</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNet</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the underlying Petri net.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7Marking8syncSizeEv">
+<span id="_CPPv3NK3mod9causality7Marking8syncSizeEv"></span><span id="_CPPv2NK3mod9causality7Marking8syncSizeEv"></span><span id="mod::causality::Marking::syncSizeC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">syncSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Enlarges the internal data structures to the current size of the underlying derivation graph.</p>
+<p>Calls <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="n">syncSize</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7MarkinglsERNSt7ostreamERK7Marking">
+<span id="_CPPv3N3mod9causality7MarkinglsERNSt7ostreamERK7Marking"></span><span id="_CPPv2N3mod9causality7MarkinglsERNSt7ostreamERK7Marking"></span><span id="mod::causality::Marking::lshift-operator__osR.MarkingCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">m</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7MarkinglsERNSt7ostreamERK7Marking" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Calls <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv" title="mod::causality::Marking::syncSize"><span class="n">syncSize</span></a><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7MarkingeqERK7MarkingRK7Marking">
+<span id="_CPPv3N3mod9causality7MarkingeqERK7MarkingRK7Marking"></span><span id="_CPPv2N3mod9causality7MarkingeqERK7MarkingRK7Marking"></span><span id="mod::causality::Marking::eq-operator__MarkingCR.MarkingCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7MarkingeqERK7MarkingRK7Marking" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7MarkingneERK7MarkingRK7Marking">
+<span id="_CPPv3N3mod9causality7MarkingneERK7MarkingRK7Marking"></span><span id="_CPPv2N3mod9causality7MarkingneERK7MarkingRK7Marking"></span><span id="mod::causality::Marking::neq-operator__MarkingCR.MarkingCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7MarkingneERK7MarkingRK7Marking" title="Link to this definition">¶</a><br /></dt>
+<dd><p>May call <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingneERK7MarkingRK7Marking" title="mod::causality::Marking::operator!=::a"><span class="n">a</span></a><span class="p">.</span><span class="n">syncSize</span><span class="p">(</span><span class="p">)</span></span> and <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingneERK7MarkingRK7Marking" title="mod::causality::Marking::operator!=::b"><span class="n">b</span></a><span class="p">.</span><span class="n">syncSize</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi">
+<span id="_CPPv3N3mod9causality7Marking3addEN2dg2DG6VertexEi"></span><span id="_CPPv2N3mod9causality7Marking3addEN2dg2DG6VertexEi"></span><span id="mod::causality::Marking::add__dg::DG::Vertex.i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi">
+<span id="_CPPv3N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi"></span><span id="_CPPv2N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi"></span><span id="mod::causality::Marking::add__std::shared_ptr:graph::Graph:.i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::add::c"><span class="n">c</span></a></span> tokens on the place <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi" title="mod::causality::Marking::add::v"><span class="n">v</span></a></span>.
+The graph version is equivalent to <code class="docutils literal notranslate"><span class="pre">add(getNet()-&gt;getDG()-&gt;findVertex(g),</span> <span class="pre">c)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the new total token count on <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi" title="mod::causality::Marking::add::v"><span class="n">v</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi" title="mod::causality::Marking::add::v"><span class="n">v</span></a></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addEN2dg2DG6VertexEi" title="mod::causality::Marking::add::v"><span class="n">v</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::add::c"><span class="n">c</span></a><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::add::g"><span class="n">g</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">findVertex</span><span class="p">(</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking3addENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::add::g"><span class="n">g</span></a><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+<p>Requires <a class="reference internal" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv" title="mod::causality::Marking::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> to have been called since the last time the underlying derivation graph has changed size.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi">
+<span id="_CPPv3N3mod9causality7Marking6removeEN2dg2DG6VertexEi"></span><span id="_CPPv2N3mod9causality7Marking6removeEN2dg2DG6VertexEi"></span><span id="mod::causality::Marking::remove__dg::DG::Vertex.i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">remove</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi">
+<span id="_CPPv3N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi"></span><span id="_CPPv2N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi"></span><span id="mod::causality::Marking::remove__std::shared_ptr:graph::Graph:.i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">remove</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::remove::c"><span class="n">c</span></a></span> tokens from the place <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi" title="mod::causality::Marking::remove::v"><span class="n">v</span></a></span>.
+The graph version is equivalent to <code class="docutils literal notranslate"><span class="pre">remove(getNet()-&gt;getDG()-&gt;findVertex(g),</span> <span class="pre">c)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the new total token count on <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi" title="mod::causality::Marking::remove::v"><span class="n">v</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi" title="mod::causality::Marking::remove::v"><span class="n">v</span></a></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeEN2dg2DG6VertexEi" title="mod::causality::Marking::remove::v"><span class="n">v</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::remove::c"><span class="n">c</span></a><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if not enough tokens are left to remove all <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::remove::c"><span class="n">c</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::remove::g"><span class="n">g</span></a></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">findVertex</span><span class="p">(</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking6removeENSt10shared_ptrIN5graph5GraphEEEi" title="mod::causality::Marking::remove::g"><span class="n">g</span></a><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+<p>Requires <a class="reference internal" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv" title="mod::causality::Marking::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> to have been called since the last time the underlying derivation graph has changed size.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7MarkingixEN2dg2DG6VertexE">
+<span id="_CPPv3N3mod9causality7MarkingixEN2dg2DG6VertexE"></span><span id="_CPPv2N3mod9causality7MarkingixEN2dg2DG6VertexE"></span><span id="mod::causality::Marking::subscript-operator__dg::DG::Vertex"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7MarkingixEN2dg2DG6VertexE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE">
+<span id="_CPPv3NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE"></span><span id="_CPPv2NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE"></span><span id="mod::causality::Marking::subscript-operator__std::shared_ptr:graph::Graph:C"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the token count for <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingixEN2dg2DG6VertexE" title="mod::causality::Marking::operator[]::v"><span class="n">v</span></a></span>.
+The graph version is equivalent to first calling <code class="docutils literal notranslate"><span class="pre">getNet()-&gt;getDG()-&gt;findVertex(g)</span></code>
+before using it as index to the marking.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingixEN2dg2DG6VertexE" title="mod::causality::Marking::operator[]::v"><span class="n">v</span></a></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7MarkingixEN2dg2DG6VertexE" title="mod::causality::Marking::operator[]::v"><span class="n">v</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE" title="mod::causality::Marking::operator[]::g"><span class="n">g</span></a></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">findVertex</span><span class="p">(</span><a class="reference internal" href="#_CPPv4NK3mod9causality7MarkingixENSt10shared_ptrIN5graph5GraphEEE" title="mod::causality::Marking::operator[]::g"><span class="n">g</span></a><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+<p>Requires <a class="reference internal" href="#_CPPv4NK3mod9causality7Marking8syncSizeEv" title="mod::causality::Marking::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> to have been called since the last time the underlying derivation graph has changed size.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7Marking12getNumTokensEv">
+<span id="_CPPv3NK3mod9causality7Marking12getNumTokensEv"></span><span id="_CPPv2NK3mod9causality7Marking12getNumTokensEv"></span><span id="mod::causality::Marking::getNumTokensC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumTokens</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7Marking12getNumTokensEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the total number of tokens in the marking.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7Marking13getAllEnabledEv">
+<span id="_CPPv3NK3mod9causality7Marking13getAllEnabledEv"></span><span id="_CPPv2NK3mod9causality7Marking13getAllEnabledEv"></span><span id="mod::causality::Marking::getAllEnabledC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAllEnabled</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7Marking13getAllEnabledEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of all hyperedges currently enabled for firing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7Marking16getNonZeroPlacesEv">
+<span id="_CPPv3NK3mod9causality7Marking16getNonZeroPlacesEv"></span><span id="_CPPv2NK3mod9causality7Marking16getNonZeroPlacesEv"></span><span id="mod::causality::Marking::getNonZeroPlacesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNonZeroPlaces</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7Marking16getNonZeroPlacesEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of all vertices with tokens.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE">
+<span id="_CPPv3NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE"></span><span id="_CPPv2NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE"></span><span id="mod::causality::Marking::getEmptyPostPlaces__dg::DG::HyperEdgeC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEmptyPostPlaces</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of all target vertices of the given hyperedge that do not have any tokens.
+The list represents a set, so if vertex is a target multiple times it will only be included once.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::getEmptyPostPlaces::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking18getEmptyPostPlacesEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::getEmptyPostPlaces::e"><span class="n">e</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE">
+<span id="_CPPv3NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE"></span><span id="_CPPv2NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE"></span><span id="mod::causality::Marking::isEnabled__dg::DG::HyperEdgeC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isEnabled</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether the given hyperedge is enabled for firing.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::isEnabled::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::isEnabled::e"><span class="n">e</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE">
+<span id="_CPPv3N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE"></span><span id="_CPPv2N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE"></span><span id="mod::causality::Marking::fire__dg::DG::HyperEdge"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fire</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">e</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Fire the given edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::fire::e"><span class="n">e</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::fire::e"><span class="n">e</span></a><span class="p">.</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking6getNetEv" title="mod::causality::Marking::getNet"><span class="n">getNet</span></a><span class="p">(</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getDG</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9causality7Marking9isEnabledEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::isEnabled"><span class="n">isEnabled</span></a><span class="p">(</span><a class="reference internal" href="#_CPPv4N3mod9causality7Marking4fireEN2dg2DG9HyperEdgeE" title="mod::causality::Marking::fire::e"><span class="n">e</span></a><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/causality/Petri.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

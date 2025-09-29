@@ -1,0 +1,153 @@
+.. _cpp-causality/Petri:
+
+**********************************************************
+causality/Petri.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: causality::Net
+
+    Adaptation of a derivation graph into a Petri net.
+    Importantly, if the underlying derivation graph is enlarged then
+    :func:`syncSize` must be called before calling certain other
+    methods on the object.
+
+    .. function:: std::shared_ptr<dg::DG> getDG() const
+
+        :returns: the underlying derivation graph.
+    .. function:: friend std::ostream &operator<<(std::ostream &s, const Net &net)
+    .. function:: void syncSize()
+
+        Enlarges the internal data structures to the current size of the underlying derivation graph.
+    .. function:: std::vector<dg::DG::Vertex> getPostPlaces(dg::DG::HyperEdge e) const
+
+        :returns: a list of unique targets for the given hyperedge.
+
+        Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+    .. function:: static std::shared_ptr<Net> make(std::shared_ptr<dg::DG> dg_)
+
+        Calls :func:`syncSize`.
+
+        :returns: a new Petri net, adapting the given derivation graph.
+        :throws: :class:`LogicError` if `dg_` is null.
+        :throws: :class:`LogicError` if neither `dg_->hasActiveBuilder()` nor `dg_->isLocked()`.
+
+
+Class ``causality::Marking``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: causality::Marking
+    
+
+    Representation of a marking on a Petri net.
+    Importantly, if the underlying derivation graph is enlarged then
+    :func:`syncSize` must be called before calling certain other
+    methods on the object.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: causality::Marking
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: causality::Marking
+
+.. function:: explicit Marking(std::shared_ptr<Net> net)
+
+    :throws: :class:`LogicError` if `net` is null.
+.. function:: std::shared_ptr<Net> getNet() const
+
+    :returns: the underlying Petri net.
+.. function:: void syncSize() const
+
+    Enlarges the internal data structures to the current size of the underlying derivation graph.
+
+    Calls `getNet().syncSize()`.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const Marking &m)
+
+    Calls `syncSize()`.
+.. function:: friend bool operator==(const Marking &a, const Marking &b)
+              friend bool operator!=(const Marking &a, const Marking &b)
+
+    May call `a.syncSize()` and `b.syncSize()`.
+.. function:: int add(dg::DG::Vertex v, int c)
+              int add(std::shared_ptr<graph::Graph> g, int c)
+
+    Add `c` tokens on the place `v`.
+    The graph version is equivalent to ``add(getNet()->getDG()->findVertex(g), c)``.
+
+    :returns: the new total token count on `v`.
+    :throws: :class:`LogicError` if `!v`.
+    :throws: :class:`LogicError` if `v.getDG() != getNet()->getDG()`.
+    :throws: :class:`LogicError` if `c < 0`.
+    :throws: :class:`LogicError` if `!g`.
+    :throws: :class:`LogicError` if `!getNet()->getDG()->findVertex(g)`.
+
+    Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+.. function:: int remove(dg::DG::Vertex v, int c)
+              int remove(std::shared_ptr<graph::Graph> g, int c)
+
+    Remove `c` tokens from the place `v`.
+    The graph version is equivalent to ``remove(getNet()->getDG()->findVertex(g), c)``.
+
+    :returns: the new total token count on `v`.
+    :throws: :class:`LogicError` if `!v`.
+    :throws: :class:`LogicError` if `v.getDG() != getNet()->getDG()`.
+    :throws: :class:`LogicError` if `c < 0`.
+    :throws: :class:`LogicError` if not enough tokens are left to remove all `c`.
+    :throws: :class:`LogicError` if `!g`.
+    :throws: :class:`LogicError` if `!getNet()->getDG()->findVertex(g)`.
+
+    Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+.. function:: int operator[](dg::DG::Vertex v)
+              int operator[](std::shared_ptr<graph::Graph> g) const
+
+    :returns: the token count for `v`.
+        The graph version is equivalent to first calling ``getNet()->getDG()->findVertex(g)``
+        before using it as index to the marking.
+    :throws: :class:`LogicError` if `!v`.
+    :throws: :class:`LogicError` if `v.getDG() != getNet()->getDG()`.
+    :throws: :class:`LogicError` if `!g`.
+    :throws: :class:`LogicError` if `!getNet()->getDG()->findVertex(g)`.
+
+    Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+.. function:: int getNumTokens() const
+
+    :returns: the total number of tokens in the marking.
+.. function:: std::vector<dg::DG::HyperEdge> getAllEnabled() const
+
+    :returns: a list of all hyperedges currently enabled for firing.
+.. function:: std::vector<dg::DG::Vertex> getNonZeroPlaces() const
+
+    :returns: a list of all vertices with tokens.
+.. function:: std::vector<dg::DG::Vertex> getEmptyPostPlaces(dg::DG::HyperEdge e) const
+
+    :returns: a list of all target vertices of the given hyperedge that do not have any tokens.
+        The list represents a set, so if vertex is a target multiple times it will only be included once.
+    :throws: :class:`LogicError` if `!e`.
+    :throws: :class:`LogicError` if `e.getDG() != getNet()->getDG()`.
+.. function:: bool isEnabled(dg::DG::HyperEdge e) const
+
+    :returns: whether the given hyperedge is enabled for firing.
+    :throws: :class:`LogicError` if `!e`.
+    :throws: :class:`LogicError` if `e.getDG() != getNet()->getDG()`.
+.. function:: void fire(dg::DG::HyperEdge e)
+
+    Fire the given edge.
+
+    :throws: :class:`LogicError` if `!e`.
+    :throws: :class:`LogicError` if `e.getDG() != getNet()->getDG()`.
+    :throws: :class:`LogicError` if `!isEnabled(e)`.
+
+.. cpp:namespace-pop::
+

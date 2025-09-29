@@ -1,0 +1,232 @@
+.. _py-causality/Stochsim:
+
+**********************************************************
+causality/Stochsim
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+The :class:`causality.Simulator` class implements the Stochastic Simulation Algorithm, also known as the Gillespie algorithm,
+but with the ability to generate the underlying network as needed using graph transformation rules,
+similarly to how a derivation graph, :class:`DG`, can be expanded using strategies, :ref:`dgStrat`.
+
+
+.. class:: causality.Simulator
+
+    The main class for performing stochastic simulations of chemical systems.
+
+    .. method:: __init__(*, labelSettings, graphDatabase, expandNetwork
+
+        :param LabelSettings labelSettings: a settings object that will be passed to :func:`DG.__init__`.
+        :param list[Graph] graphDatabase: a list of graphs that will be    passed to :func:`DG.__init__`.
+        :param expandNetwork: a callback which will be called when the simulator needs new hyperedge/reaction information.
+            The callback will be given:
+
+            1. the DG builder object for the underlying derivation graph.
+            2. a list of graphs that were newly discovered in the last iteration.
+            3. a list of all graphs in the current state.
+
+            The callback must return a boolean which indicates whether it should be called again.
+
+            For example, if expansion is done via some :py:class:`DGStrat`, ``strat``, a reasonable callback could be
+
+            .. code-block:: python
+
+                def expandNetwork(b, subset, universe):
+                    b.execute(addSubset(subset) >> addUniverse(universe) >> strat, verbosity=0)
+                    return True  # call again when the simulation
+
+            If you wish to simply provide a static network without dynamic expansion, your callback could be
+
+            .. code-block:: python
+
+                def expandNetwork(b, subset, universe):
+                    # use the DG.Builder b to add reactions/hyperedges as needed to create the network
+                    return False  # don't call again, we have added everything we need.
+
+            The :py:class:`ExpandByStrategy` class is a shorthand for this type of callback.
+        :type expandNetwork: Callable[[DG.Builder, list[Graph], list[Graph]], bool]
+        :param initialState: the initial simulation state in terms of the number of    copies of each graph/molecule.
+            The graphs/molecules not mentioned are set to 0.
+        :type initialState: dict[Graph, int]
+        :param draw: The simulator will initially create a :class:`DG` which is given to this function.
+            It must then return a callable that is used in each simulation step to draw the next hyperedge/reaction.
+            Defaults to a default constructed instance of :class:`DrawMassAction`.
+        :type draw: Callable[[DG], DrawFunction]
+        :param drawTime: The function to use for drawing the time increment in each simulation step.
+            The function will be given the reactivity, and must return the time increment.
+            Defaults to an instance of :py:class:`DrawTimeExponential`.
+        :type drawTime: Callable[[float], float]
+        :param bool withSetCompare: Whether to skip network expansion if a larger subset of graphs has been used for expansion before.
+            Defaults to ``True``.
+
+    .. property:: dg
+
+        The internal :class:`DG` underlying the simulation.
+
+        :type: DG
+
+    .. property:: iteration
+
+        The current iteration number. It starts at 0 and is incremented in the beginning of each iteration.
+
+        :type: int
+
+    .. property:: time
+
+        The current simulation time.
+
+        :type: float
+
+    .. property:: trace
+
+        References to the event trace for the entire simulation.
+        It should not be modified.
+
+        :type: EventTrace
+
+    .. attribute:: onIterationBegin
+
+        A callback invoked in the very beginning of each iteration of the simulation,
+        just after :attr:`iteration` has been incremented.
+        It is called with the simulator object as argument.
+
+        :type: Callable[[Simulator], None]
+
+    .. attribute:: onIterationEnd
+
+        A callback invoked in the very end of each iteration of the simulation,
+        after the drawn action has been carried out and the time advanced.
+        It is called with the simulator object, the drawn action, and the time increment,
+        and it must return a boolean indicating whether to continue the simulation, i.e., ``True`` means continue.
+
+        :type: Callable[[Simulator, EdgeAction | InputAction | OutputAction, float], bool]
+
+    .. attribute:: onDeadlock
+
+        A callback invoked if there are no events out of the current state.
+        It is called with the simulator object as argument.
+
+        :type: Callable[[Simulator], None]
+
+    .. attribute:: onExpand
+
+        A callback invoked when the simulator is about to request events out of the current state.
+        It is called with the simulator object as argument.
+
+        :type: Callable[[Simulator], None]
+
+    .. attribute:: onExpandAvoided
+
+        A callback invoked when the simulator detected is already had all events out of the current state.
+        It is called with the simulator object as argument.
+
+        :type: Callable[[Simulator], None]
+
+    .. method:: simulate(*, time, advanceToEndTime,    iterations)
+
+        Start/continue the simulation.
+
+        Simulate an additional amount of time or number of iterations, whichever is reached first,
+        or until no further events are possible (a deadlock).
+
+        :param Optional[float] time: the additional amount of time to simulate,    or ``None`` for unbounded. Defaults to ``None``.
+        :param bool advanceToEndTime: if a time bound is given and the simulation stops due to this bound,
+            advance the current time to the time bound,    instead of staying at the time of the last event. Defaults to ``False``.
+        :param Optional[int] iterations: the additional number of iterations to    simulate, or ``None`` for unbounded. Defaults to ``None``.
+        :returns: a references to the event trace for the entire simulation.
+            It should not be modified.
+        :rtype: EventTrace
+
+
+.. class:: causality.Simulator.DrawTimeExponential
+
+    A shorthand for drawing time from an exponential distribution.
+
+    .. method:: call(activitySum)
+
+        :param float rateSum: the total sum of activity in the system.
+        :returns: :math:`\frac{-\ln r}{activitySum}`, where :math:`r` is a random number in :math:`[0, 1)` drawn with :func:`rngUniformReal`.
+        :rtype: float
+
+
+.. class:: causality.Simulator.ExpandByStrategy
+
+    A shorthand for an expansion callback that executes a strategy.
+
+    .. method:: __init__(strat)
+
+        :param strat: a strategy to execute each time more neighbourhood is needed for the simulation.
+            It can be any object that can be used as a strategy, see :ref:`dgStrat`.
+
+    .. method:: __call__(b, s, u)
+
+        Executes the stored strategy on the given subset and universe.
+
+        :param DG.Builder b: the builder for the derivation graph underlying the simulation.
+        :param list[Graph] s: the set of new molecules in this iteration.
+        :param list[Graph] u: the set of molecules in the current state.
+
+
+.. class:: causality.Simulator.DrawMassAction
+
+    A creator for a drawing function implementing the law of mass action.
+
+    It supports assigning a rate for input actions, output actions, and reactions,
+    by taking a callback (or constant) for each type.
+    To avoid the overhead of calling these callbacks in each iteration, a returned rate can be cached.
+    Therefore, the return value of each callback (or the constant of each type) is a pair
+    with the first entry being the rate, and the second entry a boolean indicating whether rate should be cached.
+
+    Each of the rate function can also be set to ``None``,
+    which means a default rate is used: input rate 0.0, reaction rate 1.0, output rate 0.0.
+
+    :param inputRate: the rate used for pseudo-reactions for creating molecules. Defaults to ``None``.
+    :type inputRate: Callable[[DG.Vertex], Tuple[float, bool]] or Tuple[float, bool] or None
+    :param reactionRate: the rate used for each reaction in the system. Defaults to ``None``.
+    :type reactionRate: Callable[[DG.Vertex], Tuple[float, bool]] or Tuple[float, bool] or None
+    :param outputRate: the rate used for pseudo-reactions for destroying molecules. Defaults to ``None``.
+    :type outputRate: Callable[[DG.Vertex], Tuple[float, bool]]    or Tuple[float, bool] or None
+
+    .. method:: __call__(dg)
+
+        :param DG dg: the derivation graph underlying the simulation.
+        :returns: a drawing function implementing the law of mass action.
+        :rtype: DrawMassAction.Function
+
+
+.. class:: causality.DrawFunction
+
+    The protocol (see :ref:`py-protocols`) that event drawing functions must implement.
+
+    In each iteration a :class:`causality.Simulator` must draw the next event that should happen.
+    How to do this drawing can be customized, but as such a drawing function needs detailed information
+    about the underlying network and must be kept in sync with this network as it expands,
+    the customization is done when a slightly indirect manner.
+    Instead of giving the drawing function directly, you give a function that can create a drawing function.
+    That is, the :class:`causality.Simulator` will create an internal :class:`DG` and give it as argument to
+    the function you give. Your function must then create an actual drawing function,
+    which must adhere to the interface specified by this :class:`causality.DrawFunction` protocol.
+
+    For an example of a drawing function, see :class:`causality.Simulator.DrawMassAction.Function`,
+    and its creator function :class:`causality.Simulator.DrawMassAction`, which is the one users interact with.
+
+    .. method:: syncSize()
+
+        Called whenever the underlying derivation graph has changed size.
+        If the drawing function has internal data structures, this method
+        is where such data structures can be resized.
+        The derivation graph must be given to this object by its creator.
+
+    .. method:: draw(marking)
+
+        Called in order to draw the next event.
+
+        :param Marking marking: the current state of the simulation.
+            This may not be changed.
+        :returns: the drawn action to take and a number indicating the activity of the system.
+        :rtype: tuple[Action, float]
+

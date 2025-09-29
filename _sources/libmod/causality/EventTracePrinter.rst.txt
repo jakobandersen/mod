@@ -1,0 +1,119 @@
+.. _cpp-causality/EventTracePrinter:
+
+**********************************************************
+causality/EventTracePrinter.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``causality::EventTracePrinter``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: causality::EventTracePrinter
+    
+
+    This class is used to configure how event traces are visualised,
+    e.g., which vertices/graphs should be shown, colours, and axis configuration.
+
+    The plot is rendered with the `PGFPlots package <https://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf>`__ similarly to the following pseudo Latex code.
+
+    .. code-block:: latex
+
+        \begin{tikzpicture}
+        \begin{axis}[
+            % base options
+            % options from callback
+        ]
+        % result of pre-content callback
+        % for each vertex in the trace:
+        %    if the vertex is visible, according the callback
+                \addplot+[
+                   % base vertex options
+                   % options from vertex options callback
+                ] table {
+                   % filename of file with data for that vertex
+                }
+                \addlegendentry{
+                   % name of the graph associated with the vertex, escaped to be in math mode
+                }
+        % result of post-content callback
+        \end{axis}
+        \end{tikzpicture}
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: causality::EventTracePrinter
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: causality::EventTracePrinter
+
+.. function:: void setMaxPointsPerVertex(int value)
+              int getMaxPointsPerVertex() const
+
+    Control how many points are rendered for each different vertex represented in the trace.
+    Data is then visualised at this amount of regular intervals on the time axis.
+    It defaults to 500.
+.. function:: void setLogTime(bool value)
+              bool getLogTime() const
+
+    Control if the time axis should be logarithmic or not.
+    It defaults to `false`.
+.. function:: void setLogCount(bool value)
+              bool getLogCount() const
+
+    Control if the count axis should be logarithmic or not.
+    It defaults to `false`.
+.. function:: void pushOptions(std::function<std::string(std::shared_ptr<dg::DG>)> f)
+
+    Add another function or constant that adds options for the axis environment.
+    All options function results are applied.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popOptions()
+
+    Remove the last pushed options function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void pushVertexVisible(std::function<bool(dg::DG::Vertex)> f)
+
+    Add another function controlling the visibility of vertices.
+    All visibility functions must return `true` for the plot of a vertex to be visible.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popVertexVisible()
+
+    Remove the last pushed vertex visibility function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void pushVertexOptions(std::function<std::string(dg::DG::Vertex)> f)
+
+    Add another function or constant setting options for the plot of each vertex.
+    All options function results are applied.
+
+    :throws: :class:`LogicError` if `!f`.
+.. function:: void popVertexOptions()
+
+    Remove the last pushed vertex options function.
+
+    :throws: :class:`LogicError` if no callback is left to pop.
+.. function:: void setPreContent(std::function<std::string(std::shared_ptr<dg::DG>)> f)
+              void setPostContent(std::function<std::string(std::shared_ptr<dg::DG>)> f)
+
+    Set a callback for adding additional content to the plot,
+    either before or after the primary data has been added.
+
+    :throws: :class:`LogicError` if `!f`.
+
+.. cpp:namespace-pop::
+

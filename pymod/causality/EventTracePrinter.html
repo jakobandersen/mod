@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.8.2. causality/EventTracePrinter &#8212; MØD 1.0.0.9 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.8.3. causality/Petri" href="Petri.html" />
+    <link rel="prev" title="4.1.8.1. causality/EventTrace" href="EventTrace.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.8.2. causality/EventTracePrinter</a><ul>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter</span></code></a><ul>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.maxPointsPerVertex"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.maxPointsPerVertex</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.logTime"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.logTime</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.logCount"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.logCount</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.pushOptions"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.pushOptions()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.popOptions"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.popOptions()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.pushVertexVisible"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.pushVertexVisible()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.popVertexVisible"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.popVertexVisible()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.pushVertexOptions"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.pushVertexOptions()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.popVertexOptions"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.popVertexOptions()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.setPreContent"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.setPreContent()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTracePrinter.setPostContent"><code class="docutils literal notranslate"><span class="pre">causality.EventTracePrinter.setPostContent()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="EventTrace.html" title="Previous Chapter: 4.1.8.1. causality/EventTrace">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.8.1. caus...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Petri.html" title="Next Chapter: 4.1.8.3. causality/Petri">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.8.3. caus... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="causality-eventtraceprinter">
+<span id="py-causality-eventtraceprinter"></span><h1><span class="section-number">4.1.8.2. </span>causality/EventTracePrinter<a class="headerlink" href="#causality-eventtraceprinter" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">EventTracePrinter</span></span><a class="headerlink" href="#mod.causality.EventTracePrinter" title="Link to this definition">¶</a></dt>
+<dd><p>This class is used to configure how event traces are visualised,
+e.g., which vertices/graphs should be shown, colours, and axis configuration.</p>
+<p>See <a class="reference internal" href="../../libmod/causality/EventTracePrinter.html#_CPPv4N3mod9causality17EventTracePrinterE" title="mod::causality::EventTracePrinter"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">causality::EventTracePrinter</span></code></a> for details on how the plot is rendered,
+and how the rendering is influenced by the printer.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.maxPointsPerVertex">
+<span class="sig-name descname"><span class="pre">maxPointsPerVertex</span></span><a class="headerlink" href="#mod.causality.EventTracePrinter.maxPointsPerVertex" title="Link to this definition">¶</a></dt>
+<dd><p>Control how many points are rendered for each different vertex represented in the trace.
+Data is then visualised at this amount of regular intervals on the time axis.
+It defaults to 500.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.logTime">
+<span class="sig-name descname"><span class="pre">logTime</span></span><a class="headerlink" href="#mod.causality.EventTracePrinter.logTime" title="Link to this definition">¶</a></dt>
+<dd><p>Control if the time axis should be logarithmic or not.
+It defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.logCount">
+<span class="sig-name descname"><span class="pre">logCount</span></span><a class="headerlink" href="#mod.causality.EventTracePrinter.logCount" title="Link to this definition">¶</a></dt>
+<dd><p>Control if the count axis should be logarithmic or not.
+It defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.pushOptions">
+<span class="sig-name descname"><span class="pre">pushOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.pushOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Add another function or constant that adds options for the axis environment.
+All options function results are applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to push for specifying options.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.popOptions">
+<span class="sig-name descname"><span class="pre">popOptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.popOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Remove the last pushed options function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.pushVertexVisible">
+<span class="sig-name descname"><span class="pre">pushVertexVisible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.pushVertexVisible" title="Link to this definition">¶</a></dt>
+<dd><p>Add another function or constant controlling the visibility of plots of vertices.
+All visibility functions must return <code class="docutils literal notranslate"><span class="pre">true</span></code> for a plot of a vertex to be visible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – the function or constant to push for specifying vertex visibility.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.popVertexVisible">
+<span class="sig-name descname"><span class="pre">popVertexVisible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.popVertexVisible" title="Link to this definition">¶</a></dt>
+<dd><p>Remove the last pushed vertex visibility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.pushVertexOptions">
+<span class="sig-name descname"><span class="pre">pushVertexOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.pushVertexOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Add another function or constant setting options for the plot of each vertex.
+All options function results are applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to push for specifying vertex options.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.popVertexOptions">
+<span class="sig-name descname"><span class="pre">popVertexOptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.popVertexOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Remove the last pushed vertex options function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.setPreContent">
+<span class="sig-name descname"><span class="pre">setPreContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.setPreContent" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mod.causality.EventTracePrinter.setPostContent">
+<span class="sig-name descname"><span class="pre">setPostContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTracePrinter.setPostContent" title="Link to this definition">¶</a></dt>
+<dd><p>Set a callback for adding additional content to the plot,
+either before or after the primary data has been added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to set for adding content.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/causality/EventTracePrinter.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

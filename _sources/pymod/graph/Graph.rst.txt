@@ -1,0 +1,362 @@
+.. _py-graph/Graph:
+
+**********************************************************
+graph/Graph
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: Graph
+
+    This class models an undirected graph with labels on vertices and edges,
+    without loops and without parallel edges.
+    See :ref:`graph-model` for more details.
+
+    The class implements the :class:`protocols.LabelledGraph`.
+    See :ref:`py-Graph/GraphInterface` for additional guarantees.
+
+    .. attribute:: id
+
+        (Read-only) A unique instance id among :class:`Graph` objects.
+
+        :type: int
+    .. method:: aut(labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+
+        :param LabelSettings labelSettings: the label settings to use.
+        :returns: an object representing the automorphism group of the graph, with the given label settings.
+        :rtype: AutGroup
+    .. method:: print()
+                   print(first, second=None)
+
+        Print the graph, using either the default options or the options in ``first`` and ``second``.
+        If ``first`` and ``second`` are the same, only one depiction will be made.
+
+        :param GraphPrinter first: the printing options used for the first depiction.
+        :param GraphPrinter second: the printing options used for the second depiction.
+            If it is ``None`` then it is set to ``first``.
+        :returns: the names for the PDF-files that will be compiled in post-processing.
+            If ``first`` and ``second`` are the same, the two file prefixes are equal.
+        :rtype: tuple[str, str]
+    .. method:: printTermState
+
+        Print the term state for the graph.
+    .. method:: getGMLString(withCoords=False)
+
+        :returns: the :ref:`GML <graph-gml>` representation of the graph,
+                  optionally with generated 2D coordinates.
+        :rtype: str
+        :raises: :class:`LogicError` when coordinates are requested, but
+                 none can be generated.
+    .. method:: printGML(withCoords=False)
+
+        Print the :ref:`GML <graph-gml>` representation of the graph,
+        optionally with generated 2D coordinates.
+
+        :returns: the filename of the printed GML file.
+        :rtype: str
+        :raises: :class:`LogicError` when coordinates are requested, but
+                 none can be generated.
+    .. attribute:: name
+
+        The name of the graph. The default name includes the unique instance id.
+
+        :type: str
+    .. attribute:: smiles
+
+        (Read-only) If the graph models a molecule, this is the canonical :ref:`SMILES string <graph-smiles>` for it.
+
+        :type: str
+        :raises: :class:`LogicError` if the graph is not a molecule.
+    .. attribute:: smilesWithIds
+
+        (Read-only) If the graph models a molecule, this is the canonical :ref:`SMILES string <graph-smiles>` for it,
+        that includes the internal vertex id as a class label on each atom.
+
+        :type: str
+        :raises: :class:`LogicError` if the graph is not a molecule.
+    .. attribute:: graphDFS
+
+        (Read-only) This is a :ref:`GraphDFS <format-graphDFS>` of the graph.
+
+        :type: str
+    .. attribute:: graphDFSWithIds
+
+        (Read-only) This is a :ref:`GraphDFS <format-graphDFS>` of the graph, where each vertex have an explicit id,
+        corresponding to its internal vertex id.
+
+        :type: str
+    .. attribute:: linearEncoding
+
+        (Read-only) If the graph models a molecule this is the :ref:`SMILES string <graph-smiles>` string, otherwise it is the :ref:`GraphDFS <format-graphDFS>` string.
+
+        :type: str
+    .. attribute:: isMolecule
+
+        (Read-only) Whether the graph models a molecule. See :ref:`mol-enc`.
+
+        :type: bool
+    .. attribute:: energy
+
+        (Read-only) If the graph models a molecule, this is some energy value.
+        The energy is calculated using Open Babel, unless already calculated or cached by :meth:`Graph.cacheEnergy`.
+
+        :type: float
+    .. method:: cacheEnergy(e)
+
+        If the graph models a molecule, sets the energy to a given value.
+
+        :param float e: the value for the energy to be set.
+    .. attribute:: exactMass
+
+        (Read-only) The exact mass of the graph, if it is a molecule.
+        It is the sum of the exact mass of each atom, with the mass of electrons subtracted corresponding to the integer charge.
+        That is, the mass is :math:`\sum_a (mass(a) - mass(e)\cdot charge(a))`.
+        If an atom has no specified isotope, then the most abundant is used.
+
+        :type: float
+        :raises: :class:`LogicError` if it is not a molecule, including if some isotope has not been tabulated.
+    .. method:: vLabelCount(label)
+
+        :param str label: some label for querying.
+        :returns: the number of vertices in the graph with the given label.
+        :rtype: int
+    .. method:: eLabelCount(label)
+
+        :param str label: some label for querying.
+        :returns: the number of edges in the graph with the given label.
+        :rtype: int
+    .. method:: isomorphism(codomain, maxNumMatches=1, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+                monomorphism(codomain, maxNumMatches=1, labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+
+        :param Graph codomain: the codomain graph for finding morphisms.
+        :param int maxNumMatches: the maximum number of isomorphisms/monomorphisms to search for.
+        :param LabelSettings labelSettings: the label settings to use during the search.
+        :returns: the number of isomorphisms/monomorphisms from this graph to ``other``, but at most ``maxNumMatches``.
+        :rtype: int
+        :raises LogicError: if ``codomain`` is null.
+    .. method:: enumerateIsomorphisms(codomain, callback,  labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+                enumerateMonomorphisms(codomain, callback,  labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism))
+
+        Perform (sub)structure search of this graph into the given codomain graph.
+        Whenever a match is found, the corresponding isomorphism/monomorphism is copied into a vertex map
+        and the given callback is invoked with it.
+
+        :param Graph codomain: the codomain graph for finding morphisms.
+        :param callback: the function to call with each found isomorphism/monomorphism.
+            If ``False`` is returned from it, then the search is stopped.
+        :type callback: Callable[[protocols.VertexMap], bool]
+        :param LabelSettings labelSettings: the label settings to use during the search.
+
+        :raises LogicError: if ``codomain`` is null.
+        :raises LogicError: if ``callback`` is null.
+    .. method:: makePermutation()
+
+        :returns: a graph isomorphic to this, but with the vertex indices randomly permuted.
+        :rtype: Graph
+
+        .. note: Currently, permuting stereo-information is not supported, and the resulting
+            graphs thus have any stereo-information stripped.
+    .. attribute:: image
+
+        (Write-only) A custom depiction for the graph. The depiction file used will be the string
+        returned by the given function, with ``.pdf`` appended.
+        The function will only be called once.
+
+        :type: Callable[[], str]
+    .. attribute:: imageCommand
+
+        A command to be run in post-processing if a custom depiction is set.
+        The command is only run once.
+
+        :type: str
+    .. method:: instantiateStereo()
+
+            Make sure that stereo data is instantiated.
+
+            :raises: :class:`StereoDeductionError` if the data was not instantiated and deduction failed.
+    .. method:: getVertexFromExternalId(id)
+
+        If the graph was not loaded from an external data format, then this function
+        always return a null descriptor.
+        If the graph was loaded from a SMILES string, but *any* class label was not unique,
+        then the function always return a null descriptor.
+
+        .. note:: In general there is no correlation between external and internal ids.
+
+        :param int id: the external id to find the vertex descriptor for.
+        :returns: the vertex descriptor for the given external id.
+                The descriptor is null if the external id was not used.
+        :rtype: Vertex
+    .. attribute:: minExternalId
+                   maxExternalId
+
+        (Read-only)
+        If the graph was not loaded from an external data format, then these attributes
+        are always return 0. Otherwise, they are the minimum/maximum external id from which
+        non-null vertices can be obtained from :meth:`getVertexFromExternalId`.
+        If no such minimum and maximum exists, then they are 0.
+
+        :type: int
+    .. attribute:: loadingWarnings
+
+        (Read-only)
+        The list of warnings stored when the graph was created from an external format.
+        Each entry is a message and then an indicator of whether
+        the warning was printed before construction (``True``), or was a silenced warning (``False``).
+
+        :raises: :class:`LogicError` if the graph does not have data from external loading
+        :type: List[Tuple[str, bool]]
+
+Loading Functions
+=================
+
+.. staticmethod:: Graph.fromGMLString(s, name=None, add=True, printStereoWarnings=True)
+                   Graph.fromGMLFile(f, name=None, add=True, printStereoWarnings=True)
+
+    Load a graph in :ref:`GML <graph-gml>` format from a given string, ``s``,
+    or given file ``f``.
+    The graph must be connected.
+    If not, use :meth:`fromGMLStringMulti` or :meth:`fromGMLFileMulti`.
+
+    :param str s: the string with the :ref:`GML <graph-gml>` data to load from.
+    :param f: name of the :ref:`GML <graph-gml>` file to be loaded.
+    :type f: str or CWDPath
+    :param str name: the name of the graph. If none is given the default name is used.
+    :param bool add: whether to append the graph to :data:`inputGraphs` or not.
+    :param bool printStereoWarnings: whether to print warnings due to unhandled stereo information.
+    :returns: the loaded graph.
+    :rtype: Graph
+    :raises: :class:`InputError` on bad input.
+.. staticmethod:: Graph.fromGMLStringMulti(s, add=True, printStereoWarnings=True)
+                   Graph.fromGMLFileMulti(f, add=True, printStereoWarnings=True)
+
+    Load a set of graphs in :ref:`GML <graph-gml>` format from a given string, ``s``,
+    or given file ``f``,
+    with each graph being a connected component of the graph specified in the GML data.
+
+    See :meth:`fromGMLString` and :meth:`fromGMLFile`
+    for a description of the parameters and exceptions.
+
+    :returns: a list of the loaded graphs.
+    :rtype: list[Graph]
+.. staticmethod:: Graph.fromDFS(s, name=None, add=True)
+
+    Load a graph from a :ref:`GraphDFS <format-graphDFS>` string.
+    The graph must be connected.
+    If not, use :meth:`Graph.fromDFSMulti`.
+
+    :param str s: the :ref:`GraphDFS <format-graphDFS>` string to parse.
+    :param str name: the name of the graph. If none is given the default name is used.
+    :param bool add: whether to append the graph to :data:`inputGraphs` or not.
+    :returns: the loaded graph.
+    :rtype: Graph
+    :raises: :class:`InputError` on bad input.
+.. staticmethod:: Graph.fromDFSMulti(s, add=True)
+
+    Load a set of graphs from a :ref:`GraphDFS <format-graphDFS>` string,
+    with each graph being a connected component of the graph specified in the DFS data.
+
+    :param str s: the :ref:`GraphDFS <format-graphDFS>` string to parse.
+    :param bool add: whether to append the graphs to :data:`inputGraphs` or not.
+    :returns: the loaded graphs.
+    :rtype: list[Graph]
+    :raises: :class:`InputError` on bad input.
+.. staticmethod:: Graph.fromSMILES(s, name=None, allowAbstract=False, classPolicy=SmilesClassPolicy.NoneOnDuplicate, add=True, printStereoWarnings=True)
+
+    Load a molecule from a :ref:`SMILES <graph-smiles>` string.
+    The molecule must be a connected graph. If not, use :meth:`fromSMILESMulti`.
+
+    :param str s: the :ref:`SMILES <graph-smiles>` string to parse.
+    :param str name: the name of the graph. If none is given the default name is used.
+    :param bool allowAbstract: whether to allow abstract vertex labels in bracketed atoms.
+    :param bool add: whether to append the graph to :data:`inputGraphs` or not.
+    :param bool printStereoWarnings: whether to print warnings due to unhandled stereo information.
+    :returns: the loaded molecule.
+    :rtype: Graph
+    :raises: :class:`InputError` on bad input.
+.. staticmethod:: Graph.fromSMILESMulti(s, allowAbstract=False, classPolicy=SmilesClassPolicy.NoneOnDuplicate, add=True, printStereoWarnings=True)
+
+    Load a set of molecules from a :ref:`SMILES <graph-smiles>` string,
+    with each molecule being a connected component of the graph specified in the SMILES string.
+
+    See :meth:`fromSMILES` for a description of the parameters and exceptions.
+
+    :returns: a list of the loaded molecules.
+    :rtype: list[Graph]
+.. staticmethod:: Graph.fromMOLString(s, name=None, options=MDLOptions(), add=True)
+                  Graph.fromMOLFile(f, name=None, options=MDLOptions(), add=True)
+
+    Load a molecule in :ref:`MOL <graph-mdl>` format from a given string or file.
+    The molecule must be a connected graph.
+    If not, use :meth:`fromMOLStringMulti` and :meth:`fromMOLFileMulti`.
+
+    :param str s: the string to parse.
+    :param f: name of the file to load.
+    :type f: str or CWDPath
+    :param str name: the name of the graph. If none is given the default name is used.
+    :param MDLOptions options: the options to use for loading.
+    :param bool add: whether to append the graph to :data:`inputGraphs` or not.
+    :returns: the loaded molecule.
+    :rtype: :class:`Graph`
+    :raises: :class:`InputError` on bad input.
+.. staticmethod:: Graph.fromMOLStringMulti(s, options=MDLOptions(), add=True)
+                  Graph.fromMOLFileMulti(f, options=MDLOptions(), add=True)
+
+    Load a set of molecules from a given string or file with :ref:`MOL <graph-mdl>` data,
+    with each molecule being a connected component of the graph specified in the data.
+
+    See :meth:`fromMOLString` and :meth:`fromMOLFile`
+    for a description of the parameters and exceptions.
+
+    :returns: a list of the loaded molecules.
+    :rtype: list[Graph]
+.. staticmethod:: Graph.fromSDString(s, options=MDLOptions(), add=True)
+                  Graph.fromSDFile(f, options=MDLOptions(), add=True)
+
+    Load a list of molecules in :ref:`SD <graph-mdl>` format from a given string or file,
+    with each molecule being a connected component of each of the graphs specified in the data.
+    If any graph is not connected, use :meth:`fromSDStringMulti` and :meth:`fromSDFileMulti` instead.
+
+    :param str s: the string to parse.
+    :param f: name of the file to load.
+    :type f: str or CWDPath
+    :param MDLOptions options: the options to use for loading.
+    :param bool add: whether to append the graphs to :data:`inputGraphs` or not.
+    :returns: a list of the loaded molecules.
+    :rtype: list of :class:`Graph`
+    :raises: :class:`InputError` on bad input.
+.. staticmethod:: Graph.fromSDStringMulti(s, options=MDLOptions(), add=True)
+                  Graph.fromSDFileMulti(f, options=MDLOptions(), add=True)
+
+    Load a list of molecules in :ref:`SD <graph-mdl>` format from a given string or file.
+    Each molecule is returned as a list of graphs, with each corresponding to a connected
+    component of the MOL entry.
+
+    See :meth:`fromSDString` and :meth:`fromSDFile`
+    for a description of the parameters and exceptions.
+
+    :returns: a list of lists of the loaded molecules.
+        The items of the outer list correspond to each MOL entry in the SD data.
+    :rtype: list[list[Graph]]
+.. method:: graphGMLString(...)
+
+    Alias of :py:meth:`Graph.fromGMLString`.
+.. method:: graphGML(...)
+
+    Alias of :py:meth:`Graph.fromGMLFile`.
+.. method:: graphDFS(...)
+
+    Alias of :py:meth:`Graph.fromDFS`.
+.. method:: smiles(...)
+
+    Alias of :py:meth:`Graph.fromSMILES`.
+
+
+.. data:: inputGraphs
+
+    A list of graphs to which explicitly loaded graphs as default are appended.
+
+    :type: list[Graph]
+

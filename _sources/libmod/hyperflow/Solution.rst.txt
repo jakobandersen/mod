@@ -1,0 +1,127 @@
+.. _cpp-hyperflow/Solution:
+
+**********************************************************
+hyperflow/Solution.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``hyperflow::SolutionRange``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::SolutionRange
+    
+
+    A range of solutions for a flow model.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::SolutionRange
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::SolutionRange
+
+.. type:: const_iterator
+          iterator
+
+    Random-access iterator types for solutions in a range.
+.. function:: std::shared_ptr<Model> getModel()
+
+    :returns: the hyperflow model that produced these solutions.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const SolutionRange &r)
+
+.. function:: int size() const
+
+    :returns: the number of solutions in the range.
+.. function:: const_iterator begin() const
+              const_iterator end() const
+
+    :returns: the begin and end iterators for the range.
+.. function:: Solution operator[](int i) const
+
+    :returns: the `i` th solution in the range.
+    :throws: :class:`LogicError` if the index is out of bounds.
+.. function:: void list() const
+
+    List overall information about each solution.
+.. function:: void print() const
+              void print(const Printer &printer, const dg::PrintData &data) const
+
+    Print solutions using the settings in the given printer and the structure information in the data object.
+
+    The `data` defaults to `dg::PrintData(getModel()->getDG())` and `printer` defaults to `Printer()`.
+
+    :throws: :class:`LogicError` if the given print data does not belong to the underlying derivation graph.
+
+.. cpp:namespace-pop::
+
+
+Class ``hyperflow::Solution``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: hyperflow::Solution
+    
+
+    A solution for a flow model.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: hyperflow::Solution
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: hyperflow::Solution
+
+.. function:: std::shared_ptr<Model> getModel()
+
+    :returns: the hyperflow model that produced the solution.
+.. function:: int getId() const
+
+    :returns: an ID for the solution which is unique among all solutions from the parent :class:`Model` object.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const Solution &sol)
+.. function:: friend bool operator==(const Solution &a, const Solution &b)
+              friend bool operator!=(const Solution &a, const Solution &b)
+              friend bool operator<(const Solution &a, const Solution &b)
+
+    Compares the solution objects, i.e., the values of `getModel()` and `getId()`.
+.. function:: std::variant<int, double> getObjectiveValue() const
+
+    :returns: the objective value of the solution.
+.. function:: std::variant<int, double> eval(const LinExp &exp) const
+
+    :returns: the value of the given linear expression evaluated on the solution.
+.. function:: void list() const
+
+    List overall information about the solution.
+.. function:: std::pair<std::optional<std::string>, std::optional<std::string>> \
+              print() const
+              std::pair<std::optional<std::string>, std::optional<std::string>> \
+              print(const Printer &printer, const dg::PrintData &data) const
+
+    Print the solution using the settings in the given printer and the structure information in the data object.
+
+    The `data` defaults to `dg::PrintData(getModel()->getDG())` and `printer` defaults to `Printer()`.
+
+    :returns: the name of the PDF-files that will be compiled in post-processing for respectively the filtered and unfiltered depictions.
+        If either is not requested by the given `printer` the corresponding entry has no string.
+    :throws: :class:`LogicError` if the given print data does not belong to the underlying derivation graph.
+
+.. cpp:namespace-pop::
+

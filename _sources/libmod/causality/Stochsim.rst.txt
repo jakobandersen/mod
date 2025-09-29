@@ -1,0 +1,69 @@
+.. _cpp-causality/Stochsim:
+
+**********************************************************
+causality/Stochsim.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+
+Class ``causality::DrawMassActionFunction``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: causality::DrawMassActionFunction
+    
+
+    A helper class for performing stochastic simulations where
+    events are drawn according to the law of mass action.
+    Importantly, if the underlying derivation graph is enlarged then
+    :func:`syncSize` must be called before calling :func:`draw`.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: causality::DrawMassActionFunction
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: causality::DrawMassActionFunction
+
+.. function:: DrawMassActionFunction(std::shared_ptr<dg::DG> dg_,\
+                                     std::function<std::pair<double, bool>(dg::DG::Vertex)> inputRate, \
+                                     std::function<std::pair<double, bool>(dg::DG::HyperEdge)> reactionRate, \
+                                     std::function<std::pair<double, bool>(dg::DG::Vertex)> outputRate)
+
+    Construct a new instance, based on the given derivation graph.
+    The return value of the rate callbacks must be 1) the rate and 2) a boolean telling whether
+    the library should cache the rate. If `true` no more calls with the same argument will be made.
+    Each of the rate functions may be an empty `std::function` (i.e., default constructed),
+    which means a default rate is used: input rate 0.0, reaction rate 1.0, output rate 0.0.
+
+    :throws: :class:`LogicError` if `!dg_`.
+    :throws: :class:`LogicError` if neither `dg_->hasActiveBuilder()` nor `dg_->isLocked()`.
+.. function:: void syncSize()
+
+    Enlarges the internal data structures to the current size of the underlying derivation graph.
+.. function:: std::pair<std::optional<Action>, double> draw(const Marking &m)
+
+    :returns: an action, randomly selected according to the low of mass action
+        based on the given population/marking and the rates.
+        The second returned component is the sum of reactivity for the given reactions/hyperedges.
+
+        If no events are possible, then the second component is 0.0 and the first component has no value.
+
+        Use :func:`rngReseed` to seed the pseudo-random bit generator used for the selection.
+
+    :throws: :class:`LogicError` if `m` is not a marking on the underlying derivation graph.
+
+    Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+
+.. cpp:namespace-pop::
+

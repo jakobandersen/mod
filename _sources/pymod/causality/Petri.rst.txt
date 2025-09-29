@@ -1,0 +1,147 @@
+.. _py-causality/Petri:
+
+**********************************************************
+causality/Petri
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: causality.Net
+
+    Adaptation of a derivation graph into a Petri net.
+    Importantly, if the underlying derivation graph is enlarged then
+    :func:`syncSize` must be called before calling certain other
+    methods on the object.
+
+    .. method:: __init__(dg)
+
+        Calls :meth:`syncSize`.
+
+        :param DG dg: the derivation graph to adapt.
+        :returns: a new Petri net, adapting the given derivation graph.
+        :raises: :class:`LogicError` if ``dg`` is ``None``.
+        :raises: :class:`LogicError` if neither ``dg.hasActiveBuilder`` nor ``dg.locked``.
+    .. attribute:: dg
+
+        (Read-only) The underlying derivation graph.
+
+        :type: DG
+    .. method:: syncSize()
+
+        Enlarges the internal data structures to the current size of the underlying derivation graph.
+    .. method:: getPostPlaces(e)
+
+        :param DG.HyperEdge e: the hyperedge to find unique targets for.
+        :returns: a list of unique targets for the given hyperedge.
+        :rtype: list[DG.Vertex]
+
+        Requires :meth:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+.. class:: causality.Marking
+
+    Representation of a marking on a Petri net.
+    Importantly, if the underlying derivation graph is enlarged then
+    :func:`syncSize` must be called before calling certain other
+    methods on the object.
+
+    .. method:: __init__(net)
+
+        :param Net net: the Petri net to construct a marking for.
+        :raises: :class:`LogicError` if ``net`` is ``None``.
+    .. attribute:: net
+
+        (Read-only) The underlying Petri net.
+
+        :type: Net
+    .. method:: syncSize()
+
+        Enlarges the internal data structures to the current size of the underlying derivation graph.
+
+        Calls ``net.syncSize()``.
+    .. method:: __eq__()
+    .. method:: add(v, c)
+                add(g, c)
+
+        Add `c` tokens on the place `v`.
+        The second version is equivalent to ``self.add(self.net.dg.findVertex(g), c)``.
+
+        :param DG.Vertex v: the place to add tokens to.
+        :param Graph g: the graph associated to the place to add tokens to.
+        :param int c: the amount of tokens to add.
+        :returns: the new total token count on `v`.
+        :rtype: int
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if ``v.dg != self.net.dg``.
+        :raises: :class:`LogicError` if ``c < 0``.
+        :raises: :class:`LogicError` if `g is None`.
+        :raises: :class:`LogicError` if `!self.net.dg.findVertex(g)`.
+
+        Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+    .. method:: remove(v, c)
+                remove(g, c)
+
+        Remove `c` tokens from the place `v`.
+        The second version is equivalent to ``self.remove(self.net.dg.findVertex(g), c)``.
+
+        :param DG.Vertex v: the place to remove tokens from.
+        :param Graph g: the graph associated to the place to remove tokens from.
+        :param int c: the amount of tokens to remove.
+        :returns: the new total token count on `v`.
+        :rtype: int
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if ``v.dg != self.net.dg``.
+        :raises: :class:`LogicError` if ``c < 0``.
+        :raises: :class:`LogicError` if not enough tokens are left to remove all ``c``.
+        :raises: :class:`LogicError` if `g is None`.
+        :raises: :class:`LogicError` if `!self.net.dg.findVertex(g)`.
+
+        Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+    .. method:: __getitem__(v)
+                __getitem__(g)
+
+        :param DG.Vertex v: the place to query the number of tokens for.
+        :param Graph g: the graph associated to the place to query the number of tokens for.
+        :returns: the token count for `v`.
+            The second version is equivalent to ``self[self.net.dg.findVertex(g)]``.
+        :rtype: int
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if ``v.dg != self.net.dg``.
+        :raises: :class:`LogicError` if `g is None`.
+        :raises: :class:`LogicError` if `!self.net.dg.findVertex(g)`.
+
+        Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
+    .. attribute:: numTokens
+
+        (Read-only) The total number of tokens in the marking.
+
+        :type: int
+    .. method:: getAllEnabled()
+
+        :returns: a list of all hyperedges currently enabled for firing.
+        :rtype: list[DG.HyperEdge]
+    .. method:: getNonZeroPlaces()
+
+        :returns: a list of all vertices with tokens.
+        :rtype: list[DG.Vertex]
+    .. method:: getEmptyPostPlaces(e)
+
+        :param DG.HyperEdge e: the edge to query for empty post places.
+        :returns: a list of all target vertices of the given hyperedge that do not have any tokens.
+            The list represents a set, so if vertex is a target multiple times it will only be included once.
+        :rtype: list[DG.Vertex]
+        :raises: :class:`LogicError` if ``not e``.
+        :raises: :class:`LogicError` if ``e.dg != self.net.dg``.
+    .. method:: isEnabled(e)
+
+        :param DG.HyperEdge e: the edge to query for being enabled.
+        :returns: whether the given hyperedge is enabled for firing.
+        :rtype: bool
+        :raises: :class:`LogicError` if ``not e``.
+        :raises: :class:`LogicError` if ``e.dg != self.net.dg``.
+    .. method:: fire(e)
+
+        :param DG.HyperEdge e: the edge to fire.
+        :raises: :class:`LogicError` if ``not e``.
+        :raises: :class:`LogicError` if ``e.dg != self.net.dg``.
+        :raises: :class:`LogicError` if ``not self.isEnabled(e)``.

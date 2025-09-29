@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.8.4. causality/Stochsim &#8212; MØD 1.0.0.9 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.9. dg" href="../dg/index.html" />
+    <link rel="prev" title="4.1.8.3. causality/Petri" href="Petri.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.8.4. causality/Stochsim</a><ul>
+<li><a class="reference internal" href="#mod.causality.Simulator"><code class="docutils literal notranslate"><span class="pre">causality.Simulator</span></code></a><ul>
+<li><a class="reference internal" href="#mod.causality.Simulator.dg"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.dg</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.iteration"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.iteration</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.time"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.time</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.trace"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.trace</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.onIterationBegin"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.onIterationBegin</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.onIterationEnd"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.onIterationEnd</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.onDeadlock"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.onDeadlock</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.onExpand"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.onExpand</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.onExpandAvoided"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.onExpandAvoided</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.simulate"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.simulate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.causality.Simulator.DrawTimeExponential"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.DrawTimeExponential</span></code></a><ul>
+<li><a class="reference internal" href="#mod.causality.Simulator.DrawTimeExponential.call"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.DrawTimeExponential.call()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.causality.Simulator.ExpandByStrategy"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.ExpandByStrategy</span></code></a><ul>
+<li><a class="reference internal" href="#mod.causality.Simulator.ExpandByStrategy.__init__"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.ExpandByStrategy.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.ExpandByStrategy.__call__"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.ExpandByStrategy.__call__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.causality.Simulator.DrawMassAction"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.DrawMassAction</span></code></a><ul>
+<li><a class="reference internal" href="#mod.causality.Simulator.DrawMassAction.__call__"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.DrawMassAction.__call__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mod.causality.DrawFunction"><code class="docutils literal notranslate"><span class="pre">causality.DrawFunction</span></code></a><ul>
+<li><a class="reference internal" href="#mod.causality.DrawFunction.syncSize"><code class="docutils literal notranslate"><span class="pre">causality.DrawFunction.syncSize()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.DrawFunction.draw"><code class="docutils literal notranslate"><span class="pre">causality.DrawFunction.draw()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Petri.html" title="Previous Chapter: 4.1.8.3. causality/Petri">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.8.3. caus...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../dg/index.html" title="Next Chapter: 4.1.9. dg">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.9. dg &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="causality-stochsim">
+<span id="py-causality-stochsim"></span><h1><span class="section-number">4.1.8.4. </span>causality/Stochsim<a class="headerlink" href="#causality-stochsim" title="Link to this heading">¶</a></h1>
+<p>The <a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator</span></code></a> class implements the Stochastic Simulation Algorithm, also known as the Gillespie algorithm,
+but with the ability to generate the underlying network as needed using graph transformation rules,
+similarly to how a derivation graph, <a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>, can be expanded using strategies, <a class="reference internal" href="../../dgStrat/index.html#dgstrat"><span class="std std-ref">Derivation Graph Strategies</span></a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.causality.Simulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">Simulator</span></span><a class="headerlink" href="#mod.causality.Simulator" title="Link to this definition">¶</a></dt>
+<dd><p>The main class for performing stochastic simulations of chemical systems.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__(*,</span> <span class="pre">labelSettings,</span> <span class="pre">graphDatabase,</span> <span class="pre">expandNetwork</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – a settings object that will be passed to <a class="reference internal" href="../dg/DG.html#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">DG.__init__()</span></code></a>.</p></li>
+<li><p><strong>graphDatabase</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – a list of graphs that will be    passed to <a class="reference internal" href="../dg/DG.html#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">DG.__init__()</span></code></a>.</p></li>
+<li><p><strong>expandNetwork</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/Builder.html#mod.DG.Builder" title="mod.DG.Builder"><em>DG.Builder</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em>) – <p>a callback which will be called when the simulator needs new hyperedge/reaction information.
+The callback will be given:</p>
+<ol class="arabic simple">
+<li><p>the DG builder object for the underlying derivation graph.</p></li>
+<li><p>a list of graphs that were newly discovered in the last iteration.</p></li>
+<li><p>a list of all graphs in the current state.</p></li>
+</ol>
+<p>The callback must return a boolean which indicates whether it should be called again.</p>
+<p>For example, if expansion is done via some <a class="reference internal" href="../dg/Strategies.html#mod.DGStrat" title="mod.DGStrat"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGStrat</span></code></a>, <code class="docutils literal notranslate"><span class="pre">strat</span></code>, a reasonable callback could be</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expandNetwork</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">addSubset</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">addUniverse</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">strat</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># call again when the simulation</span>
+</pre></div>
+</div>
+<p>If you wish to simply provide a static network without dynamic expansion, your callback could be</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expandNetwork</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
+    <span class="c1"># use the DG.Builder b to add reactions/hyperedges as needed to create the network</span>
+    <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># don&#39;t call again, we have added everything we need.</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#mod.causality.Simulator.ExpandByStrategy" title="mod.causality.Simulator.ExpandByStrategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpandByStrategy</span></code></a> class is a shorthand for this type of callback.</p>
+</p></li>
+<li><p><strong>initialState</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – the initial simulation state in terms of the number of    copies of each graph/molecule.
+The graphs/molecules not mentioned are set to 0.</p></li>
+<li><p><strong>draw</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a><em>]</em><em>, </em><a class="reference internal" href="#mod.causality.DrawFunction" title="mod.causality.DrawFunction"><em>DrawFunction</em></a><em>]</em>) – The simulator will initially create a <a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> which is given to this function.
+It must then return a callable that is used in each simulation step to draw the next hyperedge/reaction.
+Defaults to a default constructed instance of <a class="reference internal" href="#mod.causality.Simulator.DrawMassAction" title="mod.causality.Simulator.DrawMassAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrawMassAction</span></code></a>.</p></li>
+<li><p><strong>drawTime</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em>) – The function to use for drawing the time increment in each simulation step.
+The function will be given the reactivity, and must return the time increment.
+Defaults to an instance of <a class="reference internal" href="#mod.causality.Simulator.DrawTimeExponential" title="mod.causality.Simulator.DrawTimeExponential"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrawTimeExponential</span></code></a>.</p></li>
+<li><p><strong>withSetCompare</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to skip network expansion if a larger subset of graphs has been used for expansion before.
+Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mod.causality.Simulator.dg">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dg</span></span><a class="headerlink" href="#mod.causality.Simulator.dg" title="Link to this definition">¶</a></dt>
+<dd><p>The internal <a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> underlying the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG">DG</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mod.causality.Simulator.iteration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iteration</span></span><a class="headerlink" href="#mod.causality.Simulator.iteration" title="Link to this definition">¶</a></dt>
+<dd><p>The current iteration number. It starts at 0 and is incremented in the beginning of each iteration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mod.causality.Simulator.time">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">time</span></span><a class="headerlink" href="#mod.causality.Simulator.time" title="Link to this definition">¶</a></dt>
+<dd><p>The current simulation time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mod.causality.Simulator.trace">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trace</span></span><a class="headerlink" href="#mod.causality.Simulator.trace" title="Link to this definition">¶</a></dt>
+<dd><p>References to the event trace for the entire simulation.
+It should not be modified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="EventTrace.html#mod.causality.EventTrace" title="mod.causality.EventTrace">EventTrace</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.Simulator.onIterationBegin">
+<span class="sig-name descname"><span class="pre">onIterationBegin</span></span><a class="headerlink" href="#mod.causality.Simulator.onIterationBegin" title="Link to this definition">¶</a></dt>
+<dd><p>A callback invoked in the very beginning of each iteration of the simulation,
+just after <a class="reference internal" href="#mod.causality.Simulator.iteration" title="mod.causality.Simulator.iteration"><code class="xref py py-attr docutils literal notranslate"><span class="pre">iteration</span></code></a> has been incremented.
+It is called with the simulator object as argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[<a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator">Simulator</a>], None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.Simulator.onIterationEnd">
+<span class="sig-name descname"><span class="pre">onIterationEnd</span></span><a class="headerlink" href="#mod.causality.Simulator.onIterationEnd" title="Link to this definition">¶</a></dt>
+<dd><p>A callback invoked in the very end of each iteration of the simulation,
+after the drawn action has been carried out and the time advanced.
+It is called with the simulator object, the drawn action, and the time increment,
+and it must return a boolean indicating whether to continue the simulation, i.e., <code class="docutils literal notranslate"><span class="pre">True</span></code> means continue.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[<a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator">Simulator</a>, <a class="reference internal" href="EventTrace.html#mod.causality.EdgeAction" title="mod.causality.EdgeAction">EdgeAction</a> | <a class="reference internal" href="EventTrace.html#mod.causality.InputAction" title="mod.causality.InputAction">InputAction</a> | <a class="reference internal" href="EventTrace.html#mod.causality.OutputAction" title="mod.causality.OutputAction">OutputAction</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>], <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.Simulator.onDeadlock">
+<span class="sig-name descname"><span class="pre">onDeadlock</span></span><a class="headerlink" href="#mod.causality.Simulator.onDeadlock" title="Link to this definition">¶</a></dt>
+<dd><p>A callback invoked if there are no events out of the current state.
+It is called with the simulator object as argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[<a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator">Simulator</a>], None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.Simulator.onExpand">
+<span class="sig-name descname"><span class="pre">onExpand</span></span><a class="headerlink" href="#mod.causality.Simulator.onExpand" title="Link to this definition">¶</a></dt>
+<dd><p>A callback invoked when the simulator is about to request events out of the current state.
+It is called with the simulator object as argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[<a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator">Simulator</a>], None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.Simulator.onExpandAvoided">
+<span class="sig-name descname"><span class="pre">onExpandAvoided</span></span><a class="headerlink" href="#mod.causality.Simulator.onExpandAvoided" title="Link to this definition">¶</a></dt>
+<dd><p>A callback invoked when the simulator detected is already had all events out of the current state.
+It is called with the simulator object as argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[<a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator">Simulator</a>], None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.Simulator.simulate">
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">advanceToEndTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.simulate" title="Link to this definition">¶</a></dt>
+<dd><p>Start/continue the simulation.</p>
+<p>Simulate an additional amount of time or number of iterations, whichever is reached first,
+or until no further events are possible (a deadlock).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em>) – the additional amount of time to simulate,    or <code class="docutils literal notranslate"><span class="pre">None</span></code> for unbounded. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>advanceToEndTime</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if a time bound is given and the simulation stops due to this bound,
+advance the current time to the time bound,    instead of staying at the time of the last event. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>iterations</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – the additional number of iterations to    simulate, or <code class="docutils literal notranslate"><span class="pre">None</span></code> for unbounded. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a references to the event trace for the entire simulation.
+It should not be modified.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="EventTrace.html#mod.causality.EventTrace" title="mod.causality.EventTrace">EventTrace</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.causality.Simulator.DrawTimeExponential">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.Simulator.</span></span><span class="sig-name descname"><span class="pre">DrawTimeExponential</span></span><a class="headerlink" href="#mod.causality.Simulator.DrawTimeExponential" title="Link to this definition">¶</a></dt>
+<dd><p>A shorthand for drawing time from an exponential distribution.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.Simulator.DrawTimeExponential.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activitySum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.DrawTimeExponential.call" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rateSum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the total sum of activity in the system.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\frac{-\ln r}{activitySum}\)</span>, where <span class="math notranslate nohighlight">\(r\)</span> is a random number in <span class="math notranslate nohighlight">\([0, 1)\)</span> drawn with <a class="reference internal" href="../Misc.html#mod.rngUniformReal" title="mod.rngUniformReal"><code class="xref py py-func docutils literal notranslate"><span class="pre">rngUniformReal()</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.causality.Simulator.ExpandByStrategy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.Simulator.</span></span><span class="sig-name descname"><span class="pre">ExpandByStrategy</span></span><a class="headerlink" href="#mod.causality.Simulator.ExpandByStrategy" title="Link to this definition">¶</a></dt>
+<dd><p>A shorthand for an expansion callback that executes a strategy.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.Simulator.ExpandByStrategy.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.ExpandByStrategy.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>strat</strong> – a strategy to execute each time more neighbourhood is needed for the simulation.
+It can be any object that can be used as a strategy, see <a class="reference internal" href="../../dgStrat/index.html#dgstrat"><span class="std std-ref">Derivation Graph Strategies</span></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.Simulator.ExpandByStrategy.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.ExpandByStrategy.__call__" title="Link to this definition">¶</a></dt>
+<dd><p>Executes the stored strategy on the given subset and universe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>b</strong> (<a class="reference internal" href="../dg/Builder.html#mod.DG.Builder" title="mod.DG.Builder"><em>DG.Builder</em></a>) – the builder for the derivation graph underlying the simulation.</p></li>
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the set of new molecules in this iteration.</p></li>
+<li><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the set of molecules in the current state.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.causality.Simulator.DrawMassAction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.Simulator.</span></span><span class="sig-name descname"><span class="pre">DrawMassAction</span></span><a class="headerlink" href="#mod.causality.Simulator.DrawMassAction" title="Link to this definition">¶</a></dt>
+<dd><p>A creator for a drawing function implementing the law of mass action.</p>
+<p>It supports assigning a rate for input actions, output actions, and reactions,
+by taking a callback (or constant) for each type.
+To avoid the overhead of calling these callbacks in each iteration, a returned rate can be cached.
+Therefore, the return value of each callback (or the constant of each type) is a pair
+with the first entry being the rate, and the second entry a boolean indicating whether rate should be cached.</p>
+<p>Each of the rate function can also be set to <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+which means a default rate is used: input rate 0.0, reaction rate 1.0, output rate 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em><em>] or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for pseudo-reactions for creating molecules. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>reactionRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em><em>] or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for each reaction in the system. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>outputRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em><em>]    or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for pseudo-reactions for destroying molecules. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.Simulator.DrawMassAction.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.DrawMassAction.__call__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dg</strong> (<a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a>) – the derivation graph underlying the simulation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a drawing function implementing the law of mass action.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DrawMassAction.Function</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.causality.DrawFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">DrawFunction</span></span><a class="headerlink" href="#mod.causality.DrawFunction" title="Link to this definition">¶</a></dt>
+<dd><p>The protocol (see <a class="reference internal" href="../protocols.html#py-protocols"><span class="std std-ref">Protocols</span></a>) that event drawing functions must implement.</p>
+<p>In each iteration a <a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator</span></code></a> must draw the next event that should happen.
+How to do this drawing can be customized, but as such a drawing function needs detailed information
+about the underlying network and must be kept in sync with this network as it expands,
+the customization is done when a slightly indirect manner.
+Instead of giving the drawing function directly, you give a function that can create a drawing function.
+That is, the <a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator</span></code></a> will create an internal <a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> and give it as argument to
+the function you give. Your function must then create an actual drawing function,
+which must adhere to the interface specified by this <a class="reference internal" href="#mod.causality.DrawFunction" title="mod.causality.DrawFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.DrawFunction</span></code></a> protocol.</p>
+<p>For an example of a drawing function, see <code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator.DrawMassAction.Function</span></code>,
+and its creator function <a class="reference internal" href="#mod.causality.Simulator.DrawMassAction" title="mod.causality.Simulator.DrawMassAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator.DrawMassAction</span></code></a>, which is the one users interact with.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.DrawFunction.syncSize">
+<span class="sig-name descname"><span class="pre">syncSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.DrawFunction.syncSize" title="Link to this definition">¶</a></dt>
+<dd><p>Called whenever the underlying derivation graph has changed size.
+If the drawing function has internal data structures, this method
+is where such data structures can be resized.
+The derivation graph must be given to this object by its creator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.DrawFunction.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marking</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.DrawFunction.draw" title="Link to this definition">¶</a></dt>
+<dd><p>Called in order to draw the next event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>marking</strong> (<a class="reference internal" href="Petri.html#mod.causality.Marking" title="mod.causality.Marking"><em>Marking</em></a>) – the current state of the simulation.
+This may not be changed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the drawn action to take and a number indicating the activity of the system.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>[<a class="reference internal" href="../Config.html#mod.Action" title="mod.Action">Action</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/causality/Stochsim.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

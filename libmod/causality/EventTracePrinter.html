@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.11.2. causality/EventTracePrinter.hpp &#8212; MØD 1.0.0.9 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.11.3. causality/ForwardDecl.hpp" href="ForwardDecl.html" />
+    <link rel="prev" title="3.2.11.1. causality/EventTrace.hpp" href="EventTrace.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.11.2. causality/EventTracePrinter.hpp</a><ul>
+<li><a class="reference internal" href="#class-causality-eventtraceprinter">3.2.11.2.1. Class <code class="docutils literal notranslate"><span class="pre">causality::EventTracePrinter</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinterE"><code class="docutils literal notranslate"><span class="pre">EventTracePrinter</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.11.2.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.11.2.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter21setMaxPointsPerVertexEi"><code class="docutils literal notranslate"><span class="pre">setMaxPointsPerVertex()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality17EventTracePrinter21getMaxPointsPerVertexEv"><code class="docutils literal notranslate"><span class="pre">getMaxPointsPerVertex()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter10setLogTimeEb"><code class="docutils literal notranslate"><span class="pre">setLogTime()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality17EventTracePrinter10getLogTimeEv"><code class="docutils literal notranslate"><span class="pre">getLogTime()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter11setLogCountEb"><code class="docutils literal notranslate"><span class="pre">setLogCount()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality17EventTracePrinter11getLogCountEv"><code class="docutils literal notranslate"><span class="pre">getLogCount()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter11pushOptionsENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"><code class="docutils literal notranslate"><span class="pre">pushOptions()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter10popOptionsEv"><code class="docutils literal notranslate"><span class="pre">popOptions()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexVisibleENSt8functionIFbN2dg2DG6VertexEEEE"><code class="docutils literal notranslate"><span class="pre">pushVertexVisible()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter16popVertexVisibleEv"><code class="docutils literal notranslate"><span class="pre">popVertexVisible()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexOptionsENSt8functionIFNSt6stringEN2dg2DG6VertexEEEE"><code class="docutils literal notranslate"><span class="pre">pushVertexOptions()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter16popVertexOptionsEv"><code class="docutils literal notranslate"><span class="pre">popVertexOptions()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter13setPreContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"><code class="docutils literal notranslate"><span class="pre">setPreContent()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter14setPostContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"><code class="docutils literal notranslate"><span class="pre">setPostContent()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="EventTrace.html" title="Previous Chapter: 3.2.11.1. causality/EventTrace.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.11.1. cau...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="ForwardDecl.html" title="Next Chapter: 3.2.11.3. causality/ForwardDecl.hpp">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.11.3. cau... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="causality-eventtraceprinter-hpp">
+<span id="cpp-causality-eventtraceprinter"></span><h1><span class="section-number">3.2.11.2. </span>causality/EventTracePrinter.hpp<a class="headerlink" href="#causality-eventtraceprinter-hpp" title="Link to this heading">¶</a></h1>
+<section id="class-causality-eventtraceprinter">
+<h2><span class="section-number">3.2.11.2.1. </span>Class <code class="docutils literal notranslate"><span class="pre">causality::EventTracePrinter</span></code><a class="headerlink" href="#class-causality-eventtraceprinter" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinterE">
+<span id="_CPPv3N3mod9causality17EventTracePrinterE"></span><span id="_CPPv2N3mod9causality17EventTracePrinterE"></span><span id="mod::causality::EventTracePrinter"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">causality</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EventTracePrinter</span></span></span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinterE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>This class is used to configure how event traces are visualised,
+e.g., which vertices/graphs should be shown, colours, and axis configuration.</p>
+<p>The plot is rendered with the <a class="reference external" href="https://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf">PGFPlots package</a> similarly to the following pseudo Latex code.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>tikzpicture<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>axis<span class="nb">}</span>[
+    <span class="c">% base options</span>
+    <span class="c">% options from callback</span>
+]
+<span class="c">% result of pre-content callback</span>
+<span class="c">% for each vertex in the trace:</span>
+<span class="c">%    if the vertex is visible, according the callback</span>
+        <span class="k">\addplot</span>+[
+           <span class="c">% base vertex options</span>
+           <span class="c">% options from vertex options callback</span>
+        ] table <span class="nb">{</span>
+           <span class="c">% filename of file with data for that vertex</span>
+        <span class="nb">}</span>
+        <span class="k">\addlegendentry</span><span class="nb">{</span>
+           <span class="c">% name of the graph associated with the vertex, escaped to be in math mode</span>
+        <span class="nb">}</span>
+<span class="c">% result of post-content callback</span>
+<span class="k">\end</span><span class="nb">{</span>axis<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>tikzpicture<span class="nb">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.11.2.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter21setMaxPointsPerVertexEi" title="mod::causality::EventTracePrinter::setMaxPointsPerVertex"><span class="n"><span class="pre">setMaxPointsPerVertex</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality17EventTracePrinter21getMaxPointsPerVertexEv" title="mod::causality::EventTracePrinter::getMaxPointsPerVertex"><span class="n"><span class="pre">getMaxPointsPerVertex</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter10setLogTimeEb" title="mod::causality::EventTracePrinter::setLogTime"><span class="n"><span class="pre">setLogTime</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality17EventTracePrinter10getLogTimeEv" title="mod::causality::EventTracePrinter::getLogTime"><span class="n"><span class="pre">getLogTime</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter11setLogCountEb" title="mod::causality::EventTracePrinter::setLogCount"><span class="n"><span class="pre">setLogCount</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality17EventTracePrinter11getLogCountEv" title="mod::causality::EventTracePrinter::getLogCount"><span class="n"><span class="pre">getLogCount</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter11pushOptionsENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="mod::causality::EventTracePrinter::pushOptions"><span class="n"><span class="pre">pushOptions</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter10popOptionsEv" title="mod::causality::EventTracePrinter::popOptions"><span class="n"><span class="pre">popOptions</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexVisibleENSt8functionIFbN2dg2DG6VertexEEEE" title="mod::causality::EventTracePrinter::pushVertexVisible"><span class="n"><span class="pre">pushVertexVisible</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter16popVertexVisibleEv" title="mod::causality::EventTracePrinter::popVertexVisible"><span class="n"><span class="pre">popVertexVisible</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexOptionsENSt8functionIFNSt6stringEN2dg2DG6VertexEEEE" title="mod::causality::EventTracePrinter::pushVertexOptions"><span class="n"><span class="pre">pushVertexOptions</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter16popVertexOptionsEv" title="mod::causality::EventTracePrinter::popVertexOptions"><span class="n"><span class="pre">popVertexOptions</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter13setPreContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="mod::causality::EventTracePrinter::setPreContent"><span class="n"><span class="pre">setPreContent</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter14setPostContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="mod::causality::EventTracePrinter::setPostContent"><span class="n"><span class="pre">setPostContent</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.11.2.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter21setMaxPointsPerVertexEi">
+<span id="_CPPv3N3mod9causality17EventTracePrinter21setMaxPointsPerVertexEi"></span><span id="_CPPv2N3mod9causality17EventTracePrinter21setMaxPointsPerVertexEi"></span><span id="mod::causality::EventTracePrinter::setMaxPointsPerVertex__i"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMaxPointsPerVertex</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter21setMaxPointsPerVertexEi" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality17EventTracePrinter21getMaxPointsPerVertexEv">
+<span id="_CPPv3NK3mod9causality17EventTracePrinter21getMaxPointsPerVertexEv"></span><span id="_CPPv2NK3mod9causality17EventTracePrinter21getMaxPointsPerVertexEv"></span><span id="mod::causality::EventTracePrinter::getMaxPointsPerVertexC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getMaxPointsPerVertex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality17EventTracePrinter21getMaxPointsPerVertexEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control how many points are rendered for each different vertex represented in the trace.
+Data is then visualised at this amount of regular intervals on the time axis.
+It defaults to 500.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter10setLogTimeEb">
+<span id="_CPPv3N3mod9causality17EventTracePrinter10setLogTimeEb"></span><span id="_CPPv2N3mod9causality17EventTracePrinter10setLogTimeEb"></span><span id="mod::causality::EventTracePrinter::setLogTime__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setLogTime</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter10setLogTimeEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality17EventTracePrinter10getLogTimeEv">
+<span id="_CPPv3NK3mod9causality17EventTracePrinter10getLogTimeEv"></span><span id="_CPPv2NK3mod9causality17EventTracePrinter10getLogTimeEv"></span><span id="mod::causality::EventTracePrinter::getLogTimeC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLogTime</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality17EventTracePrinter10getLogTimeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control if the time axis should be logarithmic or not.
+It defaults to <span class="cpp-texpr sig sig-inline cpp"><span class="k">false</span></span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter11setLogCountEb">
+<span id="_CPPv3N3mod9causality17EventTracePrinter11setLogCountEb"></span><span id="_CPPv2N3mod9causality17EventTracePrinter11setLogCountEb"></span><span id="mod::causality::EventTracePrinter::setLogCount__b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setLogCount</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter11setLogCountEb" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality17EventTracePrinter11getLogCountEv">
+<span id="_CPPv3NK3mod9causality17EventTracePrinter11getLogCountEv"></span><span id="_CPPv2NK3mod9causality17EventTracePrinter11getLogCountEv"></span><span id="mod::causality::EventTracePrinter::getLogCountC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLogCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality17EventTracePrinter11getLogCountEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Control if the count axis should be logarithmic or not.
+It defaults to <span class="cpp-texpr sig sig-inline cpp"><span class="k">false</span></span>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter11pushOptionsENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE">
+<span id="_CPPv3N3mod9causality17EventTracePrinter11pushOptionsENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"></span><span id="_CPPv2N3mod9causality17EventTracePrinter11pushOptionsENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushOptions</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter11pushOptionsENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function or constant that adds options for the axis environment.
+All options function results are applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter11pushOptionsENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="mod::causality::EventTracePrinter::pushOptions::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter10popOptionsEv">
+<span id="_CPPv3N3mod9causality17EventTracePrinter10popOptionsEv"></span><span id="_CPPv2N3mod9causality17EventTracePrinter10popOptionsEv"></span><span id="mod::causality::EventTracePrinter::popOptions"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popOptions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter10popOptionsEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed options function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter17pushVertexVisibleENSt8functionIFbN2dg2DG6VertexEEEE">
+<span id="_CPPv3N3mod9causality17EventTracePrinter17pushVertexVisibleENSt8functionIFbN2dg2DG6VertexEEEE"></span><span id="_CPPv2N3mod9causality17EventTracePrinter17pushVertexVisibleENSt8functionIFbN2dg2DG6VertexEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushVertexVisible</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexVisibleENSt8functionIFbN2dg2DG6VertexEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function controlling the visibility of vertices.
+All visibility functions must return <span class="cpp-texpr sig sig-inline cpp"><span class="k">true</span></span> for the plot of a vertex to be visible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexVisibleENSt8functionIFbN2dg2DG6VertexEEEE" title="mod::causality::EventTracePrinter::pushVertexVisible::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter16popVertexVisibleEv">
+<span id="_CPPv3N3mod9causality17EventTracePrinter16popVertexVisibleEv"></span><span id="_CPPv2N3mod9causality17EventTracePrinter16popVertexVisibleEv"></span><span id="mod::causality::EventTracePrinter::popVertexVisible"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popVertexVisible</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter16popVertexVisibleEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed vertex visibility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter17pushVertexOptionsENSt8functionIFNSt6stringEN2dg2DG6VertexEEEE">
+<span id="_CPPv3N3mod9causality17EventTracePrinter17pushVertexOptionsENSt8functionIFNSt6stringEN2dg2DG6VertexEEEE"></span><span id="_CPPv2N3mod9causality17EventTracePrinter17pushVertexOptionsENSt8functionIFNSt6stringEN2dg2DG6VertexEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pushVertexOptions</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexOptionsENSt8functionIFNSt6stringEN2dg2DG6VertexEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Add another function or constant setting options for the plot of each vertex.
+All options function results are applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter17pushVertexOptionsENSt8functionIFNSt6stringEN2dg2DG6VertexEEEE" title="mod::causality::EventTracePrinter::pushVertexOptions::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter16popVertexOptionsEv">
+<span id="_CPPv3N3mod9causality17EventTracePrinter16popVertexOptionsEv"></span><span id="_CPPv2N3mod9causality17EventTracePrinter16popVertexOptionsEv"></span><span id="mod::causality::EventTracePrinter::popVertexOptions"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">popVertexOptions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter16popVertexOptionsEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Remove the last pushed vertex options function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter13setPreContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE">
+<span id="_CPPv3N3mod9causality17EventTracePrinter13setPreContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"></span><span id="_CPPv2N3mod9causality17EventTracePrinter13setPreContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPreContent</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter13setPreContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality17EventTracePrinter14setPostContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE">
+<span id="_CPPv3N3mod9causality17EventTracePrinter14setPostContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"></span><span id="_CPPv2N3mod9causality17EventTracePrinter14setPostContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPostContent</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality17EventTracePrinter14setPostContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Set a callback for adding additional content to the plot,
+either before or after the primary data has been added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality17EventTracePrinter14setPostContentENSt8functionIFNSt6stringENSt10shared_ptrIN2dg2DGEEEEEE" title="mod::causality::EventTracePrinter::setPostContent::f"><span class="n">f</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/causality/EventTracePrinter.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

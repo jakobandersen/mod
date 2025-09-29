@@ -1,0 +1,143 @@
+.. _cpp-causality/EventTrace:
+
+**********************************************************
+causality/EventTrace.hpp
+**********************************************************
+.. default-domain:: cpp
+.. default-role:: cpp:texpr
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. type:: causality::Action = std::variant<causality::EdgeAction, causality::InputAction, causality::OutputAction>
+
+.. class:: causality::EdgeAction
+
+    .. function:: EdgeAction()
+                  EdgeAction(dg::DG::HyperEdge edge)
+    .. function:: void applyTo(Marking &m) const
+
+        Perform `m.fire(edge)`.
+    .. var:: dg::DG::HyperEdge edge
+
+        May not be a null edge.
+
+.. class:: causality::InputAction
+
+    .. function:: InputAction()
+                  InputAction(dg::DG::Vertex vertex)
+    .. function:: void applyTo(Marking &m) const
+
+        Perform `m.add(vertex, 1)`.
+    .. var:: dg::DG::Vertex vertex
+
+        May not be a null vertex.
+
+.. class:: causality::OutputAction
+
+    .. function:: OutputAction()
+                  OutputAction(dg::DG::Vertex vertex)
+    .. function:: void applyTo(Marking &m) const
+
+        Perform `m.remove(vertex, 1)`.
+    .. var:: dg::DG::Vertex vertex
+
+        May not be a null vertex.
+
+
+Class ``causality::EventTrace``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: causality::EventTrace
+    
+
+    A helper class to hold an initial state with a subsequent trace of :class:`Event`\ s.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: causality::EventTrace
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: causality::EventTrace
+
+.. type:: iterator
+          const_iterator = iterator
+.. function:: EventTrace(Marking initialState)
+
+    Construct an empty event trace with an initial state.
+    A copy of the given marking is being stored.
+.. function:: Marking getInitialState() const
+
+    :returns: a copy of the initial state for this event trace.
+.. function:: int size() const
+
+    :returns: the number of events in the trace.
+.. function:: double getTime() const
+
+    :returns: the time of the latest added event, or 0 if `size() == 0`.
+.. function:: const_iterator begin() const
+              const_iterator end() const
+
+    :returns: the begin/end iterator for the range of events in the trace.
+.. function:: Event operator[](int i) const
+
+    :returns: the `i`\ th event in the trace.
+    :throws: :class:`LogicError` if `i` is out of bounds.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const EventTrace &t)
+.. function:: friend bool operator==(const EventTrace &a, const EventTrace &b)
+
+    Calls ``syncSize()`` on the internal initial state and the underlying net.
+.. function:: void add(double time, Action action)
+
+    Append an event to the trace.
+
+    :throws: :class:`LogicError` if the time is less than the current time of the trace.
+    :throws: :class:`LogicError` if the action has null descriptors.
+    :throws: :class:`LogicError` if the descriptors in the action does not belong to the underlying derivation graph.
+.. function:: std::string print() const
+              std::string print(const EventTracePrinter &printer) const
+
+    Create a plot of the counts throughout the event trace at each time point.
+
+    :returns: the filename for the PDF that will be compiled by the post processor.
+.. function:: std::string dump() const
+              std::string dump(const std::string &filename) const
+
+    Dump the initial marking and list of events to a file. This file can be loaded in again.
+
+    :param filename: the name of the file to save the dump to.
+        If non is given an auto-generated name in the ``out/`` folder is used.
+        If an empty string is given, it is treated as if non is given.
+    :returns: the filename with the dumped trace.
+.. function:: static EventTrace load(std::shared_ptr<dg::DG> dg_, const std::string &file)
+              static EventTrace load(std::shared_ptr<Net> net, const std::string &file)
+
+    The version taking a derivation graph will first create a Petri net and call the second version,
+    i.e., it is equivalent to `load(Net::make(dg_), file)`.
+
+    :returns: an event trace loaded from the given file.
+        The given derivation graph or the underlying derivation graph of the given net
+        must match the derivation graph originally used to create the dump.
+    :throws: :class:`LogicError` if `dg_`/`net` is a null pointer.
+    :throws: :class:`InputError` on bad data or if the given derivation graph does not match the data.
+
+.. cpp:namespace-pop::
+
+
+Class ``causality::EventTrace::Event``
+---------------------------------------------------------------
+
+.. class:: causality::EventTrace::Event
+
+
+    .. var:: double time
+    .. var:: Action action
+
+

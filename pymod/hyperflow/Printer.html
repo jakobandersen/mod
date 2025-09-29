@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1.11.4. hyperflow/Printer &#8212; MØD 1.0.0.9 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.1.11.5. hyperflow/Solution" href="Solution.html" />
+    <link rel="prev" title="4.1.11.3. hyperflow/ModelImplementationView" href="ModelImplementationView.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmod/index.html">3. libMØD</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">4.1.11.4. hyperflow/Printer</a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.Printer"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer</span></code></a><ul>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.dgPrinter"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.dgPrinter</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.withFlowLabels"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.withFlowLabels</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.pushInEdgeLabel"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.pushInEdgeLabel()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.popInEdgeLabel"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.popInEdgeLabel()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.pushOutEdgeLabel"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.pushOutEdgeLabel()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.popOutEdgeLabel"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.popOutEdgeLabel()</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.printUnfiltered"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.printUnfiltered</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.printFiltered"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.printFiltered</span></code></a></li>
+<li><a class="reference internal" href="#mod.hyperflow.Printer.unfilteredFlowColour"><code class="docutils literal notranslate"><span class="pre">hyperflow.Printer.unfilteredFlowColour</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="ModelImplementationView.html" title="Previous Chapter: 4.1.11.3. hyperflow/ModelImplementationView">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 4.1.11.3. hyp...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="Solution.html" title="Next Chapter: 4.1.11.5. hyperflow/Solution">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">4.1.11.5. hyp... &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="hyperflow-printer">
+<span id="py-hyperflow-printer"></span><h1><span class="section-number">4.1.11.4. </span>hyperflow/Printer<a class="headerlink" href="#hyperflow-printer" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">Printer</span></span><a class="headerlink" href="#mod.hyperflow.Printer" title="Link to this definition">¶</a></dt>
+<dd><p>An object of this class holds information on how derivation graphs with flow are visualised.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.dgPrinter">
+<span class="sig-name descname"><span class="pre">dgPrinter</span></span><a class="headerlink" href="#mod.hyperflow.Printer.dgPrinter" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) Retrieve the <a class="reference internal" href="../dg/Printer.html#mod.DGPrinter" title="mod.DGPrinter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGPrinter</span></code></a> used when printing solutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../dg/Printer.html#mod.DGPrinter" title="mod.DGPrinter">DGPrinter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.withFlowLabels">
+<span class="sig-name descname"><span class="pre">withFlowLabels</span></span><a class="headerlink" href="#mod.hyperflow.Printer.withFlowLabels" title="Link to this definition">¶</a></dt>
+<dd><p>Control whether a flow label is appended to each hyperedge label (see also <a class="reference internal" href="../dg/Printer.html#mod.DGPrinter.pushEdgeLabel" title="mod.DGPrinter.pushEdgeLabel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGPrinter.pushEdgeLabel()</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.pushInEdgeLabel">
+<span class="sig-name descname"><span class="pre">pushInEdgeLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.Printer.pushInEdgeLabel" title="Link to this definition">¶</a></dt>
+<dd><p>Add another function for in-edge labelling.
+The result of this function is appended to each label using the edge label separator
+of the underlying <a class="reference internal" href="../dg/Printer.html#mod.DGPrinter" title="mod.DGPrinter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGPrinter</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function to push for labelling in-edges.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.popInEdgeLabel">
+<span class="sig-name descname"><span class="pre">popInEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.Printer.popInEdgeLabel" title="Link to this definition">¶</a></dt>
+<dd><p>Remove the last pushed in-edge labelling function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.pushOutEdgeLabel">
+<span class="sig-name descname"><span class="pre">pushOutEdgeLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.Printer.pushOutEdgeLabel" title="Link to this definition">¶</a></dt>
+<dd><p>Add another function for out-edge labelling.
+The result of this function is appended to each label using the edge label separator
+of the underlying <a class="reference internal" href="../dg/Printer.html#mod.DGPrinter" title="mod.DGPrinter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGPrinter</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function to push for labelling out-edges.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.popOutEdgeLabel">
+<span class="sig-name descname"><span class="pre">popOutEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.hyperflow.Printer.popOutEdgeLabel" title="Link to this definition">¶</a></dt>
+<dd><p>Remove the last pushed out-edge labelling function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if no callback is left to pop.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.printUnfiltered">
+<span class="sig-name descname"><span class="pre">printUnfiltered</span></span><a class="headerlink" href="#mod.hyperflow.Printer.printUnfiltered" title="Link to this definition">¶</a></dt>
+<dd><p>Control whether the unfiltered version of a solution is printed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.printFiltered">
+<span class="sig-name descname"><span class="pre">printFiltered</span></span><a class="headerlink" href="#mod.hyperflow.Printer.printFiltered" title="Link to this definition">¶</a></dt>
+<dd><p>Control whether the filtered version of a solution is printed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.hyperflow.Printer.unfilteredFlowColour">
+<span class="sig-name descname"><span class="pre">unfilteredFlowColour</span></span><a class="headerlink" href="#mod.hyperflow.Printer.unfilteredFlowColour" title="Link to this definition">¶</a></dt>
+<dd><p>When printing the unfiltered version, use this colour on vertices and edges with non-zero flow.
+Use an empty string to not colour them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/pymod/hyperflow/Printer.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>

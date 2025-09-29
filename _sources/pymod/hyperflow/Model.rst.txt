@@ -1,0 +1,379 @@
+.. _py-hyperflow/Model:
+
+**********************************************************
+hyperflow/Model
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: hyperflow.Model
+
+    A :class:`~hyperflow.Model` object represents a flow model on a given derivation graph (see :ref:`flowCommon` for details).
+    A model consists of a set of modules with the base module modelling the edge flow and input/output flow.
+    Each module is accessed using proxy objects accessible as attributes in the main model object.
+
+    .. method:: __init__(dg, ilpSolver="default")
+                __init__(model)
+
+        Creates a new hyperflow model over the given derivation graph,
+        or as a copy of an existing model.
+
+        :param DG dg: the derivation graph to create the flow model for over.
+        :param Model model: the other model to copy the specification from.
+            The copy can be further modified afterwards.
+        :param str ilpSolver: the ILP solver to use. See :func:`getAvailableILPSolvers`.
+        :raises: :class:`LogicError` if  ``not dg``.
+        :raises: :class:`LogicError` if  ``not dg.locked``.
+        :raises: :class:`LogicError` if  ``dg.numVertices`` is 0.
+        :raises: :class:`LogicError` if  ``not model``.
+    .. attribute:: id
+
+        (Read-only) The unique instance ID for the :class:`~hyperflow.Model` object.
+
+        :type: int
+    .. attribute:: dg
+
+        (Read-only) The underlying derivation graph.
+
+        :type: DG
+    .. attribute:: specificationLocked
+
+        (Read-only) Whether the specification is locked for modifications.
+
+        :type: bool
+    .. method:: listSpecification()
+
+        List the specification textually to standard output.
+    .. method:: addSource(v)
+                addSource(g)
+
+        Add a vertex as a possible source.
+        The version taking a graph as argument is equivalent to
+        calling ``addSource(self.dg.findVertex(g))``.
+
+        :param DG.Vertex v: the vertex to add as source.
+        :param Graph g: a graph representing a vertex to be added as a source.
+        :raises: :class:`LogicError` if ``specificationLocked``.
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if  ``v`` does not belong to the underlying derivation graph.
+        :raises: (the graph version) :class:`LogicError` if it is not represented in the underlying DG.
+    .. attribute:: sources
+
+        (Read-only) Retrieve the list of source vertices for the model.
+
+        :type: list[DG.Vertex]
+    .. method:: addSink(v)
+                addSink(g)
+
+        Add a vertex as a possible sink.
+        The version taking a graph as argument is equivalent to
+        calling ``addSink(self.dg.findVertex(g))``.
+
+        :param DG.Vertex v: the vertex to add as sink.
+        :param Graph g: a graph representing a vertex to be added as a sink.
+        :raises: :class:`LogicError` if ``specificationLocked``.
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if  ``v`` does not belong to the underlying derivation graph.
+        :raises: (the graph version) :class:`LogicError` if it is not represented in the underlying DG.
+    .. attribute:: sinks
+
+        (Read-only) Retrieve the list of sink vertices for the model.
+
+        :type: list[DG.Vertex]
+    .. method:: exclude(v)
+                exclude(g)
+
+        Exclude the vertex and all its incident edges from the model.
+        This will not only add a constraint to disallow flow through this vertex,
+        but will make some algorithms in various modules pretend the vertex and incident edges
+        were never part of the model in the first place.
+        The version taking a graph as argument is equivalent to
+        calling ``exclude(self.dg.findVertex(g))``.
+
+        :param DG.Vertex v: the vertex to exclude.
+        :param Graph g: a graph representing a vertex to be excluded.
+        :raises: :class:`LogicError` if ``specificationLocked``.
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if  ``v`` does not belong to the underlying derivation graph.
+        :raises: (the graph version) :class:`LogicError` if it is not represented in the underlying DG.
+    .. attribute:: excluded
+
+        (Read-only) Retrieve the list of excluded vertices for the model.
+
+        :type: list[DG.Vertex]
+    .. method:: separateIOInternalTransit(v)
+                separateIOInternalTransit(g)
+
+        Ensure that the expanded vertex of `v` has transit edges such that
+        flow going from the input edge or to the output edge can be distinguished
+        from flow going from the network and back to the network.
+
+        The vertex expansion is lazy, and thus calling this function is necessary
+        in order to, e.g., access the corresponding ``transitInternal`` variable.
+
+        The version taking a graph as argument is equivalent to
+        calling ``separateIOInternalTransit(self.dg.findVertex(g))``.
+
+        :param DG.Vertex v: the vertex to ensure the separation of transit edges for.
+        :param Graph g: a graph representing a vertex to ensure the separation of transit edges for.
+        :raises: :class:`LogicError` if ``specificationLocked``.
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: :class:`LogicError` if  ``v`` does not belong to the underlying derivation graph.
+        :raises: (the graph version) :class:`LogicError` if it is not represented in the underlying DG.
+    .. attribute:: separatedIOInternalTransit
+
+        (Read-only) Retrieve the list of vertices where
+        :meth:`separateIOInternalTransit` has been called.
+        Note, this does not mean that other vertices do not have separated transit edges.
+        For example, setting :attr:`allowIOReversal` to ``True`` implies separation as well.
+
+        :type: list[DG.Vertex]
+    .. attribute:: allowHyperLoops
+
+        Control or query whether flow is allowed through loop edges.
+        I.e., hyperedges with identical source and target multisets.
+
+        :type: bool
+        :raises: (only set) :class:`LogicError` if ``specificationLocked``.
+
+        :note: This setting may be changed when certain modules are enabled.
+    .. attribute:: allowReversal
+
+        Controls whether flow may go through
+        one edge and then directly afterwards the inverse edge.
+
+        :type: bool
+        :raises: (only set) :class:`LogicError` if ``specificationLocked``.
+
+        :note: This setting may be modified when certain modules are enabled.
+    .. attribute:: allowIOReversal
+
+        Controls whether flow may go through
+        an input edge and directly afterwards through the corresponding output edge.
+
+        :type: bool
+        :raises: (only set) :class:`LogicError` if ``specificationLocked``.
+
+        :note: This setting may be modified when certain modules are enabled.
+    .. attribute:: relaxed
+
+        Controls whether the core flow variables are integer or continuous.
+        The default is ``False``, meaning integer. Using the relaxed model significantly
+        changes the meaning of solutions,
+        and all features that rely on flows being integer will be disabled.
+
+        :type: bool
+        :raises: (only set) :class:`LogicError` if ``specificationLocked``.
+    .. attribute:: objectiveFunction
+
+        (Write-only) The objective function, which will be minimized
+        (see :ref:`py-hyperflow/LinExp`).
+
+        :type: LinExp
+        :raises: :class:`LogicError` if ``specificationLocked``.
+    .. method:: addBoolVariable(name)
+                addIntVariable(name)
+                addFloatVariable(name)
+
+        Create a new custom boolean, integer, or floating point variable with the given name.
+
+        :returns: a handle to the variable.
+            :rtype: VarCustom
+        :raises: :class:`LogicError` if ``specificationLocked``.
+        :raises: :class:`LogicError` if ``name`` is already in use.
+    .. attribute:: customBoolVariables
+                   customIntVariables
+                   customFloatVariables
+
+        :returns: a list of handles to the variables added with
+            :meth:`addBoolVariable`/:meth:`addIntVariable`/:meth:`addFloatVariable`.
+        :type: list[VarCustom]
+    .. method:: addConstraint(c)
+
+        :param LinConstraint c: the linear constraint to add to the model (see :ref:`py-hyperflow/LinExp`).
+        :raises: :class:`LogicError` if ``specificationLocked``.
+    .. attribute:: overallAutocatalysis
+
+        The access object for the :ref:`overall autocatalysis module <flowCommon-overallAutocata>` of the flow model.
+
+        :type: OverallAutocatalysis
+    .. attribute:: overallCatalysis
+
+        The access object for the :ref:`overall catalysis module <flowCommon-overallCata>` of the flow model.
+
+        :type: OverallCatalysis
+    .. method:: addEnumerationVar(var)
+
+        Add the variables specified by the given variable specifier for solution enumeration.
+
+        The default variables are :data:`edgeFlow`, :data:`inFlow`, and :data:`outFlow`.
+        These are removed the first time this function is called.
+
+        :param Var var: the variable specifier to add variables from.
+        :raises: :class:`LogicError` if ``specificationLocked``.
+    .. attribute:: enumerationVars
+
+        (Read-only) Retrieve the list variable specifiers used for enumeration.
+
+        :type: list[Var]
+    .. method:: addTransitEnumeration(v)
+                addTransitEnumeration(g)
+
+        Add the transit edges of the vertex for solution enumeration.
+        The version taking a graph as argument is equivalent to
+        calling ``addTransitEnumeration(self.dg.findVertex(g))``.
+
+        :param DG.Vertex v: the vertex to add transit edges for enumeration.
+        :param Graph g: a graph representing a vertex for which transit edges should be added.
+        :raises: :class:`LogicError` if ``specificationLocked``.
+        :raises: :class:`LogicError` if ``not v``.
+        :raises: (the graph version) :class:`LogicError` if it is not represented in the underlying DG.
+    .. attribute:: transitEnumeration
+
+        (Read-only) Retrieve the list vertices where the transit edges are used for solution enumeration.
+
+        :type: list[DG.Vertex]
+    .. attribute:: absGap
+
+        The absolute gap in objective value between the optimal solution and the worst solution that can be enumerated.
+        As default there is no constraint on this gap.
+        Set to ``None``, or a negative value, to reset to this unconstrained state.
+
+        :type: int or None
+        :throws: (only set) :class:`LogicError` if ``specificationLocked``.
+    .. method:: findSolutions(*, maxNumSolutions=1, verbosity=1, ilpVerbosity=1)
+
+        Find the next up to ``maxNumSolutions`` best solutions.
+
+        This may be called multiple times to find additional solutions in an incremental fashion.
+        After the first call the specification will be locked, i.e., ``specificationLocked`` will be ``True``.
+
+        Calling with `maxNumSolutions` set to 0 will still lock the specification,
+        but will create the internal model.
+
+        :param int maxNumSolutions: the maximum number of solutions to find.
+        :param int verbosity: see :cpp:func:`hyperflow::Model::findSolutions`.
+        :param int ilpVerbosity: see :cpp:func:`hyperflow::Model::findSolutions`.
+        :returns: a range of the newly found solutions.
+        :rtype: SolutionRange
+        :raises: :class:`LogicError` if ``maxNumSolutions`` is less than 0.
+        :raises: :class:`LogicError` the first time it is called,
+            if an enabled module can not create its model.
+            See the documentation for each module.
+    .. method:: dump()
+                dump(filename)
+
+        Dump all model settings and all solutions found to a file, that can be loaded with :meth:`load`.
+
+        :param str filename: the name of the file to save the dump to.
+            If non is given an auto-generated name in the ``out/`` folder is used.
+            If an empty string is given, it is treated as if non is given.
+
+            .. note:: The filename is used literally, i.e., it is not
+                prefixed according to the current script location as input filenames are.
+        :returns: the filename with the dumped model.
+        :rtype: str
+    .. attribute:: solutions
+
+        (Read-only) A range of the solutions found so far.
+
+        :type: SolutionRange
+        :raises: :class:`LogicError` if ``not specificationLocked``.
+    .. attribute:: implementationView
+
+        (Read-only) A new view on the implementation of the hyperflow model.
+
+        :type: ModelImplementationView
+        :throws: :class:`LogicError` if ``not specificationLocked``
+    .. staticmethod:: load(dg, f, ilpSolver="default", verbosity=1)
+
+        :param DG dg: the derivation graph which the dumped flow model is build upon.
+        :param f: name of the file with the model to be loaded.
+        :type f: str or CWDPath
+        :param str ilpSolver: the ILP solver to use. See :func:`getAvailableILPSolvers`.
+        :param int verbosity: see :cpp:func:`hyperflow::Model::findSolutions`.
+        :returns: a flow model (possibly with solutions) corresponding to the model stored in the given file.
+            The given derivation graph must match the derivation graph originally used to create the dump.
+        :rtype: Model
+        :raises: :class:`LogicError` if  ``not dg``.
+        :raises: :class:`InputError` on bad data or if the given derivation graph does not match the data.
+    .. staticmethod:: loadString(dg, s, ilpSolver="default", verbosity=1)
+
+        :param DG dg: the derivation graph which the dumped flow model is build upon.
+        :param str s: the string with the dump data to be loaded.
+        :param str ilpSolver: the ILP solver to use. See :func:`getAvailableILPSolvers`.
+        :param int verbosity: see :cpp:func:`hyperflow::Model::findSolutions`.
+        :returns: a flow model (possibly with solutions) corresponding to the model stored in the given string.
+        :rtype: Model
+        :raises: :class:`LogicError` if  ``not dg``.
+        :raises: :class:`InputError` on bad data or if the given derivation graph does not match the data.
+
+.. class:: hyperflow.Model.OverallAutocatalysis
+
+    This class provides access to the module for :ref:`overall autocatalysis <flowCommon-overallAutocata>` of a flow model.
+
+    .. method:: enable()
+
+        Enable the extension. This will also set ``allowReversal`` and ``allowIOReversal`` to ``False``.
+
+        :raises: :class:`LogicError` if :py:attr:`~hyperflow.Model.specificationLocked`.
+        :raises: during model creation, :class:`LogicError` if in relaxed mode.
+    .. attribute:: isEnabled
+
+        Whether the module is enabled.
+
+        :type: bool
+    .. attribute:: forceExistence
+
+        Controls whether a solution must be overall autocatalytic.
+
+        :type: bool
+        :raises: :class:`LogicError` if the module is not enabled.
+        :raises: (only set) :class:`LogicError` if :py:attr:`~hyperflow.Model.specificationLocked`.
+    .. attribute:: strictTransit
+
+        Controls whether transit flow in overall autocatalytic vertices is restricted or not.
+
+        :type: bool
+        :raises: :class:`LogicError` if the module is not enabled.
+        :raises: (only set) :class:`LogicError` if :py:attr:`~hyperflow.Model.specificationLocked`.
+    .. attribute:: bfsExclusive
+
+        Controls whether vertices must be exclusively overall autocatalytic,
+        as determined by breadth-first marking.
+
+        :type: bool
+        :raises: :class:`LogicError` if the module is not enabled.
+        :raises: (only set) :class:`LogicError` if :py:attr:`~hyperflow.Model.specificationLocked`.
+
+.. class:: hyperflow.Model.OverallCatalysis
+
+    This class provides access to the module for :ref:`overall catalysis <flowCommon-overallCata>` of a flow model.
+
+    .. method:: enable()
+
+        Enable the extension. This will also set ``allowReversal`` and ``allowIOReversal`` to ``False``.
+
+        :raises: :class:`LogicError` if :py:attr:`~hyperflow.Model.specificationLocked`.
+        :raises: during model creation, :class:`LogicError` if in relaxed mode.
+    .. attribute:: isEnabled
+
+        Whether the module is enabled.
+
+        :type: bool
+    .. attribute:: forceExistence
+
+        Controls whether a solution must be overall catalytic.
+
+        :type: bool
+        :raises: :class:`LogicError` if the module is not enabled.
+        :raises: (only set) :class:`LogicError` if :py:attr:`~hyperflow.Model.specificationLocked`.
+    .. attribute:: strictTransit
+
+        Controls whether transit flow in overall catalytic vertices is restricted or not.
+
+        :type: bool
+        :raises: :class:`LogicError` if the module is not enabled.
+        :raises: (only set) :class:`LogicError` if :py:attr:`~hyperflow.Model.specificationLocked`.

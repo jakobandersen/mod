@@ -1,0 +1,81 @@
+.. _py-causality/EventTracePrinter:
+
+**********************************************************
+causality/EventTracePrinter
+**********************************************************
+.. default-domain:: py
+
+.. py:currentmodule:: mod
+.. cpp:namespace:: mod
+
+.. class:: causality.EventTracePrinter
+
+    This class is used to configure how event traces are visualised,
+    e.g., which vertices/graphs should be shown, colours, and axis configuration.
+
+    See :cpp:class:`causality::EventTracePrinter` for details on how the plot is rendered,
+    and how the rendering is influenced by the printer.
+
+    .. attribute:: maxPointsPerVertex
+
+        Control how many points are rendered for each different vertex represented in the trace.
+        Data is then visualised at this amount of regular intervals on the time axis.
+        It defaults to 500.
+
+        :type: int
+    .. attribute:: logTime
+
+        Control if the time axis should be logarithmic or not.
+        It defaults to ``false``.
+
+        :type: bool
+    .. attribute:: logCount
+
+        Control if the count axis should be logarithmic or not.
+        It defaults to ``false``.
+
+        :type: bool
+    .. method:: pushOptions(f)
+
+        Add another function or constant that adds options for the axis environment.
+        All options function results are applied.
+
+        :param f: the function or constant to push for specifying options.
+        :type f: Callable[[DG], str] or str
+    .. method:: popOptions()
+
+        Remove the last pushed options function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. method:: pushVertexVisible(f)
+
+        Add another function or constant controlling the visibility of plots of vertices.
+        All visibility functions must return ``true`` for a plot of a vertex to be visible.
+
+        :param f: the function or constant to push for specifying vertex visibility.
+        :type f: Callable[[DG.Vertex], bool] or bool
+    .. method:: popVertexVisible()
+
+        Remove the last pushed vertex visibility function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. method:: pushVertexOptions(f)
+
+        Add another function or constant setting options for the plot of each vertex.
+        All options function results are applied.
+
+        :param f: the function or constant to push for specifying vertex options.
+        :type f: Callable[[DG.Vertex], str] or str
+    .. method:: popVertexOptions()
+
+        Remove the last pushed vertex options function.
+
+        :raises: :class:`LogicError` if no callback is left to pop.
+    .. method:: setPreContent(f)
+                setPostContent(f)
+
+        Set a callback for adding additional content to the plot,
+        either before or after the primary data has been added.
+
+        :param f: the function or constant to set for adding content.
+        :type f: Callable[[DG.Vertex], str] or str

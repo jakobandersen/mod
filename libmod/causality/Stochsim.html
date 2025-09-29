@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2.11.5. causality/Stochsim.hpp &#8212; MØD 1.0.0.9 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.2.12. dg" href="../dg/index.html" />
+    <link rel="prev" title="3.2.11.4. causality/Petri.hpp" href="Petri.html" />
+<!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-3.4.1.slim.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-4.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="../../index.html">
+			MØD</a>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+						<li class="nav-item"><a class="nav-link" href="../../genindex.html">Index</a></li>
+				
+				
+					<li class="nav-item dropdown globaltoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelGlobalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Site
+	</a>
+	<ul class="globaltoc" aria-labelledby="dLabelGlobalToc">
+		<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compiling.html">2. Compiling from Source</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. libMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymod/index.html">4. PyMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../postmod/index.html">5. PostMØD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exe/index.html">6. The Wrapper Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../graphModel/index.html">7. Graph, Rule, and Molecule Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../formats/index.html">8. Data Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dgStrat/index.html">9. Derivation Graph Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hyperflowModel/index.html">10. Hyperflow Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">11. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knownIssues.html">12. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">13. Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">14. References</a></li>
+</ul>
+
+	</ul>
+</li>
+					
+						<li class="nav-item dropdown localtoc-container">
+	<a class="nav-link dropdown-toggle"
+			href="../../index.html"
+			id="dLabelLocalToc"
+			role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Page
+	</a>
+	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
+		<ul>
+<li><a class="reference internal" href="#">3.2.11.5. causality/Stochsim.hpp</a><ul>
+<li><a class="reference internal" href="#class-causality-drawmassactionfunction">3.2.11.5.1. Class <code class="docutils literal notranslate"><span class="pre">causality::DrawMassActionFunction</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunctionE"><code class="docutils literal notranslate"><span class="pre">DrawMassActionFunction</span></code></a></li>
+<li><a class="reference internal" href="#synopsis">3.2.11.5.1.1. Synopsis</a></li>
+<li><a class="reference internal" href="#details">3.2.11.5.1.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE"><code class="docutils literal notranslate"><span class="pre">DrawMassActionFunction()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction8syncSizeEv"><code class="docutils literal notranslate"><span class="pre">syncSize()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction4drawERK7Marking"><code class="docutils literal notranslate"><span class="pre">draw()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+	</ul>
+</li>
+					
+				
+				
+					
+						
+	<li class="nav-item">
+		<a class="nav-link" href="Petri.html" title="Previous Chapter: 3.2.11.4. causality/Petri.hpp">
+			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">
+				&laquo; 3.2.11.4. cau...
+			</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="../dg/index.html" title="Next Chapter: 3.2.12. dg">
+			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
+			<span class="hidden-sm hidden-tablet">3.2.12. dg &raquo;</span>
+		</a>
+	</li>
+					
+				
+				
+				
+				
+			</ul>
+			
+				
+<form class="form-inline" action="../../search.html" method="get">
+	<div class="form-group">
+		<input type="text" name="q" class="form-control" placeholder="Search" />
+	</div>
+	<input type="hidden" name="check_keywords" value="yes" />
+	<input type="hidden" name="area" value="default" />
+</form>
+			
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="body col-md-12 content" role="main">
+			
+  <section id="causality-stochsim-hpp">
+<span id="cpp-causality-stochsim"></span><h1><span class="section-number">3.2.11.5. </span>causality/Stochsim.hpp<a class="headerlink" href="#causality-stochsim-hpp" title="Link to this heading">¶</a></h1>
+<section id="class-causality-drawmassactionfunction">
+<h2><span class="section-number">3.2.11.5.1. </span>Class <code class="docutils literal notranslate"><span class="pre">causality::DrawMassActionFunction</span></code><a class="headerlink" href="#class-causality-drawmassactionfunction" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality22DrawMassActionFunctionE">
+<span id="_CPPv3N3mod9causality22DrawMassActionFunctionE"></span><span id="_CPPv2N3mod9causality22DrawMassActionFunctionE"></span><span id="mod::causality::DrawMassActionFunction"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">causality</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">DrawMassActionFunction</span></span></span><a class="headerlink" href="#_CPPv4N3mod9causality22DrawMassActionFunctionE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A helper class for performing stochastic simulations where
+events are drawn according to the law of mass action.
+Importantly, if the underlying derivation graph is enlarged then
+<a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction8syncSizeEv" title="mod::causality::DrawMassActionFunction::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> must be called before calling <a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction4drawERK7Marking" title="mod::causality::DrawMassActionFunction::draw"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">draw()</span></code></a>.</p>
+</dd></dl>
+
+<section id="synopsis">
+<h3><span class="section-number">3.2.11.5.1.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE" title="mod::causality::DrawMassActionFunction::DrawMassActionFunction"><span class="n"><span class="pre">DrawMassActionFunction</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">dg_</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">inputRate</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">reactionRate</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">outputRate</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction8syncSizeEv" title="mod::causality::DrawMassActionFunction::syncSize"><span class="n"><span class="pre">syncSize</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="EventTrace.html#_CPPv4N3mod9causality6ActionE" title="mod::causality::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction4drawERK7Marking" title="mod::causality::DrawMassActionFunction::draw"><span class="n"><span class="pre">draw</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Petri.html#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="details">
+<h3><span class="section-number">3.2.11.5.1.2. </span>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE">
+<span id="_CPPv3N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE"></span><span id="_CPPv2N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE"></span><span class="sig-name descname"><span class="n"><span class="pre">DrawMassActionFunction</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dg_</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inputRate</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG9HyperEdgeE" title="mod::dg::DG::HyperEdge"><span class="n"><span class="pre">HyperEdge</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">reactionRate</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/GraphInterface.html#_CPPv4N3mod2dg2DG6VertexE" title="mod::dg::DG::Vertex"><span class="n"><span class="pre">Vertex</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">outputRate</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a new instance, based on the given derivation graph.
+The return value of the rate callbacks must be 1) the rate and 2) a boolean telling whether
+the library should cache the rate. If <span class="cpp-texpr sig sig-inline cpp"><span class="k">true</span></span> no more calls with the same argument will be made.
+Each of the rate functions may be an empty <span class="cpp-texpr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">function</span></span> (i.e., default constructed),
+which means a default rate is used: input rate 0.0, reaction rate 1.0, output rate 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE" title="mod::causality::DrawMassActionFunction::DrawMassActionFunction::dg_"><span class="n">dg_</span></a></span>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if neither <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE" title="mod::causality::DrawMassActionFunction::DrawMassActionFunction::dg_"><span class="n">dg_</span></a><span class="o">-&gt;</span><span class="n">hasActiveBuilder</span><span class="p">(</span><span class="p">)</span></span> nor <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction22DrawMassActionFunctionENSt10shared_ptrIN2dg2DGEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEENSt8functionIFNSt4pairIdbEEN2dg2DG9HyperEdgeEEEENSt8functionIFNSt4pairIdbEEN2dg2DG6VertexEEEE" title="mod::causality::DrawMassActionFunction::DrawMassActionFunction::dg_"><span class="n">dg_</span></a><span class="o">-&gt;</span><span class="n">isLocked</span><span class="p">(</span><span class="p">)</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality22DrawMassActionFunction8syncSizeEv">
+<span id="_CPPv3N3mod9causality22DrawMassActionFunction8syncSizeEv"></span><span id="_CPPv2N3mod9causality22DrawMassActionFunction8syncSizeEv"></span><span id="mod::causality::DrawMassActionFunction::syncSize"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">syncSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality22DrawMassActionFunction8syncSizeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Enlarges the internal data structures to the current size of the underlying derivation graph.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality22DrawMassActionFunction4drawERK7Marking">
+<span id="_CPPv3N3mod9causality22DrawMassActionFunction4drawERK7Marking"></span><span id="_CPPv2N3mod9causality22DrawMassActionFunction4drawERK7Marking"></span><span id="mod::causality::DrawMassActionFunction::draw__MarkingCR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="EventTrace.html#_CPPv4N3mod9causality6ActionE" title="mod::causality::Action"><span class="n"><span class="pre">Action</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">draw</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Petri.html#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">m</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality22DrawMassActionFunction4drawERK7Marking" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>an action, randomly selected according to the low of mass action
+based on the given population/marking and the rates.
+The second returned component is the sum of reactivity for the given reactions/hyperedges.</p>
+<p>If no events are possible, then the second component is 0.0 and the first component has no value.</p>
+<p>Use <a class="reference internal" href="../Misc.html#_CPPv4N3mod9rngReseedEj" title="mod::rngReseed"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rngReseed()</span></code></a> to seed the pseudo-random bit generator used for the selection.</p>
+</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction4drawERK7Marking" title="mod::causality::DrawMassActionFunction::draw::m"><span class="n">m</span></a></span> is not a marking on the underlying derivation graph.</p>
+</dd>
+</dl>
+<p>Requires <a class="reference internal" href="#_CPPv4N3mod9causality22DrawMassActionFunction8syncSizeEv" title="mod::causality::DrawMassActionFunction::syncSize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> to have been called since the last time the underlying derivation graph has changed size.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+		</div>
+		  
+	</div>
+</div>
+<footer class="footer"><div class="container"><div class="row">
+	<div class="col-auto mr-auto">
+		<p>
+					&copy; Copyright 2013-2025, Jakob Lykke Andersen.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+		</p>
+	</div>
+	<div class="col-auto">
+		<a href="#">Back to top</a>
+		
+			<br/>
+			
+	<div id="sourcelink">
+		<a href="../../_sources/libmod/causality/Stochsim.rst.txt"
+			 rel="nofollow">Source</a>
+	</div>
+		
+	</div>
+</div></div></footer>
+  </body>
+</html>
