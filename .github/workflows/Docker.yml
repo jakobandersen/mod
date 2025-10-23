@@ -5,6 +5,7 @@ jobs:
     strategy:
       matrix:
         image: [Ubuntu, Fedora, Arch, Conda]
+      fail-fast: false
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
