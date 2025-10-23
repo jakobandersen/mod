@@ -54,8 +54,11 @@ jobs:
       run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
       run: mod -e "Graph.fromSMILES('O').print()"
-  macOS-13:
-    runs-on: macos-13
+  macOS:
+    strategy:
+      matrix:
+        version: [13, 14, 15]
+    runs-on: macos-${{ matrix.version }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -83,67 +86,5 @@ jobs:
       run: cd build && make tests -j 4
     - name: Run tests
       run: cd build && ctest --output-on-failure -j 4
-    - name: Run simple test
-      run: mod -e "Graph.fromSMILES('O').print()"
-  macOS-14:
-    runs-on: macos-14
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        submodules: 'recursive'
-    - name: Install Brew dependencies
-      run: |
-        brew bundle
-        /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
-    - name: Install pip dependencies
-      run: pip3 install -r requirements.txt
-    - name: Bootstrap
-      run: ./bootstrap.sh
-    - name: Configure
-      run: |
-        mkdir build
-        cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DWITH_GUROBI=no -DWITH_CPLEX=no
-    - name: Build
-      run: cd build && make -j 4
-    - name: Install
-      run: cd build && sudo make install
-    - name: Build tests
-      run: cd build && make tests -j 4
-    - name: Run tests
-      run: cd build && ctest --output-on-failure -j 4
-    - name: Run simple test
-      run: mod -e "Graph.fromSMILES('O').print()"
-  macOS-15:
-    runs-on: macos-15
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        submodules: 'recursive'
-    - name: Install Brew dependencies
-      run: |
-        brew bundle
-        /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
-    - name: Install pip dependencies
-      run: pip3 install -r requirements.txt
-    - name: Bootstrap
-      run: ./bootstrap.sh
-    - name: Configure
-      run: |
-        mkdir build
-        cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_TESTING=on -DWITH_GUROBI=no -DWITH_CPLEX=no
-    - name: Build
-      run: cd build && make -j 3
-    - name: Install
-      run: cd build && sudo make install
-    - name: Build tests
-      run: cd build && make tests -j 3
-    - name: Run tests
-      run: cd build && ctest --output-on-failure -j 3
     - name: Run simple test
       run: mod -e "Graph.fromSMILES('O').print()"

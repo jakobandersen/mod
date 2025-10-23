@@ -19,20 +19,13 @@ jobs:
         pip3 install -r requirements.txt
     - name: Install apt dependencies
       run: sudo apt install -y $(bindep -b | tr '\n' ' ')
-    - name: Install Boost
-      run: |
-        wget https://archives.boost.io/release/1.80.0/source/boost_1_80_0.tar.gz
-        tar -xf boost_1_80_0.tar.gz
-        cd boost_1_80_0
-        ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
-        ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
       run: |
         mkdir build
         cd build
-        cmake ../ -DCMAKE_PREFIX_PATH=/opt/boost -DBUILD_POST_MOD=off -DWITH_GUROBI=no -DWITH_CPLEX=no
+        cmake ../ -DBUILD_MOD=off -DBUILD_POST_MOD=no
     - name: Make archive
       run: cd build && make dist
     - name: Build
