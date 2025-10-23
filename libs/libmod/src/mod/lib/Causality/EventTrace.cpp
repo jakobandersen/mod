@@ -61,6 +61,7 @@ const std::vector <EventTrace::Event> &EventTrace::getEvents() const {
 }
 
 nlohmann::json EventTrace::dump() const {
+	syncSize();
 	nlohmann::json j;
 	j["version"] = 1;
 	j["dgData"] = lib::DG::Write::dumpDigest(dg.getGraph());
@@ -164,7 +165,7 @@ std::optional <EventTrace> EventTrace::load(const Net &net, const std::string &f
 				trace.add(Event{time, OutputAction{*vOpt}});
 			}
 		} else {
-			const auto vOpt = lib::DG::Read::vertex(dg, -action - 1, err, "Event input action error.");
+			const auto vOpt = lib::DG::Read::vertex(dg, -(action + 1), err, "Event input action error.");
 			if(!vOpt) return {};
 			trace.add(Event{time, InputAction{*vOpt}});
 		}

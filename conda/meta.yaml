@@ -69,6 +69,6 @@ requirements:
 
 test:
   commands:
-    - mod -e "smiles('O').print()"
+    - mod -e "Graph.fromSMILES('O').print()"
     - mod_post --install-format
-    - mod -e "smiles('O').print()"
+    - mod -e "Graph.fromSMILES('O').print()"

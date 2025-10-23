@@ -355,7 +355,7 @@ M  V30 BEGIN BOND
 M  V30 1 5 1 2
 M  V30 END BOND
 M  V30 END CTAB
-M  END""", options=o).isomorphism(graphDFS("C([H])([H])([H]){_Q_1_2_5}C([H])([H])([H])")) == 1
+M  END""", options=o).isomorphism(Graph.fromDFS("C([H])([H])([H]){_Q_1_2_5}C([H])([H])([H])")) == 1
 
 sep("CTAB end")
 fail("""\n\n\n  1  0  0  0  0  0  0  0  0  0999 V3000

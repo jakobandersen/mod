@@ -1,8 +1,8 @@
-water = smiles("O", "H_2O")
-cit = smiles("C(C(=O)O)C(CC(=O)O)(C(=O)O)O", name="Cit")
-d_icit = smiles("C([C@@H]([C@H](C(=O)O)O)C(=O)O)C(=O)O", name="D-ICit")
+water = Graph.fromSMILES("O", "H_2O")
+cit = Graph.fromSMILES("C(C(=O)O)C(CC(=O)O)(C(=O)O)O", name="Cit")
+d_icit = Graph.fromSMILES("C([C@@H]([C@H](C(=O)O)O)C(=O)O)C(=O)O", name="D-ICit")
 
-aconitase = ruleGMLString("""rule [
+aconitase = Rule.fromGMLString("""rule [
 	ruleID "Aconitase"
 	left [
 		# the dehydrated water

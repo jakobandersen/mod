@@ -1,7 +1,7 @@
 include("xx0_helpers.py")
 
-g1a = smiles('O', "g1a")
-g2a = smiles('C', "g2a")
+g1a = Graph.fromSMILES('O', "g1a")
+g2a = Graph.fromSMILES('C', "g2a")
 
 dg = DG()
 res = dg.build().execute(addSubset(g1a) >> addSubset(g2a))
@@ -47,7 +47,7 @@ with dg.build() as b:
 							>> filterSubset(False)
 							>> filterUniverse(lambda g, gs, first: False)
 							>> addSubset(inputGraphs)
-							>> ruleGMLString("rule [ left [ node [ id 0 label \"O\" ] ] right [ node [ id 0 label \"Q\" ] ] ]")
+							>> Rule.fromGMLString("rule [ left [ node [ id 0 label \"O\" ] ] right [ node [ id 0 label \"Q\" ] ] ]")
 						)
 					)
 				)

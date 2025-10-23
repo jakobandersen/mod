@@ -1,8 +1,8 @@
-a = graphDFS("[a]")
-aa = graphDFS("[_A][_A]")
-aaWild = graphDFS("[*]{*}[f(*)]")
+a = Graph.fromDFS("[a]")
+aa = Graph.fromDFS("[_A][_A]")
+aaWild = Graph.fromDFS("[*]{*}[f(*)]")
 
-p = ruleGMLString("""rule [
+p = Rule.fromGMLString("""rule [
 	ruleID "A"
 	left [
 		node [ id 0 label "a" ]
@@ -13,7 +13,7 @@ p = ruleGMLString("""rule [
 		edge [ source 0 target 1 label "-" ]
 	]
 ]""")
-pWild = ruleGMLString("""rule [
+pWild = Rule.fromGMLString("""rule [
 	ruleID "AWild"
 	left [
 		node [ id 0 label "a" ]
@@ -26,7 +26,7 @@ pWild = ruleGMLString("""rule [
 ]""")
 	
 
-dg = DG(graphDatabase=inputGraphs, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Unification))
+dg = DG(graphDatabase=inputGraphs, labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation))
 dg.build().execute(addSubset(inputGraphs) >> inputRules)
 dg.print()
 post.summarySection("Input Graphs")

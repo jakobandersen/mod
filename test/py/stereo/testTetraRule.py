@@ -1,4 +1,4 @@
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
     left [
         node [ id 10 label "H" ]
     ]
@@ -16,7 +16,7 @@ r = ruleGMLString("""rule [
         edge [ source 10 target 13 label "-" ]
     ]
 ]""")
-g = smiles("[O][C@]([C@H3])([C@H2][C@H3])([C@H2][C@H3])")
+g = Graph.fromSMILES("[O][C@]([C@H3])([C@H2][C@H3])([C@H2][C@H3])")
 
 post.summaryChapter("DG")
 ls = LabelSettings(LabelType.String, LabelRelation.Isomorphism, LabelRelation.Specialisation)
@@ -33,8 +33,8 @@ print("Res:", len(res))
 for a in res: a.print()
 
 post.summaryChapter("Iso")
-g1 = smiles("[O][C@]([C@H3])([C@H2][C@H3])([C@H2][C@H]([C@H3])([C@H3]))")
-g2 = smiles("[O][C@@]([C@H3])([C@H2][C@H3])([C@H2][C@H]([C@H3])([C@H3]))")
+g1 = Graph.fromSMILES("[O][C@]([C@H3])([C@H2][C@H3])([C@H2][C@H]([C@H3])([C@H3]))")
+g2 = Graph.fromSMILES("[O][C@@]([C@H3])([C@H2][C@H3])([C@H2][C@H]([C@H3])([C@H3]))")
 p = GraphPrinter()
 p.withPrettyStereo = True
 g1.print(p)

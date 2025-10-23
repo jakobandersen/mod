@@ -2,8 +2,8 @@ include("stochsim_xx1_helpers.py")
 
 # Do basic API tests, basically just checking the names and shape of functions.
 
-g0 = graphDFS('[O]')
-g1 = graphDFS('[S]')
+g0 = Graph.fromDFS('[O]')
+g1 = Graph.fromDFS('[S]')
 r = Rule.fromDFS("[O]1>>[S]1")
 
 

@@ -1,22 +1,22 @@
 # A rule (L <- K -> R) is specified by three graph fragments:
 # left, context, and right
-destroyVertex = ruleGMLString("""rule [
+destroyVertex = Rule.fromGMLString("""rule [
 	left [
 		node [ id 1 label "A" ]
 	]
 ]""")
-createVertex = ruleGMLString("""rule [
+createVertex = Rule.fromGMLString("""rule [
 	right [
 		node [ id 1 label "A" ]
 	]
 ]""")
-identity = ruleGMLString("""rule [
+identity = Rule.fromGMLString("""rule [
 	context [
 		node [ id 1 label "A" ]
 	]
 ]""")
 # A vertex/edge can change label:
-labelChange = ruleGMLString("""rule [
+labelChange = Rule.fromGMLString("""rule [
 	left [
 		node [ id 1 label "A" ]
 		edge [ source 1 target 2 label "A" ]
@@ -31,7 +31,7 @@ labelChange = ruleGMLString("""rule [
 	]
 ]""")
 # A chemical rule should probably not destroy and create vertices:
-ketoEnol = ruleGMLString("""rule [
+ketoEnol = Rule.fromGMLString("""rule [
 	left [
 		edge [ source 1 target 4 label "-" ]
 		edge [ source 1 target 2 label "-" ]

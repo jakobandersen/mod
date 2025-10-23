@@ -1,7 +1,3 @@
-if(NOT BUILD_DOC)
-    return()
-endif()
-
 set(output ${CMAKE_CURRENT_BINARY_DIR}/html)
 set(doctrees ${CMAKE_CURRENT_BINARY_DIR}/doctrees)
 add_custom_command(

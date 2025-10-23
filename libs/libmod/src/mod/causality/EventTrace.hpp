@@ -12,6 +12,11 @@
 
 namespace mod::causality {
 
+// rst:
+// rst:	.. versionadded:: 1.1
+// rst:
+// rst:	.. todo:: check version added before release
+// rst:
 // rst: .. type:: causality::Action = std::variant<causality::EdgeAction, causality::InputAction, causality::OutputAction>
 
 // rst:
@@ -137,6 +142,10 @@ public:
 	EventTrace(const EventTrace &);
 	EventTrace &operator=(const EventTrace &);
 public:
+	// rst: .. function:: std::shared_ptr<dg::DG> getDG() const
+	// rst:
+	// rst:		:returns:  the underlying derivation graph of the event trace.
+	std::shared_ptr<dg::DG> getDG() const;
 	// rst: .. function:: Marking getInitialState() const
 	// rst:
 	// rst:		:returns: a copy of the initial state for this event trace.

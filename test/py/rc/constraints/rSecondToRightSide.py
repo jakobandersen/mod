@@ -1,5 +1,5 @@
-r1 = ruleGML("rSecondToRightSide_r1.gml")
-r2 = ruleGML("rSecondToRightSide_r2.gml")
+r1 = Rule.fromGMLFile("rSecondToRightSide_r1.gml")
+r2 = Rule.fromGMLFile("rSecondToRightSide_r2.gml")
 
 for a in inputRules: a.print()
 

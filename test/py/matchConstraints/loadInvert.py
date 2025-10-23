@@ -6,17 +6,17 @@ rStr = """rule [
 		id 0 op "=" count 0
 	]
 ]"""
-r = ruleGMLString(rStr)
+r = Rule.fromGMLString(rStr)
 try:
 	r.makeInverse()
 	assert False
 except LogicError:
 	pass
 try:
-	ruleGMLString(rStr, invert=True)
+	Rule.fromGMLString(rStr, invert=True)
 	assert False
 except InputError:
 	pass
 config.rule.ignoreConstraintsDuringInversion = True
 r.makeInverse()
-ruleGMLString(rStr, invert=True)
+Rule.fromGMLString(rStr, invert=True)

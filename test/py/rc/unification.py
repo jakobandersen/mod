@@ -1,6 +1,6 @@
 include("../xxx_helpers.py")
 
-inc = ruleGMLString("""rule [
+inc = Rule.fromGMLString("""rule [
 	ruleID "inc"
 	left [
 		node [ id 0 label "NUM(_N)" ]
@@ -10,7 +10,7 @@ inc = ruleGMLString("""rule [
 	]
 ]""")
 inc.printTermState()
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "NUM(0)" ]
 ]""")
 

@@ -2,8 +2,8 @@ include("xx0_helpers.py")
 
 dg =  DG()
 d1 = Derivations()
-d1.left = [smiles("OCC=O")]
-d1.right = [smiles("OC=CO")]
+d1.left = [Graph.fromSMILES("OCC=O")]
+d1.right = [Graph.fromSMILES("OC=CO")]
 d2 = Derivations()
 d2.left = d1.right
 d2.right = d1.left

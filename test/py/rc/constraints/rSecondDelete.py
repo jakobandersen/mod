@@ -1,5 +1,5 @@
-r1 = ruleGML("rSecondDelete_r1.gml")
-r2 = ruleGML("rSecondDelete_r2.gml")
+r1 = Rule.fromGMLFile("rSecondDelete_r1.gml")
+r2 = Rule.fromGMLFile("rSecondDelete_r2.gml")
 
 for a in inputRules: a.print()
 

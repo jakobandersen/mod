@@ -1,6 +1,6 @@
 include("../xxx_helpers.py")
 
-ls = LabelSettings(LabelType.Term, LabelRelation.Unification)
+ls = LabelSettings(LabelType.Term, LabelRelation.Specialisation)
 
 g = Graph.fromDFS("[C/][C]")
 r = Rule.fromGMLString("""rule [ context [ node [ id 0 label "C/" ] ] ]""")

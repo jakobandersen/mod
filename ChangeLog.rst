@@ -7,6 +7,19 @@ Changes
 develop
 =======
 
+Incompatible Changes
+--------------------
+
+- The old names of the graph and rule loading functions have been deprecated.
+  The replacements are
+
+  - ``graphGMLString``: :py:meth:`Graph.fromGMLString`
+  - ``graphGML``: :py:meth:`Graph.fromGMLFile`
+  - ``graphDFS``: :py:meth:`Graph.fromDFS`
+  - ``smiles``: :py:meth:`Graph.fromSMILES`
+  - ``ruleGMLString``: :py:meth:`Rule.fromGMLString`
+  - ``ruleGML``: :py:meth:`Rule.fromGMLFile`
+
 New Features
 ------------
 
@@ -31,6 +44,9 @@ New Features
   - :py:class:`causality.Net`/:cpp:class:`causality::Net`
   - :py:class:`causality.Marking`/:cpp:class:`causality::Marking`
 
+- Added :cpp:func:`LabelSettings::formCategory`/:py:attr:`LabelSettings.formCategory`.
+- Added new CMake setting ``BUILD_MOD`` to make it easier to compile just the documentation.
+
 
 Bugs Fixed
 ----------
@@ -39,6 +55,12 @@ Bugs Fixed
   undefined behaviour.
 - For :py:func:`hyperflow.Model.loadString`, the ``listModel`` parameter
   doesn't exist, and has now been removed from the documentation.
+- Throw exception when using label settings that do not form a category
+  (i.e., uses :py:attr:`LabelRelation.Unification`)
+  from :cpp:func:`dg::DG::make`/:py:meth:`DG.__init__`.
+- Fix equality operator for :py:class:`Graph`, :py:class:`Rule`, :py:class:`DG`, and
+  :py:class:`hyperflow.Model` to compare types, so mixed-type comparison does not
+  result in false positives.
 
 
 v1.0.0 (2025-05-14)
@@ -266,13 +288,13 @@ New Features
 - Added ``verbosity`` argument for :cpp:func:`dg::DG::HyperEdge::print`/:py:meth:`DG.HyperEdge.print` for printing debug information.
 - Added ``printStereoWarnings`` flag to several loading functions:
 
-  - :cpp:func:`graph::Graph::fromGMLString`/:py:meth:`Graph.fromGMLString`/:py:func:`graphGMLString`
+  - :cpp:func:`graph::Graph::fromGMLString`/:py:meth:`Graph.fromGMLString`/``graphGMLString``
   - :cpp:func:`graph::Graph::fromGMLStringMulti`/:py:meth:`Graph.fromGMLStringMulti`
-  - :cpp:func:`graph::Graph::fromGMLFile`/:py:meth:`Graph.fromGMLFile`/:py:func:`graphGML`
+  - :cpp:func:`graph::Graph::fromGMLFile`/:py:meth:`Graph.fromGMLFile`/``graphGML``
   - :cpp:func:`graph::Graph::fromGMLFileMulti`/:py:meth:`Graph.fromGMLFileMulti`
-  - :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`Graph.fromSMILES`/:py:func:`smiles`
-  - :cpp:func:`rule::Rule::fromGMLString`/:py:meth:`Rule.fromGMLString`/:py:func:`ruleGMLString`
-  - :cpp:func:`rule::Rule::fromGMLFile`/:py:meth:`Rule.fromGMLFile`/:py:func:`ruleGML`
+  - :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`Graph.fromSMILES`/``smiles``
+  - :cpp:func:`rule::Rule::fromGMLString`/:py:meth:`Rule.fromGMLString`/``ruleGMLString``
+  - :cpp:func:`rule::Rule::fromGMLFile`/:py:meth:`Rule.fromGMLFile`/``ruleGML``
 
   If the input contains stereo-information, then the full stereo-information
   is inferred. This flag suppresses printing of warnings from this inferrence.
@@ -507,12 +529,12 @@ New Features
   target filename as argument.
 - Add the static methods
 
-  - :py:func:`Graph.fromGMLString` (the same as :py:func:`graphGMLString`)
-  - :py:func:`Graph.fromGMLFile`   (the same as :py:func:`graphGML`)
-  - :py:func:`Graph.fromDFS`       (the same as :py:func:`graphDFS`)
-  - :py:func:`Graph.fromSMILES`    (the same as :py:func:`smiles`)
-  - :py:func:`Rule.fromGMLString`  (the same as :py:func:`ruleGMLString`)
-  - :py:func:`Rule.fromGMLFile`    (the same as :py:func:`ruleGML`)
+  - :py:func:`Graph.fromGMLString` (the same as ``graphGMLString``)
+  - :py:func:`Graph.fromGMLFile`   (the same as ``graphGML``)
+  - :py:func:`Graph.fromDFS`       (the same as ``graphDFS``)
+  - :py:func:`Graph.fromSMILES`    (the same as ``smiles``)
+  - :py:func:`Rule.fromGMLString`  (the same as ``ruleGMLString``)
+  - :py:func:`Rule.fromGMLFile`    (the same as ``ruleGML``)
 - Allow dot (``.``) bonds in :ref:`SMILES <graph-smiles>` strings.
 - Add the following functions for loading a possibly disconnected graph:
 
@@ -717,19 +739,19 @@ New Features
 
 - Added :cpp:func:`dg::Builder::apply`/:py:meth:`DG.Builder.apply`
   as a lower-level function for computing proper direct derivations.
-- :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`smiles`:
+- :cpp:func:`graph::Graph::fromSMILES`/``smiles``:
 
   - Generalize the parser to accept almost arbitrary strings as symbols inside
     brackets. See :ref:`graph-smiles`.
     This is only allowed when passing ``allowPartial=True`` to
-    :py:meth:`smiles`.
+    ``smiles``.
   - Generalize the parser to accept ring-bonds and branches in mixed order.
   - Generalize the parser to accept non-standard charges:
     ``+++``, ``++``, ``---``, ``--``, and magnitudes larger than +/-9.
 
 - Added the PyMØD submodule for EpiM.
 - Added :cpp:enum:`SmilesClassPolicy`/:py:class:`SmilesClassPolicy`
-  argument to :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`smiles`.
+  argument to :cpp:func:`graph::Graph::fromSMILES`/``smiles``.
 - Support using either Open Babel 2 or 3 as dependency.
 - Make :py:attr:`DGPrinter.graphPrinter` writeable as well.
 - Make :cpp:class:`graph::Printer`/:py:class:`GraphPrinter` equality comparable.
@@ -788,7 +810,7 @@ Bugs Fixed
   - :cpp:func:`dg::Printer::setRotationOverwrite`, and
   - :cpp:func:`dg::Printer::setMirrorOverwrite`.
 
-- :cpp:func:`graph::Graph::fromSMILES`/:py:meth:`smiles`:
+- :cpp:func:`graph::Graph::fromSMILES`/``smiles``:
 
   - Improve parsing error messages.
   - Fix missing external ID for bracketed wildcard atoms with class label,
@@ -1042,8 +1064,8 @@ New Features
   calculation.
 - Added include of the PGFPlots package in the summary preamble.
 - Added :cpp:any:`AtomId::symbol`/:py:obj:`AtomId.symbol`.
-- Added an ``add`` parameter to :py:obj:`graphGMLString`, :py:obj:`graphGML`,
-  :py:obj:`graphDFS`, :py:obj:`smiles`, :py:obj:`ruleGMLString`, and :py:obj:`ruleGML`.
+- Added an ``add`` parameter to ``graphGMLString``, ``graphGML``,
+  ``graphDFS``, ``smiles``, ``ruleGMLString``, and ``ruleGML``.
   It controls whether the graph/rule is appended to :py:obj:`inputGraphs`/:py:obj:`inputRules`
   or not. It defaults to ``True``.
 - Add :cpp:any:`graph::Graph::getGraphDFSWithIds`/:py:obj:`Graph.graphDFSWithIds`

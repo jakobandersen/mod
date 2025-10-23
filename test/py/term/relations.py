@@ -1,8 +1,8 @@
 post.summaryChapter("DG")
 print("DG")
 print("="*80)
-a = graphDFS("[f(a)][f(b)]")
-b = ruleGMLString("""rule [
+a = Graph.fromDFS("[f(a)][f(b)]")
+b = Rule.fromGMLString("""rule [
 	ruleID "b"
 	context [
 		node [ id 0 label "f(_X)" ]
@@ -13,7 +13,7 @@ b = ruleGMLString("""rule [
 b.printTermState()
 
 dg = DG(graphDatabase=inputGraphs,
-	labelSettings=LabelSettings(LabelType.Term, LabelRelation.Unification))
+	labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation))
 dg.build().execute(addSubset(a) >> b)
 p = DGPrinter()
 p.graphPrinter.withGraphvizCoords = True
@@ -46,9 +46,9 @@ def doRelations(xy1, xy2, xx):
 post.summaryChapter("Graph")
 print("Graph")
 print("="*80)
-xy1 = graphDFS("[f(_X, _Y)][a]")
-xy2 = graphDFS("[a][f(_A, _B)]")
-xx = graphDFS("[a][f(_X, _X)]")
+xy1 = Graph.fromDFS("[f(_X, _Y)][a]")
+xy2 = Graph.fromDFS("[a][f(_A, _B)]")
+xx = Graph.fromDFS("[a][f(_X, _X)]")
 doRelations(xy1, xy2, xx)
 
 post.summaryChapter("Rule")
@@ -58,26 +58,3 @@ xy1 = RCEvaluator([]).eval(rcId(xy1))[0]
 xy2 = RCEvaluator([]).eval(rcId(xy2))[0]
 xx = RCEvaluator([]).eval(rcId(xx))[0]
 doRelations(xy1, xy2, xx)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

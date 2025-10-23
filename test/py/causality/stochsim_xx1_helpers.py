@@ -1,4 +1,4 @@
-post.disableInvokeMake()
+include("../xxx_helpers.py")
 
 def setCallbacks(sim):
 	def onIterationBegin(s):

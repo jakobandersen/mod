@@ -2,8 +2,8 @@ def parseReactionSmiles(line: str) -> Rule:
 	sLeft, sRight = line.split(">>")
 	ssLeft = sLeft.split(".")
 	ssRight = sRight.split(".")
-	mLeft = [smiles(s, add=False) for s in ssLeft]
-	mRight = [smiles(s, add=False) for s in ssRight]
+	mLeft = [Graph.fromSMILES(s, add=False) for s in ssLeft]
+	mRight = [Graph.fromSMILES(s, add=False) for s in ssRight]
 	def printGraph(g):
 		extFromInt = {}
 		for iExt in range(g.minExternalId, g.maxExternalId + 1):

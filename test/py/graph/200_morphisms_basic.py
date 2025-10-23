@@ -1,6 +1,6 @@
 include("2xx_morphisms_helpers.py")
 
-g = smiles("O")
+g = Graph.fromSMILES("O")
 fail(lambda: g.isomorphism(None), "codomain is null.")
 fail(lambda: g.monomorphism(None), "codomain is null.")
 

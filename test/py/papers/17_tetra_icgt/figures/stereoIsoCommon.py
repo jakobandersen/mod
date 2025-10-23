@@ -1,4 +1,4 @@
-generalise = ruleGMLString("""rule [
+generalise = Rule.fromGMLString("""rule [
 	ruleID "Generalize"
 	left [
 		node [ id 0 stereo "tetrahedral[1, 2, 3, 4]!" ]
@@ -18,7 +18,7 @@ generalise = ruleGMLString("""rule [
 		node [ id 0 stereo "tetrahedral" ]
 	]
 ]""")
-change = ruleGMLString("""rule [
+change = Rule.fromGMLString("""rule [
 	ruleID "Change"
 	left [
 		node [ id 0 stereo "tetrahedral" ]

@@ -7,7 +7,7 @@ vAOther = next(iter(eOther.sources))
 vBOther = next(iter(eOther.targets))
 assert dgOther.findEdge([vAOther], [vBOther]) == eOther
 
-g = smiles('O')
+g = Graph.fromSMILES('O')
 v = DG.Vertex()
 
 dg =  DG()

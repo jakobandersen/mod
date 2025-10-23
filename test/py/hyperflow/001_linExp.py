@@ -1,6 +1,6 @@
 include("../xxx_helpers.py")
 
-g = smiles("O", "Water")
+g = Graph.fromSMILES("O", "Water")
 dg = DG()
 dg.build().addAbstract("A -> B")
 v = next(iter(dg.vertices))

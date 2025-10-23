@@ -1,9 +1,9 @@
 include("1xx_execute_helpers.py")
 
-g1 = smiles("[C]", "g1")
-g2 = smiles("[N]", "g2")
-g3 = smiles("[O]", "g3")
-r = ruleGMLString("""rule [
+g1 = Graph.fromSMILES("[C]", "g1")
+g2 = Graph.fromSMILES("[N]", "g2")
+g3 = Graph.fromSMILES("[O]", "g3")
+r = Rule.fromGMLString("""rule [
 	left  [ node [ id 0 label "C" ] ]
 	right [ node [ id 0 label "N" ] ]
 ]""")

@@ -1,10 +1,10 @@
 include("xx0_helpers.py")
 disableBuildHook()
 
-g = smiles("O")
-g1 = smiles('O')
-g2 = smiles('O')
-r = ruleGMLString("""rule [
+g = Graph.fromSMILES("O")
+g1 = Graph.fromSMILES('O')
+g2 = Graph.fromSMILES('O')
+r = Rule.fromGMLString("""rule [
 	left [ node [ id 0 label "O" ] ]
 	right [ node [ id 0 label "S" ] ]
 ]""")

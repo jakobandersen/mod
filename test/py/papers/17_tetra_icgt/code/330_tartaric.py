@@ -1,8 +1,8 @@
-smiles("C(C(C(=O)O)O)(C(=O)O)O", name="Tartaric acid")
-smiles("[C@@H]([C@H](C(=O)O)O)(C(=O)O)O", name="L-tartaric acid")
-smiles("[C@H]([C@@H](C(=O)O)O)(C(=O)O)O", name="D-tartaric acid")
-smiles("[C@@H]([C@@H](C(=O)O)O)(C(=O)O)O", name="Meso-tartaric acid")
-change = ruleGMLString("""rule [
+Graph.fromSMILES("C(C(C(=O)O)O)(C(=O)O)O", name="Tartaric acid")
+Graph.fromSMILES("[C@@H]([C@H](C(=O)O)O)(C(=O)O)O", name="L-tartaric acid")
+Graph.fromSMILES("[C@H]([C@@H](C(=O)O)O)(C(=O)O)O", name="D-tartaric acid")
+Graph.fromSMILES("[C@@H]([C@@H](C(=O)O)O)(C(=O)O)O", name="Meso-tartaric acid")
+change = Rule.fromGMLString("""rule [
 	left    [   node [ id 0 stereo "tetrahedral" ]   ]
 	context [
 		node [ id 0 label "*" ]   node [ id 1 label "*" ]   node [ id 2 label "*" ]

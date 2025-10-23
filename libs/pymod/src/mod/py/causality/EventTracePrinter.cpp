@@ -38,6 +38,10 @@ void EventTracePrinter_doExport() {
 	// rst:		See :cpp:class:`causality::EventTracePrinter` for details on how the plot is rendered,
 	// rst:		and how the rendering is influenced by the printer.
 	// rst:
+	// rst:		.. versionadded:: 1.1
+	// rst:
+	// rst:		.. todo:: check version added before release
+	// rst:
 	py::class_<EventTracePrinter>("EventTracePrinter")
 			// rst:		.. attribute:: maxPointsPerVertex
 			// rst:

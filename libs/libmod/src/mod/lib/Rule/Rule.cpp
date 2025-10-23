@@ -89,9 +89,11 @@ Rule::Rule(LabelledRule &&rule, std::optional<LabelType> labelType)
 	// only one of propString and propTerm should be defined
 	assert(this->dpoRule.pString || this->dpoRule.pTerm);
 	assert(!this->dpoRule.pString || !this->dpoRule.pTerm);
-	if(!sanityChecks(getDPORule().getRule().getCombinedGraph(), get_string(getDPORule()), std::cout)) {
-		std::cout << "Rule::sanityCheck\tfailed in rule '" << getName() << "'" << std::endl;
-		MOD_ABORT;
+	if(getConfig().rule.doSanityCheck) {
+		if(!sanityChecks(getDPORule().getRule().getCombinedGraph(), get_string(getDPORule()), std::cout)) {
+			std::cout << "Rule::sanityCheck\tfailed in rule '" << getName() << "'" << std::endl;
+			MOD_ABORT;
+		}
 	}
 }
 

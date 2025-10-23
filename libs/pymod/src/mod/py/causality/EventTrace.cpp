@@ -4,6 +4,11 @@
 #include <mod/causality/EventTracePrinter.hpp>
 #include <mod/causality/Petri.hpp>
 
+// rst:
+// rst:	.. versionadded:: 1.1
+// rst:
+// rst:	.. todo:: check version added before release
+// rst:
 namespace mod::causality::Py {
 namespace {
 
@@ -49,7 +54,7 @@ void EventTrace_doExport() {
 					// rst:
 					// rst:			:type: DG.HyperEdge
 			.def_readonly("edge", &EdgeAction::edge)
-					// rst:		.. function:: void applyTo(m) const
+					// rst:		.. function:: applyTo(m)
 					// rst:
 					// rst:			Perform ``m.fire(edge)``.
 					// rst:
@@ -118,6 +123,12 @@ void EventTrace_doExport() {
 			// rst:
 			// rst:			:param Marking initialState: the marking to used as the initial state.
 			.def(py::init<const Marking &>())
+					// rst:		.. attribute:: dg
+					// rst:
+					// rst:			(Read-only) The underlying derivation graph for the event trace.
+					// rst:
+					// rst:			:type: DG
+			.add_property("dg", &EventTrace::getDG)
 					// rst:		.. attribute:: initialState
 					// rst:
 					// rst:			(Read-only) Read a copy of the initial state for this event trace.

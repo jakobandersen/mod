@@ -1,12 +1,12 @@
 
-smiles("[O]")
+Graph.fromSMILES("[O]")
 for a in inputGraphs: a.print()
 
 print("inputGraphs:\t", inputGraphs)
 
-a = graphDFS("COCC-O-C#N")
+a = Graph.fromDFS("COCC-O-C#N")
 a.print()
-a = graphDFS("COOC")
+a = Graph.fromDFS("COOC")
 a.print()
 a.printGML()
 print(a.getGMLString())
@@ -16,7 +16,7 @@ print(a.name, a.smiles, a.graphDFS, a.linearEncoding, sep="\t")
 
 print("isMolecule:\t", a.isMolecule)
 #print("energy:\t", a.energy)
-a = graphDFS("COCC=O")
+a = Graph.fromDFS("COCC=O")
 a.cacheEnergy(42)
 print("energy:\t", a.energy)
 print("exactMass:\t", a.exactMass)
@@ -31,13 +31,13 @@ print("inputGraphs:\t", inputGraphs)
 # Check eq operator
 inputGraphs[:] = []
 
-a = smiles("C")
+a = Graph.fromSMILES("C")
 print("Energy:", a.energy)
 
-a = smiles("O=C(O)C(CC(=O)O)C(O)C(=O)O", name="Isocitrate")
+a = Graph.fromSMILES("O=C(O)C(CC(=O)O)C(O)C(=O)O", name="Isocitrate")
 aPerm = a.makePermutation()
 
-a = smiles("C*C")
+a = Graph.fromSMILES("C*C")
 a.print()
-a = smiles("N[*]N")
+a = Graph.fromSMILES("N[*]N")
 a.print()

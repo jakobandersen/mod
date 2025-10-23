@@ -1,7 +1,7 @@
 include("stochsim_xx1_helpers.py")
 
-g1 = graphDFS("[g1]", "g_1")
-g2 = graphDFS("[g2]", "g_2")
+g1 = Graph.fromDFS("[g1]", "g_1")
+g2 = Graph.fromDFS("[g2]", "g_2")
 r1 = Rule.fromDFS("[g1]1>>[g2]1")
 r2 = Rule.fromDFS("[g2]1>>[g1]1")
 

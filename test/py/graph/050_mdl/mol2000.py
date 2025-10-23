@@ -173,7 +173,7 @@ Graph.fromMOLString("""\n\n\n  2  1  0  0  0  0  0  0  0  0999 V2000
     0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
   1  2  5  0  0  0  0
 M  END
-""", options=o).isomorphism(graphDFS("C([H])([H])([H]){_Q_1_2_5}C([H])([H])([H])")) == 1
+""", options=o).isomorphism(Graph.fromDFS("C([H])([H])([H]){_Q_1_2_5}C([H])([H])([H])")) == 1
 
 
 sep("Properties")
@@ -345,7 +345,7 @@ assert Graph.fromMOLString("""\n\n\n  1  0  0  0  0  0  0  0  0  0999 V2000
 A    1
 $strangeLabel
 M  END
-""").isomorphism(graphDFS("[$strangeLabel]")) == 1
+""").isomorphism(Graph.fromDFS("[$strangeLabel]")) == 1
 o = MDLOptions()
 o.applyV2000AtomAliases = False
 assert Graph.fromMOLString("""\n\n\n  1  0  0  0  0  0  0  0  0  0999 V2000
@@ -353,7 +353,7 @@ assert Graph.fromMOLString("""\n\n\n  1  0  0  0  0  0  0  0  0  0999 V2000
 A    1
 $strangeLabel
 M  END
-""", options=o).isomorphism(smiles("C")) == 1
+""", options=o).isomorphism(Graph.fromSMILES("C")) == 1
 
 
 sep("Parallel Edges")

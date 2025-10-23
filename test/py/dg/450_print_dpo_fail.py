@@ -8,7 +8,7 @@ dg.build().addAbstract("A -> B")
 e = next(iter(dg.edges))
 fail(lambda: e.print(), "The hyperedge has no rules.")
 
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
 	left [ node [ id 1 label "B" ] ]
 	context [
 		node [ id 0 label "A" ]
@@ -16,8 +16,8 @@ r = ruleGMLString("""rule [
 	]
 	right [ node [ id 1 label "Q" ] ]
 ]""")
-g = graphDFS("[A][B][C]")
-gFail = smiles("O")
+g = Graph.fromDFS("[A][B][C]")
+gFail = Graph.fromSMILES("O")
 
 dg = DG() 
 with dg.build() as b:

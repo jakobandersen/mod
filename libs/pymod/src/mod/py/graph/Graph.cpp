@@ -437,20 +437,6 @@ void Graph_doExport() {
 
 	mod::Py::exportVertexMap<VertexMap<graph::Graph, graph::Graph>>("VertexMapGraphGraph");
 
-
-	// rst: .. method:: graphGMLString(...)
-	// rst:
-	// rst:		Alias of :py:meth:`Graph.fromGMLString`.
-	// rst: .. method:: graphGML(...)
-	// rst:
-	// rst:		Alias of :py:meth:`Graph.fromGMLFile`.
-	// rst: .. method:: graphDFS(...)
-	// rst:
-	// rst:		Alias of :py:meth:`Graph.fromDFS`.
-	// rst: .. method:: smiles(...)
-	// rst:
-	// rst:		Alias of :py:meth:`Graph.fromSMILES`.
-	// rst:
 	// rst:
 	// rst: .. data:: inputGraphs
 	// rst:

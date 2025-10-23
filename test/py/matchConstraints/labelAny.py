@@ -1,9 +1,9 @@
-smiles("[C]")
-smiles("[O]")
-smiles("[N]")
-graphDFS("[x(_a)]")
+Graph.fromSMILES("[C]")
+Graph.fromSMILES("[O]")
+Graph.fromSMILES("[N]")
+Graph.fromDFS("[x(_a)]")
 
-a = ruleGMLString("""rule [
+a = Rule.fromGMLString("""rule [
     left [
         node [ id 0 label "_x" ]
     ]

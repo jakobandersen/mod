@@ -1,9 +1,9 @@
 include("xx0_helpers.py")
 
-g1 = smiles('O', name="g1")
-g2 = smiles('C', name="g2")
-r1 = ruleGMLString('rule [ ruleID "r1" context [ node [ id 0 label "O" ] ] ]')
-r2 = ruleGMLString('rule [ ruleID "r2" context [ node [ id 0 label "C" ] ] ]')
+g1 = Graph.fromSMILES('O', name="g1")
+g2 = Graph.fromSMILES('C', name="g2")
+r1 = Rule.fromGMLString('rule [ ruleID "r1" context [ node [ id 0 label "O" ] ] ]')
+r2 = Rule.fromGMLString('rule [ ruleID "r2" context [ node [ id 0 label "C" ] ] ]')
 
 
 dg = DG()

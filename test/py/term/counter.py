@@ -1,5 +1,5 @@
-a = graphDFS("[f(0)][sd(0)]")
-incFirst = ruleGMLString("""rule [
+a = Graph.fromDFS("[f(0)][sd(0)]")
+incFirst = Rule.fromGMLString("""rule [
 	ruleID "Inc first"
 	left [
 		node [ id 0 label "f(_X)" ]
@@ -8,7 +8,7 @@ incFirst = ruleGMLString("""rule [
 		node [ id 0 label "f(s(_X))" ]
 	]
 ]""")
-incSecond = ruleGMLString("""rule [
+incSecond = Rule.fromGMLString("""rule [
 	ruleID "Inc second"
 	left [
 		node [ id 0 label "sd(_X)" ]
@@ -24,7 +24,7 @@ incSecond = ruleGMLString("""rule [
 incSecond.printTermState()
 
 dg = DG(graphDatabase=inputGraphs,
-	labelSettings=LabelSettings(LabelType.Term, LabelRelation.Unification))
+	labelSettings=LabelSettings(LabelType.Term, LabelRelation.Specialisation))
 dg.build().execute(
 	addSubset(a)
 	>> repeat[1]([incSecond, incFirst])

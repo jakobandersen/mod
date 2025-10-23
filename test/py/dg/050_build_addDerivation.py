@@ -3,10 +3,10 @@ include("xx0_helpers.py")
 def check(rs):
 	dg = DG()
 	with dg.build() as b:
-		g1 = smiles('O', name="g1")
-		g2 = smiles('C', name="g2")
-		g3 = smiles('OO', name="g3")
-		g4 = smiles('CC', name="g4")
+		g1 = Graph.fromSMILES('O', name="g1")
+		g2 = Graph.fromSMILES('C', name="g2")
+		g3 = Graph.fromSMILES('OO', name="g3")
+		g4 = Graph.fromSMILES('CC', name="g4")
 		d = Derivations()
 		d.left = [g1, g2]
 		d.rules = rs
@@ -27,22 +27,22 @@ def check(rs):
 		e = b.addDerivation(d, IsomorphismPolicy.TrustMe)
 		asserts()
 
-r1 = ruleGMLString('rule [ ruleID "r1" context [ node [ id 0 label "O" ] ] ]')
-r2 = ruleGMLString('rule [ ruleID "r2" context [ node [ id 0 label "C" ] ] ]')
+r1 = Rule.fromGMLString('rule [ ruleID "r1" context [ node [ id 0 label "O" ] ] ]')
+r2 = Rule.fromGMLString('rule [ ruleID "r2" context [ node [ id 0 label "C" ] ] ]')
 check([])
 check([r1])
 check([r1, r2])
 
 d = Derivations()
-d.right = [smiles('O')]
+d.right = [Graph.fromSMILES('O')]
 fail(lambda: DG().build().addDerivation(d), "Derivation has empty left side: %s" % d)
 d = Derivations()
-d.left = [smiles('O')]
+d.left = [Graph.fromSMILES('O')]
 fail(lambda: DG().build().addDerivation(d), "Derivation has empty right side: %s" % d)
 
-ga1 = smiles('O', "ga1")
-ga2 = smiles('O', "ga2")
-gb = smiles('C', "gb")
+ga1 = Graph.fromSMILES('O', "ga1")
+ga2 = Graph.fromSMILES('O', "ga2")
+gb = Graph.fromSMILES('C', "gb")
 
 d = Derivations()
 d.left = [ga2]
@@ -67,22 +67,22 @@ fail(lambda: DG().build().addDerivation(d), "Isomorphic graphs. Candidate graph 
 
 d = Derivations()
 d.left = [None]
-d.right = [smiles("O")]
+d.right = [Graph.fromSMILES("O")]
 fail(lambda: DG().build().addDerivation(d), "Derivation has a null pointer in the left side: " + str(d))
-d.left = [smiles("O")]
+d.left = [Graph.fromSMILES("O")]
 d.right = [None]
 fail(lambda: DG().build().addDerivation(d), "Derivation has a null pointer in the right side: " + str(d))
-d.left = [smiles("O")]
-d.right = [smiles("O")]
+d.left = [Graph.fromSMILES("O")]
+d.right = [Graph.fromSMILES("O")]
 d.rules = [None]
 fail(lambda: DG().build().addDerivation(d), "Derivation has a null pointer in the rule list: " + str(d))
 
 
-g = smiles("O")
+g = Graph.fromSMILES("O")
 d = Derivation()
 d.left = [g]
 d.right = [g]
-d.rule = ruleGMLString("""rule [
+d.rule = Rule.fromGMLString("""rule [
 	context [ node [ id 0 label "O" ] ]
 ]""", add=False)
 dg = DG()

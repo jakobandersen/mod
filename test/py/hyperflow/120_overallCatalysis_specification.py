@@ -1,5 +1,5 @@
 include("xxx_common.py")
-gNotInDG = smiles('O')
+gNotInDG = Graph.fromSMILES('O')
 
 dg = DG()
 dg.build().addAbstract("""

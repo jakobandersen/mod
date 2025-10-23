@@ -197,6 +197,7 @@ public:
 	// rst:		isomorphism against each other initially. Only use :cpp:enumerator:`IsomorphismPolicy::TrustMe` if you are
 	// rst:		absolutely sure that the graphs are unique up to isomorphism.
 	// rst:
+	// rst:		:throws: :class:`LogicError` if `!labelSettings.formCategory()`.
 	// rst:		:throws: :class:`LogicError` if `graphPolicy == IsomorphismPolicy::Check` and two graph objects
 	// rst:			in :cpp:any:`graphDatabase` are different objects but represents isomorphic graphs.
 	// rst:		:throws: :class:`LogicError` if there is a `nullptr` in `graphDatabase`.

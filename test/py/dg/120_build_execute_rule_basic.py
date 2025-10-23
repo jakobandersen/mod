@@ -1,14 +1,14 @@
 include("1xx_execute_helpers.py")
 
-g1 = smiles('O', "g1")
-g2 = smiles('C', "g2")
-g3 = smiles('N', "g3")
-r1string = ruleGMLString("""rule [
+g1 = Graph.fromSMILES('O', "g1")
+g2 = Graph.fromSMILES('C', "g2")
+g3 = Graph.fromSMILES('N', "g3")
+r1string = Rule.fromGMLString("""rule [
 	ruleID "r1string"
 	labelType "string"
 	context [ node [ id 0 label "O" ] ]
 ]""")
-r1term = ruleGMLString("""rule [
+r1term = Rule.fromGMLString("""rule [
 	ruleID "r1term"
 	labelType "term"
 	context [ node [ id 0 label "O" ] ]

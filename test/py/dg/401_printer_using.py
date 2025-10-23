@@ -6,16 +6,16 @@ fail(lambda: dg.print(), "Can not create print data. The DG is not locked yet.")
 
 with dg.build() as b:
 	d = Derivation()
-	d.left = [smiles("CO")]
-	d.right = [smiles("CS")]
-	d.rule = ruleGMLString('''rule [
+	d.left = [Graph.fromSMILES("CO")]
+	d.right = [Graph.fromSMILES("CS")]
+	d.rule = Rule.fromGMLString('''rule [
 		left [ node [ id 0 label "O" ] ]
 		right [ node [ id 0 label "S" ] ]
 	]''')
 	b.addDerivation(d)
 	d = Derivation()
-	d.left = [graphDFS("[image1]", name="image1")]
-	d.right = [graphDFS("[image2]", name="image2")]
+	d.left = [Graph.fromDFS("[image1]", name="image1")]
+	d.right = [Graph.fromDFS("[image2]", name="image2")]
 	b.addDerivation(d)
 	s = "A + hide -> B\n"
 	for i in range(1, 4):

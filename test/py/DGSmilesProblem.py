@@ -1,4 +1,4 @@
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "C" ]
 	node [ id 1 label "C" ]
 	node [ id 2 label "C" ]
@@ -31,7 +31,7 @@ a = graphGMLString("""graph [
 	edge [ source 14 target 6 label "-" ]
 ]
 """, "a")
-b = graphGMLString("""graph [
+b = Graph.fromGMLString("""graph [
 	node [ id 0 label "H" ]
 	node [ id 1 label "H" ]
 	node [ id 2 label "H" ]
@@ -64,7 +64,7 @@ b = graphGMLString("""graph [
 	edge [ source 6 target 7 label "-" ]
 ]
 """, "b")
-p = ruleGMLString("""rule [
+p = Rule.fromGMLString("""rule [
 left [
 	node [ id 0 label "C" ]
 	node [ id 1 label "C" ]

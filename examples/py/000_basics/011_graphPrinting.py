@@ -1,5 +1,5 @@
 # Our test graph, representing the molecule caffeine:
-g = smiles('Cn1cnc2c1c(=O)n(c(=O)n2C)C')
+g = Graph.fromSMILES('Cn1cnc2c1c(=O)n(c(=O)n2C)C')
 # ;ake an object to hold our settings:
 p = GraphPrinter()
 # First try visualising without any prettifications:

@@ -1,4 +1,4 @@
-g = graphDFS("[R]{x}C([O-])CC=O")
+g = Graph.fromDFS("[R]{x}C([O-])CC=O")
 print("|V| =", g.numVertices)
 print("|E| =", g.numEdges)
 for v in g.vertices:

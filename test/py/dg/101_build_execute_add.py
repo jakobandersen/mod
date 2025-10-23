@@ -1,8 +1,8 @@
 include("1xx_execute_helpers.py")
 
-g1a = smiles('O', "g1a")
-g1b = smiles('O', "g1b")
-g2a = smiles('C', "g2a")
+g1a = Graph.fromSMILES('O', "g1a")
+g1b = Graph.fromSMILES('O', "g1b")
+g2a = Graph.fromSMILES('C', "g2a")
 
 # static
 # --------------------------------------------------------
@@ -61,5 +61,5 @@ exeStrat(addUniverse(lambda: [g1a, g1b], graphPolicy=IsomorphismPolicy.TrustMe))
 # test verbose print
 inputGraphs[:] = []
 for i in range(42):
-	smiles("C"*(i + 1))
+	Graph.fromSMILES("C"*(i + 1))
 exeStrat(addSubset(inputGraphs) >> addUniverse(inputGraphs) >> addSubset(lambda: inputGraphs) >> addUniverse(lambda: inputGraphs), verbosity=10)

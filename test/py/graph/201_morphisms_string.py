@@ -1,8 +1,8 @@
 include("2xx_morphisms_helpers.py")
 
-co2 = smiles("O=C=O", "CO2")
-co = smiles("[C]=O", name="CO")
-co2_2 = smiles("O=C=O", "CO2 2")
+co2 = Graph.fromSMILES("O=C=O", "CO2")
+co = Graph.fromSMILES("[C]=O", name="CO")
+co2_2 = Graph.fromSMILES("O=C=O", "CO2 2")
 
 assert co2.isomorphism(co2_2) > 0
 assert co2.isomorphism(co) == 0
@@ -39,7 +39,7 @@ check(co2.enumerateMonomorphisms, co, [])
 res = []
 def c(m):
 	res.append(m)
-smiles('[C]', 'C').enumerateMonomorphisms(smiles('[C]', 'C 2'),
+Graph.fromSMILES('[C]', 'C').enumerateMonomorphisms(Graph.fromSMILES('[C]', 'C 2'),
 	callback=c)
 assert res[0].domain.name == 'C'
 assert res[0].codomain.name == 'C 2'

@@ -27,14 +27,13 @@ def check(f, arg):
 ###############################################################################
 
 check(Graph.fromGMLString, dataGML)
-assert Graph.fromGMLString == graphGMLString
-
+checkDeprecated(lambda: check(graphGMLString, dataGML))
 fail(lambda: Graph.fromGMLString("graph []"),
 	"the graph is empty.", err=InputError, isSubstring=True)
 
 
 check(Graph.fromGMLFile, fGML)
-assert Graph.fromGMLFile == graphGML
+checkDeprecated(lambda: check(graphGML, fGML))
 fail(lambda: Graph.fromGMLFile("doesNotExist.gml"),
 	"Could not open GML file ", err=InputError, isSubstring=True)
 
@@ -62,14 +61,14 @@ print("GML: End of stereo warning test")
 dataDFS = "C"
 
 check(Graph.fromDFS, dataDFS)
-assert Graph.fromDFS == graphDFS
+checkDeprecated(lambda: check(graphDFS, dataDFS))
 
 ###############################################################################
 
 dataSMILES = dataDFS
 
 check(Graph.fromSMILES, dataSMILES)
-assert Graph.fromSMILES == smiles
+checkDeprecated(lambda: check(smiles, dataSMILES))
 
 check(Graph.fromSMILESMulti, dataSMILES)
 

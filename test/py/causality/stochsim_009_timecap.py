@@ -12,7 +12,7 @@ sim = causality.Simulator(
 	initialState={g: 2},
 	drawTime=lambda _: 9,
 )
-trace = sim.simulate(time=10)
+trace = sim.simulate(time=10, keepNetworkOpen=True)
 for e in trace:
 	print("  ", e)
 assert len(trace) == 1, len(trace)
@@ -35,7 +35,7 @@ sim = causality.Simulator(
 	initialState={g: 2},
 	drawTime=lambda _: 9,
 )
-trace = sim.simulate(time=10, advanceToEndTime=True)
+trace = sim.simulate(time=10, advanceToEndTime=True, keepNetworkOpen=True)
 for e in trace:
 	print("  ", e)
 assert len(trace) == 1, len(trace)

@@ -1,6 +1,6 @@
 include("../xxx_helpers.py")
 
-g = smiles("O")
+g = Graph.fromSMILES("O")
 assert g.id == 0
 assert str(g) == "'{}'".format(g.name)
 assert repr(g) == "{}({})".format(str(g), g.id)

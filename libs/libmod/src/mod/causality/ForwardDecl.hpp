@@ -2,7 +2,11 @@
 #define MOD_CAUSALITY_FORWARDDECL_HPP
 
 // rst: This header contains declarations for all classes in the ``mod::causality`` namespace.
-
+// rst:
+// rst:	.. versionadded:: 1.1
+// rst:
+// rst:	.. todo:: check version added before release
+// rst:
 namespace mod::causality {
 struct EventTrace;
 struct EventTracePrinter;

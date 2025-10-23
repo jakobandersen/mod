@@ -1,8 +1,8 @@
 include("1xx_execute_helpers.py")
 
-g1 = smiles('O', "g1")
-g2 = smiles('C', "g2")
-g3 = smiles('N', "g3")
+g1 = Graph.fromSMILES('O', "g1")
+g2 = Graph.fromSMILES('C', "g2")
+g3 = Graph.fromSMILES('N', "g3")
 
 fail(lambda: DGStrat.makeSequence([]), "Can not create an empty-length sequence strategy.")
 fail(lambda: DGStrat.makeSequence([None]), "One of the strategies is a null pointer.")

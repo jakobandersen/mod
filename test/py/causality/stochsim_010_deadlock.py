@@ -1,6 +1,6 @@
 include("stochsim_xx1_helpers.py")
 
-g = smiles('O')
+g = Graph.fromSMILES('O')
 
 initialState = {g: 500}
 sim = causality.Simulator(

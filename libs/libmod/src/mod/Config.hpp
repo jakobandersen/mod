@@ -102,6 +102,10 @@ struct LabelSettings {
 	MOD_DECL friend bool operator!=(LabelSettings a, LabelSettings b);
 	// rst:		.. function:: friend std::ostream &operator<<(std::ostream &s, const LabelSettings &ls)
 	MOD_DECL friend std::ostream &operator<<(std::ostream &s, LabelSettings ls);
+	// rst:		.. function:: bool formCategory() const
+	// rst:
+	// rst:			:returns: whether the settings form a category (i.e., does not contain any `LabelRelation.Unification`).
+	MOD_DECL bool formCategory() const;
 public:
 	// rst:		.. member:: LabelType type
 	LabelType type;
@@ -341,6 +345,7 @@ struct Config {
         ((std::string, changeColourR, "Green"))                                     \
         ((bool, printChangedEdgesInContext, false))                                 \
         ((bool, collapseChangedHydrogens, false))                                   \
+        ((bool, doSanityCheck, false))                                              \
     ))                                                                              \
     ((RC, rc,                                                                       \
         ((bool, composeConstraints, true))                                          \

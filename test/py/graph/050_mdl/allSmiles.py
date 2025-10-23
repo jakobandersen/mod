@@ -76,8 +76,8 @@ for g in gs:
 	obInput3 = loadMol(obInput.write("mol", opt={"3": None}))
 	molInput = obInput.write("mol")
 	mol3Input = obInput3.write("mol", opt={"3": None})
-	gFromInput = graphGMLString(gmlFromOb(obInput))
-	gFromInput3 = graphGMLString(gmlFromOb(obInput3))
+	gFromInput = Graph.fromGMLString(gmlFromOb(obInput))
+	gFromInput3 = Graph.fromGMLString(gmlFromOb(obInput3))
 
 	# actual check
 	try:

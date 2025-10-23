@@ -52,6 +52,10 @@ std::ostream &operator<<(std::ostream &s, const LabelSettings ls) {
 	return s << "}";
 }
 
+bool LabelSettings::formCategory() const {
+	return relation != LabelRelation::Unification && stereoRelation != LabelRelation::Unification;
+}
+
 std::ostream &operator<<(std::ostream &s, IsomorphismPolicy p) {
 	switch(p) {
 	case IsomorphismPolicy::Check:

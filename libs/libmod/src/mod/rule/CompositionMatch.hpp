@@ -100,6 +100,11 @@ public:
 	// rst: 		:returns: the composition of the two rules along the match, either just the composed rule
 	// rst: 			or the composed rule with maps relating its vertices and the vertices in the input.
 	// rst: 			If the composition is not defined, a null pointer or empty optional is returned.
+	// rst:
+	// rst:			.. versionadded:: 1.1
+	// rst:				The ``composeWithMaps`` member function.
+	// rst:
+	// rst:			.. todo:: check version added before release
 	std::shared_ptr<Rule> compose(bool verbose) const;
 	std::optional<Result> composeWithMaps(bool verbose) const;
 	// rst: 	.. function:: std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const
@@ -112,6 +117,11 @@ public:
 	// rst: 			including the full match used for each particular composition.
 	// rst: 			The enumerated matches are all those that are extensions of the current match,
 	// rst: 			and the match itself.
+	// rst:
+	// rst:			.. versionadded:: 1.1
+	// rst:				The ``composeAllWithMaps`` member function.
+	// rst:
+	// rst:			.. todo:: check version added before release
 	std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const;
 	std::vector<Result> composeAllWithMaps(bool maximum, bool verbose) const;
 private:

@@ -54,7 +54,7 @@ assert a.radical == True
 b = AtomData(AtomId(42), Isotope(60), Charge(-9), True)
 assert a == b
 
-g = graphDFS("[60Mo9-.]")
+g = Graph.fromDFS("[60Mo9-.]")
 v = next(iter(g.vertices))
 assert v.atomId == a.atomId
 assert v.isotope == a.isotope

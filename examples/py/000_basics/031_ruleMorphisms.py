@@ -1,5 +1,5 @@
 # A rule with no extra context:
-small = ruleGMLString("""rule [
+small = Rule.fromGMLString("""rule [
 	ruleID "Small"
 	left [
 		node [ id 1 label "H" ]
@@ -12,7 +12,7 @@ small = ruleGMLString("""rule [
 	]
 ]""")
 # The same rule, with a bit of context:
-large = ruleGMLString("""rule [
+large = Rule.fromGMLString("""rule [
 	ruleID "Large"
 	left [
 		node [ id 1 label "H" ]

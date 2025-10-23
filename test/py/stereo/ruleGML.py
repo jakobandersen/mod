@@ -3,7 +3,7 @@ def doIt(a):
 	a.print()
 	a.printStereo()
 
-doIt(ruleGMLString("""rule [
+doIt(Rule.fromGMLString("""rule [
 	ruleID "EC 5.1.3.1"
 	left [
 		node [ id 50 label "H" ]
@@ -28,7 +28,7 @@ doIt(ruleGMLString("""rule [
 		edge [ source 2 target 51 label "-" ]
 	]
 ]"""))
-doIt(ruleGMLString("""rule [
+doIt(Rule.fromGMLString("""rule [
 	ruleID "EC 5.1.3.1"
 	left [
 		node [ id 50 label "H" ]
@@ -60,7 +60,7 @@ sys.exit(0)
 
 
 
-ruleGMLString("""rule [
+Rule.fromGMLString("""rule [
 ruleID "Diels-alder"
 left [
 	node [ id 1 label "C" stereo [ order "2, -_b, -_a" ] ]

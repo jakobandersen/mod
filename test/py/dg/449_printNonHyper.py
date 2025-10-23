@@ -5,9 +5,9 @@ dg = DG()
 
 with dg.build() as b:
 	d = Derivation()
-	d.left = [smiles("CO")]
-	d.right = [smiles("CS")]
-	d.rule = ruleGMLString('''rule [
+	d.left = [Graph.fromSMILES("CO")]
+	d.right = [Graph.fromSMILES("CS")]
+	d.rule = Rule.fromGMLString('''rule [
 		left [ node [ id 0 label "O" ] ]
 		right [ node [ id 0 label "S" ] ]
 	]''')

@@ -1,10 +1,10 @@
 include("xx0_helpers.py")
 
 def check(rs):
-	g1 = smiles('O', name="g1")
-	g2 = smiles('C', name="g2")
-	g3 = smiles('OO', name="g3")
-	g4 = smiles('CC', name="g4")
+	g1 = Graph.fromSMILES('O', name="g1")
+	g2 = Graph.fromSMILES('C', name="g2")
+	g3 = Graph.fromSMILES('OO', name="g3")
+	g4 = Graph.fromSMILES('CC', name="g4")
 	ders = []
 	if len(rs) == 0:
 		d = Derivation()
@@ -27,8 +27,8 @@ def check(rs):
 	assert sorted((v.graph for v in e.sources)) == sorted([g1, g2])
 	assert sorted((v.graph for v in e.targets)) == sorted([g3, g4])
 
-r1 = ruleGMLString('rule [ ruleID "r1" context [ node [ id 0 label "O" ] ] ]')
-r2 = ruleGMLString('rule [ ruleID "r2" context [ node [ id 0 label "C" ] ] ]')
+r1 = Rule.fromGMLString('rule [ ruleID "r1" context [ node [ id 0 label "O" ] ] ]')
+r2 = Rule.fromGMLString('rule [ ruleID "r2" context [ node [ id 0 label "C" ] ] ]')
 check([])
 check([r1])
 check([r1, r2])

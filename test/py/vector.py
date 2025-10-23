@@ -1,4 +1,4 @@
-a = smiles("O")
+a = Graph.fromSMILES("O")
 
 assert libpymod._VecGraph() == libpymod._VecGraph()
 assert libpymod._VecGraph() == []

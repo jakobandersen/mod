@@ -190,7 +190,7 @@ def compute(r1: Rule, r2: Rule, rc: RCEvaluator):
 # - an identity rule with the left-hand side of the Aldol Addition rule, and
 # - the Aldol Addition rule.
 
-aldolAdd_F_id = ruleGMLString("""
+aldolAdd_F_id = Rule.fromGMLString("""
 rule [
 	#ruleID "Aldol Addition ->, id"
 	context [
@@ -207,7 +207,7 @@ rule [
 	]
 ]
 """)
-aldolAdd_F_id_noEdge = ruleGMLString("""
+aldolAdd_F_id_noEdge = Rule.fromGMLString("""
 rule [
 	#ruleID "Aldol Addition ->, id"
 	context [
@@ -227,7 +227,7 @@ rule [
 ]
 """)
 
-aldolAdd_F = ruleGMLString("""
+aldolAdd_F = Rule.fromGMLString("""
 rule [
 	#ruleID "Aldol Addition ->"
 	left [
@@ -254,7 +254,7 @@ rule [
 	]
 ]
 """)
-aldolAdd_F_noEdge = ruleGMLString("""
+aldolAdd_F_noEdge = Rule.fromGMLString("""
 rule [
 	#ruleID "Aldol Addition ->"
 	left [

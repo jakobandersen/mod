@@ -232,13 +232,6 @@ void Rule_doExport() {
 			.def("fromDFS", &Rule::fromDFS)
 			.staticmethod("fromDFS");
 
-	// rst: .. function:: ruleGMLString(...)
-	// rst:
-	// rst:		Alias of :py:meth:`Rule.fromGMLString`.
-	// rst: .. method:: ruleGML(...)
-	// rst:		
-	// rst:		Alias of :py:meth:`Rule.fromGMLFile`.
-	// rst:
 	// rst:
 	// rst: .. data:: inputRules
 	// rst:

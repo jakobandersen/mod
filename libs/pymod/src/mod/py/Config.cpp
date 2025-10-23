@@ -100,6 +100,12 @@ void Config_doExport() {
 			.def(py::init<LabelType, LabelRelation, bool, LabelRelation>())
 			.def(py::self == py::self)
 			.def(py::self != py::self)
+			// rst:		.. attribute:: formCategory
+			// rst:
+			// rst:			(Read-only) Whether the settings form a category (i.e., does not contain any `LabelRelation.Unification`).
+			// rst:
+			// rst:			:type: bool
+			.add_property("formCategory", &LabelSettings::formCategory)
 			.def(str(py::self))
 					// rst:		.. attribute:: type
 					// rst:

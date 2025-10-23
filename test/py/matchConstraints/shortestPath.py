@@ -1,7 +1,7 @@
-lString = LabelSettings(LabelType.String, LabelRelation.Unification)
-lTerm = LabelSettings(LabelType.Term, LabelRelation.Unification)
+lString = LabelSettings(LabelType.String, LabelRelation.Specialisation)
+lTerm = LabelSettings(LabelType.Term, LabelRelation.Specialisation)
 
-smiles("O")
+Graph.fromSMILES("O")
 print("Same connected component\n%s" % ('='*70))
 graphCommon = """
 	node [ id 0 label "s" ]
@@ -35,12 +35,12 @@ ruleTemplate = """rule [
 		op "%s" length %s
 	]
 ]"""
-ruleGMLString(ruleTemplate % ("Leq2", "leq2", "<=", "2"))
-ruleGMLString(ruleTemplate % ("Eq1", "eq1", "=", "1"))
-ruleGMLString(ruleTemplate % ("Eq3", "eq3", "=", "3"))
-ruleGMLString(ruleTemplate % ("Geq2", "geq2", ">=", "2"))
-length1 = graphGMLString('graph [ %s edge [ source 0 target 3  label "-" ] ]' % graphCommon)
-length3 = graphGMLString('graph [ %s ]' % graphCommon)
+Rule.fromGMLString(ruleTemplate % ("Leq2", "leq2", "<=", "2"))
+Rule.fromGMLString(ruleTemplate % ("Eq1", "eq1", "=", "1"))
+Rule.fromGMLString(ruleTemplate % ("Eq3", "eq3", "=", "3"))
+Rule.fromGMLString(ruleTemplate % ("Geq2", "geq2", ">=", "2"))
+length1 = Graph.fromGMLString('graph [ %s edge [ source 0 target 3  label "-" ] ]' % graphCommon)
+length3 = Graph.fromGMLString('graph [ %s ]' % graphCommon)
 dg = DG(graphDatabase=inputGraphs, labelSettings=lString)
 dg.build().execute(addSubset(inputGraphs) >> inputRules)
 dg.print()
@@ -55,7 +55,7 @@ sys.exit(0)
 
 
 print("Different connected components\n%s" % ('='*70))
-ruleGMLString("""rule [
+Rule.fromGMLString("""rule [
 	left [
 		node [ id 0 label "a" ]
 		node [ id 1 label "b" ]

@@ -1,8 +1,8 @@
 include("stochsim_xx1_helpers.py")
 
-g1 = smiles('O')
-g2 = smiles('C')
-g3 = smiles('N')
+g1 = Graph.fromSMILES('O')
+g2 = Graph.fromSMILES('C')
+g3 = Graph.fromSMILES('N')
 
 def iRate(v):
 	return {

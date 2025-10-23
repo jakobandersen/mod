@@ -5,15 +5,15 @@ def printStereo(a):
 			v.printStereo()
 	
 def dfs(s):
-	a = mod.graphDFS(s)
+	a = mod.Graph.fromDFS(s)
 	printStereo(a)
 	return a
 def gGML(s):
-	a = mod.graphGMLString("graph [ " + s + " ]")
+	a = mod.Graph.fromGMLString("graph [ " + s + " ]")
 	printStereo(a)
 	return a
 def rGML(s, side):
-	a = mod.ruleGMLString("rule [ %s [ %s ] ]" % (side, s))
+	a = mod.Rule.fromGMLString("rule [ %s [ %s ] ]" % (side, s))
 	printStereo(a.left)
 	printStereo(a.right)
 	return a

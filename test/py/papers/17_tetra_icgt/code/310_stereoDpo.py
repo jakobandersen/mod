@@ -1,4 +1,4 @@
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
 	left    [   node [ id 0 stereo "tetrahedral" ]   ] # TetrahedralSym shape
 	context [
 		# Has explicit informatino in 'L' and 'R', so nothing here.
@@ -14,7 +14,7 @@ r = ruleGMLString("""rule [
 	right   [   node [ id 0 stereo "tetrahedral" ]   ] # TetrahedralSym shape
 ]""")
 
-g = smiles("[C@](C)(P)(S)(O)")
+g = Graph.fromSMILES("[C@](C)(P)(S)(O)")
 dg = DG(graphDatabase=inputGraphs,
 	# seldctino of attributes and morphisms for matching
 	labelSettings=LabelSettings(

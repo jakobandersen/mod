@@ -26,6 +26,7 @@ fail(lambda: causality.EventTrace(marking).add(42, causality.OutputAction(vOther
 	"The vertex in the output action does not belong to the underlying derivation graph.")
 
 trace = causality.EventTrace(marking)
+assert trace.initialState.net.dg == trace.dg
 fail(lambda: trace.add(-1, causality.InputAction(A)),
 	"Can not add event with time", isSubstring=True)
 trace.add(0,  causality.InputAction(A))

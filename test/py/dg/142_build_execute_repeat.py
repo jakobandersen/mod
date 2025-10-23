@@ -1,19 +1,19 @@
 include("1xx_execute_helpers.py")
 
-c1 = smiles("[C]", "c1")
-c2 = smiles("[C][C]", "c2")
-c3 = smiles("[C][C][C]", "c3")
-n1 = smiles("[N]", "n1")
-n2 = smiles("[N][N]", "n2")
-n3 = smiles("[N][N][N]", "n3")
-c1n1 = smiles("[C][N]", "c1n1")
-c2n1e = smiles("[C][C][N]", "c2n1e")
-c2n1m = smiles("[C][N][C]", "c2n1m")
-c1n2e = smiles("[C][N][N]", "c1n2e")
-c1n2m = smiles("[N][C][N]", "c1n2m")
+c1 = Graph.fromSMILES("[C]", "c1")
+c2 = Graph.fromSMILES("[C][C]", "c2")
+c3 = Graph.fromSMILES("[C][C][C]", "c3")
+n1 = Graph.fromSMILES("[N]", "n1")
+n2 = Graph.fromSMILES("[N][N]", "n2")
+n3 = Graph.fromSMILES("[N][N][N]", "n3")
+c1n1 = Graph.fromSMILES("[C][N]", "c1n1")
+c2n1e = Graph.fromSMILES("[C][C][N]", "c2n1e")
+c2n1m = Graph.fromSMILES("[C][N][C]", "c2n1m")
+c1n2e = Graph.fromSMILES("[C][N][N]", "c1n2e")
+c1n2m = Graph.fromSMILES("[N][C][N]", "c1n2m")
 
 
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
 	left  [ node [ id 0 label "C" ] ]
 	right [ node [ id 0 label "N" ] ]
 ]""")

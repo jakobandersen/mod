@@ -1,7 +1,7 @@
 post.disableInvokeMake()
-g1 = smiles('O', name="g1")
-g2 = smiles('C', name="g2")
-r = ruleGMLString("""rule [ ruleID "r" context [ node [ id 0 label "O" ] ] ]""")
+g1 = Graph.fromSMILES('O', name="g1")
+g2 = Graph.fromSMILES('C', name="g2")
+r = Rule.fromGMLString("""rule [ ruleID "r" context [ node [ id 0 label "O" ] ] ]""")
 
 ##############################################################################
 d = Derivation()

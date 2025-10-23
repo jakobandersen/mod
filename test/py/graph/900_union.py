@@ -4,7 +4,7 @@ include("../xxx_graphInterface.py")
 fail(lambda: UnionGraph([None]), "A graph is null.")
 
 
-O = smiles("O")
+O = Graph.fromSMILES("O")
 
 def check(ug, gs):
 	s = "UnionGraph{%s}" % ', '.join(a.name for a in gs)

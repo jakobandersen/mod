@@ -1,11 +1,11 @@
 # Load a graph from a SMILES string (only for molecule graphs):
-ethanol1 = smiles("CCO", name="Ethanol1")
+ethanol1 = Graph.fromSMILES("CCO", name="Ethanol1")
 # Load a graph from a SMILES-like format, called "GraphDFS", but for general graphs:
-ethanol2 = graphDFS("[C]([H])([H])([H])[C]([H])([H])[O][H]", name="Ethanol2")
+ethanol2 = Graph.fromDFS("[C]([H])([H])([H])[C]([H])([H])[O][H]", name="Ethanol2")
 # The GraphDFS format also supports implicit hydrogens:
-ethanol3 = graphDFS("CCO", name="Ethanol3")
+ethanol3 = Graph.fromDFS("CCO", name="Ethanol3")
 # The basic graph format is GML:
-ethanol4 = graphGMLString("""graph [
+ethanol4 = Graph.fromGMLString("""graph [
 	node [ id 0 label "C" ]
 	node [ id 1 label "C" ]
 	node [ id 2 label "O" ]

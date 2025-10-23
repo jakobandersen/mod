@@ -16,7 +16,7 @@ assert inputRules == [r1, r2]
 Rule.fromGMLString(data, add=False)
 assert inputRules == [r1, r2]
 
-assert Rule.fromGMLString == ruleGMLString
+checkDeprecated(lambda: ruleGMLString(data))
 
 inputRules[:] = []
 r1 = Rule.fromGMLFile(CWDPath(fGML))
@@ -25,7 +25,7 @@ r2 = Rule.fromGMLFile(CWDPath(fGML))
 assert inputRules == [r1, r2]
 Rule.fromGMLFile(CWDPath(fGML), add=False)
 assert inputRules == [r1, r2]
-assert Rule.fromGMLFile == ruleGML
+checkDeprecated(lambda: ruleGML(CWDPath(fGML)))
 
 fail(lambda: Rule.fromGMLFile("doesNotExist.gml"),
 	"Could not open rule GML file ", err=InputError, isSubstring=True)

@@ -3,8 +3,8 @@ include("1xx_execute_helpers.py")
 exeStrat(DGStrat.makeExecute(False), [], [])
 exeStrat(execute(False), [], [])
 
-g1 = smiles("C", "g1")
-g2 = smiles("N", "g2")
+g1 = Graph.fromSMILES("C", "g1")
+g2 = Graph.fromSMILES("N", "g2")
 
 b = False
 def f(gs):

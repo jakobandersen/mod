@@ -1,7 +1,7 @@
 def makeGraph(name):
-	return graphDFS("[%s]" % name)
+	return Graph.fromDFS("[%s]" % name)
 def makeRule(name):
-	return ruleGMLString('rule [ ruleID "%s" ]' % name)
+	return Rule.fromGMLString('rule [ ruleID "%s" ]' % name)
 def makeDer(left, rule, right):
 	d = Derivation()
 	d.left = left

@@ -11,7 +11,7 @@ def doPrint(a):
 	
 
 post.summarySection("Context")
-a = ruleGMLString("""rule [
+a = Rule.fromGMLString("""rule [
 	context [
 		node [ id 0 label "C" stereo "[1, 2, 3, 4]!" ]
 		node [ id 1 label "O" ]
@@ -26,7 +26,7 @@ a = ruleGMLString("""rule [
 ]""")
 doPrint(a)
 post.summarySection("Left and right")
-a = ruleGMLString("""rule [
+a = Rule.fromGMLString("""rule [
 	left [
 		node [ id 0 stereo "[1, 2, 3, 4]!" ]
 	]
@@ -46,7 +46,7 @@ a = ruleGMLString("""rule [
 	]
 ]""")
 doPrint(a)
-a = ruleGMLString("""rule [
+a = Rule.fromGMLString("""rule [
 	left [
 		node [ id 0 stereo "[1, 2, 3, 4]!" ]
 	]
@@ -67,7 +67,7 @@ a = ruleGMLString("""rule [
 ]""")
 doPrint(a)
 sys.exit(0)
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "C" stereo "[1, 2, 4, 3]!" ]
 	node [ id 1 label "O" ]
 	node [ id 2 label "N" ]
@@ -81,7 +81,7 @@ a = graphGMLString("""graph [
 doPrint(a)
 
 post.summarySection("Lone Pair")
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "N" stereo "[1, 2, 3, e]!" ]
 	node [ id 1 label "O" ]
 	node [ id 2 label "N" ]
@@ -91,7 +91,7 @@ a = graphGMLString("""graph [
 	edge [ source 0 target 3 label "-" ]
 ]""")
 doPrint(a)
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "N" stereo "[1, 2, e, 3]!" ]
 	node [ id 1 label "O" ]
 	node [ id 2 label "N" ]
@@ -102,7 +102,7 @@ a = graphGMLString("""graph [
 ]""")
 doPrint(a)
 
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "N" stereo "[e, 1, 2, 3]!" ]
 	node [ id 1 label "O" ]
 	node [ id 2 label "N" ]
@@ -114,7 +114,7 @@ a = graphGMLString("""graph [
 doPrint(a)
 
 post.summarySection("H")
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "C" stereo "[1, 2, 3, 4]!" ]
 	node [ id 1 label "O" ]
 	node [ id 2 label "N" ]
@@ -126,7 +126,7 @@ a = graphGMLString("""graph [
 	edge [ source 0 target 4 label "-" ]
 ]""")
 doPrint(a)
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "C" stereo "[1, 2, 4, 3]!" ]
 	node [ id 1 label "O" ]
 	node [ id 2 label "N" ]
@@ -139,7 +139,7 @@ a = graphGMLString("""graph [
 ]""")
 doPrint(a)
 
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "C" stereo "[1, 2, 3, 4]!" ]
 	node [ id 1 label "H" ]
 	node [ id 2 label "N" ]
@@ -154,7 +154,7 @@ doPrint(a)
 
 
 post.summarySection("All H")
-a = graphGMLString("""graph [
+a = Graph.fromGMLString("""graph [
 	node [ id 0 label "C" stereo "[1, 2, 3, 4]!" ]
 	node [ id 1 label "H" ]
 	node [ id 2 label "H" ]

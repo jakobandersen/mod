@@ -31,6 +31,10 @@ void Stochsim_doExport() {
 	// rst: but with the ability to generate the underlying network as needed using graph transformation rules,
 	// rst: similarly to how a derivation graph, :class:`DG`, can be expanded using strategies, :ref:`dgStrat`.
 	// rst:
+	// rst:
+	// rst:	.. versionadded:: 1.1
+	// rst:
+	// rst:	.. todo:: check version added before release
 
 	// rst:
 	// rst: .. class:: causality.Simulator
@@ -145,7 +149,7 @@ void Stochsim_doExport() {
 	// rst:
 	// rst:			:type: Callable[[Simulator], None]
 	// rst:
-	// rst:		.. method:: simulate(*, time, advanceToEndTime,	iterations)
+	// rst:		.. method:: simulate(*, time, advanceToEndTime,	iterations, keepNetworkOpen=False)
 	// rst:
 	// rst:			Start/continue the simulation.
 	// rst:
@@ -155,7 +159,8 @@ void Stochsim_doExport() {
 	// rst:			:param Optional[float] time: the additional amount of time to simulate,	or ``None`` for unbounded. Defaults to ``None``.
 	// rst:			:param bool advanceToEndTime: if a time bound is given and the simulation stops due to this bound,
 	// rst:				advance the current time to the time bound,	instead of staying at the time of the last event. Defaults to ``False``.
-	// rst:			:param Optional[int] iterations: the additional number of iterations to	simulate, or ``None`` for unbounded. Defaults to ``None``.
+	// rst:			:param Optional[int] iterations: the additional number of iterations to simulate, or ``None`` for unbounded. Defaults to ``None``.
+	// rst:			:param bool keepNetworkOpen: is ``False`` the internal `DG.Builder` object will be deleted before returning. Defaults to ``False``.
 	// rst:			:returns: a references to the event trace for the entire simulation.
 	// rst:				It should not be modified.
 	// rst:			:rtype: EventTrace

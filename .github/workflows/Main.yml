@@ -53,7 +53,7 @@ jobs:
     - name: Run tests
       run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
-      run: mod -e "smiles('O').print()"
+      run: mod -e "Graph.fromSMILES('O').print()"
   macOS-13:
     runs-on: macos-13
     steps:
@@ -84,7 +84,7 @@ jobs:
     - name: Run tests
       run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
-      run: mod -e "smiles('O').print()"
+      run: mod -e "Graph.fromSMILES('O').print()"
   macOS-14:
     runs-on: macos-14
     steps:
@@ -115,7 +115,7 @@ jobs:
     - name: Run tests
       run: cd build && ctest --output-on-failure -j 4
     - name: Run simple test
-      run: mod -e "smiles('O').print()"
+      run: mod -e "Graph.fromSMILES('O').print()"
   macOS-15:
     runs-on: macos-15
     steps:
@@ -146,4 +146,4 @@ jobs:
     - name: Run tests
       run: cd build && ctest --output-on-failure -j 3
     - name: Run simple test
-      run: mod -e "smiles('O').print()"
+      run: mod -e "Graph.fromSMILES('O').print()"

@@ -1,27 +1,25 @@
-if(NOT BUILD_EXAMPLES)
-    return()
-endif()
-
 # libmod_cmake
 # =============================================================================
-set(workDir ${CMAKE_CURRENT_BINARY_DIR}/workDir/libmod_cmake)
-file(MAKE_DIRECTORY ${workDir})
-add_test(NAME example__libmod_cmake_configure
-        COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}"
-        -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
-        -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-        ${CMAKE_CURRENT_SOURCE_DIR}/libmod_cmake
-        WORKING_DIRECTORY ${workDir})
-add_test(NAME example__libmod_cmake_build
-        COMMAND ${CMAKE_COMMAND} --build .
-        WORKING_DIRECTORY ${workDir})
-add_test(NAME example__libmod_cmake_run
-        COMMAND ./doStuff
-        WORKING_DIRECTORY ${workDir})
-set_tests_properties(example__libmod_cmake_configure PROPERTIES FIXTURES_SETUP    example_libmod_cmake_build)
-set_tests_properties(example__libmod_cmake_build     PROPERTIES FIXTURES_REQUIRED example_libmod_cmake_build)
-set_tests_properties(example__libmod_cmake_build     PROPERTIES FIXTURES_SETUP    example_libmod_cmake_run)
-set_tests_properties(example__libmod_cmake_run       PROPERTIES FIXTURES_REQUIRED example_libmod_cmake_run)
+if(BUILD_MOD)
+    set(workDir ${CMAKE_CURRENT_BINARY_DIR}/workDir/libmod_cmake)
+    file(MAKE_DIRECTORY ${workDir})
+    add_test(NAME example__libmod_cmake_configure
+            COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}"
+            -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
+            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+            ${CMAKE_CURRENT_SOURCE_DIR}/libmod_cmake
+            WORKING_DIRECTORY ${workDir})
+    add_test(NAME example__libmod_cmake_build
+            COMMAND ${CMAKE_COMMAND} --build .
+            WORKING_DIRECTORY ${workDir})
+    add_test(NAME example__libmod_cmake_run
+            COMMAND ./doStuff
+            WORKING_DIRECTORY ${workDir})
+    set_tests_properties(example__libmod_cmake_configure PROPERTIES FIXTURES_SETUP    example_libmod_cmake_build)
+    set_tests_properties(example__libmod_cmake_build     PROPERTIES FIXTURES_REQUIRED example_libmod_cmake_build)
+    set_tests_properties(example__libmod_cmake_build     PROPERTIES FIXTURES_SETUP    example_libmod_cmake_run)
+    set_tests_properties(example__libmod_cmake_run       PROPERTIES FIXTURES_REQUIRED example_libmod_cmake_run)
+endif()
 
 # pymod_extension
 # =============================================================================

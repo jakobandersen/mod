@@ -184,6 +184,24 @@ def _funcWrap(F: Type["U"], f,
 
 _lsString = LabelSettings(LabelType.String, LabelRelation.Isomorphism)
 
+def _reprById(self) -> str:
+	return f"{self}({self.id})"
+
+def _eqById(self, other) -> bool:
+	return type(self) is type(other) and self.id == other.id
+
+def _ltById(self, other) -> bool:
+	if type(self) is type(other):
+		return self.id < other.id
+	else:
+		raise TypeError(f"'<' not supported between instances of '{type(self)}' and '{type(other)}.")
+
+def _setSpecialForIdClass(Class) -> None:
+	Class.__repr__ = _reprById
+	Class.__eq__ = _eqById
+	Class.__lt__ = _ltById
+	Class.__hash__ = lambda self: self.id
+
 
 ###########################################################
 # Chem
@@ -341,8 +359,8 @@ def _DG__getattribute__(self: DG, name: str) -> Any:
 		return object.__getattribute__(self, name)
 DG.__getattribute__ = _DG__getattribute__  # type: ignore
 
-DG.__eq__ = lambda self, other: self.id == other.id  # type: ignore
-DG.__hash__ = lambda self: self.id  # type: ignore
+_setSpecialForIdClass(DG)
+DG.__repr__ = DG.__str__
 
 
 class DGBuildContextManager:
@@ -820,17 +838,20 @@ Graph.fromSDFile         = _Graph_fromSDFile  # type: ignore
 Graph.fromSDStringMulti  = _Graph_fromSDStringMulti  # type: ignore
 Graph.fromSDFileMulti    = _Graph_fromSDFileMulti  # type: ignore
 
-graphGMLString = Graph.fromGMLString
-graphGML       = Graph.fromGMLFile
-graphDFS       = Graph.fromDFS
-smiles         = Graph.fromSMILES
+def makeDepGraphLoad(fNew, nOld, nNew):
+	def f(*args, **kwargs):
+		_deprecation(f"{nOld} is deprecated, use {nNew} instead.")
+		return fNew(*args, **kwargs)
+	return f
+
+graphGMLString = makeDepGraphLoad(Graph.fromGMLString, "graphGMLString", "Graph.fromGMLString")
+graphGML       = makeDepGraphLoad(Graph.fromGMLFile, "graphGML", "Graph.fromGMLFile")
+graphDFS       = makeDepGraphLoad(Graph.fromDFS, "graphDFS", "Graph.fromDFS")
+smiles         = makeDepGraphLoad(Graph.fromSMILES, "smiles", "Graph.fromSMILES")
 
 ###########################################################
 
-Graph.__repr__ = lambda self: str(self) + "(" + str(self.id) + ")"  # type: ignore
-Graph.__eq__ = lambda self, other: self.id == other.id  # type: ignore
-Graph.__lt__ = lambda self, other: self.id < other.id  # type: ignore
-Graph.__hash__ = lambda self: self.id  # type: ignore
+_setSpecialForIdClass(Graph)
 
 def _Graph__setattr__(self: Graph, name: str, value: Any) -> None:
 	if name == "image":
@@ -918,13 +939,16 @@ Rule.fromGMLString = _Rule_fromGMLString  # type: ignore
 Rule.fromGMLFile   = _Rule_fromGMLFile  # type: ignore
 Rule.fromDFS       = _Rule_fromDFS  # type: ignore
 
-ruleGMLString = Rule.fromGMLString
-ruleGML       = Rule.fromGMLFile
+def makeDepRuleLoad(fNew, nOld, nNew):
+	def f(*args, **kwargs):
+		_deprecation(f"{nOld} is deprecated, use {nNew} instead.")
+		return fNew(*args, **kwargs)
+	return f
 
-Rule.__repr__ = lambda self: str(self) + "(" + str(self.id) + ")"  # type: ignore
-Rule.__eq__ = lambda self, other: self.id == other.id  # type: ignore
-Rule.__lt__ = lambda self, other: self.id < other.id  # type: ignore
-Rule.__hash__ = lambda self: self.id  # type: ignore
+ruleGMLString = makeDepRuleLoad(Rule.fromGMLString, "ruleGMLString", "Rule.fromGMLString")
+ruleGML       = makeDepRuleLoad(Rule.fromGMLFile, "ruleGML", "Rule.fromGMLFile")
+
+_setSpecialForIdClass(Rule)
 
 
 #----------------------------------------------------------
@@ -1308,17 +1332,19 @@ class _Simulator:
 	def simulate(self, *,
 			time: Optional[float] = None,
 			advanceToEndTime: bool = False,
-			iterations: Optional[int] = None) -> causality.EventTrace:
+			iterations: Optional[int] = None,
+			keepNetworkOpen: bool = False) -> causality.EventTrace:
 		stopTime = None if time is None else self._impl.time + time
 		stopIter = None if iterations is None else self._impl.iteration + iterations
-
-		subset = self._marking.getNonZeroPlaces()
-		# do an initial network expansion, e.g., to support a dynamically added
-		# network, where no further expansions are doing anything
-		self.onExpand(self)
-		self._expandNeighbourhood(subset)
-
 		marking = self._marking
+
+		subset = marking.getNonZeroPlaces()
+		if self._doExpansion:
+			# do an initial network expansion, e.g., to support a dynamically added
+			# network, where no further expansions are doing anything
+			self.onExpand(self)
+			self._expandNeighbourhood(subset)
+
 		while stopIter is None or self._impl.iteration < stopIter:
 			self._impl.doIteration()
 			self.onIterationBegin(self)
@@ -1360,9 +1386,13 @@ class _Simulator:
 			if not continue_:
 				break
 
+		if not keepNetworkOpen and hasattr(self, "_builder"):
+			del self._builder
 		return self._trace
 
 	def _expandNeighbourhood(self, subset: List[DG.Vertex]) -> None:
+		if not hasattr(self, "_builder"):
+			raise LogicError("Can not expand neighbourhood, the network is closed. An earlier call to simulate() had keepNetworkOpen=False (the default).")
 		subsetGraphs = list(v.graph for v in subset)
 		universeGraphs = list(v.graph for v in self._marking.getNonZeroPlaces())
 		self._doExpansion = self._expandNetwork(self._builder, subsetGraphs, universeGraphs)
@@ -1397,9 +1427,8 @@ causality.Simulator.DrawMassAction.Function.__init__ = _DrawMassActionFunction__
 # Hyperflow
 ###########################################################
 
-hyperflow.Model.__repr__ = hyperflow.Model.__str__  # type: ignore
-hyperflow.Model.__eq__ = lambda self, other: self.id == other.id  # type: ignore
-hyperflow.Model.__hash__ = lambda self: self.id  # type: ignore
+_setSpecialForIdClass(hyperflow.Model)
+hyperflow.Model.__repr__ = hyperflow.Model.__str__
 
 class Flow:
 	def __new__(cls, dg: DG, ilpSolver="default") -> hyperflow.Model:  # type: ignore

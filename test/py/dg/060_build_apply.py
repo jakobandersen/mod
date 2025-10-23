@@ -1,11 +1,11 @@
 include("xx0_helpers.py")
 
-a = smiles("[C][C][C]", name="ga")
-b = smiles("[O][C][C]")
-c = smiles("[C][O][C]")
-aa = smiles("[C][C][C]", name="gaa")
+a = Graph.fromSMILES("[C][C][C]", name="ga")
+b = Graph.fromSMILES("[O][C][C]")
+c = Graph.fromSMILES("[C][O][C]")
+aa = Graph.fromSMILES("[C][C][C]", name="gaa")
 
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
 	left [
 		node [ id 0 label "C" ]
 	]
@@ -112,11 +112,11 @@ with dg.build() as builder:
 print("Multiple components, different")
 print("=" * 60)
 
-gO = smiles('[O]', "gO")
-gC = smiles('[C]', "gC")
-gOC = smiles('[O][C]', "gOC")
+gO = Graph.fromSMILES('[O]', "gO")
+gC = Graph.fromSMILES('[C]', "gC")
+gOC = Graph.fromSMILES('[O][C]', "gOC")
 
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
 	ruleID "Connect O C"
 	context [
 		node [ id 0 label "O" ]
@@ -145,10 +145,10 @@ with dg.build() as builder:
 print("Multiple components, same")
 print("=" * 60)
 
-gO = smiles('[O]', "gO")
-gOO = smiles('[O][O]', "gOO")
+gO = Graph.fromSMILES('[O]', "gO")
+gOO = Graph.fromSMILES('[O][O]', "gOO")
 
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
 	ruleID "Connect O O"
 	context [
 		node [ id 0 label "O" ]
@@ -177,7 +177,7 @@ with dg.build() as builder:
 print("Split to isomorphic")
 print("=" * 60)
 
-r = ruleGMLString("""rule [
+r = Rule.fromGMLString("""rule [
 	ruleID "Split to isomorphms"
 	left [
 		edge [ source 1 target 2 label "-" ]
@@ -187,8 +187,8 @@ r = ruleGMLString("""rule [
 		node [ id 2 label "Q" ]
 	]
 ]""")
-g1 = graphDFS("[Q][Q]", "QQ")
-g2 = graphDFS("[Q]", "Q")
+g1 = Graph.fromDFS("[Q][Q]", "QQ")
+g2 = Graph.fromDFS("[Q]", "Q")
 
 dg = DG(graphDatabase=[g1, g2])
 with dg.build() as builder:
@@ -203,8 +203,8 @@ with dg.build() as builder:
 
 
 print("Empty result")
-gC = smiles('[C]', "gC")
-rRemove = ruleGMLString('rule [ left [ node [ id 0 label "C" ] ] ]')
+gC = Graph.fromSMILES('[C]', "gC")
+rRemove = Rule.fromGMLString('rule [ left [ node [ id 0 label "C" ] ] ]')
 dg = DG()
 with dg.build() as builder:
 	res = builder.apply([gC], rRemove, verbosity=4)

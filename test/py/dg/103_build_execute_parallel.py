@@ -1,7 +1,7 @@
 include("1xx_execute_helpers.py")
 
-g1 = smiles('O', "g1")
-g2 = smiles('C', "g2")
+g1 = Graph.fromSMILES('O', "g1")
+g2 = Graph.fromSMILES('C', "g2")
 
 addSub1 = addSubset(g1)
 addUni2 = addUniverse(g2)

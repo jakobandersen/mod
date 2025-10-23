@@ -10,6 +10,7 @@
 #include <mod/lib/DG/NonHyperBuilder.hpp>
 #include <mod/lib/DG/IO/Read.hpp>
 #include <mod/lib/DG/IO/Write.hpp>
+#include <mod/lib/ErrorUtils.hpp>
 #include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/IO/IO.hpp>
 
@@ -227,6 +228,7 @@ std::shared_ptr<DG> wrapIt(DG *dgPtr) {
 std::shared_ptr<DG> DG::make(LabelSettings labelSettings,
                              const std::vector<std::shared_ptr<graph::Graph> > &graphDatabase,
                              IsomorphismPolicy graphPolicy) {
+	lib::errorIfNotCategory(labelSettings);
 	if(std::any_of(graphDatabase.begin(), graphDatabase.end(), [](const auto &g) {
 		return !g;
 	}))

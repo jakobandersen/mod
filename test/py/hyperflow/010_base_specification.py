@@ -1,5 +1,5 @@
 include("xxx_common.py")
-gNotInDG = smiles('O')
+gNotInDG = Graph.fromSMILES('O')
 dgNot = DG()
 dgNot.build().addAbstract("A -> B")
 vNotInDG = next(iter(dgNot.vertices))

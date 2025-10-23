@@ -1,6 +1,6 @@
 include("common.py")
 
-lr = ruleGMLString("""rule [
+lr = Rule.fromGMLString("""rule [
 	left [
 		node [ id 0 stereo "any" ]
 	]
@@ -11,7 +11,7 @@ lr = ruleGMLString("""rule [
 		node [ id 0 stereo "any" ]
 	]
 ]""")
-c = ruleGMLString("""rule [
+c = Rule.fromGMLString("""rule [
 	context [
 		node [ id 0 label "Z" stereo "any" ]
 	]

@@ -1,4 +1,4 @@
-a = smiles("C")
+a = Graph.fromSMILES("C")
 a.print()
 def customImage():
 	with open("out/custom.tex", "w") as f:

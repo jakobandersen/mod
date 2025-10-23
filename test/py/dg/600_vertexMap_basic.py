@@ -3,8 +3,8 @@ include("../xxx_vertexMap.py")
 fail(lambda: DGVertexMapper(DG.HyperEdge()),
 	"Can not find vertex maps for null edge.")
 
-O = smiles("[O]", name="O")
-S = smiles("[S]", name="S")
+O = Graph.fromSMILES("[O]", name="O")
+S = Graph.fromSMILES("[S]", name="S")
 r = Rule.fromDFS("[O]1>>[S]1")
 rCopy = Rule.fromDFS("[O]1>>[S]1")
 

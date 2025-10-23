@@ -87,6 +87,11 @@ void CompositionMatch_doExport() {
 	                  // rst: 			or the composed rule with maps relating its vertices and the vertices in the input.
 	                  // rst:				If the composition is not defined, ``None`` is returned.
 	                  // rst:			:rtype: Rule or Result
+					  // rst:
+					  // rst:			.. versionadded:: 1.1
+					  // rst:				The ``composeWithMaps`` method.
+			          // rst:
+					  // rst:			.. todo:: check version added before release
 	                  .def("compose", &CompositionMatch::compose, py::args("verbose") = false)
 	                  .def("composeWithMaps", &CompositionMatch::composeWithMaps, py::args("verbose") = false)
 	                  // rst:		.. method:: composeAll(*, maximum=False, verbose=False)
@@ -100,6 +105,11 @@ void CompositionMatch_doExport() {
 	                  // rst: 			The enumerated matches are all those that are extensions of the current match,
 	                  // rst: 			and the match itself.
 	                  // rst:			:rtype: list[Rule] or list[Result]
+					  // rst:
+					  // rst:			.. versionadded:: 1.1
+					  // rst:				The ``composeAllWithMaps`` method.
+					  // rst:
+					  // rst:			.. todo:: check version added before release
 	                  .def("composeAll", &CompositionMatch::composeAll,
 	                       (py::args("maximum") = false, py::args("verbose") = false))
 	                  .def("composeAllWithMaps", &CompositionMatch::composeAllWithMaps,

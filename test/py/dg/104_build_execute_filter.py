@@ -1,10 +1,10 @@
 include("1xx_execute_helpers.py")
 
-g1 = smiles('C', "g1")
-g2 = smiles('N', "g2")
-g3 = smiles('O', "g3")
-g4 = smiles('P', "g4")
-g5 = smiles('S', "g5")
+g1 = Graph.fromSMILES('C', "g1")
+g2 = Graph.fromSMILES('N', "g2")
+g3 = Graph.fromSMILES('O', "g3")
+g4 = Graph.fromSMILES('P', "g4")
+g5 = Graph.fromSMILES('S', "g5")
 
 exeStrat(addSubset(g1) >> DGStrat.makeFilter(False, False), [], [g1])
 exeStrat(addSubset(g1) >> DGStrat.makeFilter(True, False), [], [])

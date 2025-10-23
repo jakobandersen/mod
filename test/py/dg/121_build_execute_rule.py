@@ -1,17 +1,17 @@
 include("1xx_execute_helpers.py")
 
-gO = smiles('[O]', "gO")
-gC = smiles('[C]', "gC")
-gN = smiles('[N]', "gN")
-gOC = smiles('[O][C]', "gOC")
+gO = Graph.fromSMILES('[O]', "gO")
+gC = Graph.fromSMILES('[C]', "gC")
+gN = Graph.fromSMILES('[N]', "gN")
+gOC = Graph.fromSMILES('[O][C]', "gOC")
 
-rConvertOC = ruleGMLString("""rule [
+rConvertOC = Rule.fromGMLString("""rule [
 	ruleID "Convert O -> C"
 	left  [ node [ id 0 label "O" ] ]
 	right [ node [ id 0 label "C" ] ]
 ]""")
 
-rConnectOC = ruleGMLString("""rule [
+rConnectOC = Rule.fromGMLString("""rule [
 	ruleID "Connect O C"
 	context [
 		node [ id 0 label "O" ]
@@ -40,5 +40,5 @@ exeStrat(addSubset(gO) >> addUniverse(gC) >> rConnectOC, [gOC], [gO, gC, gOC],
 	graphDatabase=inputGraphs, verbosity=10)
 
 print("Empty result")
-rRemove = ruleGMLString('rule [ left [ node [ id 0 label "C" ] ] ]')
+rRemove = Rule.fromGMLString('rule [ left [ node [ id 0 label "C" ] ] ]')
 exeStrat(addSubset(gC) >> rRemove, [], [gC], verbosity=10)

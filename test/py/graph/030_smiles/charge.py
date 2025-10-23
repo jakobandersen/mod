@@ -4,7 +4,7 @@ config.graph.smilesCheckAST = False
 
 
 def check(p, atomId, charge):
-	a = smiles("[{}]".format(p))
+	a = Graph.fromSMILES("[{}]".format(p))
 	v = a.vertices[0]
 	if v.atomId != atomId or v.charge != charge:
 		print("AtomId:", v.atomId, "vs.", atomId)

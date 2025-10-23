@@ -1,5 +1,5 @@
 if True:
-	a = smiles("C(=CC(=O)O)C(=O)O", name="Fumarate")
+	a = Graph.fromSMILES("C(=CC(=O)O)C(=O)O", name="Fumarate")
 	p = GraphPrinter()
 	p.withIndex = True
 	a.print(p)
@@ -13,8 +13,8 @@ if True:
 	print("Get input: ", v)
 	print("Get output:", g.gens[1][v])
 
-a = smiles("CC1=C(CC2=C(C)N=S(=O)(O)N=C2C)C(=NS(=O)(=N1)O)C")
-a = smiles("CC(C)C[C@@H](C(=O)O)N", name="Leucine")
+a = Graph.fromSMILES("CC1=C(CC2=C(C)N=S(=O)(O)N=C2C)C(=NS(=O)(=N1)O)C")
+a = Graph.fromSMILES("CC(C)C[C@@H](C(=O)O)N", name="Leucine")
 p = GraphPrinter()
 p.setMolDefault()
 p.collapseHydrogens = False

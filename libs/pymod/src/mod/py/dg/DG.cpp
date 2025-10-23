@@ -60,6 +60,7 @@ void DG_doExport() {
 			// rst:			:param IsomorphismPolicy graphPolicy: the policy for how the graphs of ``graphDatabase`` are checked for
 			// rst:				isomorphism against each other initially. Only use ``IsomorphismPolicy.TrustMe`` if you are
 			// rst:				absolutely sure that the graphs are unique up to isomorphism.
+			// rst:			:raises: :class:`LogicError` if ``not labelSettings.formCategory``.
 			// rst:			:raises: :class:`LogicError` if ``graphPolicy == IsomorphismPolicy.Check`` and two graphs
 			// rst:				in ``graphDatabase`` are different objects but represents isomorphic graphs.
 			// rst:			:raises: :class:`LogicError` if there is a ``None`` in ``graphDatabase``.

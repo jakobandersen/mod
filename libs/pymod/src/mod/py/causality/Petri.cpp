@@ -13,6 +13,10 @@ void Petri_doExport() {
 	// rst:		:func:`syncSize` must be called before calling certain other
 	// rst:		methods on the object.
 	// rst:
+	// rst:		.. versionadded:: 1.1
+	// rst:
+	// rst:		.. todo:: check version added before release
+	// rst:
 	py::class_<Net, std::shared_ptr<Net>, boost::noncopyable>("Net", py::no_init)
 			// rst:		.. method:: __init__(dg)
 			// rst:
@@ -49,6 +53,10 @@ void Petri_doExport() {
 	// rst:		Importantly, if the underlying derivation graph is enlarged then
 	// rst:		:func:`syncSize` must be called before calling certain other
 	// rst:		methods on the object.
+	// rst:
+	// rst:		.. versionadded:: 1.1
+	// rst:
+	// rst:		.. todo:: check version added before release
 	// rst:
 	py::class_<Marking>("Marking", py::no_init)
 			// rst:		.. method:: __init__(net)

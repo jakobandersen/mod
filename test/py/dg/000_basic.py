@@ -1,6 +1,6 @@
 include("xx0_helpers.py")
 
-g = smiles('O')
+g = Graph.fromSMILES('O')
 v = DG.Vertex()
 
 dg =  DG()
@@ -51,26 +51,31 @@ assert dg.labelSettings.relation == LabelRelation.Isomorphism
 assert dg.labelSettings.withStereo
 assert dg.labelSettings.stereoRelation == LabelRelation.Isomorphism
 
+fail(lambda: DG(labelSettings=LabelSettings(LabelType.String, LabelRelation.Unification)),
+	"The label settings does not form a category. The relation is Unification, but must be Isomorphism or Specialisation.")
+fail(lambda: DG(labelSettings=LabelSettings(LabelType.String, LabelRelation.Isomorphism, LabelRelation.Unification)),
+	"The label settings does not form a category. The stereoRelation is Unification, but must be Isomorphism or Specialisation.")
+
 fail(lambda: DG(graphDatabase=[None]), "Null pointer in graph database.")
-g1 = smiles('O')
-g2 = smiles('O')
+g1 = Graph.fromSMILES('O')
+g2 = Graph.fromSMILES('O')
 fail(lambda: DG(graphDatabase=[g1, g2]), "Isomorphic graphs '{}' and '{}' in initial graph database.".format(g1.name, g2.name))
 dg = DG(graphDatabase=[g1, g2], graphPolicy=IsomorphismPolicy.TrustMe)
 
 dg = DG(graphDatabase=[g])
 assert dg.createdGraphs == []
-dg.build().execute(addSubset(g) >> ruleGMLString("""rule [
+dg.build().execute(addSubset(g) >> Rule.fromGMLString("""rule [
 	left [ node [ id 0 label "O" ] ]
 	right [ node [ id 0 label "S" ] ]
 ]"""))
 assert len(dg.createdGraphs) == 1
-assert dg.createdGraphs[0].isomorphism(smiles("S")) == 1
+assert dg.createdGraphs[0].isomorphism(Graph.fromSMILES("S")) == 1
 
 dg = DG(graphDatabase=[g])
 assert dg.createdGraphs == []
-dg.build().apply([g], ruleGMLString("""rule [
+dg.build().apply([g], Rule.fromGMLString("""rule [
 	left [ node [ id 0 label "O" ] ]
 	right [ node [ id 0 label "S" ] ]
 ]"""))
 assert len(dg.createdGraphs) == 1
-assert dg.createdGraphs[0].isomorphism(smiles("S")) == 1
+assert dg.createdGraphs[0].isomorphism(Graph.fromSMILES("S")) == 1

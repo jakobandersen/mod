@@ -6,9 +6,9 @@ include("stochsim_xx1_helpers.py")
 # I -> R       @ k2=0.001 
 #
 
-suseptible = graphDFS('[S]', 'suseptible')
-infected = graphDFS('[I]', 'infected')
-recovered = graphDFS('[R]', 'recovered')
+suseptible = Graph.fromDFS('[S]', 'suseptible')
+infected = Graph.fromDFS('[I]', 'infected')
+recovered = Graph.fromDFS('[R]', 'recovered')
 
 r1 = Rule.fromDFS("[S]1.[I]2>>[I]1.[I]2")
 r1.name = "S + I -> 2 I"

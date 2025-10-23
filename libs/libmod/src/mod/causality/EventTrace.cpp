@@ -152,6 +152,10 @@ EventTrace &EventTrace::operator=(const EventTrace &other) {
 	return *this;
 }
 
+std::shared_ptr<dg::DG> EventTrace::getDG() const {
+	return p->net->getDG();
+}
+
 Marking EventTrace::getInitialState() const {
 	p->t.syncSize();
 	return Marking(p->net, p->t.getInitialState());

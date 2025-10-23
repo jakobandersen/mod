@@ -1,7 +1,7 @@
 include("../xxx_helpers.py")
 post.enableInvokeMake()
 
-a = smiles("C1CCCCC1CCC")
+a = Graph.fromSMILES("C1CCCCC1CCC")
 
 post.summaryChapter("First")
 p = GraphPrinter()

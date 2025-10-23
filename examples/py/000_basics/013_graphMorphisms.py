@@ -1,5 +1,5 @@
-mol1 = smiles("CC(C)CO")
-mol2 = smiles("C(CC)CO")
+mol1 = Graph.fromSMILES("CC(C)CO")
+mol2 = Graph.fromSMILES("C(CC)CO")
 # Check if there is just one isomorphism between the graphs:
 isomorphic = mol1.isomorphism(mol2) == 1
 print("Isomorphic?", isomorphic)
@@ -8,7 +8,7 @@ print("Isomorphic?", isomorphic)
 numAutomorphisms = mol1.isomorphism(mol1, maxNumMatches=2**30)
 print("|Aut(G)| =", numAutomorphisms)
 # Let's count the number of methyl groups:
-methyl = smiles("[CH3]")
+methyl = Graph.fromSMILES("[CH3]")
 # The symmetry of the group it self should not be counted,
 # so find the size of the automorphism group of methyl.
 numAutMethyl = methyl.isomorphism(methyl, maxNumMatches=2**30)
