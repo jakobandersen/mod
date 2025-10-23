@@ -7,8 +7,7 @@ dependencies:
   - make
   - pkg-config
   - cmake
-  - boost
-  - boost-cpp
+  - libboost-python-devel
   - openbabel
   - python
   - graphviz>=2.46.1  # to get the rsvg plugin

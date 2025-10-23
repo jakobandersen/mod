@@ -12,7 +12,7 @@ source:
   {% endif %}
 
 build:
-  string: py{{ python | replace(".", "") }}_boost{{ boost | replace(".", "") }}
+  string: py{{ python | replace(".", "") }}_boost{{ libboost | replace(".", "") }}
   # Use merge_build_host to ensure the Python interpreter path is not in the
   # build folder, as it is embedded in the wrapper script.
   # See https://github.com/conda/conda-build/issues/2677
@@ -27,8 +27,8 @@ requirements:
     - cmake
     # lib packages, needed here to make sure we get the exact same version
     #               as in the host environment
-    - boost {{ boost }}
-    - boost-cpp {{ boost }}  # to make conda build stop complaining
+    - libboost-devel {{ libboost }}
+    - libboost-python-devel {{ libboost }}
     - openbabel>=3.1.1  # to cut down on versions to solve for
     - python {{ python }}
     # Add both exe and py packages to the build environemnt
@@ -44,16 +44,16 @@ requirements:
     - typing_extensions
   host:
     # lib packages
-    - boost {{ boost }}
-    - boost-cpp {{ boost }}  # to make conda build stop complaining
-    - openbabel
+    - libboost-devel {{ libboost }}
+    - libboost-python-devel {{ libboost }}
+    - openbabel>=3.1.1  # to cut down on versions to solve for
     - coincbc
     - python {{ python }}
   run:
     # lib packages
-    - boost
-    - boost-cpp {{ boost }}  # to make conda build stop complaining
-    - openbabel
+    - libboost {{ libboost }}
+    - libboost-python {{ libboost }}
+    - openbabel>=3.1.1  # to cut down on versions to solve for
     - coincbc
     - python {{ python }}
     # exe packages
