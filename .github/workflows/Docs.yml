@@ -39,7 +39,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off
+        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off -DBUILD_POST_MOD=no
     - name: Build
       run: cd build && make -j 4 doc
     - name: Deploy
@@ -73,7 +73,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off
+        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off -DBUILD_POST_MOD=no
     - name: Build
       run: cd build && make -j 4 doc
     - name: Deploy
