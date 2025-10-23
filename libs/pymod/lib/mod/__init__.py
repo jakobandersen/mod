@@ -360,7 +360,7 @@ def _DG__getattribute__(self: DG, name: str) -> Any:
 DG.__getattribute__ = _DG__getattribute__  # type: ignore
 
 _setSpecialForIdClass(DG)
-DG.__repr__ = DG.__str__
+DG.__repr__ = DG.__str__  # type: ignore
 
 
 class DGBuildContextManager:
@@ -1428,7 +1428,7 @@ causality.Simulator.DrawMassAction.Function.__init__ = _DrawMassActionFunction__
 ###########################################################
 
 _setSpecialForIdClass(hyperflow.Model)
-hyperflow.Model.__repr__ = hyperflow.Model.__str__
+hyperflow.Model.__repr__ = hyperflow.Model.__str__  # type: ignore
 
 class Flow:
 	def __new__(cls, dg: DG, ilpSolver="default") -> hyperflow.Model:  # type: ignore
