@@ -1,5 +1,5 @@
-g = smiles("N[C@](O)([C@](S)(P)(O))([C@](S)(P)(O))")
-change = ruleGMLString("""rule [
+g = Graph.fromSMILES("N[C@](O)([C@](S)(P)(O))([C@](S)(P)(O))")
+change = Rule.fromGMLString("""rule [
 	ruleID "Change"
 	left [
 		node [ id 0 stereo "tetrahedral" ]

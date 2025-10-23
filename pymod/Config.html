@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.3. Config &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=78d64644" />
+    <title>4.1.3. Config &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -97,6 +97,7 @@
 </li>
 <li><a class="reference internal" href="#mod.LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings</span></code></a><ul>
 <li><a class="reference internal" href="#mod.LabelSettings.__init__"><code class="docutils literal notranslate"><span class="pre">LabelSettings.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.LabelSettings.formCategory"><code class="docutils literal notranslate"><span class="pre">LabelSettings.formCategory</span></code></a></li>
 <li><a class="reference internal" href="#mod.LabelSettings.type"><code class="docutils literal notranslate"><span class="pre">LabelSettings.type</span></code></a></li>
 <li><a class="reference internal" href="#mod.LabelSettings.relation"><code class="docutils literal notranslate"><span class="pre">LabelSettings.relation</span></code></a></li>
 <li><a class="reference internal" href="#mod.LabelSettings.withStereo"><code class="docutils literal notranslate"><span class="pre">LabelSettings.withStereo</span></code></a></li>
@@ -249,11 +250,22 @@ If <code class="docutils literal notranslate"><span class="pre">stereoRelation</
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>type</strong> (<a class="reference internal" href="#mod.LabelType" title="mod.LabelType"><em>LabelType</em></a>) – How to interpret labels.</p></li>
 <li><p><strong>relation</strong> (<a class="reference internal" href="#mod.LabelRelation" title="mod.LabelRelation"><em>LabelRelation</em></a>) – The relation that should hold in morphisms between two labels.</p></li>
-<li><p><strong>withStereo</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – A flag to specify if stereo information should be included.
+<li><p><strong>withStereo</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – A flag to specify if stereo information should be included.
 Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>, unless <code class="docutils literal notranslate"><span class="pre">stereoRelation</span></code> is given, then <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 <li><p><strong>stereoRelation</strong> (<a class="reference internal" href="#mod.LabelRelation" title="mod.LabelRelation"><em>LabelRelation</em></a>) – The relation that should hold in morphisms between stereo data.
 Defaults to <a class="reference internal" href="#mod.LabelRelation.Isomorphism" title="mod.LabelRelation.Isomorphism"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelRelation.Isomorphism</span></code></a>, but is only used when <code class="docutils literal notranslate"><span class="pre">withStereo</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mod.LabelSettings.formCategory">
+<span class="sig-name descname"><span class="pre">formCategory</span></span><a class="headerlink" href="#mod.LabelSettings.formCategory" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) Whether the settings form a category (i.e., does not contain any <cite>LabelRelation.Unification</cite>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -283,7 +295,7 @@ Defaults to <a class="reference internal" href="#mod.LabelRelation.Isomorphism" 
 <span class="sig-name descname"><span class="pre">withStereo</span></span><a class="headerlink" href="#mod.LabelSettings.withStereo" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -388,7 +400,7 @@ unless it is harmless to deviate (e.g., relaxed white-space parsing).</p>
 <dd><p>Use the MDL valence model to add hydrogens to atoms with default valence, or disable all hydrogen addition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -399,7 +411,7 @@ unless it is harmless to deviate (e.g., relaxed white-space parsing).</p>
 <dd><p>Allow non-standard atom symbols. The standard symbols are the element symbols and those specifying wildcard atoms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -411,7 +423,7 @@ unless it is harmless to deviate (e.g., relaxed white-space parsing).</p>
 After application, the atom is considered abstract without errors, and hydrogen addition is suppressed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -459,7 +471,7 @@ Setting this to <code class="docutils literal notranslate"><span class="pre">Tru
 skip the storage, but only for a pre-defined known subset of properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -541,7 +553,7 @@ skip the storage, but only for a pre-defined known subset of properties.</p>
 See <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod22getAvailableILPSolversEv" title="mod::getAvailableILPSolvers"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">getAvailableILPSolvers()</span></code></a> for details.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>

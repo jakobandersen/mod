@@ -81,6 +81,11 @@ rule/CompositionMatch.hpp
         :returns: the composition of the two rules along the match, either just the composed rule
             or the composed rule with maps relating its vertices and the vertices in the input.
             If the composition is not defined, a null pointer or empty optional is returned.
+
+        .. versionadded:: 1.1
+            The ``composeWithMaps`` member function.
+
+        .. todo:: check version added before release
     .. function:: std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const
                   std::vector<Result> composeAllWithMaps(bool maximum, bool verbose) const
 
@@ -91,3 +96,8 @@ rule/CompositionMatch.hpp
             including the full match used for each particular composition.
             The enumerated matches are all those that are extensions of the current match,
             and the match itself.
+
+        .. versionadded:: 1.1
+            The ``composeAllWithMaps`` member function.
+
+        .. todo:: check version added before release

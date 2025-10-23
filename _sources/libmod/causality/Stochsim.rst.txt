@@ -21,6 +21,10 @@ Class ``causality::DrawMassActionFunction``
     Importantly, if the underlying derivation graph is enlarged then
     :func:`syncSize` must be called before calling :func:`draw`.
 
+    .. versionadded:: 1.1
+
+    .. todo:: check version added before release
+
 
 Synopsis
 ^^^^^^^^

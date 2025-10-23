@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2. Compiling from Source &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=78d64644" />
+    <title>2. Compiling from Source &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
     <script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=ad530a96"></script>
+    <script src="_static/documentation_options.js?v=61e3adf7"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -371,6 +371,17 @@ specified when the dependency was installed.
 See also <a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_PREFIX_PATH.html#variable:CMAKE_PREFIX_PATH">https://cmake.org/cmake/help/latest/variable/CMAKE_PREFIX_PATH.html#variable:CMAKE_PREFIX_PATH</a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_DOC=on</span></code>, whether to build documentation or not.
 This is forced to <code class="docutils literal notranslate"><span class="pre">off</span></code> when used via <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_MOD=on</span></code>, whether to build the central library or not.
+When set <code class="docutils literal notranslate"><span class="pre">off</span></code> then <code class="docutils literal notranslate"><span class="pre">BUILD_PY_MOD</span></code> is set to <code class="docutils literal notranslate"><span class="pre">off</span></code>.
+This setting is useful if you just want to compile the documentation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_PY_MOD=on</span></code>, whether to build the Python bindings or not.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_PY_MOD_PIP=on</span></code>, whether to install the Python bindings via pip or
+not. The bindings are always installed in the <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;/lib</span></code> folder, so
+a normal <code class="docutils literal notranslate"><span class="pre">import</span></code> in Python will probably not find the module.
+Having this setting on will enable a build of a fake Python package to be
+installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> in the default system folder. This fake package will
+redirect the import to the real location.
+This package can be uninstalled with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">mod-jakobandersen</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_POST_MOD=on</span></code>, whether to build the post-processor or not.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_POST_MOD_FMT=on</span></code>, whether to build the Latex format files used by
 the post-processor or not.
@@ -384,14 +395,6 @@ Alternatively, the format file can be (re)installed by the post-processor
 using the
 <a class="reference internal" href="postmod/index.html#cmdoption-mod_post-install-format"><code class="xref std std-option docutils literal notranslate"><span class="pre">mod_post</span> <span class="pre">--install-format</span></code></a>/<a class="reference internal" href="postmod/index.html#cmdoption-mod_post-install-format-sudo"><code class="xref std std-option docutils literal notranslate"><span class="pre">mod_post</span> <span class="pre">--install-format-sudo</span></code></a>
 options.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_PY_MOD=on</span></code>, whether to build the Python bindings or not.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_PY_MOD_PIP=on</span></code>, whether to install the Python bindings via pip or
-not. The bindings are always installed in the <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;/lib</span></code> folder, so
-a normal <code class="docutils literal notranslate"><span class="pre">import</span></code> in Python will probably not find the module.
-Having this setting on will enable a build of a fake Python package to be
-installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> in the default system folder. This fake package will
-redirect the import to the real location.
-This package can be uninstalled with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">mod-jakobandersen</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-DBUILD_TESTING=off</span></code>, whether to allow test building or not.
 This is forced to <code class="docutils literal notranslate"><span class="pre">off</span></code> when used via <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code>.
 When <code class="docutils literal notranslate"><span class="pre">on</span></code> the tests can be build with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tests</span></code> and run with <code class="docutils literal notranslate"><span class="pre">ctest</span></code>.</p></li>

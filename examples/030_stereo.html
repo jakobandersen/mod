@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11.4. Local Geometry and Stereochemistry &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=78d64644" />
+    <title>11.4. Local Geometry and Stereochemistry &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -142,11 +142,11 @@
 enzyme in the citric acid cycle: citrate to D-isocitrate.
 The rule implements the stereo-specificity of the reaction.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=030_stereo__320_aconitase.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">water</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;H_2O&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="n">cit</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;C(C(=O)O)C(CC(=O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Cit&quot;</span><span class="p">)</span>
-<span class="linenos"> 3</span><span class="n">d_icit</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;C([C@@H]([C@H](C(=O)O)O)C(=O)O)C(=O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;D-ICit&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">water</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;H_2O&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">cit</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;C(C(=O)O)C(CC(=O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Cit&quot;</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="n">d_icit</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;C([C@@H]([C@H](C(=O)O)O)C(=O)O)C(=O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;D-ICit&quot;</span><span class="p">)</span>
 <span class="linenos"> 4</span>
-<span class="linenos"> 5</span><span class="n">aconitase</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 5</span><span class="n">aconitase</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos"> 6</span><span class="s2">   ruleID &quot;Aconitase&quot;</span>
 <span class="linenos"> 7</span><span class="s2">   left [</span>
 <span class="linenos"> 8</span><span class="s2">      # the dehydrated water</span>
@@ -214,11 +214,11 @@ The rule implements the stereo-specificity of the reaction.</p>
 starting from a model without stereo-information
 and fixating each tetrahedral embedding.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=030_stereo__330_tartaric.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;C(C(C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Tartaric acid&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;[C@@H]([C@H](C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;L-tartaric acid&quot;</span><span class="p">)</span>
-<span class="linenos"> 3</span><span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;[C@H]([C@@H](C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;D-tartaric acid&quot;</span><span class="p">)</span>
-<span class="linenos"> 4</span><span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;[C@@H]([C@@H](C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Meso-tartaric acid&quot;</span><span class="p">)</span>
-<span class="linenos"> 5</span><span class="n">change</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;C(C(C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Tartaric acid&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;[C@@H]([C@H](C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;L-tartaric acid&quot;</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;[C@H]([C@@H](C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;D-tartaric acid&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;[C@@H]([C@@H](C(=O)O)O)(C(=O)O)O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Meso-tartaric acid&quot;</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">change</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos"> 6</span><span class="s2">   ruleID &quot;Change&quot;</span>
 <span class="linenos"> 7</span><span class="s2">   left [</span>
 <span class="linenos"> 8</span><span class="s2">      node [ id 0 stereo &quot;tetrahedral&quot; ]</span>
@@ -261,8 +261,8 @@ and fixating each tetrahedral embedding.</p>
 <h2><span class="section-number">11.4.3. </span>Non-trivial Stereoisomers<a class="headerlink" href="#non-trivial-stereoisomers" title="Link to this heading">¶</a></h2>
 <p>Generation of stereoisomers in a non-trivial molecule.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=030_stereo__340_tree.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">g</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;N[C@](O)([C@](S)(P)(O))([C@](S)(P)(O))&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="n">change</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;N[C@](O)([C@](S)(P)(O))([C@](S)(P)(O))&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">change</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos"> 3</span><span class="s2">   ruleID &quot;Change&quot;</span>
 <span class="linenos"> 4</span><span class="s2">   left [</span>
 <span class="linenos"> 5</span><span class="s2">      node [ id 0 stereo &quot;tetrahedral&quot; ]</span>

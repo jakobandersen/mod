@@ -67,6 +67,9 @@ output when printing figures.
     .. function:: friend bool operator==(LabelSettings a, LabelSettings b)
                   friend bool operator!=(LabelSettings a, LabelSettings b)
     .. function:: friend std::ostream &operator<<(std::ostream &s, const LabelSettings &ls)
+    .. function:: bool formCategory() const
+
+        :returns: whether the settings form a category (i.e., does not contain any `LabelRelation.Unification`).
     .. member:: LabelType type
     .. member:: LabelRelation relation
     .. member:: bool withStereo

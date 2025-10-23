@@ -340,19 +340,6 @@ Loading Functions
     :returns: a list of lists of the loaded molecules.
         The items of the outer list correspond to each MOL entry in the SD data.
     :rtype: list[list[Graph]]
-.. method:: graphGMLString(...)
-
-    Alias of :py:meth:`Graph.fromGMLString`.
-.. method:: graphGML(...)
-
-    Alias of :py:meth:`Graph.fromGMLFile`.
-.. method:: graphDFS(...)
-
-    Alias of :py:meth:`Graph.fromDFS`.
-.. method:: smiles(...)
-
-    Alias of :py:meth:`Graph.fromSMILES`.
-
 
 .. data:: inputGraphs
 

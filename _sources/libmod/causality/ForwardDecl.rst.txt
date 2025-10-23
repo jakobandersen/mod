@@ -10,3 +10,8 @@ causality/ForwardDecl.hpp
 .. cpp:namespace:: mod
 
 This header contains declarations for all classes in the ``mod::causality`` namespace.
+
+.. versionadded:: 1.1
+
+.. todo:: check version added before release
+

@@ -9,6 +9,11 @@ causality/Petri.hpp
 .. py:currentmodule:: mod
 .. cpp:namespace:: mod
 
+
+.. versionadded:: 1.1
+
+.. todo:: check version added before release
+
 .. class:: causality::Net
 
     Adaptation of a derivation graph into a Petri net.

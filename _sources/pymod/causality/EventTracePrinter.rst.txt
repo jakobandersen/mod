@@ -16,6 +16,10 @@ causality/EventTracePrinter
     See :cpp:class:`causality::EventTracePrinter` for details on how the plot is rendered,
     and how the rendering is influenced by the printer.
 
+    .. versionadded:: 1.1
+
+    .. todo:: check version added before release
+
     .. attribute:: maxPointsPerVertex
 
         Control how many points are rendered for each different vertex represented in the trace.

@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.12.2. rule/CompositionMatch &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.12.2. rule/CompositionMatch &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -214,7 +214,7 @@ a common subgraph <span class="math notranslate nohighlight">\(R_1 \leftarrow M 
 <dd><p>(Read-only) The number of currently mapped pairs of vertices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -278,7 +278,7 @@ by identifying the given vertices from each of the graphs.</p>
 <span class="sig-name descname"><span class="pre">composeWithMaps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.RCMatch.composeWithMaps" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to output debug messages from the composition algorithm.</p>
+<dd class="field-odd"><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – whether to output debug messages from the composition algorithm.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the composition of the two rules along the match, either just the composed rule
@@ -289,6 +289,13 @@ If the composition is not defined, <code class="docutils literal notranslate"><s
 <dd class="field-odd"><p><a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a> or <a class="reference internal" href="#mod.RCMatch.Result" title="mod.RCMatch.Result">Result</a></p>
 </dd>
 </dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1: </span>The <code class="docutils literal notranslate"><span class="pre">composeWithMaps</span></code> method.</p>
+</div>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>check version added before release</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -299,8 +306,8 @@ If the composition is not defined, <code class="docutils literal notranslate"><s
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>maximum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to only compose using the matches of maximum cardinality.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to output debug messages from the composition algorithm.</p></li>
+<li><p><strong>maximum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – whether to only compose using the matches of maximum cardinality.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – whether to output debug messages from the composition algorithm.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -311,9 +318,16 @@ The enumerated matches are all those that are extensions of the current match,
 and the match itself.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a>] or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="#mod.RCMatch.Result" title="mod.RCMatch.Result">Result</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="Rule.html#mod.Rule" title="mod.Rule">Rule</a>] or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#mod.RCMatch.Result" title="mod.RCMatch.Result">Result</a>]</p>
 </dd>
 </dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1: </span>The <code class="docutils literal notranslate"><span class="pre">composeAllWithMaps</span></code> method.</p>
+</div>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>check version added before release</p>
+</div>
 </dd></dl>
 
 </dd></dl>

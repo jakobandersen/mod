@@ -15,6 +15,10 @@ causality/Petri
     :func:`syncSize` must be called before calling certain other
     methods on the object.
 
+    .. versionadded:: 1.1
+
+    .. todo:: check version added before release
+
     .. method:: __init__(dg)
 
         Calls :meth:`syncSize`.
@@ -44,6 +48,10 @@ causality/Petri
     Importantly, if the underlying derivation graph is enlarged then
     :func:`syncSize` must be called before calling certain other
     methods on the object.
+
+    .. versionadded:: 1.1
+
+    .. todo:: check version added before release
 
     .. method:: __init__(net)
 

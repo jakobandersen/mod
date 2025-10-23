@@ -180,13 +180,6 @@ Loading Functions
     :returns: the loaded rule.
     :rtype: Rule
     :raises: :class:`InputError` on bad input.
-.. function:: ruleGMLString(...)
-
-    Alias of :py:meth:`Rule.fromGMLString`.
-.. method:: ruleGML(...)
-    
-    Alias of :py:meth:`Rule.fromGMLFile`.
-
 
 .. data:: inputRules
 

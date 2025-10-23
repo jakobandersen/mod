@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.8.2. causality/EventTracePrinter &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.8.2. causality/EventTracePrinter &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -154,6 +154,13 @@
 e.g., which vertices/graphs should be shown, colours, and axis configuration.</p>
 <p>See <a class="reference internal" href="../../libmod/causality/EventTracePrinter.html#_CPPv4N3mod9causality17EventTracePrinterE" title="mod::causality::EventTracePrinter"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">causality::EventTracePrinter</span></code></a> for details on how the plot is rendered,
 and how the rendering is influenced by the printer.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1.</span></p>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>check version added before release</p>
+</div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.causality.EventTracePrinter.maxPointsPerVertex">
 <span class="sig-name descname"><span class="pre">maxPointsPerVertex</span></span><a class="headerlink" href="#mod.causality.EventTracePrinter.maxPointsPerVertex" title="Link to this definition">¶</a></dt>
@@ -162,7 +169,7 @@ Data is then visualised at this amount of regular intervals on the time axis.
 It defaults to 500.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -174,7 +181,7 @@ It defaults to 500.</p>
 It defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -186,7 +193,7 @@ It defaults to <code class="docutils literal notranslate"><span class="pre">fals
 It defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -198,7 +205,7 @@ It defaults to <code class="docutils literal notranslate"><span class="pre">fals
 All options function results are applied.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to push for specifying options.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the function or constant to push for specifying options.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -221,7 +228,7 @@ All options function results are applied.</p>
 All visibility functions must return <code class="docutils literal notranslate"><span class="pre">true</span></code> for a plot of a vertex to be visible.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – the function or constant to push for specifying vertex visibility.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – the function or constant to push for specifying vertex visibility.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -244,7 +251,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 All options function results are applied.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to push for specifying vertex options.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the function or constant to push for specifying vertex options.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -269,7 +276,7 @@ All options function results are applied.</p>
 either before or after the primary data has been added.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to set for adding content.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the function or constant to set for adding content.</p>
 </dd>
 </dl>
 </dd></dl>

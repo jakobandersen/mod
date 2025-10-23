@@ -14,6 +14,10 @@ but with the ability to generate the underlying network as needed using graph tr
 similarly to how a derivation graph, :class:`DG`, can be expanded using strategies, :ref:`dgStrat`.
 
 
+.. versionadded:: 1.1
+
+.. todo:: check version added before release
+
 .. class:: causality.Simulator
 
     The main class for performing stochastic simulations of chemical systems.
@@ -126,7 +130,7 @@ similarly to how a derivation graph, :class:`DG`, can be expanded using strategi
 
         :type: Callable[[Simulator], None]
 
-    .. method:: simulate(*, time, advanceToEndTime,    iterations)
+    .. method:: simulate(*, time, advanceToEndTime,    iterations, keepNetworkOpen=False)
 
         Start/continue the simulation.
 
@@ -136,7 +140,8 @@ similarly to how a derivation graph, :class:`DG`, can be expanded using strategi
         :param Optional[float] time: the additional amount of time to simulate,    or ``None`` for unbounded. Defaults to ``None``.
         :param bool advanceToEndTime: if a time bound is given and the simulation stops due to this bound,
             advance the current time to the time bound,    instead of staying at the time of the last event. Defaults to ``False``.
-        :param Optional[int] iterations: the additional number of iterations to    simulate, or ``None`` for unbounded. Defaults to ``None``.
+        :param Optional[int] iterations: the additional number of iterations to simulate, or ``None`` for unbounded. Defaults to ``None``.
+        :param bool keepNetworkOpen: is ``False`` the internal `DG.Builder` object will be deleted before returning. Defaults to ``False``.
         :returns: a references to the event trace for the entire simulation.
             It should not be modified.
         :rtype: EventTrace

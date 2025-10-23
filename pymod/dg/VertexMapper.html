@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.9.6. dg/VertexMapper &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.9.6. dg/VertexMapper &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -204,10 +204,10 @@ given hyperedge.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e</strong> (<a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a>) – the hyperedge to construct vertex maps for.</p></li>
-<li><p><strong>upToIsomorphismGDH</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to only enumerate spans <span class="math notranslate nohighlight">\(G \leftarrow D\rightarrow H'\)</span> up to isomorphism, all <span class="math notranslate nohighlight">\(m\)</span>, or just those such that all bottom spans
+<li><p><strong>upToIsomorphismGDH</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – whether to only enumerate spans <span class="math notranslate nohighlight">\(G \leftarrow D\rightarrow H'\)</span> up to isomorphism, all <span class="math notranslate nohighlight">\(m\)</span>, or just those such that all bottom spans
 <span class="math notranslate nohighlight">\((G\leftarrow D\rightarrow H)\)</span> up to isomorphism are generated.
 Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
-<li><p><strong>rightLimit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – after bottom span generation, find this many isomorphisms back to the targets of the hyperedge.</p></li>
+<li><p><strong>rightLimit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – after bottom span generation, find this many isomorphisms back to the targets of the hyperedge.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -260,7 +260,7 @@ see <a class="reference internal" href="#mod.DGVertexMapper.__getitem__" title="
 <dd><p>(Read-only) The number of vertex maps calculated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -273,7 +273,7 @@ see <a class="reference internal" href="#mod.DGVertexMapper.__getitem__" title="
 <dd class="field-odd"><p><a class="reference internal" href="#mod.DGVertexMapper.size" title="mod.DGVertexMapper.size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">size</span></code></a></p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -283,7 +283,7 @@ see <a class="reference internal" href="#mod.DGVertexMapper.__getitem__" title="
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGVertexMapper.__getitem__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>i</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the index of the map to retrieve.</p>
+<dd class="field-odd"><p><strong>i</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the index of the map to retrieve.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the <code class="docutils literal notranslate"><span class="pre">i</span></code>th vertex map.</p>

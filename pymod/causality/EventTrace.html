@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.8.1. causality/EventTrace &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.8.1. causality/EventTrace &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -86,6 +86,7 @@
 <li><a class="reference internal" href="#mod.causality.EdgeAction"><code class="docutils literal notranslate"><span class="pre">causality.EdgeAction</span></code></a><ul>
 <li><a class="reference internal" href="#mod.causality.EdgeAction.__init__"><code class="docutils literal notranslate"><span class="pre">causality.EdgeAction.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.EdgeAction.edge"><code class="docutils literal notranslate"><span class="pre">causality.EdgeAction.edge</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EdgeAction.applyTo"><code class="docutils literal notranslate"><span class="pre">causality.EdgeAction.applyTo()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mod.causality.InputAction"><code class="docutils literal notranslate"><span class="pre">causality.InputAction</span></code></a><ul>
@@ -100,6 +101,7 @@
 </li>
 <li><a class="reference internal" href="#mod.causality.EventTrace"><code class="docutils literal notranslate"><span class="pre">causality.EventTrace</span></code></a><ul>
 <li><a class="reference internal" href="#mod.causality.EventTrace.__init__"><code class="docutils literal notranslate"><span class="pre">causality.EventTrace.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.EventTrace.dg"><code class="docutils literal notranslate"><span class="pre">causality.EventTrace.dg</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.EventTrace.initialState"><code class="docutils literal notranslate"><span class="pre">causality.EventTrace.initialState</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.EventTrace.__len__"><code class="docutils literal notranslate"><span class="pre">causality.EventTrace.__len__()</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.EventTrace.time"><code class="docutils literal notranslate"><span class="pre">causality.EventTrace.time</span></code></a></li>
@@ -166,6 +168,13 @@
 			
   <section id="causality-eventtrace">
 <span id="py-causality-eventtrace"></span><h1><span class="section-number">4.1.8.1. </span>causality/EventTrace<a class="headerlink" href="#causality-eventtrace" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1.</span></p>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>check version added before release</p>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.causality.EdgeAction">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">EdgeAction</span></span><a class="headerlink" href="#mod.causality.EdgeAction" title="Link to this definition">¶</a></dt>
@@ -189,8 +198,8 @@ May not be null.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">void</span> <span class="pre">applyTo(m)</span> <span class="pre">const</span></span></dt>
+<dt class="sig sig-object py" id="mod.causality.EdgeAction.applyTo">
+<span class="sig-name descname"><span class="pre">applyTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EdgeAction.applyTo" title="Link to this definition">¶</a></dt>
 <dd><p>Perform <code class="docutils literal notranslate"><span class="pre">m.fire(edge)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -290,6 +299,17 @@ A copy of the given marking is being stored.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mod.causality.EventTrace.dg">
+<span class="sig-name descname"><span class="pre">dg</span></span><a class="headerlink" href="#mod.causality.EventTrace.dg" title="Link to this definition">¶</a></dt>
+<dd><p>(Read-only) The underlying derivation graph for the event trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG">DG</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mod.causality.EventTrace.initialState">
 <span class="sig-name descname"><span class="pre">initialState</span></span><a class="headerlink" href="#mod.causality.EventTrace.initialState" title="Link to this definition">¶</a></dt>
 <dd><p>(Read-only) Read a copy of the initial state for this event trace.</p>
@@ -308,7 +328,7 @@ A copy of the given marking is being stored.</p>
 <dd class="field-odd"><p>the number of events in the trace.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -319,7 +339,7 @@ A copy of the given marking is being stored.</p>
 <dd><p>(Read-only) the time of the latest added event, or 0 if <code class="docutils literal notranslate"><span class="pre">len(self)</span> <span class="pre">==</span> <span class="pre">0</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -353,7 +373,7 @@ A copy of the given marking is being stored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the time associated with the event.</p></li>
+<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the time associated with the event.</p></li>
 <li><p><strong>action</strong> (<a class="reference internal" href="#mod.causality.EdgeAction" title="mod.causality.EdgeAction"><em>EdgeAction</em></a><em> or </em><a class="reference internal" href="#mod.causality.InputAction" title="mod.causality.InputAction"><em>InputAction</em></a><em> or </em><a class="reference internal" href="#mod.causality.OutputAction" title="mod.causality.OutputAction"><em>OutputAction</em></a>) – the action of the event.</p></li>
 </ul>
 </dd>
@@ -378,7 +398,7 @@ A copy of the given marking is being stored.</p>
 <dd class="field-odd"><p>the filename for the PDF that will be compiled by the post processor.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -391,7 +411,7 @@ A copy of the given marking is being stored.</p>
 <dd><p>Dump the initial marking and list of events to a file. This file can be loaded in again.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>the name of the file to save the dump to.
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p>the name of the file to save the dump to.
 If non is given an auto-generated name in the <code class="docutils literal notranslate"><span class="pre">out/</span></code> folder is used.
 If an empty string is given, it is treated as if non is given.</p>
 <div class="admonition note">
@@ -405,7 +425,7 @@ prefixed according to the current script location as input filenames are.</p>
 <dd class="field-even"><p>the filename with the dumped model.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -423,7 +443,7 @@ prefixed according to the current script location as input filenames are.</p>
 A <a class="reference internal" href="Petri.html#mod.causality.Net" title="mod.causality.Net"><code class="xref py py-class docutils literal notranslate"><span class="pre">Net</span></code></a> is being constructed based on this DG,
 i.e., it is equivalent to <code class="docutils literal notranslate"><span class="pre">EventTrace(Net(dg),</span> <span class="pre">f)</span></code>.</p></li>
 <li><p><strong>net</strong> (<a class="reference internal" href="Petri.html#mod.causality.Net" title="mod.causality.Net"><em>Net</em></a>) – a Petri net where the underlying derivation graph matches the loaded event trace.</p></li>
-<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – an event trace dump file to load.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – an event trace dump file to load.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -453,7 +473,7 @@ i.e., it is equivalent to <code class="docutils literal notranslate"><span class
 <dd><p>(Read-only) the associated time for the event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>

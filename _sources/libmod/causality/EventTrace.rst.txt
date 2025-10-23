@@ -9,6 +9,11 @@ causality/EventTrace.hpp
 .. py:currentmodule:: mod
 .. cpp:namespace:: mod
 
+
+.. versionadded:: 1.1
+
+.. todo:: check version added before release
+
 .. type:: causality::Action = std::variant<causality::EdgeAction, causality::InputAction, causality::OutputAction>
 
 .. class:: causality::EdgeAction
@@ -73,6 +78,9 @@ Details
 
     Construct an empty event trace with an initial state.
     A copy of the given marking is being stored.
+.. function:: std::shared_ptr<dg::DG> getDG() const
+
+    :returns:  the underlying derivation graph of the event trace.
 .. function:: Marking getInitialState() const
 
     :returns: a copy of the initial state for this event trace.

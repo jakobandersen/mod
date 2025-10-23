@@ -73,6 +73,11 @@ rule/CompositionMatch
             or the composed rule with maps relating its vertices and the vertices in the input.
             If the composition is not defined, ``None`` is returned.
         :rtype: Rule or Result
+
+        .. versionadded:: 1.1
+            The ``composeWithMaps`` method.
+
+        .. todo:: check version added before release
     .. method:: composeAll(*, maximum=False, verbose=False)
                 composeAllWithMaps(*, maximum=False, verbose=False)
 
@@ -84,6 +89,11 @@ rule/CompositionMatch
             The enumerated matches are all those that are extensions of the current match,
             and the match itself.
         :rtype: list[Rule] or list[Result]
+
+        .. versionadded:: 1.1
+            The ``composeAllWithMaps`` method.
+
+        .. todo:: check version added before release
 .. class:: RCMatch.Result
 
     Representation of the full result of a composition.

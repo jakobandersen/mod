@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.8.3. causality/Petri &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.8.3. causality/Petri &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -163,6 +163,13 @@
 Importantly, if the underlying derivation graph is enlarged then
 <a class="reference internal" href="#mod.causality.Net.syncSize" title="mod.causality.Net.syncSize"><code class="xref py py-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> must be called before calling certain other
 methods on the object.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1.</span></p>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>check version added before release</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.causality.Net.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Net.__init__" title="Link to this definition">¶</a></dt>
@@ -211,7 +218,7 @@ methods on the object.</p>
 <dd class="field-even"><p>a list of unique targets for the given hyperedge.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 </dl>
 <p>Requires <a class="reference internal" href="#mod.causality.Net.syncSize" title="mod.causality.Net.syncSize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">syncSize()</span></code></a> to have been called since the last time the underlying derivation graph has changed size.</p>
@@ -226,6 +233,13 @@ methods on the object.</p>
 Importantly, if the underlying derivation graph is enlarged then
 <a class="reference internal" href="#mod.causality.Marking.syncSize" title="mod.causality.Marking.syncSize"><code class="xref py py-func docutils literal notranslate"><span class="pre">syncSize()</span></code></a> must be called before calling certain other
 methods on the object.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1.</span></p>
+</div>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>check version added before release</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.causality.Marking.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Marking.__init__" title="Link to this definition">¶</a></dt>
@@ -274,14 +288,14 @@ The second version is equivalent to <code class="docutils literal notranslate"><
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>v</strong> (<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a>) – the place to add tokens to.</p></li>
 <li><p><strong>g</strong> (<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – the graph associated to the place to add tokens to.</p></li>
-<li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the amount of tokens to add.</p></li>
+<li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the amount of tokens to add.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the new total token count on <cite>v</cite>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">v</span></code>.</p>
@@ -314,14 +328,14 @@ The second version is equivalent to <code class="docutils literal notranslate"><
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>v</strong> (<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a>) – the place to remove tokens from.</p></li>
 <li><p><strong>g</strong> (<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – the graph associated to the place to remove tokens from.</p></li>
-<li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the amount of tokens to remove.</p></li>
+<li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the amount of tokens to remove.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the new total token count on <cite>v</cite>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">v</span></code>.</p>
@@ -362,7 +376,7 @@ The second version is equivalent to <code class="docutils literal notranslate"><
 The second version is equivalent to <code class="docutils literal notranslate"><span class="pre">self[self.net.dg.findVertex(g)]</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">v</span></code>.</p>
@@ -386,7 +400,7 @@ The second version is equivalent to <code class="docutils literal notranslate"><
 <dd><p>(Read-only) The total number of tokens in the marking.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -399,7 +413,7 @@ The second version is equivalent to <code class="docutils literal notranslate"><
 <dd class="field-odd"><p>a list of all hyperedges currently enabled for firing.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge">DG.HyperEdge</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge">DG.HyperEdge</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -412,7 +426,7 @@ The second version is equivalent to <code class="docutils literal notranslate"><
 <dd class="field-odd"><p>a list of all vertices with tokens.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -429,7 +443,7 @@ The second version is equivalent to <code class="docutils literal notranslate"><
 The list represents a set, so if vertex is a target multiple times it will only be included once.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">e</span></code>.</p>
@@ -451,7 +465,7 @@ The list represents a set, so if vertex is a target multiple times it will only 
 <dd class="field-even"><p>whether the given hyperedge is enabled for firing.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">e</span></code>.</p>

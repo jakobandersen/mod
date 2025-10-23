@@ -1,5 +1,5 @@
-formaldehyde = smiles("C=O", name="Formaldehyde")
-glycolaldehyde = smiles( "OCC=O", name="Glycolaldehyde")
+formaldehyde = Graph.fromSMILES("C=O", name="Formaldehyde")
+glycolaldehyde = Graph.fromSMILES( "OCC=O", name="Glycolaldehyde")
 ketoEnolGML = """rule [
 	ruleID "Keto-enol isomerization" 
 	left [
@@ -19,8 +19,8 @@ ketoEnolGML = """rule [
 		edge [ source 3 target 4 label "-" ]
 	]   
 ]"""
-ketoEnol_F = ruleGMLString(ketoEnolGML)
-ketoEnol_B = ruleGMLString(ketoEnolGML, invert=True)
+ketoEnol_F = Rule.fromGMLString(ketoEnolGML)
+ketoEnol_B = Rule.fromGMLString(ketoEnolGML, invert=True)
 aldolAddGML = """rule [
 	ruleID "Aldol Addition"
 	left [
@@ -46,7 +46,7 @@ aldolAddGML = """rule [
 		edge [ source 6 target 1 label "-" ]
 	]
 ]"""
-aldolAdd_F = ruleGMLString(aldolAddGML)
-aldolAdd_B = ruleGMLString(aldolAddGML, invert=True)
+aldolAdd_F = Rule.fromGMLString(aldolAddGML)
+aldolAdd_B = Rule.fromGMLString(aldolAddGML, invert=True)
 # rst-name: Formose Grammar
 # rst: The graph grammar modelling the formose chemistry.

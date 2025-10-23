@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.8.4. causality/Stochsim &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.8.4. causality/Stochsim &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -168,6 +168,13 @@
 <p>The <a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator</span></code></a> class implements the Stochastic Simulation Algorithm, also known as the Gillespie algorithm,
 but with the ability to generate the underlying network as needed using graph transformation rules,
 similarly to how a derivation graph, <a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>, can be expanded using strategies, <a class="reference internal" href="../../dgStrat/index.html#dgstrat"><span class="std std-ref">Derivation Graph Strategies</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1.</span></p>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>check version added before release</p>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.causality.Simulator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">Simulator</span></span><a class="headerlink" href="#mod.causality.Simulator" title="Link to this definition">¶</a></dt>
@@ -179,8 +186,8 @@ similarly to how a derivation graph, <a class="reference internal" href="../dg/D
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>labelSettings</strong> (<a class="reference internal" href="../Config.html#mod.LabelSettings" title="mod.LabelSettings"><em>LabelSettings</em></a>) – a settings object that will be passed to <a class="reference internal" href="../dg/DG.html#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">DG.__init__()</span></code></a>.</p></li>
-<li><p><strong>graphDatabase</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – a list of graphs that will be    passed to <a class="reference internal" href="../dg/DG.html#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">DG.__init__()</span></code></a>.</p></li>
-<li><p><strong>expandNetwork</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/Builder.html#mod.DG.Builder" title="mod.DG.Builder"><em>DG.Builder</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em>) – <p>a callback which will be called when the simulator needs new hyperedge/reaction information.
+<li><p><strong>graphDatabase</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – a list of graphs that will be    passed to <a class="reference internal" href="../dg/DG.html#mod.DG.__init__" title="mod.DG.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">DG.__init__()</span></code></a>.</p></li>
+<li><p><strong>expandNetwork</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/Builder.html#mod.DG.Builder" title="mod.DG.Builder"><em>DG.Builder</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em>) – <p>a callback which will be called when the simulator needs new hyperedge/reaction information.
 The callback will be given:</p>
 <ol class="arabic simple">
 <li><p>the DG builder object for the underlying derivation graph.</p></li>
@@ -189,28 +196,28 @@ The callback will be given:</p>
 </ol>
 <p>The callback must return a boolean which indicates whether it should be called again.</p>
 <p>For example, if expansion is done via some <a class="reference internal" href="../dg/Strategies.html#mod.DGStrat" title="mod.DGStrat"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGStrat</span></code></a>, <code class="docutils literal notranslate"><span class="pre">strat</span></code>, a reasonable callback could be</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expandNetwork</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">expandNetwork</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
     <span class="n">b</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">addSubset</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">addUniverse</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">strat</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># call again when the simulation</span>
 </pre></div>
 </div>
 <p>If you wish to simply provide a static network without dynamic expansion, your callback could be</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expandNetwork</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">expandNetwork</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
     <span class="c1"># use the DG.Builder b to add reactions/hyperedges as needed to create the network</span>
     <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># don&#39;t call again, we have added everything we need.</span>
 </pre></div>
 </div>
 <p>The <a class="reference internal" href="#mod.causality.Simulator.ExpandByStrategy" title="mod.causality.Simulator.ExpandByStrategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpandByStrategy</span></code></a> class is a shorthand for this type of callback.</p>
 </p></li>
-<li><p><strong>initialState</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – the initial simulation state in terms of the number of    copies of each graph/molecule.
+<li><p><strong>initialState</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – the initial simulation state in terms of the number of    copies of each graph/molecule.
 The graphs/molecules not mentioned are set to 0.</p></li>
 <li><p><strong>draw</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a><em>]</em><em>, </em><a class="reference internal" href="#mod.causality.DrawFunction" title="mod.causality.DrawFunction"><em>DrawFunction</em></a><em>]</em>) – The simulator will initially create a <a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> which is given to this function.
 It must then return a callable that is used in each simulation step to draw the next hyperedge/reaction.
 Defaults to a default constructed instance of <a class="reference internal" href="#mod.causality.Simulator.DrawMassAction" title="mod.causality.Simulator.DrawMassAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrawMassAction</span></code></a>.</p></li>
-<li><p><strong>drawTime</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em>) – The function to use for drawing the time increment in each simulation step.
+<li><p><strong>drawTime</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>) – The function to use for drawing the time increment in each simulation step.
 The function will be given the reactivity, and must return the time increment.
 Defaults to an instance of <a class="reference internal" href="#mod.causality.Simulator.DrawTimeExponential" title="mod.causality.Simulator.DrawTimeExponential"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrawTimeExponential</span></code></a>.</p></li>
-<li><p><strong>withSetCompare</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to skip network expansion if a larger subset of graphs has been used for expansion before.
+<li><p><strong>withSetCompare</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to skip network expansion if a larger subset of graphs has been used for expansion before.
 Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 </ul>
 </dd>
@@ -234,7 +241,7 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">True</s
 <dd><p>The current iteration number. It starts at 0 and is incremented in the beginning of each iteration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -245,7 +252,7 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">True</s
 <dd><p>The current simulation time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -284,7 +291,7 @@ It is called with the simulator object, the drawn action, and the time increment
 and it must return a boolean indicating whether to continue the simulation, i.e., <code class="docutils literal notranslate"><span class="pre">True</span></code> means continue.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable[[<a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator">Simulator</a>, <a class="reference internal" href="EventTrace.html#mod.causality.EdgeAction" title="mod.causality.EdgeAction">EdgeAction</a> | <a class="reference internal" href="EventTrace.html#mod.causality.InputAction" title="mod.causality.InputAction">InputAction</a> | <a class="reference internal" href="EventTrace.html#mod.causality.OutputAction" title="mod.causality.OutputAction">OutputAction</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>], <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>]</p>
+<dd class="field-odd"><p>Callable[[<a class="reference internal" href="#mod.causality.Simulator" title="mod.causality.Simulator">Simulator</a>, <a class="reference internal" href="EventTrace.html#mod.causality.EdgeAction" title="mod.causality.EdgeAction">EdgeAction</a> | <a class="reference internal" href="EventTrace.html#mod.causality.InputAction" title="mod.causality.InputAction">InputAction</a> | <a class="reference internal" href="EventTrace.html#mod.causality.OutputAction" title="mod.causality.OutputAction">OutputAction</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>], <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -327,17 +334,18 @@ It is called with the simulator object as argument.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.causality.Simulator.simulate">
-<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">advanceToEndTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.simulate" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">advanceToEndTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepNetworkOpen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.simulate" title="Link to this definition">¶</a></dt>
 <dd><p>Start/continue the simulation.</p>
 <p>Simulate an additional amount of time or number of iterations, whichever is reached first,
 or until no further events are possible (a deadlock).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>time</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em>) – the additional amount of time to simulate,    or <code class="docutils literal notranslate"><span class="pre">None</span></code> for unbounded. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>advanceToEndTime</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if a time bound is given and the simulation stops due to this bound,
+<li><p><strong>time</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>) – the additional amount of time to simulate,    or <code class="docutils literal notranslate"><span class="pre">None</span></code> for unbounded. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>advanceToEndTime</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if a time bound is given and the simulation stops due to this bound,
 advance the current time to the time bound,    instead of staying at the time of the last event. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>iterations</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em>) – the additional number of iterations to    simulate, or <code class="docutils literal notranslate"><span class="pre">None</span></code> for unbounded. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>iterations</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – the additional number of iterations to simulate, or <code class="docutils literal notranslate"><span class="pre">None</span></code> for unbounded. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>keepNetworkOpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – is <code class="docutils literal notranslate"><span class="pre">False</span></code> the internal <cite>DG.Builder</cite> object will be deleted before returning. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -361,13 +369,13 @@ It should not be modified.</p>
 <span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activitySum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.DrawTimeExponential.call" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rateSum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – the total sum of activity in the system.</p>
+<dd class="field-odd"><p><strong>rateSum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the total sum of activity in the system.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><span class="math notranslate nohighlight">\(\frac{-\ln r}{activitySum}\)</span>, where <span class="math notranslate nohighlight">\(r\)</span> is a random number in <span class="math notranslate nohighlight">\([0, 1)\)</span> drawn with <a class="reference internal" href="../Misc.html#mod.rngUniformReal" title="mod.rngUniformReal"><code class="xref py py-func docutils literal notranslate"><span class="pre">rngUniformReal()</span></code></a>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -397,8 +405,8 @@ It can be any object that can be used as a strategy, see <a class="reference int
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>b</strong> (<a class="reference internal" href="../dg/Builder.html#mod.DG.Builder" title="mod.DG.Builder"><em>DG.Builder</em></a>) – the builder for the derivation graph underlying the simulation.</p></li>
-<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the set of new molecules in this iteration.</p></li>
-<li><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the set of molecules in the current state.</p></li>
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the set of new molecules in this iteration.</p></li>
+<li><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the set of molecules in the current state.</p></li>
 </ul>
 </dd>
 </dl>
@@ -420,9 +428,9 @@ which means a default rate is used: input rate 0.0, reaction rate 1.0, output ra
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>inputRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em><em>] or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for pseudo-reactions for creating molecules. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>reactionRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em><em>] or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for each reaction in the system. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>outputRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em><em>]    or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for pseudo-reactions for destroying molecules. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>inputRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em><em>] or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for pseudo-reactions for creating molecules. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>reactionRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em><em>] or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for each reaction in the system. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>outputRate</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em><em>]    or </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>] or </em><em>None</em>) – the rate used for pseudo-reactions for destroying molecules. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -480,7 +488,7 @@ This may not be changed.</p>
 <dd class="field-even"><p>the drawn action to take and a number indicating the activity of the system.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>[<a class="reference internal" href="../Config.html#mod.Action" title="mod.Action">Action</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference internal" href="../Config.html#mod.Action" title="mod.Action">Action</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
 </dd>
 </dl>
 </dd></dl>

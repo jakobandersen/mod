@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.9.5. dg/Strategies &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.9.5. dg/Strategies &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -277,8 +277,8 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>onlyUniverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if the strategy is <a class="reference internal" href="../../dgStrat/index.html#strat-adduniverse"><span class="std std-ref">Add Universe</span></a> or <a class="reference internal" href="../../dgStrat/index.html#strat-addsubset"><span class="std std-ref">Add Subset</span></a>.</p></li>
-<li><p><strong>graphs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the graphs to be added by the strategy.</p></li>
+<li><p><strong>onlyUniverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if the strategy is <a class="reference internal" href="../../dgStrat/index.html#strat-adduniverse"><span class="std std-ref">Add Universe</span></a> or <a class="reference internal" href="../../dgStrat/index.html#strat-addsubset"><span class="std std-ref">Add Subset</span></a>.</p></li>
+<li><p><strong>graphs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em>) – the graphs to be added by the strategy.</p></li>
 <li><p><strong>graphPolicy</strong> (<a class="reference internal" href="../Config.html#mod.IsomorphismPolicy" title="mod.IsomorphismPolicy"><em>IsomorphismPolicy</em></a>) – refers to the checking of each added graph against the internal graph database.</p></li>
 </ul>
 </dd>
@@ -300,8 +300,8 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>onlyUniverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if the strategy is <a class="reference internal" href="../../dgStrat/index.html#strat-adduniverse"><span class="std std-ref">Add Universe</span></a> or <a class="reference internal" href="../../dgStrat/index.html#strat-addsubset"><span class="std std-ref">Add Subset</span></a>.</p></li>
-<li><p><strong>graphsFunc</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>]</em>) – a function returning the graphs to be added by the strategy.</p></li>
+<li><p><strong>onlyUniverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if the strategy is <a class="reference internal" href="../../dgStrat/index.html#strat-adduniverse"><span class="std std-ref">Add Universe</span></a> or <a class="reference internal" href="../../dgStrat/index.html#strat-addsubset"><span class="std std-ref">Add Subset</span></a>.</p></li>
+<li><p><strong>graphsFunc</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>]</em>) – a function returning the graphs to be added by the strategy.</p></li>
 <li><p><strong>graphPolicy</strong> (<a class="reference internal" href="../Config.html#mod.IsomorphismPolicy" title="mod.IsomorphismPolicy"><em>IsomorphismPolicy</em></a>) – refers to the checking of each added graph against the internal graph database.</p></li>
 </ul>
 </dd>
@@ -319,7 +319,7 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strats</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeSequence" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>strats</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a><em>]</em>) – the strategies to evaluate in sequence.</p>
+<dd class="field-odd"><p><strong>strats</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a><em>]</em>) – the strategies to evaluate in sequence.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a <a class="reference internal" href="../../dgStrat/index.html#strat-sequence"><span class="std std-ref">Sequence</span></a> strategy.</p>
@@ -341,7 +341,7 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strats</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.DGStrat.makeParallel" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>strats</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a><em>]</em>) – the sub-strategies to evaluate.</p>
+<dd class="field-odd"><p><strong>strats</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a><em>]</em>) – the sub-strategies to evaluate.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a <a class="reference internal" href="../../dgStrat/index.html#strat-parallel"><span class="std std-ref">Parallel</span></a> strategy.</p>
@@ -364,8 +364,8 @@ This will call <a class="reference internal" href="#mod.DGStrat.makeRepeat" titl
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>alsoUniverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – if the strategy is <a class="reference internal" href="../../dgStrat/index.html#strat-filteruniverse"><span class="std std-ref">Filter Universe</span></a> or <a class="reference internal" href="../../dgStrat/index.html#strat-filtersubset"><span class="std std-ref">Filter Subset</span></a>.</p></li>
-<li><p><strong>p</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>, </em><a class="reference internal" href="#mod.DGStrat.GraphState" title="mod.DGStrat.GraphState"><em>DGStrat.GraphState</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em>) – the filtering predicate being called for each graph in either the subset or the universe.
+<li><p><strong>alsoUniverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if the strategy is <a class="reference internal" href="../../dgStrat/index.html#strat-filteruniverse"><span class="std std-ref">Filter Universe</span></a> or <a class="reference internal" href="../../dgStrat/index.html#strat-filtersubset"><span class="std std-ref">Filter Subset</span></a>.</p></li>
+<li><p><strong>p</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>, </em><a class="reference internal" href="#mod.DGStrat.GraphState" title="mod.DGStrat.GraphState"><em>DGStrat.GraphState</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em>) – the filtering predicate being called for each graph in either the subset or the universe.
 The predicate is called with the graph and the graph state as arguments, and a bool stating whether
 the call is the first in the filtering process.</p></li>
 </ul>
@@ -420,7 +420,7 @@ the call is the first in the filtering process.</p></li>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../Derivation.html#mod.Derivation" title="mod.Derivation"><em>Derivation</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em>) – the predicate to be called on each candidate derivation.
+<li><p><strong>p</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../Derivation.html#mod.Derivation" title="mod.Derivation"><em>Derivation</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em>) – the predicate to be called on each candidate derivation.
 Even though the predicate is called with a <a class="reference internal" href="../Derivation.html#mod.Derivation" title="mod.Derivation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Derivation</span></code></a> object, only the left side and the rule of the object is valid.</p></li>
 <li><p><strong>strat</strong> (<a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a>) – the sub-strategy to be evaluated under the constraints of the left predicate.</p></li>
 </ul>
@@ -443,7 +443,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../Derivation.html#mod.Derivation" title="mod.Derivation"><em>Derivation</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>]</em>) – the predicate to be called on each candidate derivation.</p></li>
+<li><p><strong>p</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../Derivation.html#mod.Derivation" title="mod.Derivation"><em>Derivation</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>]</em>) – the predicate to be called on each candidate derivation.</p></li>
 <li><p><strong>strat</strong> (<a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a>) – the sub-strategy to be evaluated under the constraints of the right predicate.</p></li>
 </ul>
 </dd>
@@ -484,7 +484,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the maximum number of iterations.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the maximum number of iterations.</p></li>
 <li><p><strong>strat</strong> (<a class="reference internal" href="#mod.DGStrat" title="mod.DGStrat"><em>DGStrat</em></a>) – the strategy to be repeated.</p></li>
 </ul>
 </dd>
@@ -513,7 +513,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 <dd><p>The subset <span class="math notranslate nohighlight">\(\mathcal{S}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph">Graph</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph">Graph</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -524,7 +524,7 @@ Even though the predicate is called with a <a class="reference internal" href=".
 <dd><p>The universe <span class="math notranslate nohighlight">\(\mathcal{U}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph">Graph</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph">Graph</a>]</p>
 </dd>
 </dl>
 </dd></dl>

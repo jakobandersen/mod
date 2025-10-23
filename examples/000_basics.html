@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11.1. Basics, Graphs, and Rules &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=78d64644" />
+    <title>11.1. Basics, Graphs, and Rules &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -154,7 +154,7 @@ The content can be specified via the Python script.</p>
 <span class="linenos">4</span><span class="n">post</span><span class="o">.</span><span class="n">summaryChapter</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 <span class="linenos">5</span><span class="n">post</span><span class="o">.</span><span class="n">summarySection</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
 <span class="linenos">6</span><span class="c1"># Load a moleucle from a SMILES string:</span>
-<span class="linenos">7</span><span class="n">mol</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;Cn1cnc2c1c(=O)n(c(=O)n2C)C&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Caffeine&quot;</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">mol</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;Cn1cnc2c1c(=O)n(c(=O)n2C)C&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Caffeine&quot;</span><span class="p">)</span>
 <span class="linenos">8</span><span class="c1"># Put a visualisation of the molecule in the summary:</span>
 <span class="linenos">9</span><span class="n">mol</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
 </pre></div>
@@ -167,13 +167,13 @@ They can be loaded from SMILES strings, and in general any graph can be
 loaded from a GML specification, or from the SMILES-like format GraphDFS.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__010_graphLoading.py">Explore in the playground</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Load a graph from a SMILES string (only for molecule graphs):</span>
-<span class="linenos"> 2</span><span class="n">ethanol1</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol1&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">ethanol1</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol1&quot;</span><span class="p">)</span>
 <span class="linenos"> 3</span><span class="c1"># Load a graph from a SMILES-like format, called &quot;GraphDFS&quot;, but for general graphs:</span>
-<span class="linenos"> 4</span><span class="n">ethanol2</span> <span class="o">=</span> <span class="n">graphDFS</span><span class="p">(</span><span class="s2">&quot;[C]([H])([H])([H])[C]([H])([H])[O][H]&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol2&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">ethanol2</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromDFS</span><span class="p">(</span><span class="s2">&quot;[C]([H])([H])([H])[C]([H])([H])[O][H]&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol2&quot;</span><span class="p">)</span>
 <span class="linenos"> 5</span><span class="c1"># The GraphDFS format also supports implicit hydrogens:</span>
-<span class="linenos"> 6</span><span class="n">ethanol3</span> <span class="o">=</span> <span class="n">graphDFS</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol3&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">ethanol3</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromDFS</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ethanol3&quot;</span><span class="p">)</span>
 <span class="linenos"> 7</span><span class="c1"># The basic graph format is GML:</span>
-<span class="linenos"> 8</span><span class="n">ethanol4</span> <span class="o">=</span> <span class="n">graphGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;graph [</span>
+<span class="linenos"> 8</span><span class="n">ethanol4</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;graph [</span>
 <span class="linenos"> 9</span><span class="s2">   node [ id 0 label &quot;C&quot; ]</span>
 <span class="linenos">10</span><span class="s2">   node [ id 1 label &quot;C&quot; ]</span>
 <span class="linenos">11</span><span class="s2">   node [ id 2 label &quot;O&quot; ]</span>
@@ -211,7 +211,7 @@ options.
 The changes can make the graphs look like normal molecule visualisations.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__011_graphPrinting.py">Explore in the playground</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Our test graph, representing the molecule caffeine:</span>
-<span class="linenos"> 2</span><span class="n">g</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s1">&#39;Cn1cnc2c1c(=O)n(c(=O)n2C)C&#39;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s1">&#39;Cn1cnc2c1c(=O)n(c(=O)n2C)C&#39;</span><span class="p">)</span>
 <span class="linenos"> 3</span><span class="c1"># ;ake an object to hold our settings:</span>
 <span class="linenos"> 4</span><span class="n">p</span> <span class="o">=</span> <span class="n">GraphPrinter</span><span class="p">()</span>
 <span class="linenos"> 5</span><span class="c1"># First try visualising without any prettifications:</span>
@@ -249,7 +249,7 @@ edges.
 The attributes of vertices and edges can be accessed both in their raw
 string form, and as their chemical counterpart (if they have one).</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__012_graphInterface.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">g</span> <span class="o">=</span> <span class="n">graphDFS</span><span class="p">(</span><span class="s2">&quot;[R]</span><span class="si">{x}</span><span class="s2">C([O-])CC=O&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromDFS</span><span class="p">(</span><span class="s2">&quot;[R]</span><span class="si">{x}</span><span class="s2">C([O-])CC=O&quot;</span><span class="p">)</span>
 <span class="linenos"> 2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|V| =&quot;</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">numVertices</span><span class="p">)</span>
 <span class="linenos"> 3</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|E| =&quot;</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">numEdges</span><span class="p">)</span>
 <span class="linenos"> 4</span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
@@ -277,8 +277,8 @@ for isomorphism and monomorphism.
 We can therefore easily detect isomorphic graphs, count automorphisms,
 and search for substructures.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__013_graphMorphisms.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">mol1</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;CC(C)CO&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="n">mol2</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;C(CC)CO&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">mol1</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;CC(C)CO&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">mol2</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;C(CC)CO&quot;</span><span class="p">)</span>
 <span class="linenos"> 3</span><span class="c1"># Check if there is just one isomorphism between the graphs:</span>
 <span class="linenos"> 4</span><span class="n">isomorphic</span> <span class="o">=</span> <span class="n">mol1</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">mol2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
 <span class="linenos"> 5</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Isomorphic?&quot;</span><span class="p">,</span> <span class="n">isomorphic</span><span class="p">)</span>
@@ -287,7 +287,7 @@ and search for substructures.</p>
 <span class="linenos"> 8</span><span class="n">numAutomorphisms</span> <span class="o">=</span> <span class="n">mol1</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">mol1</span><span class="p">,</span> <span class="n">maxNumMatches</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="p">)</span>
 <span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|Aut(G)| =&quot;</span><span class="p">,</span> <span class="n">numAutomorphisms</span><span class="p">)</span>
 <span class="linenos">10</span><span class="c1"># Let&#39;s count the number of methyl groups:</span>
-<span class="linenos">11</span><span class="n">methyl</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;[CH3]&quot;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">methyl</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;[CH3]&quot;</span><span class="p">)</span>
 <span class="linenos">12</span><span class="c1"># The symmetry of the group it self should not be counted,</span>
 <span class="linenos">13</span><span class="c1"># so find the size of the automorphism group of methyl.</span>
 <span class="linenos">14</span><span class="n">numAutMethyl</span> <span class="o">=</span> <span class="n">methyl</span><span class="o">.</span><span class="n">isomorphism</span><span class="p">(</span><span class="n">methyl</span><span class="p">,</span> <span class="n">maxNumMatches</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="p">)</span>
@@ -306,23 +306,23 @@ and search for substructures.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__030_ruleLoading.py">Explore in the playground</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># A rule (L &lt;- K -&gt; R) is specified by three graph fragments:</span>
 <span class="linenos"> 2</span><span class="c1"># left, context, and right</span>
-<span class="linenos"> 3</span><span class="n">destroyVertex</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 3</span><span class="n">destroyVertex</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos"> 4</span><span class="s2">   left [</span>
 <span class="linenos"> 5</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
 <span class="linenos"> 6</span><span class="s2">   ]</span>
 <span class="linenos"> 7</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
-<span class="linenos"> 8</span><span class="n">createVertex</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 8</span><span class="n">createVertex</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos"> 9</span><span class="s2">   right [</span>
 <span class="linenos">10</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
 <span class="linenos">11</span><span class="s2">   ]</span>
 <span class="linenos">12</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
-<span class="linenos">13</span><span class="n">identity</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">13</span><span class="n">identity</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos">14</span><span class="s2">   context [</span>
 <span class="linenos">15</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
 <span class="linenos">16</span><span class="s2">   ]</span>
 <span class="linenos">17</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
 <span class="linenos">18</span><span class="c1"># A vertex/edge can change label:</span>
-<span class="linenos">19</span><span class="n">labelChange</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">19</span><span class="n">labelChange</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos">20</span><span class="s2">   left [</span>
 <span class="linenos">21</span><span class="s2">      node [ id 1 label &quot;A&quot; ]</span>
 <span class="linenos">22</span><span class="s2">      edge [ source 1 target 2 label &quot;A&quot; ]</span>
@@ -337,7 +337,7 @@ and search for substructures.</p>
 <span class="linenos">31</span><span class="s2">   ]</span>
 <span class="linenos">32</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
 <span class="linenos">33</span><span class="c1"># A chemical rule should probably not destroy and create vertices:</span>
-<span class="linenos">34</span><span class="n">ketoEnol</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">34</span><span class="n">ketoEnol</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos">35</span><span class="s2">   left [</span>
 <span class="linenos">36</span><span class="s2">      edge [ source 1 target 4 label &quot;-&quot; ]</span>
 <span class="linenos">37</span><span class="s2">      edge [ source 1 target 2 label &quot;-&quot; ]</span>
@@ -383,7 +383,7 @@ We can therefore easily detect isomorphic rules,
 and decide if one rule is at least as specific/general as another.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__031_ruleMorphisms.py">Explore in the playground</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># A rule with no extra context:</span>
-<span class="linenos"> 2</span><span class="n">small</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos"> 2</span><span class="n">small</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos"> 3</span><span class="s2">   ruleID &quot;Small&quot;</span>
 <span class="linenos"> 4</span><span class="s2">   left [</span>
 <span class="linenos"> 5</span><span class="s2">      node [ id 1 label &quot;H&quot; ]</span>
@@ -396,7 +396,7 @@ and decide if one rule is at least as specific/general as another.</p>
 <span class="linenos">12</span><span class="s2">   ]</span>
 <span class="linenos">13</span><span class="s2">]&quot;&quot;&quot;</span><span class="p">)</span>
 <span class="linenos">14</span><span class="c1"># The same rule, with a bit of context:</span>
-<span class="linenos">15</span><span class="n">large</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
+<span class="linenos">15</span><span class="n">large</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos">16</span><span class="s2">   ruleID &quot;Large&quot;</span>
 <span class="linenos">17</span><span class="s2">   left [</span>
 <span class="linenos">18</span><span class="s2">      node [ id 1 label &quot;H&quot; ]</span>
@@ -423,8 +423,8 @@ and decide if one rule is at least as specific/general as another.</p>
 <h2><span class="section-number">11.1.8. </span>Formose Grammar<a class="headerlink" href="#formose-grammar" title="Link to this heading">¶</a></h2>
 <p>The graph grammar modelling the formose chemistry.</p>
 <p><a class="reference external" href="https://cheminf-live.imada.sdu.dk/mod?example=000_basics__050_formoseGrammar.py">Explore in the playground</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">formaldehyde</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span><span class="s2">&quot;C=O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Formaldehyde&quot;</span><span class="p">)</span>
-<span class="linenos"> 2</span><span class="n">glycolaldehyde</span> <span class="o">=</span> <span class="n">smiles</span><span class="p">(</span> <span class="s2">&quot;OCC=O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Glycolaldehyde&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">formaldehyde</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span><span class="s2">&quot;C=O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Formaldehyde&quot;</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">glycolaldehyde</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromSMILES</span><span class="p">(</span> <span class="s2">&quot;OCC=O&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Glycolaldehyde&quot;</span><span class="p">)</span>
 <span class="linenos"> 3</span><span class="n">ketoEnolGML</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos"> 4</span><span class="s2">   ruleID &quot;Keto-enol isomerization&quot; </span>
 <span class="linenos"> 5</span><span class="s2">   left [</span>
@@ -444,8 +444,8 @@ and decide if one rule is at least as specific/general as another.</p>
 <span class="linenos">19</span><span class="s2">      edge [ source 3 target 4 label &quot;-&quot; ]</span>
 <span class="linenos">20</span><span class="s2">   ]   </span>
 <span class="linenos">21</span><span class="s2">]&quot;&quot;&quot;</span>
-<span class="linenos">22</span><span class="n">ketoEnol_F</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">ketoEnolGML</span><span class="p">)</span>
-<span class="linenos">23</span><span class="n">ketoEnol_B</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">ketoEnolGML</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos">22</span><span class="n">ketoEnol_F</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="n">ketoEnolGML</span><span class="p">)</span>
+<span class="linenos">23</span><span class="n">ketoEnol_B</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="n">ketoEnolGML</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="linenos">24</span><span class="n">aldolAddGML</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;rule [</span>
 <span class="linenos">25</span><span class="s2">   ruleID &quot;Aldol Addition&quot;</span>
 <span class="linenos">26</span><span class="s2">   left [</span>
@@ -471,8 +471,8 @@ and decide if one rule is at least as specific/general as another.</p>
 <span class="linenos">46</span><span class="s2">      edge [ source 6 target 1 label &quot;-&quot; ]</span>
 <span class="linenos">47</span><span class="s2">   ]</span>
 <span class="linenos">48</span><span class="s2">]&quot;&quot;&quot;</span>
-<span class="linenos">49</span><span class="n">aldolAdd_F</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">aldolAddGML</span><span class="p">)</span>
-<span class="linenos">50</span><span class="n">aldolAdd_B</span> <span class="o">=</span> <span class="n">ruleGMLString</span><span class="p">(</span><span class="n">aldolAddGML</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos">49</span><span class="n">aldolAdd_F</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="n">aldolAddGML</span><span class="p">)</span>
+<span class="linenos">50</span><span class="n">aldolAdd_B</span> <span class="o">=</span> <span class="n">Rule</span><span class="o">.</span><span class="n">fromGMLString</span><span class="p">(</span><span class="n">aldolAddGML</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

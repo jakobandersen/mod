@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.11.2. hyperflow/Model &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.11.2. hyperflow/Model &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -208,7 +208,7 @@ or as a copy of an existing model.</p>
 <li><p><strong>dg</strong> (<a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a>) – the derivation graph to create the flow model for over.</p></li>
 <li><p><strong>model</strong> (<a class="reference internal" href="#mod.hyperflow.Model" title="mod.hyperflow.Model"><em>Model</em></a>) – the other model to copy the specification from.
 The copy can be further modified afterwards.</p></li>
-<li><p><strong>ilpSolver</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the ILP solver to use. See <a class="reference internal" href="../Config.html#mod.getAvailableILPSolvers" title="mod.getAvailableILPSolvers"><code class="xref py py-func docutils literal notranslate"><span class="pre">getAvailableILPSolvers()</span></code></a>.</p></li>
+<li><p><strong>ilpSolver</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the ILP solver to use. See <a class="reference internal" href="../Config.html#mod.getAvailableILPSolvers" title="mod.getAvailableILPSolvers"><code class="xref py py-func docutils literal notranslate"><span class="pre">getAvailableILPSolvers()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -232,7 +232,7 @@ The copy can be further modified afterwards.</p></li>
 <dd><p>(Read-only) The unique instance ID for the <a class="reference internal" href="#mod.hyperflow.Model" title="mod.hyperflow.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -254,7 +254,7 @@ The copy can be further modified afterwards.</p></li>
 <dd><p>(Read-only) Whether the specification is locked for modifications.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -301,7 +301,7 @@ calling <code class="docutils literal notranslate"><span class="pre">addSource(s
 <dd><p>(Read-only) Retrieve the list of source vertices for the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -342,7 +342,7 @@ calling <code class="docutils literal notranslate"><span class="pre">addSink(sel
 <dd><p>(Read-only) Retrieve the list of sink vertices for the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -386,7 +386,7 @@ calling <code class="docutils literal notranslate"><span class="pre">exclude(sel
 <dd><p>(Read-only) Retrieve the list of excluded vertices for the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -434,7 +434,7 @@ Note, this does not mean that other vertices do not have separated transit edges
 For example, setting <a class="reference internal" href="#mod.hyperflow.Model.allowIOReversal" title="mod.hyperflow.Model.allowIOReversal"><code class="xref py py-attr docutils literal notranslate"><span class="pre">allowIOReversal</span></code></a> to <code class="docutils literal notranslate"><span class="pre">True</span></code> implies separation as well.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -446,7 +446,7 @@ For example, setting <a class="reference internal" href="#mod.hyperflow.Model.al
 I.e., hyperedges with identical source and target multisets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p>(only set) <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">specificationLocked</span></code>.</p>
@@ -464,7 +464,7 @@ I.e., hyperedges with identical source and target multisets.</p>
 one edge and then directly afterwards the inverse edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p>(only set) <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">specificationLocked</span></code>.</p>
@@ -482,7 +482,7 @@ one edge and then directly afterwards the inverse edge.</p>
 an input edge and directly afterwards through the corresponding output edge.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p>(only set) <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">specificationLocked</span></code>.</p>
@@ -502,7 +502,7 @@ changes the meaning of solutions,
 and all features that rely on flows being integer will be disabled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p>(only set) <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">specificationLocked</span></code>.</p>
@@ -560,7 +560,7 @@ and all features that rely on flows being integer will be disabled.</p>
 <a class="reference internal" href="#mod.hyperflow.Model.addBoolVariable" title="mod.hyperflow.Model.addBoolVariable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addBoolVariable()</span></code></a>/<a class="reference internal" href="#mod.hyperflow.Model.addIntVariable" title="mod.hyperflow.Model.addIntVariable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addIntVariable()</span></code></a>/<a class="reference internal" href="#mod.hyperflow.Model.addFloatVariable" title="mod.hyperflow.Model.addFloatVariable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">addFloatVariable()</span></code></a>.</p>
 </dd>
 <dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="LinExp.html#mod.hyperflow.VarCustom" title="mod.hyperflow.VarCustom">VarCustom</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="LinExp.html#mod.hyperflow.VarCustom" title="mod.hyperflow.VarCustom">VarCustom</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -622,7 +622,7 @@ These are removed the first time this function is called.</p>
 <dd><p>(Read-only) Retrieve the list variable specifiers used for enumeration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="LinExp.html#mod.hyperflow.Var" title="mod.hyperflow.Var">Var</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="LinExp.html#mod.hyperflow.Var" title="mod.hyperflow.Var">Var</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -660,7 +660,7 @@ calling <code class="docutils literal notranslate"><span class="pre">addTransitE
 <dd><p>(Read-only) Retrieve the list vertices where the transit edges are used for solution enumeration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex">DG.Vertex</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -673,7 +673,7 @@ As default there is no constraint on this gap.
 Set to <code class="docutils literal notranslate"><span class="pre">None</span></code>, or a negative value, to reset to this unconstrained state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a> or None</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a> or None</p>
 </dd>
 <dt class="field-even">Throws<span class="colon">:</span></dt>
 <dd class="field-even"><p>(only set) <a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">specificationLocked</span></code>.</p>
@@ -692,9 +692,9 @@ but will create the internal model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>maxNumSolutions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the maximum number of solutions to find.</p></li>
-<li><p><strong>verbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
-<li><p><strong>ilpVerbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
+<li><p><strong>maxNumSolutions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the maximum number of solutions to find.</p></li>
+<li><p><strong>verbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
+<li><p><strong>ilpVerbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -722,7 +722,7 @@ See the documentation for each module.</p>
 <dd><p>Dump all model settings and all solutions found to a file, that can be loaded with <a class="reference internal" href="#mod.hyperflow.Model.load" title="mod.hyperflow.Model.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>the name of the file to save the dump to.
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p>the name of the file to save the dump to.
 If non is given an auto-generated name in the <code class="docutils literal notranslate"><span class="pre">out/</span></code> folder is used.
 If an empty string is given, it is treated as if non is given.</p>
 <div class="admonition note">
@@ -736,7 +736,7 @@ prefixed according to the current script location as input filenames are.</p>
 <dd class="field-even"><p>the filename with the dumped model.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -776,9 +776,9 @@ prefixed according to the current script location as input filenames are.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dg</strong> (<a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a>) – the derivation graph which the dumped flow model is build upon.</p></li>
-<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – name of the file with the model to be loaded.</p></li>
-<li><p><strong>ilpSolver</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the ILP solver to use. See <a class="reference internal" href="../Config.html#mod.getAvailableILPSolvers" title="mod.getAvailableILPSolvers"><code class="xref py py-func docutils literal notranslate"><span class="pre">getAvailableILPSolvers()</span></code></a>.</p></li>
-<li><p><strong>verbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference internal" href="../Misc.html#mod.CWDPath" title="mod.CWDPath"><em>CWDPath</em></a>) – name of the file with the model to be loaded.</p></li>
+<li><p><strong>ilpSolver</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the ILP solver to use. See <a class="reference internal" href="../Config.html#mod.getAvailableILPSolvers" title="mod.getAvailableILPSolvers"><code class="xref py py-func docutils literal notranslate"><span class="pre">getAvailableILPSolvers()</span></code></a>.</p></li>
+<li><p><strong>verbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -804,9 +804,9 @@ The given derivation graph must match the derivation graph originally used to cr
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dg</strong> (<a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a>) – the derivation graph which the dumped flow model is build upon.</p></li>
-<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the string with the dump data to be loaded.</p></li>
-<li><p><strong>ilpSolver</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the ILP solver to use. See <a class="reference internal" href="../Config.html#mod.getAvailableILPSolvers" title="mod.getAvailableILPSolvers"><code class="xref py py-func docutils literal notranslate"><span class="pre">getAvailableILPSolvers()</span></code></a>.</p></li>
-<li><p><strong>verbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the string with the dump data to be loaded.</p></li>
+<li><p><strong>ilpSolver</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the ILP solver to use. See <a class="reference internal" href="../Config.html#mod.getAvailableILPSolvers" title="mod.getAvailableILPSolvers"><code class="xref py py-func docutils literal notranslate"><span class="pre">getAvailableILPSolvers()</span></code></a>.</p></li>
+<li><p><strong>verbosity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – see <a class="reference internal" href="../../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model13findSolutionsEi" title="mod::hyperflow::Model::findSolutions"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::findSolutions()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -850,7 +850,7 @@ The given derivation graph must match the derivation graph originally used to cr
 <dd><p>Whether the module is enabled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -861,7 +861,7 @@ The given derivation graph must match the derivation graph originally used to cr
 <dd><p>Controls whether a solution must be overall autocatalytic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the module is not enabled.</p>
@@ -878,7 +878,7 @@ The given derivation graph must match the derivation graph originally used to cr
 <dd><p>Controls whether transit flow in overall autocatalytic vertices is restricted or not.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the module is not enabled.</p>
@@ -896,7 +896,7 @@ The given derivation graph must match the derivation graph originally used to cr
 as determined by breadth-first marking.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the module is not enabled.</p>
@@ -933,7 +933,7 @@ as determined by breadth-first marking.</p>
 <dd><p>Whether the module is enabled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -944,7 +944,7 @@ as determined by breadth-first marking.</p>
 <dd><p>Controls whether a solution must be overall catalytic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the module is not enabled.</p>
@@ -961,7 +961,7 @@ as determined by breadth-first marking.</p>
 <dd><p>Controls whether transit flow in overall catalytic vertices is restricted or not.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="../Error.html#mod.LogicError" title="mod.LogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if the module is not enabled.</p>

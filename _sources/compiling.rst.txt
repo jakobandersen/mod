@@ -271,6 +271,17 @@ See also :ref:`dependencies` for elaboration on some of them.
   See also https://cmake.org/cmake/help/latest/variable/CMAKE_PREFIX_PATH.html#variable:CMAKE_PREFIX_PATH.
 - ``-DBUILD_DOC=on``, whether to build documentation or not.
   This is forced to ``off`` when used via ``add_subdirectory``.
+- ``-DBUILD_MOD=on``, whether to build the central library or not.
+  When set ``off`` then ``BUILD_PY_MOD`` is set to ``off``.
+  This setting is useful if you just want to compile the documentation.
+- ``-DBUILD_PY_MOD=on``, whether to build the Python bindings or not.
+- ``-DBUILD_PY_MOD_PIP=on``, whether to install the Python bindings via pip or
+  not. The bindings are always installed in the ``<prefix>/lib`` folder, so
+  a normal ``import`` in Python will probably not find the module.
+  Having this setting on will enable a build of a fake Python package to be
+  installed via ``pip`` in the default system folder. This fake package will
+  redirect the import to the real location.
+  This package can be uninstalled with ``pip uninstall mod-jakobandersen``.
 - ``-DBUILD_POST_MOD=on``, whether to build the post-processor or not.
 - ``-DBUILD_POST_MOD_FMT=on``, whether to build the Latex format files used by
   the post-processor or not.
@@ -284,14 +295,6 @@ See also :ref:`dependencies` for elaboration on some of them.
   using the
   :option:`mod_post --install-format`/:option:`mod_post --install-format-sudo`
   options.
-- ``-DBUILD_PY_MOD=on``, whether to build the Python bindings or not.
-- ``-DBUILD_PY_MOD_PIP=on``, whether to install the Python bindings via pip or
-  not. The bindings are always installed in the ``<prefix>/lib`` folder, so
-  a normal ``import`` in Python will probably not find the module.
-  Having this setting on will enable a build of a fake Python package to be
-  installed via ``pip`` in the default system folder. This fake package will
-  redirect the import to the real location.
-  This package can be uninstalled with ``pip uninstall mod-jakobandersen``.
 - ``-DBUILD_TESTING=off``, whether to allow test building or not.
   This is forced to ``off`` when used via ``add_subdirectory``.
   When ``on`` the tests can be build with ``make tests`` and run with ``ctest``.

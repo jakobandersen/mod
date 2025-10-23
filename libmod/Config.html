@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3.2.2. Config.hpp &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=78d64644" />
+    <title>3.2.2. Config.hpp &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -102,6 +102,7 @@
 <li><a class="reference internal" href="#_CPPv4N3mod13LabelSettingseqE13LabelSettings13LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings::operator==()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mod13LabelSettingsneE13LabelSettings13LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings::operator!=()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings"><code class="docutils literal notranslate"><span class="pre">LabelSettings::operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod13LabelSettings12formCategoryEv"><code class="docutils literal notranslate"><span class="pre">LabelSettings::formCategory()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings4typeE"><code class="docutils literal notranslate"><span class="pre">LabelSettings::type</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings8relationE"><code class="docutils literal notranslate"><span class="pre">LabelSettings::relation</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mod13LabelSettings10withStereoE"><code class="docutils literal notranslate"><span class="pre">LabelSettings::withStereo</span></code></a></li>
@@ -296,6 +297,16 @@ is used for substitution in some algorithms.</p>
 <dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings">
 <span id="_CPPv3N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings"></span><span id="_CPPv2N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings"></span><span id="mod::LabelSettings::lshift-operator__osR.LabelSettingsCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod13LabelSettingsE" title="mod::LabelSettings"><span class="n"><span class="pre">LabelSettings</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ls</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod13LabelSettingslsERNSt7ostreamERK13LabelSettings" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod13LabelSettings12formCategoryEv">
+<span id="_CPPv3NK3mod13LabelSettings12formCategoryEv"></span><span id="_CPPv2NK3mod13LabelSettings12formCategoryEv"></span><span id="mod::LabelSettings::formCategoryC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">formCategory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod13LabelSettings12formCategoryEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether the settings form a category (i.e., does not contain any <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n">LabelRelation</span></a><span class="p">.</span><span class="n">Unification</span></span>).</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp member">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod13LabelSettings4typeE">

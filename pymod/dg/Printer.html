@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.9.4. dg/Printer &#8212; MØD 1.0.0.9 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=78d64644" />
+    <title>4.1.9.4. dg/Printer &#8212; MØD 1.0.0.12 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=ad530a96"></script>
+    <script src="../../_static/documentation_options.js?v=61e3adf7"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.9</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.12</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -218,7 +218,7 @@ It will connect to duplicate 0 of all head and tail vertices.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e</strong> (<a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a>) – a reference to the derivation to duplicate.</p></li>
-<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the duplicate number for the new version of the derivation.</p></li>
+<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the duplicate number for the new version of the derivation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -241,7 +241,7 @@ It will connect to duplicate 0 of all head and tail vertices.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e</strong> (<a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a>) – a reference to the derivation to duplicate.</p></li>
-<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the duplicate number for the version of the derivation to remove.</p></li>
+<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the duplicate number for the version of the derivation to remove.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -265,9 +265,9 @@ If the vertex is a source multiple times, then an arbitrary one of them is recon
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e</strong> (<a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a>) – a reference to the derivation to reconnect.</p></li>
-<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the duplicate number of the derivation to reconnect.</p></li>
+<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the duplicate number of the derivation to reconnect.</p></li>
 <li><p><strong>v</strong> (<a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a>) – a source vertex to reconnect.</p></li>
-<li><p><strong>vDupTar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the new duplicate number for the source vertex.</p></li>
+<li><p><strong>vDupTar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the new duplicate number for the source vertex.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -300,9 +300,9 @@ If the vertex is a head multiple times, then an arbitrary one of them is reconne
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e</strong> (<a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a>) – a reference to the derivation to reconnect.</p></li>
-<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the duplicate number of the derivation to reconnect.</p></li>
+<li><p><strong>eDup</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the duplicate number of the derivation to reconnect.</p></li>
 <li><p><strong>v</strong> (<a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a>) – a target vertex to reconnect.</p></li>
-<li><p><strong>vDupTar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the new duplicate number for the target vertex.</p></li>
+<li><p><strong>vDupTar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the new duplicate number for the target vertex.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -354,7 +354,7 @@ and then indices are removed (<a class="reference internal" href="../graph/Print
 are printed as a simple arrow without the usual rectangle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -365,7 +365,7 @@ are printed as a simple arrow without the usual rectangle.</p>
 <dd><p>Control whether each vertex is printed with a image of its graph in it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -378,7 +378,7 @@ Specifically, a label <code class="docutils literal notranslate"><span class="pr
 <code class="docutils literal notranslate"><span class="pre">label</span></code> with all space characters escaped.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -390,7 +390,7 @@ Specifically, a label <code class="docutils literal notranslate"><span class="pr
 All visibility functions must return <code class="docutils literal notranslate"><span class="pre">true</span></code> for a vertex to be visible.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – the function or constant to push for specifying vertex visibility.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – the function or constant to push for specifying vertex visibility.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -413,7 +413,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 All visibility functions must return <code class="docutils literal notranslate"><span class="pre">true</span></code> for a hyperedge to be visible.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – the function or constant to push for specifying hyperedge visibility.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – the function or constant to push for specifying hyperedge visibility.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -435,7 +435,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 <dd><p>Control whether hyperedges are depicted as simple arrows when all but 1 head and tail are hidden.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -446,7 +446,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 <dd><p>The string used as separator between each part of each vertex label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -457,7 +457,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 <dd><p>The string used as separator between each part of each edge label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -469,7 +469,7 @@ All visibility functions must return <code class="docutils literal notranslate">
 The result of this function is added to the end of each label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to push for labelling vertices.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the function or constant to push for labelling vertices.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -491,7 +491,7 @@ The result of this function is added to the end of each label.</p>
 <dd><p>Add another function or constant for edge labelling. The result of this function is appended to each label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to push for labelling edges.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the function or constant to push for labelling edges.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -513,7 +513,7 @@ The result of this function is added to the end of each label.</p>
 <dd><p>Control whether graph names are appended to the vertex labels (see also <a class="reference internal" href="#mod.DGPrinter.pushVertexLabel" title="mod.DGPrinter.pushVertexLabel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGPrinter.pushVertexLabel()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -524,7 +524,7 @@ The result of this function is added to the end of each label.</p>
 <dd><p>Control whether rule names are appended to the edge labels (see also <a class="reference internal" href="#mod.DGPrinter.pushEdgeLabel" title="mod.DGPrinter.pushEdgeLabel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGPrinter.pushEdgeLabel()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -535,7 +535,7 @@ The result of this function is added to the end of each label.</p>
 <dd><p>Control whether rule IDs are appended to the edge labels (see also <a class="reference internal" href="#mod.DGPrinter.pushEdgeLabel" title="mod.DGPrinter.pushEdgeLabel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DGPrinter.pushEdgeLabel()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -546,7 +546,7 @@ The result of this function is added to the end of each label.</p>
 <dd><p>Control whether graph depictions should be precompiled, or be included inline in the DG figure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -562,8 +562,8 @@ The edge extension of vertex colour takes lower precedence than explicitly added
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function to push for colouring vertices.</p></li>
-<li><p><strong>extendToEdges</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether some hyperedges are coloured as well (see above).</p></li>
+<li><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the function to push for colouring vertices.</p></li>
+<li><p><strong>extendToEdges</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – whether some hyperedges are coloured as well (see above).</p></li>
 </ul>
 </dd>
 </dl>
@@ -587,7 +587,7 @@ The edge extension of vertex colour takes lower precedence than explicitly added
 first colour function returning a non-empty string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – the function or constant to push for colouring hyperedges.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.HyperEdge" title="mod.DG.HyperEdge"><em>DG.HyperEdge</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the function or constant to push for colouring hyperedges.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -610,7 +610,7 @@ first colour function returning a non-empty string.</p>
 to set the rotation of each printed graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the constant or the function called on each graph to retrieve the rotation to render it with.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the constant or the function called on each graph to retrieve the rotation to render it with.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -622,7 +622,7 @@ to set the rotation of each printed graph.</p>
 to set the mirror of each printed graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – the function called on each graph to retrieve the mirror to render it with.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>] or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – the function called on each graph to retrieve the mirror to render it with.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -656,7 +656,7 @@ that code into the PDF needed by inclusion.</p></li>
 <p>The image overwrite can be removed by calling with <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em><em>] or </em><em>None</em>) – the callback to use, or <code class="docutils literal notranslate"><span class="pre">None</span></code> to remove an existing callback.</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>] or </em><em>None</em>) – the callback to use, or <code class="docutils literal notranslate"><span class="pre">None</span></code> to remove an existing callback.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -668,7 +668,7 @@ that code into the PDF needed by inclusion.</p></li>
 just after the graph declaration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -680,7 +680,7 @@ just after the graph declaration.</p>
 in the options for the <code class="docutils literal notranslate"><span class="pre">\tikzpicture</span></code> macro used for the DG.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>

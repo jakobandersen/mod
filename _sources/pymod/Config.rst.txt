@@ -61,6 +61,11 @@ Config
             Defaults to ``False``, unless ``stereoRelation`` is given, then ``True``.
         :param LabelRelation stereoRelation: The relation that should hold in morphisms between stereo data.
             Defaults to :class:`LabelRelation.Isomorphism`, but is only used when ``withStereo`` is ``True``.
+    .. attribute:: formCategory
+
+        (Read-only) Whether the settings form a category (i.e., does not contain any `LabelRelation.Unification`).
+
+        :type: bool
     .. attribute:: type
 
         :type: LabelType
