@@ -1,0 +1,84 @@
+name: Docs
+
+on:
+  push:
+    branches:
+    - develop
+    tags:
+    - "v*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ci-${{ github.repository }}
+
+jobs:
+  develop-docs:
+    if: github.repository_owner == 'jakobandersen' && github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+    - name: Set PATH
+      run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
+    - name: Install pip dependencies
+      run: |
+        sudo apt install python3-setuptools python3-wheel
+        pip3 install -r requirements.txt
+    - name: Install apt dependencies
+      run: sudo apt install -y $(bindep -b testing | tr '\n' ' ')
+    - name: Bootstrap
+      run: ./bootstrap.sh
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off
+    - name: Build
+      run: cd build && make -j 4 doc
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: build/doc/html
+        clean-exclude: docs
+        commit-message: Update develop docs from ${{ github.sha }}
+  release-docs:
+    if: github.repository_owner == 'jakobandersen' && startsWith(github.event.ref, 'refs/tags/v')
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+    - name: Set PATH
+      run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
+    - name: Update apt
+      run: sudo apt update
+    - name: Install pip dependencies
+      run: |
+        sudo apt install python3-setuptools python3-wheel
+        pip3 install -r requirements.txt
+    - name: Install apt dependencies
+      run: sudo apt install -y $(bindep -b testing | tr '\n' ' ')
+    - name: Bootstrap
+      run: ./bootstrap.sh
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off
+    - name: Build
+      run: cd build && make -j 4 doc
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: build/doc/html
+        target-folder: docs/${{github.ref_name}}
+        commit-message: Create release docs for ${{github.ref_name}}
