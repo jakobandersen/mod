@@ -68,6 +68,7 @@ jobs:
         submodules: 'recursive'
     - name: Install Brew dependencies
       run: |
+        brew update
         brew bundle
         /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
     - name: Install pip dependencies
