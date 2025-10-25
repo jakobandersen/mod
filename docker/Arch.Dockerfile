@@ -10,7 +10,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 WORKDIR /opt/mod
 COPY ./build/mod-*.tar.gz ./
 RUN tar xzf mod-*.tar.gz --strip-components=1
-RUN pip install -r requirements_nodoc.txt     \
+RUN pip install -r pyreqs/base.txt            \
  && pacman -Suy --noconfirm                   \
     $(bindep -b testing | tr '\n' ' ')        \
  && rm -rf /var/cache/pacman

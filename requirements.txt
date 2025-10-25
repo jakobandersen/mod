@@ -1,5 +1,3 @@
--r requirements_nodoc.txt
-sphinx>=8.0.2
-sphinx-design
-sphinxcontrib-jquery  # for the bootstrap theme
-sphinxcontrib-tikz
+-r pyreqs/base.txt
+-r pyreqs/docs.txt
+-r pyreqs/pymod_opt.txt

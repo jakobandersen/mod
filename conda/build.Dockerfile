@@ -6,7 +6,7 @@ FROM ubuntu:22.04 AS build
 ARG miniforgeVersion
 
 #ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH=/opt/conda/bin:$PATH
 
 RUN apt-get update --fix-missing                               \
  && apt-get install -y wget bzip2 ca-certificates curl git
@@ -48,7 +48,7 @@ FROM ubuntu:22.04 AS test
 ARG miniforgeVersion
 
 #ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH=/opt/conda/bin:$PATH
 
 RUN apt-get update --fix-missing                               \
  && apt-get install -y wget bzip2 ca-certificates curl git

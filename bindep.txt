@@ -1,43 +1,46 @@
 file
 make
-gcc                            [platform:arch]
-g++                            [platform:dpkg platform:rpm]
-libasan                        [platform:rpm testing]
-libubsan                       [platform:rpm testing]
 pkgconf                        [platform:arch]
 cmake
 
-boost                          [platform:arch]
-boost-devel                    [platform:rpm]
+gcc                            [default testing platform:arch]
+g++                            [default testing platform:dpkg platform:rpm]
+libasan                        [        testing platform:rpm]
+libubsan                       [        testing platform:rpm]
 
-graphviz                       [platform:arch platform:rpm]
-pdf2svg
-gawk
+boost                          [default testing platform:arch]
+boost-devel                    [default testing platform:rpm]
 
-python                         [platform:arch]
-python3-dev                    [platform:dpkg]
-python3-devel                  [platform:rpm]
+openbabel                      [default testing platform:arch]
+libopenbabel-dev               [default testing platform:dpkg]
+openbabel-devel                [default testing platform:rpm]
 
-openbabel                      [platform:arch]
-libopenbabel-dev               [platform:dpkg]
-openbabel-devel                [platform:rpm]
-python-openbabel               [platform:arch testing]
-python3-openbabel              [platform:dpkg testing]
-python3-openbabel              [platform:rpm testing]
+python                         [default testing platform:arch]
+python3-dev                    [default testing platform:dpkg]
+python3-devel                  [default testing platform:rpm]
 
-coin-or-cbc                    [platform:arch]
-coinor-libcbc-dev              [platform:dpkg]
-coin-or-Cbc-devel              [platform:rpm]
+graphviz                       [default testing post platform:arch platform:rpm]
+gawk                           [default testing post]
 
-texlive-science                [platform:arch]
-texlive-pictures               [platform:arch]
-texlive-latexextra             [platform:arch]
+python-openbabel               [        testing platform:arch]
+python3-openbabel              [        testing platform:dpkg]
+python3-openbabel              [        testing platform:rpm]
 
-texlive-science                [platform:dpkg]
-texlive-pictures               [platform:dpkg]
-texlive-latex-extra            [platform:dpkg]
-lmodern                        [platform:dpkg]
+coin-or-cbc                    [default testing platform:arch]
+coinor-libcbc-dev              [default testing platform:dpkg]
+coin-or-Cbc-devel              [default testing platform:rpm]
 
-texlive-collection-mathscience [platform:rpm]
-texlive-collection-pictures    [platform:rpm]
-texlive-collection-latexextra  [platform:rpm]
+pdf2svg                        [default testing docs post]
+
+texlive-science                [default testing docs post platform:arch]
+texlive-pictures               [default testing docs post platform:arch]
+texlive-latexextra             [default testing docs post platform:arch]
+
+texlive-science                [default testing docs post platform:dpkg]
+texlive-pictures               [default testing docs post platform:dpkg]
+texlive-latex-extra            [default testing docs post platform:dpkg]
+lmodern                        [default testing docs post platform:dpkg]
+
+texlive-collection-mathscience [default testing docs post platform:rpm]
+texlive-collection-pictures    [default testing docs post platform:rpm]
+texlive-collection-latexextra  [default testing docs post platform:rpm]

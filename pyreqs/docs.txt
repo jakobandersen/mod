@@ -1,0 +1,4 @@
+sphinx>=8.0.2
+sphinx-design
+sphinxcontrib-jquery  # for the bootstrap theme
+sphinxcontrib-tikz

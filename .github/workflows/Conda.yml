@@ -1,5 +1,5 @@
 name: Conda
-on: [push, pull_request]
+on: push
 jobs:
   Conda-Linux:
     runs-on: ubuntu-22.04
@@ -15,17 +15,17 @@ jobs:
       run: sudo apt update
     - name: Install pip dependencies
       run: |
-        sudo apt install python3-setuptools python3-wheel
-        pip3 install -r requirements.txt
+        sudo apt install python3-pip
+        pip3 install -r pyreqs/base.txt
     - name: Install apt dependencies
-      run: sudo apt install -y $(bindep -b | tr '\n' ' ')
+      run: sudo apt install -y $(bindep -b base | tr '\n' ' ')
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_MOD=off -DBUILD_POST_MOD=no
+        cmake ../ -DBUILD_MOD=no -DBUILD_POST_MOD=no
     - name: Make archive
       run: cd build && make dist
     - name: Build

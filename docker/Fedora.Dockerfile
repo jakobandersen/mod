@@ -7,7 +7,7 @@ RUN tar xzf mod-*.tar.gz --strip-components=1
 
 RUN dnf install -y                            \
     python3-pip                               \
- && pip3 install -r requirements_nodoc.txt    \
+ && pip3 install -r pyreqs/base.txt           \
  && dnf install -y                            \
     $(bindep -b testing | tr '\n' ' ')        \
  && dnf clean all                             \

@@ -6,9 +6,9 @@ COPY ./build/mod-*.tar.gz ./
 RUN tar xzf mod-*.tar.gz --strip-components=1
 
 # apt-utils is apparently needed for doing the dpkg path exclude/include
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq                                      \
- && DEBIAN_FRONTEND=noninteractive                          \
-    apt install --no-install-recommends -y apt-utils        \
+ && apt install --no-install-recommends -y apt-utils        \
  && echo                                                    \
    'path-exclude /usr/share/doc/*'                          \
    '\npath-include /usr/share/doc/*/copyright'              \
@@ -18,15 +18,12 @@ RUN apt-get update -qq                                      \
    '\npath-exclude /usr/share/lintian/*'                    \
    '\npath-exclude /usr/share/linda/*'                      \
    > /etc/dpkg/dpkg.cfg.d/01_nodoc                          \
- && DEBIAN_FRONTEND=noninteractive                          \
-    apt install --no-install-recommends -y python3-pip wget \
- && pip3 install -r requirements_nodoc.txt                  \
- && DEBIAN_FRONTEND=noninteractive                          \
-    apt install --no-install-recommends -y                  \
+ && apt install --no-install-recommends -y python3-pip wget \
+ && pip3 install -r pyreqs/base.txt                         \
+ && apt install --no-install-recommends -y                  \
     $(bindep -b testing | tr '\n' ' ')                      \
     librsvg2-dev libpango1.0-dev                            \
- && DEBIAN_FRONTEND=noninteractive                          \
-    apt install --no-install-recommends -y                  \
+ && apt install --no-install-recommends -y                  \
     vim less                                                \
  && apt-get clean                                           \
  && rm -rf /var/lib/apt/lists/*

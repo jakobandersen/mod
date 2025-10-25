@@ -29,17 +29,17 @@ jobs:
       run: sudo apt update
     - name: Install pip dependencies
       run: |
-        sudo apt install python3-setuptools python3-wheel
-        pip3 install -r requirements.txt
+        sudo apt install python3-pip
+        pip3 install -r pyreqs/docs.txt
     - name: Install apt dependencies
-      run: sudo apt install -y $(bindep -b testing | tr '\n' ' ')
+      run: sudo apt install -y $(bindep -b docs | tr '\n' ' ')
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off -DBUILD_POST_MOD=no
+        cmake ../ -DBUILD_DOC=yes -DBUILD_MOD=no -DBUILD_POST_MOD=no
     - name: Build
       run: cd build && make -j 4 doc
     - name: Deploy
@@ -63,17 +63,17 @@ jobs:
       run: sudo apt update
     - name: Install pip dependencies
       run: |
-        sudo apt install python3-setuptools python3-wheel
-        pip3 install -r requirements.txt
+        sudo apt install python3-pip
+        pip3 install -r pyreqs/docs.txt
     - name: Install apt dependencies
-      run: sudo apt install -y $(bindep -b testing | tr '\n' ' ')
+      run: sudo apt install -y $(bindep -b docs | tr '\n' ' ')
     - name: Bootstrap
       run: ./bootstrap.sh
     - name: Configure
       run: |
         mkdir build
         cd build
-        cmake ../ -DBUILD_DOC=on -DBUILD_MOD=off -DBUILD_POST_MOD=no
+        cmake ../ -DBUILD_DOC=yes -DBUILD_MOD=no -DBUILD_POST_MOD=no
     - name: Build
       run: cd build && make -j 4 doc
     - name: Deploy

@@ -1,3 +1,0 @@
-bindep>=2.9
-ipython
-typing_extensions # remove when Python 3.7 can be assumed

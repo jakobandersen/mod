@@ -33,7 +33,7 @@ a:json-symbol-visibility:
   - ./bootstrap.sh
   - python3 -m venv --system-site-packages /opt/venv  # we use openbabel for testing, installed via apt as python3-openbabel
   - source /opt/venv/bin/activate
-  - python3 -m pip install -r requirements_dev.txt
+  - python3 -m pip install -r requirements.txt
   - bindep testing
   - mkdir build
   - cd build
