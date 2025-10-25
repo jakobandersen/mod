@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1. Installation &#8212; MØD 1.0.0.20 documentation</title>
+    <title>1. Installation &#8212; MØD 1.0.0.24 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
     <script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=5f33d348"></script>
+    <script src="_static/documentation_options.js?v=a342c9ef"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.20</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.24</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -169,13 +169,21 @@ own the folder with the Conda installation).</p>
 </section>
 <section id="docker">
 <h2><span class="section-number">1.2. </span>Docker<a class="headerlink" href="#docker" title="Link to this heading">¶</a></h2>
-<p>A Docker image with an installation is available at
-<a class="reference external" href="https://hub.docker.com/r/jakobandersen/mod">Docker Hub</a>,
-so getting started can be done simply via</p>
+<p>Docker images with an installation is available at
+<a class="reference external" href="https://hub.docker.com/r/jakobandersen/mod">Docker Hub</a>.
+There is an image for each release, with the <code class="docutils literal notranslate"><span class="pre">latest</span></code> tag aliasing the lastest release.
+Additionally, the a build of the current development version is available via the tag <code class="docutils literal notranslate"><span class="pre">develop</span></code>.
+Thus, to get started you can simply do either of the following</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>jakobandersen/mod
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>jakobandersen/mod:develop
 </pre></div>
 </div>
-<p>It will put you into an empty folder <code class="docutils literal notranslate"><span class="pre">/workDir</span></code>.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Docker will by default not pull the latest update of an image
+if you already have it locally. Use <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span></code> with an image as argument to update it.</p>
+</div>
+<p>When running a container of a MØD image it will put you into an empty folder <code class="docutils literal notranslate"><span class="pre">/workDir</span></code>.
 The image is build with a copy of the <a class="reference internal" href="examples/index.html#examples"><span class="std std-ref">Examples</span></a> in <code class="docutils literal notranslate"><span class="pre">/examples</span></code>.</p>
 <p>In order to exchange data with the container it may be convient to start the
 container with a local folder mounted, for example the current folder</p>

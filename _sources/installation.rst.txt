@@ -43,15 +43,21 @@ Currently there are only Linux builds available.
 Docker
 ------
 
-A Docker image with an installation is available at
-`Docker Hub <https://hub.docker.com/r/jakobandersen/mod>`__,
-so getting started can be done simply via
+Docker images with an installation is available at
+`Docker Hub <https://hub.docker.com/r/jakobandersen/mod>`__.
+There is an image for each release, with the ``latest`` tag aliasing the lastest release.
+Additionally, the a build of the current development version is available via the tag ``develop``.
+Thus, to get started you can simply do either of the following
 
 .. code-block:: bash
 
 	docker run -it jakobandersen/mod
+	docker run -it jakobandersen/mod:develop
 
-It will put you into an empty folder ``/workDir``.
+.. note:: Docker will by default not pull the latest update of an image
+	if you already have it locally. Use ``docker pull`` with an image as argument to update it.
+
+When running a container of a MØD image it will put you into an empty folder ``/workDir``.
 The image is build with a copy of the :ref:`examples` in ``/examples``.
 
 In order to exchange data with the container it may be convient to start the
