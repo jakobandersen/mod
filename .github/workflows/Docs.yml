@@ -30,7 +30,7 @@ jobs:
     - name: Install pip dependencies
       run: |
         sudo apt install python3-pip
-        pip3 install -r pyreqs/docs.txt
+        pip3 install -r pyreqs/base.txt -r pyreqs/docs.txt
     - name: Install apt dependencies
       run: sudo apt install -y $(bindep -b docs | tr '\n' ' ')
     - name: Bootstrap
@@ -64,7 +64,7 @@ jobs:
     - name: Install pip dependencies
       run: |
         sudo apt install python3-pip
-        pip3 install -r pyreqs/docs.txt
+        pip3 install -r pyreqs/base.txt -r pyreqs/docs.txt
     - name: Install apt dependencies
       run: sudo apt install -y $(bindep -b docs | tr '\n' ' ')
     - name: Bootstrap
