@@ -1,10 +1,10 @@
-name: Docker
+name: Build on other platforms
 on: [push, pull_request]
 jobs:
   Docker:
     strategy:
       matrix:
-        image: [Ubuntu, Fedora, Arch, Conda]
+        image: [Fedora, Arch, Conda]  # Ubuntu is handled in Main and in Docker
       fail-fast: false
     runs-on: ubuntu-22.04
     steps:

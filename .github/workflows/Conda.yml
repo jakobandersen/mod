@@ -1,4 +1,4 @@
-name: Conda
+name: Build Conda packages
 on: push
 jobs:
   Conda-Linux:
