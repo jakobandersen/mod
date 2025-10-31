@@ -27,7 +27,7 @@ NonHyper::NonHyper(LabelSettings labelSettings,
 		: id(nextDGNum++),
 		  labelSettings(labelSettings),
 		  graphDatabase(labelSettings, getConfig().graph.isomorphismAlg) {
-	assert(labelSettings.formsCategory());
+	assert(labelSettings.formCategory());
 	switch(graphPolicy) {
 	case IsomorphismPolicy::TrustMe:
 		for(const auto &gCand: graphDatabase) {
