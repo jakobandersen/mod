@@ -145,6 +145,7 @@ texEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &
 	legend columns=5,
 	xlabel=Time,
 	ylabel=Count,
+	every axis plot/.append style={const plot},
 	cycle multi list={
 		mark list\nextlist
 		exotic
