@@ -41,33 +41,34 @@
 #include <boost/spirit/home/x3/operator/plus.hpp>
 #include <boost/spirit/home/x3/string/literal_string.hpp>
 
+#include <iostream>
 #include <string>
 
 BOOST_FUSION_ADAPT_STRUCT(mod::lib::DG::Read::AbstractDerivation,
                           (std::optional<std::string>, id)
-		                          (mod::lib::DG::Read::AbstractDerivation::List, left)
-		                          (bool, reversible)
-		                          (mod::lib::DG::Read::AbstractDerivation::List, right)
-)
+                          (mod::lib::DG::Read::AbstractDerivation::List, left)
+                          (bool, reversible)
+                          (mod::lib::DG::Read::AbstractDerivation::List, right)
+		)
 
 namespace mod::lib::DG::Read {
 namespace {
 namespace parser {
 
 const auto identifier = x3::rule<struct identifier, std::string>("identifier")
-		                        = x3::lexeme[+(x3::ascii::char_ - x3::ascii::space)];
+		= x3::lexeme[+(x3::ascii::char_ - x3::ascii::space)];
 const auto derivationId = x3::rule<struct derivationId, std::string>("derivation ID")
-		                          = x3::lexeme["#" > identifier];
+		= x3::lexeme["#" > identifier];
 const auto coef = x3::rule<struct coef, unsigned int>("coefficient")
-		                  = x3::lexeme[x3::uint_ >> &x3::ascii::space] | (x3::eps >> x3::attr(1u));
-const auto element = x3::rule<struct element, std::pair<unsigned int, std::string> >("element")
-		                     = coef >> identifier;
+		= x3::lexeme[x3::uint_ >> &x3::ascii::space] | (x3::eps >> x3::attr(1u));
+const auto element = x3::rule<struct element, std::pair<unsigned int, std::string>>("element")
+		= coef >> identifier;
 const auto side = x3::rule<struct side, std::vector<std::pair<unsigned int, std::string>>>("side")
-		                  = element % '+';
+		= element % '+';
 const auto arrow = x3::rule<struct arrow, bool>("-> or <=>")
-		                   = ("->" >> x3::attr(false)) | ("<=>" >> x3::attr(true));
+		= ("->" >> x3::attr(false)) | ("<=>" >> x3::attr(true));
 const auto derivation = x3::rule<struct arrow, AbstractDerivation>("derivation")
-		                        = (-derivationId >> side) > arrow > side; // parens due to Clang warning
+		= (-derivationId >> side) > arrow > side; // parens due to Clang warning
 const auto derivations = +derivation;
 
 } // namespace parser
@@ -146,6 +147,14 @@ std::unique_ptr<NonHyper> dump(const std::vector<std::shared_ptr<mod::graph::Gra
 	auto &j = *jOpt;
 
 	LabelSettings labelSettings = from_json(j["labelSettings"]);
+	if(!labelSettings.formCategory()) {
+		LabelSettings lsNew = labelSettings;
+		lsNew.relation = LabelRelation::Specialisation;
+		lsNew.stereoRelation = LabelRelation::Specialisation;
+		std::cout << "WARNING: DG dump has non-category LabelSettings (" << labelSettings << ")."
+				<< " Changing to " << lsNew << std::endl;
+		labelSettings = lsNew;
+	}
 	auto dgInternal = std::make_unique<NonHyperBuilder>(labelSettings, graphDatabase, graphPolicy);
 	{ // construction
 		auto b = dgInternal->build(nullptr, nullptr);
@@ -185,8 +194,8 @@ bool dumpDigest(const HyperGraphType &dg, const nlohmann::json &j, std::ostream 
 	const int numUDGVertices = j["numUDGVertices"];
 	if(num_vertices(dg) != numUDGVertices) {
 		err << "DG size mismatch. Given DG has " << num_vertices(dg)
-		    << " vertices and edges, but the " << errType << " is based on one with "
-		    << numUDGVertices << ".";
+				<< " vertices and edges, but the " << errType << " is based on one with "
+				<< numUDGVertices << ".";
 		return false;
 	}
 	const auto &bitmap = j["isVertex"];
@@ -216,7 +225,7 @@ std::optional<HyperVertex>
 vertexOrEdge(const HyperGraphType &dg, std::size_t id, std::ostream &err, const std::string &errPrefix) {
 	if(id >= num_vertices(dg)) {
 		err << errPrefix << " ID for vertex or edge is out of range (id="
-		    << id << ", last=" << num_vertices(dg) << ").";
+				<< id << ", last=" << num_vertices(dg) << ").";
 		return {};
 	}
 	const auto vs = vertices(dg);
