@@ -265,12 +265,11 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 		const auto createDummy = [&s, v, &advOptions, &textModifiersBegin, &textModifiersEnd](
 				std::string suffix, bool subscript, bool superscript) {
 			// create dummy vertex to make sure the bounding box is large enough
-			s << "\\node[modStyleGraphVertex, at=(\\modIdPrefix v-" << advOptions.getOutputId(v) << suffix << ")";
-			if(subscript) s << ", text depth=.25ex";
-			if(superscript) s << ", text height=2.25ex";
+			s << "\\node[modStyleGraphVertexBase, at=(\\modIdPrefix v-" << advOptions.getOutputId(v) << suffix << ".base west), anchor=base west";
 			s << "] {\\phantom{" << textModifiersBegin << "H";
-			if(subscript) s << "$_2$";
-			if(superscript) s << "$^{12}$";
+			if(subscript && superscript) s << "$_2^{2}$";
+			else if(subscript) s << "$_2$";
+			else if(superscript) s << "$^{2}$";
 			s << textModifiersEnd << "}};\n";
 		};
 
@@ -375,8 +374,9 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 			s << textModifiersEnd << "};\n";
 
 			const bool subscript = hInLabel && hCount > 1;
-			const bool superscript = isotope != Isotope();
-			if(subscript || !indexString.empty())
+			const bool superscript = (charge != Charge() && options.raiseCharges)
+					|| (isotope != Isotope() && options.raiseIsotopes);
+			if(subscript || superscript)
 				createDummy("", subscript, superscript);
 			const bool hasAuxHydrogen = !hInLabel && hCount != 0;
 
@@ -444,11 +444,11 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 			}();
 
 			if(!chargeInAux && charge != 0) {
-				s << "\\node[modStyleGraphVertex" << colourString << ", at=(\\modIdPrefix v-"
+				s << "\\node[modStyleGraphVertexBase" << colourString << ", at=(\\modIdPrefix v-"
 				  << advOptions.getOutputId(v);
-				if(chargeOnLeft) s << ".west), anchor=east";
-				else s << ".east), anchor=west";
-				s << "] {";
+				if(chargeOnLeft) s << ".base west), anchor=base east";
+				else s << ".base east), anchor=base west";
+				s << ", text depth=, text height=] {";
 				s << textModifiersBegin;
 				s << chargeString;
 				s << textModifiersEnd << "};\n";
@@ -456,23 +456,22 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 				else auxBlocked |= Loc::R & Loc::R_up & Loc::TR;
 			}
 			if(!isotopeInAux && isotope != Isotope()) {
-				s << "\\node[modStyleGraphVertex" << colourString << ", at=(\\modIdPrefix v-"
+				s << "\\node[modStyleGraphVertexBase" << colourString << ", at=(\\modIdPrefix v-"
 				  << advOptions.getOutputId(v);
-				s << ".west), anchor=east";
-				s << "] {";
+				s << ".base west), anchor=base east";
+				s << ", text depth=, text height=] {";
 				s << textModifiersBegin;
 				s << isotopeString;
 				s << textModifiersEnd << "};\n";
-				createDummy("", false, true);
 				auxBlocked |= Loc::L & Loc::L_up & Loc::TL;
 			}
 
 			if(auxHPosition != -1) {
-				s << "\\node[modStyleGraphVertex" << colourString << ", at=(\\modIdPrefix v-"
-				  << advOptions.getOutputId(v)
-				  << ".";
-				/**/ if(auxHPosition == Loc::R_narrow) s << "east), anchor=west";
-				else if(auxHPosition == Loc::L_narrow) s << "west), anchor=east";
+				s << "\\node[modStyleGraphVertex";
+				if(!isAuxVertical) s << "Base";
+				s << colourString << ", at=(\\modIdPrefix v-" << advOptions.getOutputId(v) << ".";
+				/**/ if(auxHPosition == Loc::R_narrow) s << "base east), anchor=base west";
+				else if(auxHPosition == Loc::L_narrow) s << "base west), anchor=base east";
 				else if(auxHPosition == Loc::T_narrow) s << "north), anchor=south, yshift=1pt";
 				else if(auxHPosition == Loc::B_narrow) s << "south), anchor=north, yshift=-1pt";
 				else
@@ -496,10 +495,13 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 				s << output;
 				if(isotopeInAux) s << isotopeString;
 				s << textModifiersEnd << "};\n";
-				createDummy("-aux", hCount > 1, isotopeInAux && isotope != Isotope());
+				if(isAuxVertical)
+					createDummy("-aux", hCount > 1,
+						(chargeInAux && charge != Charge())	||
+						(isotopeInAux && isotope != Isotope()));
 				if(isAuxVertical && hCount > 1) {
-					s << "\\node[modStyleGraphVertex" << colourString << ", at=(\\modIdPrefix v-"
-					  << advOptions.getOutputId(v) << "-aux.east), anchor=west] {";
+					s << "\\node[modStyleGraphVertexBase" << colourString << ", at=(\\modIdPrefix v-"
+					  << advOptions.getOutputId(v) << "-aux.base east), anchor=base west] {";
 					s << textModifiersBegin;
 					s << "$_{" << hCount << "}$";
 					s << textModifiersEnd << "};\n";
@@ -596,7 +598,6 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 			s << textModifiersBegin;
 			s << indexString;
 			s << textModifiersEnd << "};\n";
-			createDummy("-auxId", true, false);
 		} // end if withIndex
 	} // foreach vertex
 
@@ -680,6 +681,11 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 		s << "\n";
 	}
 	bonusWriter(s);
+	//s << R"XXX(
+	//	\draw (current bounding box.south west) rectangle
+	//			(current bounding box.north east);
+	//	\draw (current bounding box.base) -- ++(2em, 0);
+	//	)XXX";
 	s << "\\end{tikzpicture}\n";
 }
 

@@ -61,6 +61,7 @@ Bugs Fixed
 - Fix equality operator for :py:class:`Graph`, :py:class:`Rule`, :py:class:`DG`, and
   :py:class:`hyperflow.Model` to compare types, so mixed-type comparison does not
   result in false positives.
+- Fix bounding box issues when printing graphs and rules.
 
 
 v1.0.0 (2025-05-14)

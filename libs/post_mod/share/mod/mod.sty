@@ -242,7 +242,8 @@
 \newcommand{\modHashLength}{1pt}
 \newcommand{\modHashSep}{2pt}
 
-\tikzset{modStyleGraphVertex/.style={rectangle, inner sep=0, outer sep=0, minimum size=0, text height=1.6ex, text depth=.05ex}}
+\tikzset{modStyleGraphVertexBase/.style={rectangle, inner sep=0, outer sep=0, minimum size=0}}
+\tikzset{modStyleGraphVertex/.style={modStyleGraphVertexBase, text height=1.6ex, text depth=.05ex}}
 \tikzset{modStyleCarbon/.style={                inner sep=0, outer sep=0, minimum size=0, text height=0,     text depth=0}}
 \tikzset{modStyleCarbonIndex/.style={           inner sep=1, outer sep=0, minimum size=0, text height=.5ex,  text depth=0}}
 \tikzset{modStyleGraphEdgeNoDraw/.style={}}
