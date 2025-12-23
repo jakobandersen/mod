@@ -62,6 +62,7 @@ Bugs Fixed
   :py:class:`hyperflow.Model` to compare types, so mixed-type comparison does not
   result in false positives.
 - Fix bounding box issues when printing graphs and rules.
+- Fix extra space in some depictions in the summary.
 
 
 v1.0.0 (2025-05-14)
