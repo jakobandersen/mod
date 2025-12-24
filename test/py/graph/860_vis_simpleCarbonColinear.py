@@ -2,6 +2,7 @@ def p(dfs, name):
 	g = Graph.fromDFS(dfs, name=name)
 	g.print()
 
+p("[C]",                   "C")
 p("[U][C]",                "UC")
 p("[U][C]([H])",           "UCH")
 p("[U][C]([H])([H])",      "UCH2")

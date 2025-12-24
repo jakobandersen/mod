@@ -262,17 +262,6 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 		if(!isVisible[vId]) continue;
 		const auto atomId = depict.getAtomId(v);
 
-		const auto createDummy = [&s, v, &advOptions, &textModifiersBegin, &textModifiersEnd](
-				std::string suffix, bool subscript, bool superscript) {
-			// create dummy vertex to make sure the bounding box is large enough
-			s << "\\node[modStyleGraphVertexBase, at=(\\modIdPrefix v-" << advOptions.getOutputId(v) << suffix << ".base west), anchor=base west";
-			s << "] {\\phantom{" << textModifiersBegin << "H";
-			if(subscript && superscript) s << "$_2^{2}$";
-			else if(subscript) s << "$_2$";
-			else if(superscript) s << "$^{2}$";
-			s << textModifiersEnd << "}};\n";
-		};
-
 		std::string colourString = advOptions.getColour(v);
 		if(options.withColour && colourString.empty()) {
 			switch(atomId) {
@@ -314,7 +303,6 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 		auto auxBlocked = auxLabelBlocked[vId];
 		if(isSimpleCarbon[vId]) { // Simple Cs
 			s << "{" << textModifiersBegin << indexString << textModifiersEnd << "};\n";
-			if(!indexString.empty()) createDummy("", false, false);
 		} else { // not simple carbon
 			const auto isotope = depict.getIsotope(v);
 			const auto charge = depict.getCharge(v);
@@ -350,6 +338,17 @@ void tikz(std::ostream &s, const Options &options, const Graph &g, const Depict 
 				hString += "H";
 				if(hCount > 1) hString += "$_{" + boost::lexical_cast<std::string>(hCount) + "}$";
 			}
+
+			const auto createDummy = [&s, v, &advOptions, &textModifiersBegin, &textModifiersEnd](
+					std::string suffix, bool subscript, bool superscript) {
+				// create dummy vertex to make sure the bounding box is large enough
+				s << "\\node[modStyleGraphVertexBase, at=(\\modIdPrefix v-" << advOptions.getOutputId(v) << suffix << ".base west), anchor=base west";
+				s << "] {\\phantom{" << textModifiersBegin << "H";
+				if(subscript && superscript) s << "$_2^{2}$";
+				else if(subscript) s << "$_2$";
+				else if(superscript) s << "$^{2}$";
+				s << textModifiersEnd << "}};\n";
+			};
 
 			// handle H_2 special
 			if(hCount == 1 && charge == 0 && atomId == 1 && isotope == Isotope()) {
