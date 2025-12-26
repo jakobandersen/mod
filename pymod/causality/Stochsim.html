@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.8.4. causality/Stochsim &#8212; MØD 1.0.0.25 documentation</title>
+    <title>4.1.8.4. causality/Stochsim &#8212; MØD 1.0.0.32 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=073a4df6"></script>
+    <script src="../../_static/documentation_options.js?v=a87c0d7f"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.25</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.32</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -88,6 +88,7 @@
 <li><a class="reference internal" href="#mod.causality.Simulator.dg"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.dg</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.Simulator.iteration"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.iteration</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.Simulator.time"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.time</span></code></a></li>
+<li><a class="reference internal" href="#mod.causality.Simulator.state"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.state()</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.Simulator.trace"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.trace</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.Simulator.onIterationBegin"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.onIterationBegin</span></code></a></li>
 <li><a class="reference internal" href="#mod.causality.Simulator.onIterationEnd"><code class="docutils literal notranslate"><span class="pre">causality.Simulator.onIterationEnd</span></code></a></li>
@@ -210,7 +211,7 @@ The callback will be given:</p>
 <p>The <a class="reference internal" href="#mod.causality.Simulator.ExpandByStrategy" title="mod.causality.Simulator.ExpandByStrategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpandByStrategy</span></code></a> class is a shorthand for this type of callback.</p>
 </p></li>
 <li><p><strong>initialState</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – the initial simulation state in terms of the number of    copies of each graph/molecule.
-The graphs/molecules not mentioned are set to 0.</p></li>
+The graphs/molecules not mentioned assumed to be 0.</p></li>
 <li><p><strong>draw</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><em>DG</em></a><em>]</em><em>, </em><a class="reference internal" href="#mod.causality.DrawFunction" title="mod.causality.DrawFunction"><em>DrawFunction</em></a><em>]</em>) – The simulator will initially create a <a class="reference internal" href="../dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a> which is given to this function.
 It must then return a callable that is used in each simulation step to draw the next hyperedge/reaction.
 Defaults to a default constructed instance of <a class="reference internal" href="#mod.causality.Simulator.DrawMassAction" title="mod.causality.Simulator.DrawMassAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrawMassAction</span></code></a>.</p></li>
@@ -253,6 +254,19 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">True</s
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mod.causality.Simulator.state">
+<span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.Simulator.state" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vg</strong> (<a class="reference internal" href="../dg/GraphInterface.html#mod.DG.Vertex" title="mod.DG.Vertex"><em>DG.Vertex</em></a><em> or </em><a class="reference internal" href="../graph/Graph.html#mod.Graph" title="mod.Graph"><em>Graph</em></a>) – the vertex/graph to query the current state with.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the number of occurrences of the given vertex/graph in the current state.</p>
 </dd>
 </dl>
 </dd></dl>

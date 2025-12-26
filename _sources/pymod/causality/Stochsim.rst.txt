@@ -54,7 +54,7 @@ similarly to how a derivation graph, :class:`DG`, can be expanded using strategi
             The :py:class:`ExpandByStrategy` class is a shorthand for this type of callback.
         :type expandNetwork: Callable[[DG.Builder, list[Graph], list[Graph]], bool]
         :param initialState: the initial simulation state in terms of the number of    copies of each graph/molecule.
-            The graphs/molecules not mentioned are set to 0.
+            The graphs/molecules not mentioned assumed to be 0.
         :type initialState: dict[Graph, int]
         :param draw: The simulator will initially create a :class:`DG` which is given to this function.
             It must then return a callable that is used in each simulation step to draw the next hyperedge/reaction.
@@ -84,6 +84,12 @@ similarly to how a derivation graph, :class:`DG`, can be expanded using strategi
         The current simulation time.
 
         :type: float
+
+    .. method:: state(vg)
+
+        :param vg: the vertex/graph to query the current state with.
+        :type vg: DG.Vertex or Graph
+        :returns: the number of occurrences of the given vertex/graph in the current state.
 
     .. property:: trace
 

@@ -33,15 +33,15 @@ As a running example, we use the network below.
 	\dgEx
 
 Each hyperedge :math:`e\in E` is an ordered pair of multisets of vertices
-:math:`e = (e^{out}, e^{in})`, the sources and targets of the edge (e.g., the
+:math:`e = (e^{sources}, e^{targets})`, the sources and targets of the edge (e.g., the
 reactants and products of the reaction).
 To denote the multiplicity of a vertex :math:`v` in a multiset `s` we write
 :math:`m_v(s)`.
 For example, in the network above, the edge :math:`e_3 = (\{B, D, D\}, \{C\})`
 could model a reaction :math:`B + 2\,D\rightarrow C`.
-We have :math:`m_D(e_3^{out}) = 2` as :math:`D` is used twice as a reactant.
+We have :math:`m_D(e_3^{sources}) = 2` as :math:`D` is used twice as a reactant.
 The multiplicity function thus gives the stoichiometric coefficients in a reaction.
-In the context of stoichiometric matrices the multiplicities for the educts and
+In the context of stoichiometric matrices the multiplicities for the reactants and
 products correcpond to the entries of :math:`\mathbf{S}^-` and
 :math:`\mathbf{S}^+` respectively.
 
@@ -72,8 +72,8 @@ It must satisfy the flow conservation constraint
 .. math::
 
 	\begin{align*}
-	\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{out})f(e) - 
-	\sum_{e\in \text{in}_{\overline{E}}(v)} m_v(e^{in})f(e) &= 0
+	\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{sources})f(e) - 
+	\sum_{e\in \text{in}_{\overline{E}}(v)} m_v(e^{targets})f(e) &= 0
 		& \forall v\in V
 	\end{align*}
 
@@ -135,9 +135,9 @@ and
 
 	\begin{align*}
 	\widetilde{E} &= \bigcup_{v\in V}E_v \cup \{\widetilde{e}\mid e\in \overline{E}\} \\
-	\widetilde{e}       &= (\widetilde{e}^{out}, \widetilde{e}^{in}) \\
-	\widetilde{e}^{in}  &= \{u^{in}_{ve}  \mid v \in e^{in}\}        \\
-	\widetilde{e}^{out} &= \{u^{out}_{ve} \mid v \in e^{out}\}       \\
+	\widetilde{e}       &= (\widetilde{e}^{sources}, \widetilde{e}^{targets}) \\
+	\widetilde{e}^{sources} &= \{u^{out}_{ve} \mid v \in e^{sources}\}       \\
+	\widetilde{e}^{targets}  &= \{u^{in}_{ve}  \mid v \in e^{targets}\}        \\
 	E_v &= \left\{\left(\{u^{in}\}, \{u^{out}\}\right)
 		\mid u^{in}\in V_v^{in}, u^{out}\in V_v^{out}\right\}
 	\end{align*}
@@ -153,8 +153,8 @@ An example of network expansion is shown below.
 .. tikz:: Example of an expanded network.
 	The vertices are the small black dots, while the large circles are a visual
 	aid to group the vertices and edges related to the orignal vertices.
-	The blue transit edges are those that connect pairs of reverse internal hyperedges,
-	while the red transit edges are those that connect the input and output edges.
+	The blue transit edges are those that connect the input and output edges,
+	while the red transit edges are those that connect pairs of reverse internal hyperedges.
 
 	\dgExBegin
 		\def\labAB{}\def\labBA{}
@@ -195,7 +195,7 @@ It will be convenient to specify some particular transit edges:
   :math:`(u_{ve_1}^{in}, u_{ve_2}^{out})` for :math:`v\in V_b` and
   :math:`(u_{ve_2}^{in}, u_{ve_1}^{out})` for :math:`v\in V_a` are in :math:`T_{rev}`.
   Note that a loop edge :math:`e = (V_a, V_a)` is also considered to be a
-  reverse of it self, and are thus considered here.
+  reverse of it self, and is thus included here.
 
 An integer hyperflow on this expanded network is then defined as before, but
 just on :math:`\widetilde{\mathcal{H}}`.
@@ -251,7 +251,7 @@ if there is no flow.
 
 An initial model object specifies that nothing can flow in and out of the network,
 i.e., :math:`x_v^{in} = x_v^{out} = 0` for each vertex :math:`v\in V`.
-To remove this constraint, can specify a vertex as a source or sink using the methods
+To remove this constraint, you can specify a vertex as a source or sink using the methods
 :cpp:func:`hyperflow::Model::addSource`/:py:meth:`hyperflow.Model.addSource`
 and
 :cpp:func:`hyperflow::Model::addSink`/:py:meth:`hyperflow.Model.addSink`.
@@ -637,7 +637,7 @@ i.e., the model adds a requirement on the overall reaction each flow solution im
 
 Specifically, the module introduces the variable specifier ``isOverallAutocata`` which represents a set of indicator variables;
 :math:`z^a_v` for each vertex :math:`v\in V`.
-Each variable is constrained such that :math:`z^a_v` is 1 if and only if :math:`0 < f(e^{in}_v) < f(e^{out}_v`.
+Each variable is constrained such that :math:`z^a_v` is 1 if and only if :math:`0 < f(e^{in}_v) < f(e^{out}_v)`.
 That is, a vertex is considered overall autocatalytic if it has non-zero in-flow, and has greater out-flow than in-flow.
 
 When the module is enabled it will disable reversal of flow through pairs of reverse hyperedges
@@ -737,7 +737,7 @@ i.e., the model adds a requirement on the overall reaction each flow solution im
 
 Specifically, the module introduces the variable specifier ``isOverallCata`` which represents a set of indicator variables;
 :math:`z^c_v` for each vertex :math:`v\in V`.
-Each variable is constrained such that :math:`z^c_v` is 1 if and only if :math:`0 < f(e^{in}_v) = f(e^{out}_v`.
+Each variable is constrained such that :math:`z^c_v` is 1 if and only if :math:`0 < f(e^{in}_v) = f(e^{out}_v)`.
 That is, a vertex is considered overall atalytic if it has non-zero in-flow, and has the same out-flow as in-flow.
 
 When the module is enabled it will disable reversal of flow through pairs of reverse hyperedges

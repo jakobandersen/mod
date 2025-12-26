@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>10. Hyperflow Model &#8212; MØD 1.0.0.25 documentation</title>
+    <title>10. Hyperflow Model &#8212; MØD 1.0.0.32 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=073a4df6"></script>
+    <script src="../_static/documentation_options.js?v=a87c0d7f"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.25</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.32</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -178,15 +178,15 @@ As a running example, we use the network below.</p>
 <div class="figure" id="id7" style="text-align: center"><p><img  src="../_images/tikz-d3078198f892bce6d87ceaf5c438cfe3d1562955.svg" alt="Figure made with TikZ" /></p>
 <p><span class="caption-text">Example of a directed multi-hypergraph.</span></p>
 </div><p>Each hyperedge <span class="math notranslate nohighlight">\(e\in E\)</span> is an ordered pair of multisets of vertices
-<span class="math notranslate nohighlight">\(e = (e^{out}, e^{in})\)</span>, the sources and targets of the edge (e.g., the
+<span class="math notranslate nohighlight">\(e = (e^{sources}, e^{targets})\)</span>, the sources and targets of the edge (e.g., the
 reactants and products of the reaction).
 To denote the multiplicity of a vertex <span class="math notranslate nohighlight">\(v\)</span> in a multiset <cite>s</cite> we write
 <span class="math notranslate nohighlight">\(m_v(s)\)</span>.
 For example, in the network above, the edge <span class="math notranslate nohighlight">\(e_3 = (\{B, D, D\}, \{C\})\)</span>
 could model a reaction <span class="math notranslate nohighlight">\(B + 2\,D\rightarrow C\)</span>.
-We have <span class="math notranslate nohighlight">\(m_D(e_3^{out}) = 2\)</span> as <span class="math notranslate nohighlight">\(D\)</span> is used twice as a reactant.
+We have <span class="math notranslate nohighlight">\(m_D(e_3^{sources}) = 2\)</span> as <span class="math notranslate nohighlight">\(D\)</span> is used twice as a reactant.
 The multiplicity function thus gives the stoichiometric coefficients in a reaction.
-In the context of stoichiometric matrices the multiplicities for the educts and
+In the context of stoichiometric matrices the multiplicities for the reactants and
 products correcpond to the entries of <span class="math notranslate nohighlight">\(\mathbf{S}^-\)</span> and
 <span class="math notranslate nohighlight">\(\mathbf{S}^+\)</span> respectively.</p>
 <p>To model input and output of the network we extend it with half-edges at each vertex,
@@ -207,8 +207,8 @@ that assigns a non-negative integer to each hyperedge, including the input/outpu
 It must satisfy the flow conservation constraint</p>
 <div class="math notranslate nohighlight">
 \[\begin{align*}
-\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{out})f(e) -
-\sum_{e\in \text{in}_{\overline{E}}(v)} m_v(e^{in})f(e) &amp;= 0
+\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{sources})f(e) -
+\sum_{e\in \text{in}_{\overline{E}}(v)} m_v(e^{targets})f(e) &amp;= 0
         &amp; \forall v\in V
 \end{align*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\text{out}_{\overline{E}}(v)\)</span> and
@@ -240,9 +240,9 @@ V_v^{out} &amp;= \{u^{out}_{ve} \mid \forall e\in \text{out}_{\overline{E}}(v)\}
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align*}
 \widetilde{E} &amp;= \bigcup_{v\in V}E_v \cup \{\widetilde{e}\mid e\in \overline{E}\} \\
-\widetilde{e}       &amp;= (\widetilde{e}^{out}, \widetilde{e}^{in}) \\
-\widetilde{e}^{in}  &amp;= \{u^{in}_{ve}  \mid v \in e^{in}\}        \\
-\widetilde{e}^{out} &amp;= \{u^{out}_{ve} \mid v \in e^{out}\}       \\
+\widetilde{e}       &amp;= (\widetilde{e}^{sources}, \widetilde{e}^{targets}) \\
+\widetilde{e}^{sources} &amp;= \{u^{out}_{ve} \mid v \in e^{sources}\}       \\
+\widetilde{e}^{targets}  &amp;= \{u^{in}_{ve}  \mid v \in e^{targets}\}        \\
 E_v &amp;= \left\{\left(\{u^{in}\}, \{u^{out}\}\right)
         \mid u^{in}\in V_v^{in}, u^{out}\in V_v^{out}\right\}
 \end{align*}\end{split}\]</div>
@@ -257,8 +257,8 @@ An example of network expansion is shown below.</p>
 <p><span class="caption-text">Example of an expanded network.
 The vertices are the small black dots, while the large circles are a visual
 aid to group the vertices and edges related to the orignal vertices.
-The blue transit edges are those that connect pairs of reverse internal hyperedges,
-while the red transit edges are those that connect the input and output edges.</span></p>
+The blue transit edges are those that connect the input and output edges,
+while the red transit edges are those that connect pairs of reverse internal hyperedges.</span></p>
 </div><p>It will be convenient to specify some particular transit edges:</p>
 <ul class="simple">
 <li><p>The IO transit edges <span class="math notranslate nohighlight">\(T_{IO}\)</span> (blue edges in the example above):
@@ -270,7 +270,7 @@ with <span class="math notranslate nohighlight">\(e_1 = (V_a, V_b), e_2 = (V_b, 
 <span class="math notranslate nohighlight">\((u_{ve_1}^{in}, u_{ve_2}^{out})\)</span> for <span class="math notranslate nohighlight">\(v\in V_b\)</span> and
 <span class="math notranslate nohighlight">\((u_{ve_2}^{in}, u_{ve_1}^{out})\)</span> for <span class="math notranslate nohighlight">\(v\in V_a\)</span> are in <span class="math notranslate nohighlight">\(T_{rev}\)</span>.
 Note that a loop edge <span class="math notranslate nohighlight">\(e = (V_a, V_a)\)</span> is also considered to be a
-reverse of it self, and are thus considered here.</p></li>
+reverse of it self, and is thus included here.</p></li>
 </ul>
 <p>An integer hyperflow on this expanded network is then defined as before, but
 just on <span class="math notranslate nohighlight">\(\widetilde{\mathcal{H}}\)</span>.
@@ -300,7 +300,7 @@ That is, <span class="math notranslate nohighlight">\(z_e\)</span> is 1 if there
 if there is no flow.</p>
 <p>An initial model object specifies that nothing can flow in and out of the network,
 i.e., <span class="math notranslate nohighlight">\(x_v^{in} = x_v^{out} = 0\)</span> for each vertex <span class="math notranslate nohighlight">\(v\in V\)</span>.
-To remove this constraint, can specify a vertex as a source or sink using the methods
+To remove this constraint, you can specify a vertex as a source or sink using the methods
 <a class="reference internal" href="../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model9addSourceEN2dg2DG6VertexE" title="mod::hyperflow::Model::addSource"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::addSource()</span></code></a>/<a class="reference internal" href="../pymod/hyperflow/Model.html#mod.hyperflow.Model.addSource" title="mod.hyperflow.Model.addSource"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hyperflow.Model.addSource()</span></code></a>
 and
 <a class="reference internal" href="../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model7addSinkEN2dg2DG6VertexE" title="mod::hyperflow::Model::addSink"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::addSink()</span></code></a>/<a class="reference internal" href="../pymod/hyperflow/Model.html#mod.hyperflow.Model.addSink" title="mod.hyperflow.Model.addSink"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hyperflow.Model.addSink()</span></code></a>.</p>
@@ -637,7 +637,7 @@ which can then be used as any of the variable specifiers from the built-in modul
 i.e., the model adds a requirement on the overall reaction each flow solution implements.</p>
 <p>Specifically, the module introduces the variable specifier <code class="docutils literal notranslate"><span class="pre">isOverallAutocata</span></code> which represents a set of indicator variables;
 <span class="math notranslate nohighlight">\(z^a_v\)</span> for each vertex <span class="math notranslate nohighlight">\(v\in V\)</span>.
-Each variable is constrained such that <span class="math notranslate nohighlight">\(z^a_v\)</span> is 1 if and only if <span class="math notranslate nohighlight">\(0 &lt; f(e^{in}_v) &lt; f(e^{out}_v\)</span>.
+Each variable is constrained such that <span class="math notranslate nohighlight">\(z^a_v\)</span> is 1 if and only if <span class="math notranslate nohighlight">\(0 &lt; f(e^{in}_v) &lt; f(e^{out}_v)\)</span>.
 That is, a vertex is considered overall autocatalytic if it has non-zero in-flow, and has greater out-flow than in-flow.</p>
 <p>When the module is enabled it will disable reversal of flow through pairs of reverse hyperedges
 (<a class="reference internal" href="../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model16setAllowReversalEb" title="mod::hyperflow::Model::setAllowReversal"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::setAllowReversal()</span></code></a> / <a class="reference internal" href="../pymod/hyperflow/Model.html#mod.hyperflow.Model.allowReversal" title="mod.hyperflow.Model.allowReversal"><code class="xref py py-attr docutils literal notranslate"><span class="pre">hyperflow.Model.allowReversal</span></code></a>),
@@ -702,7 +702,7 @@ all flow through <span class="math notranslate nohighlight">\(v\)</span> must co
 i.e., the model adds a requirement on the overall reaction each flow solution implements.</p>
 <p>Specifically, the module introduces the variable specifier <code class="docutils literal notranslate"><span class="pre">isOverallCata</span></code> which represents a set of indicator variables;
 <span class="math notranslate nohighlight">\(z^c_v\)</span> for each vertex <span class="math notranslate nohighlight">\(v\in V\)</span>.
-Each variable is constrained such that <span class="math notranslate nohighlight">\(z^c_v\)</span> is 1 if and only if <span class="math notranslate nohighlight">\(0 &lt; f(e^{in}_v) = f(e^{out}_v\)</span>.
+Each variable is constrained such that <span class="math notranslate nohighlight">\(z^c_v\)</span> is 1 if and only if <span class="math notranslate nohighlight">\(0 &lt; f(e^{in}_v) = f(e^{out}_v)\)</span>.
 That is, a vertex is considered overall atalytic if it has non-zero in-flow, and has the same out-flow as in-flow.</p>
 <p>When the module is enabled it will disable reversal of flow through pairs of reverse hyperedges
 (<a class="reference internal" href="../libmod/hyperflow/Model.html#_CPPv4N3mod9hyperflow5Model16setAllowReversalEb" title="mod::hyperflow::Model::setAllowReversal"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hyperflow::Model::setAllowReversal()</span></code></a> / <a class="reference internal" href="../pymod/hyperflow/Model.html#mod.hyperflow.Model.allowReversal" title="mod.hyperflow.Model.allowReversal"><code class="xref py py-attr docutils literal notranslate"><span class="pre">hyperflow.Model.allowReversal</span></code></a>),
