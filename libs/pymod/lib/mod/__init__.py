@@ -1290,6 +1290,9 @@ class _Simulator:
 	def time(self) -> float:
 		return self._impl.time
 
+	def state(self, vg: Union[Graph, DG.Vertex]) -> int:
+		return self._marking[vg]
+
 	@property
 	def trace(self) -> causality.EventTrace:
 		return self._trace

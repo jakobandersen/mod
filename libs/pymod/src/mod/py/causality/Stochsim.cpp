@@ -73,7 +73,7 @@ void Stochsim_doExport() {
 	// rst:				The :py:class:`ExpandByStrategy` class is a shorthand for this type of callback.
 	// rst:			:type expandNetwork: Callable[[DG.Builder, list[Graph], list[Graph]], bool]
 	// rst:			:param initialState: the initial simulation state in terms of the number of	copies of each graph/molecule.
-	// rst:				The graphs/molecules not mentioned are set to 0.
+	// rst:				The graphs/molecules not mentioned assumed to be 0.
 	// rst:			:type initialState: dict[Graph, int]
 	// rst:			:param draw: The simulator will initially create a :class:`DG` which is given to this function.
 	// rst:				It must then return a callable that is used in each simulation step to draw the next hyperedge/reaction.
@@ -103,6 +103,12 @@ void Stochsim_doExport() {
 	// rst:			The current simulation time.
 	// rst:
 	// rst:			:type: float
+	// rst:
+	// rst:		.. method:: state(vg)
+	// rst:
+	// rst:			:param vg: the vertex/graph to query the current state with.
+	// rst:			:type vg: DG.Vertex or Graph
+	// rst:			:returns: the number of occurrences of the given vertex/graph in the current state.
 	// rst:
 	// rst:		.. property:: trace
 	// rst:
