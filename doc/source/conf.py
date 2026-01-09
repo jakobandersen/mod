@@ -32,7 +32,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 project = u'MØD'
-copyright = u'2013-2025, Jakob Lykke Andersen'
+copyright = u'2013-2026, Jakob Lykke Andersen'
 
 with open("../../VERSION") as f:
 	version = f.read()
