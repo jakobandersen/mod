@@ -39,7 +39,7 @@ std::string makeEventTraceFilename(const lib::Causality::EventTrace &trace, cons
 std::pair<std::string, EventTraceData>
 dataEventTrace(const lib::Causality::EventTrace &trace, int maxPointsPerMolecule);
 std::string texEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer,
-                          const std::string &prefix, const EventTraceData &data);
+                          const std::string &prefix, EventTraceData data);
 std::string pdfEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer);
 std::string summaryEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer);
 

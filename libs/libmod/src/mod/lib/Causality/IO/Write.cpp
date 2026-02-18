@@ -58,7 +58,7 @@ EventTraceData calculatePlotPoints(const lib::Causality::EventTrace &trace, int 
 	double binSize = 1;
 	binSize = trace.getEvents().back().time / maxPointsPerMolecule;
 	auto update = [&data, binSize](double time, lib::DG::HyperVertex v, int delta) mutable {
-//		std::cout << "   Update: time=" << time << ", v=" << v << " delta=" << delta << std::endl;
+		//		std::cout << "   Update: time=" << time << ", v=" << v << " delta=" << delta << std::endl;
 		const auto binOf = [binSize](double time) -> int {
 			return time / binSize;
 		};
@@ -75,10 +75,10 @@ EventTraceData calculatePlotPoints(const lib::Causality::EventTrace &trace, int 
 	};
 
 	for(const auto &e: trace.getEvents()) {
-//		std::cout << "Event:\n";
+		//		std::cout << "Event:\n";
 		struct Visitor {
 			Visitor(const lib::DG::HyperGraphType &dg, decltype(update) u, double time)
-					: dg(dg), u(u), time(time) {}
+				: dg(dg), u(u), time(time) {}
 
 			void operator()(lib::Causality::EdgeAction a) const {
 				const auto e = a.e;
@@ -135,7 +135,7 @@ dataEventTrace(const lib::Causality::EventTrace &trace, int maxPointsPerMolecule
 
 std::string
 texEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer,
-              const std::string &prefix, const EventTraceData &data) {
+              const std::string &prefix, EventTraceData data) {
 	post::FileHandle s(prefix + "eventTrace.tex");
 	s << R"tex(
 \begin{tikzpicture}
@@ -156,7 +156,13 @@ texEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &
 	s << "]\n";
 	if(printer.preContent)
 		s << printer.preContent(trace.dg) << "\n";
-	for(const auto &[v, vData]: data) {
+	// sort the data based on the legend label it will get
+	std::vector<std::pair<EventTraceData::key_type, EventTraceData::mapped_type>>
+			sortedData(std::move_iterator(data.begin()), std::move_iterator(data.end()));
+	std::sort(sortedData.begin(), sortedData.end(), [&g = trace.dg.getGraph()](const auto &a, const auto &b) {
+		return g[a.first].graph->getName() < g[b.first].graph->getName();
+	});
+	for(const auto &[v, vData]: sortedData) {
 		if(!printer.isVertexVisible(v, trace.dg))
 			continue;
 		s << "\\addplot+[mark=none";
@@ -173,8 +179,8 @@ texEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &
 }
 
 std::string pdfEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer) {
-	const auto [prefix, data] = dataEventTrace(trace, printer.maxPointsPerMolecule);
-	auto texFile = texEventTrace(trace, printer, prefix, data);
+	auto [prefix, data] = dataEventTrace(trace, printer.maxPointsPerMolecule);
+	auto texFile = texEventTrace(trace, printer, prefix, std::move(data));
 	std::string fileNoExt(texFile.begin(), texFile.end() - 4);
 	IO::post() << "compileTikz \"" << fileNoExt << "\" \"" << fileNoExt << "\"" << std::endl;
 	return fileNoExt + ".pdf";
