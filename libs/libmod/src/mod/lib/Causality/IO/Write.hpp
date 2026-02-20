@@ -37,7 +37,7 @@ std::string makeEventTraceFilename(const lib::Causality::EventTrace &trace, cons
 // Returns the common prefix for all the printed files:
 // - <prefix>v-<idx>.txt, for each graph in the data
 std::pair<std::string, EventTraceData>
-dataEventTrace(const lib::Causality::EventTrace &trace, int maxPointsPerMolecule);
+dataEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &p);
 std::string texEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer,
                           const std::string &prefix, EventTraceData data);
 std::string pdfEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer);

@@ -40,37 +40,60 @@ std::string EventTracePrinter::allVertexOptions(lib::DG::HyperVertex v, const li
 
 namespace {
 
-EventTraceData calculatePlotPoints(const lib::Causality::EventTrace &trace, int maxPointsPerMolecule) {
-	assert(maxPointsPerMolecule > 0);
+struct BinningData {
+	std::vector<std::pair<double, int>> data;
+	int bin = -1;
+};
 
+EventTraceData makeEventTraceData(const lib::DG::Hyper::GraphType &g, std::vector<BinningData> bData) {
 	EventTraceData data;
+	for(const auto v: asRange(vertices(g)))
+		if(g[v].kind == DG::HyperVertexKind::Vertex)
+			data.emplace(v, std::move(bData[get(boost::vertex_index_t(), g, v)].data));
+	return data;
+}
 
+EventTraceData calculatePlotPoints(const lib::Causality::EventTrace &trace, const EventTracePrinter &p) {
 	const auto &initialState = trace.getInitialState();
 	const auto &g = trace.dg.getGraph();
+	const auto idx = get(boost::vertex_index_t(), g);
+	std::vector<BinningData> bData(num_vertices(g));
 	// ensure all plots start at 0
 	for(const auto v: asRange(vertices(g)))
 		if(g[v].kind == DG::HyperVertexKind::Vertex)
-			data[v].emplace_back(0.0, initialState[v]);
+			bData[idx[v]].data.emplace_back(0.0, initialState[v]);
 
 	if(trace.getEvents().empty())
-		return data;
+		return makeEventTraceData(g, std::move(bData));
 
-	double binSize = 1;
-	binSize = trace.getEvents().back().time / maxPointsPerMolecule;
-	auto update = [&data, binSize](double time, lib::DG::HyperVertex v, int delta) mutable {
-		//		std::cout << "   Update: time=" << time << ", v=" << v << " delta=" << delta << std::endl;
-		const auto binOf = [binSize](double time) -> int {
-			return time / binSize;
-		};
-		auto &d = data[v];
-		if(d.empty()) {
-			d.emplace_back(time, delta);
-		} else if(d.size() == 1 || binOf(d.back().first) != binOf(time)) {
-			d.emplace_back(time, d.back().second + delta);
+	double maxTime = trace.getEvents().back().time;
+	double minTime = trace.getEvents().front().time;
+	if(p.logTime) {
+		maxTime = std::log10(maxTime);
+		minTime = std::log10(minTime);
+	}
+	if(minTime == maxTime) minTime = 0;
+
+	// std::cout << "minTime=" << minTime << ", maxTime=" << maxTime << std::endl;
+	const double binFactor = maxTime == 0 ? 0 : p.maxPointsPerMolecule / (maxTime - minTime);
+	// std::cout << "binFactor=" << binFactor << std::endl;
+
+	auto update = [&bData, binFactor, idx, minTime, logTime=p.logTime](double time, lib::DG::HyperVertex v, int delta) mutable {
+		auto &d = bData[idx[v]];
+		const double binTime = logTime ? (time == 0 ? 0 : std::log10(time)) : time;
+		const int bin = (binTime - minTime) * binFactor;
+		// std::cout << "v=" << v << ", binTime=" << binTime << ", bin=" << bin << ", d.bin=" << d.bin << std::endl;
+		if(bin != d.bin) {
+			d.data.emplace_back(time, d.data.back().second + delta);
+			if(d.bin + 1 == bin) {
+				d.bin = bin;
+			} else {
+				d.bin = bin - 1; // fake the bin to force an extra point
+			}
 		} else {
 			// keep the last point in a bin
-			d.back().first = time;
-			d.back().second += delta;
+			d.data.back().first = time;
+			d.data.back().second += delta;
 		}
 	};
 
@@ -106,7 +129,7 @@ EventTraceData calculatePlotPoints(const lib::Causality::EventTrace &trace, int 
 	for(const auto v: asRange(vertices(g)))
 		if(g[v].kind == DG::HyperVertexKind::Vertex)
 			update(trace.getEvents().back().time, v, 0);
-	return data;
+	return makeEventTraceData(g, std::move(bData));
 }
 
 } // namespace
@@ -121,9 +144,9 @@ makeEventTraceFilename(const lib::Causality::EventTrace &trace, const std::strin
 // Returns the common prefix for all the printed files:
 // - <prefix>v-<idx>.txt, for each graph in the data
 std::pair<std::string, EventTraceData>
-dataEventTrace(const lib::Causality::EventTrace &trace, int maxPointsPerMolecule) {
+dataEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &p) {
 	std::string prefix = IO::makeUniqueFilePrefix();
-	auto data = calculatePlotPoints(trace, maxPointsPerMolecule);
+	auto data = calculatePlotPoints(trace, p);
 	for(const auto &[v, vData]: data) {
 		post::FileHandle f(makeEventTraceFilename(trace, prefix, v));
 		f << "time\tcount\n";
@@ -179,7 +202,7 @@ texEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &
 }
 
 std::string pdfEventTrace(const lib::Causality::EventTrace &trace, const EventTracePrinter &printer) {
-	auto [prefix, data] = dataEventTrace(trace, printer.maxPointsPerMolecule);
+	auto [prefix, data] = dataEventTrace(trace, printer);
 	auto texFile = texEventTrace(trace, printer, prefix, std::move(data));
 	std::string fileNoExt(texFile.begin(), texFile.end() - 4);
 	IO::post() << "compileTikz \"" << fileNoExt << "\" \"" << fileNoExt << "\"" << std::endl;

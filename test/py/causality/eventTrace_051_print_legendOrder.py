@@ -1,3 +1,5 @@
+include("eventTrace_05x_print_common.py")
+
 dg = DG()
 dg.build().addAbstract("N -> L  N -> M")
 A = next(v for v in dg.vertices if v.graph.name == "N")
@@ -21,4 +23,4 @@ trace.add(7, causality.InputAction(B))
 trace.add(7, causality.InputAction(B))
 trace.add(7, causality.InputAction(B))
 trace.add(7, causality.InputAction(B))
-trace.print()
+doPrint(trace)
