@@ -72,6 +72,7 @@ struct MOD_DECL VarSumVertex {
 	// rst: 	underlying derivation graph.
 	// rst:
 	// rst: 	:returns: a variable specifier for a single variable in the set represented by this object.
+	// rst: 	:throws: `LogicError` if `!g`.
 	VarVertexGraph operator[](std::shared_ptr<graph::Graph> g) const;
 public:
 	// rst: .. var:: std::string id
@@ -114,6 +115,8 @@ public:
 // rst-class-start:
 struct MOD_DECL VarVertexGraph {
 	// rst: .. function:: explicit VarVertexGraph(std::string id, std::shared_ptr<graph::Graph> g)
+	// rst:
+	// rst: 	:throws: `LogicError` if `!g`.
 	explicit VarVertexGraph(std::string id, std::shared_ptr<graph::Graph> g);
 	// rst: .. function:: friend std::ostream &operator<<(std::ostream &s, const VarVertexGraph &v)
 	MOD_DECL friend std::ostream &operator<<(std::ostream &s, const VarVertexGraph &v);

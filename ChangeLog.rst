@@ -63,6 +63,8 @@ Bugs Fixed
   result in false positives.
 - Fix bounding box issues when printing graphs and rules.
 - Fix extra space in some depictions in the summary.
+- Properly throw exception when a null pointer / ``None`` is used as a graph for the
+  variable specifiers for hyperflow models.
 
 
 v1.0.0 (2025-05-14)

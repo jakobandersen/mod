@@ -57,6 +57,7 @@ void LinExp_doExport() {
 					// rst: 		:type x: DG.Vertex or Graph
 					// rst: 		:returns: a variable specifier for a single variable in the set represented by this object.
 					// rst: 		:rtype: VarVertex or VarVertexGraph
+					// rst: 		:raises: `LogicError` if ``not x``.
 			.def("__getitem__", static_cast<
 					VarVertex (VarSumVertex::*)(dg::DG::Vertex) const
 					>(&VarSumVertex::operator[]))
@@ -79,6 +80,7 @@ void LinExp_doExport() {
 			// rst: 		:param str id: The ID for the variable set to select variables from.
 			// rst: 		:param DG.Vertex v: The vertex used to select a variable from the variable set.
 			// rst:
+			// rst: 		:raises: `LogicError` if ``not v``.
 			.def(py::init<std::string, dg::DG::Vertex>())
 			.def(str(py::self))
 					// rst: 	.. attribute:: id
@@ -105,6 +107,7 @@ void LinExp_doExport() {
 			// rst: 		:param str id: The ID for the variable set to select variables from.
 			// rst: 		:param Graph g: The graph used to select a variable from the variable set.
 			// rst:
+			// rst: 		:raises: `LogicError` if ``not g``.
 			.def(py::init<std::string, std::shared_ptr<mod::graph::Graph>>())
 			.def(str(py::self))
 					// rst: 	.. attribute:: id

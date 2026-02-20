@@ -38,7 +38,9 @@ std::ostream &operator<<(std::ostream &s, const VarVertex &v) {
 // VarVertexGraph
 //------------------------------------------------------------------------------
 
-VarVertexGraph::VarVertexGraph(std::string id, std::shared_ptr<graph::Graph> g) : id(id), g(g) {}
+VarVertexGraph::VarVertexGraph(std::string id, std::shared_ptr<graph::Graph> g) : id(id), g(g) {
+	if(!g) throw LogicError("Can not create graph indexed variable specifier from null pointer.");
+}
 
 std::ostream &operator<<(std::ostream &s, const VarVertexGraph &v) {
 	return s << v.id << "[" << *v.g << "]";

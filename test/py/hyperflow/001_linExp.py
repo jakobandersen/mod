@@ -12,6 +12,8 @@ assert str(vsv) == "vsv"
 assert repr(vsv) == "VarSumVertex(%s)" % vsv
 assert vsv.id == str(vsv)
 
+fail(lambda: hyperflow.VarVertex("vv", DG.Vertex()),
+	"Can not create vertex indexed variable specifier from null-vertex.")
 vv = hyperflow.VarVertex("vv", v)
 assert str(vv) == "vv[%s]" % v
 assert repr(vv) == "VarVertex(%s, %s)" % (vv.id, v)
@@ -23,26 +25,26 @@ try:
 except LogicError as ex:
 	assert str(ex).endswith("Can not create vertex indexed variable specifier from null-vertex.")
 
+fail(lambda: hyperflow.VarVertexGraph("vvg", None),
+	"Can not create graph indexed variable specifier from null pointer.")
 vvg = hyperflow.VarVertexGraph("vvg", g)
 assert str(vvg) == "vvg[%s]" % g
 assert repr(vvg) == "VarVertexGraph(%s, %s)" % (vvg.id, g)
 assert vvg.id == "vvg"
 assert vvg.graph == g
 
+fail(lambda: vsv[DG.Vertex()],
+	"Can not create vertex indexed variable specifier from null-vertex.")
 vvIdx = vsv[v]
 assert type(vvIdx) == hyperflow.VarVertex
 assert vvIdx.id == vsv.id
 assert vvIdx.vertex == v
+fail(lambda: vsv[None],
+	"Can not create graph indexed variable specifier from null pointer.")
 vvgIdx = vsv[g]
 assert type(vvgIdx) == hyperflow.VarVertexGraph
 assert vvgIdx.id == vsv.id
 assert vvgIdx.graph == g
-try:
-	_ = vsv[DG.Vertex()]
-	assert False
-except LogicError as ex:
-	assert str(ex).endswith("Can not create vertex indexed variable specifier from null-vertex.")
-
 
 vse = hyperflow.VarSumEdge("vse")
 assert str(vse) == "vse"
@@ -54,21 +56,15 @@ assert str(ve) == "ve[%s]" % e
 assert repr(ve) == "VarEdge(%s, %s)" % (ve.id, e)
 assert ve.id == "ve"
 assert ve.edge == e
-try:
-	_ = hyperflow.VarEdge("ve", DG.HyperEdge())
-	assert False
-except LogicError as ex:
-	assert str(ex).endswith("Can not create edge indexed variable specifier from null-edge.")
+fail(lambda: hyperflow.VarEdge("ve", DG.HyperEdge()),
+	"Can not create edge indexed variable specifier from null-edge.")
 
 veIdx = vse[e]
 assert type(veIdx) == hyperflow.VarEdge
 assert veIdx.id == vse.id
 assert veIdx.edge == e
-try:
-	_ = vse[DG.HyperEdge()]
-	assert False
-except LogicError as ex:
-	assert str(ex).endswith("Can not create edge indexed variable specifier from null-edge.")
+fail(lambda: vse[DG.HyperEdge()],
+	"Can not create edge indexed variable specifier from null-edge.")
 
 
 # TODO: remove when (.) is removed
