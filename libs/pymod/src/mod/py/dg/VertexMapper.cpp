@@ -13,7 +13,8 @@ void VertexMapper_doExport() {
 	// rst:
 	// rst:		For the given hyperedge, collect the graphs associated with
 	// rst:		respectively the source and target vertices, and create the disjoint union of those graphs.
-	// rst:		Let the result be the graphs :math:`G` and :math:`H`, available via `DGVertexMapper.left` and `DGVertexMapper.right` respectively.
+	// rst:		Let the result be the graphs :math:`G` and :math:`H`, available via
+	// rst:		:py:attr:`DGVertexMapper.left` and :py:attr:`DGVertexMapper.right` respectively.
 	// rst:		Then each rule :math:`p = (L\leftarrow K\rightarrow R)` associated with the hyperedge,
 	// rst:		generate direct derivations :math:`\require{mathtools} G\xRightarrow{p, m} H'`.
 	// rst:		An isomorphism :math:`H'\rightarrow H` is then found to ensure we have generated the correct product.
