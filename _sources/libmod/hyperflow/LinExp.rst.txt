@@ -82,6 +82,7 @@ Details
     underlying derivation graph.
 
     :returns: a variable specifier for a single variable in the set represented by this object.
+    :throws: `LogicError` if `!g`.
 .. var:: std::string id
 
     The ID for this specifier.
@@ -147,6 +148,8 @@ Details
 .. cpp:namespace-push:: hyperflow::VarVertexGraph
 
 .. function:: explicit VarVertexGraph(std::string id, std::shared_ptr<graph::Graph> g)
+
+    :throws: `LogicError` if `!g`.
 .. function:: friend std::ostream &operator<<(std::ostream &s, const VarVertexGraph &v)
 .. function:: friend bool operator==(const VarVertexGraph &a, const VarVertexGraph &b)
 .. var:: std::string id

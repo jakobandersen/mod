@@ -55,6 +55,7 @@ All variable specifiers are defined in module scope. See :ref:`flowCommon` for a
         :type x: DG.Vertex or Graph
         :returns: a variable specifier for a single variable in the set represented by this object.
         :rtype: VarVertex or VarVertexGraph
+        :raises: `LogicError` if ``not x``.
     .. attribute:: id
 
         The ID for this specifier.
@@ -69,6 +70,7 @@ All variable specifiers are defined in module scope. See :ref:`flowCommon` for a
         :param str id: The ID for the variable set to select variables from.
         :param DG.Vertex v: The vertex used to select a variable from the variable set.
 
+        :raises: `LogicError` if ``not v``.
     .. attribute:: id
 
         The ID for the underlying set specifier.
@@ -90,6 +92,7 @@ All variable specifiers are defined in module scope. See :ref:`flowCommon` for a
         :param str id: The ID for the variable set to select variables from.
         :param Graph g: The graph used to select a variable from the variable set.
 
+        :raises: `LogicError` if ``not g``.
     .. attribute:: id
 
         The ID for the underlying set specifier.

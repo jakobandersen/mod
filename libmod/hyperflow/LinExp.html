@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3.2.14.2. hyperflow/LinExp.hpp &#8212; MØD 1.0.0.38 documentation</title>
+    <title>3.2.14.2. hyperflow/LinExp.hpp &#8212; MØD 1.0.0.40 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=186f3003"></script>
+    <script src="../../_static/documentation_options.js?v=dee23491"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.38</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.40</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -408,6 +408,9 @@ underlying derivation graph.</p>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a variable specifier for a single variable in the set represented by this object.</p>
 </dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4NK3mod9hyperflow12VarSumVertexixENSt10shared_ptrIN5graph5GraphEEE" title="mod::hyperflow::VarSumVertex::operator[]::g"><span class="n">g</span></a></span>.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -508,7 +511,12 @@ a vertex with the graph associated must exist in the underlying derivation graph
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow14VarVertexGraph14VarVertexGraphENSt6stringENSt10shared_ptrIN5graph5GraphEEE">
 <span id="_CPPv3N3mod9hyperflow14VarVertexGraph14VarVertexGraphENSt6stringENSt10shared_ptrIN5graph5GraphEEE"></span><span id="_CPPv2N3mod9hyperflow14VarVertexGraph14VarVertexGraphENSt6stringENSt10shared_ptrIN5graph5GraphEEE"></span><span id="mod::hyperflow::VarVertexGraph::VarVertexGraph__ss.std::shared_ptr:graph::Graph:"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VarVertexGraph</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../graph/Graph.html#_CPPv4N3mod5graph5GraphE" title="mod::graph::Graph"><span class="n"><span class="pre">Graph</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">g</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9hyperflow14VarVertexGraph14VarVertexGraphENSt6stringENSt10shared_ptrIN5graph5GraphEEE" title="Link to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span> if <span class="cpp-texpr sig sig-inline cpp"><span class="o">!</span><a class="reference internal" href="#_CPPv4N3mod9hyperflow14VarVertexGraph14VarVertexGraphENSt6stringENSt10shared_ptrIN5graph5GraphEEE" title="mod::hyperflow::VarVertexGraph::VarVertexGraph::g"><span class="n">g</span></a></span>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod9hyperflow14VarVertexGraphlsERNSt7ostreamERK14VarVertexGraph">
