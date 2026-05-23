@@ -77,7 +77,6 @@ rule/CompositionMatch
         .. versionadded:: 1.1
             The ``composeWithMaps`` method.
 
-        .. todo:: check version added before release
     .. method:: composeAll(*, maximum=False, verbose=False)
                 composeAllWithMaps(*, maximum=False, verbose=False)
 
@@ -93,7 +92,6 @@ rule/CompositionMatch
         .. versionadded:: 1.1
             The ``composeAllWithMaps`` method.
 
-        .. todo:: check version added before release
 .. class:: RCMatch.Result
 
     Representation of the full result of a composition.

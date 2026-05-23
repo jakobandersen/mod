@@ -16,7 +16,6 @@ similarly to how a derivation graph, :class:`DG`, can be expanded using strategi
 
 .. versionadded:: 1.1
 
-.. todo:: check version added before release
 
 .. class:: causality.Simulator
 

@@ -23,8 +23,6 @@ Class ``causality::DrawMassActionFunction``
 
     .. versionadded:: 1.1
 
-    .. todo:: check version added before release
-
 
 Synopsis
 ^^^^^^^^

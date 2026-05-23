@@ -13,5 +13,3 @@ This header contains declarations for all classes in the ``mod::causality`` name
 
 .. versionadded:: 1.1
 
-.. todo:: check version added before release
-

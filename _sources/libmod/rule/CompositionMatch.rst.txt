@@ -85,7 +85,6 @@ rule/CompositionMatch.hpp
         .. versionadded:: 1.1
             The ``composeWithMaps`` member function.
 
-        .. todo:: check version added before release
     .. function:: std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const
                   std::vector<Result> composeAllWithMaps(bool maximum, bool verbose) const
 
@@ -100,4 +99,3 @@ rule/CompositionMatch.hpp
         .. versionadded:: 1.1
             The ``composeAllWithMaps`` member function.
 
-        .. todo:: check version added before release

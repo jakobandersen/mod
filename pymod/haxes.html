@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1. API Reference &#8212; MØD 1.0.0.41 documentation</title>
+    <title>4.1.13. The haxes module &#8212; MØD 1.0.0.41 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -16,11 +16,10 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.1.1. Protocols" href="protocols.html" />
-    <link rel="prev" title="4. PyMØD" href="index.html" />
+    <link rel="next" title="4.2. Creating a Python Extension" href="extensions.html" />
+    <link rel="prev" title="4.1.12.4. rule/Rule" href="rule/Rule.html" />
 <!-- ['localtoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']  -->
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -83,7 +82,9 @@
 	</a>
 	<ul class="localtoc" aria-labelledby="dLabelLocalToc">
 		<ul>
-<li><a class="reference internal" href="#">4.1. API Reference</a><ul>
+<li><a class="reference internal" href="#">4.1.13. The <code class="docutils literal notranslate"><span class="pre">haxes</span></code> module</a><ul>
+<li><a class="reference internal" href="#mod.haxes.ruleFromReactionSmiles"><code class="docutils literal notranslate"><span class="pre">haxes.ruleFromReactionSmiles()</span></code></a></li>
+<li><a class="reference internal" href="#mod.haxes.reactionSmilesFromRule"><code class="docutils literal notranslate"><span class="pre">haxes.reactionSmilesFromRule()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -96,17 +97,17 @@
 					
 						
 	<li class="nav-item">
-		<a class="nav-link" href="index.html" title="Previous Chapter: 4. PyMØD">
+		<a class="nav-link" href="rule/Rule.html" title="Previous Chapter: 4.1.12.4. rule/Rule">
 			<span class="glyphicon glyphicon-chevron-left visible-sm"></span>
 			<span class="hidden-sm hidden-tablet">
-				&laquo; 4. PyMØD
+				&laquo; 4.1.12.4. rule/Rule
 			</span>
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="protocols.html" title="Next Chapter: 4.1.1. Protocols">
+		<a class="nav-link" href="extensions.html" title="Next Chapter: 4.2. Creating a Python Extension">
 			<span class="glyphicon glyphicon-chevron-right visible-sm"></span>
-			<span class="hidden-sm hidden-tablet">4.1.1. Protocols &raquo;</span>
+			<span class="hidden-sm hidden-tablet">4.2. Creating... &raquo;</span>
 		</a>
 	</li>
 					
@@ -132,67 +133,45 @@
 	<div class="row">
 		<div class="body col-md-12 content" role="main">
 			
-  <section id="api-reference">
-<h1><span class="section-number">4.1. </span>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="protocols.html">4.1.1. Protocols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Chem.html">4.1.2. Chem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Config.html">4.1.3. Config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Derivation.html">4.1.4. Derivation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Error.html">4.1.5. Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Misc.html">4.1.6. Misc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Post.html">4.1.7. Post</a></li>
-</ul>
+  <section id="the-haxes-module">
+<span id="py-haxes"></span><h1><span class="section-number">4.1.13. </span>The <code class="docutils literal notranslate"><span class="pre">haxes</span></code> module<a class="headerlink" href="#the-haxes-module" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.1.</span></p>
 </div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="causality/index.html">4.1.8. causality</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="causality/EventTrace.html">4.1.8.1. causality/EventTrace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="causality/EventTracePrinter.html">4.1.8.2. causality/EventTracePrinter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="causality/Petri.html">4.1.8.3. causality/Petri</a></li>
-<li class="toctree-l2"><a class="reference internal" href="causality/Stochsim.html">4.1.8.4. causality/Stochsim</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="dg/index.html">4.1.9. dg</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dg/Builder.html">4.1.9.1. dg/Builder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dg/DG.html">4.1.9.2. dg/DG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dg/GraphInterface.html">4.1.9.3. dg/GraphInterface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dg/Printer.html">4.1.9.4. dg/Printer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dg/Strategies.html">4.1.9.5. dg/Strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dg/VertexMapper.html">4.1.9.6. dg/VertexMapper</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="graph/index.html">4.1.10. graph</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="graph/Automorphism.html">4.1.10.1. graph/Automorphism</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph/Graph.html">4.1.10.2. graph/Graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph/GraphInterface.html">4.1.10.3. graph/GraphInterface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph/Printer.html">4.1.10.4. graph/Printer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph/Union.html">4.1.10.5. graph/Union</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="hyperflow/index.html">4.1.11. hyperflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="hyperflow/LinExp.html">4.1.11.1. hyperflow/LinExp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hyperflow/Model.html">4.1.11.2. hyperflow/Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hyperflow/ModelImplementationView.html">4.1.11.3. hyperflow/ModelImplementationView</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hyperflow/Printer.html">4.1.11.4. hyperflow/Printer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hyperflow/Solution.html">4.1.11.5. hyperflow/Solution</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="rule/index.html">4.1.12. rule</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rule/Composition.html">4.1.12.1. rule/Composition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rule/CompositionMatch.html">4.1.12.2. rule/CompositionMatch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rule/GraphInterface.html">4.1.12.3. rule/GraphInterface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rule/Rule.html">4.1.12.4. rule/Rule</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="haxes.html">4.1.13. The <code class="docutils literal notranslate"><span class="pre">haxes</span></code> module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="haxes.html#mod.haxes.ruleFromReactionSmiles"><code class="docutils literal notranslate"><span class="pre">haxes.ruleFromReactionSmiles()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="haxes.html#mod.haxes.reactionSmilesFromRule"><code class="docutils literal notranslate"><span class="pre">haxes.reactionSmilesFromRule()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
+<p>This module contains various experimental functionality that has been put together pragmatically.
+That is that it has not been optimized in any significant way, has not been tested thoroughly or systematically, and it may not handle all corner cases.
+The plan is that the functionality should be reimplemented in a proper way at a later stage.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.haxes.ruleFromReactionSmiles">
+<span class="sig-prename descclassname"><span class="pre">haxes.</span></span><span class="sig-name descname"><span class="pre">ruleFromReactionSmiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowAbstract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.haxes.ruleFromReactionSmiles" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a rule loaded from the given reaction SMILES string.
+The paramter <code class="docutils literal notranslate"><span class="pre">allowAbstract</span></code> is passed to <a class="reference internal" href="graph/Graph.html#mod.Graph.fromSMILES" title="mod.Graph.fromSMILES"><code class="xref py py-func docutils literal notranslate"><span class="pre">Graph.fromSMILES()</span></code></a>,
+while the remaining paramters are passed to <a class="reference internal" href="rule/Rule.html#mod.Rule.fromGMLString" title="mod.Rule.fromGMLString"><code class="xref py py-func docutils literal notranslate"><span class="pre">Rule.fromGMLString()</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="rule/Rule.html#mod.Rule" title="mod.Rule">Rule</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mod.haxes.reactionSmilesFromRule">
+<span class="sig-prename descclassname"><span class="pre">haxes.</span></span><span class="sig-name descname"><span class="pre">reactionSmilesFromRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.haxes.reactionSmilesFromRule" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<a class="reference internal" href="rule/Rule.html#mod.Rule" title="mod.Rule"><em>Rule</em></a>) – the rule to convert to a reaction SMILES string.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a reaction SMILES string that encodes the given rule.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -213,7 +192,7 @@
 			<br/>
 			
 	<div id="sourcelink">
-		<a href="../_sources/pymod/api.rst.txt"
+		<a href="../_sources/pymod/haxes.rst.txt"
 			 rel="nofollow">Source</a>
 	</div>
 		

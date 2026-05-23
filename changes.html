@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13. Changes &#8212; MØD 1.0.0.40 documentation</title>
+    <title>13. Changes &#8212; MØD 1.0.0.41 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
     <script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=dee23491"></script>
+    <script src="_static/documentation_options.js?v=7a9ab088"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.40</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.41</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -272,6 +272,14 @@ The rate of each reaction, whether an internal reaction, input reaction, or outp
 </li>
 <li><p>Added <a class="reference internal" href="libmod/Config.html#_CPPv4NK3mod13LabelSettings12formCategoryEv" title="mod::LabelSettings::formCategory"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">LabelSettings::formCategory()</span></code></a>/<a class="reference internal" href="pymod/Config.html#mod.LabelSettings.formCategory" title="mod.LabelSettings.formCategory"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LabelSettings.formCategory</span></code></a>.</p></li>
 <li><p>Added new CMake setting <code class="docutils literal notranslate"><span class="pre">BUILD_MOD</span></code> to make it easier to compile just the documentation.</p></li>
+<li><p>Added a new Python submodule with various rather experimental functionality.
+See <a class="reference internal" href="pymod/haxes.html#py-haxes"><span class="std std-ref">The haxes module</span></a>.
+The initial functionality is</p>
+<ul>
+<li><p><a class="reference internal" href="pymod/haxes.html#mod.haxes.ruleFromReactionSmiles" title="mod.haxes.ruleFromReactionSmiles"><code class="xref py py-func docutils literal notranslate"><span class="pre">haxes.ruleFromReactionSmiles()</span></code></a></p></li>
+<li><p><a class="reference internal" href="pymod/haxes.html#mod.haxes.reactionSmilesFromRule" title="mod.haxes.reactionSmilesFromRule"><code class="xref py py-func docutils literal notranslate"><span class="pre">haxes.reactionSmilesFromRule()</span></code></a></p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="bugs-fixed">

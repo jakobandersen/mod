@@ -18,8 +18,6 @@ causality/EventTracePrinter
 
     .. versionadded:: 1.1
 
-    .. todo:: check version added before release
-
     .. attribute:: maxPointsPerVertex
 
         Control how many points are rendered for each different vertex represented in the trace.

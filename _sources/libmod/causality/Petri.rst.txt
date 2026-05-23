@@ -12,8 +12,6 @@ causality/Petri.hpp
 
 .. versionadded:: 1.1
 
-.. todo:: check version added before release
-
 .. class:: causality::Net
 
     Adaptation of a derivation graph into a Petri net.

@@ -12,8 +12,6 @@ causality/EventTrace.hpp
 
 .. versionadded:: 1.1
 
-.. todo:: check version added before release
-
 .. type:: causality::Action = std::variant<causality::EdgeAction, causality::InputAction, causality::OutputAction>
 
 .. class:: causality::EdgeAction

@@ -18,8 +18,6 @@ Class ``causality::EventTracePrinter``
 
     .. versionadded:: 1.1
 
-    .. todo:: check version added before release
-
     This class is used to configure how event traces are visualised,
     e.g., which vertices/graphs should be shown, colours, and axis configuration.
 

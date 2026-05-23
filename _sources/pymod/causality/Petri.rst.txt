@@ -17,8 +17,6 @@ causality/Petri
 
     .. versionadded:: 1.1
 
-    .. todo:: check version added before release
-
     .. method:: __init__(dg)
 
         Calls :meth:`syncSize`.
@@ -50,8 +48,6 @@ causality/Petri
     methods on the object.
 
     .. versionadded:: 1.1
-
-    .. todo:: check version added before release
 
     .. method:: __init__(net)
 

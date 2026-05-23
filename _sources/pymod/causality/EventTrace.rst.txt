@@ -11,8 +11,6 @@ causality/EventTrace
 
 .. versionadded:: 1.1
 
-.. todo:: check version added before release
-
 .. class:: causality.EdgeAction
 
     .. method:: __init__()
