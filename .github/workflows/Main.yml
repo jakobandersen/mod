@@ -1,5 +1,10 @@
 name: Main tests
+
+env:
+  graphvizVersion: 14.1.2
+
 on: [push, pull_request]
+
 jobs:
   Ubuntu:
     runs-on: ubuntu-22.04
@@ -29,9 +34,10 @@ jobs:
     - name: Install Graphviz
       run: |
         sudo apt install librsvg2-dev libpango1.0-dev libperl-dev
+        wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/$graphvizVersion/graphviz-$graphvizVersion.tar.gz
         wget http://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
-        tar -xf graphviz.tar.gz --one-top-level=graphviz --strip-components=1
-        cd graphviz
+        tar -xzf graphviz-$graphvizVersion.tar.gz
+        cd graphviz-$graphvizVersion
         ./configure
         make -j 4
         sudo make install

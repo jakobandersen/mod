@@ -30,10 +30,11 @@ RUN apt-get update -qq                                      \
 
 # Graphviz
 WORKDIR /opt/graphviz
+ARG graphvizVersion=14.1.2
 RUN \
- wget http://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz \
- && tar -xf graphviz.tar.gz --one-top-level=graphviz --strip-components=1   \
- && cd graphviz                                                             \
+ wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/$graphvizVersion/graphviz-$graphvizVersion.tar.gz \
+ && tar -xzf graphviz-$graphvizVersion.tar.gz                               \
+ && cd graphviz-$graphvizVersion                                            \
  && ./configure                                                             \
  && make -j $j                                                              \
  && make install                                                            \
