@@ -104,7 +104,6 @@ public:
 	// rst:			.. versionadded:: 1.1
 	// rst:				The ``composeWithMaps`` member function.
 	// rst:
-	// rst:			.. todo:: check version added before release
 	std::shared_ptr<Rule> compose(bool verbose) const;
 	std::optional<Result> composeWithMaps(bool verbose) const;
 	// rst: 	.. function:: std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const
@@ -121,7 +120,6 @@ public:
 	// rst:			.. versionadded:: 1.1
 	// rst:				The ``composeAllWithMaps`` member function.
 	// rst:
-	// rst:			.. todo:: check version added before release
 	std::vector<std::shared_ptr<Rule>> composeAll(bool maximum, bool verbose) const;
 	std::vector<Result> composeAllWithMaps(bool maximum, bool verbose) const;
 private:

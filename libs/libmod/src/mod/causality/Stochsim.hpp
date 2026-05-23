@@ -20,8 +20,6 @@ namespace mod::causality {
 // rst:
 // rst:		.. versionadded:: 1.1
 // rst:
-// rst:		.. todo:: check version added before release
-// rst:
 // rst-class-start:
 struct MOD_DECL DrawMassActionFunction {
 	// rst: .. function:: DrawMassActionFunction(std::shared_ptr<dg::DG> dg_,\

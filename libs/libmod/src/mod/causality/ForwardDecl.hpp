@@ -5,8 +5,6 @@
 // rst:
 // rst:	.. versionadded:: 1.1
 // rst:
-// rst:	.. todo:: check version added before release
-// rst:
 namespace mod::causality {
 struct EventTrace;
 struct EventTracePrinter;

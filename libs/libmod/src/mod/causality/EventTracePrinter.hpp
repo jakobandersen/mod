@@ -14,8 +14,6 @@ namespace mod::causality {
 // rst:
 // rst:		.. versionadded:: 1.1
 // rst:
-// rst:		.. todo:: check version added before release
-// rst:
 // rst:		This class is used to configure how event traces are visualised,
 // rst:		e.g., which vertices/graphs should be shown, colours, and axis configuration.
 // rst:

@@ -15,8 +15,6 @@ namespace mod::causality {
 // rst:
 // rst:	.. versionadded:: 1.1
 // rst:
-// rst:	.. todo:: check version added before release
-// rst:
 // rst: .. type:: causality::Action = std::variant<causality::EdgeAction, causality::InputAction, causality::OutputAction>
 
 // rst:

@@ -91,7 +91,6 @@ void CompositionMatch_doExport() {
 					  // rst:			.. versionadded:: 1.1
 					  // rst:				The ``composeWithMaps`` method.
 			          // rst:
-					  // rst:			.. todo:: check version added before release
 	                  .def("compose", &CompositionMatch::compose, py::args("verbose") = false)
 	                  .def("composeWithMaps", &CompositionMatch::composeWithMaps, py::args("verbose") = false)
 	                  // rst:		.. method:: composeAll(*, maximum=False, verbose=False)
@@ -109,7 +108,6 @@ void CompositionMatch_doExport() {
 					  // rst:			.. versionadded:: 1.1
 					  // rst:				The ``composeAllWithMaps`` method.
 					  // rst:
-					  // rst:			.. todo:: check version added before release
 	                  .def("composeAll", &CompositionMatch::composeAll,
 	                       (py::args("maximum") = false, py::args("verbose") = false))
 	                  .def("composeAllWithMaps", &CompositionMatch::composeAllWithMaps,

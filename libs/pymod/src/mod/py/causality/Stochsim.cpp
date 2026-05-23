@@ -34,7 +34,6 @@ void Stochsim_doExport() {
 	// rst:
 	// rst:	.. versionadded:: 1.1
 	// rst:
-	// rst:	.. todo:: check version added before release
 
 	// rst:
 	// rst: .. class:: causality.Simulator

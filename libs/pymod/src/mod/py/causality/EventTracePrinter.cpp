@@ -40,8 +40,6 @@ void EventTracePrinter_doExport() {
 	// rst:
 	// rst:		.. versionadded:: 1.1
 	// rst:
-	// rst:		.. todo:: check version added before release
-	// rst:
 	py::class_<EventTracePrinter>("EventTracePrinter")
 			// rst:		.. attribute:: maxPointsPerVertex
 			// rst:

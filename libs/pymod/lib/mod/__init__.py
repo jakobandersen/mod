@@ -19,6 +19,7 @@ from . import causality  # noqa
 from . import hyperflow  # noqa
 from .hyperflow.vars import *  # type: ignore # noqa
 from . import post  # noqa
+from . import haxes  # noqa
 sys.setdlopenflags(_oldFlags)
 
 # from http://mail.python.org/pipermail/tutor/2003-November/026645.html
@@ -709,7 +710,7 @@ Rule.__rshift__ = _DGStrat_sequence__rshift__  # type: ignore
 # Graph
 ###########################################################
 
-inputGraphs = []
+inputGraphs: List[Graph] = []
 
 def _Graph__getattribute__(self, name):
 	if name == "loadingWarnings":
@@ -895,7 +896,7 @@ def postSection(heading: str) -> None:
 # Rule
 ###########################################################
 
-inputRules = []
+inputRules: List[Rule] = []
 
 _Rule_print_orig = Rule.print
 def _Rule_print(self: Rule, first: Optional[GraphPrinter]=None, second: Optional[GraphPrinter]=None,
@@ -929,11 +930,11 @@ _Rule_fromGMLFile_orig   = Rule.fromGMLFile
 _Rule_fromDFS_orig       = Rule.fromDFS
 
 def _Rule_fromGMLString(s: str, name=None, *, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
-	return _ruleLoad(_Rule_fromGMLString_orig(s, invert, printStereoWarnings), name, add)
+	return _ruleLoad(_Rule_fromGMLString_orig(s, invert, printStereoWarnings), name, add)  # type: ignore
 def _Rule_fromGMLFile(f: str, name=None, *, invert: bool=False, add: bool=True, printStereoWarnings: bool=True) -> Rule:
-	return _ruleLoad(_Rule_fromGMLFile_orig(prefixFilename(f), invert, printStereoWarnings), name, add)
+	return _ruleLoad(_Rule_fromGMLFile_orig(prefixFilename(f), invert, printStereoWarnings), name, add)  # type: ignore
 def _Rule_fromDFS(s: str, name=None, *, invert: bool=False, add: bool=True) -> Rule:
-	return _ruleLoad(_Rule_fromDFS_orig(s, invert), name, add)
+	return _ruleLoad(_Rule_fromDFS_orig(s, invert), name, add)  # type: ignore
 
 Rule.fromGMLString = _Rule_fromGMLString  # type: ignore
 Rule.fromGMLFile   = _Rule_fromGMLFile  # type: ignore

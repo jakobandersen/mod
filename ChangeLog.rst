@@ -46,6 +46,12 @@ New Features
 
 - Added :cpp:func:`LabelSettings::formCategory`/:py:attr:`LabelSettings.formCategory`.
 - Added new CMake setting ``BUILD_MOD`` to make it easier to compile just the documentation.
+- Added a new Python submodule with various rather experimental functionality.
+  See :ref:`py-haxes`.
+  The initial functionality is
+
+  - :py:func:`haxes.ruleFromReactionSmiles`
+  - :py:func:`haxes.reactionSmilesFromRule`
 
 
 Bugs Fixed

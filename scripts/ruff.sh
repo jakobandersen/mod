@@ -16,4 +16,4 @@ done
 ruff --version
 ruff check \
 	--ignore F405,E741 \
-	build/checkPython/mod
+	build/checkPython/mod/*

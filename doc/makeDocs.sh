@@ -257,6 +257,7 @@ EOF
 		echo "   :maxdepth: 2"
 		echo ""
 		getFolders | sed 's/$/\/index/' | sed 's/^/   /'
+		echo "   haxes"
 	}
 	dataToc | outputRST pymod/Toc
 }

@@ -10,8 +10,6 @@ namespace mod::causality {
 // rst:
 // rst:	.. versionadded:: 1.1
 // rst:
-// rst:	.. todo:: check version added before release
-// rst:
 // rst: .. class:: causality::Net
 // rst:
 // rst:		Adaptation of a derivation graph into a Petri net.
