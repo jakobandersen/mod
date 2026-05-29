@@ -38,7 +38,7 @@ jobs:
         wget http://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
         tar -xzf graphviz-$graphvizVersion.tar.gz
         cd graphviz-$graphvizVersion
-        ./configure
+        ./configure --disable-swig
         make -j 4
         sudo make install
     - name: Bootstrap

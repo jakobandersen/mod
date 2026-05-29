@@ -35,7 +35,7 @@ RUN \
  wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/$graphvizVersion/graphviz-$graphvizVersion.tar.gz \
  && tar -xzf graphviz-$graphvizVersion.tar.gz                               \
  && cd graphviz-$graphvizVersion                                            \
- && ./configure                                                             \
+ && ./configure --disable-swig                                              \
  && make -j $j                                                              \
  && make install                                                            \
  && cd ..                                                                   \
