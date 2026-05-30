@@ -72,6 +72,7 @@ Bugs Fixed
 - Properly throw exception when a null pointer / ``None`` is used as a graph for the
   variable specifiers for hyperflow models.
 - Docs, fix markup in initial description of :py:class:`DGVertexMapper`.
+- Don't use deprecated functionality in Open Babel.
 
 
 v1.0.0 (2025-05-14)

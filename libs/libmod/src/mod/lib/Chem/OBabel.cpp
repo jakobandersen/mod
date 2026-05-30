@@ -97,7 +97,7 @@ double OBMolHandle::getEnergy(bool verbose) const {
 		pFF->SteepestDescent(250, 1.0e-4);
 		pFF->WeightedRotorSearch(conformers, geomSteps);
 		pFF->ConjugateGradients(250, 1.0e-6);
-		pFF->UpdateCoordinates(mol);
+		pFF->GetCoordinates(mol);
 	}
 
 	{ // conformer stuff
@@ -110,7 +110,7 @@ double OBMolHandle::getEnergy(bool verbose) const {
 		pFF->Setup(mol);
 		pFF->WeightedRotorSearch(conformers, geomSteps);
 		pFF->ConjugateGradients(geomSteps); // final cleanup
-		pFF->UpdateCoordinates(mol);
+		pFF->GetCoordinates(mol);
 	}
 
 	// calculate energy
