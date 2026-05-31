@@ -77,6 +77,11 @@ jobs:
         brew update
         brew bundle
         /usr/libexec/path_helper | sed -e 's/^PATH="//' -e 's/"; export PATH;//' | tr ":" "\n"  | tail -r >> $GITHUB_PATH
+    - name: Set up virtual environment
+      run: |
+        python3 -m venv --system-site-packages $GITHUB_WORKSPACE/myVenv
+        echo "$GITHUB_WORKSPACE/myVenv/bin" >> $GITHUB_PATH
+        echo "VIRTUAL_ENV=$GITHUB_WORKSPACE/myVenv" >> $GITHUB_ENV
     - name: Install pip dependencies
       run: pip3 install -r requirements.txt
     - name: Bootstrap
