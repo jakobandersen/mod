@@ -7,4 +7,4 @@ brew "cbc"
 
 brew "graphviz"
 brew "pdf2svg"
-cask "mactex"
+cask "mactex-no-gui"

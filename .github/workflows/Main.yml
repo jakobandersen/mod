@@ -76,6 +76,7 @@ jobs:
       run: |
         brew update
         brew bundle
+        cat /etc/paths.d/TeX >> $GITHUB_PATH
     - name: Set up virtual environment
       run: |
         python3 -m venv --system-site-packages $GITHUB_WORKSPACE/myVenv
