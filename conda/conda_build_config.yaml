@@ -5,9 +5,11 @@ python:
   - 3.10
   - 3.11
   - 3.12
-  # can't add 3.13 before openbabel has build with it
+  # can't add >= 3.13 before openbabel has build with it
+  #- 3.13
+  #- 3.14
 libboost:
-  - 1.86.0  # currently globally pinned version in conda-forge
+  - 1.88.0  # currently globally pinned version in conda-forge
 pin_run_as_build:
   python: x.x
   libboost: x.x.x
