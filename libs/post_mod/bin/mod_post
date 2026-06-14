@@ -632,16 +632,16 @@ else # $1 == --mode
 			# we use scale=\modDGHyperScale=3, so divide the max
 			maxDimen=190
 		fi
-		grep "^graph" $fileNoExt.plain | awk -v maxDimen=$maxDimen '{if($3 > maxDimen || $4 > maxDimen) {exit 1} else {exit 0}}'
+		grep "^graph" $fileNoExt.plain | LC_ALL=C awk -v maxDimen=$maxDimen '{if($3 + 0 > maxDimen || $4 + 0 > maxDimen) {exit 1} else {exit 0}}'
 		if test $? -ne 0; then
-			width=$(grep "^graph" $fileNoExt.plain | awk '{print $3}')
-			height=$(grep "^graph" $fileNoExt.plain | awk '{print $4}')
+			width=$(grep "^graph" $fileNoExt.plain | LC_ALL=C awk '{print $3}')
+			height=$(grep "^graph" $fileNoExt.plain | LC_ALL=C awk '{print $4}')
 			#echo "Dimension of $fileNoExt ($width, $height) too large for Latex, default to Graphviz."
 			echo "$dimensionTooLargeString" >> $coordFile.$$
 			local gvArgs="-Tpdf ${!gvArgsVar} -o ${fileNoExt}_coord.pdf"
 			dot $gvArgs $fileNoExt.dot
 		fi
-		cat $fileNoExt.plain | awk -v noOverlay="x$noOverlay" -v idOffset=$idOffset '
+		cat $fileNoExt.plain | LC_ALL=C awk -v noOverlay="x$noOverlay" -v idOffset=$idOffset '
 function abs(a) {
 	return a < 0 ? -a : a
 }
