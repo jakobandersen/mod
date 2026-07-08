@@ -40,7 +40,7 @@ jobs:
     - name: Make archive
       run: cd build && make dist
     - name: Log in to Docker Hub
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         username: jakobandersen
         password: ${{ secrets.DOCKER_PASSWORD }}
@@ -81,7 +81,7 @@ jobs:
     - name: Make archive
       run: cd build && make dist
     - name: Log in to Docker Hub
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         username: jakobandersen
         password: ${{ secrets.DOCKER_PASSWORD }}
