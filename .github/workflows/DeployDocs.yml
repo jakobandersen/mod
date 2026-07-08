@@ -2,8 +2,6 @@ name: Build and deploy docs
 
 on:
   push:
-    branches:
-    - develop
     tags:
     - "v*"
   workflow_dispatch:
