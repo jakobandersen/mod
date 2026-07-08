@@ -46,3 +46,29 @@ jobs:
         path: |
           conda/conda-bld
         retention-days: 7
+  Conda-Linux-upload:
+    needs: Conda-Linux
+    runs-on: ubuntu-22.04
+    if: github.repository_owner == 'jakobandersen'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+    - name: Download artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: conda-linux
+        path: ./dist
+    - uses: anaconda/actions/setup-anaconda-cli@v0.3.1
+      id: setup-anaconda-cli
+      with:
+        version: latest
+        tools: anaconda-cli
+    - name: Upload Packages
+      run: |
+        $HOME/.ana/tools/anaconda-cli/bin/anaconda    \
+          --token "${{ secrets.ANACONDA_ORG_TOKEN }}" \
+          upload --user jakobandersen                 \
+          --skip-existing ./dist/linux-64/*.conda
