@@ -1,4 +1,4 @@
-name: Build Conda packages
+name: Build and deploy Conda packages
 on:
   push:
     tags:
