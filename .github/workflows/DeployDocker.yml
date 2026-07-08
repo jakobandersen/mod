@@ -2,13 +2,13 @@ name: Build and deploy Docker image
 
 on:
   push:
-    branches:
-    - develop
     tags:
     - "v*"
+  workflow_dispatch:
 
 concurrency:
-  group: ci-${{ github.repository }}-dockerhub
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   develop-docker:

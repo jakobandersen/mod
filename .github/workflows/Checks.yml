@@ -1,5 +1,20 @@
 name: Checks
-on: [push, pull_request]
+
+on:
+  push:
+    paths:
+    - ".github/workflows/Checks.yml"
+    - "libs/pymod/lib/mod/**"
+  pull_request:
+    paths:
+    - ".github/workflows/Checks.yml"
+    - "libs/pymod/lib/mod/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   Checks:
     runs-on: ubuntu-22.04

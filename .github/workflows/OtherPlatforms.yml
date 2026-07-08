@@ -1,5 +1,17 @@
 name: Build on other platforms
 on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
+    - "libs/**"
+    - "test/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   Docker:
     strategy:

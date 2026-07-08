@@ -1,5 +1,14 @@
 name: Build Conda packages
-on: push
+on:
+  push:
+    tags:
+    - "v*"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   Conda-Linux:
     runs-on: ubuntu-22.04

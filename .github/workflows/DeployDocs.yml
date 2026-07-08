@@ -6,12 +6,14 @@ on:
     - develop
     tags:
     - "v*"
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: ci-${{ github.repository }}-docs
+  group: ${{ github.workflow }}
+  queue: max
 
 jobs:
   develop-docs:

@@ -3,7 +3,16 @@ name: Main tests
 env:
   graphvizVersion: 14.1.2
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    - "libs/**"
+    - "test/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   Ubuntu:
