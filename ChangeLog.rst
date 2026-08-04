@@ -75,6 +75,9 @@ Bugs Fixed
 - Don't use deprecated functionality in Open Babel.
 - Fix :ref:`mod_post` to not be locale-sensitive when handling coordintes.
   Thanks to Daniel Merkle.
+- Docs, fix description of the comatch in :py:class:`DGVertexMapper`/:cpp:class:`dg::VertexMapper`,
+  to have the right domain (:math:`R`, instead of :math:`L`).
+  Thanks to Christoph Flamm for spotting the typo.
 
 
 v1.0.0 (2025-05-14)

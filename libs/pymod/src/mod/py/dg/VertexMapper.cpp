@@ -46,7 +46,7 @@ void VertexMapper_doExport() {
 	// rst:		  Note that if the rule :math:`p` either creates or removes vertices, then the map is partial.
 	// rst:		  As all morphisms are injective, the vertex map is as well.
 	// rst:		- :py:attr:`~DGVertexMapper.Result.match` (:math:`m\colon L\rightarrow G`): the match morphism.
-	// rst:		- :py:attr:`~DGVertexMapper.Result.comatch` (:math:`m'\colon L\rightarrow H`): the comatch morphism.
+	// rst:		- :py:attr:`~DGVertexMapper.Result.comatch` (:math:`m'\colon R\rightarrow H`): the comatch morphism.
 	// rst:		  It is defined as the composition :math:`b\circ a`.
 	// rst:
 	// rst:		The vertex mapper can be configured in two ways via the constructor:
