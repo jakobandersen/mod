@@ -52,7 +52,7 @@ Class ``dg::VertexMapper``
       Note that if the rule :math:`p` either creates or removes vertices, then the map is partial.
       As all morphisms are injective, the vertex map is as well.
     - `Result::match` (:math:`m\colon L\rightarrow G`): the match morphism.
-    - `Result::comatch` (:math:`m'\colon L\rightarrow H`): the comatch morphism.
+    - `Result::comatch` (:math:`m'\colon R\rightarrow H`): the comatch morphism.
       It is defined as the composition :math:`b\circ a`.
 
     The vertex mapper can be configured in two ways via the constructor:

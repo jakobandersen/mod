@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13. Changes &#8212; MØD 1.0.0.59 documentation</title>
+    <title>13. Changes &#8212; MØD 1.0.0.64 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
     <script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=3dc653c3"></script>
+    <script src="_static/documentation_options.js?v=eb0c8ebe"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.59</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.64</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -301,6 +301,11 @@ result in false positives.</p></li>
 variable specifiers for hyperflow models.</p></li>
 <li><p>Docs, fix markup in initial description of <a class="reference internal" href="pymod/dg/VertexMapper.html#mod.DGVertexMapper" title="mod.DGVertexMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGVertexMapper</span></code></a>.</p></li>
 <li><p>Don’t use deprecated functionality in Open Babel.</p></li>
+<li><p>Fix <a class="reference internal" href="postmod/index.html#mod-post"><span class="std std-ref">PostMØD</span></a> to not be locale-sensitive when handling coordintes.
+Thanks to Daniel Merkle.</p></li>
+<li><p>Docs, fix description of the comatch in <a class="reference internal" href="pymod/dg/VertexMapper.html#mod.DGVertexMapper" title="mod.DGVertexMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGVertexMapper</span></code></a>/<a class="reference internal" href="libmod/dg/VertexMapper.html#_CPPv4N3mod2dg12VertexMapperE" title="mod::dg::VertexMapper"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">dg::VertexMapper</span></code></a>,
+to have the right domain (<span class="math notranslate nohighlight">\(R\)</span>, instead of <span class="math notranslate nohighlight">\(L\)</span>).
+Thanks to Christoph Flamm for spotting the typo.</p></li>
 </ul>
 </section>
 </section>
