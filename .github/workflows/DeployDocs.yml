@@ -16,7 +16,7 @@ concurrency:
 jobs:
   develop-docs:
     if: github.repository_owner == 'jakobandersen' && github.ref == 'refs/heads/develop'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
     - name: Checkout
       uses: actions/checkout@v7
@@ -50,7 +50,7 @@ jobs:
         commit-message: Update develop docs from ${{ github.sha }}
   release-docs:
     if: github.repository_owner == 'jakobandersen' && startsWith(github.event.ref, 'refs/tags/v')
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
     - name: Checkout
       uses: actions/checkout@v7

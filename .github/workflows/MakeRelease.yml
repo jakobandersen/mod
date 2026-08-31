@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   github-release:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: GitHub release
     if: github.repository_owner == 'jakobandersen'
     permissions:
