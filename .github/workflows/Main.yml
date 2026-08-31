@@ -28,10 +28,14 @@ jobs:
       run: echo "${HOME}/.local/bin" >> $GITHUB_PATH
     - name: Update apt
       run: sudo apt update
-    - name: Install pip dependencies
+    - name: Set up virtual environment
       run: |
-        sudo apt install python3-pip
-        pip3 install -r requirements.txt
+        sudo apt install python3-venv
+        python3 -m venv --system-site-packages $GITHUB_WORKSPACE/myVenv
+        echo "$GITHUB_WORKSPACE/myVenv/bin" >> $GITHUB_PATH
+        echo "VIRTUAL_ENV=$GITHUB_WORKSPACE/myVenv" >> $GITHUB_ENV
+    - name: Install pip dependencies
+      run: pip3 install -r requirements.txt
     - name: Install apt dependencies
       run: sudo apt install -y $(bindep -b testing | tr '\n' ' ')
     - name: Install Boost
@@ -39,7 +43,7 @@ jobs:
         wget https://archives.boost.io/release/1.83.0/source/boost_1_83_0.tar.gz
         tar -xf boost_1_83_0.tar.gz
         cd boost_1_83_0
-        ./bootstrap.sh --with-python=python3 --prefix=/opt/boost
+        ./bootstrap.sh --with-python=/usr/bin/python3 --prefix=/opt/boost
         ./b2 -j 4 --with-python --with-graph --with-iostreams --with-test install
     - name: Install Graphviz
       run: |
