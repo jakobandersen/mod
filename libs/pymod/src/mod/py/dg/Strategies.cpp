@@ -133,7 +133,7 @@ void Strategy_doExport() {
 					// rst:			:type strats: list[DGStrat]
 					// rst:			:returns: a :ref:`strat-parallel` strategy.
 					// rst:			:rtype: DGStrat
-					// rst:			:raises: :class:`LogicError` if `strats` is empty.
+					// rst:			:raises: :class:`LogicError` if ``strats`` is empty.
 					// rst:			:raises: :class:`LogicError` if there is a ``None`` in ``strats``.
 			.def("makeParallel", &Strategy::makeParallel).staticmethod("makeParallel")
 					// rst:		.. staticmethod:: makeFilter(alsoUniverse, p)

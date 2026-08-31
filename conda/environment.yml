@@ -15,5 +15,4 @@ dependencies:
   - ipython
   - networkx
   - parse
-  - typing_extensions
   - coincbc

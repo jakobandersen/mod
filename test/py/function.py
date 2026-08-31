@@ -1,29 +1,44 @@
-include("formoseCommon/grammar.py")
 
-dg = DG(graphDatabase=inputGraphs)
-dg.build().execute(addSubset(inputGraphs) >> inputRules[0] >> inputRules[2])
+g = Graph.fromSMILES("C")
 
-printer = DGPrinter()
-post.summarySection("Const False")
-printer.pushVertexVisible(False)
-dg.print(printer)
-printer.popVertexVisible()
-post.summarySection("Const True")
-printer.pushVertexVisible(True)
-dg.print(printer)
-printer.popVertexVisible()
+def test(f, *, raises=False):
+	fw = mod._funcWrap(libpymod._Func_StringGraph, f)
+	s = str(fw)
+	try:
+		fw(g)
+		if raises:
+			assert False, "Did not raise"
+	except Exception as e:
+		if not raises:
+			assert False, "Raised: " + str(e)
+		print("Got expected exception:", e)
 
-post.summarySection("Func")
-def f(v): return all(v.graph != a for a in inputGraphs)
-printer.pushVertexVisible(f)
-dg.print(printer)
-printer.popVertexVisible()
+print("="* 80)
+test("const")
 
-printer.pushVertexVisible(True)
-dg.print(printer)
-printer.popVertexVisible()
 
-post.summarySection("Lambda")
-printer.pushVertexVisible(lambda v: all(v.graph != a for a in inputGraphs))
-dg.print(printer)
-printer.popVertexVisible()
+print("="* 80)
+def func(g):
+	return "func"
+def funcRaise(g):
+	raise Exception("bah")
+
+test(func)
+test(funcRaise, raises=True)
+
+
+print("="* 80)
+test(lambda g: "lambda")
+test(lambda g: funcRaise(g), raises=True)
+
+
+print("="* 80)
+class Class:
+	def __call__(self, g):
+		return "class"
+class ClassRaises:
+	def __call__(self, g):
+		funcRaise(g)
+
+test(Class())
+test(ClassRaises(), raises=True)

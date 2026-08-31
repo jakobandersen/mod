@@ -20,6 +20,14 @@ Incompatible Changes
   - ``ruleGMLString``: :py:meth:`Rule.fromGMLString`
   - ``ruleGML``: :py:meth:`Rule.fromGMLFile`
 
+- The support for importing ``mod`` directly in Python,
+  without using the wrapper script, has changed.
+  By default the pseudo-package ``mod-jakobandersen`` is no longer installed,
+  but a ``.pth`` file is installed instead.
+  The ``.pth`` file installation can be controlled via two CMake variables ``BUILD_PY_MOD_PTH`` and ``MOD_PTH_DIR``. See the documentation of these variables
+  in :ref:`compiling`.
+
+
 New Features
 ------------
 
@@ -73,6 +81,7 @@ Bugs Fixed
   variable specifiers for hyperflow models.
 - Docs, fix markup in initial description of :py:class:`DGVertexMapper`.
 - Don't use deprecated functionality in Open Babel.
+- Fix :py:meth:`DG.Builder.load` to actually honer :py:class:`CWDPath` for the filename.
 - Fix :ref:`mod_post` to not be locale-sensitive when handling coordintes.
   Thanks to Daniel Merkle.
 - Docs, fix description of the comatch in :py:class:`DGVertexMapper`/:cpp:class:`dg::VertexMapper`,

@@ -77,7 +77,7 @@ void EventTrace_doExport() {
 			.def_readonly("vertex", &InputAction::vertex)
 					// rst:		.. function:: void applyTo(m) const
 					// rst:
-					// rst:			Perform `m.add(vertex, 1)`.
+					// rst:			Perform ``m.add(vertex, 1)``.
 					// rst:
 					// rst:			:param Marking m: the marking to apply the action to.
 			.def("applyTo", &InputAction::applyTo);
@@ -100,7 +100,7 @@ void EventTrace_doExport() {
 			.def_readonly("vertex", &OutputAction::vertex)
 					// rst:		.. function:: void applyTo(m) const
 					// rst:
-					// rst:			Perform `m.remove(vertex, 1)`.
+					// rst:			Perform ``m.remove(vertex, 1)``.
 					// rst:
 					// rst:			:param Marking m: the marking to apply the action to.
 			.def("applyTo", &OutputAction::applyTo);

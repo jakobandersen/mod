@@ -78,19 +78,19 @@ void Petri_doExport() {
 					// rst:		.. method:: add(v, c)
 					// rst:		            add(g, c)
 					// rst:
-					// rst:			Add `c` tokens on the place `v`.
+					// rst:			Add ``c`` tokens on the place ``v``.
 					// rst:			The second version is equivalent to ``self.add(self.net.dg.findVertex(g), c)``.
 					// rst:
 					// rst:			:param DG.Vertex v: the place to add tokens to.
 					// rst:			:param Graph g: the graph associated to the place to add tokens to.
 					// rst:			:param int c: the amount of tokens to add.
-					// rst:			:returns: the new total token count on `v`.
+					// rst:			:returns: the new total token count on ``v``.
 					// rst:			:rtype: int
 					// rst:			:raises: :class:`LogicError` if ``not v``.
 					// rst:			:raises: :class:`LogicError` if ``v.dg != self.net.dg``.
 					// rst:			:raises: :class:`LogicError` if ``c < 0``.
-					// rst:			:raises: :class:`LogicError` if `g is None`.
-					// rst:			:raises: :class:`LogicError` if `!self.net.dg.findVertex(g)`.
+					// rst:			:raises: :class:`LogicError` if ``g is None``.
+					// rst:			:raises: :class:`LogicError` if ``!self.net.dg.findVertex(g)``.
 					// rst:
 					// rst:			Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
 			.def("add", static_cast<int (Marking::*)(dg::DG::Vertex, int)>(&Marking::add))
@@ -98,20 +98,20 @@ void Petri_doExport() {
 					// rst:		.. method:: remove(v, c)
 					// rst:		            remove(g, c)
 					// rst:
-					// rst:			Remove `c` tokens from the place `v`.
+					// rst:			Remove ``c`` tokens from the place ``v``.
 					// rst:			The second version is equivalent to ``self.remove(self.net.dg.findVertex(g), c)``.
 					// rst:
 					// rst:			:param DG.Vertex v: the place to remove tokens from.
 					// rst:			:param Graph g: the graph associated to the place to remove tokens from.
 					// rst:			:param int c: the amount of tokens to remove.
-					// rst:			:returns: the new total token count on `v`.
+					// rst:			:returns: the new total token count on ``v``.
 					// rst:			:rtype: int
 					// rst:			:raises: :class:`LogicError` if ``not v``.
 					// rst:			:raises: :class:`LogicError` if ``v.dg != self.net.dg``.
 					// rst:			:raises: :class:`LogicError` if ``c < 0``.
 					// rst:			:raises: :class:`LogicError` if not enough tokens are left to remove all ``c``.
-					// rst:			:raises: :class:`LogicError` if `g is None`.
-					// rst:			:raises: :class:`LogicError` if `!self.net.dg.findVertex(g)`.
+					// rst:			:raises: :class:`LogicError` if ``g is None``.
+					// rst:			:raises: :class:`LogicError` if ``!self.net.dg.findVertex(g)``.
 					// rst:
 					// rst:			Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
 			.def("remove", static_cast<int (Marking::*)(dg::DG::Vertex, int)>(&Marking::remove))
@@ -121,13 +121,13 @@ void Petri_doExport() {
 					// rst:
 					// rst:			:param DG.Vertex v: the place to query the number of tokens for.
 					// rst:			:param Graph g: the graph associated to the place to query the number of tokens for.
-					// rst:			:returns: the token count for `v`.
+					// rst:			:returns: the token count for ``v``.
 					// rst:				The second version is equivalent to ``self[self.net.dg.findVertex(g)]``.
 					// rst:			:rtype: int
 					// rst:			:raises: :class:`LogicError` if ``not v``.
 					// rst:			:raises: :class:`LogicError` if ``v.dg != self.net.dg``.
-					// rst:			:raises: :class:`LogicError` if `g is None`.
-					// rst:			:raises: :class:`LogicError` if `!self.net.dg.findVertex(g)`.
+					// rst:			:raises: :class:`LogicError` if ``g is None``.
+					// rst:			:raises: :class:`LogicError` if ``!self.net.dg.findVertex(g)``.
 					// rst:
 					// rst:			Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
 			.def("__getitem__", static_cast<int (Marking::*)(dg::DG::Vertex) const>(&Marking::operator[]))

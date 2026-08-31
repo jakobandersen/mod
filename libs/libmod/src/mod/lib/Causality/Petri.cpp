@@ -2,6 +2,9 @@
 
 #include <jla_boost/graph/PairToRangeAdaptor.hpp>
 
+// define to enable asserts in functions that may be used in inner loops
+//#define MOD_LIB_CAUSALITY_PETRI_ASSERT
+
 namespace mod::lib::Causality {
 
 Net::Net(const lib::DG::Hyper &dg) : dg(dg) {
@@ -69,18 +72,26 @@ std::vector<lib::DG::HyperVertex> Net::getPostPlaces(lib::DG::HyperVertex e) con
 }
 
 petri::Place Net::getPlace(lib::DG::HyperVertex v) const {
+#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
 	assert(dg.getGraph()[v].kind == lib::DG::HyperVertexKind::Vertex);
+#endif
 	const auto id = get(boost::vertex_index_t(), dg.getGraph(), v);
 	petri::Place p = placeMap[id];
+#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
 	assert(p);
+#endif
 	return p;
 }
 
 petri::Transition Net::getTransition(lib::DG::HyperVertex e) const {
+#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
 	assert(dg.getGraph()[e].kind == lib::DG::HyperVertexKind::Edge);
+#endif
 	const auto id = get(boost::vertex_index_t(), dg.getGraph(), e);
 	petri::Transition t = transitionMap[id];
+#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
 	assert(t);
+#endif
 	return t;
 }
 

@@ -13,17 +13,17 @@ struct range : std::pair<Iter, Iter> {
 	using iterator = Iter;
 	using const_iterator = iterator;
 
-	range(const std::pair<Iter, Iter> &x) : std::pair<Iter, Iter>(x) { }
+	inline range(const std::pair<Iter, Iter> &x) : std::pair<Iter, Iter>(x) { }
 
-	Iter begin() const {
+	inline Iter begin() const {
 		return this->first;
 	}
 
-	Iter end() const {
+	inline Iter end() const {
 		return this->second;
 	}
 
-	decltype(auto) operator[](int i) const {
+	inline decltype(auto) operator[](int i) const {
 		return begin()[i];
 	}
 };

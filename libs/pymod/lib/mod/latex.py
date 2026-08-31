@@ -1,20 +1,19 @@
-import mod
 import os
 import sys
 
-from typing import List
+import mod
 
 _texFile = None
 _figFolder = None
-_graphs: List[mod.Graph] = []
-_rules: List[mod.Rule] = []
+_graphs: list[mod.Graph] = []
+_rules: list[mod.Rule] = []
 _ls = mod.LabelSettings(mod.LabelType.String, mod.LabelRelation.Isomorphism,
 	mod.LabelRelation.Isomorphism)
 
 
 def setTexFile(fName):
 	global _texFile
-	_texFile = open(fName, "w")
+	_texFile = open(fName, "w")  # noqa
 	mod.post.disableCompileSummary()
 
 
@@ -22,7 +21,7 @@ def setFigFolder(fName):
 	global _figFolder
 	_figFolder = fName
 	_checkSettings()
-	mod.post.command("post \"mkdir -p '%s'\"" % _figFolder)
+	mod.post.command(f"post \"mkdir -p '{_figFolder}'\"")
 
 
 def _checkSettings():
@@ -39,15 +38,14 @@ def outputFile(f, inline=False):
 	assert f.endswith(".pdf")
 	f = f[:-4]
 	f += ".tex" if inline else ".pdf"
-	mod.post.command("post \"cp '%s' '%s/'\"" % (f, _figFolder))
+	mod.post.command(f"post \"cp '{f}' '{_figFolder}/'\"")
 	res = _figFolder + "/" + os.path.basename(f)
 	return res[:-4]
 
 
 def texDefine(id, value):
 	_checkSettings()
-	_texFile.write(r"\expandafter\def\csname mod@figDef-%s\endcsname{%s}"
-		% (str(id), str(value)))
+	_texFile.write(fr"\expandafter\def\csname mod@figDef-{id}\endcsname{{{value}}}")
 	_texFile.write("\n")
 
 
@@ -98,7 +96,7 @@ def rule(id, r, p):
 	fL = outputFile(f + "_L.pdf")
 	fK = outputFile(f + "_K.pdf")
 	fR = outputFile(f + "_R.pdf")
-	texDefine("rule-" + str(id), "{%s}{%s}{%s}" % (fL, fK, fR))
+	texDefine(f"rule-{id}", f"{{{fL}}}{{{fK}}}{{{fR}}}")
 
 
 def ruleGML(id, data, printer):

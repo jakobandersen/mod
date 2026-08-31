@@ -34,7 +34,8 @@ endif()
 option(BUILD_DOC "Enable documentation building." OFF)
 option(BUILD_MOD "Enable central library building." ON)
 option(BUILD_PY_MOD "Enable building of the Python bindings." ON)
-option(BUILD_PY_MOD_PIP "If BUILD_PY_MOD, then install the bindings also with pip in the default location." ON)
+option(BUILD_PY_MOD_PTH "If BUILD_PY_MOD, then install a .pth file to enable 'import mod' without the wrapper script." ON)
+option(BUILD_PY_MOD_PIP "If BUILD_PY_MOD, then install the bindings also with pip in the default location." OFF)
 option(BUILD_POST_MOD "Enable building of the post processor." ON)
 option(BUILD_POST_MOD_FMT "Enable building of the post processor Latex format files." ON)
 
@@ -283,18 +284,28 @@ endif()
 if(BUILD_PY_MOD)
     find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
     string(APPEND libmod_config_dependencies "find_dependency(Python3 REQUIRED COMPONENTS Interpreter Development)\n")
+
+    # find .pth file location
+    if(BUILD_PY_MOD_PTH)
+        if(NOT MOD_PTH_DIR)
+            set(MOD_PTH_DIR "${Python3_SITELIB}")
+            execute_process(COMMAND ${CMAKE_COMMAND} -E touch ${MOD_PTH_DIR} RESULT_VARIABLE res)
+            if(NOT res EQUAL "0")
+                message(FATAL_ERROR
+                        "Installation of .pth file requested, but the default path '${Python3_SITELIB}' is not writeable."
+                        " Please specify the path manually with -DMOD_PTH_DIR=<path> to skip the writeability check,"
+                        " or disable .pth file installation with -DBUILD_PY_MOD_PTH=no")
+            endif()
+        endif()
+        message(STATUS "Location for .pth file to be installed: ${MOD_PTH_DIR}.")
+    endif()
 endif()
 
 
 # Sphinx
 # -------------------------------------------------------------------------
 if(BUILD_DOC)
-    find_program(SPHINX NAMES sphinx-build sphinx-build3 sphinx-build-3 sphinx-build2)
-    if(SPHINX)
-        message(STATUS "Sphinx: ${SPHINX}")
-    else()
-        message(FATAL_ERROR "Sphinx not found, required for building the documentation. Use --DBUILD_DOC=off to disable.")
-    endif()
+    find_python_module(sphinx REQUIRED)
 endif()
 
 

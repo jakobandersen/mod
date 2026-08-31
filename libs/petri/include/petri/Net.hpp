@@ -1,6 +1,9 @@
 #ifndef PETRI_NET_HPP
 #define PETRI_NET_HPP
 
+// define to enable asserts in functions that may be used in inner loops
+//#define PETRI_NET_ASSERT
+
 #include <petri/Descriptors.hpp>
 
 #include <boost/graph/adjacency_list.hpp>
@@ -283,19 +286,25 @@ inline const Net::GraphType &Net::getGraph() const {
 }
 
 inline Net::Vertex Net::vertexFromTransition(Transition t) const {
+#ifdef PETRI_NET_ASSERT
 	assert(t);
-	assert(static_cast<std::size_t> (t.getId()) < transitions_.size());
+	assert(static_cast<std::size_t>(t.getId()) < transitions_.size());
+#endif
 	return transitions_[t.getId()];
 }
 
 inline Net::Vertex Net::vertexFromPlace(Place p) const {
+#ifdef PETRI_NET_ASSERT
 	assert(p);
 	assert(static_cast<std::size_t> (p.getId()) < places_.size());
+#endif
 	return places_[p.getId()];
 }
 
 inline Place Net::placeFromVertex(Vertex v) const {
+#ifdef PETRI_NET_ASSERT
 	assert(g[v].kind == Kind::Place);
+#endif
 	return Place(g[v].id);
 }
 
@@ -306,7 +315,9 @@ inline int Net::getMaxInWeight() const {
 inline Place Net::addPlace() {
 	const int id = places_.size();
 	Vertex v = add_vertex({Kind::Place, id}, g);
+#ifdef PETRI_NET_ASSERT
 	assert(g[v].kind == Kind::Place);
+#endif
 	places_.push_back(v);
 	return Place(id);
 }
@@ -314,7 +325,9 @@ inline Place Net::addPlace() {
 inline Transition Net::addTransition() {
 	const int id = transitions_.size();
 	Vertex v = add_vertex({Kind::Transition, id}, g);
+#ifdef PETRI_NET_ASSERT
 	assert(g[v].kind == Kind::Transition);
+#endif
 	transitions_.push_back(v);
 	return Transition(id);
 }

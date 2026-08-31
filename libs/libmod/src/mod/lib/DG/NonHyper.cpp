@@ -62,10 +62,6 @@ NonHyper::NonHyper(LabelSettings labelSettings,
 
 NonHyper::~NonHyper() = default;
 
-std::size_t NonHyper::getId() const {
-	return id;
-}
-
 std::shared_ptr<dg::DG> NonHyper::getAPIReference() const {
 	if(apiReference.use_count() > 0) return std::shared_ptr<dg::DG>(apiReference);
 	else std::abort();
@@ -75,18 +71,6 @@ void NonHyper::setAPIReference(std::shared_ptr<dg::DG> dg) {
 	assert(apiReference.use_count() == 0);
 	apiReference = dg;
 	assert(&dg->getNonHyper() == this);
-}
-
-LabelSettings NonHyper::getLabelSettings() const {
-	return labelSettings;
-}
-
-bool NonHyper::getHasStartedCalculation() const {
-	return hasStartedCalculation;
-}
-
-bool NonHyper::getHasCalculated() const {
-	return hasCalculated;
 }
 
 void NonHyper::calculatePrologue(
@@ -208,10 +192,6 @@ std::pair<NonHyper::Edge, bool> NonHyper::suggestDerivation(
 	return e;
 }
 
-const NonHyper::GraphType &NonHyper::getGraphDuringCalculation() const {
-	return dg;
-}
-
 NonHyper::Vertex NonHyper::getVertex(const GraphMultiset &gms) {
 	const auto iter = multisetToVertex.find(gms);
 	if(iter != multisetToVertex.end()) return iter->second;
@@ -226,19 +206,6 @@ NonHyper::Vertex NonHyper::getVertex(const GraphMultiset &gms) {
 const NonHyper::GraphType &NonHyper::getGraph() const {
 	if(!hyper) MOD_ABORT;
 	return dg;
-}
-
-const Hyper &NonHyper::getHyper() const {
-	if(!hyper) MOD_ABORT;
-	return *hyper;
-}
-
-const lib::graph::Collection &NonHyper::getGraphDatabase() const {
-	return graphDatabase;
-}
-
-const std::vector<std::shared_ptr<mod::graph::Graph>> &NonHyper::getCreatedGraphs() const {
-	return createdGraphs;
 }
 
 void NonHyper::print() const {

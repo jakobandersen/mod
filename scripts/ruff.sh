@@ -14,6 +14,6 @@ for f in $(ls libs/pymod/lib/mod); do
 done
 
 ruff --version
-ruff check \
+ruff check --color always \
 	--ignore F405,E741 \
 	build/checkPython/mod/*

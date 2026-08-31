@@ -17,7 +17,7 @@ namespace mod::Py {
 // rst: 	This function is used in all PyMØD functions that takes a filename as argument.
 // rst: 	To circumvent this prefixing use the :class:`CWDPath` class.
 // rst:
-// rst: 	:returns: `name` prefixed with all strings pushed with :func:`pushFilePrefix`
+// rst: 	:returns: ``name`` prefixed with all strings pushed with :func:`pushFilePrefix`
 // rst: 		and popped yet.
 // rst: 	:rtype: str
 // rst:

@@ -14,7 +14,7 @@ for f in $(ls libs/pymod/lib/mod); do
 done
 
 mypy --version
-mypy \
+mypy --python-version 3.10 \
 	--warn-redundant-casts \
 	--warn-unused-ignores  \
 	build/checkPython/mod

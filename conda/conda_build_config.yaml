@@ -2,11 +2,11 @@
 #       variations for those verions.
 # https://github.com/conda-forge/conda-forge-pinning-feedstock/tree/main/recipe
 python:
-  - 3.10
   - 3.11
   - 3.12
-  # can't add >= 3.13 before openbabel has build with it
-  #- 3.13
+  - 3.13
+  # can't add >= 3.14 before openbabel has build with it
+  # see migration status: https://conda-forge.org/status/migration/?name=python314
   #- 3.14
 libboost:
   - 1.88.0  # currently globally pinned version in conda-forge

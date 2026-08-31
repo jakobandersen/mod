@@ -8,8 +8,8 @@ function(find_python_module module)
 		endif()
 		# A module's location is usually a directory, but for binary modules
 		# it's a .so file.
-		execute_process(COMMAND "${Python3_EXECUTABLE}" "-c"
-				"import re, ${module}; print(re.compile('/__init__.py.*').sub('',${module}.__file__))"
+		set(code "import re, ${module}; print(re.compile('/__init__.py.*').sub('',${module}.__file__))")
+		execute_process(COMMAND "${Python3_EXECUTABLE}" "-c" "${code}"
 				RESULT_VARIABLE _${module}_status
 				OUTPUT_VARIABLE _${module}_stdout
 				ERROR_VARIABLE _${module}_stderr
@@ -19,5 +19,7 @@ function(find_python_module module)
 					"Location of Python module ${module}")
 		endif()
 	endif()
-	find_package_handle_standard_args(${module} DEFAULT_MSG PY_${module_upper})
+	find_package_handle_standard_args(${module} REQUIRED_VARS PY_${module_upper}
+			REASON_FAILURE_MESSAGE "Got the following output:\n${_${module}_stdout}\n${_${module}_stderr}"
+			FAIL_MESSAGE "Could not import Python module '${module}' with found interpreter ${Python3_EXECUTABLE}")
 endfunction()

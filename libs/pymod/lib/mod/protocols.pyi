@@ -1,4 +1,5 @@
-from typing import Iterable, Protocol
+from collections.abc import Iterable
+from typing import Protocol
 
 class Graph(Protocol):
 	vertices: Iterable[Vertex]

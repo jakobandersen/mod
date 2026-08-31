@@ -173,14 +173,6 @@ std::pair<HyperVertex, bool> Hyper::addVertex(const lib::graph::Graph *g) {
 
 Hyper::~Hyper() = default;
 
-const NonHyper &Hyper::getNonHyper() const {
-	return nonHyper;
-}
-
-const Hyper::GraphType &Hyper::getGraph() const {
-	return hyper;
-}
-
 const Expanded &Hyper::getExpandedFully() const {
 	if(!expandedFull) {
 		std::unordered_set<Transit> expressed, deleted;

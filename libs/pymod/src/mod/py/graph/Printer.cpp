@@ -119,7 +119,7 @@ void Printer_doExport() {
 					// rst:
 					// rst:			Do not use Open Babel for coordinate generation, but only the Graphviz fallback
 					// rst:			during post-processing.
-					// rst:			When setting this to ``True`` consider setting `simpleCarbons = False`` to avoid
+					// rst:			When setting this to ``True`` consider setting ``simpleCarbons = False`` to avoid
 					// rst:			misleading depictions due to collinear carbon chains.
 					// rst:
 					// rst:			:type: bool

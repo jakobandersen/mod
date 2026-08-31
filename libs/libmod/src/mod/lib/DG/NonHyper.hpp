@@ -36,14 +36,14 @@ protected:
 	         const std::vector<std::shared_ptr<mod::graph::Graph>> &graphDatabase, IsomorphismPolicy graphPolicy);
 public: // general
 	virtual ~NonHyper();
-	std::size_t getId() const;
+	std::size_t getId() const { return id; }
 	std::shared_ptr<dg::DG> getAPIReference() const;
 	void setAPIReference(std::shared_ptr<dg::DG> dg);
-	LabelSettings getLabelSettings() const;
+	LabelSettings getLabelSettings() const { return labelSettings; }
 	virtual std::string getType() const = 0;
 public: // calculation
-	bool getHasStartedCalculation() const;
-	bool getHasCalculated() const;
+	bool getHasStartedCalculation() const { return hasStartedCalculation; }
+	bool getHasCalculated() const { return hasCalculated; }
 protected: // calculation
 	void calculatePrologue( // call this before modifying the DG
 			std::shared_ptr<Function<void(dg::DG::Vertex)>> onNewVertex,
@@ -89,15 +89,15 @@ protected: // calculation
 	std::pair<Edge, bool> suggestDerivation(const GraphMultiset &gmsSrc,
 	                                        const GraphMultiset &gmsTar,
 	                                        const lib::rule::Rule *r);
-	const GraphType &getGraphDuringCalculation() const;
+	const GraphType &getGraphDuringCalculation() const { return dg; }
 private: // calculation
 	// adds the graph as a vertex, if it's not there already, and returns the vertex
 	Vertex getVertex(const GraphMultiset &gms);
 public: // post calculation
 	const GraphType &getGraph() const;
-	const Hyper &getHyper() const;
-	const lib::graph::Collection &getGraphDatabase() const;
-	const std::vector<std::shared_ptr<mod::graph::Graph>> &getCreatedGraphs() const;
+	const Hyper &getHyper() const { return *hyper;}
+	const lib::graph::Collection &getGraphDatabase() const { return graphDatabase; }
+	const std::vector<std::shared_ptr<mod::graph::Graph>> &getCreatedGraphs() const { return createdGraphs; }
 	void print() const;
 	HyperVertex getHyperEdge(Edge e) const;
 	HyperVertex findHyperEdge(const std::vector<HyperVertex> &sources, const std::vector<HyperVertex> &targets) const;

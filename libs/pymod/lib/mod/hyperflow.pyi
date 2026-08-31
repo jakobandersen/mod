@@ -1,12 +1,12 @@
-import mod
+from collections.abc import Callable
 
-from typing import Callable, Optional, Tuple, Union
+import mod
 
 class Model:
 	def __init__(self, dg: mod.DG, ilpSolver: str=...) -> None: ...
 	dg: mod.DG
 
-	absGap: Optional[int]
+	absGap: None | int
 
 	def findSolutions(self, *, maxNumSolutions: int=..., verbosity: int=..., ilpVerbosity: int=...) -> SolutionRange: ...
 	@staticmethod
@@ -34,8 +34,8 @@ class LinConstraint: ...
 
 
 class Printer:
-	def pushOutEdgeLabel(self, f: Union[Callable[[mod.DG.Vertex], str], str]) -> None: ...
-	def pushInEdgeLabel(self, f: Union[Callable[[mod.DG.Vertex], str], str]) -> None: ...
+	def pushOutEdgeLabel(self, f: Callable[[mod.DG.Vertex], str] | str) -> None: ...
+	def pushInEdgeLabel(self, f: Callable[[mod.DG.Vertex], str] | str) -> None: ...
 
 
 class SolutionRange:
@@ -47,4 +47,4 @@ class SolutionRange:
 class Solution:
 	model: Model
 
-	def print(self, printer: Printer=..., data: mod.DGPrintData=...) -> Tuple[str, str]: ...
+	def print(self, printer: Printer=..., data: mod.DGPrintData=...) -> tuple[str, str]: ...

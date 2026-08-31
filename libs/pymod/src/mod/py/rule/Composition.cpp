@@ -204,7 +204,7 @@ void Composition_doExport() {
 	// rst: .. class:: RCExpComposeSuper
 	// rst:
 	// rst:		Compose the rules such that overlapping connected components of :math:`R_1` and :math:`L_2` have the :math:`L_2` component as a subgraph of :math:`R_1`.
-	// rst:		The overlap is `partial` if not every connected component of :math:`L_2` is participating in the common subgraph.
+	// rst:		The overlap is ``partial`` if not every connected component of :math:`L_2` is participating in the common subgraph.
 	// rst:
 	py::class_<RCExp::ComposeSuper>("RCExpComposeSuper", py::no_init)
 			.def(py::init<RCExp::Expression, RCExp::Expression, bool, bool>())

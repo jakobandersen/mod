@@ -1,6 +1,6 @@
 import mod
 
-mod._deprecation("The {} module has been removed, use the classes in the causality module instead.".format(__name__))
+mod._deprecation(f"The {__name__} module has been removed, use the classes in the causality module instead.")
 
 _deps = ("DrawMassAction", "ExpandByStrategy", "DrawTimeExponential")
 
@@ -10,7 +10,7 @@ def __getattr__(name):
 		mod._deprecation(msg)
 		return mod.causality.Simulator
 	if name in _deps:
-		msg = "{} has been renamed, use causality.Simulator.{} instead.".format(name, name)
+		msg = f"{name} has been renamed, use causality.Simulator.{name} instead."
 		mod._deprecation(msg)
 		return getattr(mod.causality.Simulator, name)
-	raise AttributeError("module '{}' has no attribute '{}'".format(__name__, name))
+	raise AttributeError(f"module '{__name__}' has no attribute '{name}'")

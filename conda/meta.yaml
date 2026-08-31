@@ -41,7 +41,6 @@ requirements:
     - ipython
     - networkx
     - parse
-    - typing_extensions
   host:
     # lib packages
     - libboost-devel {{ libboost }}
@@ -65,7 +64,6 @@ requirements:
     - ipython
     - networkx
     - parse
-    - typing_extensions
 
 test:
   commands:

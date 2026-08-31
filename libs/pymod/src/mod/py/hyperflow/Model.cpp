@@ -145,7 +145,7 @@ void Model_doExport() {
 					// rst:		.. method:: separateIOInternalTransit(v)
 					// rst:		            separateIOInternalTransit(g)
 					// rst:
-					// rst:			Ensure that the expanded vertex of `v` has transit edges such that
+					// rst:			Ensure that the expanded vertex of ``v`` has transit edges such that
 					// rst:			flow going from the input edge or to the output edge can be distinguished
 					// rst:			from flow going from the network and back to the network.
 					// rst:
@@ -322,7 +322,7 @@ void Model_doExport() {
 					// rst:			This may be called multiple times to find additional solutions in an incremental fashion.
 					// rst:			After the first call the specification will be locked, i.e., ``specificationLocked`` will be ``True``.
 					// rst:
-					// rst:			Calling with `maxNumSolutions` set to 0 will still lock the specification,
+					// rst:			Calling with ``maxNumSolutions`` set to 0 will still lock the specification,
 					// rst:			but will create the internal model.
 					// rst:
 					// rst:			:param int maxNumSolutions: the maximum number of solutions to find.

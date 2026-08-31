@@ -108,6 +108,7 @@ q:build:
       - "1_89_0"
       - "1_90_0"
       - "1_91_0-1"
+      - "1_92_0"
   script:
   - make
   - make install

@@ -4,21 +4,28 @@ import ctypes
 import inspect
 import math
 import sys
+from collections.abc import Callable, Iterable, Sequence
 from typing import (
-	Any, Callable, cast, Dict, Iterable, List, Optional, Sequence,
-	TextIO, Tuple, Type, Union
+	Any,
+	TextIO,
+	TypeVar,
+	Union,
+	cast,
 )
+
+_T = TypeVar("_T")
+_U = TypeVar("_U")
 
 _redirected = False
 
 _oldFlags = sys.getdlopenflags()
 sys.setdlopenflags(_oldFlags | ctypes.RTLD_GLOBAL)
 from . import libpymod  # noqa
-from .libpymod import *  # noqa
-from . import causality  # noqa
-from . import hyperflow  # noqa
-from .hyperflow.vars import *  # type: ignore # noqa
-from . import post  # noqa
+from .libpymod import *
+from . import causality
+from . import hyperflow
+from .hyperflow.vars import *  # type: ignore
+from . import post
 from . import haxes  # noqa
 sys.setdlopenflags(_oldFlags)
 
@@ -35,15 +42,15 @@ sys.stdout = _Unbuffered(sys.stdout)
 
 def _NoNew__setattr__(self: Any, name: str, value: Any) -> None:
 	if hasattr(self, "_frozen") and self._frozen:
-		msg = "Can not modify object '%s' of type '%s'. It has been frozen." % (self, type(self))
+		msg = f"Can not modify object '{self}' of type '{type(self)}'. It has been frozen."
 		raise AttributeError(msg)
 	if hasattr(self, name):
 		object.__setattr__(self, name, value)
 	else:
-		msg = "Can not create new attribute '%s' on object '%s' of type '%s'." % (name, self, type(self))
-		msg += "\ndir(" + str(self) + "):\n"
-		for name in dir(self):
-			msg += "\t" + name + "\n"
+		msg = f"Can not create new attribute '{name}' on object '{self}' of type '{type(self)}'."
+		msg += f"\ndir({self}):\n"
+		for n in dir(self):
+			msg += "\t" + n + "\n"
 		raise AttributeError(msg)
 
 
@@ -51,7 +58,7 @@ def _fixClass(name: str, c: Any, indent: int) -> None:
 	if not name.startswith("_Func_"):
 		c.__setattr__ = _NoNew__setattr__
 
-	if name.startswith("_Func_") or name.startswith("_Vec") or name.startswith("Var"):
+	if name.startswith(("_Func_", "_Vec", "Var")):
 		c.__hash__ = None
 	elif name.endswith("Vertex"):
 		assert c.__hash__ is not None and c.__hash__ != object.__hash__
@@ -61,9 +68,8 @@ def _fixClass(name: str, c: Any, indent: int) -> None:
 	elif c.__hash__ == object.__hash__:
 		c.__hash__ = None
 
-	if not (name.startswith("_Func_") or name.startswith("_Vec") or name.startswith("Var")):
-		if name.endswith("Vertex") or name.endswith("Edge"):
-			assert c.__bool__ is not None
+	if not name.startswith(("_Func_", "_Vec", "Var")) and name.endswith(("Vertex", "Edge")):
+		assert c.__bool__ is not None
 
 	for a in inspect.getmembers(c, inspect.isclass):
 		if a[0] == "__class__":
@@ -84,9 +90,9 @@ _fixModule(post)
 
 def _deprecation(msg: str) -> None:
 	if config.common.ignoreDeprecation:
-		print("WARNING: {} Use config.common.ignoreDeprecation = False to make this an exception.".format(msg))
+		print(f"WARNING: {msg} Use config.common.ignoreDeprecation = False to make this an exception.")
 	else:
-		raise DeprecationWarning("{} Use config.common.ignoreDeprecation = True to make this just a warning.".format(msg))
+		raise DeprecationWarning(f"{msg} Use config.common.ignoreDeprecation = True to make this just a warning.")
 
 #----------------------------------------------------------
 # Script Inclusion Support
@@ -96,14 +102,14 @@ class CWDPath:
 	def __init__(self, f: str) -> None:
 		self.f = f
 
-_filePrefixes: List[str] = []
+_filePrefixes: list[str] = []
 
 def prefixFilename(name: str) -> str:
 	if isinstance(name, CWDPath):
 		return name.f
 	if len(name) == 0 or name[0] == '/':
 		return name
-	prefixed: List[str] = []
+	prefixed: list[str] = []
 	for s in _filePrefixes:
 		if len(s) != 0 and s[0] == '/':
 			prefixed[:] = [s]
@@ -125,21 +131,21 @@ def popFilePrefix() -> None:
 # Wrappers
 #----------------------------------------------------------
 
-def _wrap(C: Type["Vec[T]"], l: Union["Vec[T]", Iterable["T"]]) -> "Vec[T]":
+def _wrap(C: type["Vec[_T]"], l: Union["Vec[_T]", Iterable[_T]]) -> "Vec[_T]":
 	if isinstance(l, C):
 		return l
 	lcpp = C()
 	lcpp.extend(l)
 	return lcpp
-def _unwrap(lcpp: Iterable["T"]) -> List["T"]:
-	l: List[T] = []
+def _unwrap(lcpp: Iterable[_T]) -> list[_T]:
+	l: list[_T] = []
 	l.extend(lcpp)
 	return l
 
-def _funcWrap(F: Type["U"], f,
-		resultWrap: Optional[Type["Vec[T]"]] = None,
-		module: Any=libpymod) -> "U":
-	if hasattr(f, "__call__"):
+def _funcWrap(F: type[_U], f,
+		resultWrap: None | type["Vec[_T]"] = None,
+		module: Any=libpymod) -> _U:
+	if callable(f):
 		class FuncWrapper(F):  # type: ignore
 			def __init__(self, f) -> None:
 				self.f = f
@@ -147,17 +153,24 @@ def _funcWrap(F: Type["U"], f,
 			def clone(self) -> "FuncWrapper":
 				return module._sharedToStd(FuncWrapper(self.f))
 			def __str__(self) -> str:
-				lines, lnum = inspect.getsourcelines(self.f)
-				source = ''.join(lines)
-				filename = inspect.getfile(self.f)
-				return "FuncWrapper(%s)\nCode from %s:%d >>>>>\n%s<<<<< Code from %s:%d" % (str(self.f), filename, lnum, source, filename, lnum)
-			def __call__(self, *args: List[Any]) -> Union["T", "Vec[T]"]:
+				try:
+					try:
+						lines, lnum = inspect.getsourcelines(self.f)
+						filename = inspect.getfile(self.f)
+					except TypeError:
+						lines, lnum = inspect.getsourcelines(self.f.__class__)
+						filename = inspect.getfile(self.f.__class__)
+					source = ''.join(lines)
+					return f"FuncWrapper({self.f})\nCode from {filename}:{lnum} >>>>>\n{source}<<<<< Code from {filename}:{lnum}"
+				except OSError as e:
+					return f"FuncWrapper({self.f})\nCode could not be retrieved ({e})."
+			def __call__(self, *args: list[Any]) -> Union[_T, "Vec[_T]"]:
 				try:
 					if resultWrap is not None:
 						return _wrap(resultWrap,
-							cast(Iterable["T"], self.f(*args)))
+							cast(Iterable[_T], self.f(*args)))
 					else:
-						return cast("T", self.f(*args))
+						return cast(_T, self.f(*args))
 				except:
 					print("Error in wrapped function when called:", str(self))
 					print("Base type is '" + str(F) + "'")
@@ -166,16 +179,16 @@ def _funcWrap(F: Type["U"], f,
 		res = FuncWrapper(f)
 	else:							# assume constant
 		class Constant(F):  # type: ignore
-			def __init__(self, c: "T") -> None:
+			def __init__(self, c: _T) -> None:
 				self.c = c
 				F.__init__(self)
 			def clone(self) -> "Constant":
 				return module._sharedToStd(Constant(self.c))
 			def __str__(self) -> str:
 				return "Constant(" + str(self.c) + ")"
-			def __call__(self, *args: List[Any]) -> "T":
+			def __call__(self, *args: list[Any]) -> _T:
 				return self.c
-		res = Constant(cast("T", f))
+		res = Constant(cast(_T, f))
 	return module._sharedToStd(res)
 
 
@@ -221,7 +234,7 @@ IsomorphismPolicy.__str__ = libpymod._IsomorphismPolicy__str__  # type: ignore
 SmilesClassPolicy.__str__ = libpymod._SmilesClassPolicy__str__  # type: ignore
 Action.__str__ = libpymod._Action__str__  # type: ignore
 
-def getAvailableILPSolvers() -> List[str]:
+def getAvailableILPSolvers() -> list[str]:
 	return _unwrap(libpymod._getAvailableILPSolvers())
 
 config = getConfig()
@@ -286,7 +299,7 @@ def dgRuleComp(graphs: Iterable[Graph], strat: DGStrat,
 
 _DG_load_orig = DG.load
 def _DG_load(
-		graphDatabase: List[Graph], ruleDatabase: List[Rule], f: str,
+		graphDatabase: list[Graph], ruleDatabase: list[Rule], f: str,
 		graphPolicy: IsomorphismPolicy = IsomorphismPolicy.Check,
 		verbosity: int = 2) -> DG:
 	return _DG_load_orig(
@@ -298,7 +311,7 @@ DG.load = _DG_load  # type: ignore
 _DG__init__old = DG.__init__
 def _DG__init__(self: DG, *,
 		labelSettings: LabelSettings=_lsString,
-		graphDatabase: List[Graph] = [],
+		graphDatabase: list[Graph] = [],  # noqa
 		graphPolicy: IsomorphismPolicy = IsomorphismPolicy.Check) -> None:
 	return _DG__init__old(self,  # type: ignore
 	                      labelSettings,
@@ -307,7 +320,7 @@ def _DG__init__(self: DG, *,
 DG.__init__ = _DG__init__  # type: ignore
 
 _DG_print_orig = DG.print
-def _DG_print(self: DG, printer: Optional[DGPrinter] = None, data: Optional[DGPrintData] = None) -> Tuple[str, str]:
+def _DG_print(self: DG, printer: None | DGPrinter = None, data: None | DGPrintData = None) -> tuple[str, str]:
 	if printer is None:
 		printer = DGPrinter()
 	if data is None:
@@ -317,13 +330,13 @@ DG.print = _DG_print  # type: ignore
 
 _DG_findEdge_orig = DG.findEdge
 def _DG_findEdge(self: DG,
-		srcsI: Union[Sequence[Graph], Sequence[DG.Vertex]],
-		tarsI: Union[Sequence[Graph], Sequence[DG.Vertex]]) -> DG.HyperEdge:
+		srcsI: Sequence[Graph] | Sequence[DG.Vertex],
+		tarsI: Sequence[Graph] | Sequence[DG.Vertex]) -> DG.HyperEdge:
 	srcs = srcsI
 	tars = tarsI
 
-	s: Union[None, Type[libpymod._VecGraph], Type[libpymod._VecDGVertex]]
-	t: Union[None, Type[libpymod._VecGraph], Type[libpymod._VecDGVertex]]
+	s: None | type[libpymod._VecGraph | libpymod._VecDGVertex]
+	t: None | type[libpymod._VecGraph | libpymod._VecDGVertex]
 
 	if len(srcs) == 0:
 		s = None
@@ -364,8 +377,26 @@ _setSpecialForIdClass(DG)
 DG.__repr__ = DG.__str__  # type: ignore
 
 
+_DGBuilder_execute_orig = DG.Builder.execute
+def _DGBuilder_execute(self, strategy: DGStrat, *, verbosity: int=2, ignoreRuleLabelTypes: bool=False) -> DG.Builder.ExecuteResult:
+		return _DGBuilder_execute_orig(self, dgStrat(strategy), verbosity, ignoreRuleLabelTypes)  # type: ignore
+DG.Builder.execute = _DGBuilder_execute  # type: ignore
+
+_DGBuilder_apply_orig = DG.Builder.apply
+def _DGBuilder_apply(self, graphs: Iterable[Graph], rule: Rule, onlyProper: bool=True, verbosity: int=0,
+		graphPolicy: IsomorphismPolicy=IsomorphismPolicy.Check) -> list[DG.HyperEdge]:
+	return _unwrap(_DGBuilder_apply_orig(self, _wrap(libpymod._VecGraph, graphs), rule, onlyProper, verbosity, graphPolicy))
+DG.Builder.apply = _DGBuilder_apply  # type: ignore
+
+_DGBuilder_load_orig = DG.Builder.load
+def _DGBuilder_load(self, ruleDatabase: list[Rule], f: str, verbosity: int = 2) -> None:
+	return _DGBuilder_load_orig(self, _wrap(libpymod._VecRule, ruleDatabase),
+		prefixFilename(f), verbosity)
+DG.Builder.load = _DGBuilder_load  # type: ignore
+
+
 class DGBuildContextManager:
-	_builder: Optional[DG.Builder]
+	_builder: None | DG.Builder
 
 	def __init__(self, dg: DG, onNewVertex, onNewHyperEdge) -> None:
 		assert dg is not None
@@ -374,7 +405,7 @@ class DGBuildContextManager:
 			None if onNewHyperEdge is None else _funcWrap(libpymod._Func_VoidDGHyperEdge, onNewHyperEdge)
 		)
 
-	def __enter__(self) -> "DGBuildContextManager":
+	def __enter__(self) -> "DGBuildContextManager":  # noqa
 		return self
 
 	def __exit__(self, exc_type, exc_val, exc_tb) -> None:
@@ -403,22 +434,21 @@ class DGBuildContextManager:
 
 	def execute(self, strategy: DGStrat, *, verbosity: int=2, ignoreRuleLabelTypes: bool=False) -> DG.Builder.ExecuteResult:
 		assert self._builder
-		return self._builder.execute(dgStrat(strategy), verbosity, ignoreRuleLabelTypes)  # type: ignore
+		return self._builder.execute(strategy, verbosity=verbosity, ignoreRuleLabelTypes=ignoreRuleLabelTypes)
 	
 	def apply(self, graphs: Iterable[Graph], rule: Rule, onlyProper: bool=True, verbosity: int=0,
-			graphPolicy: IsomorphismPolicy=IsomorphismPolicy.Check) -> List[DG.HyperEdge]:
+			graphPolicy: IsomorphismPolicy=IsomorphismPolicy.Check) -> list[DG.HyperEdge]:
 		assert self._builder
-		return _unwrap(self._builder.apply(_wrap(libpymod._VecGraph, graphs), rule, onlyProper, verbosity, graphPolicy))
+		return self._builder.apply(graphs, rule, onlyProper, verbosity, graphPolicy)
 
 	def addAbstract(self, description: str) -> DG.Builder.AddAbstractResult:
 		assert self._builder
 		return self._builder.addAbstract(description)
 
-	def load(self, ruleDatabase: List[Rule], f: str, verbosity: int = 2) -> None:
+	def load(self, ruleDatabase: Iterable[Rule], f: str, verbosity: int = 2) -> None:
 		assert self._builder
-		return self._builder.load(
-			_wrap(libpymod._VecRule, ruleDatabase),
-			prefixFilename(f), verbosity)
+		return self._builder.load(ruleDatabase, f, verbosity)
+
 
 _DG_build_orig = DG.build
 DG.build = lambda self, *, onNewVertex=None, onNewHyperEdge=None: DGBuildContextManager(self, onNewVertex, onNewHyperEdge)  # type: ignore
@@ -455,13 +485,13 @@ DG.HyperEdge.print = lambda self, *args, **kwargs: _unwrap(_DGHyperEdge_print_or
 
 def _makeGraphToVertexCallback(orig, name, func):
 	def callback(self, f, *args, **kwargs):
-		if hasattr(f, "__call__"):
+		if callable(f):
 			import inspect
 			spec = inspect.getfullargspec(f)
 			if len(spec.args) == 2:
-				_deprecation("The callback for {} seems to take two arguments, a graph and a derivation graph. This is deprecated, the callback should take a single DG.Vertex argument.".format(name))
+				_deprecation(f"The callback for {name} seems to take two arguments, a graph and a derivation graph. This is deprecated, the callback should take a single DG.Vertex argument.")
 				fOrig = f
-				f = lambda v, fOrig=fOrig: fOrig(v.graph, v.dg)  # noqa
+				f = lambda v, fOrig=fOrig: fOrig(v.graph, v.dg)
 		return orig(self, _funcWrap(func, f), *args, **kwargs)
 	return callback
 
@@ -529,7 +559,7 @@ def _DGStrat_makeAddStatic(onlyUniverse: bool, graphs: Iterable[Graph], graphPol
 DGStrat.makeAddStatic = _DGStrat_makeAddStatic  # type: ignore
 
 _DGStrat_makeAddDynamic_orig = DGStrat.makeAddDynamic
-def _DGStrat_makeAddDynamic(onlyUniverse: bool, generator: Callable[[], List[Graph]], graphPolicy: IsomorphismPolicy) -> DGStrat:
+def _DGStrat_makeAddDynamic(onlyUniverse: bool, generator: Callable[[], list[Graph]], graphPolicy: IsomorphismPolicy) -> DGStrat:
 	return _DGStrat_makeAddDynamic_orig(onlyUniverse, _funcWrap(libpymod._Func_VecGraph, generator, resultWrap=libpymod._VecGraph), graphPolicy)
 DGStrat.makeAddDynamic = _DGStrat_makeAddDynamic  # type: ignore
 
@@ -587,22 +617,22 @@ def dgStrat(s: _DGStratType) -> DGStrat:
 # add
 #----------------------------------------------------------
 
-_DGStratAddStaticGraphType = Union[Graph, Iterable[Graph]]
+_DGStratAddStaticGraphType = Graph | Iterable[Graph]
 
-def _DGStrat_add(doUniverse: bool, g: Union[_DGStratAddStaticGraphType, Callable[[], List[Graph]]],
-		gs: Tuple[_DGStratAddStaticGraphType, ...], graphPolicy: IsomorphismPolicy) -> DGStrat:
-	if hasattr(g, "__call__"): # assume the dynamic version is meant
+def _DGStrat_add(doUniverse: bool, g: _DGStratAddStaticGraphType | Callable[[], list[Graph]],
+		gs: tuple[_DGStratAddStaticGraphType, ...], graphPolicy: IsomorphismPolicy) -> DGStrat:
+	if callable(g): # assume the dynamic version is meant
 		if len(gs) > 0:
 			raise TypeError("The dynamic version of addSubset/addUniverse takes exactly 1 argument (" + str(len(gs) + 1) + " given).")
-		return DGStrat.makeAddDynamic(doUniverse, cast(Callable[[], List[Graph]], g), graphPolicy)
+		return DGStrat.makeAddDynamic(doUniverse, g, graphPolicy)
 	else: # assume the static version was meant
-		def convertGraphs(graphs: List[Graph], g: Union[Graph, Iterable[Graph]]) -> None:
+		def convertGraphs(graphs: list[Graph], g: Graph | Iterable[Graph]) -> None:
 			if isinstance(g, Graph):
 				graphs.append(g)
 			else:
 				graphs.extend(a for a in g)
-		graphs = []  # type: List[Graph]
-		convertGraphs(graphs, cast(Union[Graph, Iterable[Graph]], g))
+		graphs = []  # type: list[Graph]
+		convertGraphs(graphs, g)
 		for a in gs:
 			convertGraphs(graphs, a)
 		return DGStrat.makeAddStatic(doUniverse, graphs, graphPolicy)
@@ -682,7 +712,7 @@ def revive(s):
 #----------------------------------------------------------
 
 def _DGStrat_sequence__rshift__(a: "_DGStrat_sequenceProxy", b: DGStrat) -> "_DGStrat_sequenceProxy":
-	strats = []  # type: List[DGStrat]
+	strats = []  # type: list[DGStrat]
 	if isinstance(a, _DGStrat_sequenceProxy):
 		strats.extend(s for s in a.strats)
 	else:
@@ -695,7 +725,7 @@ def _DGStrat_sequence__rshift__(a: "_DGStrat_sequenceProxy", b: DGStrat) -> "_DG
 
 
 class _DGStrat_sequenceProxy:
-	def __init__(self, strats: List[DGStrat]) -> None:
+	def __init__(self, strats: list[DGStrat]) -> None:
 		self.strats = strats
 
 	def  __rshift__(self, other: DGStrat) -> "_DGStrat_sequenceProxy":
@@ -710,7 +740,7 @@ Rule.__rshift__ = _DGStrat_sequence__rshift__  # type: ignore
 # Graph
 ###########################################################
 
-inputGraphs: List[Graph] = []
+inputGraphs: list[Graph] = []
 
 def _Graph__getattribute__(self, name):
 	if name == "loadingWarnings":
@@ -720,7 +750,7 @@ def _Graph__getattribute__(self, name):
 Graph.__getattribute__ = _Graph__getattribute__  # type: ignore
 
 _Graph_print_orig = Graph.print
-def _Graph_print(self: Graph, first: Optional[GraphPrinter]=None, second: Optional[GraphPrinter]=None) -> Tuple[str, str]:
+def _Graph_print(self: Graph, first: None | GraphPrinter = None, second: None | GraphPrinter = None) -> tuple[str, str]:
 	if first is None:
 		return _Graph_print_orig(self)
 	if second is None:
@@ -753,19 +783,19 @@ Graph.printGML = lambda self, withCoords=False: _Graph_printGML(self, withCoords
 # Loading
 ###########################################################
 
-def _graphLoad(a: Graph, name: Optional[str], add: bool) -> Graph:
+def _graphLoad(a: Graph, name: None | str, add: bool) -> Graph:
 	if name is not None:
 		a.name = name
 	if add:
 		inputGraphs.append(a)
 	return a
 
-def _graphsLoad(gs: List[Graph], add: bool) -> List[Graph]:
+def _graphsLoad(gs: list[Graph], add: bool) -> list[Graph]:
 	us = _unwrap(gs)
 	res = [_graphLoad(a, name=None, add=add) for a in us]
 	return res
 
-def _graphssLoad(gs: List[List[Graph]], add: bool) -> List[List[Graph]]:
+def _graphssLoad(gs: list[list[Graph]], add: bool) -> list[list[Graph]]:
 	us = _unwrap(gs)
 	res = [_graphsLoad(a, add=add) for a in us]
 	return res
@@ -787,39 +817,41 @@ _Graph_fromSDFile_orig         = Graph.fromSDFile
 _Graph_fromSDStringMulti_orig  = Graph.fromSDStringMulti
 _Graph_fromSDFileMulti_orig    = Graph.fromSDFileMulti
 
-def _Graph_fromGMLString(     s: str, name: Optional[str] = None,                                     add: bool = True, printStereoWarnings: bool = True) -> Graph:
+def _Graph_fromGMLString(     s: str, name: None | str = None,                                     add: bool = True, printStereoWarnings: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromGMLString_orig(                   s         , printStereoWarnings), name, add)
-def _Graph_fromGMLFile(       f: str, name: Optional[str] = None,                                     add: bool = True, printStereoWarnings: bool = True) -> Graph:
+def _Graph_fromGMLFile(       f: str, name: None | str = None,                                     add: bool = True, printStereoWarnings: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromGMLFile_orig(      prefixFilename(f)        , printStereoWarnings), name, add)
-def _Graph_fromGMLStringMulti(s: str,                                                                 add: bool = True, printStereoWarnings: bool = True) -> List[Graph]:
+def _Graph_fromGMLStringMulti(s: str,                                                                 add: bool = True, printStereoWarnings: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromGMLStringMulti_orig(             s         , printStereoWarnings),       add)
-def _Graph_fromGMLFileMulti(  f: str,                                                                 add: bool = True, printStereoWarnings: bool = True) -> List[Graph]:
+def _Graph_fromGMLFileMulti(  f: str,                                                                 add: bool = True, printStereoWarnings: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromGMLFileMulti_orig(prefixFilename(f)        , printStereoWarnings),       add)
-def _Graph_fromDFS(           s: str, name: Optional[str] = None,                                     add: bool = True) -> Graph:
+def _Graph_fromDFS(           s: str, name: None | str = None,                                     add: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromDFS_orig(                         s                              ), name, add)
-def _Graph_fromDFSMulti(      s: str,                                                                 add: bool = True) -> List[Graph]:
+def _Graph_fromDFSMulti(      s: str,                                                                 add: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromDFSMulti_orig(                   s                              ),       add)
-def _Graph_fromSMILES(        s: str, name: Optional[str] = None, allowAbstract: bool = False, classPolicy: SmilesClassPolicy = SmilesClassPolicy.NoneOnDuplicate,
+def _Graph_fromSMILES(        s: str, name: None | str = None, allowAbstract: bool = False, classPolicy: SmilesClassPolicy = SmilesClassPolicy.NoneOnDuplicate,
                                                                                                       add: bool = True, printStereoWarnings: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromSMILES_orig(                      s, allowAbstract, classPolicy, printStereoWarnings), name, add)
 def _Graph_fromSMILESMulti(   s: str,                             allowAbstract: bool = False, classPolicy: SmilesClassPolicy = SmilesClassPolicy.NoneOnDuplicate,
-                                                                                                      add: bool = True, printStereoWarnings: bool = True) -> List[Graph]:
+                                                                                                      add: bool = True, printStereoWarnings: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromSMILESMulti_orig(                s, allowAbstract, classPolicy, printStereoWarnings),       add)
-def _Graph_fromMOLString(     s: str, name: Optional[str] = None, options: MDLOptions = MDLOptions(), add: bool = True) -> Graph:
+
+_defaultMDLOptions = MDLOptions()
+def _Graph_fromMOLString(     s: str, name: None | str = None, options: MDLOptions = _defaultMDLOptions, add: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromMOLString_orig(                   s,  options                    ), name, add)
-def _Graph_fromMOLFile(       f: str, name: Optional[str] = None, options: MDLOptions = MDLOptions(), add: bool = True) -> Graph:
+def _Graph_fromMOLFile(       f: str, name: None | str = None, options: MDLOptions = _defaultMDLOptions, add: bool = True) -> Graph:
 	return _graphLoad(_Graph_fromMOLFile_orig(      prefixFilename(f), options                    ), name, add)
-def _Graph_fromMOLStringMulti(s: str,                             options: MDLOptions = MDLOptions(), add: bool = True) -> List[Graph]:
+def _Graph_fromMOLStringMulti(s: str,                             options: MDLOptions = _defaultMDLOptions, add: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromMOLStringMulti_orig(             s,  options                    ),       add)
-def _Graph_fromMOLFileMulti(  f: str,                             options: MDLOptions = MDLOptions(), add: bool = True) -> List[Graph]:
+def _Graph_fromMOLFileMulti(  f: str,                             options: MDLOptions = _defaultMDLOptions, add: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromMOLFileMulti_orig(prefixFilename(f), options                    ),       add)
-def _Graph_fromSDString(      s: str,                             options: MDLOptions = MDLOptions(), add: bool = True) -> List[Graph]:
+def _Graph_fromSDString(      s: str,                             options: MDLOptions = _defaultMDLOptions, add: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromSDString_orig(                   s,  options                    ),       add)
-def _Graph_fromSDFile(        f: str,                             options: MDLOptions = MDLOptions(), add: bool = True) -> List[Graph]:
+def _Graph_fromSDFile(        f: str,                             options: MDLOptions = _defaultMDLOptions, add: bool = True) -> list[Graph]:
 	return _graphsLoad(_Graph_fromSDFile_orig(      prefixFilename(f), options                    ),       add)
-def _Graph_fromSDStringMulti( s: str,                             options: MDLOptions = MDLOptions(), add: bool = True) -> List[List[Graph]]:
+def _Graph_fromSDStringMulti( s: str,                             options: MDLOptions = _defaultMDLOptions, add: bool = True) -> list[list[Graph]]:
 	return _graphssLoad(_Graph_fromSDStringMulti_orig(             s,  options                    ),       add)
-def _Graph_fromSDFileMulti(   f: str,                             options: MDLOptions = MDLOptions(), add: bool = True) -> List[List[Graph]]:
+def _Graph_fromSDFileMulti(   f: str,                             options: MDLOptions = _defaultMDLOptions, add: bool = True) -> list[list[Graph]]:
 	return _graphssLoad(_Graph_fromSDFileMulti_orig(prefixFilename(f), options                    ),       add)
 
 Graph.fromGMLString      = _Graph_fromGMLString  # type: ignore
@@ -896,11 +928,11 @@ def postSection(heading: str) -> None:
 # Rule
 ###########################################################
 
-inputRules: List[Rule] = []
+inputRules: list[Rule] = []
 
 _Rule_print_orig = Rule.print
-def _Rule_print(self: Rule, first: Optional[GraphPrinter]=None, second: Optional[GraphPrinter]=None,
-		printCombined: bool=False) -> Tuple[str, str]:
+def _Rule_print(self: Rule, first: None | GraphPrinter = None, second: None | GraphPrinter = None,
+		printCombined: bool=False) -> tuple[str, str]:
 	if first is None:
 		return _Rule_print_orig(self, printCombined)
 	if second is None:
@@ -918,7 +950,7 @@ Rule.getGMLString = lambda self, withCoords=False: _Rule_getGMLString(self, with
 _Rule_printGML = Rule.printGML
 Rule.printGML = lambda self, withCoords=False: _Rule_printGML(self, withCoords)  # type: ignore
 
-def _ruleLoad(a: Rule, name: Optional[str], add: bool) -> Rule:
+def _ruleLoad(a: Rule, name: None | str, add: bool) -> Rule:
 	if name is not None:
 		a.name = name
 	if add:
@@ -1009,23 +1041,23 @@ RCMatch.composeAllWithMaps = _RCMatch_composeAllWithMaps  # type: ignore
 # RCExp prettification
 #----------------------------------------------------------
 
-_rcExpType = Union[RCExpExp, RCExpBind, RCExpComposeCommon, RCExpComposeParallel, RCExpComposeSub, RCExpComposeSuper, Iterable["_rcExpType"]]
+_rcExpType = RCExpExp | RCExpBind | RCExpComposeCommon | RCExpComposeParallel | RCExpComposeSub | RCExpComposeSuper | Iterable["_rcExpType"]
 
 def rcExp(e: _rcExpType) -> RCExpExp:
-	if isinstance(e, RCExpExp) or isinstance(e, Rule) or isinstance(e, RCExpUnion):
-		return e
-	elif isinstance(e, RCExpBind) or isinstance(e, RCExpId) or isinstance(e, RCExpUnbind):
-		return e
-	elif isinstance(e, RCExpComposeCommon) or isinstance(e, RCExpComposeParallel) or isinstance(e, RCExpComposeSub) or isinstance(e, RCExpComposeSuper):
+	if isinstance(e, (
+			(RCExpExp, Rule, RCExpUnion),
+			(RCExpBind, RCExpId, RCExpUnbind),
+			(RCExpComposeCommon, RCExpComposeParallel, RCExpComposeSub, RCExpComposeSuper),
+			)):
 		return e
 	elif isinstance(e, collections.abc.Iterable):
 		return RCExpUnion(_wrap(libpymod._VecRCExpExp, [rcExp(a) for a in e]))
 	else:
 		raise TypeError("Can not convert type '" + str(type(e)) + "' to RCExpExp")
 
-_GraphOrGraphs = Union[Graph, Iterable[Graph]]
+_GraphOrGraphs = Graph | Iterable[Graph]
 
-def _rcConvertGraph(g: _GraphOrGraphs, cls: Type[Union[RCExpBind, RCExpId, RCExpUnbind]], f: Callable[[Graph], RCExpExp]) -> RCExpExp:
+def _rcConvertGraph(g: _GraphOrGraphs, cls: type[RCExpBind | RCExpId | RCExpUnbind], f: Callable[[Graph], RCExpExp]) -> RCExpExp:
 	if isinstance(g, Graph):
 		return cls(g)
 	elif isinstance(g, collections.abc.Iterable):
@@ -1174,7 +1206,7 @@ def _EventTrace_load(dgOrNet, f):
 causality.EventTrace.load = _EventTrace_load  # type: ignore
 
 _EventTrace_print_orig = causality.EventTrace.print
-def _EventTrace_print(self: causality.EventTrace, printer: Optional[causality.EventTracePrinter] = None) -> str:
+def _EventTrace_print(self: causality.EventTrace, printer: None | causality.EventTracePrinter = None) -> str:
 	if printer is None:
 		printer = causality.EventTracePrinter()
 	return _EventTrace_print_orig(self, printer)
@@ -1215,19 +1247,19 @@ class _Simulator:
 			self.strat = dgStrat(strat)
 
 		def __call__(self, b: DG.Builder,
-				s: List[Graph], u: List[Graph]) -> bool:
+				s: list[Graph], u: list[Graph]) -> bool:
 			b.execute(addSubset(s) >> addUniverse(u) >> self.strat, verbosity=0)
 			return True
 
 
 	class DrawMassAction:
 		def __init__(self, *,
-				inputRate:    Union[None, Callable[[DG.Vertex],
-					Tuple[float, bool]], Tuple[float, bool]] = None,
-				reactionRate: Union[None, Callable[[DG.HyperEdge],
-					Tuple[float, bool]], Tuple[float, bool]] = None,
-				outputRate:   Union[None, Callable[[DG.Vertex],
-					Tuple[float, bool]], Tuple[float, bool]] = None) -> None:
+				inputRate:    None | Callable[
+					[DG.Vertex], tuple[float, bool]] | tuple[float, bool] = None,
+				reactionRate: None | Callable[
+					[DG.HyperEdge], tuple[float, bool]] | tuple[float, bool] = None,
+				outputRate:   None | Callable[
+					[DG.Vertex], tuple[float, bool]] | tuple[float, bool] = None) -> None:
 			self.inputRate = inputRate
 			self.reactionRate = reactionRate
 			self.outputRate = outputRate
@@ -1238,14 +1270,13 @@ class _Simulator:
 
 
 	def __init__(self, *,
-			labelSettings: LabelSettings = LabelSettings(
-				LabelType.String, LabelRelation.Isomorphism),
-			graphDatabase: List[Graph],  # noqa
+			labelSettings: LabelSettings = _lsString,
+			graphDatabase: list[Graph],
 			expandNetwork: Callable[
-				[DG.Builder, List[Graph], List[Graph]], bool],
-			initialState: Dict[Graph, int],
-			draw: Callable[[DG], "causality.DrawFunction"] = DrawMassAction(),  # type: ignore
-			drawTime: Callable[[float], float] = DrawTimeExponential(),
+				[DG.Builder, list[Graph], list[Graph]], bool],
+			initialState: dict[Graph, int],
+			draw: Callable[[DG], "causality.DrawFunction"] = DrawMassAction(),  # type: ignore  # noqa
+			drawTime: Callable[[float], float] = DrawTimeExponential(),  # noqa
 			withSetCompare: bool = True) -> None:
 		self._impl = causality._SimulatorImpl()  # type: ignore
 		self._dg = DG(graphDatabase=graphDatabase,
@@ -1258,8 +1289,7 @@ class _Simulator:
 
 		self._withSetCompare = withSetCompare
 		if withSetCompare:
-			self._markingSupportSet: Optional[causality.MarkingSet] \
-				= causality.MarkingSet()
+			self._markingSupportSet: None | causality.MarkingSet = causality.MarkingSet()
 		else:
 			self._markingSupportSet = None
 		self._petriNet = causality.Net(self._dg)
@@ -1291,7 +1321,7 @@ class _Simulator:
 	def time(self) -> float:
 		return self._impl.time
 
-	def state(self, vg: Union[Graph, DG.Vertex]) -> int:
+	def state(self, vg: Graph | DG.Vertex) -> int:
 		return self._marking[vg]
 
 	@property
@@ -1329,14 +1359,14 @@ class _Simulator:
 				value = fWrapped
 		elif name in ("onRecompute", "onRecomputeAvoided"):
 			newName = "onExpand" + name[11:]
-			_deprecation("causality.Simulator.{} has been renamed to causality.Simulator.{}, and changed to take just the simulator object as argument. Use the .iteration to get the old information.".format(name, newName))
+			_deprecation(f"causality.Simulator.{name} has been renamed to causality.Simulator.{newName}, and changed to take just the simulator object as argument. Use the .iteration to get the old information.")
 			name = newName
 		super().__setattr__(name, value)
 
 	def simulate(self, *,
-			time: Optional[float] = None,
+			time: None | float = None,
 			advanceToEndTime: bool = False,
-			iterations: Optional[int] = None,
+			iterations: None | int = None,
 			keepNetworkOpen: bool = False) -> causality.EventTrace:
 		stopTime = None if time is None else self._impl.time + time
 		stopIter = None if iterations is None else self._impl.iteration + iterations
@@ -1383,7 +1413,7 @@ class _Simulator:
 			elif isinstance(action, causality.InputAction):
 				subset = [action.vertex]
 			else:
-				assert False, "Unknown action for subset computation: {}".format(action)
+				assert False, f"Unknown action for subset computation: {action}"
 			action.applyTo(marking)
 			self._trace.add(self._impl.time, action)
 			continue_ = self.onIterationEnd(self, action, timeInc)
@@ -1394,11 +1424,11 @@ class _Simulator:
 			del self._builder
 		return self._trace
 
-	def _expandNeighbourhood(self, subset: List[DG.Vertex]) -> None:
+	def _expandNeighbourhood(self, subset: list[DG.Vertex]) -> None:
 		if not hasattr(self, "_builder"):
 			raise LogicError("Can not expand neighbourhood, the network is closed. An earlier call to simulate() had keepNetworkOpen=False (the default).")
-		subsetGraphs = list(v.graph for v in subset)
-		universeGraphs = list(v.graph for v in self._marking.getNonZeroPlaces())
+		subsetGraphs = [v.graph for v in subset]
+		universeGraphs = [v.graph for v in self._marking.getNonZeroPlaces()]
 		self._doExpansion = self._expandNetwork(self._builder, subsetGraphs, universeGraphs)
 		if self._doExpansion is None:
 			_deprecation("causality.Simulator: the expandNetwork callback should now return a boolean, indicating whether to call it again later. Assuming True.")
@@ -1414,12 +1444,12 @@ causality.Simulator.DrawMassAction.Function = causality._DrawMassActionFunction 
 _DrawMassActionFunction__init__orig = causality.Simulator.DrawMassAction.Function.__init__  # type: ignore
 def _DrawMassActionFunction__init__(self: causality.Simulator.DrawMassAction.Function,  # type: ignore
 			dg: DG,
-			inputRate:    Union[None, Callable[[DG.Vertex],
-				Tuple[float, bool]], Tuple[float, bool]],
-			reactionRate: Union[None, Callable[[DG.HyperEdge],
-				Tuple[float, bool]], Tuple[float, bool]],
-			outputRate:   Union[None, Callable[[DG.Vertex],
-				Tuple[float, bool]], Tuple[float, bool]]) -> None:
+			inputRate:    None | Callable[
+				[DG.Vertex], tuple[float, bool]] | tuple[float, bool],
+			reactionRate: None | Callable[
+				[DG.HyperEdge], tuple[float, bool]] | tuple[float, bool],
+			outputRate:   None | Callable[
+				[DG.Vertex], tuple[float, bool]] | tuple[float, bool]) -> None:
 	inputRate = None if inputRate is None else  _funcWrap(libpymod._Func_PairDoubleBoolDGVertex, inputRate)
 	reactionRate = None if reactionRate is None else _funcWrap(libpymod._Func_PairDoubleBoolDGHyperEdge, reactionRate)
 	outputRate = None if outputRate is None else _funcWrap(libpymod._Func_PairDoubleBoolDGVertex, outputRate)
@@ -1467,9 +1497,7 @@ def _Flow__getattribute__(self: hyperflow.Model, name: str) -> Any:
 hyperflow.Model.__getattribute__ = _Flow__getattribute__  # type: ignore
 
 def _Flow__setattr__(self: hyperflow.Model, name: str, value: Any) -> None:
-	if name == 'objectiveFunction':
-		object.__setattr__(self, name, value)
-	elif name.startswith("_solverHax"):
+	if name == 'objectiveFunction' or name.startswith("_solverHax"):
 		object.__setattr__(self, name, value)
 	else:
 		_NoNew__setattr__(self, name, value)
@@ -1483,12 +1511,12 @@ def _Flow_findSolutions(self: hyperflow.Model, *, maxNumSolutions: int=1,
 	                                verbosity, ilpVerbosity)
 hyperflow.Model.findSolutions = _Flow_findSolutions  # type: ignore
 
-def _Flow_setSolverEnumerateBy(self: hyperflow.Model, absGap: Optional[int]=None, maxNumSolutions: int=2**30,
-	                           enumerationVarSpecifier: Optional[hyperflow.LinExp]=None,
-	                           transitEnumeration: List[Union[Graph, DG.Vertex]]=[]) -> None:
+def _Flow_setSolverEnumerateBy(self: hyperflow.Model, absGap: None | int = None, maxNumSolutions: int=2**30,
+	                           enumerationVarSpecifier: None | hyperflow.LinExp = None,
+	                           transitEnumeration: list[Graph | DG.Vertex] = []) -> None:  # noqa
 	_deprecation("setSolverEnumerateBy() on a flow model is partially deprecated and removed. Use addEnumerationVar(), addTransitEnumeration(), and arguments to findSolutions() instead.")
 	if enumerationVarSpecifier is not None:
-		raise Exception("setSolverEnumerateBy no longer accepts enumerationVarSpecifier, use addEnumerationVar() on the flow model instead.")
+		raise RuntimeError("setSolverEnumerateBy no longer accepts enumerationVarSpecifier, use addEnumerationVar() on the flow model instead.")
 	self._solverHax = True  # type: ignore
 	self._solverHax_maxNumSolutions = maxNumSolutions  # type: ignore
 	self._solverHax_transitEnumeration = transitEnumeration  # type: ignore
@@ -1502,7 +1530,7 @@ def _Flow_calc(self: hyperflow.Model, *, maxNumSolutions: int=1) -> None:
 			assert False
 		print("Calc: using settings from deprecated setSolverEnumerateBy")
 		maxNumSolutions = self._solverHax_maxNumSolutions  # type: ignore
-		print("\tmaxNumSolutions = %d" % maxNumSolutions)
+		print(f"\tmaxNumSolutions = {maxNumSolutions}")
 		print("\tadded transitEnumeration =", end="")
 		for g in self._solverHax_transitEnumeration:  # type: ignore
 			print("", g, end="")
@@ -1527,25 +1555,25 @@ def FlowLinExp(*args, **kwargs) -> hyperflow.LinExp:
 
 _FlowVarSum__repr__ = lambda self: "%s(%s)" % (self.__class__.__name__, self.id)  # noqa
 hyperflow.VarSumVertex.__repr__ = _FlowVarSum__repr__  # type: ignore
-hyperflow.VarVertex.__repr__ = lambda self: "VarVertex(%s, %s)" % (self.id, self.vertex)  # type: ignore
-hyperflow.VarVertexGraph.__repr__ = lambda self: "VarVertexGraph(%s, %s)" % (self.id, self.graph)  # type: ignore
+hyperflow.VarVertex.__repr__ = lambda self: f"VarVertex({self.id}, {self.vertex})"  # type: ignore
+hyperflow.VarVertexGraph.__repr__ = lambda self: f"VarVertexGraph({self.id}, {self.graph})"  # type: ignore
 hyperflow.VarSumEdge.__repr__ = _FlowVarSum__repr__  # type: ignore
-hyperflow.VarEdge.__repr__ = lambda self: "VarEdge(%s, %s)" % (self.id, self.edge)  # type: ignore
-hyperflow.VarSumCustom.__repr__ = lambda self: "VarSumCustom(%s)" % self.id  # type: ignore
-hyperflow.VarCustom.__repr__ = lambda self: "VarCustom(%s, %s)" % (self.id, self.name)  # type: ignore
+hyperflow.VarEdge.__repr__ = lambda self: f"VarEdge({self.id}, {self.edge})"  # type: ignore
+hyperflow.VarSumCustom.__repr__ = lambda self: f"VarSumCustom({self.id})"  # type: ignore
+hyperflow.VarCustom.__repr__ = lambda self: f"VarCustom({self.id}, {self.name})"  # type: ignore
 
 
 # Operators
 #----------------------------------------------------------
 
-_Flow__pos__ = lambda self: +hyperflow.LinExp(self)  # noqa
-_Flow__neg__ = lambda self: -hyperflow.LinExp(self)  # noqa
-_Flow__add__ = lambda self, other: hyperflow.LinExp(self) + hyperflow.LinExp(other)  # noqa
-_Flow__sub__ = lambda self, other: hyperflow.LinExp(self) - hyperflow.LinExp(other)  # noqa
-_Flow__mul__ = lambda self, other: hyperflow.LinExp(self) * other  # noqa
-_Flow__le__ = lambda self, other: hyperflow.LinExp(self) <= other  # noqa
-_Flow__eq__ = lambda self, other: hyperflow.LinExp(self) == other  # noqa
-_Flow__ge__ = lambda self, other: hyperflow.LinExp(self) >= other  # noqa
+_Flow__pos__ = lambda self: +hyperflow.LinExp(self)
+_Flow__neg__ = lambda self: -hyperflow.LinExp(self)
+_Flow__add__ = lambda self, other: hyperflow.LinExp(self) + hyperflow.LinExp(other)
+_Flow__sub__ = lambda self, other: hyperflow.LinExp(self) - hyperflow.LinExp(other)
+_Flow__mul__ = lambda self, other: hyperflow.LinExp(self) * other
+_Flow__le__ = lambda self, other: hyperflow.LinExp(self) <= other
+_Flow__eq__ = lambda self, other: hyperflow.LinExp(self) == other
+_Flow__ge__ = lambda self, other: hyperflow.LinExp(self) >= other
 		
 for t in [hyperflow.VarSumVertex, hyperflow.VarVertex, hyperflow.VarVertexGraph,
 		hyperflow.VarSumEdge, hyperflow.VarEdge,
@@ -1573,7 +1601,7 @@ hyperflow.VarSumEdge.__call__ = _FlowVar_indexing  # type: ignore
 #----------------------------------------------------------
 
 _FlowSolutionRange_print_orig = hyperflow.SolutionRange.print
-def _FlowSolutionRange_print(self: hyperflow.SolutionRange, printer: Optional[hyperflow.Printer]=None, data: Optional[DGPrintData]=None) -> None:
+def _FlowSolutionRange_print(self: hyperflow.SolutionRange, printer: None | hyperflow.Printer = None, data: None | DGPrintData  = None) -> None:
 	if printer is None:
 		printer = hyperflow.Printer()
 	if data is None:
@@ -1588,7 +1616,7 @@ hyperflow.SolutionRange.print = _FlowSolutionRange_print  # type: ignore
 hyperflow.Solution.__hash__ = lambda self: hash((self.flow, self.id))  # type: ignore
 
 _FlowSolution_print_orig = hyperflow.Solution.print
-def _FlowSolution_print(self: hyperflow.Solution, printer: Optional[hyperflow.Printer]=None, data: Optional[DGPrintData]=None) -> Tuple[str, str]:
+def _FlowSolution_print(self: hyperflow.Solution, printer: None | hyperflow.Printer = None, data: None | DGPrintData = None) -> tuple[str, str]:
 	if printer is None:
 		printer = hyperflow.Printer()
 	if data is None:
@@ -1605,11 +1633,11 @@ def FlowPrinter(*args, **kwargs) -> hyperflow.Printer:
 	return hyperflow.Printer(*args, **kwargs)
 
 _FlowPrinter_pushInEdgeLabel_orig = hyperflow.Printer.pushInEdgeLabel
-def _FlowPrinter_pushInEdgeLabel(self: hyperflow.Printer, f: Union[str, Callable[[DG.Vertex], str]]) -> None:
+def _FlowPrinter_pushInEdgeLabel(self: hyperflow.Printer, f: str | Callable[[DG.Vertex], str]) -> None:
 	_FlowPrinter_pushInEdgeLabel_orig(self, _funcWrap(libpymod._Func_StringDGVertex, f))
 hyperflow.Printer.pushInEdgeLabel = _FlowPrinter_pushInEdgeLabel  # type: ignore
 
 _FlowPrinter_pushOutEdgeLabel_orig = hyperflow.Printer.pushOutEdgeLabel
-def _FlowPrinter_pushOutEdgeLabel(self: hyperflow.Printer, f: Union[str, Callable[[DG.Vertex], str]]) -> None:
+def _FlowPrinter_pushOutEdgeLabel(self: hyperflow.Printer, f: str | Callable[[DG.Vertex], str]) -> None:
 	_FlowPrinter_pushOutEdgeLabel_orig(self, _funcWrap(libpymod._Func_StringDGVertex, f))
 hyperflow.Printer.pushOutEdgeLabel = _FlowPrinter_pushOutEdgeLabel  # type: ignore

@@ -65,7 +65,7 @@ void Config_doExport() {
 					// rst:		.. attribute:: Specialisation
 					// rst:
 					// rst:			A term :math:`t_2` is more special than, or isomorphic to, a term :math:`t_1` if there is a substitution
-					// rst:			which can be applied to :math: `t_1` to make the terms equal.
+					// rst:			which can be applied to :math:`t_1` to make the terms equal.
 					// rst:			This relation means that the right-hand side of a comparison is the more specialised term.
 			.value("Specialisation", LabelRelation::Specialisation)
 					// rst:		.. attribute:: Unification
@@ -177,7 +177,7 @@ void Config_doExport() {
 			.value("Error", Action::Error)
 					// rst:		.. attribute:: Warn
 					// rst:
-					// rst:			Write a warning, but otherwise do as if it was `Ignore`.
+					// rst:			Write a warning, but otherwise do as if it was :py:attr:`Ignore`.
 			.value("Warn", Action::Warn)
 					// rst:		.. attribute:: Ignore
 					// rst:

@@ -59,8 +59,8 @@ private:
 	std::pair<Vertex, bool> addVertex(const lib::graph::Graph *g);
 public:
 	~Hyper();
-	const NonHyper &getNonHyper() const;
-	const GraphType &getGraph() const;
+	const NonHyper &getNonHyper() const { return nonHyper; }
+	const GraphType &getGraph() const { return hyper; }
 	const Expanded &getExpandedFully() const;
 	void printStats(std::ostream &s) const;
 	bool isVertexGraph(const lib::graph::Graph *g) const;

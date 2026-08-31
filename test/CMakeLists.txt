@@ -50,15 +50,10 @@ if(BUILD_PY_MOD)
         endif()
     endforeach()
 
-    set(workDir ${CMAKE_CURRENT_BINARY_DIR}/workDir/pymod-module-direct)
+    set(workDir ${CMAKE_CURRENT_BINARY_DIR}/workDir/pymod-no-wrapper)
     file(MAKE_DIRECTORY ${workDir})
-    add_test(NAME pymod-module-direct
-            COMMAND ${CMAKE_INSTALL_FULL_BINDIR}/mod --nopost -e "assert not mod._redirected"
-            WORKING_DIRECTORY ${workDir})
-    set(workDir ${CMAKE_CURRENT_BINARY_DIR}/workDir/pymod-module-redirected)
-    file(MAKE_DIRECTORY ${workDir})
-    add_test(NAME pymod-module-redirected
-            COMMAND ${Python3_EXECUTABLE} -c "import mod\nassert mod._redirected"
+    add_test(NAME pymod-no-wrapper
+            COMMAND ${Python3_EXECUTABLE} -c "import mod; print(mod.__file__)"
             WORKING_DIRECTORY ${workDir})
 endif()
 

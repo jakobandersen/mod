@@ -224,7 +224,7 @@ void DG_doExport() {
 					// rst:			Load a derivation graph dump as a locked object.
 					// rst:			Use :func:`DG.Builder.load` to load a dump into a derivation graph under construction.
 					// rst:
-					// rst:			This is done roughly by making a :class:`DG` with the given `graphDatabase` and `graphPolicy`.
+					// rst:			This is done roughly by making a :class:`DG` with the given ``graphDatabase`` and ``graphPolicy``.
 					// rst:			The label settings are retrieved from the dump file.
 					// rst:			Vertices with graphs and hyperedges with rules are then added from the dump.
 					// rst:			Any graph in the dump which is isomorphic to a given graph is replaced by the given graph.

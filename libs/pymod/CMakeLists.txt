@@ -50,17 +50,26 @@ install(DIRECTORY lib/mod
         COMPONENT pymod_run
         FILES_MATCHING PATTERN "*.py" PATTERN "*.pyi")
 
-# redirector
+# pth file / redirector
 # -------------------------------------------------------------------------
 
-set(exportDir ${CMAKE_CURRENT_BINARY_DIR}/redirector)
-file(MAKE_DIRECTORY ${exportDir}/mod)
-# TODO: should be file(COPY_FILE redirector/pyproject.toml ${exportDir}/pyproject.toml) when CMake 3.21 is required
-configure_file(redirector/pyproject.toml ${exportDir}/pyproject.toml @ONLY)
-configure_file(redirector/setup.cfg.in ${exportDir}/setup.cfg @ONLY)
-configure_file(redirector/mod/__init__.py.in ${exportDir}/mod/__init__.py @ONLY)
-if(${BUILD_PY_MOD_PIP})
+if(BUILD_PY_MOD_PIP)
+    set(exportDir ${CMAKE_CURRENT_BINARY_DIR}/redirector)
+    file(MAKE_DIRECTORY ${exportDir}/mod)
+    # TODO: should be file(COPY_FILE redirector/pyproject.toml ${exportDir}/pyproject.toml) when CMake 3.21 is required
+    configure_file(redirector/pyproject.toml ${exportDir}/pyproject.toml @ONLY)
+    configure_file(redirector/setup.cfg.in ${exportDir}/setup.cfg @ONLY)
+    configure_file(redirector/mod/__init__.py.in ${exportDir}/mod/__init__.py @ONLY)
     install(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install . WORKING_DIRECTORY ${exportDir})"
+            COMPONENT pymod_run)
+endif()
+
+if(BUILD_PY_MOD_PTH)
+    set(exportDir ${CMAKE_CURRENT_BINARY_DIR}/pth)
+    # TODO: should be file(COPY_FILE ...) when CMake 3.21 is required
+    configure_file(mod.pth.in ${exportDir}/mod.pth @ONLY)
+    install(FILES ${exportDir}/mod.pth
+            DESTINATION ${MOD_PTH_DIR}
             COMPONENT pymod_run)
 endif()
 

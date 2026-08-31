@@ -1,6 +1,5 @@
 import mod
 
-from typing import Union
 
 def ruleFromReactionSmiles(line: str, name=None, allowAbstract=False, *, invert: bool=False, add: bool=True) -> mod.Rule:
 	sLeft, sRight = line.split(">>")
@@ -17,9 +16,9 @@ def ruleFromReactionSmiles(line: str, name=None, allowAbstract=False, *, invert:
 		s = ""
 		for v in g.vertices:
 			assert v in extFromInt
-			s += '\t\tnode [ id %d label "%s" ]\n' % (extFromInt[v], v.stringLabel)
+			s += f'\t\tnode [ id {extFromInt[v]} label "{v.stringLabel}" ]\n'
 		for e in g.edges:
-			s += '\t\tedge [ source %d target %d label "%s" ]\n' % (extFromInt[e.source], extFromInt[e.target], e.stringLabel)
+			s += f'\t\tedge [ source {extFromInt[e.source]} target {extFromInt[e.target]} label "{e.stringLabel}" ]\n'
 		return s
 	s = "rule [\n\tleft [\n"
 	for m in mLeft:
@@ -45,7 +44,7 @@ def reactionSmilesFromRule(r: mod.Rule) -> str:
 			s = s.replace(f":o{v.id}]", f":{i}]")
 		return s
 
-	def makeSideGraphs(sg: Union[mod.Rule.LeftGraph, mod.Rule.RightGraph]) -> str:
+	def makeSideGraphs(sg: mod.Rule.LeftGraph | mod.Rule.RightGraph) -> str:
 		s = "graph [\n"
 		for v in sg.vertices:
 			s += f'	node [ id {v.id} label "{v.stringLabel}" ]\n'
