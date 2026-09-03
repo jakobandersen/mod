@@ -59,10 +59,8 @@ option(WITH_CPLEX "Whether CPLEX is available or not." ON)
 option(WITH_CBC "Whether CBC is available or not." ON)
 
 
-if(BUILD_MOD)
-    set(languages CXX)
-else()
-    set(languages "")
+set(languages CXX)
+if(NOT BUILD_MOD)
     message(STATUS "Central library disabled (BUILD_MOD=${BUILD_MOD}), disabling PyMØD.")
     set(BUILD_PY_MOD OFF)
 endif()
@@ -299,6 +297,8 @@ if(BUILD_PY_MOD)
         endif()
         message(STATUS "Location for .pth file to be installed: ${MOD_PTH_DIR}.")
     endif()
+elseif(BUILD_DOC)
+    find_package(Python3 REQUIRED COMPONENTS Interpreter)
 endif()
 
 
