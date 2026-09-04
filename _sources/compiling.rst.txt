@@ -275,7 +275,14 @@ See also :ref:`dependencies` for elaboration on some of them.
   When set ``off`` then ``BUILD_PY_MOD`` is set to ``off``.
   This setting is useful if you just want to compile the documentation.
 - ``-DBUILD_PY_MOD=on``, whether to build the Python bindings or not.
-- ``-DBUILD_PY_MOD_PIP=on``, whether to install the Python bindings via pip or
+- ``-DBUILD_PY_MOD_PTH=on``, whether to install a ``.pth`` file to enable
+  import of ``mod`` without the wrapper script.
+  The Python bindings are always installed in the ``<prefix>/lib`` folder, so
+  a normal ``import`` in Python will probably not find the module.
+  Having this setting on will install a `path extension file <https://docs.python.org/3.15/library/site.html#path-extensions-pth-files>`__ which tells Python where the bindings are install.
+- ``-DMOD_PTH_DIR=<path>``, the path to install the ``.pth`` file into.
+  If not set, the path returned by ``sysconfig.get_path('purelib')`` in the found Python interpreter is used. If this path is no appropriate, it can be overwritten with this option.
+- ``-DBUILD_PY_MOD_PIP=off``, whether to install the Python bindings via pip or
   not. The bindings are always installed in the ``<prefix>/lib`` folder, so
   a normal ``import`` in Python will probably not find the module.
   Having this setting on will enable a build of a fake Python package to be

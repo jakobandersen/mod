@@ -16,7 +16,7 @@ Misc
     This function is used in all PyMØD functions that takes a filename as argument.
     To circumvent this prefixing use the :class:`CWDPath` class.
 
-    :returns: `name` prefixed with all strings pushed with :func:`pushFilePrefix`
+    :returns: ``name`` prefixed with all strings pushed with :func:`pushFilePrefix`
         and popped yet.
     :rtype: str
 

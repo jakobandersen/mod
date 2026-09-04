@@ -151,5 +151,5 @@ The result of an expression is a list of rules.
 .. class:: RCExpComposeSuper
 
     Compose the rules such that overlapping connected components of :math:`R_1` and :math:`L_2` have the :math:`L_2` component as a subgraph of :math:`R_1`.
-    The overlap is `partial` if not every connected component of :math:`L_2` is participating in the common subgraph.
+    The overlap is ``partial`` if not every connected component of :math:`L_2` is participating in the common subgraph.
 

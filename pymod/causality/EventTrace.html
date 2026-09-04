@@ -5,16 +5,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.8.1. causality/EventTrace &#8212; MØD 1.0.0.64 documentation</title>
+    <title>4.1.8.1. causality/EventTrace &#8212; MØD 1.0.0.69 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=eb0c8ebe"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=9096230f"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.64</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.69</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -173,7 +173,7 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.causality.EdgeAction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">EdgeAction</span></span><a class="headerlink" href="#mod.causality.EdgeAction" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">EdgeAction</span></span><a class="headerlink" href="#mod.causality.EdgeAction" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="mod.causality.EdgeAction.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EdgeAction.__init__" title="Link to this definition">¶</a></dt>
@@ -208,7 +208,7 @@ May not be null.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.causality.InputAction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">InputAction</span></span><a class="headerlink" href="#mod.causality.InputAction" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">InputAction</span></span><a class="headerlink" href="#mod.causality.InputAction" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="mod.causality.InputAction.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.InputAction.__init__" title="Link to this definition">¶</a></dt>
@@ -231,7 +231,7 @@ May not be null.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">void</span> <span class="pre">applyTo(m)</span> <span class="pre">const</span></span></dt>
-<dd><p>Perform <cite>m.add(vertex, 1)</cite>.</p>
+<dd><p>Perform <code class="docutils literal notranslate"><span class="pre">m.add(vertex,</span> <span class="pre">1)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>m</strong> (<a class="reference internal" href="Petri.html#mod.causality.Marking" title="mod.causality.Marking"><em>Marking</em></a>) – the marking to apply the action to.</p>
@@ -243,7 +243,7 @@ May not be null.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.causality.OutputAction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">OutputAction</span></span><a class="headerlink" href="#mod.causality.OutputAction" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">OutputAction</span></span><a class="headerlink" href="#mod.causality.OutputAction" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="mod.causality.OutputAction.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.OutputAction.__init__" title="Link to this definition">¶</a></dt>
@@ -266,7 +266,7 @@ May not be null.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">void</span> <span class="pre">applyTo(m)</span> <span class="pre">const</span></span></dt>
-<dd><p>Perform <cite>m.remove(vertex, 1)</cite>.</p>
+<dd><p>Perform <code class="docutils literal notranslate"><span class="pre">m.remove(vertex,</span> <span class="pre">1)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>m</strong> (<a class="reference internal" href="Petri.html#mod.causality.Marking" title="mod.causality.Marking"><em>Marking</em></a>) – the marking to apply the action to.</p>
@@ -278,7 +278,7 @@ May not be null.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.causality.EventTrace">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">EventTrace</span></span><a class="headerlink" href="#mod.causality.EventTrace" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">causality.</span></span><span class="sig-name descname"><span class="pre">EventTrace</span></span><a class="headerlink" href="#mod.causality.EventTrace" title="Link to this definition">¶</a></dt>
 <dd><p>A representation of a trace of events starting from an initial marking.
 An event is either a reaction/hyperedge being performed
 or a transfer of tokens out or in to the system.</p>
@@ -428,9 +428,9 @@ prefixed according to the current script location as input filenames are.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.causality.EventTrace.load">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTrace.load" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mod.causality.EventTrace.load" title="Link to this definition">¶</a></dt>
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span></dt>
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Load an event trace dump.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -461,7 +461,7 @@ i.e., it is equivalent to <code class="docutils literal notranslate"><span class
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.causality.EventTrace.Event">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">causality.EventTrace.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><a class="headerlink" href="#mod.causality.EventTrace.Event" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">causality.EventTrace.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><a class="headerlink" href="#mod.causality.EventTrace.Event" title="Link to this definition">¶</a></dt>
 <dd><p>A representation of an event in an event trace.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.causality.EventTrace.Event.time">
@@ -498,7 +498,7 @@ i.e., it is equivalent to <code class="docutils literal notranslate"><span class
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2026, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

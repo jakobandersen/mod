@@ -170,7 +170,7 @@ dg/DG
         Load a derivation graph dump as a locked object.
         Use :func:`DG.Builder.load` to load a dump into a derivation graph under construction.
 
-        This is done roughly by making a :class:`DG` with the given `graphDatabase` and `graphPolicy`.
+        This is done roughly by making a :class:`DG` with the given ``graphDatabase`` and ``graphPolicy``.
         The label settings are retrieved from the dump file.
         Vertices with graphs and hyperedges with rules are then added from the dump.
         Any graph in the dump which is isomorphic to a given graph is replaced by the given graph.

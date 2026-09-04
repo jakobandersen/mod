@@ -122,7 +122,7 @@ The Basic API
         :type strats: list[DGStrat]
         :returns: a :ref:`strat-parallel` strategy.
         :rtype: DGStrat
-        :raises: :class:`LogicError` if `strats` is empty.
+        :raises: :class:`LogicError` if ``strats`` is empty.
         :raises: :class:`LogicError` if there is a ``None`` in ``strats``.
     .. staticmethod:: makeFilter(alsoUniverse, p)
 

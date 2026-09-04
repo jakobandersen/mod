@@ -5,16 +5,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.11.1. hyperflow/LinExp &#8212; MØD 1.0.0.64 documentation</title>
+    <title>4.1.11.1. hyperflow/LinExp &#8212; MØD 1.0.0.69 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=eb0c8ebe"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=9096230f"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.64</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.69</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -236,7 +236,7 @@ the other argument must be a number.</p>
 <p>All variable specifiers are defined in module scope. See <a class="reference internal" href="../../hyperflowModel/index.html#flowcommon"><span class="std std-ref">Hyperflow Model</span></a> for an overview of the specifiers.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.VarSumVertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumVertex</span></span><a class="headerlink" href="#mod.hyperflow.VarSumVertex" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumVertex</span></span><a class="headerlink" href="#mod.hyperflow.VarSumVertex" title="Link to this definition">¶</a></dt>
 <dd><p>Represents the sum of all variables indicated by the given <a class="reference internal" href="#mod.hyperflow.VarSumVertex.id" title="mod.hyperflow.VarSumVertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a>.
 Can be indexed to retrieve a specifier for a single variable in the set.</p>
 <dl class="py method">
@@ -271,7 +271,7 @@ which has the graph associated.</p>
 <dd class="field-odd"><p><a class="reference internal" href="#mod.hyperflow.VarVertex" title="mod.hyperflow.VarVertex">VarVertex</a> or <a class="reference internal" href="#mod.hyperflow.VarVertexGraph" title="mod.hyperflow.VarVertexGraph">VarVertexGraph</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><cite>LogicError</cite> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">x</span></code>.</p>
+<dd class="field-even"><p><span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="../../libmod/Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">x</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -291,7 +291,7 @@ which has the graph associated.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.VarVertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarVertex</span></span><a class="headerlink" href="#mod.hyperflow.VarVertex" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarVertex</span></span><a class="headerlink" href="#mod.hyperflow.VarVertex" title="Link to this definition">¶</a></dt>
 <dd><p>Represents a variable associated with a single vertex in a derivation graph.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.hyperflow.VarVertex.__init__">
@@ -304,7 +304,7 @@ which has the graph associated.</p>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><cite>LogicError</cite> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">v</span></code>.</p>
+<dd class="field-even"><p><span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="../../libmod/Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">v</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -335,7 +335,7 @@ which has the graph associated.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.VarVertexGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarVertexGraph</span></span><a class="headerlink" href="#mod.hyperflow.VarVertexGraph" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarVertexGraph</span></span><a class="headerlink" href="#mod.hyperflow.VarVertexGraph" title="Link to this definition">¶</a></dt>
 <dd><p>Represents a variable associated with a single vertex in a derivation graph.
 This is done implicitly by a graph, and when this specifier is later given to a flow model
 a vertex with the graph associated must exist in the underlying derivation graph.</p>
@@ -350,7 +350,7 @@ a vertex with the graph associated must exist in the underlying derivation graph
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><cite>LogicError</cite> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">g</span></code>.</p>
+<dd class="field-even"><p><span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="../../libmod/Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><span class="n">LogicError</span></a></span> if <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">g</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -381,7 +381,7 @@ a vertex with the graph associated must exist in the underlying derivation graph
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.VarSumEdge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumEdge</span></span><a class="headerlink" href="#mod.hyperflow.VarSumEdge" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumEdge</span></span><a class="headerlink" href="#mod.hyperflow.VarSumEdge" title="Link to this definition">¶</a></dt>
 <dd><p>Represents the sum of all variables indicated by the given <a class="reference internal" href="#mod.hyperflow.VarSumEdge.id" title="mod.hyperflow.VarSumEdge.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a>.
 Can be indexed to retrieve a specifier for a single variable in the set.</p>
 <dl class="py method">
@@ -430,7 +430,7 @@ derivation graph as the one underlying the model.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.VarEdge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarEdge</span></span><a class="headerlink" href="#mod.hyperflow.VarEdge" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarEdge</span></span><a class="headerlink" href="#mod.hyperflow.VarEdge" title="Link to this definition">¶</a></dt>
 <dd><p>Represents a variable associated with an edge in a derivation graph.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.hyperflow.VarEdge.__init__">
@@ -471,7 +471,7 @@ derivation graph as the one underlying the model.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.VarSumCustom">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumCustom</span></span><a class="headerlink" href="#mod.hyperflow.VarSumCustom" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarSumCustom</span></span><a class="headerlink" href="#mod.hyperflow.VarSumCustom" title="Link to this definition">¶</a></dt>
 <dd><p>Represents the sum of all variables indicated by the given <a class="reference internal" href="#mod.hyperflow.VarSumCustom.id" title="mod.hyperflow.VarSumCustom.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a>.
 Can be indexed to retrieve a specifier for a single variable in the set.</p>
 <dl class="py method">
@@ -519,7 +519,7 @@ in the specification in some way.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.VarCustom">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarCustom</span></span><a class="headerlink" href="#mod.hyperflow.VarCustom" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">VarCustom</span></span><a class="headerlink" href="#mod.hyperflow.VarCustom" title="Link to this definition">¶</a></dt>
 <dd><p>Represents a custom variable.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mod.hyperflow.VarCustom.__init__">
@@ -560,13 +560,13 @@ in the specification in some way.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.Var">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">Var</span></span><a class="headerlink" href="#mod.hyperflow.Var" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">Var</span></span><a class="headerlink" href="#mod.hyperflow.Var" title="Link to this definition">¶</a></dt>
 <dd><p>Represents any variable specifier. They are all implicitly convertible to this type.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.LinExp">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">LinExp</span></span><a class="headerlink" href="#mod.hyperflow.LinExp" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">LinExp</span></span><a class="headerlink" href="#mod.hyperflow.LinExp" title="Link to this definition">¶</a></dt>
 <dd><p>Represents a linear expression over variable specifiers.</p>
 <p>The usual arithmetic operators are overloaded on variable specifiers and this class
 to automatically create expressions.</p>
@@ -574,7 +574,7 @@ to automatically create expressions.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.hyperflow.LinConstraint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">LinConstraint</span></span><a class="headerlink" href="#mod.hyperflow.LinConstraint" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">hyperflow.</span></span><span class="sig-name descname"><span class="pre">LinConstraint</span></span><a class="headerlink" href="#mod.hyperflow.LinConstraint" title="Link to this definition">¶</a></dt>
 <dd><p>Represents a linear constraint with a <a class="reference internal" href="#mod.hyperflow.LinExp" title="mod.hyperflow.LinExp"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperflow.LinExp</span></code></a> on one side,
 and a constant on the other side.
 The operators <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code>, and <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> are overloaded on linear expressions
@@ -786,7 +786,7 @@ and then import in the root module, so they are directly accessible.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2026, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

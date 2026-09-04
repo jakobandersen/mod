@@ -5,18 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8. Data Formats &#8212; MØD 1.0.0.64 documentation</title>
+    <title>8. Data Formats &#8212; MØD 1.0.0.69 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=eb0c8ebe"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=9096230f"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="9. Derivation Graph Strategies" href="../dgStrat/index.html" />
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.64</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.69</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -170,14 +170,14 @@ and rules.
 The parser recognises most of the published <a class="reference external" href="http://www.fim.uni-passau.de/fileadmin/files/lehrstuhl/brandenburg/projekte/gml/gml-technical-report.pdf">specification</a>,
 with regard to syntax. The specific grammar is as follows.</p>
 <pre>
-<strong id="grammar-token-gml-GML">GML       </strong> ::=  (<a class="reference internal" href="#grammar-token-gml-key"><code class="xref docutils literal notranslate"><span class="pre">key</span></code></a> <a class="reference internal" href="#grammar-token-gml-value"><code class="xref docutils literal notranslate"><span class="pre">value</span></code></a>)*
-<strong id="grammar-token-gml-key">key       </strong> ::=  <a class="reference internal" href="#grammar-token-gml-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a>
-<strong id="grammar-token-gml-value">value     </strong> ::=  int
-                float
-                quoteEscapedString
-                <a class="reference internal" href="#grammar-token-gml-list"><code class="xref docutils literal notranslate"><span class="pre">list</span></code></a>
-<strong id="grammar-token-gml-list">list      </strong> ::=  '[' (<a class="reference internal" href="#grammar-token-gml-key"><code class="xref docutils literal notranslate"><span class="pre">key</span></code></a> <a class="reference internal" href="#grammar-token-gml-value"><code class="xref docutils literal notranslate"><span class="pre">value</span></code></a>)* ']'
-<strong id="grammar-token-gml-identifier">identifier</strong> ::=  a word matching the regex &quot;[a-zA-Z][a-zA-Z0-9]*&quot;
+<strong id="grammar-token-gml-GML">GML</strong>        ::= (<a class="reference internal" href="#grammar-token-gml-key"><code class="xref docutils literal notranslate"><span class="pre">key</span></code></a> <a class="reference internal" href="#grammar-token-gml-value"><code class="xref docutils literal notranslate"><span class="pre">value</span></code></a>)*
+<strong id="grammar-token-gml-key">key</strong>        ::= <a class="reference internal" href="#grammar-token-gml-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a>
+<strong id="grammar-token-gml-value">value</strong>      ::= int
+               float
+               quoteEscapedString
+               <a class="reference internal" href="#grammar-token-gml-list"><code class="xref docutils literal notranslate"><span class="pre">list</span></code></a>
+<strong id="grammar-token-gml-list">list</strong>       ::= '[' (<a class="reference internal" href="#grammar-token-gml-key"><code class="xref docutils literal notranslate"><span class="pre">key</span></code></a> <a class="reference internal" href="#grammar-token-gml-value"><code class="xref docutils literal notranslate"><span class="pre">value</span></code></a>)* ']'
+<strong id="grammar-token-gml-identifier">identifier</strong> ::= a word matching the regex &quot;[a-zA-Z][a-zA-Z0-9]*&quot;
 </pre>
 <p>A <code class="docutils literal notranslate"><span class="pre">quoteEscapedString</span></code> is zero or more characters surrounded by double
 quotation marks.  To include a <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code> character it must be escaped.  Tabs,
@@ -190,9 +190,9 @@ They are ignored during parsing.</p>
 with the key <code class="docutils literal notranslate"><span class="pre">graph</span></code>.
 The following grammar exemplifies the required key-value structure.</p>
 <pre>
-<strong id="grammar-token-gml-graphGML">graphGML</strong> ::=  'graph [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
-<strong id="grammar-token-gml-node">node    </strong> ::=  'node [ id' int 'label' quoteEscapedString ']'
-<strong id="grammar-token-gml-edge">edge    </strong> ::=  'edge [ source' int 'target' int 'label' quoteEscapedString ']'
+<strong id="grammar-token-gml-graphGML">graphGML</strong> ::= 'graph [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-node">node</strong>     ::= 'node [ id' int 'label' quoteEscapedString ']'
+<strong id="grammar-token-gml-edge">edge</strong>     ::= 'edge [ source' int 'target' int 'label' quoteEscapedString ']'
 </pre>
 <p>Note though that list elements can appear in any order.</p>
 </section>
@@ -208,32 +208,32 @@ Each graph fragment is specified as a list of vertices and edges, similar to a
 graph in GML format.
 The key-value structure is exemplified by the following grammar.</p>
 <pre>
-<strong id="grammar-token-gml-ruleGML">ruleGML        </strong> ::=  'rule ['
-                        [ 'ruleID' quoteEscapedString ]
-                        [ 'labelType &quot;' <a class="reference internal" href="#grammar-token-gml-labelType"><code class="xref docutils literal notranslate"><span class="pre">labelType</span></code></a> '&quot;' ]
-                        [ <a class="reference internal" href="#grammar-token-gml-leftSide"><code class="xref docutils literal notranslate"><span class="pre">leftSide</span></code></a> ]
-                        [ <a class="reference internal" href="#grammar-token-gml-context"><code class="xref docutils literal notranslate"><span class="pre">context</span></code></a> ]
-                        [ <a class="reference internal" href="#grammar-token-gml-rightSide"><code class="xref docutils literal notranslate"><span class="pre">rightSide</span></code></a> ]
-                        <a class="reference internal" href="#grammar-token-gml-matchConstraint"><code class="xref docutils literal notranslate"><span class="pre">matchConstraint</span></code></a>*
-                     ']'
-<strong id="grammar-token-gml-labelType">labelType      </strong> ::=  'string' | 'term'
-<strong id="grammar-token-gml-leftSide">leftSide       </strong> ::=  'left [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
-<strong id="grammar-token-gml-context">context        </strong> ::=  'context [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
-<strong id="grammar-token-gml-rightSide">rightSide      </strong> ::=  'right [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
-<strong id="grammar-token-gml-matchConstraint">matchConstraint</strong> ::=  <a class="reference internal" href="#grammar-token-gml-adjacency"><code class="xref docutils literal notranslate"><span class="pre">adjacency</span></code></a> | <a class="reference internal" href="#grammar-token-gml-labelAny"><code class="xref docutils literal notranslate"><span class="pre">labelAny</span></code></a>
-<strong id="grammar-token-gml-adjacency">adjacency      </strong> ::=  'constrainAdj ['
-                        'id' int
-                        [ 'nodeLabels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']' ]
-                        [ 'edgeLabels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']' ]
-                        'op &quot;' <a class="reference internal" href="#grammar-token-gml-op"><code class="xref docutils literal notranslate"><span class="pre">op</span></code></a> '&quot;'
-                        'count' unsignedInt
-                     ']'
-<strong id="grammar-token-gml-labelAny">labelAny       </strong> ::=  'constrainLabelAny ['
-                        'label' quoteEscapedString
-                        'labels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']'
-                     ']'
-<strong id="grammar-token-gml-labelList">labelList      </strong> ::=  ('label' quoteEscapedString)*
-<strong id="grammar-token-gml-op">op             </strong> ::=  '&lt;' | '&lt;=' | '=' | '&gt;=' | '&gt;'
+<strong id="grammar-token-gml-ruleGML">ruleGML</strong>         ::= 'rule ['
+                    [ 'ruleID' quoteEscapedString ]
+                    [ 'labelType &quot;' <a class="reference internal" href="#grammar-token-gml-labelType"><code class="xref docutils literal notranslate"><span class="pre">labelType</span></code></a> '&quot;' ]
+                    [ <a class="reference internal" href="#grammar-token-gml-leftSide"><code class="xref docutils literal notranslate"><span class="pre">leftSide</span></code></a> ]
+                    [ <a class="reference internal" href="#grammar-token-gml-context"><code class="xref docutils literal notranslate"><span class="pre">context</span></code></a> ]
+                    [ <a class="reference internal" href="#grammar-token-gml-rightSide"><code class="xref docutils literal notranslate"><span class="pre">rightSide</span></code></a> ]
+                    <a class="reference internal" href="#grammar-token-gml-matchConstraint"><code class="xref docutils literal notranslate"><span class="pre">matchConstraint</span></code></a>*
+                    ']'
+<strong id="grammar-token-gml-labelType">labelType</strong>       ::= 'string' | 'term'
+<strong id="grammar-token-gml-leftSide">leftSide</strong>        ::= 'left [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-context">context</strong>         ::= 'context [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-rightSide">rightSide</strong>       ::= 'right [' (<a class="reference internal" href="#grammar-token-gml-node"><code class="xref docutils literal notranslate"><span class="pre">node</span></code></a> | <a class="reference internal" href="#grammar-token-gml-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a>)* ']'
+<strong id="grammar-token-gml-matchConstraint">matchConstraint</strong> ::= <a class="reference internal" href="#grammar-token-gml-adjacency"><code class="xref docutils literal notranslate"><span class="pre">adjacency</span></code></a> | <a class="reference internal" href="#grammar-token-gml-labelAny"><code class="xref docutils literal notranslate"><span class="pre">labelAny</span></code></a>
+<strong id="grammar-token-gml-adjacency">adjacency</strong>       ::= 'constrainAdj ['
+                    'id' int
+                    [ 'nodeLabels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']' ]
+                    [ 'edgeLabels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']' ]
+                    'op &quot;' <a class="reference internal" href="#grammar-token-gml-op"><code class="xref docutils literal notranslate"><span class="pre">op</span></code></a> '&quot;'
+                    'count' unsignedInt
+                    ']'
+<strong id="grammar-token-gml-labelAny">labelAny</strong>        ::= 'constrainLabelAny ['
+                    'label' quoteEscapedString
+                    'labels [' <a class="reference internal" href="#grammar-token-gml-labelList"><code class="xref docutils literal notranslate"><span class="pre">labelList</span></code></a> ']'
+                    ']'
+<strong id="grammar-token-gml-labelList">labelList</strong>       ::= ('label' quoteEscapedString)*
+<strong id="grammar-token-gml-op">op</strong>              ::= '&lt;' | '&lt;=' | '=' | '&gt;=' | '&gt;'
 </pre>
 <p>Note though that list elements can appear in any order.</p>
 <p>For details on the constraints, see <a class="reference internal" href="../graphModel/index.html#rule-constraints"><span class="std std-ref">Application Constraints</span></a>.</p>
@@ -375,19 +375,19 @@ In particular, the semantics of ring-closures/back-edges are not the same.</p>
 <section id="graphdfs">
 <span id="format-graphdfs"></span><h3><span class="section-number">8.3.1. </span>GraphDFS<a class="headerlink" href="#graphdfs" title="Link to this heading">¶</a></h3>
 <pre>
-<strong id="grammar-token-graphDFS-graphDFS">graphDFS                    </strong> ::=  <a class="reference internal" href="#grammar-token-graphDFS-chain"><code class="xref docutils literal notranslate"><span class="pre">chain</span></code></a>
-<strong id="grammar-token-graphDFS-chain">chain                       </strong> ::=  <a class="reference internal" href="#grammar-token-graphDFS-vertex"><code class="xref docutils literal notranslate"><span class="pre">vertex</span></code></a> <a class="reference internal" href="#grammar-token-graphDFS-evPair"><code class="xref docutils literal notranslate"><span class="pre">evPair</span></code></a>*
-<strong id="grammar-token-graphDFS-vertex">vertex                      </strong> ::=  (<a class="reference internal" href="#grammar-token-graphDFS-labelVertex"><code class="xref docutils literal notranslate"><span class="pre">labelVertex</span></code></a> | <a class="reference internal" href="#grammar-token-graphDFS-ringClosure"><code class="xref docutils literal notranslate"><span class="pre">ringClosure</span></code></a>) <a class="reference internal" href="#grammar-token-graphDFS-branch"><code class="xref docutils literal notranslate"><span class="pre">branch</span></code></a>*
-<strong id="grammar-token-graphDFS-evPair">evPair                      </strong> ::=  <a class="reference internal" href="#grammar-token-graphDFS-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a> <a class="reference internal" href="#grammar-token-graphDFS-vertex"><code class="xref docutils literal notranslate"><span class="pre">vertex</span></code></a>
-<strong id="grammar-token-graphDFS-labelVertex">labelVertex                 </strong> ::=  '[' bracketEscapedString ']' [ <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref docutils literal notranslate"><span class="pre">defRingId</span></code></a> ]
-                                  <a class="reference internal" href="#grammar-token-graphDFS-implicitHydrogenVertexLabels"><code class="xref docutils literal notranslate"><span class="pre">implicitHydrogenVertexLabels</span></code></a> [ <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref docutils literal notranslate"><span class="pre">defRingId</span></code></a> ]
-<strong id="grammar-token-graphDFS-implicitHydrogenVertexLabels">implicitHydrogenVertexLabels</strong> ::=  'B' | 'C' | 'N' | 'O' | 'P' | 'S' | 'F' | 'Cl' | 'Br' | 'I'
-<strong id="grammar-token-graphDFS-defRingId">defRingId                   </strong> ::=  unsignedInt
-<strong id="grammar-token-graphDFS-ringClosure">ringClosure                 </strong> ::=  unsignedInt
-<strong id="grammar-token-graphDFS-edge">edge                        </strong> ::=  '{' braceEscapedString '}'
-                                  <a class="reference internal" href="#grammar-token-graphDFS-shorthandEdgeLabel"><code class="xref docutils literal notranslate"><span class="pre">shorthandEdgeLabel</span></code></a>
-<strong id="grammar-token-graphDFS-shorthandEdgeLabel">shorthandEdgeLabel          </strong> ::=  '-' | ':' | '=' | '#' | '.' | ''
-<strong id="grammar-token-graphDFS-branch">branch                      </strong> ::=  '(' <a class="reference internal" href="#grammar-token-graphDFS-evPair"><code class="xref docutils literal notranslate"><span class="pre">evPair</span></code></a>+ ')'
+<strong id="grammar-token-graphDFS-graphDFS">graphDFS</strong>                     ::= <a class="reference internal" href="#grammar-token-graphDFS-chain"><code class="xref docutils literal notranslate"><span class="pre">chain</span></code></a>
+<strong id="grammar-token-graphDFS-chain">chain</strong>                        ::= <a class="reference internal" href="#grammar-token-graphDFS-vertex"><code class="xref docutils literal notranslate"><span class="pre">vertex</span></code></a> <a class="reference internal" href="#grammar-token-graphDFS-evPair"><code class="xref docutils literal notranslate"><span class="pre">evPair</span></code></a>*
+<strong id="grammar-token-graphDFS-vertex">vertex</strong>                       ::= (<a class="reference internal" href="#grammar-token-graphDFS-labelVertex"><code class="xref docutils literal notranslate"><span class="pre">labelVertex</span></code></a> | <a class="reference internal" href="#grammar-token-graphDFS-ringClosure"><code class="xref docutils literal notranslate"><span class="pre">ringClosure</span></code></a>) <a class="reference internal" href="#grammar-token-graphDFS-branch"><code class="xref docutils literal notranslate"><span class="pre">branch</span></code></a>*
+<strong id="grammar-token-graphDFS-evPair">evPair</strong>                       ::= <a class="reference internal" href="#grammar-token-graphDFS-edge"><code class="xref docutils literal notranslate"><span class="pre">edge</span></code></a> <a class="reference internal" href="#grammar-token-graphDFS-vertex"><code class="xref docutils literal notranslate"><span class="pre">vertex</span></code></a>
+<strong id="grammar-token-graphDFS-labelVertex">labelVertex</strong>                  ::= '[' bracketEscapedString ']' [ <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref docutils literal notranslate"><span class="pre">defRingId</span></code></a> ]
+                                 <a class="reference internal" href="#grammar-token-graphDFS-implicitHydrogenVertexLabels"><code class="xref docutils literal notranslate"><span class="pre">implicitHydrogenVertexLabels</span></code></a> [ <a class="reference internal" href="#grammar-token-graphDFS-defRingId"><code class="xref docutils literal notranslate"><span class="pre">defRingId</span></code></a> ]
+<strong id="grammar-token-graphDFS-implicitHydrogenVertexLabels">implicitHydrogenVertexLabels</strong> ::= 'B' | 'C' | 'N' | 'O' | 'P' | 'S' | 'F' | 'Cl' | 'Br' | 'I'
+<strong id="grammar-token-graphDFS-defRingId">defRingId</strong>                    ::= unsignedInt
+<strong id="grammar-token-graphDFS-ringClosure">ringClosure</strong>                  ::= unsignedInt
+<strong id="grammar-token-graphDFS-edge">edge</strong>                         ::= '{' braceEscapedString '}'
+                                 <a class="reference internal" href="#grammar-token-graphDFS-shorthandEdgeLabel"><code class="xref docutils literal notranslate"><span class="pre">shorthandEdgeLabel</span></code></a>
+<strong id="grammar-token-graphDFS-shorthandEdgeLabel">shorthandEdgeLabel</strong>           ::= '-' | ':' | '=' | '#' | '.' | ''
+<strong id="grammar-token-graphDFS-branch">branch</strong>                       ::= '(' <a class="reference internal" href="#grammar-token-graphDFS-evPair"><code class="xref docutils literal notranslate"><span class="pre">evPair</span></code></a>+ ')'
 </pre>
 <p>A <code class="docutils literal notranslate"><span class="pre">bracketEscapedString</span></code> and <code class="docutils literal notranslate"><span class="pre">braceEscapedString</span></code> are zero or more
 characters except respectively <code class="docutils literal notranslate"><span class="pre">]</span></code> and <code class="docutils literal notranslate"><span class="pre">}</span></code>. To have these characters in
@@ -456,7 +456,7 @@ atoms. This can be controlled by an optional parameter to the loading function.<
 <p>The rule format builds on the graph format by using two GraphDFS strings to
 encode a rule:</p>
 <pre>
-<strong id="grammar-token-graphDFS-ruleDFS">ruleDFS</strong> ::=  [ <a class="reference internal" href="#grammar-token-graphDFS-graphDFS"><code class="xref docutils literal notranslate"><span class="pre">graphDFS</span></code></a> ] '&gt;&gt;' [ <a class="reference internal" href="#grammar-token-graphDFS-graphDFS"><code class="xref docutils literal notranslate"><span class="pre">graphDFS</span></code></a> ]
+<strong id="grammar-token-graphDFS-ruleDFS">ruleDFS</strong> ::= [ <a class="reference internal" href="#grammar-token-graphDFS-graphDFS"><code class="xref docutils literal notranslate"><span class="pre">graphDFS</span></code></a> ] '&gt;&gt;' [ <a class="reference internal" href="#grammar-token-graphDFS-graphDFS"><code class="xref docutils literal notranslate"><span class="pre">graphDFS</span></code></a> ]
 </pre>
 <p>The two (possibly empty) GraphDFS strings encode the left-hand and right-hand
 side of a rule, with the vertex IDs being used to relate them.
@@ -517,11 +517,11 @@ describe a “derivation graph”, without associating actual graphs and rules t
 it. That is, only specifying the underlying network.
 The network description is a string adhering to the following grammar:</p>
 <pre>
-<strong id="grammar-token-dgAbstract-description">description</strong> ::=  <a class="reference internal" href="#grammar-token-dgAbstract-derivation"><code class="xref docutils literal notranslate"><span class="pre">derivation</span></code></a> { <a class="reference internal" href="#grammar-token-dgAbstract-derivation"><code class="xref docutils literal notranslate"><span class="pre">derivation</span></code></a> }
-<strong id="grammar-token-dgAbstract-derivation">derivation </strong> ::=  [ &quot;#&quot; <a class="reference internal" href="#grammar-token-dgAbstract-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a> ] <a class="reference internal" href="#grammar-token-dgAbstract-side"><code class="xref docutils literal notranslate"><span class="pre">side</span></code></a> (&quot;-&gt;&quot; | &quot;&lt;=&gt;&quot;) <a class="reference internal" href="#grammar-token-dgAbstract-side"><code class="xref docutils literal notranslate"><span class="pre">side</span></code></a>
-<strong id="grammar-token-dgAbstract-side">side       </strong> ::=  <a class="reference internal" href="#grammar-token-dgAbstract-term"><code class="xref docutils literal notranslate"><span class="pre">term</span></code></a> { &quot;+&quot; <a class="reference internal" href="#grammar-token-dgAbstract-term"><code class="xref docutils literal notranslate"><span class="pre">term</span></code></a> }
-<strong id="grammar-token-dgAbstract-term">term       </strong> ::=  [ unsignedInt ] <a class="reference internal" href="#grammar-token-dgAbstract-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a>
-<strong id="grammar-token-dgAbstract-identifier">identifier </strong> ::=  any character sequence without spaces
+<strong id="grammar-token-dgAbstract-description">description</strong> ::= <a class="reference internal" href="#grammar-token-dgAbstract-derivation"><code class="xref docutils literal notranslate"><span class="pre">derivation</span></code></a> { <a class="reference internal" href="#grammar-token-dgAbstract-derivation"><code class="xref docutils literal notranslate"><span class="pre">derivation</span></code></a> }
+<strong id="grammar-token-dgAbstract-derivation">derivation</strong>  ::= [ &quot;#&quot; <a class="reference internal" href="#grammar-token-dgAbstract-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a> ] <a class="reference internal" href="#grammar-token-dgAbstract-side"><code class="xref docutils literal notranslate"><span class="pre">side</span></code></a> (&quot;-&gt;&quot; | &quot;&lt;=&gt;&quot;) <a class="reference internal" href="#grammar-token-dgAbstract-side"><code class="xref docutils literal notranslate"><span class="pre">side</span></code></a>
+<strong id="grammar-token-dgAbstract-side">side</strong>        ::= <a class="reference internal" href="#grammar-token-dgAbstract-term"><code class="xref docutils literal notranslate"><span class="pre">term</span></code></a> { &quot;+&quot; <a class="reference internal" href="#grammar-token-dgAbstract-term"><code class="xref docutils literal notranslate"><span class="pre">term</span></code></a> }
+<strong id="grammar-token-dgAbstract-term">term</strong>        ::= [ unsignedInt ] <a class="reference internal" href="#grammar-token-dgAbstract-identifier"><code class="xref docutils literal notranslate"><span class="pre">identifier</span></code></a>
+<strong id="grammar-token-dgAbstract-identifier">identifier</strong>  ::= any character sequence without spaces
 </pre>
 <p>Note that the <a class="reference internal" href="#grammar-token-dgAbstract-identifier"><code class="xref std std-token docutils literal notranslate"><span class="pre">identifier</span></code></a> definition
 in particular means that whitespace is important between coefficients and
@@ -570,7 +570,7 @@ used.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2026, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

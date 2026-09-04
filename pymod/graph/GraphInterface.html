@@ -5,18 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.10.3. graph/GraphInterface &#8212; MØD 1.0.0.64 documentation</title>
+    <title>4.1.10.3. graph/GraphInterface &#8212; MØD 1.0.0.69 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=eb0c8ebe"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=9096230f"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.1.10.4. graph/Printer" href="Printer.html" />
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.64</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.69</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -146,20 +146,20 @@
 and thus have the following nested types.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Graph.Vertex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Graph.Vertex" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><a class="headerlink" href="#mod.Graph.Vertex" title="Link to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Vertex" title="mod.protocols.LabelledGraph.Vertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Vertex</span></code></a> protocol.
 Additionally, the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.Vertex.id" title="mod.protocols.Graph.Vertex.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> is in the range <span class="math notranslate nohighlight">\([0, numVertices[\)</span>.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Graph.Edge">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Graph.Edge" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">Edge</span></span><a class="headerlink" href="#mod.Graph.Edge" title="Link to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.LabelledGraph.Edge" title="mod.protocols.LabelledGraph.Edge"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.LabelledGraph.Edge</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Graph.VertexRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Graph.VertexRange" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">VertexRange</span></span><a class="headerlink" href="#mod.Graph.VertexRange" title="Link to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.VertexRange" title="mod.protocols.Graph.VertexRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.VertexRange</span></code></a> protocol,
 in addition to the following functionality.</p>
 <dl class="py method">
@@ -179,13 +179,13 @@ in addition to the following functionality.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Graph.EdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Graph.EdgeRange" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">EdgeRange</span></span><a class="headerlink" href="#mod.Graph.EdgeRange" title="Link to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.EdgeRange" title="mod.protocols.Graph.EdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.EdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Graph.IncidentEdgeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Graph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Graph.</span></span><span class="sig-name descname"><span class="pre">IncidentEdgeRange</span></span><a class="headerlink" href="#mod.Graph.IncidentEdgeRange" title="Link to this definition">¶</a></dt>
 <dd><p>Implements the <a class="reference internal" href="../protocols.html#mod.protocols.Graph.IncidentEdgeRange" title="mod.protocols.Graph.IncidentEdgeRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">protocols.Graph.IncidentEdgeRange</span></code></a> protocol.</p>
 </dd></dl>
 
@@ -200,7 +200,7 @@ in addition to the following functionality.</p>
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2026, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

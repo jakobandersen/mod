@@ -38,7 +38,7 @@ causality/EventTrace
         :type: DG.Vertex
     .. function:: void applyTo(m) const
 
-        Perform `m.add(vertex, 1)`.
+        Perform ``m.add(vertex, 1)``.
 
         :param Marking m: the marking to apply the action to.
 .. class:: causality.OutputAction
@@ -53,7 +53,7 @@ causality/EventTrace
         :type: DG.Vertex
     .. function:: void applyTo(m) const
 
-        Perform `m.remove(vertex, 1)`.
+        Perform ``m.remove(vertex, 1)``.
 
         :param Marking m: the marking to apply the action to.
 .. class:: causality.EventTrace

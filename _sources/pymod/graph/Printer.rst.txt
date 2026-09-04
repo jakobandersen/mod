@@ -100,7 +100,7 @@ graph/Printer
 
         Do not use Open Babel for coordinate generation, but only the Graphviz fallback
         during post-processing.
-        When setting this to ``True`` consider setting `simpleCarbons = False`` to avoid
+        When setting this to ``True`` consider setting ``simpleCarbons = False`` to avoid
         misleading depictions due to collinear carbon chains.
 
         :type: bool

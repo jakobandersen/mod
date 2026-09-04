@@ -5,18 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1.3. Config &#8212; MØD 1.0.0.64 documentation</title>
+    <title>4.1.3. Config &#8212; MØD 1.0.0.69 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=eb0c8ebe"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=9096230f"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.1.4. Derivation" href="Derivation.html" />
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.64</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.69</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -178,7 +178,7 @@
 <span id="py-config"></span><h1><span class="section-number">4.1.3. </span>Config<a class="headerlink" href="#config" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.LabelType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelType</span></span><a class="headerlink" href="#mod.LabelType" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelType</span></span><a class="headerlink" href="#mod.LabelType" title="Link to this definition">¶</a></dt>
 <dd><p>Selector for which type of label to use in algorithms.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.LabelType.String">
@@ -201,7 +201,7 @@ in an <a class="reference internal" href="Error.html#mod.TermParsingError" title
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.LabelRelation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelRelation</span></span><a class="headerlink" href="#mod.LabelRelation" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelRelation</span></span><a class="headerlink" href="#mod.LabelRelation" title="Link to this definition">¶</a></dt>
 <dd><p>Selector for which type of labelled morphism to use in an algorithm.
 For strings they are all defined to be equivalent to string equality.</p>
 <dl class="py attribute">
@@ -215,7 +215,7 @@ is a renaming.</p>
 <dt class="sig sig-object py" id="mod.LabelRelation.Specialisation">
 <span class="sig-name descname"><span class="pre">Specialisation</span></span><a class="headerlink" href="#mod.LabelRelation.Specialisation" title="Link to this definition">¶</a></dt>
 <dd><p>A term <span class="math notranslate nohighlight">\(t_2\)</span> is more special than, or isomorphic to, a term <span class="math notranslate nohighlight">\(t_1\)</span> if there is a substitution
-which can be applied to :math: <cite>t_1</cite> to make the terms equal.
+which can be applied to <span class="math notranslate nohighlight">\(t_1\)</span> to make the terms equal.
 This relation means that the right-hand side of a comparison is the more specialised term.</p>
 </dd></dl>
 
@@ -230,7 +230,7 @@ is used for substitution in some algorithms.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.LabelSettings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelSettings</span></span><a class="headerlink" href="#mod.LabelSettings" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">LabelSettings</span></span><a class="headerlink" href="#mod.LabelSettings" title="Link to this definition">¶</a></dt>
 <dd><p>A group label settings commonly used together in algorithms.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -262,7 +262,7 @@ Defaults to <a class="reference internal" href="#mod.LabelRelation.Isomorphism" 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.LabelSettings.formCategory">
 <span class="sig-name descname"><span class="pre">formCategory</span></span><a class="headerlink" href="#mod.LabelSettings.formCategory" title="Link to this definition">¶</a></dt>
-<dd><p>(Read-only) Whether the settings form a category (i.e., does not contain any <cite>LabelRelation.Unification</cite>).</p>
+<dd><p>(Read-only) Whether the settings form a category (i.e., does not contain any <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod13LabelRelationE" title="mod::LabelRelation"><span class="n">LabelRelation</span></a><span class="p">.</span><span class="n">Unification</span></span>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
@@ -314,7 +314,7 @@ Defaults to <a class="reference internal" href="#mod.LabelRelation.Isomorphism" 
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.IsomorphismPolicy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">IsomorphismPolicy</span></span><a class="headerlink" href="#mod.IsomorphismPolicy" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">IsomorphismPolicy</span></span><a class="headerlink" href="#mod.IsomorphismPolicy" title="Link to this definition">¶</a></dt>
 <dd><p>For some functions there is a choice of how to handle given arguments
 where two different objects may be isomorphic. Most notably the case is with graphs (<a class="reference internal" href="graph/Graph.html#mod.Graph" title="mod.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>).</p>
 <dl class="py attribute">
@@ -340,7 +340,7 @@ but an exception would have been thrown with <a class="reference internal" href=
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.SmilesClassPolicy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">SmilesClassPolicy</span></span><a class="headerlink" href="#mod.SmilesClassPolicy" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">SmilesClassPolicy</span></span><a class="headerlink" href="#mod.SmilesClassPolicy" title="Link to this definition">¶</a></dt>
 <dd><p>When loading SMILES strings, the class labels can be recorded and mapped into the corresponding
 vertices of the loaded graph. This policy dictates what should happen when the same class label
 is written on multiple atoms.</p>
@@ -366,7 +366,7 @@ is written on multiple atoms.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Action">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Action</span></span><a class="headerlink" href="#mod.Action" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Action</span></span><a class="headerlink" href="#mod.Action" title="Link to this definition">¶</a></dt>
 <dd><p>Utility enum for deciding what to do in certain cases.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Action.Error">
@@ -377,7 +377,7 @@ is written on multiple atoms.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mod.Action.Warn">
 <span class="sig-name descname"><span class="pre">Warn</span></span><a class="headerlink" href="#mod.Action.Warn" title="Link to this definition">¶</a></dt>
-<dd><p>Write a warning, but otherwise do as if it was <cite>Ignore</cite>.</p>
+<dd><p>Write a warning, but otherwise do as if it was <a class="reference internal" href="#mod.Action.Ignore" title="mod.Action.Ignore"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Ignore</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -390,7 +390,7 @@ is written on multiple atoms.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.MDLOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">MDLOptions</span></span><a class="headerlink" href="#mod.MDLOptions" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">MDLOptions</span></span><a class="headerlink" href="#mod.MDLOptions" title="Link to this definition">¶</a></dt>
 <dd><p>An aggregation of options for the various loading functions for MDL formats.
 Generally each option is defaulted to follow the specification of the formats,
 unless it is harmless to deviate (e.g., relaxed white-space parsing).</p>
@@ -560,7 +560,7 @@ See <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod22getAv
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mod.Config">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#mod.Config" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mod.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#mod.Config" title="Link to this definition">¶</a></dt>
 <dd><p>This class contains a range of inner classes of config settings. See <a class="reference internal" href="../libmod/Config.html"><span class="doc">the libMØD documentation</span></a>.</p>
 </dd></dl>
 
@@ -591,7 +591,7 @@ See <a class="reference internal" href="../libmod/Config.html#_CPPv4N3mod22getAv
 	<div class="col-auto mr-auto">
 		<p>
 					&copy; Copyright 2013-2026, Jakob Lykke Andersen.<br/>
-				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+				Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
 		</p>
 	</div>
 	<div class="col-auto">

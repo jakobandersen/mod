@@ -36,7 +36,7 @@ Config
     .. attribute:: Specialisation
 
         A term :math:`t_2` is more special than, or isomorphic to, a term :math:`t_1` if there is a substitution
-        which can be applied to :math: `t_1` to make the terms equal.
+        which can be applied to :math:`t_1` to make the terms equal.
         This relation means that the right-hand side of a comparison is the more specialised term.
     .. attribute:: Unification
 
@@ -118,7 +118,7 @@ Config
         Abort the function and produce an error message, e.g., through and exception.
     .. attribute:: Warn
 
-        Write a warning, but otherwise do as if it was `Ignore`.
+        Write a warning, but otherwise do as if it was :py:attr:`Ignore`.
     .. attribute:: Ignore
 
         Ignore the case. The function taking the action as argument should describe what this means.
