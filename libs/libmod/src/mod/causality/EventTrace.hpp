@@ -22,9 +22,9 @@ namespace mod::causality {
 // rst:
 struct MOD_DECL EdgeAction {
 	// rst: 	.. function:: EdgeAction()
-	// rst: 	              EdgeAction(dg::DG::HyperEdge edge)
+	// rst: 	              explicit EdgeAction(dg::DG::HyperEdge edge)
 	EdgeAction() = default;
-	EdgeAction(dg::DG::HyperEdge edge) : edge(edge) {}
+	explicit EdgeAction(dg::DG::HyperEdge edge) : edge(edge) {}
 	// rst: 	.. function:: void applyTo(Marking &m) const
 	// rst:
 	// rst:			Perform `m.fire(edge)`.
@@ -45,9 +45,9 @@ public:
 // rst:
 struct MOD_DECL InputAction {
 	// rst: 	.. function:: InputAction()
-	// rst: 	              InputAction(dg::DG::Vertex vertex)
+	// rst: 	              explicit InputAction(dg::DG::Vertex vertex)
 	InputAction() = default;
-	InputAction(dg::DG::Vertex vertex) : vertex(vertex) {}
+	explicit InputAction(dg::DG::Vertex vertex) : vertex(vertex) {}
 	// rst: 	.. function:: void applyTo(Marking &m) const
 	// rst:
 	// rst:			Perform `m.add(vertex, 1)`.
@@ -68,9 +68,9 @@ public:
 // rst:
 struct MOD_DECL OutputAction {
 	// rst: 	.. function:: OutputAction()
-	// rst: 	              OutputAction(dg::DG::Vertex vertex)
+	// rst: 	              explicit OutputAction(dg::DG::Vertex vertex)
 	OutputAction() = default;
-	OutputAction(dg::DG::Vertex vertex) : vertex(vertex) {}
+	explicit OutputAction(dg::DG::Vertex vertex) : vertex(vertex) {}
 	// rst: 	.. function:: void applyTo(Marking &m) const
 	// rst:
 	// rst:			Perform `m.remove(vertex, 1)`.
@@ -139,6 +139,8 @@ public:
 	EventTrace &operator=(EventTrace &&);
 	EventTrace(const EventTrace &);
 	EventTrace &operator=(const EventTrace &);
+	lib::Causality::EventTrace &getEventTrace();
+	const lib::Causality::EventTrace &getEventTrace() const;
 public:
 	// rst: .. function:: std::shared_ptr<dg::DG> getDG() const
 	// rst:

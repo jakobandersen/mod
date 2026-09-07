@@ -36,9 +36,9 @@ New Features
   which not only returns the composed rule, but also vertex maps that relate it back to the input rules,
   thus making it possible to track vertices through a composition.
 - When the ILP solver string is not recognized, error out with a list of the valid strings of available solvers.
-- Added a Python class for stochastic simulation :class:`causality.Simulator`.
-  It supports dynamic generation of the underlying reaction network (:py:class:`DG`), e.g.,
-  using a :py:class:`DGStrat` to be executed whenever new reactions are needed.
+- Added a class for stochastic simulation class :py:class:`causality.Simulator`/:cpp:class:`causality::Simulator`.
+  It supports dynamic generation of the underlying reaction network (:py:class:`DG`/:cpp:class:`dg::DG`), e.g.,
+  using a :py:class:`DGStrat`/:cpp:class:`dg::Strategy` to be executed whenever new reactions are needed.
   It also supports open systems.
   The rate of each reaction, whether an internal reaction, input reaction, or output reaction, is given via callback functions.
 - Added classes for supporting the stochastic simulation:

@@ -24,14 +24,13 @@ expandsAvoided = 0
 def onIterationBegin(s):
 	global expands
 	global expandsAvoided
-	if s.iteration % 10000 == 0:
-		print(f"Iteration: {s.iteration}   time = {s.time}   |V| = {s.dg.numVertices}")
-		if expands > 0:
-			print("\tExpands:", expands)
-			expands = 0
-		if expandsAvoided > 0:
-			print("\tExpandsAvoided:", expandsAvoided)
-			expandsAvoided = 0
+	print(f"Iteration: {s.iteration}   time = {s.time}   |V| = {s.dg.numVertices}")
+	if expands > 0:
+		print("\tExpands:", expands)
+		expands = 0
+	if expandsAvoided > 0:
+		print("\tExpandsAvoided:", expandsAvoided)
+		expandsAvoided = 0
 
 def onExpand(s):
 	global expands
@@ -43,7 +42,7 @@ def onExpandAvoided(s):
 	expandsAvoided += 1
 
 
-sim.onIterationBegin = onIterationBegin
+sim.setOnIterationBegin(onIterationBegin, 10000)
 sim.onExpand = onExpand
 sim.onExpandAvoided = onExpandAvoided
 

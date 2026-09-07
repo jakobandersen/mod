@@ -7,6 +7,8 @@
 #include <mod/dg/DG.hpp>
 #include <mod/dg/GraphInterface.hpp>
 #include <mod/dg/Strategies.hpp>
+#include <mod/causality/Petri.hpp>
+#include <mod/causality/Stochsim.hpp>
 
 namespace mod::Py {
 
@@ -19,6 +21,7 @@ void Function_doExport() {
 	exportFunc<std::string(const Derivation &)>("_Func_StringDerivation");
 	// DG -> X
 	exportFunc<std::string(std::shared_ptr<dg::DG>)>("_Func_StringDG");
+	exportFunc<std::shared_ptr<causality::Simulator::DrawFunction>(const causality::Marking&)>("_Func_CausalitySimulatorDrawFunctionCausalityMarking");
 	// DG::Vertex -> X
 	exportFunc<void(dg::DG::Vertex)>("_Func_VoidDGVertex");
 	exportFunc<bool(dg::DG::Vertex)>("_Func_BoolDGVertex");
@@ -48,7 +51,12 @@ void Function_doExport() {
 	// Strategy::GraphState -> X
 	exportFunc<void(const dg::Strategy::GraphState &)>("_Func_VoidDGStratGraphState");
 
+	exportFunc<double(double)>("_Func_FloatFloat");
+	exportFunc<void(causality::Simulator&)>("_Func_VoidCausalitySimulator");
+    exportFunc<bool(causality::Simulator&)>("_Func_BoolCausalitySimulator");
 	exportFunc<bool(VertexMap<graph::Graph, graph::Graph>)>("_Func_BoolVertexMapGraphGraph");
+	exportFunc<bool(std::shared_ptr<dg::Builder>,
+		const std::vector<std::shared_ptr<graph::Graph>> &, const std::vector<std::shared_ptr<graph::Graph>> &)>("_Func_BoolDGBuilderVecGraphVecGraph");
 }
 
 } // namespace mod::Py

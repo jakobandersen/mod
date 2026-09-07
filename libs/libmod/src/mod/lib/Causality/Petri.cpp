@@ -11,16 +11,6 @@ Net::Net(const lib::DG::Hyper &dg) : dg(dg) {
 	syncSize();
 }
 
-Net::~Net() = default;
-
-const lib::DG::Hyper &Net::getDG() const {
-	return dg;
-}
-
-const petri::Net &Net::getNet() const {
-	return net;
-}
-
 void Net::syncSize() {
 	assert(dg.getNonHyper().getHasStartedCalculation());
 	const auto &g = dg.getGraph();
@@ -71,43 +61,9 @@ std::vector<lib::DG::HyperVertex> Net::getPostPlaces(lib::DG::HyperVertex e) con
 	return res;
 }
 
-petri::Place Net::getPlace(lib::DG::HyperVertex v) const {
-#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
-	assert(dg.getGraph()[v].kind == lib::DG::HyperVertexKind::Vertex);
-#endif
-	const auto id = get(boost::vertex_index_t(), dg.getGraph(), v);
-	petri::Place p = placeMap[id];
-#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
-	assert(p);
-#endif
-	return p;
-}
-
-petri::Transition Net::getTransition(lib::DG::HyperVertex e) const {
-#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
-	assert(dg.getGraph()[e].kind == lib::DG::HyperVertexKind::Edge);
-#endif
-	const auto id = get(boost::vertex_index_t(), dg.getGraph(), e);
-	petri::Transition t = transitionMap[id];
-#ifdef MOD_LIB_CAUSALITY_PETRI_ASSERT
-	assert(t);
-#endif
-	return t;
-}
-
 //==============================================================================
 
 Marking::Marking(const Net &net) : net(net), m(net.getNet()) {}
-
-Marking::~Marking() = default;
-
-const Net &Marking::getNet() const {
-	return net;
-}
-
-const petri::Marking &Marking::getMarking() const {
-	return m;
-}
 
 void Marking::syncSize() {
 	m.syncSize();
@@ -159,11 +115,6 @@ std::vector<lib::DG::HyperVertex> Marking::getEmptyPostPlaces(lib::DG::HyperVert
 			emptyPlaces.push_back(v);
 	}
 	return emptyPlaces;
-}
-
-bool Marking::isEnabled(lib::DG::HyperVertex e) const {
-	const auto t = net.getTransition(e);
-	return m.isEnabled(t);
 }
 
 void Marking::fire(lib::DG::HyperVertex e) {

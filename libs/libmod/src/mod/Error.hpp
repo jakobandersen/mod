@@ -36,6 +36,7 @@ private:
 	std::vector<std::string> raw;
 	std::vector<std::string> demangled;
 };
+
 // rst-class-end:
 
 
@@ -46,7 +47,8 @@ private:
 struct BOOST_SYMBOL_VISIBLE Exception : public std::exception {
 protected:
 	Exception(std::string &&text, unsigned int numSkip, unsigned int frameLimit)
-			: text(text), stacktrace(frameLimit, numSkip) {}
+		: text(text), stacktrace(frameLimit, numSkip) {}
+
 	Exception(std::string &&text, unsigned int numSkip) : Exception(std::move(text), numSkip, 20) {}
 	Exception(std::string &&text) : Exception(std::move(text), 0) {}
 public:
@@ -71,6 +73,7 @@ protected:
 	Stacktrace stacktrace;
 	mutable std::string whatString; // is set by the what function
 };
+
 // rst-class-end:
 
 // rst-class: FatalError : public Exception
@@ -81,12 +84,10 @@ protected:
 struct BOOST_SYMBOL_VISIBLE FatalError : public Exception {
 	FatalError(std::string &&text) : Exception(std::move(text)) {}
 	FatalError(std::string &&text, unsigned int numSkip) : Exception(std::move(text), numSkip) {}
-
-	std::string getName() const {
-		return "MØD FatalError";
-	}
+	std::string getName() const { return "MØD FatalError"; }
 	const char *what() const noexcept;
 };
+
 // rst-class-end:
 
 // rst-class: InputError : public Exception
@@ -97,11 +98,9 @@ struct BOOST_SYMBOL_VISIBLE FatalError : public Exception {
 // rst-class-start:
 struct BOOST_SYMBOL_VISIBLE InputError : public Exception {
 	InputError(std::string &&text) : Exception(std::move(text)) {}
-
-	std::string getName() const {
-		return "MØD InputError";
-	}
+	std::string getName() const { return "MØD InputError"; }
 };
+
 // rst-class-end:
 
 // rst-class: LogicError : public Exception
@@ -112,11 +111,9 @@ struct BOOST_SYMBOL_VISIBLE InputError : public Exception {
 // rst-class-start:
 struct BOOST_SYMBOL_VISIBLE LogicError : public Exception {
 	LogicError(std::string &&text) : Exception(std::move(text)) {}
-
-	std::string getName() const {
-		return "MØD LogicError";
-	}
+	std::string getName() const { return "MØD LogicError"; }
 };
+
 // rst-class-end:
 
 // rst-class: TermParsingError : public Exception
@@ -128,11 +125,9 @@ struct BOOST_SYMBOL_VISIBLE LogicError : public Exception {
 // rst-class-start:
 struct BOOST_SYMBOL_VISIBLE TermParsingError : public Exception {
 	TermParsingError(std::string &&text) : Exception(std::move(text)) {}
-
-	std::string getName() const {
-		return "MØD TermParsingError";
-	}
+	std::string getName() const { return "MØD TermParsingError"; }
 };
+
 // rst-class-end:
 
 // rst-class: StereoDeductionError : public Exception
@@ -144,11 +139,9 @@ struct BOOST_SYMBOL_VISIBLE TermParsingError : public Exception {
 // rst-class-start:
 struct BOOST_SYMBOL_VISIBLE StereoDeductionError : public Exception {
 	StereoDeductionError(std::string &&text) : Exception(std::move(text)) {}
-
-	std::string getName() const {
-		return "MØD StereoDeductionError";
-	}
+	std::string getName() const { return "MØD StereoDeductionError"; }
 };
+
 // rst-class-end:
 
 MOD_DECL

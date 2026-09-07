@@ -172,9 +172,6 @@ void Petri_doExport() {
 					// rst:			:raises: :class:`LogicError` if ``e.dg != self.net.dg``.
 					// rst:			:raises: :class:`LogicError` if ``not self.isEnabled(e)``.
 			.def("fire", &Marking::fire);
-
-	py::class_<MarkingSet, boost::noncopyable>("MarkingSet")
-			.def("addIfNotSubset", &MarkingSet::addIfNotSubset);
 }
 
 } // namespace mod::causality::Py

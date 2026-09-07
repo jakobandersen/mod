@@ -152,6 +152,14 @@ EventTrace &EventTrace::operator=(const EventTrace &other) {
 	return *this;
 }
 
+lib::Causality::EventTrace &EventTrace::getEventTrace() {
+	return p->t;
+}
+
+const lib::Causality::EventTrace &EventTrace::getEventTrace() const {
+	return p->t;
+}
+
 std::shared_ptr<dg::DG> EventTrace::getDG() const {
 	return p->net->getDG();
 }
@@ -166,8 +174,8 @@ int EventTrace::size() const {
 }
 
 double EventTrace::getTime() const {
-	if(size() == 0) return 0;
-	else return (end() - 1)->time;
+	if(p->t.getEvents().size() == 0) return 0;
+	else return (p->t.getEvents().end() - 1)->time;
 }
 
 EventTrace::const_iterator EventTrace::begin() const {

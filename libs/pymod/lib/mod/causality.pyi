@@ -79,13 +79,35 @@ class MarkingSet:
 # Stochsim
 #-----------------------------------------------------------------------------
 
-class MassActionKinetics:
-	def __init__(self, dg: mod.DG,
-		inputRate: Callable[[mod.DG.Vertex],
-			tuple[float, bool]] | tuple[float, bool],
-		reactionRate: Callable[[mod.DG.HyperEdge],
-			tuple[float, bool]] | tuple[float, bool],
-		outputRate: Callable[[mod.DG.Vertex],
-			tuple[float, bool]] | tuple[float, bool]) -> None: ...
-	def syncSize(self) -> None: ...
-	def draw(self, m: Marking) -> tuple[Action, float]: ...
+class Simulator:
+	class DrawFunction:
+		def syncSize(self) -> None: ...
+		def draw(self) -> tuple[Action, float]: ...
+
+	class DrawTimeExponential:
+		def __call__(self, activitySum: float) -> float: ...
+
+	class ExpandByStrategy:
+		...
+
+	class DrawMassAction:
+		def __call__(self, state: Marking) -> Function: ...
+
+		class Function(Simulator.DrawFunction):
+			def __init__(self, dg: mod.DG,
+				inputRate:    None | Callable[[mod.DG.Vertex],
+					tuple[float, bool]] | tuple[float, bool],
+				reactionRate: None | Callable[[mod.DG.HyperEdge],
+					tuple[float, bool]] | tuple[float, bool],
+				outputRate:   None | Callable[[mod.DG.Vertex],
+					tuple[float, bool]] | tuple[float, bool]) -> None: ...
+
+
+	@property
+	def trace(self) -> EventTrace: ...
+	def setOnIterationBegin(self, callback: None | Callable[[Simulator], None], interval: int = ...) -> None: ...
+	def simulate(self, *,
+		time: None | float = ...,
+		advanceToEndTime: bool = ...,
+		iterations: None | int = ...,
+		keepNetworkOpen: bool = ...) -> EventTrace: ...

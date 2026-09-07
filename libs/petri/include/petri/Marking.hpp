@@ -72,6 +72,16 @@ private:
 	std::vector<Trans> transitions;
 };
 
+// ============================================================================
+
+inline bool Marking::isEnabled(Transition t) const {
+	return transitions[t.getId()].enabled;
+}
+
+inline int Marking::operator[](Place p) const {
+	return counts[p.getId()];
+}
+
 } // namespace petri
 
 #endif // PETRI_MARKING_HPP

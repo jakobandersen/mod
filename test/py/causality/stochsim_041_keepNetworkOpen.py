@@ -38,10 +38,61 @@ def makeSim():
 	)
 
 sim = makeSim()
+assert sim.isNetworkOpen
 sim.simulate()
+assert not sim.isNetworkOpen
 fail(lambda: sim.simulate(), "Can not expand neighbourhood, the network is closed.", isSubstring=True)
 
 sim = makeSim()
+assert sim.isNetworkOpen
 sim.simulate(keepNetworkOpen=True)
+assert sim.isNetworkOpen
 sim.simulate()
+assert not sim.isNetworkOpen
 fail(lambda: sim.simulate(), "Can not expand neighbourhood, the network is closed.", isSubstring=True)
+
+
+sim = makeSim()
+assert sim.isNetworkOpen
+sim.closeNetwork()
+assert not sim.isNetworkOpen
+fail(lambda: sim.simulate(), "Can not expand neighbourhood, the network is closed.", isSubstring=True)
+
+
+sim = makeSim()
+assert sim.isNetworkOpen
+sim.simulate(keepNetworkOpen=True)
+assert sim.isNetworkOpen
+sim.closeNetwork()
+assert not sim.isNetworkOpen
+fail(lambda: sim.simulate(), "Can not expand neighbourhood, the network is closed.", isSubstring=True)
+
+
+sim = makeSim()
+assert sim.isNetworkOpen
+sim.closeNetwork()
+assert not sim.isNetworkOpen
+sim.closeNetwork()
+assert not sim.isNetworkOpen
+
+
+builder = None
+def expand(b, s, u):
+	global builder
+	builder = b	
+	return causality.Simulator.ExpandByStrategy(inputRules)(b, s, u)
+
+def makeSim():
+	return causality.Simulator(
+		graphDatabase=inputGraphs,
+		expandNetwork=expand,
+		initialState={A: 1000},
+		draw=causality.Simulator.DrawMassAction()
+	)
+
+sim = makeSim()
+assert sim.isNetworkOpen
+sim.simulate(keepNetworkOpen=True)
+assert sim.isNetworkOpen
+sim.closeNetwork()
+assert sim.isNetworkOpen

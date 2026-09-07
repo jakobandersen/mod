@@ -28,23 +28,21 @@ def expandAll(b, s, u):
 	return False
 
 
-_everyIter = 1
 _expand = True
 expands = 0
 expandsAvoided = 0
 def onIterationBegin(s):
 	global expands
 	global expandsAvoided
-	if s.iteration % _everyIter == 0:
-		print(f"Iteration: {s.iteration:>5}   time = {s.time:>6,.2f}   |V| = {s.dg.numVertices:>5}")
-		if not _expand:
-			return
-		if expands > 0:
-			print("\tExpands:", expands)
-			expands = 0
-		if expandsAvoided > 0:
-			print("\tExpandsAvoided:", expandsAvoided)
-			expandsAvoided = 0
+	print(f"Iteration: {s.iteration:>5}   time = {s.time:>6,.2f}   |V| = {s.dg.numVertices:>5}")
+	if not _expand:
+		return
+	if expands > 0:
+		print("\tExpands:", expands)
+		expands = 0
+	if expandsAvoided > 0:
+		print("\tExpandsAvoided:", expandsAvoided)
+		expandsAvoided = 0
 
 def onExpand(i):
 	global expands
@@ -56,11 +54,9 @@ def onExpandAvoided(i):
 	expandsAvoided += 1
 
 def setCallbacks(*, everyIter: int, expand: bool):
-	global _everyIter
 	global _expand
-	_everyIter = everyIter
 	_expand = expand
-	sim.onIterationBegin = onIterationBegin
+	sim.setOnIterationBegin(onIterationBegin, everyIter)
 	if expand:
 		sim.onExpand = onExpand
 		sim.onExpandAvoided = onExpandAvoided

@@ -43,10 +43,6 @@ int Marking::getNumTokens() const {
 	return std::accumulate(counts.begin(), counts.end(), 0);
 }
 
-bool Marking::isEnabled(Transition t) const {
-	return transitions[t.getId()].enabled;
-}
-
 bool Marking::isEnabledNoCache(Transition t) const {
 	return isEnabledNoCache(net.vertexFromTransition(t));
 }
@@ -108,10 +104,6 @@ void Marking::fire(Transition t) {
 }
 
 //void backfire(Transition t);
-
-int Marking::operator[](Place p) const {
-	return counts[p.getId()];
-}
 
 bool operator==(const Marking &a, const Marking &b) {
 	return a.counts == b.counts;

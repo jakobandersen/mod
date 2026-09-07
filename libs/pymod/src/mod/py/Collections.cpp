@@ -2,6 +2,7 @@
 
 #include <mod/Derivation.hpp>
 #include <mod/causality/EventTrace.hpp>
+#include <mod/causality/Stochsim.hpp>
 #include <mod/dg/DG.hpp>
 #include <mod/dg/GraphInterface.hpp>
 #include <mod/dg/Strategies.hpp>
@@ -87,6 +88,8 @@ void Collections_doExport() {
 	py::class_<VecFlowVar>("_VecFlowVar").def(py::vector_indexing_suite<VecFlowVar, true>());
 	makeVector(VecFlowVarCustom, hyperflow::VarCustom);
 	makeVector(VecString, std::string);
+	using PairGraphInt = std::pair<std::shared_ptr<graph::Graph>, int>;
+	makeVector(VecPairGraphInt, PairGraphInt);
 
 	// Pair
 	makePair<std::string, std::string>();
@@ -94,7 +97,8 @@ void Collections_doExport() {
 	makePair<int, int>();
 	makePair<double, double>();
 	makePair<double, bool>();
-	makePair<std::optional<causality::Action>, double>();
+	makePair<causality::Simulator::DrawFunction::Choice, double>();
+	makePair<std::shared_ptr<graph::Graph>, int>();
 
 	// Optional
 	py::to_python_converter<std::optional<int>, ToPythonOptionalValue<int>>();

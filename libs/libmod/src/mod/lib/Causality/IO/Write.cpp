@@ -1,6 +1,7 @@
 #include "Write.hpp"
 
 #include <mod/Post.hpp>
+#include <mod/lib/Causality/EventTrace.hpp>
 #include <mod/lib/Causality/Stochsim.hpp>
 #include <mod/lib/Graph/Graph.hpp>
 #include <mod/lib/IO/IO.hpp>

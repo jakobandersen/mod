@@ -77,6 +77,7 @@ struct MOD_DECL Marking {
 	// rst:
 	// rst:		:returns: the underlying Petri net.
 	std::shared_ptr<Net> getNet() const;
+	lib::Causality::Marking &getMarking();
 	const lib::Causality::Marking &getMarking() const;
 	// rst: .. function:: void syncSize() const
 	// rst:
@@ -179,13 +180,6 @@ private:
 	std::unique_ptr<Pimpl> p;
 };
 // rst-class-end:
-
-struct MOD_DECL MarkingSet {
-	MarkingSet();
-	bool addIfNotSubset(const Marking &m);
-private:
-	std::vector<std::vector<int>> sets;
-};
 
 } // namespace mod::causality
 

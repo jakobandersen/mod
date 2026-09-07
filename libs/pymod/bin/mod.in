@@ -376,6 +376,9 @@ EOF
 		if [ -n "$MOD_ILP_SOLVER" ]; then
 			echo "config.ilp.solver = '$MOD_ILP_SOLVER'"
 		fi
+		if [ -n "$MOD_STOCHSIM_MASSACTIONIMPLEMENTATION" ]; then
+			echo "config.stochsim.massActionImplementation = '$MOD_STOCHSIM_MASSACTIONIMPLEMENTATION'"
+		fi
 	}
 	echo '# Preamble' >> $pyFile
 	preamble >> $pyFile

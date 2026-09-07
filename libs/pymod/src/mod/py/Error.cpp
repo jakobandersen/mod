@@ -1,6 +1,4 @@
-#include <mod/py/Common.hpp>
-
-#include <mod/Error.hpp>
+#include <mod/py/Error.hpp>
 
 #include <ostream>
 
@@ -9,6 +7,10 @@
 // and http://stackoverflow.com/questions/11448735/boostpython-export-custom-exception-and-inherit-from-pythons-exception
 
 namespace mod::Py {
+
+MethodOverrideError::MethodOverrideError(std::string &&method, std::string &&baseClass, std::string &&error)
+	: Exception("Error with '" + std::move(method) + "' in class derived from '" + std::move(baseClass) + "': " + std::move(error)) {}
+
 namespace {
 
 PyObject *exportException(const std::string &name) {
@@ -56,6 +58,12 @@ void Error_doExport() {
 	// rst:
 	// rst:		See :cpp:class:`StereoDeductionError`.
 	MOD_PY_ExportException(StereoDeductionError);
+	// rst: .. exception:: MethodOverrideError
+	// rst:
+	// rst:		When thrown there is at least basic exception safety.
+	// rst:		This exception is thrown if a Python class derives from a C++ class,
+	// rst:		but there is some error with an overriden method, including the method not being implemented.
+	MOD_PY_ExportException(MethodOverrideError);
 }
 
 } // namespace mod::Py

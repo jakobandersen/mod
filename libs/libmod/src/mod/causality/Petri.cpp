@@ -86,6 +86,10 @@ std::shared_ptr<Net> Marking::getNet() const {
 	return p->net;
 }
 
+lib::Causality::Marking &Marking::getMarking() {
+	return p->marking;
+}
+
 const lib::Causality::Marking &Marking::getMarking() const {
 	return p->marking;
 }
@@ -213,25 +217,6 @@ void Marking::fire(dg::DG::HyperEdge e) {
 	if(e.getDG() != getNet()->getDG()) throw LogicError("The edge does not belong to the underlying derivation graph.");
 	if(!isEnabled(e)) throw LogicError("The edge is not enabled.");
 	p->marking.fire(p->net->getDG()->getHyper().getInternalVertex(e));
-}
-
-//==============================================================================
-
-MarkingSet::MarkingSet() = default;
-
-bool MarkingSet::addIfNotSubset(const Marking &m) {
-	const auto &dgHyper = m.getNet()->getDG()->getHyper();
-	const auto idx = get(boost::vertex_index_t(), dgHyper.getGraph());
-	const auto places = m.getMarking().getNonZeroPlaces();
-	std::vector<int> idxs(places.size());
-	for(int i = 0; i != places.size(); ++i)
-		idxs[i] = get(idx, places[i]);
-	std::sort(idxs.begin(), idxs.end());
-	for(const auto &b: sets)
-		if(std::includes(b.begin(), b.end(), idxs.begin(), idxs.end()))
-			return false;
-	sets.emplace_back(std::move(idxs));
-	return true;
 }
 
 } // namespace mod::causality

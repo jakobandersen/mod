@@ -354,7 +354,10 @@ struct Config {
         ((bool, printMatchesOnlyHaxChem, false))                                    \
         ((int, componentWiseMorphismLimit, 0))                                      \
         ((bool, useBoostCommonSubgraph, false))                                     \
-    ))
+	))                                                                              \
+	((Stochsim, stochsim,                                                           \
+		((std::string, massActionImplementation, "v1"))                             \
+	))
 
 #define MOD_CONFIG_nsIter(rNS, dataNS, tNS)                                           \
     struct BOOST_PP_TUPLE_ELEM(MOD_CONFIG_DATA_NS_SIZE(), 0, tNS) {                   \
