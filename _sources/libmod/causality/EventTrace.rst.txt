@@ -17,7 +17,7 @@ causality/EventTrace.hpp
 .. class:: causality::EdgeAction
 
     .. function:: EdgeAction()
-                  EdgeAction(dg::DG::HyperEdge edge)
+                  explicit EdgeAction(dg::DG::HyperEdge edge)
     .. function:: void applyTo(Marking &m) const
 
         Perform `m.fire(edge)`.
@@ -28,7 +28,7 @@ causality/EventTrace.hpp
 .. class:: causality::InputAction
 
     .. function:: InputAction()
-                  InputAction(dg::DG::Vertex vertex)
+                  explicit InputAction(dg::DG::Vertex vertex)
     .. function:: void applyTo(Marking &m) const
 
         Perform `m.add(vertex, 1)`.
@@ -39,7 +39,7 @@ causality/EventTrace.hpp
 .. class:: causality::OutputAction
 
     .. function:: OutputAction()
-                  OutputAction(dg::DG::Vertex vertex)
+                  explicit OutputAction(dg::DG::Vertex vertex)
     .. function:: void applyTo(Marking &m) const
 
         Perform `m.remove(vertex, 1)`.

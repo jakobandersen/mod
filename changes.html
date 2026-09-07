@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13. Changes &#8212; MØD 1.0.0.69 documentation</title>
+    <title>13. Changes &#8212; MØD 1.0.0.70 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
     <script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=9096230f"></script>
+    <script src="_static/documentation_options.js?v=73b2445d"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.69</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.70</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -259,9 +259,9 @@ and <a class="reference internal" href="pymod/rule/CompositionMatch.html#mod.RCM
 which not only returns the composed rule, but also vertex maps that relate it back to the input rules,
 thus making it possible to track vertices through a composition.</p></li>
 <li><p>When the ILP solver string is not recognized, error out with a list of the valid strings of available solvers.</p></li>
-<li><p>Added a Python class for stochastic simulation <a class="reference internal" href="pymod/causality/Stochsim.html#mod.causality.Simulator" title="mod.causality.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator</span></code></a>.
-It supports dynamic generation of the underlying reaction network (<a class="reference internal" href="pymod/dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>), e.g.,
-using a <a class="reference internal" href="pymod/dg/Strategies.html#mod.DGStrat" title="mod.DGStrat"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGStrat</span></code></a> to be executed whenever new reactions are needed.
+<li><p>Added a class for stochastic simulation class <a class="reference internal" href="pymod/causality/Stochsim.html#mod.causality.Simulator" title="mod.causality.Simulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">causality.Simulator</span></code></a>/<a class="reference internal" href="libmod/causality/Stochsim.html#_CPPv4N3mod9causality9SimulatorE" title="mod::causality::Simulator"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">causality::Simulator</span></code></a>.
+It supports dynamic generation of the underlying reaction network (<a class="reference internal" href="pymod/dg/DG.html#mod.DG" title="mod.DG"><code class="xref py py-class docutils literal notranslate"><span class="pre">DG</span></code></a>/<a class="reference internal" href="libmod/dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">dg::DG</span></code></a>), e.g.,
+using a <a class="reference internal" href="pymod/dg/Strategies.html#mod.DGStrat" title="mod.DGStrat"><code class="xref py py-class docutils literal notranslate"><span class="pre">DGStrat</span></code></a>/<a class="reference internal" href="libmod/dg/Strategies.html#_CPPv4N3mod2dg8StrategyE" title="mod::dg::Strategy"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">dg::Strategy</span></code></a> to be executed whenever new reactions are needed.
 It also supports open systems.
 The rate of each reaction, whether an internal reaction, input reaction, or output reaction, is given via callback functions.</p></li>
 <li><p>Added classes for supporting the stochastic simulation:</p>

@@ -23,3 +23,8 @@ Error
 .. exception:: StereoDeductionError
 
     See :cpp:class:`StereoDeductionError`.
+.. exception:: MethodOverrideError
+
+    When thrown there is at least basic exception safety.
+    This exception is thrown if a Python class derives from a C++ class,
+    but there is some error with an overriden method, including the method not being implemented.

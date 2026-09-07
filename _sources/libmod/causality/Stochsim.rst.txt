@@ -10,62 +10,233 @@ causality/Stochsim.hpp
 .. cpp:namespace:: mod
 
 
-Class ``causality::DrawMassActionFunction``
---------------------------------------------------------------------------------------------------------------------------------
+.. versionadded:: 1.1
 
-.. class:: causality::DrawMassActionFunction
-    
+The :class:`causality::Simulator` class implements the Stochastic Simulation Algorithm, also known as the Gillespie algorithm,
+but with the ability to generate the underlying network as needed,
+similarly to how a derivation graph, :class:`dg::DG`, can be created,
+and in particular the generation through graph transformation rules and strategies, :ref:`dgStrat`.
+
+
+.. class:: causality::Simulator
+
+    The main class for performing stochastic simulations of chemical systems.
+
+    .. type:: ExpandNetwork = std::function<bool(\
+        std::shared_ptr<dg::Builder>, \
+        const std::vector<std::shared_ptr<graph::Graph>> &, \
+        const std::vector<std::shared_ptr<graph::Graph>> &)>
+    .. function:: Simulator(LabelSettings labelSettings, \
+        const std::vector<std::shared_ptr<graph::Graph>> &graphDatabase, \
+        IsomorphismPolicy graphPolicy, \
+        ExpandNetwork expandNetwork, \
+        const std::vector<std::pair<std::shared_ptr<graph::Graph>, int>> &initialState, \
+        std::function<std::shared_ptr<DrawFunction>(const Marking&)> draw, \
+        std::function<double(double)> drawTime, \
+        bool withSetCompare)
+
+        :param LabelSettings labelSettings: a settings object that will be passed to :func:`dg::DG::make`.
+        :param list[Graph] graphDatabase: a list of graphs that will be passed to :func:`dg::DG::make`.
+        :param IsomorphismPolicy graphPolicy: the policy that will be passed to :func:`dg::DG::make`.
+        :param expandNetwork: a callback which will be called when the simulator needs new hyperedge/reaction information.
+            The callback will be given:
+
+            1. the DG builder object for the underlying derivation graph.
+            2. a list of graphs that were newly discovered in the last iteration.
+            3. a list of all graphs in the current state.
+
+            The callback must return a boolean which indicates whether it should be called again.
+
+        :param initialState: the initial simulation state in terms of the number of    copies of each graph/molecule.
+            The graphs/molecules not mentioned are not considered part of the simulation yet,
+            and are thus implicitly assumed to be 0.
+
+            .. caution:: If you use input flow through :class:`DrawMassAction` then the input rate is only
+                queried once a graph/molecule is known to the simulation, and you must thus mention them
+                in ``initialState`` if they should be queried immediately in the simulation.
+
+        :param draw: The simulator will initially create a :class:`dg::DG` which is given to this function.
+            It must then return a callable that is used in each simulation step to draw the next hyperedge/reaction.
+        :param drawTime: The function to use for drawing the time increment in each simulation step.
+            The function will be given the reactivity, and must return the time increment.
+            If a null function is given, it will default to an instance of :class:`DrawTimeExponential`.
+        :param bool withSetCompare: Whether to skip network expansion if a larger subset of graphs has been used for expansion before.
+        :throws: :class:`LogicError` if `draw` is a null function.
+        :throws: :class:`LogicError` if ``draw(dg)`` returns a null function for the internally created derivation graph ``dg``.
+    .. function:: ~Simulator()
+    .. function:: std::shared_ptr<dg::DG> getDG() const
+
+        :returns: the internal :class:`dg::DG` underlying the simulation.
+    .. function:: int getIteration() const
+
+        :returns: the current iteration number. It starts at 0 and is incremented in the beginning of each iteration.
+    .. function:: double getTime() const
+
+        :returns: the current simulation time.
+    .. function:: int state(dg::DG::Vertex v) const
+                  int state(std::shared_ptr<graph::Graph> g) const
+
+        :returns: the number of occurrences of the given vertex/graph in the current state.
+    .. function:: const EventTrace &getTrace() const
+
+        :returns: a copy of the event trace for the entire simulation.
+    .. function:: bool isNetworkOpen() const
+
+        :returns: whether the underlying network is still open for expansion.
+            See also the ``keepNetworkOpen`` parameter of :func:`simulate`.
+    .. function:: void closeNetwork()
+
+        Manually close the network for expansion, instead of letting the :func:`simulate` method do it.
+        The method does nothing if the network is already closed.
+        If the user saved the :class:`dg::Builder` object in the expansion callback,
+        this method also does nothing.
+    .. function:: void setOnIterationBegin(std::function<void(Simulator &)> f, int interval)
+
+        Set/remove a callback invoked in the very beginning of iterations of the simulation.
+        just after the iteration count has been incremented.
+        It is called at every ``interval`` th iteration,
+        The callback is invoked with the simulator object as argument.
+        Give a null function to remove the current callback.
+
+        :throws: :class:`LogicError` if `interval` is non-positive.
+    .. function:: void setOnIterationEnd(std::function<bool(Simulator &)> f)
+
+        Set/remove the callback invoked in the very end of each iteration of the simulation,
+        after the drawn action has been carried out and the time advanced.
+        It is called with the simulator object,
+        and it must return a boolean indicating whether to continue the simulation, i.e., `true` means continue.
+    .. function:: void setOnDeadlock(std::function<void(Simulator &)> f)
+
+        Set/remove the callback invoked if there are no events out of the current state.
+        It is called with the simulator object as argument.
+    .. function:: void setOnExpand(std::function<void(Simulator &)> f)
+
+        Set/remove the callback invoked when the simulator is about to request events out of the current state.
+        It is called with the simulator object as argument.
+    .. function:: void setOnExpandAvoided(std::function<void(Simulator &)> f)
+
+        Set/remove the callback invoked when the simulator detected is already had all events out of the current state.
+        It is called with the simulator object as argument.
+    .. function:: const EventTrace &simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen)
+
+        Start/continue the simulation.
+
+        Simulate an additional amount of time or number of iterations, whichever is reached first,
+        or until no further events are possible (a deadlock).
+
+        :param time: the additional amount of time to simulate,    or `std::nullopt` for unbounded.
+        :param advanceToEndTime: if a time bound is given and the simulation stops due to this bound,
+            advance the current time to the time bound,    instead of staying at the time of the last event.
+        :param iterations: the additional number of iterations to simulate, or `std::nullopt` for unbounded.
+        :param keepNetworkOpen: if `false` the internal `dg::Builder` object will be deleted before returning.
+        :returns: `getTrace()`
+
+.. class:: causality::Simulator::DrawTimeExponential
+
+    A shorthand for drawing time from an exponential distribution.
+
+    .. function:: double operator()(double activitySum) const
+
+        :param activitySum: the total sum of activity in the system.
+        :returns: :math:`\frac{-\ln r}{activitySum}`, where :math:`r` is a random number in :math:`[0, 1)` drawn with :func:`rngUniformReal`.
+
+.. class:: causality::Simulator::DrawFunction
+
+    The base class that event drawing functions must inherit from.
+
+    In each iteration a :class:`causality::Simulator` must draw the next event that should happen.
+    How to do this drawing can be customized, but such a drawing function needs detailed information
+    about the underlying network and as the network expands, the drawing function must be kept in sync with the network-
+    The drawing function customization is therefore done when a slightly indirect manner.
+    Instead of giving the drawing function directly, you give a function that can create a drawing function.
+    That is, the :class:`causality::Simulator` will create an internal :class:`causality::Marking` and give it as
+    argument to the function you give. Your function must then create an actual drawing function,
+    which must inherit from :class:`causality::Simulator::DrawFunction` and implement the appropriate methods.
+
+    For an example of a drawing function, see :class:`causality::Simulator::DrawMassAction::Function`,
+    and its creator function :class:`causality::Simulator::DrawMassAction`, which is the one users interact with.
+
+    .. class:: Choice
+
+        The class used in the return type of :func:`causality::Simulator::DrawFunction::draw`.
+        It is a more efficient representation of a :type:`causality::Action`.
+
+        .. function:: Choice() = default
+                      Choice(Action a)
+                      Choice(InputAction a)
+                      Choice(OutputAction a)
+                      Choice(EdgeAction a)
+
+            Construct either a null choice or an actual choice from an action.
+        .. function:: std::optional<Action> asAction() const
+
+            :returns: a conversion the choice into an action.
+    .. function:: virtual ~DrawFunction()
+    .. function:: virtual void syncSize() = 0
+
+        Called whenever the underlying derivation graph has changed size.
+        If the drawing function has internal data structures, this method
+        is where such data structures can be resized.
+        The derivation graph must be given to this object by its creator.
+    .. function:: virtual std::pair<Choice, double> draw() = 0
+
+        Called in order to draw the next event.
+
+        :returns: the drawn action to take and a number indicating the activity of the system.
+    .. function:: virtual void stateUpdated() = 0
+
+        Updates internal caches after the state has been updated.
+        This function must be invoked inbetween calls to `draw`.
+
+.. class:: causality::Simulator::DrawMassAction
+
+    A creator for a drawing function implementing the law of mass action.
+
+    It supports assigning a rate for input actions, output actions, and reactions,
+    by taking a callback (or constant) for each type.
+    To avoid the overhead of calling these callbacks in each iteration, a returned rate can be cached.
+    Therefore, the return value of each callback (or the constant of each type) is a pair
+    with the first entry being the rate, and the second entry a boolean indicating whether rate should be cached.
+
+    Each of the rate function can also be set to a null function,
+    which means a default rate is used: input rate 0.0, reaction rate 1.0, output rate 0.0.
+
+    .. function:: DrawMassAction(std::function<std::pair<double, bool>(dg::DG::Vertex)> inputRate, \
+                      std::function<std::pair<double, bool>(dg::DG::HyperEdge)> reactionRate, \
+                      std::function<std::pair<double, bool>(dg::DG::Vertex)> outputRate, \
+                      const std::string &implementationName)
+
+        :param inputRate: the rate used for pseudo-reactions for creating molecules.
+        :param reactionRate: the rate used for each reaction in the system.
+        :param outputRate: the rate used for pseudo-reactions for destroying molecules.
+        :param implementationName: the name of the internal implementation to use.
+    .. function:: ~DrawMassAction()
+    .. function:: std::shared_ptr<Function> operator()(const Marking &state)
+
+        :param state: the state of the underlying simulation.
+            It must be kept alive as long as the returned drawing function is kept alive.
+        :returns: a drawing function implementing the law of mass action.
+
+.. class:: causality::Simulator::DrawMassAction::Function
 
     A helper class for performing stochastic simulations where
     events are drawn according to the law of mass action.
     Importantly, if the underlying derivation graph is enlarged then
     :func:`syncSize` must be called before calling :func:`draw`.
 
-    .. versionadded:: 1.1
+    .. function:: Function(const Marking &state,\
+                      std::function<std::pair<double, bool>(dg::DG::Vertex)> inputRate, \
+                      std::function<std::pair<double, bool>(dg::DG::HyperEdge)> reactionRate, \
+                      std::function<std::pair<double, bool>(dg::DG::Vertex)> outputRate, \
+                      const std::string &implementation)
 
+        Construct a new instance, that will draw based on the given state.
+        The return value of the rate callbacks must be 1) the rate and 2) a boolean telling whether
+        the library should cache the rate. If `true` no more calls with the same argument will be made.
+        Each of the rate functions may be an empty `std::function` (i.e., default constructed),
+        which means a default rate is used: input rate 0.0, reaction rate 1.0, output rate 0.0.
 
-Synopsis
-^^^^^^^^
-
-.. alias:: causality::DrawMassActionFunction
-    :maxdepth: 2
-    :noroot:
-
-
-Details
-^^^^^^^
-
-.. cpp:namespace-push:: causality::DrawMassActionFunction
-
-.. function:: DrawMassActionFunction(std::shared_ptr<dg::DG> dg_,\
-                                     std::function<std::pair<double, bool>(dg::DG::Vertex)> inputRate, \
-                                     std::function<std::pair<double, bool>(dg::DG::HyperEdge)> reactionRate, \
-                                     std::function<std::pair<double, bool>(dg::DG::Vertex)> outputRate)
-
-    Construct a new instance, based on the given derivation graph.
-    The return value of the rate callbacks must be 1) the rate and 2) a boolean telling whether
-    the library should cache the rate. If `true` no more calls with the same argument will be made.
-    Each of the rate functions may be an empty `std::function` (i.e., default constructed),
-    which means a default rate is used: input rate 0.0, reaction rate 1.0, output rate 0.0.
-
-    :throws: :class:`LogicError` if `!dg_`.
-    :throws: :class:`LogicError` if neither `dg_->hasActiveBuilder()` nor `dg_->isLocked()`.
-.. function:: void syncSize()
-
-    Enlarges the internal data structures to the current size of the underlying derivation graph.
-.. function:: std::pair<std::optional<Action>, double> draw(const Marking &m)
-
-    :returns: an action, randomly selected according to the low of mass action
-        based on the given population/marking and the rates.
-        The second returned component is the sum of reactivity for the given reactions/hyperedges.
-
-        If no events are possible, then the second component is 0.0 and the first component has no value.
-
-        Use :func:`rngReseed` to seed the pseudo-random bit generator used for the selection.
-
-    :throws: :class:`LogicError` if `m` is not a marking on the underlying derivation graph.
-
-    Requires :func:`syncSize` to have been called since the last time the underlying derivation graph has changed size.
-
-.. cpp:namespace-pop::
-
+    .. function:: ~Function()
+    .. function:: virtual void syncSize() override
+    .. function:: virtual std::pair<DrawFunction::Choice, double> draw() override
+    .. function:: virtual void stateUpdated() override
