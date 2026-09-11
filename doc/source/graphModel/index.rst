@@ -315,14 +315,14 @@ All these examples assume we are in term mode.
 - Assume some vertex is supposed to act as wildcard, but constrained to only match,
   ``O`` or ``S``.
   We can then give the vertex a label ``_X``, i.e., a variable, and add the constraint
-  :math:`q = \texttt{_X}, Q = \{\texttt{O}, \texttt{S}\}`.
+  :math:`q = \texttt{\_X}, Q = \{\texttt{O}, \texttt{S}\}`.
   In GML this becomes
   ``constrainLabelAny [ label "_X" labels [ label "O" label "S" ] ]``.
 - Assume we have two such vertices, but we need them to be different, i.e., if
   one is matched to a ``O`` then the other must be ``S``.
   The two vertices can be given different variables as labels, ``_X`` and ``_Y``,
   and we then add the constraint
-  :math:`q = \texttt{foo(_X, _Y)}, Q = \{\texttt{foo(O, S)}, \texttt{foo(S, O)}\}``.
+  :math:`q = \texttt{foo(\_X, \_Y)}, Q = \{\texttt{foo(O, S)}, \texttt{foo(S, O)}\}``.
   In GML this becomes
   ``constrainLabelAny [ label "foo(_X, _Y)" labels [ label "foo(O, S)" label "foo(S, O)" ] ]``.
   We here use an arbitrary function symbol, ``foo``, just for the formulation
