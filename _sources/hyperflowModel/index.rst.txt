@@ -70,10 +70,13 @@ that assigns a non-negative integer to each hyperedge, including the input/outpu
 It must satisfy the flow conservation constraint
 
 .. math::
+	:no-wrap:
 
+	\begin{align*}
 	\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{sources})f(e) - 
 	\sum_{e\in \text{in}_{\overline{E}}(v)} m_v(e^{targets})f(e) &= 0
 		& \forall v\in V
+	\end{align*}
 
 where :math:`\text{out}_{\overline{E}}(v)` and
 :math:`\text{in}_{\overline{E}}(v)` are the sets of out-edges and in-edges of a
