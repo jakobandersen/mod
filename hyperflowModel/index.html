@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>10. Hyperflow Model &#8212; MØD 1.0.0.70 documentation</title>
+    <title>10. Hyperflow Model &#8212; MØD 1.0.0.71 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/haxes.css?v=1a7a6c7a" />
     <script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=73b2445d"></script>
+    <script src="../_static/documentation_options.js?v=d7cac044"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.70</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.71</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -206,11 +206,9 @@ an integer hyperflow is a function <span class="math notranslate nohighlight">\(
 that assigns a non-negative integer to each hyperedge, including the input/output edges.
 It must satisfy the flow conservation constraint</p>
 <div class="math notranslate nohighlight">
-\[\begin{align*}
-\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{sources})f(e) -
+\[\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{sources})f(e) -
 \sum_{e\in \text{in}_{\overline{E}}(v)} m_v(e^{targets})f(e) &amp;= 0
-        &amp; \forall v\in V
-\end{align*}\]</div>
+        &amp; \forall v\in V\]</div>
 <p>where <span class="math notranslate nohighlight">\(\text{out}_{\overline{E}}(v)\)</span> and
 <span class="math notranslate nohighlight">\(\text{in}_{\overline{E}}(v)\)</span> are the sets of out-edges and in-edges of a
 vertex <span class="math notranslate nohighlight">\(v\)</span> respectively.
@@ -231,21 +229,17 @@ Formally we create the <em>expanded network</em>
 <span class="math notranslate nohighlight">\(\widetilde{\mathcal{H}} = (\widetilde{V}, \widetilde{E})\)</span>,
 with</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{align*}
-\widetilde{V} &amp;= \bigcup_{v\in V} V_v^{in} \cup \bigcup_{v\in V} V_v^{out}   \\
+\[\begin{split}\widetilde{V} &amp;= \bigcup_{v\in V} V_v^{in} \cup \bigcup_{v\in V} V_v^{out}   \\
 V_v^{in}  &amp;= \{u^{in}_{ve} \mid \forall e\in \text{in}_{\overline{E}}(v)\}\\
-V_v^{out} &amp;= \{u^{out}_{ve} \mid \forall e\in \text{out}_{\overline{E}}(v)\}\\
-\end{align*}\end{split}\]</div>
+V_v^{out} &amp;= \{u^{out}_{ve} \mid \forall e\in \text{out}_{\overline{E}}(v)\}\\\end{split}\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{align*}
-\widetilde{E} &amp;= \bigcup_{v\in V}E_v \cup \{\widetilde{e}\mid e\in \overline{E}\} \\
+\[\begin{split}\widetilde{E} &amp;= \bigcup_{v\in V}E_v \cup \{\widetilde{e}\mid e\in \overline{E}\} \\
 \widetilde{e}       &amp;= (\widetilde{e}^{sources}, \widetilde{e}^{targets}) \\
 \widetilde{e}^{sources} &amp;= \{u^{out}_{ve} \mid v \in e^{sources}\}       \\
 \widetilde{e}^{targets}  &amp;= \{u^{in}_{ve}  \mid v \in e^{targets}\}        \\
 E_v &amp;= \left\{\left(\{u^{in}\}, \{u^{out}\}\right)
-        \mid u^{in}\in V_v^{in}, u^{out}\in V_v^{out}\right\}
-\end{align*}\end{split}\]</div>
+        \mid u^{in}\in V_v^{in}, u^{out}\in V_v^{out}\right\}\end{split}\]</div>
 <p>That is, each original vertex is replaced with a vertex for each in-edge and for each
 out-edge of that replaced vertex.
 The original hyperedges are then reconnected to these new vertices,

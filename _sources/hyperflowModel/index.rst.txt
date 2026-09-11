@@ -71,11 +71,9 @@ It must satisfy the flow conservation constraint
 
 .. math::
 
-	\begin{align*}
 	\sum_{e\in \text{out}_{\overline{E}}(v)} m_v(e^{sources})f(e) - 
 	\sum_{e\in \text{in}_{\overline{E}}(v)} m_v(e^{targets})f(e) &= 0
 		& \forall v\in V
-	\end{align*}
 
 where :math:`\text{out}_{\overline{E}}(v)` and
 :math:`\text{in}_{\overline{E}}(v)` are the sets of out-edges and in-edges of a
@@ -123,24 +121,20 @@ with
 
 .. math::
 
-	\begin{align*}
 	\widetilde{V} &= \bigcup_{v\in V} V_v^{in} \cup \bigcup_{v\in V} V_v^{out}   \\
 	V_v^{in}  &= \{u^{in}_{ve} \mid \forall e\in \text{in}_{\overline{E}}(v)\}\\
 	V_v^{out} &= \{u^{out}_{ve} \mid \forall e\in \text{out}_{\overline{E}}(v)\}\\
-	\end{align*}
 
 and
 
 .. math::
 
-	\begin{align*}
 	\widetilde{E} &= \bigcup_{v\in V}E_v \cup \{\widetilde{e}\mid e\in \overline{E}\} \\
 	\widetilde{e}       &= (\widetilde{e}^{sources}, \widetilde{e}^{targets}) \\
 	\widetilde{e}^{sources} &= \{u^{out}_{ve} \mid v \in e^{sources}\}       \\
 	\widetilde{e}^{targets}  &= \{u^{in}_{ve}  \mid v \in e^{targets}\}        \\
 	E_v &= \left\{\left(\{u^{in}\}, \{u^{out}\}\right)
 		\mid u^{in}\in V_v^{in}, u^{out}\in V_v^{out}\right\}
-	\end{align*}
 
 That is, each original vertex is replaced with a vertex for each in-edge and for each
 out-edge of that replaced vertex.
