@@ -1213,6 +1213,15 @@ def _EventTrace_print(self: causality.EventTrace, printer: None | causality.Even
 	return _EventTrace_print_orig(self, printer)
 causality.EventTrace.print = _EventTrace_print  # type: ignore
 
+
+_EventTraceView_print_orig = causality.EventTraceView.print
+def _EventTraceView_print(self: causality.EventTraceView, printer: None | causality.EventTracePrinter = None) -> str:
+	if printer is None:
+		printer = causality.EventTracePrinter()
+	return _EventTraceView_print_orig(self, printer)
+causality.EventTraceView.print = _EventTraceView_print  # type: ignore
+
+
 _EventTracePrinter_pushOptions_orig = causality.EventTracePrinter.pushOptions
 causality.EventTracePrinter.pushOptions = (  # type: ignore
 	lambda self, f: _EventTracePrinter_pushOptions_orig(self, _funcWrap(libpymod._Func_StringDG, f)))

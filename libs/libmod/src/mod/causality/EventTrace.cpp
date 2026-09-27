@@ -282,4 +282,147 @@ EventTrace EventTrace::load(std::shared_ptr<Net> net, const std::string &file) {
 	return EventTrace(net, std::move(*inner));
 }
 
+// ############################################################################
+
+EventTraceView::iterator::iterator() = default;
+EventTraceView::iterator::iterator(const EventTraceView *t, int offset) : t(t), offset(offset) {}
+
+EventTrace::Event EventTraceView::iterator::dereference() const {
+	const auto &es = t->p->t.getEvents();
+	assert(offset >= 0 && offset < es.size());
+	struct Visitor {
+		Visitor(const lib::DG::Hyper &dg_) : dg_(dg_) {}
+
+		Action operator()(const lib::Causality::EdgeAction &a) const {
+			return EdgeAction{dg_.getInterfaceEdge(a.e)};
+		}
+
+		Action operator()(const lib::Causality::InputAction &a) const {
+			return InputAction{dg_.getInterfaceVertex(a.v)};
+		}
+
+		Action operator()(const lib::Causality::OutputAction &a) const {
+			return OutputAction{dg_.getInterfaceVertex(a.v)};
+		}
+	public:
+		const lib::DG::Hyper &dg_;
+	};
+	return Event{es[offset].time, std::visit(Visitor(t->p->net->getDG()->getHyper()), es[offset].action)};
+}
+
+bool EventTraceView::iterator::equal(iterator other) const {
+	return std::tie(t, offset) == std::tie(other.t, other.offset);
+}
+
+void EventTraceView::iterator::increment() {
+	++offset;
+}
+
+void EventTraceView::iterator::advance(int n) {
+	offset += n;
+}
+
+// ############################################################################
+
+EventTraceView::EventTraceView(const EventTrace &trace) : p(trace.p) {}
+
+EventTraceView::~EventTraceView() = default;
+EventTraceView::EventTraceView(const EventTraceView &other) = default;
+
+std::shared_ptr<dg::DG> EventTraceView::getDG() const {
+	return p->net->getDG();
+}
+
+Marking EventTraceView::getInitialState() const {
+	p->t.syncSize();
+	return Marking(p->net, p->t.getInitialState());
+}
+
+int EventTraceView::size() const {
+	return p->t.getEvents().size();
+}
+
+double EventTraceView::getTime() const {
+	if(p->t.getEvents().size() == 0) return 0;
+	else return (p->t.getEvents().end() - 1)->time;
+}
+
+EventTraceView::const_iterator EventTraceView::begin() const {
+	return const_iterator(this, 0);
+}
+
+EventTraceView::const_iterator EventTraceView::end() const {
+	return const_iterator(this, this->size());
+}
+
+EventTraceView::Event EventTraceView::operator[](int i) const {
+	if(i < 0 || i >= size()) throw LogicError("Offset is out of bounds.");
+	return begin()[i];
+}
+
+std::ostream &operator<<(std::ostream &s, const EventTraceView &t) {
+	s << "EventTrace{" << t.getInitialState() << ", ";
+	s << "[";
+	bool first = true;
+	for(const auto &e: t) {
+		if(!first)
+			s << ", ";
+		first = false;
+		s << e;
+	}
+	return s << "]}";
+}
+
+bool operator==(const EventTraceView &a, const EventTraceView &b) {
+	if(a.p->net != b.p->net) return false;
+	a.p->net->syncSize();
+	b.p->net->syncSize();
+	a.p->t.syncSize();
+	b.p->t.syncSize();
+	return a.p->t == b.p->t;
+}
+
+bool operator==(const EventTrace &a, const EventTraceView &b) {
+	if(a.p->net != b.p->net) return false;
+	a.p->net->syncSize();
+	b.p->net->syncSize();
+	a.p->t.syncSize();
+	b.p->t.syncSize();
+	return a.p->t == b.p->t;
+}
+
+bool operator==(const EventTraceView &a, const EventTrace &b) {
+	if(a.p->net != b.p->net) return false;
+	a.p->net->syncSize();
+	b.p->net->syncSize();
+	a.p->t.syncSize();
+	b.p->t.syncSize();
+	return a.p->t == b.p->t;
+
+}
+
+std::string EventTraceView::print() const {
+	return print(EventTracePrinter());
+}
+
+std::string EventTraceView::print(const EventTracePrinter &printer) const {
+	p->t.syncSize();
+	return lib::Causality::Write::summaryEventTrace(p->t, printer.getPrinter());
+}
+
+std::string EventTraceView::dump() const {
+	return dump("");
+}
+
+std::string EventTraceView::dump(const std::string &filename) const {
+	if(filename.empty()) {
+		std::string name = lib::IO::makeUniqueFilePrefix() + "EventTrace.eventTrace";
+		lib::IO::writeJsonFile(name, p->t.dump());
+		return name;
+	} else {
+		lib::IO::writeJsonFile(filename, p->t.dump());
+		return filename;
+	}
+}
+
 } // namespace mod::causality

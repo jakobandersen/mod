@@ -108,10 +108,10 @@ public:
 	// rst:			:returns: the number of occurrences of the given vertex/graph in the current state.
 	int state(dg::DG::Vertex v) const;
 	int state(std::shared_ptr<graph::Graph> g) const;
-	// rst:		.. function:: const EventTrace &getTrace() const
+	// rst:		.. function:: EventTraceView getTrace() const
 	// rst:
 	// rst:			:returns: a copy of the event trace for the entire simulation.
-	const EventTrace &getTrace() const;
+	EventTraceView getTrace() const;
 	// rst:		.. function:: bool isNetworkOpen() const
 	// rst:
 	// rst:			:returns: whether the underlying network is still open for expansion.
@@ -158,7 +158,7 @@ public:
 	// rst:			It is called with the simulator object as argument.
 	void setOnExpandAvoided(std::function<void(Simulator &)> f);
 public:
-	// rst:		.. function:: const EventTrace &simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen)
+	// rst:		.. function:: EventTraceView simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen)
 	// rst:
 	// rst:			Start/continue the simulation.
 	// rst:
@@ -171,7 +171,7 @@ public:
 	// rst:			:param iterations: the additional number of iterations to simulate, or `std::nullopt` for unbounded.
 	// rst:			:param keepNetworkOpen: if `false` the internal `dg::Builder` object will be deleted before returning.
 	// rst:			:returns: `getTrace()`
-	const EventTrace &simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen);
+	EventTraceView simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen);
 private:
 	struct Pimpl;
 	std::unique_ptr<Pimpl> p;

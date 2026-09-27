@@ -7,6 +7,7 @@
 // rst:
 namespace mod::causality {
 struct EventTrace;
+struct EventTraceView;
 struct EventTracePrinter;
 struct Net;
 struct Marking;

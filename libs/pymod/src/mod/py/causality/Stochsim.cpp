@@ -87,7 +87,7 @@ struct DrawFunctionWrapper : Simulator::DrawFunction, py::wrapper<DrawFunctionWr
 	}
 };
 
-const EventTrace &Simulator_simulate(Simulator &self, py::object pyTime, bool advanceToEndTime,
+EventTraceView Simulator_simulate(Simulator &self, py::object pyTime, bool advanceToEndTime,
                                      py::object pyIterations, bool keepNetworkOpen) {
 	std::optional<double> time;
 	if(!pyTime.is_none()) time = py::extract<double>(pyTime);
@@ -194,12 +194,10 @@ void Stochsim_doExport() {
 		                                Simulator::state))
 	                           // rst:		.. property:: trace
 	                           // rst:
-	                           // rst:			(Read-only) Returns a copy of the event trace for the entire simulation.
+	                           // rst:			(Read-only) Returns a view of the event trace for the entire simulation.
 	                           // rst:
-	                           // rst:			:type: EventTrace
-	                           .add_property("trace", py::make_function(&Simulator::getTrace,
-	                                                                    py::return_value_policy<
-	                                                                    py::copy_const_reference>()))
+	                           // rst:			:type: EventTraceView
+	                           .add_property("trace", &Simulator::getTrace)
 							   // rst:		.. attribute:: isNetworkOpen
 							   // rst:
 							   // rst:			(Read-only) Query whether the underlying network is still open for expansion.
@@ -267,10 +265,9 @@ void Stochsim_doExport() {
 	                           // rst:				advance the current time to the time bound,	instead of staying at the time of the last event. Defaults to ``False``.
 	                           // rst:			:param Optional[int] iterations: the additional number of iterations to simulate, or ``None`` for unbounded. Defaults to ``None``.
 	                           // rst:			:param bool keepNetworkOpen: if ``False`` the internal :py:class:`DG.Builder` object will be deleted before returning. Defaults to ``False``.
-	                           // rst:			:returns: a copy of the event trace for the entire simulation.
+	                           // rst:			:returns: a view of the event trace for the entire simulation.
 	                           // rst:			:rtype: EventTrace
-	                           .def("simulate", py::make_function(&Simulator_simulate,
-	                                                              py::return_value_policy<py::copy_const_reference>()));
+	                           .def("simulate", &Simulator_simulate);
 
 	// rst:
 	// rst:	.. class:: causality.Simulator.DrawTimeExponential

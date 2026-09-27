@@ -175,6 +175,8 @@ public:
 	// rst:
 	// rst:		Calls ``syncSize()`` on the internal initial state and the underlying net.
 	MOD_DECL friend bool operator==(const EventTrace &a, const EventTrace &b);
+	MOD_DECL friend bool operator==(const EventTrace &a, const EventTraceView &b);
+	MOD_DECL friend bool operator==(const EventTraceView &a, const EventTrace &b);
 public:
 	// rst: .. function:: void add(double time, Action action)
 	// rst:
@@ -205,8 +207,9 @@ public:
 	std::string dump() const;
 	std::string dump(const std::string &filename) const;
 private:
+	friend class EventTraceView;
 	struct Pimpl;
-	std::unique_ptr<Pimpl> p;
+	std::shared_ptr<Pimpl> p; // may be shared with one or more EventTraceViews
 public:
 	// rst: .. function:: static EventTrace load(std::shared_ptr<dg::DG> dg_, const std::string &file)
 	// rst:               static EventTrace load(std::shared_ptr<Net> net, const std::string &file)
@@ -221,6 +224,105 @@ public:
 	// rst:		:throws: :class:`InputError` on bad data or if the given derivation graph does not match the data.
 	static EventTrace load(std::shared_ptr<dg::DG> dg_, const std::string &file);
 	static EventTrace load(std::shared_ptr<Net> net, const std::string &file);
+};
+// rst-class-end:
+
+
+// rst:
+// rst-class: causality::EventTraceView
+// rst:
+// rst:		A helper class to give a read-only view of an :class:`EventTrace`.
+// rst:
+// rst-class-start:
+struct MOD_DECL EventTraceView {
+	// rst: .. type:: Event = EventTrace::Event
+	using Event = EventTrace::Event;
+	// rst: .. type:: iterator
+	// rst:           const_iterator = iterator
+	struct iterator : boost::iterator_facade<iterator, Event, std::random_access_iterator_tag, Event> {
+		iterator();
+		iterator(const EventTraceView *t, int offset);
+	private:
+		friend class boost::iterator_core_access;
+		Event dereference() const;
+		bool equal(iterator other) const;
+		void increment();
+		// TODO: implement the rest to make it a true random-access iterator
+		void advance(int n);
+	private:
+		const EventTraceView *t;
+		int offset;
+	};
+	using const_iterator = iterator;
+public:
+	// rst: .. function:: EventTraceView(const EventTrace &trace)
+	// rst:
+	// rst:		Construct a view of `trace`. The two classes will share internal data structures,
+	// rst:		so this object will be valid after `trace` is destroyed.
+	EventTraceView(const EventTrace &trace);
+	~EventTraceView();
+	EventTraceView(const EventTraceView &);
+	EventTraceView &operator=(const EventTraceView &);
+public:
+	// rst: .. function:: std::shared_ptr<dg::DG> getDG() const
+	// rst:
+	// rst:		:returns:  the underlying derivation graph of the event trace.
+	std::shared_ptr<dg::DG> getDG() const;
+	// rst: .. function:: Marking getInitialState() const
+	// rst:
+	// rst:		:returns: a copy of the initial state for this event trace.
+	Marking getInitialState() const;
+	// rst: .. function:: int size() const
+	// rst:
+	// rst:		:returns: the number of events in the trace.
+	int size() const;
+	// rst: .. function:: double getTime() const
+	// rst:
+	// rst:		:returns: the time of the latest added event, or 0 if `size() == 0`.
+	double getTime() const;
+	// rst: .. function:: const_iterator begin() const
+	// rst:               const_iterator end() const
+	// rst:
+	// rst:		:returns: the begin/end iterator for the range of events in the trace.
+	const_iterator begin() const;
+	const_iterator end() const;
+	// rst: .. function:: Event operator[](int i) const
+	// rst:
+	// rst:		:returns: the `i`\ th event in the trace.
+	// rst:		:throws: :class:`LogicError` if `i` is out of bounds.
+	Event operator[](int i) const;
+	// rst: .. function:: friend std::ostream &operator<<(std::ostream &s, const EventTraceView &t)
+	MOD_DECL friend std::ostream &operator<<(std::ostream &s, const EventTraceView &t);
+	// rst: .. function:: friend bool operator==(const EventTraceView &a, const EventTraceView &b)
+	// rst:               friend bool operator==(const EventTrace &a, const EventTraceView &b);
+	// rst:               friend bool operator==(const EventTraceView &a, const EventTrace &b);
+	// rst:
+	// rst:		Calls ``syncSize()`` on the internal initial state and the underlying net.
+	MOD_DECL friend bool operator==(const EventTraceView &a, const EventTraceView &b);
+	MOD_DECL friend bool operator==(const EventTrace &a, const EventTraceView &b);
+	MOD_DECL friend bool operator==(const EventTraceView &a, const EventTrace &b);
+public:
+	// rst: .. function:: std::string print() const
+	// rst:               std::string print(const EventTracePrinter &printer) const
+	// rst:
+	// rst:		Create a plot of the counts throughout the event trace at each time point.
+	// rst:
+	// rst:		:returns: the filename for the PDF that will be compiled by the post processor.
+	std::string print() const;
+	std::string print(const EventTracePrinter &printer) const;
+	// rst: .. function:: std::string dump() const
+	// rst:               std::string dump(const std::string &filename) const
+	// rst:
+	// rst:		Dump the initial marking and list of events to a file. This file can be loaded in again.
+	// rst:
+	// rst:		:param filename: the name of the file to save the dump to.
+	// rst:			If non is given an auto-generated name in the ``out/`` folder is used.
+	// rst:			If an empty string is given, it is treated as if non is given.
+	// rst:		:returns: the filename with the dumped trace.
+	std::string dump() const;
+	std::string dump(const std::string &filename) const;
+private:
+	std::shared_ptr<EventTrace::Pimpl> p;
 };
 // rst-class-end:
 

@@ -52,7 +52,7 @@ int Simulator::state(std::shared_ptr<graph::Graph> g) const {
 	return p->sim.getState()[g];
 }
 
-const EventTrace &Simulator::getTrace() const {
+EventTraceView Simulator::getTrace() const {
 	return p->sim.getTrace();
 }
 
@@ -116,8 +116,7 @@ void Simulator::setOnExpandAvoided(std::function<void(Simulator &)> f) {
 	}
 }
 
-const EventTrace &Simulator::simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations,
-                                      bool keepNetworkOpen) {
+EventTraceView Simulator::simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen) {
 	p->sim.simulate(time, advanceToEndTime, iterations, keepNetworkOpen);
 	return p->sim.getTrace();
 }
