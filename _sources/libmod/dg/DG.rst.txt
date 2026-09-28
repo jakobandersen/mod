@@ -18,7 +18,7 @@ Class ``dg::DG``
 
     The derivation graph class. A derivation graph is a directed multi-hypergraph
     :math:`\mathcal{H} = (V, E)`. Each hyperedge :math:`e\in E` is thus an ordered pair
-    :math:`(e^+, e^-)` of multisets of vertices, the sources and the targets.
+    :math:`(e^{sources}, e^{targets})` of multisets of vertices, the sources and the targets.
     Each vertex is annotated with a graph, and each hyperedge is annotated with list of transformation rules.
     A derivation graph is constructed incrementally using a :cpp:class:`Builder` obtained from the :cpp:func:`build()`
     function. When the obtained builder is destructed the derivation graph becomes locked and can no longer be modified.
