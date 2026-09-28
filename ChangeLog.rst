@@ -87,6 +87,7 @@ Bugs Fixed
 - Docs, fix description of the comatch in :py:class:`DGVertexMapper`/:cpp:class:`dg::VertexMapper`,
   to have the right domain (:math:`R`, instead of :math:`L`).
   Thanks to Christoph Flamm for spotting the typo.
+- Docs, change to modern math notation for hyperedges in :py:class:`DG` and :cpp:class:`dg::DG`.
 
 
 v1.0.0 (2025-05-14)

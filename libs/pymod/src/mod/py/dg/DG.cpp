@@ -38,7 +38,7 @@ void DG_doExport() {
 	// rst:
 	// rst:		The derivation graph class. A derivation graph is a directed multi-hypergraph
 	// rst:		:math:`\mathcal{H} = (V, E)`. Each hyperedge :math:`e\in E` is thus an ordered pair
-	// rst:		:math:`(e^+, e^-)` of multisets of vertices, the sources and the targets.
+	// rst:		:math:`(e^{sources}, e^{targets})` of multisets of vertices, the sources and the targets.
 	// rst:		Each vertex is annotated with a graph, and each hyperedge is annotated with list of transformation rules.
 	// rst:		A derivation graph is constructed incrementally using a :class:`DG.Builder` obtained from the :meth:`build()`
 	// rst:		function. When the obtained builder is destructed the derivation graph becomes locked and can no longer be modified.
