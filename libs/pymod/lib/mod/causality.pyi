@@ -37,6 +37,10 @@ class EventTrace:
 	def load(net: Net, f: str) -> EventTrace: ...
 
 
+class EventTraceView:
+	def print(self, printer: None | EventTracePrinter) -> str: ...
+
+
 # EventTracePrinter
 # ----------------------------------------------------------------------------
 
