@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13. Changes &#8212; MØD 1.0.0.73 documentation</title>
+    <title>13. Changes &#8212; MØD 1.0.0.75 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/haxes.css?v=1a7a6c7a" />
     <script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=444ace37"></script>
+    <script src="_static/documentation_options.js?v=2bbbdae3"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.73</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.75</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -698,9 +698,9 @@ to not produce a <a class="reference internal" href="formats/index.html#grammar-
 to make it work on macOS.</p></li>
 <li><p>For compiling from source on macOS, add <code class="docutils literal notranslate"><span class="pre">cmake</span></code> to <code class="docutils literal notranslate"><span class="pre">Brewfile</span></code>.</p></li>
 <li><p>Check for Boost.Python compiled against Python 3.10 through 3.20 as well.</p></li>
-<li><p>Py, use <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Iterable</span></code></a> instead of the deprecated/removed
+<li><p>Py, use <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Iterable</span></code></a> instead of the deprecated/removed
 <code class="docutils literal notranslate"><span class="pre">collections.Iterable</span></code>.</p></li>
-<li><p>Py, use <a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.getfullargspec" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">inspect.getfullargspec()</span></code></a> instead of the deprecated/removed
+<li><p>Py, use <a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.getfullargspec" title="(in Python v3.15)"><code class="xref py py-func docutils literal notranslate"><span class="pre">inspect.getfullargspec()</span></code></a> instead of the deprecated/removed
 <code class="docutils literal notranslate"><span class="pre">inspect.getargspec()</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mod_post</span></code> scrub more unreproducible meta-info from figure PDFs.</p></li>
 <li><p>Fix memory leaks in <a class="reference internal" href="libmod/dg/Builder.html#_CPPv4N3mod2dg7Builder5applyERKNSt6vectorINSt10shared_ptrIN5graph5GraphEEEEENSt10shared_ptrIN4rule4RuleEEE" title="mod::dg::Builder::apply"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">dg::Builder::apply()</span></code></a>/<a class="reference internal" href="pymod/dg/Builder.html#mod.DG.Builder.apply" title="mod.DG.Builder.apply"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DG.Builder.apply()</span></code></a>.</p></li>

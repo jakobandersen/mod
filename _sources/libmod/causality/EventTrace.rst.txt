@@ -147,3 +147,78 @@ Class ``causality::EventTrace::Event``
     .. var:: Action action
 
 
+
+
+Class ``causality::EventTraceView``
+--------------------------------------------------------------------------------------------------------------------------------
+
+.. class:: causality::EventTraceView
+    
+
+    A helper class to give a read-only view of an :class:`EventTrace`.
+
+
+Synopsis
+^^^^^^^^
+
+.. alias:: causality::EventTraceView
+    :maxdepth: 2
+    :noroot:
+
+
+Details
+^^^^^^^
+
+.. cpp:namespace-push:: causality::EventTraceView
+
+.. type:: Event = EventTrace::Event
+.. type:: iterator
+          const_iterator = iterator
+.. function:: EventTraceView(const EventTrace &trace)
+
+    Construct a view of `trace`. The two classes will share internal data structures,
+    so this object will be valid after `trace` is destroyed.
+.. function:: std::shared_ptr<dg::DG> getDG() const
+
+    :returns:  the underlying derivation graph of the event trace.
+.. function:: Marking getInitialState() const
+
+    :returns: a copy of the initial state for this event trace.
+.. function:: int size() const
+
+    :returns: the number of events in the trace.
+.. function:: double getTime() const
+
+    :returns: the time of the latest added event, or 0 if `size() == 0`.
+.. function:: const_iterator begin() const
+              const_iterator end() const
+
+    :returns: the begin/end iterator for the range of events in the trace.
+.. function:: Event operator[](int i) const
+
+    :returns: the `i`\ th event in the trace.
+    :throws: :class:`LogicError` if `i` is out of bounds.
+.. function:: friend std::ostream &operator<<(std::ostream &s, const EventTraceView &t)
+.. function:: friend bool operator==(const EventTraceView &a, const EventTraceView &b)
+              friend bool operator==(const EventTrace &a, const EventTraceView &b);
+              friend bool operator==(const EventTraceView &a, const EventTrace &b);
+
+    Calls ``syncSize()`` on the internal initial state and the underlying net.
+.. function:: std::string print() const
+              std::string print(const EventTracePrinter &printer) const
+
+    Create a plot of the counts throughout the event trace at each time point.
+
+    :returns: the filename for the PDF that will be compiled by the post processor.
+.. function:: std::string dump() const
+              std::string dump(const std::string &filename) const
+
+    Dump the initial marking and list of events to a file. This file can be loaded in again.
+
+    :param filename: the name of the file to save the dump to.
+        If non is given an auto-generated name in the ``out/`` folder is used.
+        If an empty string is given, it is treated as if non is given.
+    :returns: the filename with the dumped trace.
+
+.. cpp:namespace-pop::
+

@@ -93,9 +93,9 @@ and in particular the generation through graph transformation rules and strategi
         :returns: the number of occurrences of the given vertex/graph in the current state.
     .. property:: trace
 
-        (Read-only) Returns a copy of the event trace for the entire simulation.
+        (Read-only) Returns a view of the event trace for the entire simulation.
 
-        :type: EventTrace
+        :type: EventTraceView
     .. attribute:: isNetworkOpen
 
         (Read-only) Query whether the underlying network is still open for expansion.
@@ -156,7 +156,7 @@ and in particular the generation through graph transformation rules and strategi
             advance the current time to the time bound,    instead of staying at the time of the last event. Defaults to ``False``.
         :param Optional[int] iterations: the additional number of iterations to simulate, or ``None`` for unbounded. Defaults to ``None``.
         :param bool keepNetworkOpen: if ``False`` the internal :py:class:`DG.Builder` object will be deleted before returning. Defaults to ``False``.
-        :returns: a copy of the event trace for the entire simulation.
+        :returns: a view of the event trace for the entire simulation.
         :rtype: EventTrace
 
 .. class:: causality.Simulator.DrawTimeExponential

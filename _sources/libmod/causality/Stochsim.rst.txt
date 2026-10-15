@@ -77,7 +77,7 @@ and in particular the generation through graph transformation rules and strategi
                   int state(std::shared_ptr<graph::Graph> g) const
 
         :returns: the number of occurrences of the given vertex/graph in the current state.
-    .. function:: const EventTrace &getTrace() const
+    .. function:: EventTraceView getTrace() const
 
         :returns: a copy of the event trace for the entire simulation.
     .. function:: bool isNetworkOpen() const
@@ -117,7 +117,7 @@ and in particular the generation through graph transformation rules and strategi
 
         Set/remove the callback invoked when the simulator detected is already had all events out of the current state.
         It is called with the simulator object as argument.
-    .. function:: const EventTrace &simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen)
+    .. function:: EventTraceView simulate(std::optional<double> time, bool advanceToEndTime, std::optional<int> iterations, bool keepNetworkOpen)
 
         Start/continue the simulation.
 

@@ -154,3 +154,59 @@ causality/EventTrace
         (Read-only) the action of the event.
 
         :type: EdgeAction or InputAction or OutputAction
+.. class:: causality.EventTraceView
+
+    A helper class to give a read-only view of an :class:`EventTrace`.
+
+    .. method:: __init__(trace)
+
+        Construct a view of `trace`. The two classes will share internal data structures,
+        so this object will be valid after `trace` is destroyed.
+
+        :param EventTrace trace: the trace to construct a view for.
+    .. attribute:: dg
+
+        (Read-only) The underlying derivation graph for the event trace.
+
+        :type: DG
+    .. attribute:: initialState
+
+        (Read-only) Read a copy of the initial state for this event trace.
+
+        :type: Marking
+    .. method:: __len__()
+
+        :returns: the number of events in the trace.
+        :rtype: int
+    .. attribute:: time
+
+        (Read-only) the time of the latest added event, or 0 if ``len(self) == 0``.
+
+        :type: float
+    .. method:: __getitem__()
+
+        :returns: the ``i``\ th event in the trace.
+        :rtype: Event
+        :raises: :class:`LogicError` if ``i`` is out of bounds.
+    .. method:: __eq__()
+
+        Calls ``syncSize()`` on the internal initial state and the underlying net.
+    .. method:: print(printer=EventTracePrinter())
+
+        Create a plot of the counts throughout the event trace at each time point.
+
+        :returns: the filename for the PDF that will be compiled by the post processor.
+        :rtype: str
+    .. method:: dump()
+                dump(filename)
+
+        Dump the initial marking and list of events to a file. This file can be loaded in again.
+
+        :param str filename: the name of the file to save the dump to.
+            If non is given an auto-generated name in the ``out/`` folder is used.
+            If an empty string is given, it is treated as if non is given.
+
+            .. note:: The filename is being used literally, i.e., it is not being
+                prefixed according to the current script location as input filenames are.
+        :returns: the filename with the dumped model.
+        :rtype: str

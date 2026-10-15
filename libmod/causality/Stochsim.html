@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3.2.11.5. causality/Stochsim.hpp &#8212; MØD 1.0.0.73 documentation</title>
+    <title>3.2.11.5. causality/Stochsim.hpp &#8212; MØD 1.0.0.75 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=444ace37"></script>
+    <script src="../../_static/documentation_options.js?v=2bbbdae3"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.73</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.75</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -298,7 +298,7 @@ If a null function is given, it will default to an instance of <a class="referen
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality9Simulator8getTraceEv">
-<span id="_CPPv3NK3mod9causality9Simulator8getTraceEv"></span><span id="_CPPv2NK3mod9causality9Simulator8getTraceEv"></span><span id="mod::causality::Simulator::getTraceC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="EventTrace.html#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTrace</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality9Simulator8getTraceEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mod9causality9Simulator8getTraceEv"></span><span id="_CPPv2NK3mod9causality9Simulator8getTraceEv"></span><span id="mod::causality::Simulator::getTraceC"></span><a class="reference internal" href="EventTrace.html#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTrace</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality9Simulator8getTraceEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a copy of the event trace for the entire simulation.</p>
@@ -373,7 +373,7 @@ It is called with the simulator object as argument.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mod9causality9Simulator8simulateENSt8optionalIdEEbNSt8optionalIiEEb">
-<span id="_CPPv3N3mod9causality9Simulator8simulateENSt8optionalIdEEbNSt8optionalIiEEb"></span><span id="_CPPv2N3mod9causality9Simulator8simulateENSt8optionalIdEEbNSt8optionalIiEEb"></span><span id="mod::causality::Simulator::simulate__std::optional:double:.b.std::optional:i:.b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="EventTrace.html#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">simulate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">time</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">advanceToEndTime</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">iterations</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">keepNetworkOpen</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality9Simulator8simulateENSt8optionalIdEEbNSt8optionalIiEEb" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mod9causality9Simulator8simulateENSt8optionalIdEEbNSt8optionalIiEEb"></span><span id="_CPPv2N3mod9causality9Simulator8simulateENSt8optionalIdEEbNSt8optionalIiEEb"></span><span id="mod::causality::Simulator::simulate__std::optional:double:.b.std::optional:i:.b"></span><a class="reference internal" href="EventTrace.html#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simulate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">time</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">advanceToEndTime</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">iterations</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">keepNetworkOpen</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality9Simulator8simulateENSt8optionalIdEEbNSt8optionalIiEEb" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Start/continue the simulation.</p>
 <p>Simulate an additional amount of time or number of iterations, whichever is reached first,
 or until no further events are possible (a deadlock).</p>

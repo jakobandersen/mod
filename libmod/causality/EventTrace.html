@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3.2.11.1. causality/EventTrace.hpp &#8212; MØD 1.0.0.73 documentation</title>
+    <title>3.2.11.1. causality/EventTrace.hpp &#8212; MØD 1.0.0.75 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8766eee3" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=c9b81698" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/haxes.css?v=1a7a6c7a" />
     <script src="../../_static/jquery.js?v=5d32c60e"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../../_static/documentation_options.js?v=444ace37"></script>
+    <script src="../../_static/documentation_options.js?v=2bbbdae3"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="../../index.html">
 			MØD</a>
-		<span class="navbar-text navbar-version pull-left"><b>1.0.0.73</b></span>
+		<span class="navbar-text navbar-version pull-left"><b>1.0.0.75</b></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -136,6 +136,33 @@
 <li><a class="reference internal" href="#_CPPv4N3mod9causality10EventTrace5EventE"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
 <li><a class="reference internal" href="#_CPPv4N3mod9causality10EventTrace5Event4timeE"><code class="docutils literal notranslate"><span class="pre">Event::time</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mod9causality10EventTrace5Event6actionE"><code class="docutils literal notranslate"><span class="pre">Event::action</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-causality-eventtraceview">3.2.11.1.3. Class <code class="docutils literal notranslate"><span class="pre">causality::EventTraceView</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE"><code class="docutils literal notranslate"><span class="pre">EventTraceView</span></code></a></li>
+<li><a class="reference internal" href="#id1">3.2.11.1.3.1. Synopsis</a></li>
+<li><a class="reference internal" href="#id2">3.2.11.1.3.2. Details</a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView5EventE"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView8iteratorE"><code class="docutils literal notranslate"><span class="pre">iterator</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14const_iteratorE"><code class="docutils literal notranslate"><span class="pre">const_iterator</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace"><code class="docutils literal notranslate"><span class="pre">EventTraceView()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5getDGEv"><code class="docutils literal notranslate"><span class="pre">getDG()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView15getInitialStateEv"><code class="docutils literal notranslate"><span class="pre">getInitialState()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView4sizeEv"><code class="docutils literal notranslate"><span class="pre">size()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView7getTimeEv"><code class="docutils literal notranslate"><span class="pre">getTime()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5beginEv"><code class="docutils literal notranslate"><span class="pre">begin()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView3endEv"><code class="docutils literal notranslate"><span class="pre">end()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceViewixEi"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewlsERNSt7ostreamERK14EventTraceView"><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK14EventTraceView"><code class="docutils literal notranslate"><span class="pre">operator==()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceVieweqERK10EventTraceRK14EventTraceView"><code class="docutils literal notranslate"><span class="pre">operator==()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK10EventTrace"><code class="docutils literal notranslate"><span class="pre">operator==()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5printEv"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5printERK17EventTracePrinter"><code class="docutils literal notranslate"><span class="pre">print()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView4dumpEv"><code class="docutils literal notranslate"><span class="pre">dump()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView4dumpERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">dump()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -505,6 +532,192 @@ must match the derivation graph originally used to create the dump.</p>
 
 </dd></dl>
 
+</section>
+<section id="class-causality-eventtraceview">
+<h2><span class="section-number">3.2.11.1.3. </span>Class <code class="docutils literal notranslate"><span class="pre">causality::EventTraceView</span></code><a class="headerlink" href="#class-causality-eventtraceview" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceViewE">
+<span id="_CPPv3N3mod9causality14EventTraceViewE"></span><span id="_CPPv2N3mod9causality14EventTraceViewE"></span><span id="mod::causality::EventTraceView"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">causality</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EventTraceView</span></span></span><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceViewE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A helper class to give a read-only view of an <a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">EventTrace</span></code></a>.</p>
+</dd></dl>
+
+<section id="id1">
+<h3><span class="section-number">3.2.11.1.3.1. </span>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">using</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView5EventE" title="mod::causality::EventTraceView::Event"><span class="n"><span class="pre">Event</span></span></a><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTrace5EventE" title="mod::causality::EventTrace::Event"><span class="n"><span class="pre">Event</span></span></a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView8iteratorE" title="mod::causality::EventTraceView::iterator"><span class="n"><span class="pre">iterator</span></span></a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">using</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14const_iteratorE" title="mod::causality::EventTraceView::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView8iteratorE" title="mod::causality::EventTraceView::iterator"><span class="n"><span class="pre">iterator</span></span></a><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace" title="mod::causality::EventTraceView::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5getDGEv" title="mod::causality::EventTraceView::getDG"><span class="n"><span class="pre">getDG</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="Petri.html#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView15getInitialStateEv" title="mod::causality::EventTraceView::getInitialState"><span class="n"><span class="pre">getInitialState</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView4sizeEv" title="mod::causality::EventTraceView::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView7getTimeEv" title="mod::causality::EventTraceView::getTime"><span class="n"><span class="pre">getTime</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14const_iteratorE" title="mod::causality::EventTraceView::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5beginEv" title="mod::causality::EventTraceView::begin"><span class="n"><span class="pre">begin</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14const_iteratorE" title="mod::causality::EventTraceView::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView3endEv" title="mod::causality::EventTraceView::end"><span class="n"><span class="pre">end</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView5EventE" title="mod::causality::EventTraceView::Event"><span class="n"><span class="pre">Event</span></span></a><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceViewixEi" title="mod::causality::EventTraceView::operator[]"><span class="sig-name descname"><span class="pre">[]</span></span></a><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewlsERNSt7ostreamERK14EventTraceView" title="mod::causality::EventTraceView::operator&lt;&lt;"><span class="sig-name descname"><span class="pre">&lt;&lt;</span></span></a><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK14EventTraceView" title="mod::causality::EventTraceView::operator=="><span class="sig-name descname"><span class="pre">==</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceVieweqERK10EventTraceRK14EventTraceView" title="mod::causality::EventTraceView::operator=="><span class="sig-name descname"><span class="pre">==</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">;</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="k"><span class="pre">operator</span></span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK10EventTrace" title="mod::causality::EventTraceView::operator=="><span class="sig-name descname"><span class="pre">==</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">;</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5printEv" title="mod::causality::EventTraceView::print"><span class="n"><span class="pre">print</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView5printERK17EventTracePrinter" title="mod::causality::EventTraceView::print"><span class="n"><span class="pre">print</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="EventTracePrinter.html#_CPPv4N3mod9causality17EventTracePrinterE" title="mod::causality::EventTracePrinter"><span class="n"><span class="pre">EventTracePrinter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">printer</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView4dumpEv" title="mod::causality::EventTraceView::dump"><span class="n"><span class="pre">dump</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView4dumpERKNSt6stringE" title="mod::causality::EventTraceView::dump"><span class="n"><span class="pre">dump</span></span></a><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id2">
+<h3><span class="section-number">3.2.11.1.3.2. </span>Details<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceView5EventE">
+<span id="_CPPv3N3mod9causality14EventTraceView5EventE"></span><span id="_CPPv2N3mod9causality14EventTraceView5EventE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Event</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTrace5EventE" title="mod::causality::EventTrace::Event"><span class="n"><span class="pre">Event</span></span></a><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceView5EventE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceView8iteratorE">
+<span id="_CPPv3N3mod9causality14EventTraceView8iteratorE"></span><span id="_CPPv2N3mod9causality14EventTraceView8iteratorE"></span><span id="mod::causality::EventTraceView::iterator"></span><span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceView8iteratorE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceView14const_iteratorE">
+<span id="_CPPv3N3mod9causality14EventTraceView14const_iteratorE"></span><span id="_CPPv2N3mod9causality14EventTraceView14const_iteratorE"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView8iteratorE" title="mod::causality::EventTraceView::iterator"><span class="n"><span class="pre">iterator</span></span></a><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceView14const_iteratorE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace">
+<span id="_CPPv3N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace"></span><span id="_CPPv2N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace"></span><span id="mod::causality::EventTraceView::EventTraceView__EventTraceCR"></span><span class="sig-name descname"><span class="n"><span class="pre">EventTraceView</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">trace</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Construct a view of <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace" title="mod::causality::EventTraceView::EventTraceView::trace"><span class="n">trace</span></a></span>. The two classes will share internal data structures,
+so this object will be valid after <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14EventTraceViewERK10EventTrace" title="mod::causality::EventTraceView::EventTraceView::trace"><span class="n">trace</span></a></span> is destroyed.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView5getDGEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView5getDGEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView5getDGEv"></span><span id="mod::causality::EventTraceView::getDGC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">dg</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../dg/DG.html#_CPPv4N3mod2dg2DGE" title="mod::dg::DG"><span class="n"><span class="pre">DG</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDG</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView5getDGEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the underlying derivation graph of the event trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView15getInitialStateEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView15getInitialStateEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView15getInitialStateEv"></span><span id="mod::causality::EventTraceView::getInitialStateC"></span><a class="reference internal" href="Petri.html#_CPPv4N3mod9causality7MarkingE" title="mod::causality::Marking"><span class="n"><span class="pre">Marking</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getInitialState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView15getInitialStateEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a copy of the initial state for this event trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView4sizeEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView4sizeEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView4sizeEv"></span><span id="mod::causality::EventTraceView::sizeC"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView4sizeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of events in the trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView7getTimeEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView7getTimeEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView7getTimeEv"></span><span id="mod::causality::EventTraceView::getTimeC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTime</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView7getTimeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the time of the latest added event, or 0 if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceView4sizeEv" title="mod::causality::EventTraceView::size"><span class="n">size</span></a><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span></span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView5beginEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView5beginEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView5beginEv"></span><span id="mod::causality::EventTraceView::beginC"></span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14const_iteratorE" title="mod::causality::EventTraceView::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView5beginEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView3endEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView3endEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView3endEv"></span><span id="mod::causality::EventTraceView::endC"></span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView14const_iteratorE" title="mod::causality::EventTraceView::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView3endEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the begin/end iterator for the range of events in the trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceViewixEi">
+<span id="_CPPv3NK3mod9causality14EventTraceViewixEi"></span><span id="_CPPv2NK3mod9causality14EventTraceViewixEi"></span><span id="mod::causality::EventTraceView::subscript-operator__iC"></span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceView5EventE" title="mod::causality::EventTraceView::Event"><span class="n"><span class="pre">Event</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceViewixEi" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceViewixEi" title="mod::causality::EventTraceView::operator[]::i"><span class="n">i</span></a></span>th event in the trace.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../Error.html#_CPPv4N3mod10LogicErrorE" title="mod::LogicError"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">LogicError</span></code></a> if <span class="cpp-texpr sig sig-inline cpp"><a class="reference internal" href="#_CPPv4NK3mod9causality14EventTraceViewixEi" title="mod::causality::EventTraceView::operator[]::i"><span class="n">i</span></a></span> is out of bounds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceViewlsERNSt7ostreamERK14EventTraceView">
+<span id="_CPPv3N3mod9causality14EventTraceViewlsERNSt7ostreamERK14EventTraceView"></span><span id="_CPPv2N3mod9causality14EventTraceViewlsERNSt7ostreamERK14EventTraceView"></span><span id="mod::causality::EventTraceView::lshift-operator__osR.EventTraceViewCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceViewlsERNSt7ostreamERK14EventTraceView" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK14EventTraceView">
+<span id="_CPPv3N3mod9causality14EventTraceVieweqERK14EventTraceViewRK14EventTraceView"></span><span id="_CPPv2N3mod9causality14EventTraceVieweqERK14EventTraceViewRK14EventTraceView"></span><span id="mod::causality::EventTraceView::eq-operator__EventTraceViewCR.EventTraceViewCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK14EventTraceView" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceVieweqERK10EventTraceRK14EventTraceView">
+<span id="_CPPv3N3mod9causality14EventTraceVieweqERK10EventTraceRK14EventTraceView"></span><span id="_CPPv2N3mod9causality14EventTraceVieweqERK10EventTraceRK14EventTraceView"></span><span id="mod::causality::EventTraceView::eq-operator__EventTraceCR.EventTraceViewCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceVieweqERK10EventTraceRK14EventTraceView" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK10EventTrace">
+<span id="_CPPv3N3mod9causality14EventTraceVieweqERK14EventTraceViewRK10EventTrace"></span><span id="_CPPv2N3mod9causality14EventTraceVieweqERK14EventTraceViewRK10EventTrace"></span><span id="mod::causality::EventTraceView::eq-operator__EventTraceViewCR.EventTraceCR"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality14EventTraceViewE" title="mod::causality::EventTraceView"><span class="n"><span class="pre">EventTraceView</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mod9causality10EventTraceE" title="mod::causality::EventTrace"><span class="n"><span class="pre">EventTrace</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N3mod9causality14EventTraceVieweqERK14EventTraceViewRK10EventTrace" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Calls <code class="docutils literal notranslate"><span class="pre">syncSize()</span></code> on the internal initial state and the underlying net.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView5printEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView5printEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView5printEv"></span><span id="mod::causality::EventTraceView::printC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView5printEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView5printERK17EventTracePrinter">
+<span id="_CPPv3NK3mod9causality14EventTraceView5printERK17EventTracePrinter"></span><span id="_CPPv2NK3mod9causality14EventTraceView5printERK17EventTracePrinter"></span><span id="mod::causality::EventTraceView::print__EventTracePrinterCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="EventTracePrinter.html#_CPPv4N3mod9causality17EventTracePrinterE" title="mod::causality::EventTracePrinter"><span class="n"><span class="pre">EventTracePrinter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">printer</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView5printERK17EventTracePrinter" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Create a plot of the counts throughout the event trace at each time point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the filename for the PDF that will be compiled by the post processor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView4dumpEv">
+<span id="_CPPv3NK3mod9causality14EventTraceView4dumpEv"></span><span id="_CPPv2NK3mod9causality14EventTraceView4dumpEv"></span><span id="mod::causality::EventTraceView::dumpC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dump</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView4dumpEv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3mod9causality14EventTraceView4dumpERKNSt6stringE">
+<span id="_CPPv3NK3mod9causality14EventTraceView4dumpERKNSt6stringE"></span><span id="_CPPv2NK3mod9causality14EventTraceView4dumpERKNSt6stringE"></span><span id="mod::causality::EventTraceView::dump__ssCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dump</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mod9causality14EventTraceView4dumpERKNSt6stringE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Dump the initial marking and list of events to a file. This file can be loaded in again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> – the name of the file to save the dump to.
+If non is given an auto-generated name in the <code class="docutils literal notranslate"><span class="pre">out/</span></code> folder is used.
+If an empty string is given, it is treated as if non is given.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the filename with the dumped trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 </section>
 
